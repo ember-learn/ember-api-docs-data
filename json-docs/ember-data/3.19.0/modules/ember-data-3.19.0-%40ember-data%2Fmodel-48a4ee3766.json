@@ -1,0 +1,383 @@
+{
+  "data": {
+    "id": "ember-data-3.19.0-@ember-data/model",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/model",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember-data/model": 1,
+        "Model": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "../model/addon/index.ts",
+      "line": 1,
+      "description": "<html><head></head><body><p>In EmberData a <code>Model</code> is a class defining the attributes and relationships\n of a specific resource <code>type</code> (model name). In this sense it represents a static &quot;schema&quot;.</p>\n<p> Data for individual resources fetched from your API is presented\n to the UI via instances of the <code>Model</code>s you define.</p>\n<p> An instantiated <code>Model</code> is referred to as a <code>record</code>.</p>\n<p> When we refer to the <code>ModelClass</code> we are referring to the class definition\n and the static schema methods present on it.</p>\n<p> When we refer to a <code>record</code> we refer to a specific class instance presenting\n the resource data for a given <code>type</code> and <code>id</code>.</p>\n<h3 id=\"defining-a-model\">Defining a Model</h3>\n<div class=\"highlight app/models/person.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/person.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre> import Model, { attr, belongsTo, hasMany } from &apos;@ember-data/model&apos;;\n\n export default <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Model</span>.</span></span>extend({\n   name: attr<span class=\"literal\">()</span>,\n\n   dog: belongs<span class=\"constructor\">To(&apos;<span class=\"params\">pet</span>&apos;, { <span class=\"params\">inverse</span>: &apos;<span class=\"params\">owners</span>&apos;, <span class=\"params\">async</span>: <span class=\"params\">false</span> })</span>,\n\n   friends: has<span class=\"constructor\">Many(&apos;<span class=\"params\">person</span>&apos;, { <span class=\"params\">inverse</span>: &apos;<span class=\"params\">friends</span>&apos;, <span class=\"params\">async</span>: <span class=\"params\">true</span> })</span>,\n });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h3 id=\"modelname-convention\">modelName convention</h3>\n<p> By convention, the name of a given model (its <code>type</code>) matches the name\n of the file in the <code>app/models</code> folder and should be lowercase, singular\n and dasherized.</p>\n</body></html>",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "Model"
+      ],
+      "privateclasses": [
+        "PromiseBelongsTo",
+        "PromiseManyArray"
+      ],
+      "staticfunctions": {
+        "@ember-data/model": [
+          {
+            "file": "../model/addon/-private/attr.js",
+            "line": 31,
+            "description": "`attr` defines an attribute on a [Model](/ember-data/release/classes/Model).\nBy default, attributes are passed through as-is, however you can specify an\noptional type to have the value automatically transformed.\nEmber Data ships with four basic transform types: `string`, `number`,\n`boolean` and `date`. You can define your own transforms by subclassing\n[Transform](/ember-data/release/classes/Transform).\n\nNote that you cannot use `attr` to define an attribute of `id`.\n\n`attr` takes an optional hash as a second parameter, currently\nsupported options are:\n\n- `defaultValue`: Pass a string or a function to be called to set the attribute\nto a default value if and only if the key is absent from the payload response.\n\nExample\n\n```app/models/user.js\nimport Model, { attr } from '@ember-data/model';\n\nexport default Model.extend({\n  username: attr('string'),\n  email: attr('string'),\n  verified: attr('boolean', { defaultValue: false })\n});\n```\n\nDefault value can also be a function. This is useful it you want to return\na new object for each attribute.\n\n```app/models/user.js\nimport Model, { attr } from '@ember-data/model';\n\nexport default Model.extend({\n  username: attr('string'),\n  email: attr('string'),\n  settings: attr({\n    defaultValue() {\n      return {};\n    }\n  })\n});\n```\n\nThe `options` hash is passed as second argument to a transforms'\n`serialize` and `deserialize` method. This allows to configure a\ntransformation and adapt the corresponding value, based on the config:\n\n```app/models/post.js\nimport Model, { attr } from '@ember-data/model';\n\nexport default Model.extend({\n  text: attr('text', {\n    uppercase: true\n  })\n});\n```\n\n```app/transforms/text.js\nimport Transform from '@ember-data/serializer/transform';\n\nexport default Transform.extend({\n  serialize(value, options) {\n    if (options.uppercase) {\n      return value.toUpperCase();\n    }\n\n    return value;\n  },\n\n  deserialize(value) {\n    return value;\n  }\n})\n```",
+            "itemtype": "method",
+            "name": "attr",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "type",
+                "description": "the attribute type",
+                "type": "String|Object"
+              },
+              {
+                "name": "options",
+                "description": "a hash of options",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Attribute"
+            },
+            "class": "@ember-data/model",
+            "module": "@ember-data/model"
+          },
+          {
+            "file": "../model/addon/-private/belongs-to.js",
+            "line": 13,
+            "description": "`belongsTo` is used to define One-To-One and One-To-Many\nrelationships on a [Model](/ember-data/release/classes/Model).\n\n\n`belongsTo` takes an optional hash as a second parameter, currently\nsupported options are:\n\n- `async`: A boolean value used to explicitly declare this to be an async relationship. The default is true.\n- `inverse`: A string used to identify the inverse property on a\n  related model in a One-To-Many relationship. See [Explicit Inverses](#explicit-inverses)\n- `polymorphic` A boolean value to mark the relationship as polymorphic\n\n#### One-To-One\nTo declare a one-to-one relationship between two models, use\n`belongsTo`:\n\n```app/models/user.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  profile: belongsTo('profile')\n});\n```\n\n```app/models/profile.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  user: belongsTo('user')\n});\n```\n\n#### One-To-Many\nTo declare a one-to-many relationship between two models, use\n`belongsTo` in combination with `hasMany`, like this:\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  comments: hasMany('comment')\n});\n```\n\n```app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  post: belongsTo('post')\n});\n```\n\nYou can avoid passing a string as the first parameter. In that case Ember Data\nwill infer the type from the key name.\n\n```app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  post: belongsTo()\n});\n```\n\nwill lookup for a Post type.\n\n#### Sync relationships\n\nEmber Data resolves sync relationships with the related resources\navailable in its local store, hence it is expected these resources\nto be loaded before or along-side the primary resource.\n\n```app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  post: belongsTo('post', {\n    async: false\n  })\n});\n```\n\nIn contrast to async relationship, accessing a sync relationship\nwill always return the record (Model instance) for the existing\nlocal resource, or null. But it will error on access when\na related resource is known to exist and it has not been loaded.\n\n```\nlet post = comment.get('post');\n\n```",
+            "itemtype": "method",
+            "name": "belongsTo",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "modelName",
+                "description": "(optional) type of the relationship",
+                "type": "String"
+              },
+              {
+                "name": "options",
+                "description": "(optional) a hash of options",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "relationship",
+              "type": "Ember.computed"
+            },
+            "class": "@ember-data/model",
+            "module": "@ember-data/model"
+          },
+          {
+            "file": "../model/addon/-private/has-many.js",
+            "line": 12,
+            "description": "`hasMany` is used to define One-To-Many and Many-To-Many\nrelationships on a [Model](/ember-data/release/classes/Model).\n\n`hasMany` takes an optional hash as a second parameter, currently\nsupported options are:\n\n- `async`: A boolean value used to explicitly declare this to be an async relationship. The default is true.\n- `inverse`: A string used to identify the inverse property on a related model.\n- `polymorphic` A boolean value to mark the relationship as polymorphic\n\n#### One-To-Many\nTo declare a one-to-many relationship between two models, use\n`belongsTo` in combination with `hasMany`, like this:\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  comments: hasMany('comment')\n});\n```\n\n```app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  post: belongsTo('post')\n});\n```\n\n#### Many-To-Many\nTo declare a many-to-many relationship between two models, use\n`hasMany`:\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  tags: hasMany('tag')\n});\n```\n\n```app/models/tag.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  posts: hasMany('post')\n});\n```\n\nYou can avoid passing a string as the first parameter. In that case Ember Data\nwill infer the type from the singularized key name.\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  tags: hasMany()\n});\n```\n\nwill lookup for a Tag type.\n\n#### Explicit Inverses\n\nEmber Data will do its best to discover which relationships map to\none another. In the one-to-many code above, for example, Ember Data\ncan figure out that changing the `comments` relationship should update\nthe `post` relationship on the inverse because post is the only\nrelationship to that model.\n\nHowever, sometimes you may have multiple `belongsTo`/`hasMany` for the\nsame type. You can specify which property on the related model is\nthe inverse using `hasMany`'s `inverse` option:\n\n```app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  onePost: belongsTo('post'),\n  twoPost: belongsTo('post'),\n  redPost: belongsTo('post'),\n  bluePost: belongsTo('post')\n});\n```\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  comments: hasMany('comment', {\n    inverse: 'redPost'\n  })\n});\n```\n\nYou can also specify an inverse on a `belongsTo`, which works how\nyou'd expect.\n\n#### Sync relationships\n\nEmber Data resolves sync relationships with the related resources\navailable in its local store, hence it is expected these resources\nto be loaded before or along-side the primary resource.\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  comments: hasMany('comment', {\n    async: false\n  })\n});\n```\n\nIn contrast to async relationship, accessing a sync relationship\nwill always return a [ManyArray](/ember-data/release/classes/ManyArray) instance\ncontaining the existing local resources. But it will error on access\nwhen any of the known related resources have not been loaded.\n\n```\npost.get('comments').forEach((comment) => {\n\n});\n\n```\n\nIf you are using `links` with sync relationships, you have to use\n`ref.reload` to fetch the resources.",
+            "itemtype": "method",
+            "name": "hasMany",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "type",
+                "description": "(optional) type of the relationship",
+                "type": "String"
+              },
+              {
+                "name": "options",
+                "description": "(optional) a hash of options",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "relationship",
+              "type": "Ember.computed"
+            },
+            "class": "@ember-data/model",
+            "module": "@ember-data/model"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember-data/model": [
+          {
+            "file": "../model/addon/-private/attr.js",
+            "line": 31,
+            "description": "`attr` defines an attribute on a [Model](/ember-data/release/classes/Model).\nBy default, attributes are passed through as-is, however you can specify an\noptional type to have the value automatically transformed.\nEmber Data ships with four basic transform types: `string`, `number`,\n`boolean` and `date`. You can define your own transforms by subclassing\n[Transform](/ember-data/release/classes/Transform).\n\nNote that you cannot use `attr` to define an attribute of `id`.\n\n`attr` takes an optional hash as a second parameter, currently\nsupported options are:\n\n- `defaultValue`: Pass a string or a function to be called to set the attribute\nto a default value if and only if the key is absent from the payload response.\n\nExample\n\n```app/models/user.js\nimport Model, { attr } from '@ember-data/model';\n\nexport default Model.extend({\n  username: attr('string'),\n  email: attr('string'),\n  verified: attr('boolean', { defaultValue: false })\n});\n```\n\nDefault value can also be a function. This is useful it you want to return\na new object for each attribute.\n\n```app/models/user.js\nimport Model, { attr } from '@ember-data/model';\n\nexport default Model.extend({\n  username: attr('string'),\n  email: attr('string'),\n  settings: attr({\n    defaultValue() {\n      return {};\n    }\n  })\n});\n```\n\nThe `options` hash is passed as second argument to a transforms'\n`serialize` and `deserialize` method. This allows to configure a\ntransformation and adapt the corresponding value, based on the config:\n\n```app/models/post.js\nimport Model, { attr } from '@ember-data/model';\n\nexport default Model.extend({\n  text: attr('text', {\n    uppercase: true\n  })\n});\n```\n\n```app/transforms/text.js\nimport Transform from '@ember-data/serializer/transform';\n\nexport default Transform.extend({\n  serialize(value, options) {\n    if (options.uppercase) {\n      return value.toUpperCase();\n    }\n\n    return value;\n  },\n\n  deserialize(value) {\n    return value;\n  }\n})\n```",
+            "itemtype": "method",
+            "name": "attr",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "type",
+                "description": "the attribute type",
+                "type": "String|Object"
+              },
+              {
+                "name": "options",
+                "description": "a hash of options",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Attribute"
+            },
+            "class": "@ember-data/model",
+            "module": "@ember-data/model"
+          },
+          {
+            "file": "../model/addon/-private/belongs-to.js",
+            "line": 13,
+            "description": "`belongsTo` is used to define One-To-One and One-To-Many\nrelationships on a [Model](/ember-data/release/classes/Model).\n\n\n`belongsTo` takes an optional hash as a second parameter, currently\nsupported options are:\n\n- `async`: A boolean value used to explicitly declare this to be an async relationship. The default is true.\n- `inverse`: A string used to identify the inverse property on a\n  related model in a One-To-Many relationship. See [Explicit Inverses](#explicit-inverses)\n- `polymorphic` A boolean value to mark the relationship as polymorphic\n\n#### One-To-One\nTo declare a one-to-one relationship between two models, use\n`belongsTo`:\n\n```app/models/user.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  profile: belongsTo('profile')\n});\n```\n\n```app/models/profile.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  user: belongsTo('user')\n});\n```\n\n#### One-To-Many\nTo declare a one-to-many relationship between two models, use\n`belongsTo` in combination with `hasMany`, like this:\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  comments: hasMany('comment')\n});\n```\n\n```app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  post: belongsTo('post')\n});\n```\n\nYou can avoid passing a string as the first parameter. In that case Ember Data\nwill infer the type from the key name.\n\n```app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  post: belongsTo()\n});\n```\n\nwill lookup for a Post type.\n\n#### Sync relationships\n\nEmber Data resolves sync relationships with the related resources\navailable in its local store, hence it is expected these resources\nto be loaded before or along-side the primary resource.\n\n```app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  post: belongsTo('post', {\n    async: false\n  })\n});\n```\n\nIn contrast to async relationship, accessing a sync relationship\nwill always return the record (Model instance) for the existing\nlocal resource, or null. But it will error on access when\na related resource is known to exist and it has not been loaded.\n\n```\nlet post = comment.get('post');\n\n```",
+            "itemtype": "method",
+            "name": "belongsTo",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "modelName",
+                "description": "(optional) type of the relationship",
+                "type": "String"
+              },
+              {
+                "name": "options",
+                "description": "(optional) a hash of options",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "relationship",
+              "type": "Ember.computed"
+            },
+            "class": "@ember-data/model",
+            "module": "@ember-data/model"
+          },
+          {
+            "file": "../model/addon/-private/has-many.js",
+            "line": 12,
+            "description": "`hasMany` is used to define One-To-Many and Many-To-Many\nrelationships on a [Model](/ember-data/release/classes/Model).\n\n`hasMany` takes an optional hash as a second parameter, currently\nsupported options are:\n\n- `async`: A boolean value used to explicitly declare this to be an async relationship. The default is true.\n- `inverse`: A string used to identify the inverse property on a related model.\n- `polymorphic` A boolean value to mark the relationship as polymorphic\n\n#### One-To-Many\nTo declare a one-to-many relationship between two models, use\n`belongsTo` in combination with `hasMany`, like this:\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  comments: hasMany('comment')\n});\n```\n\n```app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  post: belongsTo('post')\n});\n```\n\n#### Many-To-Many\nTo declare a many-to-many relationship between two models, use\n`hasMany`:\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  tags: hasMany('tag')\n});\n```\n\n```app/models/tag.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  posts: hasMany('post')\n});\n```\n\nYou can avoid passing a string as the first parameter. In that case Ember Data\nwill infer the type from the singularized key name.\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  tags: hasMany()\n});\n```\n\nwill lookup for a Tag type.\n\n#### Explicit Inverses\n\nEmber Data will do its best to discover which relationships map to\none another. In the one-to-many code above, for example, Ember Data\ncan figure out that changing the `comments` relationship should update\nthe `post` relationship on the inverse because post is the only\nrelationship to that model.\n\nHowever, sometimes you may have multiple `belongsTo`/`hasMany` for the\nsame type. You can specify which property on the related model is\nthe inverse using `hasMany`'s `inverse` option:\n\n```app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  onePost: belongsTo('post'),\n  twoPost: belongsTo('post'),\n  redPost: belongsTo('post'),\n  bluePost: belongsTo('post')\n});\n```\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  comments: hasMany('comment', {\n    inverse: 'redPost'\n  })\n});\n```\n\nYou can also specify an inverse on a `belongsTo`, which works how\nyou'd expect.\n\n#### Sync relationships\n\nEmber Data resolves sync relationships with the related resources\navailable in its local store, hence it is expected these resources\nto be loaded before or along-side the primary resource.\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  comments: hasMany('comment', {\n    async: false\n  })\n});\n```\n\nIn contrast to async relationship, accessing a sync relationship\nwill always return a [ManyArray](/ember-data/release/classes/ManyArray) instance\ncontaining the existing local resources. But it will error on access\nwhen any of the known related resources have not been loaded.\n\n```\npost.get('comments').forEach((comment) => {\n\n});\n\n```\n\nIf you are using `links` with sync relationships, you have to use\n`ref.reload` to fetch the resources.",
+            "itemtype": "method",
+            "name": "hasMany",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "type",
+                "description": "(optional) type of the relationship",
+                "type": "String"
+              },
+              {
+                "name": "options",
+                "description": "(optional) a hash of options",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "relationship",
+              "type": "Ember.computed"
+            },
+            "class": "@ember-data/model",
+            "module": "@ember-data/model"
+          }
+        ],
+        "Model": [
+          {
+            "file": "../model/addon/-private/model.js",
+            "line": 1491,
+            "description": "Create should only ever be called by the store. To create an instance of a\n`Model` in a dirty state use `store.createRecord`.\n\n   To create instances of `Model` in a clean state, use `store.push`",
+            "itemtype": "method",
+            "name": "create",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "Model",
+            "module": "@ember-data/model"
+          },
+          {
+            "file": "../model/addon/-private/model.js",
+            "line": 2112,
+            "description": "Iterates through the attributes of the model, calling the passed function on each\nattribute.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(name, meta);\n```\n\n- `name` the name of the current property in the iteration\n- `meta` the meta object for the attribute property in the iteration\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context.\n\nExample\n\n```javascript\nimport Model, { attr } from '@ember-data/model';\n\nlet Person = Model.extend({\n   firstName: attr('string'),\n   lastName: attr('string'),\n   birthday: attr('date')\n });\n\nPerson.eachAttribute(function(name, meta) {\n   console.log(name, meta);\n });\n\n// prints:\n// firstName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"firstName\"}\n// lastName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"lastName\"}\n// birthday {type: \"date\", isAttribute: true, options: Object, parentType: function, name: \"birthday\"}\n```",
+            "itemtype": "method",
+            "name": "eachAttribute",
+            "params": [
+              {
+                "name": "callback",
+                "description": "The callback to execute",
+                "type": "Function"
+              },
+              {
+                "name": "binding",
+                "description": "the value to which the callback's `this` should be bound",
+                "type": "Object",
+                "optional": true
+              }
+            ],
+            "static": 1,
+            "class": "Model",
+            "module": "@ember-data/model"
+          },
+          {
+            "file": "../model/addon/-private/model.js",
+            "line": 1964,
+            "description": "Given a callback, iterates over each of the types related to a model,\ninvoking the callback with the related type's class. Each type will be\nreturned just once, regardless of how many different relationships it has\nwith a model.",
+            "itemtype": "method",
+            "name": "eachRelatedType",
+            "static": 1,
+            "params": [
+              {
+                "name": "callback",
+                "description": "the callback to invoke",
+                "type": "Function"
+              },
+              {
+                "name": "binding",
+                "description": "the value to which the callback's `this` should be bound",
+                "type": "Any"
+              }
+            ],
+            "class": "Model",
+            "module": "@ember-data/model"
+          },
+          {
+            "file": "../model/addon/-private/model.js",
+            "line": 1948,
+            "description": "Given a callback, iterates over each of the relationships in the model,\ninvoking the callback with the name of each relationship and its relationship\ndescriptor.",
+            "itemtype": "method",
+            "name": "eachRelationship",
+            "static": 1,
+            "params": [
+              {
+                "name": "callback",
+                "description": "the callback to invoke",
+                "type": "Function"
+              },
+              {
+                "name": "binding",
+                "description": "the value to which the callback's `this` should be bound",
+                "type": "Any"
+              }
+            ],
+            "class": "Model",
+            "module": "@ember-data/model"
+          },
+          {
+            "file": "../model/addon/-private/model.js",
+            "line": 2161,
+            "description": "Iterates through the transformedAttributes of the model, calling\nthe passed function on each attribute. Note the callback will not be\ncalled for any attributes that do not have an transformation type.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(name, type);\n```\n\n- `name` the name of the current property in the iteration\n- `type` a string containing the name of the type of transformed\napplied to the attribute\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context.\n\nExample\n\n```javascript\nimport Model, { attr } from '@ember-data/model';\n\nlet Person = Model.extend({\n   firstName: attr(),\n   lastName: attr('string'),\n   birthday: attr('date')\n });\n\nPerson.eachTransformedAttribute(function(name, type) {\n   console.log(name, type);\n });\n\n// prints:\n// lastName string\n// birthday date\n```",
+            "itemtype": "method",
+            "name": "eachTransformedAttribute",
+            "params": [
+              {
+                "name": "callback",
+                "description": "The callback to execute",
+                "type": "Function"
+              },
+              {
+                "name": "binding",
+                "description": "the value to which the callback's `this` should be bound",
+                "type": "Object",
+                "optional": true
+              }
+            ],
+            "static": 1,
+            "class": "Model",
+            "module": "@ember-data/model"
+          },
+          {
+            "file": "../model/addon/-private/model.js",
+            "line": 1581,
+            "description": "Find the relationship which is the inverse of the one asked for.\n\nFor example, if you define models like this:\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n   comments: hasMany('message')\n });\n```\n\n```app/models/message.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n   owner: belongsTo('post')\n });\n```\n\n``` js\nstore.modelFor('post').inverseFor('comments', store) // { type: App.Message, name: 'owner', kind: 'belongsTo' }\nstore.modelFor('message').inverseFor('owner', store) // { type: App.Post, name: 'comments', kind: 'hasMany' }\n```",
+            "itemtype": "method",
+            "name": "inverseFor",
+            "static": 1,
+            "params": [
+              {
+                "name": "name",
+                "description": "the name of the relationship",
+                "type": "String"
+              },
+              {
+                "name": "store",
+                "description": "",
+                "type": "Store"
+              }
+            ],
+            "return": {
+              "description": "the inverse relationship, or null",
+              "type": "Object"
+            },
+            "class": "Model",
+            "module": "@ember-data/model"
+          },
+          {
+            "file": "../model/addon/-private/model.js",
+            "line": 2211,
+            "description": "Returns the name of the model class.",
+            "itemtype": "method",
+            "name": "toString",
+            "static": 1,
+            "class": "Model",
+            "module": "@ember-data/model"
+          },
+          {
+            "file": "../model/addon/-private/model.js",
+            "line": 1551,
+            "description": "For a given relationship name, returns the model type of the relationship.\n\nFor example, if you define a model like this:\n\n```app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n   comments: hasMany('comment')\n });\n```\n\nCalling `store.modelFor('post').typeForRelationship('comments', store)` will return `Comment`.",
+            "itemtype": "method",
+            "name": "typeForRelationship",
+            "static": 1,
+            "params": [
+              {
+                "name": "name",
+                "description": "the name of the relationship",
+                "type": "String"
+              },
+              {
+                "name": "store",
+                "description": "an instance of Store",
+                "type": "Store"
+              }
+            ],
+            "return": {
+              "description": "the type of the relationship, or undefined",
+              "type": "Model"
+            },
+            "class": "Model",
+            "module": "@ember-data/model"
+          }
+        ]
+      },
+      "version": "3.19.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.19.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

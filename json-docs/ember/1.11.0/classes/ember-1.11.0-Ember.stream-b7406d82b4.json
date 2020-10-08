@@ -1,0 +1,262 @@
+{
+  "data": {
+    "id": "ember-1.11.0-Ember.stream",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.stream",
+      "shortname": "Ember.stream",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-metal",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/ember-metal/lib/streams/utils.js",
+          "line": 16,
+          "description": "<html><head></head><body><p>A method of subscribing to a stream which is safe for use with a non-stream\nobject. If a non-stream object is passed, the function does nothing.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "subscribe",
+          "params": [
+            {
+              "name": "object",
+              "description": "object or stream to potentially subscribe to",
+              "type": "Object|Stream"
+            },
+            {
+              "name": "callback",
+              "description": "function to run when stream value changes",
+              "type": "Function"
+            },
+            {
+              "name": "context",
+              "description": "the callback will be executed with this context if it\n                          is provided",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "class": "Ember.stream",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/streams/utils.js",
+          "line": 34,
+          "description": "<html><head></head><body><p>A method of unsubscribing from a stream which is safe for use with a non-stream\nobject. If a non-stream object is passed, the function does nothing.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "unsubscribe",
+          "params": [
+            {
+              "name": "object",
+              "description": "object or stream to potentially unsubscribe from",
+              "type": "Object|Stream"
+            },
+            {
+              "name": "callback",
+              "description": "function originally passed to `subscribe()`",
+              "type": "Function"
+            },
+            {
+              "name": "context",
+              "description": "object originally passed to `subscribe()`",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "class": "Ember.stream",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/streams/utils.js",
+          "line": 51,
+          "description": "<html><head></head><body><p>Retrieve the value of a stream, or in the case a non-stream object is passed,\nreturn the object itself.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "read",
+          "params": [
+            {
+              "name": "object",
+              "description": "object to return the value of",
+              "type": "Object|Stream"
+            }
+          ],
+          "return": {
+            "description": "the stream's current value, or the non-stream object itself"
+          },
+          "class": "Ember.stream",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/streams/utils.js",
+          "line": 69,
+          "description": "<html><head></head><body><p>Map an array, replacing any streams with their values.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "readArray",
+          "params": [
+            {
+              "name": "array",
+              "description": "The array to read values from",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "a new array of the same length with the values of non-stream\n                objects mapped from their original positions untouched, and\n                the values of stream objects retaining their original position\n                and replaced with the stream's current value.",
+            "type": "Array"
+          },
+          "class": "Ember.stream",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/streams/utils.js",
+          "line": 90,
+          "description": "<html><head></head><body><p>Map a hash, replacing any stream property values with the current value of that\nstream.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "readHash",
+          "params": [
+            {
+              "name": "object",
+              "description": "The hash to read keys and values from",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "a new object with the same keys as the passed object. The\n                 property values in the new object are the original values in\n                 the case of non-stream objects, and the streams' current\n                 values in the case of stream objects.",
+            "type": "Object"
+          },
+          "class": "Ember.stream",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/streams/utils.js",
+          "line": 111,
+          "description": "<html><head></head><body><p>Check whether an array contains any stream values</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "scanArray",
+          "params": [
+            {
+              "name": "array",
+              "description": "array given to a handlebars helper",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "`true` if the array contains a stream/bound value, `false`\n                  otherwise",
+            "type": "Boolean"
+          },
+          "class": "Ember.stream",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/streams/utils.js",
+          "line": 135,
+          "description": "<html><head></head><body><p>Check whether a hash has any stream property values</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "scanHash",
+          "params": [
+            {
+              "name": "hash",
+              "description": "\"hash\" argument given to a handlebars helper",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "`true` if the object contains a stream/bound value, `false`\n                  otherwise",
+            "type": "Boolean"
+          },
+          "class": "Ember.stream",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/streams/utils.js",
+          "line": 158,
+          "description": "<html><head></head><body><p>Join an array, with any streams replaced by their current values</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "concat",
+          "params": [
+            {
+              "name": "array",
+              "description": "An array containing zero or more stream objects and\n                     zero or more non-stream objects",
+              "type": "Array"
+            },
+            {
+              "name": "separator",
+              "description": "string to be used to join array elements",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "String with array elements concatenated and joined by the\n                 provided separator, and any stream array members having been\n                 replaced by the current value of the stream",
+            "type": "String"
+          },
+          "class": "Ember.stream",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/streams/utils.js",
+          "line": 191,
+          "description": "<html><head></head><body><p>Generate a new stream by providing a source stream and a function that can\nbe used to transform the stream&apos;s value. In the case of a non-stream object,\nreturns the result of the function.</p>\n<p>The value to transform would typically be available to the function you pass\nto <code>chain()</code> via scope. For example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>    <span class=\"keyword\">var</span> source = ...;  <span class=\"comment\">// stream returning a number</span>\n                           <span class=\"comment\">// or a numeric (non-stream) object</span>\n    <span class=\"keyword\">var</span> result = chain(source, <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n      <span class=\"keyword\">var</span> currentValue = read(source);\n      <span class=\"keyword\">return</span> currentValue + <span class=\"number\">1</span>;\n    });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>In the example, result is a stream if source is a stream, or a number of\nsource was numeric.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "chain",
+          "params": [
+            {
+              "name": "value",
+              "description": "A stream or non-stream object",
+              "type": "Object|Stream"
+            },
+            {
+              "name": "fn",
+              "description": "function to be run when the stream value changes, or to\n                     be run once in the case of a non-stream object",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "In the case of a stream `value` parameter, a new\n                        stream that will be updated with the return value of\n                        the provided function `fn`. In the case of a\n                        non-stream object, the return value of the provided\n                        function `fn`.",
+            "type": "Object|Stream"
+          },
+          "class": "Ember.stream",
+          "module": "ember-metal"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.11.0-ember-metal",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.11.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

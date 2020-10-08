@@ -1,0 +1,330 @@
+{
+  "data": {
+    "id": "ember-3.7.0-RouterService",
+    "type": "class",
+    "attributes": {
+      "name": "RouterService",
+      "shortname": "RouterService",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/routing",
+      "namespace": "",
+      "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+      "line": 24,
+      "description": "<html><head></head><body><p>The Router service is the public API that provides access to the router.</p>\n<p>The immediate benefit of the Router service is that you can inject it into components,\ngiving them a friendly way to initiate transitions and ask questions about the current\nglobal router state.</p>\n<p>In this example, the Router service is injected into a component to initiate a transition\nto a dedicated route:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Component <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/component&apos;</span>;\n<span class=\"keyword\">import</span> { inject <span class=\"keyword\">as</span> service } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/service&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Component.extend({\n  router: service(),\n\n  actions: {\n    next() {\n      <span class=\"keyword\">this</span>.get(<span class=\"string\">&apos;router&apos;</span>).transitionTo(<span class=\"string\">&apos;other.route&apos;</span>);\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Like any service, it can also be injected into helpers, routes, etc.</p>\n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 56,
+          "description": "<html><head></head><body><p>Transition the application into another route. The route may\nbe either a single route or route path:</p>\n<p>See <a href=\"/api/ember/release/classes/Route/methods/transitionTo?anchor=transitionTo\">transitionTo</a> for more info.</p>\n<p>Calling <code>transitionTo</code> from the Router service will cause default query parameter values to be included in the URL.\nThis behavior is different from calling <code>transitionTo</code> on a route or <code>transitionToRoute</code> on a controller.\nSee the <a href=\"https://github.com/emberjs/rfcs/blob/master/text/0095-router-service.md#query-parameter-semantics\">Router Service RFC</a> for more info.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "transitionTo",
+          "params": [
+            {
+              "name": "routeNameOrUrl",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used while\n  transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\n  containing a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the transition object associated with this\n  attempted transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 89,
+          "description": "<html><head></head><body><p>Transition into another route while replacing the current URL, if possible.\nThe route may be either a single route or route path:</p>\n<p>See <a href=\"/api/ember/release/classes/Route/methods/replaceWith?anchor=replaceWith\">replaceWith</a> for more info.</p>\n<p>Calling <code>replaceWith</code> from the Router service will cause default query parameter values to be included in the URL.\nThis behavior is different from calling <code>replaceWith</code> on a route.\nSee the <a href=\"https://github.com/emberjs/rfcs/blob/master/text/0095-router-service.md#query-parameter-semantics\">Router Service RFC</a> for more info.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "replaceWith",
+          "params": [
+            {
+              "name": "routeNameOrUrl",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used while\n  transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\n  containing a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the transition object associated with this\n  attempted transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 113,
+          "description": "<html><head></head><body><p>Generate a URL based on the supplied route name.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "urlFor",
+          "params": [
+            {
+              "name": "routeName",
+              "description": "the name of the route",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used while\n  transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\n  containing a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the string representing the generated URL",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 129,
+          "description": "<html><head></head><body><p>Determines whether a route is active.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isActive",
+          "params": [
+            {
+              "name": "routeName",
+              "description": "the name of the route",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used while\n  transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\n  containing a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "true if the provided routeName/models/queryParams are active",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 309,
+          "description": "<html><head></head><body><p>Takes a string URL and returns a <code>RouteInfo</code> for the leafmost route represented\nby the URL. Returns <code>null</code> if the URL is not recognized. This method expects to\nreceive the actual URL as seen by the browser including the app&apos;s <code>rootURL</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "recognize",
+          "params": [
+            {
+              "name": "url",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "category": [
+            "ember-routing-router-service"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 328,
+          "description": "<html><head></head><body><p>Takes a string URL and returns a promise that resolves to a\n<code>RouteInfoWithAttributes</code> for the leafmost route represented by the URL.\nThe promise rejects if the URL is not recognized or an unhandled exception\nis encountered. This method expects to receive the actual URL as seen by\nthe browser including the app&apos;s <code>rootURL</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "recognizeAndLoad",
+          "params": [
+            {
+              "name": "url",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "category": [
+            "ember-routing-router-service"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        }
+      ],
+      "events": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 348,
+          "description": "<html><head></head><body><p>The <code>routeWillChange</code> event is fired at the beginning of any\nattempted transition with a <code>Transition</code> object as the sole\nargument. This action can be used for aborting, redirecting,\nor decorating the transition from the currently active routes.</p>\n<p>A good example is preventing navigation when a form is\nhalf-filled out:</p>\n<div class=\"highlight form.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">form.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> {inject <span class=\"keyword\">as</span> service} <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/service&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Route.extend({\n  router: service(<span class=\"string\">&apos;router&apos;</span>),\n  init() {\n    <span class=\"keyword\">this</span>._super(...arguments);\n    <span class=\"keyword\">this</span>.router.<span class=\"literal\">on</span>(<span class=\"string\">&apos;routeWillUpdate&apos;</span>, <span class=\"function\"><span class=\"params\">(transition)</span> =&gt;</span> {\n      <span class=\"keyword\">if</span> (!transition.to.find(route =&gt; route.name === <span class=\"keyword\">this</span>.routeName)) {\n        alert(<span class=\"string\">&quot;Please save or cancel your changes.&quot;</span>);\n        transition.abort();\n      }\n    })\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The <code>routeWillChange</code> event fires whenever a new route is chosen as the desired target of a transition. This includes <code>transitionTo</code>, <code>replaceWith</code>, all redirection for any reason including error handling, and abort. Aborting implies changing the desired target back to where you already were. Once a transition has completed, <code>routeDidChange</code> fires.</p>\n</body></html>",
+          "itemtype": "event",
+          "name": "routeWillChange",
+          "params": [
+            {
+              "name": "transition",
+              "description": "",
+              "type": "Transition"
+            }
+          ],
+          "category": [
+            "ember-routing-router-service"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 382,
+          "description": "<html><head></head><body><p>The <code>routeDidChange</code> event only fires once a transition has settled.\nThis includes aborts and error substates. Like the <code>routeWillChange</code> event\nit receives a Transition as the sole argument.</p>\n<p>A good example is sending some analytics when the route has transitioned:</p>\n<div class=\"highlight form.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">form.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> {inject <span class=\"keyword\">as</span> service} <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/service&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Route.extend({\n  router: service(<span class=\"string\">&apos;router&apos;</span>),\n  init() {\n    <span class=\"keyword\">this</span>._super(...arguments);\n    <span class=\"keyword\">this</span>.router.<span class=\"literal\">on</span>(<span class=\"string\">&apos;routeDidUpdate&apos;</span>, <span class=\"function\"><span class=\"params\">(transition)</span> =&gt;</span> {\n      ga.send(<span class=\"string\">&apos;pageView&apos;</span>, {\n        current: transition.to.name,\n        from: transition.<span class=\"keyword\">from</span>.name\n      });\n    })\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "event",
+          "name": "routeDidChange",
+          "params": [
+            {
+              "name": "transition",
+              "description": "",
+              "type": "Transition"
+            }
+          ],
+          "category": [
+            "ember-routing-router-service"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        }
+      ],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 165,
+          "description": "<html><head></head><body><p>Name of the current route.</p>\n<p>This property represents the logical name of the route,\nwhich is comma separated.\nFor the following router:</p>\n<div class=\"highlight app/router.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/router.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>Router.map(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;about&apos;</span>);\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;blog&apos;</span>, <span class=\"function\"><span class=\"keyword\">function</span> <span class=\"params\">()</span> </span>{\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;post&apos;</span>, { path: <span class=\"string\">&apos;:post_id&apos;</span> });\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It will return:</p>\n<ul>\n<li><code>index</code> when you visit <code>/</code></li>\n<li><code>about</code> when you visit <code>/about</code></li>\n<li><code>blog.index</code> when you visit <code>/blog</code></li>\n<li><code>blog.post</code> when you visit <code>/blog/some-post-id</code></li>\n</ul>\n</body></html>",
+          "itemtype": "property",
+          "name": "currentRouteName",
+          "type": "String",
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 194,
+          "description": "<html><head></head><body><p>Current URL for the application.</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">This</span> property represents the URL path <span class=\"keyword\">for</span> <span class=\"keyword\">this</span> route.\n<span class=\"keyword\">For</span> the following router:</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    <div class=\"highlight app/router.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/router.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>Router.map(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;about&apos;</span>);\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;blog&apos;</span>, <span class=\"function\"><span class=\"keyword\">function</span> <span class=\"params\">()</span> </span>{\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;post&apos;</span>, { path: <span class=\"string\">&apos;:post_id&apos;</span> });\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It will return:</p>\n<ul>\n<li><code>/</code> when you visit <code>/</code></li>\n<li><code>/about</code> when you visit <code>/about</code></li>\n<li><code>/blog</code> when you visit <code>/blog</code></li>\n<li><code>/blog/some-post-id</code> when you visit <code>/blog/some-post-id</code></li>\n</ul>\n</body></html>",
+          "itemtype": "property",
+          "name": "currentURL",
+          "type": "String",
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 222,
+          "description": "<html><head></head><body><p>The <code>location</code> property determines the type of URL&apos;s that your\napplication will use.\nThe following location types are currently available:</p>\n<ul>\n<li><code>auto</code></li>\n<li><code>hash</code></li>\n<li><code>history</code></li>\n<li><code>none</code></li>\n</ul>\n</body></html>",
+          "itemtype": "property",
+          "name": "location",
+          "default": "'hash'",
+          "see": [
+            "{Location}"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 238,
+          "description": "<html><head></head><body><p>The <code>rootURL</code> property represents the URL of the root of\nthe application, &apos;/&apos; by default.\nThis prefix is assumed on all routes defined on this app.</p>\n<p>IF you change the <code>rootURL</code> in your environment configuration\nlike so:</p>\n<div class=\"highlight config/environment.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">config/environment.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre><span class=\"meta\">&apos;use strict&apos;</span>;\n\n<span class=\"built_in\">module</span>.exports = <span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\">environment</span>) </span>{\n  <span class=\"keyword\">let</span> ENV = {\n    <span class=\"attr\">modulePrefix</span>: <span class=\"string\">&apos;router-service&apos;</span>,\n    environment,\n    <span class=\"attr\">rootURL</span>: <span class=\"string\">&apos;/my-root&apos;</span>,\n  &#x2026;\n  }\n]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This property will return <code>/my-root</code>.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "rootURL",
+          "default": "'/'",
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/services/router.ts",
+          "line": 296,
+          "description": "<html><head></head><body><p>A RouteInfo that represents the current leaf route.\nIt is guaranteed to change whenever a route transition\nhappens (even when that transition only changes parameters\nand doesn&apos;t change the active route)</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "currentRoute",
+          "type": "RouteInfo",
+          "category": [
+            "ember-routing-router-service"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "RouterService",
+          "module": "@ember/routing"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.7.0-@ember/routing",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.7.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

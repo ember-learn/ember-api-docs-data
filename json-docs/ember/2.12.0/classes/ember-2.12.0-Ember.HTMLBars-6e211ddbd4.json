@@ -1,0 +1,62 @@
+{
+  "data": {
+    "id": "ember-2.12.0-Ember.HTMLBars",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.HTMLBars",
+      "shortname": "Ember.HTMLBars",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-glimmer",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/ember-glimmer/lib/make-bound-helper.js",
+          "line": 8,
+          "description": "<html><head></head><body><p>Create a bound helper. Accepts a function that receives the ordered and hash parameters\nfrom the template. If a bound property was provided in the template, it will be resolved to its\nvalue and any changes to the bound property cause the helper function to be re-run with the updated\nvalues.</p>\n<ul>\n<li><code>params</code> - An array of resolved ordered parameters.</li>\n<li><code>hash</code> - An object containing the hash parameters.</li>\n</ul>\n<p>For example:</p>\n<ul>\n<li><p>With an unquoted ordered parameter:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>{{x-capitalize foo}}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Assuming <code>foo</code> was set to <code>&quot;bar&quot;</code>, the bound helper would receive <code>[&quot;bar&quot;]</code> as its first argument, and\nan empty hash as its second.</p>\n</li>\n<li><p>With a quoted ordered parameter:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>{{x-capitalize <span class=\"string\">&quot;foo&quot;</span>}}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The bound helper would receive <code>[&quot;foo&quot;]</code> as its first argument, and an empty hash as its second.</p>\n</li>\n<li><p>With an unquoted hash parameter:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>{{x-<span class=\"keyword\">repeat</span> <span class=\"string\">&quot;foo&quot;</span> <span class=\"built_in\">count</span>=repeatCount}}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Assuming that <code>repeatCount</code> resolved to 2, the bound helper would receive <code>[&quot;foo&quot;]</code> as its first argument,\nand { count: 2 } as its second.</p>\n</li>\n</ul>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "makeBoundHelper",
+          "params": [
+            {
+              "name": "fn",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "since": "1.10.0",
+          "class": "Ember.HTMLBars",
+          "module": "ember",
+          "submodule": "ember-glimmer"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.12.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.12.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

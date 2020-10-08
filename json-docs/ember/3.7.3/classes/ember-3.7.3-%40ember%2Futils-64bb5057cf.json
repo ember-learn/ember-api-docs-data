@@ -1,0 +1,248 @@
+{
+  "data": {
+    "id": "ember-3.7.3-@ember/utils",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/utils",
+      "shortname": "@ember/utils",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/utils",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/metal/lib/is_blank.ts",
+          "line": 5,
+          "description": "<html><head></head><body><p>A value is blank if it is empty or a whitespace string.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { isBlank } from <span class=\"string\">&apos;@ember/utils&apos;</span>;\n\nisBlank();                <span class=\"regexp\">//</span> <span class=\"keyword\">true</span>\nisBlank(null);            <span class=\"regexp\">//</span> <span class=\"keyword\">true</span>\nisBlank(undefined);       <span class=\"regexp\">//</span> <span class=\"keyword\">true</span>\nisBlank(<span class=\"string\">&apos;&apos;</span>);              <span class=\"regexp\">//</span> <span class=\"keyword\">true</span>\nisBlank([]);              <span class=\"regexp\">//</span> <span class=\"keyword\">true</span>\nisBlank(<span class=\"string\">&apos;\\n\\t&apos;</span>);          <span class=\"regexp\">//</span> <span class=\"keyword\">true</span>\nisBlank(<span class=\"string\">&apos;  &apos;</span>);            <span class=\"regexp\">//</span> <span class=\"keyword\">true</span>\nisBlank({});              <span class=\"regexp\">//</span> <span class=\"keyword\">false</span>\nisBlank(<span class=\"string\">&apos;\\n\\t Hello&apos;</span>);    <span class=\"regexp\">//</span> <span class=\"keyword\">false</span>\nisBlank(<span class=\"string\">&apos;Hello world&apos;</span>);   <span class=\"regexp\">//</span> <span class=\"keyword\">false</span>\nisBlank([<span class=\"number\">1</span>,<span class=\"number\">2</span>,<span class=\"number\">3</span>]);         <span class=\"regexp\">//</span> <span class=\"keyword\">false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isBlank",
+          "static": 1,
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/utils",
+          "module": "@ember/utils"
+        },
+        {
+          "file": "packages/@ember/-internals/metal/lib/is_empty.ts",
+          "line": 5,
+          "description": "<html><head></head><body><p>Verifies that a value is <code>null</code> or <code>undefined</code>, an empty string, or an empty\narray.</p>\n<p>Constrains the rules on <code>isNone</code> by returning true for empty strings and\nempty arrays.</p>\n<p>If the value is an object with a <code>size</code> property of type number, it is used\nto check emptiness.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre>is<span class=\"constructor\">Empty()</span>;                 <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Empty(<span class=\"params\">null</span>)</span>;             <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Empty(<span class=\"params\">undefined</span>)</span>;        <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Empty(&apos;&apos;)</span>;               <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Empty([])</span>;               <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Empty({ <span class=\"params\">size</span>: 0})</span>;       <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Empty({})</span>;               <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Empty(&apos;Adam Hawkins&apos;)</span>;   <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Empty([0,1,2])</span>;          <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Empty(&apos;\\<span class=\"params\">n</span>\\<span class=\"params\">t</span>&apos;)</span>;           <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Empty(&apos;  &apos;)</span>;             <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Empty({ <span class=\"params\">size</span>: 1 })</span>       <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Empty({ <span class=\"params\">size</span>: ()</span> =&gt; <span class=\"number\">0</span> }) <span class=\"comment\">// false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isEmpty",
+          "static": 1,
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/utils",
+          "module": "@ember/utils"
+        },
+        {
+          "file": "packages/@ember/-internals/metal/lib/is_none.ts",
+          "line": 4,
+          "description": "<html><head></head><body><p>Returns true if the passed value is null or undefined. This avoids errors\nfrom JSLint complaining about use of ==, which can be technically\nconfusing.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>is<span class=\"constructor\">None()</span>;              <span class=\"comment\">// true</span>\nis<span class=\"constructor\">None(<span class=\"params\">null</span>)</span>;          <span class=\"comment\">// true</span>\nis<span class=\"constructor\">None(<span class=\"params\">undefined</span>)</span>;     <span class=\"comment\">// true</span>\nis<span class=\"constructor\">None(&apos;&apos;)</span>;            <span class=\"comment\">// false</span>\nis<span class=\"constructor\">None([])</span>;            <span class=\"comment\">// false</span>\nis<span class=\"constructor\">None(<span class=\"params\">function</span>()</span> {}); <span class=\"comment\">// false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isNone",
+          "static": 1,
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/utils",
+          "module": "@ember/utils"
+        },
+        {
+          "file": "packages/@ember/-internals/metal/lib/is_present.ts",
+          "line": 5,
+          "description": "<html><head></head><body><p>A value is present if it not <code>isBlank</code>.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n</pre></td>\n              <td class=\"code\"><pre>is<span class=\"constructor\">Present()</span>;                <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Present(<span class=\"params\">null</span>)</span>;            <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Present(<span class=\"params\">undefined</span>)</span>;       <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Present(&apos;&apos;)</span>;              <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Present(&apos;  &apos;)</span>;            <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Present(&apos;\\<span class=\"params\">n</span>\\<span class=\"params\">t</span>&apos;)</span>;          <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Present([])</span>;              <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Present({ <span class=\"params\">length</span>: 0 })</span>;   <span class=\"comment\">// false</span>\nis<span class=\"constructor\">Present(<span class=\"params\">false</span>)</span>;           <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Present(<span class=\"params\">true</span>)</span>;            <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Present(&apos;<span class=\"params\">string</span>&apos;)</span>;        <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Present(0)</span>;               <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Present(<span class=\"params\">function</span>()</span> {});   <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Present({})</span>;              <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Present(&apos;\\<span class=\"params\">n</span>\\<span class=\"params\">t</span> Hello&apos;)</span>;    <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Present([1, 2, 3])</span>;       <span class=\"comment\">// true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isPresent",
+          "static": 1,
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.8.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/utils",
+          "module": "@ember/utils"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/compare.js",
+          "line": 44,
+          "description": "<html><head></head><body><p>Compares two javascript values and returns:</p>\n<ul>\n<li><p>-1 if the first is smaller than the second,</p>\n</li>\n<li><p>0 if both are equal,</p>\n</li>\n<li><p>1 if the first is greater than the second.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { compare } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/utils&apos;</span>;\n\ncompare(<span class=\"string\">&apos;hello&apos;</span>, <span class=\"string\">&apos;hello&apos;</span>);  <span class=\"comment\">// 0</span>\ncompare(<span class=\"string\">&apos;abc&apos;</span>, <span class=\"string\">&apos;dfg&apos;</span>);      <span class=\"comment\">// -1</span>\ncompare(<span class=\"number\">2</span>, <span class=\"number\">1</span>);              <span class=\"comment\">// 1</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</li>\n</ul>\n<p>If the types of the two objects are different precedence occurs in the\nfollowing order, with types earlier in the list considered <code>&lt;</code> types\nlater in the list:</p>\n<ul>\n<li><p>undefined</p>\n</li>\n<li><p>null</p>\n</li>\n<li><p>boolean</p>\n</li>\n<li><p>number</p>\n</li>\n<li><p>string</p>\n</li>\n<li><p>array</p>\n</li>\n<li><p>object</p>\n</li>\n<li><p>instance</p>\n</li>\n<li><p>function</p>\n</li>\n<li><p>class</p>\n</li>\n<li><p>date</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { compare } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/utils&apos;</span>;\n\ncompare(<span class=\"string\">&apos;hello&apos;</span>, <span class=\"number\">50</span>);       <span class=\"comment\">// 1</span>\ncompare(<span class=\"number\">50</span>, <span class=\"string\">&apos;hello&apos;</span>);       <span class=\"comment\">// -1</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</li>\n</ul>\n</body></html>",
+          "itemtype": "method",
+          "name": "compare",
+          "static": 1,
+          "params": [
+            {
+              "name": "v",
+              "description": "First value to compare",
+              "type": "Object"
+            },
+            {
+              "name": "w",
+              "description": "Second value to compare",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "-1 if v < w, 0 if v = w and 1 if v > w.",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/utils",
+          "module": "@ember/utils"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/is-equal.js",
+          "line": 4,
+          "description": "<html><head></head><body><p>Compares two objects, returning true if they are equal.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { isEqual } from <span class=\"string\">&apos;@ember/utils&apos;</span>;\n\nisEqual(<span class=\"string\">&apos;hello&apos;</span>, <span class=\"string\">&apos;hello&apos;</span>);                   <span class=\"regexp\">//</span> <span class=\"keyword\">true</span>\nisEqual(<span class=\"number\">1</span>, <span class=\"number\">2</span>);                               <span class=\"regexp\">//</span> <span class=\"keyword\">false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p><code>isEqual</code> is a more specific comparison than a triple equal comparison.\nIt will call the <code>isEqual</code> instance method on the objects being\ncompared, allowing finer control over when objects should be considered\nequal to each other.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { isEqual } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/utils&apos;</span>;\n<span class=\"keyword\">import</span> EmberObject <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n\n<span class=\"keyword\">let</span> Person = EmberObject.extend({\n  isEqual(other) { <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.ssn == other.ssn; }\n});\n\n<span class=\"keyword\">let</span> personA = Person.create({<span class=\"attr\">name</span>: <span class=\"string\">&apos;Muhammad Ali&apos;</span>, <span class=\"attr\">ssn</span>: <span class=\"string\">&apos;123-45-6789&apos;</span>});\n<span class=\"keyword\">let</span> personB = Person.create({<span class=\"attr\">name</span>: <span class=\"string\">&apos;Cassius Clay&apos;</span>, <span class=\"attr\">ssn</span>: <span class=\"string\">&apos;123-45-6789&apos;</span>});\n\nisEqual(personA, personB); <span class=\"comment\">// true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Due to the expense of array comparisons, collections will never be equal to\neach other even if each of their items are equal to each other.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { isEqual } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/utils&apos;</span>;\n\nisEqual([<span class=\"number\">4</span>, <span class=\"number\">2</span>], [<span class=\"number\">4</span>, <span class=\"number\">2</span>]);                     <span class=\"comment\">// false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isEqual",
+          "static": 1,
+          "params": [
+            {
+              "name": "a",
+              "description": "first object to compare",
+              "type": "Object"
+            },
+            {
+              "name": "b",
+              "description": "second object to compare",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/utils",
+          "module": "@ember/utils"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/type-of.js",
+          "line": 23,
+          "description": "<html><head></head><body><p>Returns a consistent type for the passed object.</p>\n<p>Use this instead of the built-in <code>typeof</code> to get the type of an item.\nIt will return the same result across all browsers and includes a bit\nmore detail. Here is what will be returned:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n</pre></td>\n              <td class=\"code\"><pre>| Return Value  | Meaning                                              |\n|---------------|------------------------------------------------------|\n| &apos;string&apos;      | String primitive<span class=\"built_in\"> or </span>String object.                   |\n| &apos;number&apos;      | Number primitive<span class=\"built_in\"> or </span>Number object.                   |\n| &apos;boolean&apos;     | Boolean primitive<span class=\"built_in\"> or </span>Boolean object.                 |\n| &apos;null&apos;        | Null value                                           |\n| &apos;undefined&apos;   | Undefined value                                      |\n| &apos;function&apos;    | A function                                           |\n| &apos;array&apos;       | An<span class=\"built_in\"> instance </span>of Array                                 |\n| &apos;regexp&apos;      | An<span class=\"built_in\"> instance </span>of RegExp                                |\n| &apos;date&apos;        | An<span class=\"built_in\"> instance </span>of Date                                  |\n| &apos;filelist&apos;    | An<span class=\"built_in\"> instance </span>of FileList                              |\n| &apos;class&apos;       | An Ember class (created using EmberObject.extend())  |\n| &apos;instance&apos;    | An Ember object<span class=\"built_in\"> instance </span>                            |\n| &apos;error&apos;       | An<span class=\"built_in\"> instance </span>of the Error object                      |\n| &apos;object&apos;      | A JavaScript object<span class=\"built_in\"> not </span>inheriting from EmberObject  |</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    <p>Examples:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n</pre></td>\n              <td class=\"code\"><pre>import { A } from &apos;@ember/<span class=\"built_in\">array</span>&apos;;\nimport { typeOf } from &apos;@ember/utils&apos;;\nimport EmberObject from &apos;@ember/object&apos;;\n\n<span class=\"keyword\">type</span><span class=\"constructor\">Of()</span>;                       <span class=\"comment\">// &apos;undefined&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(<span class=\"params\">null</span>)</span>;                   <span class=\"comment\">// &apos;null&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(<span class=\"params\">undefined</span>)</span>;              <span class=\"comment\">// &apos;undefined&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(&apos;<span class=\"params\">michael</span>&apos;)</span>;              <span class=\"comment\">// &apos;string&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(<span class=\"params\">new</span> String(&apos;<span class=\"params\">michael</span>&apos;)</span>);  <span class=\"comment\">// &apos;string&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(101)</span>;                    <span class=\"comment\">// &apos;number&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(<span class=\"params\">new</span> Number(101)</span>);        <span class=\"comment\">// &apos;number&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(<span class=\"params\">true</span>)</span>;                   <span class=\"comment\">// &apos;boolean&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(<span class=\"params\">new</span> Boolean(<span class=\"params\">true</span>)</span>);      <span class=\"comment\">// &apos;boolean&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(A)</span>;                      <span class=\"comment\">// &apos;function&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of([1, 2, 90])</span>;             <span class=\"comment\">// &apos;array&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(<span class=\"operator\">/</span><span class=\"params\">abc</span><span class=\"operator\">/</span>)</span>;                  <span class=\"comment\">// &apos;regexp&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(<span class=\"params\">new</span> Date()</span>);             <span class=\"comment\">// &apos;date&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(<span class=\"params\">event</span>.<span class=\"params\">target</span>.<span class=\"params\">files</span>)</span>;     <span class=\"comment\">// &apos;filelist&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(EmberObject.<span class=\"params\">extend</span>()</span>);   <span class=\"comment\">// &apos;class&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(EmberObject.<span class=\"params\">create</span>()</span>);   <span class=\"comment\">// &apos;instance&apos;</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of(<span class=\"params\">new</span> Error(&apos;<span class=\"params\">teamocil</span>&apos;)</span>);  <span class=\"comment\">// &apos;error&apos;</span>\n\n<span class=\"comment\">// &apos;normal&apos; JavaScript object</span>\n<span class=\"keyword\">type</span><span class=\"constructor\">Of({ <span class=\"params\">a</span>: &apos;<span class=\"params\">b</span>&apos; })</span>;             <span class=\"comment\">// &apos;object&apos;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "typeOf",
+          "params": [
+            {
+              "name": "item",
+              "description": "the item to check",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the type",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember/utils",
+          "module": "@ember/utils"
+        },
+        {
+          "file": "packages/@ember/-internals/utils/lib/invoke.ts",
+          "line": 27,
+          "description": "<html><head></head><body><p>Checks to see if the <code>methodName</code> exists on the <code>obj</code>,\nand if it does, invokes it with the arguments passed.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>import { tryInvoke } from &apos;@ember/utils&apos;;\n\n<span class=\"keyword\">let</span> d = <span class=\"keyword\">new</span> <span class=\"constructor\">Date(&apos;03<span class=\"operator\">/</span>15<span class=\"operator\">/</span>2013&apos;)</span>;\n\n<span class=\"keyword\">try</span><span class=\"constructor\">Invoke(<span class=\"params\">d</span>, &apos;<span class=\"params\">getTime</span>&apos;)</span>;              <span class=\"comment\">// 1363320000000</span>\n<span class=\"keyword\">try</span><span class=\"constructor\">Invoke(<span class=\"params\">d</span>, &apos;<span class=\"params\">setFullYear</span>&apos;, [2014])</span>;  <span class=\"comment\">// 1394856000000</span>\n<span class=\"keyword\">try</span><span class=\"constructor\">Invoke(<span class=\"params\">d</span>, &apos;<span class=\"params\">noSuchMethod</span>&apos;, [2014])</span>; <span class=\"comment\">// undefined</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "tryInvoke",
+          "static": 1,
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to check for the method",
+              "type": "Object"
+            },
+            {
+              "name": "methodName",
+              "description": "The method name to check for",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "The arguments to pass to the method",
+              "type": "Array",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the return value of the invoked method or undefined if it cannot be invoked",
+            "type": "*"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/utils",
+          "module": "@ember/utils"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.7.3-@ember/utils",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.7.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

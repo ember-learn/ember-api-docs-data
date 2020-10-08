@@ -1,0 +1,56 @@
+{
+  "data": {
+    "id": "ember-data-3.16.0-@ember-data/store",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/store",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember-data/store": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "../store/addon/-private/system/snapshot.ts",
+      "line": 53,
+      "description": "<html><head></head><body><p>The store service contains all of the data for records loaded from the server.\nIt is also responsible for creating instances of <code>Model</code> that wrap\nthe individual data for a record, so that they can be bound to in your\nHandlebars templates.</p>\n<p>By default, applications will have a single <code>Store</code> service that is\nautomatically created.</p>\n<p>The store can be customized by extending the service in the following manner:</p>\n<div class=\"highlight app/services/store.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/services/store.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Store</span> from &apos;<span class=\"meta\">@ember</span>-data/store&apos;;\n\nexport <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">MyStore</span> <span class=\"keyword\">extends</span> <span class=\"title\">Store</span> </span>{}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>You can retrieve models from the store in several ways. To retrieve a record\nfor a specific id, use the <code>Store</code>&apos;s <code>findRecord()</code> method:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>store.findRecord(<span class=\"symbol\">&apos;person</span>&apos;, <span class=\"number\">123</span>).<span class=\"keyword\">then</span>(<span class=\"keyword\">function</span> <span class=\"title\"></span>(person) {\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>By default, the store will talk to your backend using a standard\nREST mechanism. You can customize how the store talks to your\nbackend by specifying a custom adapter:</p>\n<div class=\"highlight app/adapters/application.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/adapters/application.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> DS <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember-data&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Adapter.extend({\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>You can learn more about writing a custom adapter by reading the <code>Adapter</code>\ndocumentation.</p>\n<h3 id=\"store-createrecord-vs-push-vs-pushpayload\">Store createRecord() vs. push() vs. pushPayload()</h3>\n<p>The store provides multiple ways to create new record objects. They have\nsome subtle differences in their use which are detailed below:</p>\n<p><a href=\"Store/methods/createRecord?anchor=createRecord\">createRecord</a> is used for creating new\nrecords on the client side. This will return a new record in the\n<code>created.uncommitted</code> state. In order to persist this record to the\nbackend, you will need to call <code>record.save()</code>.</p>\n<p><a href=\"Store/methods/push?anchor=push\">push</a> is used to notify Ember Data&apos;s store of new or\nupdated records that exist in the backend. This will return a record\nin the <code>loaded.saved</code> state. The primary use-case for <code>store#push</code> is\nto notify Ember Data about record updates (full or partial) that happen\noutside of the normal adapter methods (for example\n<a href=\"http://dev.w3.org/html5/eventsource/\">SSE</a> or <a href=\"http://www.w3.org/TR/2009/WD-websockets-20091222/\">Web\nSockets</a>).</p>\n<p><a href=\"Store/methods/pushPayload?anchor=pushPayload\">pushPayload</a> is a convenience wrapper for\n<code>store#push</code> that will deserialize payloads if the\nSerializer implements a <code>pushPayload</code> method.</p>\n<p>Note: When creating a new record using any of the above methods\nEmber Data will update <code>RecordArray</code>s such as those returned by\n<code>store#peekAll()</code> or <code>store#findAll()</code>. This means any\ndata bindings or computed properties that depend on the RecordArray\nwill automatically be synced to include the new or updated record\nvalues.</p>\n</body></html>",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "ManyArray",
+        "Errors",
+        "RootState",
+        "AdapterPopulatedRecordArray",
+        "RecordArray",
+        "BelongsToReference",
+        "HasManyReference",
+        "RecordReference",
+        "Reference",
+        "Store",
+        "PromiseArray",
+        "PromiseObject"
+      ],
+      "privateclasses": [
+        "IdentityMap",
+        "InternalModelMap",
+        "RecordArrayManager",
+        "SnapshotRecordArray",
+        "Snapshot"
+      ],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "3.16.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.16.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

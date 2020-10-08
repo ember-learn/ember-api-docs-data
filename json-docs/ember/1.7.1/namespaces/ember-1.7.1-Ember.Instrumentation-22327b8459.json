@@ -1,0 +1,181 @@
+{
+  "data": {
+    "id": "ember-1.7.1-Ember.Instrumentation",
+    "type": "namespace",
+    "attributes": {
+      "name": "Ember.Instrumentation",
+      "shortname": "Ember.Instrumentation",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-metal",
+      "namespace": "Ember.Instrumentation",
+      "file": "../packages/ember-metal/lib/instrumentation.js",
+      "line": 4,
+      "description": "<html><head></head><body><p>The purpose of the Ember Instrumentation module is\nto provide efficient, general-purpose instrumentation\nfor Ember.</p>\n<p>Subscribe to a listener by using <code>Ember.subscribe</code>:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">Ember</span><span class=\"selector-class\">.subscribe</span>(&quot;<span class=\"selector-tag\">render</span>&quot;, {\n  <span class=\"attribute\">before</span>: <span class=\"built_in\">function</span>(name, timestamp, payload) {\n\n  },\n\n  <span class=\"selector-tag\">after</span>: <span class=\"selector-tag\">function</span>(<span class=\"selector-tag\">name</span>, <span class=\"selector-tag\">timestamp</span>, <span class=\"selector-tag\">payload</span>) {\n\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If you return a value from the <code>before</code> callback, that same\nvalue will be passed as a fourth parameter to the <code>after</code>\ncallback.</p>\n<p>Instrument a block of code by using <code>Ember.instrument</code>:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>Ember.instrument(<span class=\"string\">&quot;render.handlebars&quot;</span>, payload, <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n  <span class=\"comment\">// rendering logic</span>\n}, binding);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Event names passed to <code>Ember.instrument</code> are namespaced\nby periods, from more general to more specific. Subscribers\ncan listen for events by whatever level of granularity they\nare interested in.</p>\n<p>In the above example, the event is <code>render.handlebars</code>,\nand the subscriber listened for all events beginning with\n<code>render</code>. It would receive callbacks for events named\n<code>render</code>, <code>render.handlebars</code>, <code>render.container</code>, or\neven <code>render.handlebars.layout</code>.</p>\n</body></html>",
+      "static": 1,
+      "methods": [
+        {
+          "file": "../packages/ember-metal/lib/expand_properties.js",
+          "line": 10,
+          "description": "<html><head></head><body><p>Expands <code>pattern</code>, invoking <code>callback</code> for each expansion.</p>\n<p>The only pattern supported is brace-expansion, anything else will be passed\nonce to <code>callback</code> directly. Brace expansion can only appear at the end of a\npattern, for an example see the last call below.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">function</span> echo(arg){ console.log(arg); }\n\n<span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span></span>expand<span class=\"constructor\">Properties(&apos;<span class=\"params\">foo</span>.<span class=\"params\">bar</span>&apos;, <span class=\"params\">echo</span>)</span>;        <span class=\"comment\">//=&gt; &apos;foo.bar&apos;</span>\n<span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span></span>expand<span class=\"constructor\">Properties(&apos;{<span class=\"params\">foo</span>,<span class=\"params\">bar</span>}&apos;, <span class=\"params\">echo</span>)</span>;      <span class=\"comment\">//=&gt; &apos;foo&apos;, &apos;bar&apos;</span>\n<span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span></span>expand<span class=\"constructor\">Properties(&apos;<span class=\"params\">foo</span>.{<span class=\"params\">bar</span>,<span class=\"params\">baz</span>}&apos;, <span class=\"params\">echo</span>)</span>;  <span class=\"comment\">//=&gt; &apos;foo.bar&apos;, &apos;foo.baz&apos;</span>\n<span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span></span>expand<span class=\"constructor\">Properties(&apos;{<span class=\"params\">foo</span>,<span class=\"params\">bar</span>}.<span class=\"params\">baz</span>&apos;, <span class=\"params\">echo</span>)</span>;  <span class=\"comment\">//=&gt; &apos;{foo,bar}.baz&apos;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "pattern",
+              "description": "The property pattern to expand.",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "The callback to invoke.  It is invoked once per\nexpansion, and is passed the expansion.",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember.Instrumentation",
+          "module": "ember-metal"
+        },
+        {
+          "file": "../packages/ember-metal/lib/get_properties.js",
+          "line": 4,
+          "description": "<html><head></head><body><p>To get multiple properties at once, call <code>Ember.getProperties</code>\nwith an object followed by a list of strings or an array:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span></span>get<span class=\"constructor\">Properties(<span class=\"params\">record</span>, &apos;<span class=\"params\">firstName</span>&apos;, &apos;<span class=\"params\">lastName</span>&apos;, &apos;<span class=\"params\">zipCode</span>&apos;)</span>;\n<span class=\"comment\">// { firstName: &apos;John&apos;, lastName: &apos;Doe&apos;, zipCode: &apos;10011&apos; }</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>is equivalent to:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span></span>get<span class=\"constructor\">Properties(<span class=\"params\">record</span>, [&apos;<span class=\"params\">firstName</span>&apos;, &apos;<span class=\"params\">lastName</span>&apos;, &apos;<span class=\"params\">zipCode</span>&apos;])</span>;\n<span class=\"comment\">// { firstName: &apos;John&apos;, lastName: &apos;Doe&apos;, zipCode: &apos;10011&apos; }</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "getProperties",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "list",
+              "description": "of keys to get",
+              "type": "String...|Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Hash"
+          },
+          "class": "Ember.Instrumentation",
+          "module": "ember-metal"
+        },
+        {
+          "file": "../packages/ember-metal/lib/instrumentation.js",
+          "line": 73,
+          "description": "<html><head></head><body><p>Notifies event&apos;s subscribers, calls <code>before</code> and <code>after</code> hooks.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "instrument",
+          "params": [
+            {
+              "name": "name",
+              "description": "Namespaced event name.",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "payload",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "callback",
+              "description": "Function that you're instrumenting.",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "Context that instrument function is called with.",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.Instrumentation",
+          "module": "ember-metal",
+          "namespace": "Ember.Instrumentation"
+        },
+        {
+          "file": "../packages/ember-metal/lib/instrumentation.js",
+          "line": 133,
+          "description": "<html><head></head><body><p>Subscribes to a particular event or instrumented block of code.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "subscribe",
+          "params": [
+            {
+              "name": "pattern",
+              "description": "Namespaced event name.",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "object",
+              "description": "Before and After hooks.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Subscriber"
+          },
+          "class": "Ember.Instrumentation",
+          "module": "ember-metal",
+          "namespace": "Ember.Instrumentation"
+        },
+        {
+          "file": "../packages/ember-metal/lib/instrumentation.js",
+          "line": 171,
+          "description": "<html><head></head><body><p>Unsubscribes from a particular event or instrumented block of code.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "unsubscribe",
+          "params": [
+            {
+              "name": "subscriber",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "class": "Ember.Instrumentation",
+          "module": "ember-metal",
+          "namespace": "Ember.Instrumentation"
+        },
+        {
+          "file": "../packages/ember-metal/lib/instrumentation.js",
+          "line": 192,
+          "description": "<html><head></head><body><p>Resets <code>Ember.Instrumentation</code> by flushing list of subscribers.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "reset",
+          "class": "Ember.Instrumentation",
+          "module": "ember-metal",
+          "namespace": "Ember.Instrumentation"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.7.1-ember-metal",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.7.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

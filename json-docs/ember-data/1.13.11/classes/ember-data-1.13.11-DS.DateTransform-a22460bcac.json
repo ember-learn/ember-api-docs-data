@@ -1,0 +1,90 @@
+{
+  "data": {
+    "id": "ember-data-1.13.11-DS.DateTransform",
+    "type": "class",
+    "attributes": {
+      "name": "DS.DateTransform",
+      "shortname": "DS.DateTransform",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "packages/ember-data/lib/transforms/date.js",
+      "line": 1,
+      "description": "<html><head></head><body><p>The <code>DS.DateTransform</code> class is used to serialize and deserialize\ndate attributes on Ember Data record objects. This transform is used\nwhen <code>date</code> is passed as the type parameter to the\n<a href=\"../../data#method_attr\">DS.attr</a> function.</p>\n<div class=\"highlight app/models/score.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/score.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>import DS from &apos;ember-data&apos;;\n\nexport default <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span><span class=\"module\"><span class=\"identifier\">Model</span>.</span></span>extend({\n  value: <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span></span>attr(&apos;number&apos;),\n  player: <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span></span>belongs<span class=\"constructor\">To(&apos;<span class=\"params\">player</span>&apos;)</span>,\n  date: <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span></span>attr(&apos;date&apos;)\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "extends": "DS.Transform",
+      "methods": [
+        {
+          "file": "packages/ember-data/lib/transforms/base.js",
+          "line": 39,
+          "description": "<html><head></head><body><p>When given a deserialized value from a record attribute this\nmethod must return the serialized value.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>serialize: <span class=\"keyword\">function</span>(deserialized) {\n  return <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span></span>is<span class=\"constructor\">Empty(<span class=\"params\">deserialized</span>)</span> ? null : <span class=\"constructor\">Number(<span class=\"params\">deserialized</span>)</span>;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "deserialized",
+              "description": "The deserialized value"
+            }
+          ],
+          "return": {
+            "description": "The serialized value"
+          },
+          "class": "DS.DateTransform",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.Transform"
+        },
+        {
+          "file": "packages/ember-data/lib/transforms/base.js",
+          "line": 57,
+          "description": "<html><head></head><body><p>When given a serialize value from a JSON object this method must\nreturn the deserialized value for the record attribute.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>deserialize: <span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\">serialized</span>) </span>{\n  <span class=\"keyword\">return</span> empty(serialized) ? <span class=\"literal\">null</span> : <span class=\"built_in\">Number</span>(serialized);\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "deserialize",
+          "params": [
+            {
+              "name": "serialized",
+              "description": "The serialized value"
+            }
+          ],
+          "return": {
+            "description": "The deserialized value"
+          },
+          "class": "DS.DateTransform",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.Transform"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-1.13.11-DS.Transform",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-1.13.11-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-1.13.11",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

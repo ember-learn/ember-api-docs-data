@@ -1,0 +1,352 @@
+{
+  "data": {
+    "id": "ember-1.8.0-Ember.ObjectController",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ObjectController",
+      "shortname": "Ember.ObjectController",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-runtime",
+      "namespace": "Ember",
+      "file": "../packages/ember-runtime/lib/controllers/object_controller.js",
+      "line": 9,
+      "description": "<html><head></head><body><p><code>Ember.ObjectController</code> is part of Ember&apos;s Controller layer. It is intended\nto wrap a single object, proxying unhandled attempts to <code>get</code> and <code>set</code> to the underlying\nmodel object, and to forward unhandled action attempts to its <code>target</code>.</p>\n<p><code>Ember.ObjectController</code> derives this functionality from its superclass\n<code>Ember.ObjectProxy</code> and the <code>Ember.ControllerMixin</code> mixin.</p>\n</body></html>",
+      "extends": "Ember.ObjectProxy",
+      "uses": [
+        "Ember.ControllerMixin"
+      ],
+      "methods": [
+        {
+          "file": "../packages/ember-application/lib/ext/controller.js",
+          "line": 142,
+          "itemtype": "method",
+          "name": "controllerFor",
+          "see": [
+            "{Ember.Route#controllerFor}"
+          ],
+          "deprecated": true,
+          "deprecationMessage": "Use `needs` instead",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 96,
+          "itemtype": "method",
+          "name": "_updateCacheParams",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 117,
+          "itemtype": "method",
+          "name": "_qpChanged",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 141,
+          "itemtype": "method",
+          "name": "_calculateCacheKey",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 155,
+          "description": "<html><head></head><body><p>Transition the application into another route. The route may\nbe either a single route or route path:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPosts</span>&apos;)</span>;\naController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPosts</span>.<span class=\"params\">recentEntries</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Optionally supply a model for the route in question. The model\nwill be serialized into the URL using the <code>serialize</code> hook of\nthe route:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPost</span>&apos;, <span class=\"params\">aPost</span>)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the <code>model</code>\nhook of the route will be triggered:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">aController</span><span class=\"selector-class\">.transitionToRoute</span>(<span class=\"string\">&apos;blogPost&apos;</span>, <span class=\"number\">1</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Multiple models will be applied last to first recursively up the\nresource tree.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre>App.Router.map(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n  <span class=\"keyword\">this</span>.resource(<span class=\"string\">&apos;blogPost&apos;</span>, {path:<span class=\"string\">&apos;:blogPostId&apos;</span>}, <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span></span>{\n    <span class=\"keyword\">this</span>.resource(<span class=\"string\">&apos;blogComment&apos;</span>, {path: <span class=\"string\">&apos;:blogCommentId&apos;</span>});\n  });\n});\n\naController.transitionToRoute(<span class=\"string\">&apos;blogComment&apos;</span>, aPost, aComment);\naController.transitionToRoute(<span class=\"string\">&apos;blogComment&apos;</span>, <span class=\"number\">1</span>, <span class=\"number\">13</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It is also possible to pass a URL (a string that starts with a\n<code>/</code>). This is intended for testing and debugging purposes and\nshould rarely be used in production code.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"operator\">/</span>&apos;)</span>;\naController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"operator\">/</span><span class=\"params\">blog</span><span class=\"operator\">/</span><span class=\"params\">post</span><span class=\"operator\">/</span>1<span class=\"operator\">/</span><span class=\"params\">comment</span><span class=\"operator\">/</span>13&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>See also <a href=\"/api/classes/Ember.ControllerMixin.html#method_replaceRoute\">replaceRoute</a>.</p>\n</body></html>",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\nwhile transitioning to the route.",
+              "type": "...Object"
+            }
+          ],
+          "itemtype": "method",
+          "name": "transitionToRoute",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 218,
+          "deprecated": true,
+          "itemtype": "method",
+          "name": "transitionTo",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 228,
+          "description": "<html><head></head><body><p>Transition into another route while replacing the current URL, if possible.\nThis will replace the current history entry instead of adding a new one.\nBeside that, it is identical to <code>transitionToRoute</code> in all other respects.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPosts</span>&apos;)</span>;\naController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPosts</span>.<span class=\"params\">recentEntries</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Optionally supply a model for the route in question. The model\nwill be serialized into the URL using the <code>serialize</code> hook of\nthe route:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPost</span>&apos;, <span class=\"params\">aPost</span>)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the <code>model</code>\nhook of the route will be triggered:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">aController</span><span class=\"selector-class\">.replaceRoute</span>(<span class=\"string\">&apos;blogPost&apos;</span>, <span class=\"number\">1</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Multiple models will be applied last to first recursively up the\nresource tree.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre>App.Router.map(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n  <span class=\"keyword\">this</span>.resource(<span class=\"string\">&apos;blogPost&apos;</span>, {path:<span class=\"string\">&apos;:blogPostId&apos;</span>}, <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span></span>{\n    <span class=\"keyword\">this</span>.resource(<span class=\"string\">&apos;blogComment&apos;</span>, {path: <span class=\"string\">&apos;:blogCommentId&apos;</span>});\n  });\n});\n\naController.replaceRoute(<span class=\"string\">&apos;blogComment&apos;</span>, aPost, aComment);\naController.replaceRoute(<span class=\"string\">&apos;blogComment&apos;</span>, <span class=\"number\">1</span>, <span class=\"number\">13</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It is also possible to pass a URL (a string that starts with a\n<code>/</code>). This is intended for testing and debugging purposes and\nshould rarely be used in production code.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"operator\">/</span>&apos;)</span>;\naController.replace<span class=\"constructor\">Route(&apos;<span class=\"operator\">/</span><span class=\"params\">blog</span><span class=\"operator\">/</span><span class=\"params\">post</span><span class=\"operator\">/</span>1<span class=\"operator\">/</span><span class=\"params\">comment</span><span class=\"operator\">/</span>13&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\nwhile transitioning to the route.",
+              "type": "...Object"
+            }
+          ],
+          "itemtype": "method",
+          "name": "replaceRoute",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 290,
+          "deprecated": true,
+          "itemtype": "method",
+          "name": "replaceWith",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 148,
+          "description": "<html><head></head><body><p>Moves <code>actions</code> to <code>_actions</code> at extend time. Note that this currently\nmodifies the mixin themselves, which is technically dubious but\nis practically of little consequence. This may change in the future.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "willMergeMixin",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 177,
+          "description": "<html><head></head><body><p>Triggers a named action on the <code>ActionHandler</code>. Any parameters\nsupplied after the <code>actionName</code> string will be passed as arguments\nto the action target function.</p>\n<p>If the <code>ActionHandler</code> has its <code>target</code> property set, actions may\nbubble to the <code>target</code>. Bubbling happens when an <code>actionName</code> can\nnot be found in the <code>ActionHandler</code>&apos;s <code>actions</code> hash or if the\naction target function returns <code>true</code>.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre>App.WelcomeRoute = Ember.Route.extend({\n  actions: {\n    playTheme: <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n       <span class=\"keyword\">this</span>.send(<span class=\"string\">&apos;playMusic&apos;</span>, <span class=\"string\">&apos;theme.mp3&apos;</span>);\n    },\n    playMusic: <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(track)</span> </span>{\n      <span class=\"comment\">// ...</span>\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "actionName",
+              "description": "The action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*"
+            }
+          ],
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/ember-application/lib/ext/controller.js",
+          "line": 72,
+          "description": "<html><head></head><body><p>An array of other controller objects available inside\ninstances of this controller via the <code>controllers</code>\nproperty:</p>\n<p>For example, when you define a controller:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>App.CommentsController = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span><span class=\"module\"><span class=\"identifier\">ArrayController</span>.</span></span>extend({\n  needs: <span class=\"literal\">[&apos;<span class=\"identifier\">post</span>&apos;]</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The application&apos;s single instance of these other\ncontrollers are accessible by name through the\n<code>controllers</code> property:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>this.get(&apos;controllers.post&apos;); //<span class=\"built_in\"> instance </span>of App.PostController</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Given that you have a nested controller (nested resource):</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>App.CommentsNewController = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span><span class=\"module\"><span class=\"identifier\">ObjectController</span>.</span></span>extend({\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>When you define a controller that requires access to a nested one:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>App.IndexController = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span><span class=\"module\"><span class=\"identifier\">ObjectController</span>.</span></span>extend({\n  needs: <span class=\"literal\">[&apos;<span class=\"identifier\">commentsNew</span>&apos;]</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>You will be able to get access to it:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>this.get(&apos;controllers.commentsNew&apos;); //<span class=\"built_in\"> instance </span>of App.CommentsNewController</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This is only available for singleton controllers.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "needs",
+          "type": "Array",
+          "default": "[]",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-application/lib/ext/controller.js",
+          "line": 152,
+          "description": "<html><head></head><body><p>Stores the instances of other controllers available from within\nthis controller. Any controller listed by name in the <code>needs</code>\nproperty will be accessible by name through this property.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>App.CommentsController = Ember.ArrayController.extend({\n  needs: [<span class=\"string\">&apos;post&apos;</span>],\n  postTitle: function(){\n    <span class=\"keyword\">var</span> currentPost = <span class=\"keyword\">this</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;controllers.post&apos;</span>); <span class=\"comment\">// instance of App.PostController</span>\n    <span class=\"keyword\">return</span> currentPost.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;title&apos;</span>);\n  }.property(<span class=\"string\">&apos;controllers.post.title&apos;</span>)\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "see": [
+            "{Ember.ControllerMixin#needs}"
+          ],
+          "itemtype": "property",
+          "name": "controllers",
+          "type": "Object",
+          "default": "null",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 25,
+          "itemtype": "property",
+          "name": "queryParams",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 31,
+          "itemtype": "property",
+          "name": "_qpDelegate",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 37,
+          "itemtype": "property",
+          "name": "_normalizedQueryParams",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 61,
+          "itemtype": "property",
+          "name": "_cacheMeta",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/controller.js",
+          "line": 22,
+          "description": "<html><head></head><body><p>The object to which actions from the view should be sent.</p>\n<p>For example, when a Handlebars template uses the <code>{{action}}</code> helper,\nit will attempt to send the action to the view&apos;s controller&apos;s <code>target</code>.</p>\n<p>By default, the value of the target property is set to the router, and\nis injected when a controller is instantiated. This injection is defined\nin Ember.Application#buildContainer, and is applied as part of the\napplications initialization process. It can also be set after a controller\nhas been instantiated, for instance when using the render helper in a\ntemplate, or when a controller is used as an <code>itemController</code>. In most\ncases the <code>target</code> property will automatically be set to the logical\nconsumer of actions for the controller.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "target",
+          "default": "null",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/controller.js",
+          "line": 48,
+          "description": "<html><head></head><body><p>The controller&apos;s current model. When retrieving or modifying a controller&apos;s\nmodel, this property should be used instead of the <code>content</code> property.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "model",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 28,
+          "description": "<html><head></head><body><p>The collection of functions, keyed by name, available on this\n<code>ActionHandler</code> as action targets.</p>\n<p>These functions will be invoked when a matching <code>{{action}}</code> is triggered\nfrom within a template and the application&apos;s current route is this route.</p>\n<p>Actions can also be invoked from other parts of your application\nvia <code>ActionHandler#send</code>.</p>\n<p>The <code>actions</code> hash will inherit action handlers from\nthe <code>actions</code> hash defined on extended parent classes\nor mixins rather than just replace the entire hash, e.g.:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n</pre></td>\n              <td class=\"code\"><pre>App.CanDisplayBanner = Ember.Mixin.create({\n  actions: {\n    displayBanner: <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(msg)</span> </span>{\n      <span class=\"comment\">// ...</span>\n    }\n  }\n});\n\nApp.WelcomeRoute = Ember.Route.extend(App.CanDisplayBanner, {\n  actions: {\n    playMusic: <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n      <span class=\"comment\">// ...</span>\n    }\n  }\n});\n\n<span class=\"comment\">// `WelcomeRoute`, when active, will be able to respond</span>\n<span class=\"comment\">// to both actions, since the actions hash is merged rather</span>\n<span class=\"comment\">// then replaced when extending mixins / parent classes.</span>\n<span class=\"keyword\">this</span>.send(<span class=\"string\">&apos;displayBanner&apos;</span>);\n<span class=\"keyword\">this</span>.send(<span class=\"string\">&apos;playMusic&apos;</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Within a Controller, Route, View or Component&apos;s action handler,\nthe value of the <code>this</code> context is the Controller, Route, View or\nComponent object:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre>App.SongRoute = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span><span class=\"module\"><span class=\"identifier\">Route</span>.</span></span>extend({\n  actions: {\n    myAction: <span class=\"keyword\">function</span><span class=\"literal\">()</span> {\n      this.controller<span class=\"constructor\">For(<span class=\"string\">&quot;song&quot;</span>)</span>;\n      this.transition<span class=\"constructor\">To(<span class=\"string\">&quot;other.route&quot;</span>)</span>;<span class=\"operator\">\n      ...\n    </span>}\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It is also possible to call <code>this._super()</code> from within an\naction handler if it overrides a handler defined on a parent\nclass or mixin:</p>\n<p>Take for example the following routes:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n</pre></td>\n              <td class=\"code\"><pre>App.DebugRoute = Ember.Mixin.create({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"attr\">debugRouteInformation</span>: <span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\"></span>) </span>{\n      <span class=\"built_in\">console</span>.debug(<span class=\"string\">&quot;trololo&quot;</span>);\n    }\n  }\n});\n\nApp.AnnoyingDebugRoute = Ember.Route.extend(App.DebugRoute, {\n  <span class=\"attr\">actions</span>: {\n    <span class=\"attr\">debugRouteInformation</span>: <span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\"></span>) </span>{\n      <span class=\"comment\">// also call the debugRouteInformation of mixed in App.DebugRoute</span>\n      <span class=\"keyword\">this</span>._super();\n\n      <span class=\"comment\">// show additional annoyance</span>\n      <span class=\"built_in\">window</span>.alert(...);\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h2 id=\"bubbling\">Bubbling</h2>\n<p>By default, an action will stop bubbling once a handler defined\non the <code>actions</code> hash handles it. To continue bubbling the action,\nyou must return <code>true</code> from the handler:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n</pre></td>\n              <td class=\"code\"><pre>App.Router.map(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n  <span class=\"keyword\">this</span>.resource(<span class=\"string\">&quot;album&quot;</span>, <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&quot;song&quot;</span>);\n  });\n});\n\nApp.AlbumRoute = Ember.Route.extend({\n  actions: {\n    startPlaying: <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n    }\n  }\n});\n\nApp.AlbumSongRoute = Ember.Route.extend({\n  actions: {\n    startPlaying: <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n      <span class=\"comment\">// ...</span>\n\n      <span class=\"keyword\">if</span> (actionShouldAlsoBeTriggeredOnParentRoute) {\n        <span class=\"keyword\">return</span> <span class=\"literal\">true</span>;\n      }\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "actions",
+          "type": "Hash",
+          "default": "null",
+          "class": "Ember.ObjectController",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-1.8.0-Ember.ObjectProxy",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.8.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.8.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

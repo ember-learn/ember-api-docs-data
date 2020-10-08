@@ -1,0 +1,324 @@
+{
+  "data": {
+    "id": "ember-1.11.4-Ember.AutoLocation",
+    "type": "namespace",
+    "attributes": {
+      "name": "Ember.AutoLocation",
+      "shortname": "Ember.AutoLocation",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-routing",
+      "namespace": "Ember",
+      "file": "packages/ember-routing/lib/location/auto_location.js",
+      "line": 17,
+      "description": "<html><head></head><body><p>Ember.AutoLocation will select the best location option based off browser\nsupport with the priority order: history, hash, none.</p>\n<p>Clean pushState paths accessed by hashchange-only browsers will be redirected\nto the hash-equivalent and vice versa so future transitions are consistent.</p>\n<p>Keep in mind that since some of your users will use <code>HistoryLocation</code>, your\nserver must serve the Ember app at all the routes you define.</p>\n</body></html>",
+      "static": 1,
+      "version": "1.11.4",
+      "since": "1.11.4",
+      "methods": [
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 109,
+          "access": "private",
+          "tagname": "Returns location.origin or builds it if device doesn't support it.",
+          "itemtype": "method",
+          "name": "_getOrigin",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4",
+          "since": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 134,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_getSupportsHistory",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4",
+          "since": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 143,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_getSupportsHashChange",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4",
+          "since": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 152,
+          "access": "private",
+          "tagname": "Redirects the browser using location.replace, prepending the location.origin\nto prevent phishing attempts",
+          "itemtype": "method",
+          "name": "_replacePath",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4",
+          "since": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 164,
+          "since": "1.11.4",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_getRootURL",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 173,
+          "access": "private",
+          "tagname": "Returns the current `location.pathname`, normalized for IE inconsistencies.",
+          "itemtype": "method",
+          "name": "_getPath",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4",
+          "since": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 190,
+          "access": "private",
+          "tagname": "Returns normalized location.hash as an alias to Ember.Location._getHash",
+          "since": "1.11.4",
+          "itemtype": "method",
+          "name": "_getHash",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 200,
+          "access": "private",
+          "tagname": "Returns location.search",
+          "since": "1.11.4",
+          "itemtype": "method",
+          "name": "_getQuery",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 212,
+          "access": "private",
+          "tagname": "Returns the full pathname including query and hash",
+          "itemtype": "method",
+          "name": "_getFullPath",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4",
+          "since": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 223,
+          "access": "private",
+          "tagname": "Returns the current path as it should appear for HistoryLocation supported\nbrowsers. This may very well differ from the real current path (e.g. if it\nstarts off as a hashed URL)",
+          "itemtype": "method",
+          "name": "_getHistoryPath",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4",
+          "since": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 272,
+          "access": "private",
+          "tagname": "Returns the current path as it should appear for HashLocation supported\nbrowsers. This may very well differ from the real current path.",
+          "itemtype": "method",
+          "name": "_getHashPath",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4",
+          "since": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 297,
+          "description": "<html><head></head><body><p>Selects the best location option based off browser support and returns an\ninstance of that Location class.</p>\n</body></html>",
+          "see": [
+            "Ember.AutoLocation"
+          ],
+          "itemtype": "method",
+          "name": "create",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4",
+          "since": "1.11.4"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 32,
+          "access": "private",
+          "tagname": "Attached for mocking in tests",
+          "itemtype": "property",
+          "name": "location",
+          "default": "environment.location",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4",
+          "since": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 42,
+          "access": "private",
+          "tagname": "Attached for mocking in tests",
+          "since": "1.11.4",
+          "itemtype": "property",
+          "name": "_history",
+          "default": "environment.history",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 53,
+          "access": "private",
+          "tagname": "This property is used by router:main to know whether to cancel the routing\nsetup process, which is needed while we redirect the browser.",
+          "since": "1.11.4",
+          "itemtype": "property",
+          "name": "cancelRouterSetup",
+          "default": "false",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 65,
+          "access": "private",
+          "tagname": "Will be pre-pended to path upon state change.",
+          "since": "1.11.4",
+          "itemtype": "property",
+          "name": "rootURL",
+          "default": "'/'",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 76,
+          "access": "private",
+          "tagname": "Attached for mocking in tests",
+          "since": "1.11.4",
+          "itemtype": "property",
+          "name": "_HistoryLocation",
+          "default": "Ember.HistoryLocation",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 87,
+          "access": "private",
+          "tagname": "Attached for mocking in tests",
+          "since": "1.11.4",
+          "itemtype": "property",
+          "name": "_HashLocation",
+          "default": "Ember.HashLocation",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/auto_location.js",
+          "line": 98,
+          "access": "private",
+          "tagname": "Attached for mocking in tests",
+          "since": "1.11.4",
+          "itemtype": "property",
+          "name": "_NoneLocation",
+          "default": "Ember.NoneLocation",
+          "class": "Ember.AutoLocation",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember",
+          "version": "1.11.4"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.11.4-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.11.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

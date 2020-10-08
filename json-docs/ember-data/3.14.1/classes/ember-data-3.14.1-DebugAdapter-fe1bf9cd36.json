@@ -1,0 +1,273 @@
+{
+  "data": {
+    "id": "ember-data-3.14.1-DebugAdapter",
+    "type": "class",
+    "attributes": {
+      "name": "DebugAdapter",
+      "shortname": "DebugAdapter",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/debug",
+      "namespace": "",
+      "file": "addon/-private/system/debug/debug-adapter.js",
+      "line": 13,
+      "description": "<html><head></head><body><p>Implements <code>@ember/debug/data-adapter</code> with for EmberData\nintegration with the ember-inspector.</p>\n</body></html>",
+      "extends": "DataAdapter",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "addon/-private/system/debug/debug-adapter.js",
+          "line": 22,
+          "description": "<html><head></head><body><p>Specifies how records can be filtered based on the state of the record\nRecords returned will need to have a <code>filterValues</code>\nproperty with a key for every name in the returned array</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getFilters",
+          "return": {
+            "description": "List of objects defining filters\n The object should have a `name` and `desc` property",
+            "type": "Array"
+          },
+          "class": "DebugAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "addon/-private/system/debug/debug-adapter.js",
+          "line": 39,
+          "description": "<html><head></head><body><p>Detect whether a class is a Model</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "detect",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "Model"
+            }
+          ],
+          "return": {
+            "description": "Whether the typeClass is a Model class or not",
+            "type": "Boolean"
+          },
+          "class": "DebugAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "addon/-private/system/debug/debug-adapter.js",
+          "line": 50,
+          "description": "<html><head></head><body><p>Creates a human readable string used for column headers</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "columnNameToDesc",
+          "params": [
+            {
+              "name": "name",
+              "description": "The attribute name",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Human readable string based on the attribute name",
+            "type": "String"
+          },
+          "class": "DebugAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "addon/-private/system/debug/debug-adapter.js",
+          "line": 65,
+          "description": "<html><head></head><body><p>Get the columns for a given model type</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "columnsForType",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "Model"
+            }
+          ],
+          "return": {
+            "description": "An array of columns of the following format:\n name: {String} The name of the column\n desc: {String} Humanized description (what would show in a table column name)",
+            "type": "Array"
+          },
+          "class": "DebugAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "addon/-private/system/debug/debug-adapter.js",
+          "line": 93,
+          "description": "<html><head></head><body><p>Fetches all loaded records for a given type</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getRecords",
+          "params": [
+            {
+              "name": "modelClass",
+              "description": "of the record",
+              "type": "Model"
+            },
+            {
+              "name": "modelName",
+              "description": "of the record",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "An array of Model records\n This array will be observed for changes,\n so it should update when new records are added/removed",
+            "type": "Array"
+          },
+          "class": "DebugAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "addon/-private/system/debug/debug-adapter.js",
+          "line": 118,
+          "description": "<html><head></head><body><p>Gets the values for each column\nThis is the attribute values for a given record</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getRecordColumnValues",
+          "params": [
+            {
+              "name": "record",
+              "description": "to get values from",
+              "type": "Model"
+            }
+          ],
+          "return": {
+            "description": "Keys should match column names defined by the model type",
+            "type": "Object"
+          },
+          "class": "DebugAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "addon/-private/system/debug/debug-adapter.js",
+          "line": 139,
+          "description": "<html><head></head><body><p>Returns keywords to match when searching records</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getRecordKeywords",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "Model"
+            }
+          ],
+          "return": {
+            "description": "Relevant keywords for search based on the record's attribute values",
+            "type": "Array"
+          },
+          "class": "DebugAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "addon/-private/system/debug/debug-adapter.js",
+          "line": 154,
+          "description": "<html><head></head><body><p>Returns the values of filters defined by <code>getFilters</code>\nThese reflect the state of the record</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getRecordFilterValues",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "Model"
+            }
+          ],
+          "return": {
+            "description": "The record state filter values",
+            "type": "Object"
+          },
+          "class": "DebugAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "addon/-private/system/debug/debug-adapter.js",
+          "line": 170,
+          "description": "<html><head></head><body><p>Returns a color that represents the record&apos;s state</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getRecordColor",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "Model"
+            }
+          ],
+          "return": {
+            "description": "The record color\n  Possible options: black, blue, green",
+            "type": "String"
+          },
+          "class": "DebugAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "addon/-private/system/debug/debug-adapter.js",
+          "line": 188,
+          "description": "<html><head></head><body><p>Observes all relevant properties and re-sends the wrapped record\nwhen a change occurs</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "observerRecord",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "recordUpdated",
+              "description": "Callback used to notify changes",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "The function to call to remove all observers",
+            "type": "Function"
+          },
+          "class": "DebugAdapter",
+          "module": "@ember-data/debug"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "DataAdapter",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.14.1-@ember-data/debug",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.14.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

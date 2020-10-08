@@ -1,0 +1,119 @@
+{
+  "data": {
+    "id": "ember-1.8.0-Ember.ContainerDebugAdapter",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ContainerDebugAdapter",
+      "shortname": "Ember.ContainerDebugAdapter",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-extension-support",
+      "namespace": "Ember",
+      "file": "../packages/ember-extension-support/lib/container_debug_adapter.js",
+      "line": 16,
+      "description": "<html><head></head><body><p>The <code>ContainerDebugAdapter</code> helps the container and resolver interface\nwith tools that debug Ember such as the\n<a href=\"https://github.com/tildeio/ember-extension\">Ember Extension</a>\nfor Chrome and Firefox.</p>\n<p>This class can be extended by a custom resolver implementer\nto override some of the methods with library-specific code.</p>\n<p>The methods likely to be overridden are:</p>\n<ul>\n<li><code>canCatalogEntriesByType</code></li>\n<li><code>catalogEntriesByType</code></li>\n</ul>\n<p>The adapter will need to be registered\nin the application&apos;s container as <code>container-debug-adapter:main</code></p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">Application</span><span class=\"selector-class\">.initializer</span>({\n  <span class=\"attribute\">name</span>: <span class=\"string\">&quot;containerDebugAdapter&quot;</span>,\n\n  initialize: <span class=\"built_in\">function</span>(container, application) {\n    application.<span class=\"built_in\">register</span>(<span class=\"string\">&apos;container-debug-adapter:main&apos;</span>, require(<span class=\"string\">&apos;app/container-debug-adapter&apos;</span>));\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "extends": "EmberObject",
+      "since": "1.5.0",
+      "methods": [
+        {
+          "file": "../packages/ember-extension-support/lib/container_debug_adapter.js",
+          "line": 71,
+          "description": "<html><head></head><body><p>Returns true if it is possible to catalog a list of available\nclasses in the resolver for a given type.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "canCatalogEntriesByType",
+          "params": [
+            {
+              "name": "type",
+              "description": "The type. e.g. \"model\", \"controller\", \"route\"",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "whether a list is available for this type.",
+            "type": "Boolean"
+          },
+          "class": "Ember.ContainerDebugAdapter",
+          "module": "ember",
+          "submodule": "ember-extension-support",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-extension-support/lib/container_debug_adapter.js",
+          "line": 84,
+          "description": "<html><head></head><body><p>Returns the available classes a given type.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "catalogEntriesByType",
+          "params": [
+            {
+              "name": "type",
+              "description": "The type. e.g. \"model\", \"controller\", \"route\"",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "An array of strings.",
+            "type": "Array"
+          },
+          "class": "Ember.ContainerDebugAdapter",
+          "module": "ember",
+          "submodule": "ember-extension-support",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/ember-extension-support/lib/container_debug_adapter.js",
+          "line": 51,
+          "description": "<html><head></head><body><p>The container of the application being debugged.\nThis property will be injected\non creation.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "container",
+          "default": "null",
+          "class": "Ember.ContainerDebugAdapter",
+          "module": "ember",
+          "submodule": "ember-extension-support",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-extension-support/lib/container_debug_adapter.js",
+          "line": 61,
+          "description": "<html><head></head><body><p>The resolver instance of the application\nbeing debugged. This property will be injected\non creation.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "resolver",
+          "default": "null",
+          "class": "Ember.ContainerDebugAdapter",
+          "module": "ember",
+          "submodule": "ember-extension-support",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "EmberObject",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.8.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.8.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "data": {
+    "id": "ember-1.12.1-Ember.Handlebars",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Handlebars",
+      "shortname": "Ember.Handlebars",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-htmlbars",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/ember-htmlbars/lib/compat/handlebars-get.js",
+          "line": 6,
+          "description": "<html><head></head><body><p>Lookup both on root and on window. If the path starts with\na keyword, the corresponding object will be looked up in the\ntemplate&apos;s data hash and used to resolve the path.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "root",
+              "description": "The object to look up the property on",
+              "type": "Object"
+            },
+            {
+              "name": "path",
+              "description": "The path to be lookedup",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "The template's option hash",
+              "type": "Object"
+            }
+          ],
+          "deprecated": true,
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/compat/make-bound-helper.js",
+          "line": 19,
+          "description": "<html><head></head><body><p>A helper function used by <code>registerBoundHelper</code>. Takes the\nprovided Handlebars helper function fn and returns it in wrapped\nbound helper form.</p>\n<p>The main use case for using this outside of <code>registerBoundHelper</code>\nis for registering helpers on the container:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>var boundHelperFn = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span><span class=\"module\"><span class=\"identifier\">Handlebars</span>.</span></span>make<span class=\"constructor\">BoundHelper(<span class=\"params\">function</span>(<span class=\"params\">word</span>)</span> {\n  return word.<span class=\"keyword\">to</span><span class=\"constructor\">UpperCase()</span>;\n});\n\ncontainer.register(&apos;helper:my-bound-helper&apos;, boundHelperFn);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>In the above example, if the helper function hadn&apos;t been wrapped in\n<code>makeBoundHelper</code>, the registered helper would be unbound.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "makeBoundHelper",
+          "params": [
+            {
+              "name": "function",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "dependentKeys",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "since": "1.2.0",
+          "deprecated": true,
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/compat/register-bound-helper.js",
+          "line": 11,
+          "description": "<html><head></head><body><p>Register a bound handlebars helper. Bound helpers behave similarly to regular\nhandlebars helpers, with the added ability to re-render when the underlying data\nchanges.</p>\n<h2 id=\"simple-example\">Simple example</h2>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span><span class=\"module\"><span class=\"identifier\">Handlebars</span>.</span></span>register<span class=\"constructor\">BoundHelper(&apos;<span class=\"params\">capitalize</span>&apos;, <span class=\"params\">function</span>(<span class=\"params\">value</span>)</span> {\n  return <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span><span class=\"module\"><span class=\"identifier\">String</span>.</span></span>capitalize(value);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The above bound helper can be used inside of templates as follows:</p>\n<div class=\"highlight handlebars\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>{{capitalize name}}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>In this case, when the <code>name</code> property of the template&apos;s context changes,\nthe rendered value of the helper will update to reflect this change.</p>\n<h2 id=\"example-with-options\">Example with options</h2>\n<p>Like normal handlebars helpers, bound helpers have access to the options\npassed into the helper call.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre>Ember.Handlebars.registerBoundHelper(<span class=\"string\">&apos;repeat&apos;</span>, function(value, <span class=\"keyword\">options</span>) {\n  var <span class=\"keyword\">count</span> = <span class=\"keyword\">options</span>.hash.<span class=\"keyword\">count</span>;\n  var a = [];\n  <span class=\"keyword\">while</span>(a.length &lt; <span class=\"keyword\">count</span>) {\n      a.<span class=\"keyword\">push</span>(value);\n  }\n  <span class=\"keyword\">return</span> a.<span class=\"keyword\">join</span>(<span class=\"string\">&apos;&apos;</span>);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This helper could be used in a template as follows:</p>\n<div class=\"highlight handlebars\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>{{<span class=\"keyword\">repeat</span> <span class=\"built_in\">text</span> <span class=\"built_in\">count</span>=<span class=\"number\">3</span>}}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h2 id=\"example-with-bound-options\">Example with bound options</h2>\n<p>Bound hash options are also supported. Example:</p>\n<div class=\"highlight handlebars\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>{{<span class=\"keyword\">repeat</span> <span class=\"built_in\">text</span> <span class=\"built_in\">count</span>=numRepeats}}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>In this example, count will be bound to the value of\nthe <code>numRepeats</code> property on the context. If that property\nchanges, the helper will be re-rendered.</p>\n<h2 id=\"example-with-extra-dependencies\">Example with extra dependencies</h2>\n<p>The <code>Ember.Handlebars.registerBoundHelper</code> method takes a variable length\nthird parameter which indicates extra dependencies on the passed in value.\nThis allows the handlebars helper to update when these dependencies change.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span><span class=\"module\"><span class=\"identifier\">Handlebars</span>.</span></span>register<span class=\"constructor\">BoundHelper(&apos;<span class=\"params\">capitalizeName</span>&apos;, <span class=\"params\">function</span>(<span class=\"params\">value</span>)</span> {\n  return value.get(&apos;name&apos;).<span class=\"keyword\">to</span><span class=\"constructor\">UpperCase()</span>;\n}, &apos;name&apos;);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h2 id=\"example-with-multiple-bound-properties\">Example with multiple bound properties</h2>\n<p><code>Ember.Handlebars.registerBoundHelper</code> supports binding to\nmultiple properties, e.g.:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>Ember.Handlebars.registerBoundHelper(<span class=\"string\">&apos;concatenate&apos;</span>, <span class=\"keyword\">function</span>() {\n  var <span class=\"keyword\">values</span> = <span class=\"keyword\">Array</span>.prototype.<span class=\"keyword\">slice</span>.<span class=\"keyword\">call</span>(arguments, <span class=\"number\">0</span>, <span class=\"number\">-1</span>);\n  <span class=\"keyword\">return</span> <span class=\"keyword\">values</span>.<span class=\"keyword\">join</span>(<span class=\"string\">&apos;||&apos;</span>);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Which allows for template syntax such as <code>{{concatenate prop1 prop2}}</code> or\n<code>{{concatenate prop1 prop2 prop3}}</code>. If any of the properties change,\nthe helper will re-render.  Note that dependency keys cannot be\nusing in conjunction with multi-property helpers, since it is ambiguous\nwhich property the dependent keys would belong to.</p>\n<h2 id=\"use-with-unbound-helper\">Use with unbound helper</h2>\n<p>The <code>{{unbound}}</code> helper can be used with bound helper invocations\nto render them in their unbound form, e.g.</p>\n<div class=\"highlight handlebars\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>{{unbound capitalize name}}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>In this example, if the name property changes, the helper\nwill not re-render.</p>\n<h2 id=\"use-with-blocks-not-supported\">Use with blocks not supported</h2>\n<p>Bound helpers do not support use with Handlebars blocks or\nthe addition of child views of any kind.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "registerBoundHelper",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "function",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "dependentKeys",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/system/bootstrap.js",
+          "line": 21,
+          "description": "<html><head></head><body><p>Find templates stored in the head tag as script tags and make them available\nto <code>Ember.CoreView</code> in the global <code>Ember.TEMPLATES</code> object. This will be run\nas as jQuery DOM-ready callback.</p>\n<p>Script tags with <code>text/x-handlebars</code> will be compiled\nwith Ember&apos;s Handlebars and are suitable for use as a view&apos;s template.\nThose with type <code>text/x-raw-handlebars</code> will be compiled with regular\nHandlebars and are suitable for use in views&apos; computed properties.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "bootstrap",
+          "static": 1,
+          "params": [
+            {
+              "name": "ctx",
+              "description": ""
+            }
+          ],
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "submodule": "ember-handlebars"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.12.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.12.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

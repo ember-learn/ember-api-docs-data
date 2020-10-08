@@ -1,0 +1,49 @@
+{
+  "data": {
+    "id": "ember-data-3.14.1-@ember-data/serializer",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/serializer",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../store/addon/-private/ts-interfaces/minimum-serializer-interface.ts",
+      "line": 112,
+      "description": "<html><head></head><body><h2 id=\"overview\">Overview</h2>\n<p>In order to properly manage and present your data, EmberData\nneeds to understand the structure of data it receives.</p>\n<p><code>Serializers</code> convert data between the server&apos;s API format and\nthe format EmberData understands.</p>\n<p>Data received from an API response is <strong>normalized</strong> into \n<a href=\"https://jsonapi.org/\">JSON:API</a> (the format used internally\nby EmberData), while data sent to an API is <strong>serialized</strong>\ninto the format the API expects.</p>\n<h3 id=\"implementing-a-serializer\">Implementing a Serializer</h3>\n<p>There are only two required serializer methods, one for\nnormalizing data from the server API format into JSON:API, and\nanother for serializing records via <code>Snapshots</code> into the expected\nserver API format.</p>\n<p>To implement a serializer, export a class that conforms to the structure\ndescribed by the <a href=\"/ember-data/release/classes/MinimumSerializerInterface\">MinimumSerializerInterface</a>\nfrom the <code>app/serializers/</code> directory. An example is below.</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">EmberObject</span> from &apos;<span class=\"meta\">@ember</span>/<span class=\"class\"><span class=\"keyword\">object</span>&apos;</span>;\n\nexport <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">ApplicationSerializer</span> <span class=\"keyword\">extends</span> <span class=\"title\">EmberObject</span> </span>{\n  normalizeResponse(store, schema, rawPayload) {\n    <span class=\"keyword\">return</span> rawPayload;\n  }\n\n  serialize(snapshot, options) {\n    const serializedResource = {\n      id: snapshot.id(),\n      <span class=\"class\"><span class=\"keyword\">type</span></span>: snapshot.modelName,\n      attributes: snapshot.attributes()\n    };\n\n    <span class=\"keyword\">return</span> serializedResource;\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h3 id=\"serializer-resolution\">Serializer Resolution</h3>\n<p><code>store.serializerFor(name)</code> will lookup serializers defined in\n<code>app/serializers/</code> and return an instance. If no serializer is found, an\nerror will be thrown.</p>\n<p><code>serializerFor</code> first attempts to find a serializer with an exact match on <code>name</code>,\nthen falls back to checking for the presence of a serializer named <code>application</code>.</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>store.serializerFor(<span class=\"string\">&apos;author&apos;</span>);\n\n<span class=\"regexp\">//</span> lookup paths (<span class=\"keyword\">in</span> order) =&gt;\n<span class=\"regexp\">//</span>   app<span class=\"regexp\">/serializers/</span>author.js\n<span class=\"regexp\">//</span>   app<span class=\"regexp\">/serializers/</span>application.js</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Most requests in EmberData are made with respect to a particular <code>type</code> (or <code>modelName</code>)\n(e.g., &quot;get me the full collection of <strong>books</strong>&quot; or &quot;get me the <strong>employee</strong> whose id is 37&quot;). We\nrefer to this as the <strong>primary</strong> resource <code>type</code>.</p>\n<p>Typically <code>serializerFor</code> will be used to find a serializer with a name matching that of the primary\nresource <code>type</code> for the request, falling back to the <code>application</code> serializer for those types that\ndo not have a defined serializer. This is often described as a <code>per-model</code> or <code>per-type</code> strategy\nfor defining serializers. However, because APIs rarely format payloads per-type but rather\nper-API-version, this may not be a desired strategy.</p>\n<p>It is recommended that applications define only a single <code>application</code> adapter and serializer\nwhere possible.</p>\n<p>If you have multiple API formats and the per-type strategy is not viable, one strategy is to\nwrite an <code>application</code> adapter and serializer that make use of <code>options</code> to specify the desired\nformat when making a request.</p>\n<h3 id=\"using-a-serializer\">Using a Serializer</h3>\n<p>Any serializer in <code>app/serializers/</code> can be looked up by <code>name</code> using <code>store.serializerFor(name)</code>.</p>\n<h3 id=\"default-serializers\">Default Serializers</h3>\n<p>For applications whose APIs are <em>very close to</em> or <em>exactly</em> the <strong>REST</strong> format or <strong>JSON:API</strong>\nformat the <code>@ember-data/serializer</code> package contains implementations these applications can\nextend. It also contains a simple <code>JSONSerializer</code> for serializing to/from very basic JSON objects.</p>\n<p>Many applications will find writing their own serializer to be more performant and less\ncomplex than extending these classes even when their API format is very close to that expected\nby these serializers.</p>\n<p>It is recommended that apps write their own serializer to best suit the needs of their API and\napplication.</p>\n</body></html>",
+      "itemtype": "main",
+      "access": "public",
+      "tagname": "",
+      "parent": null,
+      "publicclasses": [
+        "BooleanTransform",
+        "DateTransform",
+        "NumberTransform",
+        "StringTransform",
+        "Transform",
+        "EmbeddedRecordsMixin",
+        "Serializer",
+        "JSONAPISerializer",
+        "JSONSerializer",
+        "RESTSerializer",
+        "MinimumSerializerInterface"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "3.14.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.14.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

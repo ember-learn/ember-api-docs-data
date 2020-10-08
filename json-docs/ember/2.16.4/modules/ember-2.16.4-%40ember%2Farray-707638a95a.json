@@ -1,0 +1,116 @@
+{
+  "data": {
+    "id": "ember-2.16.4-@ember/array",
+    "type": "module",
+    "attributes": {
+      "name": "@ember/array",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember/array": 1
+      },
+      "namespaces": {},
+      "tag": "module",
+      "file": "packages/ember-runtime/lib/system/array_proxy.js",
+      "line": 33,
+      "parent": null,
+      "publicclasses": [
+        "EmberArray",
+        "MutableArray",
+        "ArrayProxy"
+      ],
+      "privateclasses": [
+        "EachProxy"
+      ],
+      "staticfunctions": {
+        "@ember/array": [
+          {
+            "file": "packages/ember-runtime/lib/utils.js",
+            "line": 23,
+            "description": "Returns true if the passed object is an array or Array-like.\n\nObjects are considered Array-like if any of the following are true:\n\n  - the object is a native Array\n  - the object has an objectAt property\n  - the object is an Object, and has a length property\n\nUnlike `Ember.typeOf` this method returns true even if the passed object is\nnot formally an array but appears to be array-like (i.e. implements `Ember.Array`)\n\n```javascript\nEmber.isArray();                                          // false\nEmber.isArray([]);                                        // true\nEmber.isArray(Ember.ArrayProxy.create({ content: [] }));  // true\n```",
+            "itemtype": "method",
+            "name": "isArray",
+            "static": 1,
+            "params": [
+              {
+                "name": "obj",
+                "description": "The object to test",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "true if the passed object is an array or Array-like",
+              "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/array",
+            "module": "@ember/array"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember/array": [
+          {
+            "file": "packages/ember-runtime/lib/utils.js",
+            "line": 23,
+            "description": "Returns true if the passed object is an array or Array-like.\n\nObjects are considered Array-like if any of the following are true:\n\n  - the object is a native Array\n  - the object has an objectAt property\n  - the object is an Object, and has a length property\n\nUnlike `Ember.typeOf` this method returns true even if the passed object is\nnot formally an array but appears to be array-like (i.e. implements `Ember.Array`)\n\n```javascript\nEmber.isArray();                                          // false\nEmber.isArray([]);                                        // true\nEmber.isArray(Ember.ArrayProxy.create({ content: [] }));  // true\n```",
+            "itemtype": "method",
+            "name": "isArray",
+            "static": 1,
+            "params": [
+              {
+                "name": "obj",
+                "description": "The object to test",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "true if the passed object is an array or Array-like",
+              "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/array",
+            "module": "@ember/array"
+          },
+          {
+            "file": "packages/ember-utils/lib/make-array.js",
+            "line": 5,
+            "description": "Forces the passed object to be part of an array. If the object is already\nan array, it will return the object. Otherwise, it will add the object to\nan array. If obj is `null` or `undefined`, it will return an empty array.\n\n```javascript\nEmber.makeArray();            // []\nEmber.makeArray(null);        // []\nEmber.makeArray(undefined);   // []\nEmber.makeArray('lindsay');   // ['lindsay']\nEmber.makeArray([1, 2, 42]);  // [1, 2, 42]\n\nlet controller = Ember.ArrayProxy.create({ content: [] });\n\nEmber.makeArray(controller) === controller;  // true\n```",
+            "itemtype": "method",
+            "name": "makeArray",
+            "static": 1,
+            "params": [
+              {
+                "name": "obj",
+                "description": "the object",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Array"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "@ember/array",
+            "module": "@ember/array"
+          }
+        ]
+      },
+      "version": "2.16.4"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.16.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

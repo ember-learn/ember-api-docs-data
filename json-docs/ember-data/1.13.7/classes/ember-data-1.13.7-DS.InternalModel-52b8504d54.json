@@ -1,0 +1,265 @@
+{
+  "data": {
+    "id": "ember-data-1.13.7-DS.InternalModel",
+    "type": "class",
+    "attributes": {
+      "name": "DS.InternalModel",
+      "shortname": "InternalModel",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "packages/ember-data/lib/system/model/internal-model.js",
+      "line": 38,
+      "description": "<html><head></head><body><p><code>InternalModel</code> is the Model class that we use internally inside Ember Data to represent models.\nInternal ED methods should only deal with <code>InternalModel</code> objects. It is a fast, plain Javascript class.</p>\n<p>We expose <code>DS.Model</code> to application code, by materializing a <code>DS.Model</code> from <code>InternalModel</code> lazily, as\na performance optimization.</p>\n<p><code>InternalModel</code> should never be exposed to application code. At the boundaries of the system, in places\nlike <code>find</code>, <code>push</code>, etc. we convert between Models and InternalModels.</p>\n<p>We need to make sure that the properties from <code>InternalModel</code> are correctly exposed/proxied on <code>Model</code>\nif they are needed.</p>\n</body></html>",
+      "methods": [
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 227,
+          "itemtype": "method",
+          "name": "createSnapshot",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 238,
+          "itemtype": "method",
+          "name": "loadingData",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "promise",
+              "description": "",
+              "type": "Promise"
+            }
+          ],
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 247,
+          "itemtype": "method",
+          "name": "loadedData",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 256,
+          "itemtype": "method",
+          "name": "notFound",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 264,
+          "itemtype": "method",
+          "name": "pushedData",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 277,
+          "itemtype": "method",
+          "name": "adapterWillCommit",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 285,
+          "itemtype": "method",
+          "name": "adapterDidDirty",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 294,
+          "itemtype": "method",
+          "name": "send",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 366,
+          "itemtype": "method",
+          "name": "transitionTo",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 452,
+          "itemtype": "method",
+          "name": "clearRelationships",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 493,
+          "description": "<html><head></head><body><p>When a find request is triggered on the store, the user can optionally pass in\nattributes and relationships to be preloaded. These are meant to behave as if they\ncame back from the server, except the user obtained them out of band and is informing\nthe store of their existence. The most common use case is for supporting client side\nnested URLs, such as <code>/posts/1/comments/2</code> so the user can do\n<code>store.find(&apos;comment&apos;, 2, {post:1})</code> without having to fetch the post.</p>\n<p>Preloaded data can be attributes and relationships passed in either as IDs or as actual\nmodels.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "_preloadData",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "preload",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 563,
+          "itemtype": "method",
+          "name": "updateRecordArrays",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 601,
+          "description": "<html><head></head><body><p>If the adapter did not return a hash in response to a commit,\nmerge the changed attributes and relationships into the existing\nsaved data.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "adapterDidCommit",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 631,
+          "itemtype": "method",
+          "name": "updateRecordArraysLater",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 659,
+          "itemtype": "method",
+          "name": "adapterDidInvalidate",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 675,
+          "itemtype": "method",
+          "name": "adapterDidError",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/internal-model.js",
+          "line": 695,
+          "description": "<html><head></head><body><p>Ember Data has 3 buckets for storing the value of an attribute on an internalModel.</p>\n<p><code>_data</code> holds all of the attributes that have been acknowledged by\na backend via the adapter. When rollbackAttributes is called on a model all\nattributes will revert to the record&apos;s state in <code>_data</code>.</p>\n<p><code>_attributes</code> holds any change the user has made to an attribute\nthat has not been acknowledged by the adapter. Any values in\n<code>_attributes</code> are have priority over values in <code>_data</code>.</p>\n<p><code>_inFlightAttributes</code>. When a record is being synced with the\nbackend the values in <code>_attributes</code> are copied to\n<code>_inFlightAttributes</code>. This way if the backend acknowledges the\nsave but does not return the new state Ember Data can copy the\nvalues from <code>_inFlightAttributes</code> to <code>_data</code>. Without having to\nworry about changes made to <code>_attributes</code> while the save was\nhappenign.</p>\n<p>Changed keys builds a list of all of the values that may have been\nchanged by the backend after a successful save.</p>\n<p>It does this by iterating over each key, value pair in the payload\nreturned from the server after a save. If the <code>key</code> is found in\n<code>_attributes</code> then the user has a local changed to the attribute\nthat has not been synced with the server and the key is not\nincluded in the list of changed keys.</p>\n<p>If the value, for a key differs from the value in what Ember Data\nbelieves to be the truth about the backend state (A merger of the\n<code>_data</code> and <code>_inFlightAttributes</code> objects where\n<code>_inFlightAttributes</code> has priority) then that means the backend\nhas updated the value and the key is added to the list of changed\nkeys.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "_changedKeys",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.InternalModel",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-1.13.7-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-1.13.7",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
