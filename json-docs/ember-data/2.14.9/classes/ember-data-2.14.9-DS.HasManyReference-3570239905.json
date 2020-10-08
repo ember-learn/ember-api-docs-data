@@ -1,0 +1,163 @@
+{
+  "data": {
+    "id": "ember-data-2.14.9-DS.HasManyReference",
+    "type": "class",
+    "attributes": {
+      "name": "DS.HasManyReference",
+      "shortname": "DS.HasManyReference",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/system/references/has-many.js",
+      "line": 16,
+      "description": "<html><head></head><body><p>A HasManyReference is a low level API that allows users and addon\nauthor to perform meta-operations on a has-many relationship.</p>\n</body></html>",
+      "methods": [
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 36,
+          "description": "<html><head></head><body><p>This returns a string that represents how the reference will be\nlooked up when it is loaded. If the relationship has a link it will\nuse the &quot;link&quot; otherwise it defaults to &quot;id&quot;.</p>\n<p>Example</p>\n<div class=\"highlight app/models/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"builtin-name\">export</span><span class=\"built_in\"> default </span>DS.Model.extend({\n  comments: DS.hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> post = store.push({\n  <span class=\"attribute\">data</span>: {\n    <span class=\"attribute\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"attribute\">id:</span><span class=\"string\"> 1,\n    relationships</span>: {\n      <span class=\"attribute\">comments</span>: {\n        <span class=\"attribute\">data</span>: [{ <span class=\"attribute\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attribute\">id:</span><span class=\"string\"> 1 }]\n      }\n    }\n  }\n});\n\nlet</span> commentsRef = post.hasMany(<span class=\"string\">&apos;comments&apos;</span>);\n\n<span class=\"comment\">// get the identifier of the reference</span>\n<span class=\"keyword\">if</span> (commentsRef.remoteType() === <span class=\"string\">&quot;ids&quot;</span>) {\n  <span class=\"keyword\">let</span> ids = commentsRef.ids();\n} <span class=\"keyword\">else</span> <span class=\"keyword\">if</span> (commentsRef.remoteType() === <span class=\"string\">&quot;link&quot;</span>) {\n  <span class=\"keyword\">let</span> link = commentsRef.link();\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "remoteType",
+          "return": {
+            "description": "The name of the remote type. This should either be \"link\" or \"ids\"",
+            "type": "String"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 83,
+          "description": "<html><head></head><body><p>The link Ember Data will use to fetch or reload this has-many\nrelationship.</p>\n<p>Example</p>\n<div class=\"highlight app/models/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"builtin-name\">export</span><span class=\"built_in\"> default </span>DS.Model.extend({\n  comments: DS.hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> post = store.push({\n  <span class=\"built_in\">data</span>: {\n    <span class=\"keyword\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    id: <span class=\"number\">1</span>,\n    relationships: {\n      comments: {\n        links: {\n          related: <span class=\"string\">&apos;/posts/1/comments&apos;</span>\n        }\n      }\n    }\n  }\n});\n\n<span class=\"keyword\">let</span> commentsRef = post.hasMany(<span class=\"string\">&apos;comments&apos;</span>);\n\ncommentsRef.<span class=\"keyword\">link</span>(); <span class=\"comment\">// &apos;/posts/1/comments&apos;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "link",
+          "return": {
+            "description": "The link Ember Data will use to fetch or reload this has-many relationship.",
+            "type": "String"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 122,
+          "description": "<html><head></head><body><p><code>ids()</code> returns an array of the record ids in this relationship.</p>\n<p>Example</p>\n<div class=\"highlight app/models/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"builtin-name\">export</span><span class=\"built_in\"> default </span>DS.Model.extend({\n  comments: DS.hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> post = store.push({\n  <span class=\"attribute\">data</span>: {\n    <span class=\"attribute\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"attribute\">id:</span><span class=\"string\"> 1,\n    relationships</span>: {\n      <span class=\"attribute\">comments</span>: {\n        <span class=\"attribute\">data</span>: [{ <span class=\"attribute\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attribute\">id:</span><span class=\"string\"> 1 }]\n      }\n    }\n  }\n});\n\nlet</span> commentsRef = post.hasMany(<span class=\"string\">&apos;comments&apos;</span>);\n\ncommentsRef.ids(); <span class=\"comment\">// [&apos;1&apos;]</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "remoteType",
+          "return": {
+            "description": "The ids in this has-many relationship",
+            "type": "Array"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 162,
+          "description": "<html><head></head><body><p>The link Ember Data will use to fetch or reload this has-many\nrelationship.</p>\n<p>Example</p>\n<div class=\"highlight app/models/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"builtin-name\">export</span><span class=\"built_in\"> default </span>DS.Model.extend({\n  comments: DS.hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n</pre></td>\n              <td class=\"code\"><pre><span class=\"attr\">let</span> <span class=\"string\">post = store.push({</span>\n  <span class=\"attr\">data</span>: <span class=\"string\">{</span>\n    <span class=\"attr\">type</span>: <span class=\"string\">&apos;post&apos;,</span>\n    <span class=\"attr\">id</span>: <span class=\"string\">1,</span>\n    <span class=\"attr\">relationships</span>: <span class=\"string\">{</span>\n      <span class=\"attr\">comments</span>: <span class=\"string\">{</span>\n        <span class=\"attr\">links</span>: <span class=\"string\">{</span>\n          <span class=\"attr\">related</span>: <span class=\"string\">{</span>\n            <span class=\"attr\">href</span>: <span class=\"string\">&apos;/posts/1/comments&apos;,</span>\n            <span class=\"attr\">meta</span>: <span class=\"string\">{</span>\n              <span class=\"attr\">count</span>: <span class=\"string\">10</span>\n            <span class=\"attr\">}</span>\n          <span class=\"attr\">}</span>\n        <span class=\"attr\">}</span>\n      <span class=\"attr\">}</span>\n    <span class=\"attr\">}</span>\n  <span class=\"attr\">}</span>\n<span class=\"attr\">});</span>\n\n<span class=\"attr\">let</span> <span class=\"string\">commentsRef = post.hasMany(&apos;comments&apos;);</span>\n\n<span class=\"meta\">commentsRef.meta();</span> <span class=\"string\">// { count: 10 }</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "meta",
+          "return": {
+            "description": "The meta information for the has-many relationship.",
+            "type": "Object"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 206,
+          "description": "<html><head></head><body><p><code>push</code> can be used to update the data in the relationship and Ember\nData will treat the new data as the canonical value of this\nrelationship on the backend.</p>\n<p>Example</p>\n<div class=\"highlight app/models/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"builtin-name\">export</span><span class=\"built_in\"> default </span>DS.Model.extend({\n  comments: DS.hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> post = store.push({\n  <span class=\"attribute\">data</span>: {\n    <span class=\"attribute\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"attribute\">id:</span><span class=\"string\"> 1,\n    relationships</span>: {\n      <span class=\"attribute\">comments</span>: {\n        <span class=\"attribute\">data</span>: [{ <span class=\"attribute\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attribute\">id:</span><span class=\"string\"> 1 }]\n      }\n    }\n  }\n});\n\nlet</span> commentsRef = post.hasMany(<span class=\"string\">&apos;comments&apos;</span>);\n\ncommentsRef.ids(); <span class=\"comment\">// [&apos;1&apos;]</span>\n\ncommentsRef.push([\n  [{ <span class=\"attribute\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attribute\">id:</span><span class=\"string\"> 2 }],\n  [{ type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attribute\">id:</span><span class=\"string\"> 3 }],\n])\n\ncommentsRef.ids</span>(); <span class=\"comment\">// [&apos;2&apos;, &apos;3&apos;]</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    </body></html>",
+          "itemtype": "method",
+          "name": "push",
+          "params": [
+            {
+              "name": "objectOrPromise",
+              "description": "a promise that resolves to a JSONAPI document object describing the new value of this relationship.",
+              "type": "Array|Promise"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "DS.ManyArray"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 319,
+          "description": "<html><head></head><body><p><code>value()</code> sycronously returns the current value of the has-many\n relationship. Unlike <code>record.get(&apos;relationshipName&apos;)</code>, calling\n <code>value()</code> on a reference does not trigger a fetch if the async\n relationship is not yet loaded. If the relationship is not loaded\n it will always return <code>null</code>.</p>\n<p>Example</p>\n<div class=\"highlight app/models/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"builtin-name\">export</span><span class=\"built_in\"> default </span>DS.Model.extend({\n  comments: DS.hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> post = store.push({\n  <span class=\"attribute\">data</span>: {\n    <span class=\"attribute\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"attribute\">id:</span><span class=\"string\"> 1,\n    relationships</span>: {\n      <span class=\"attribute\">comments</span>: {\n        <span class=\"attribute\">data</span>: [{ <span class=\"attribute\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attribute\">id:</span><span class=\"string\"> 1 }]\n      }\n    }\n  }\n});\n\nlet</span> commentsRef = post.hasMany(<span class=\"string\">&apos;comments&apos;</span>);\n\npost.get(<span class=\"string\">&apos;comments&apos;</span>).then(<span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\">comments</span>) </span>{\n  commentsRef.value() === comments\n})</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "value",
+          "return": {
+            "description": "",
+            "type": "DS.ManyArray"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 365,
+          "description": "<html><head></head><body><p>Loads the relationship if it is not already loaded.  If the\nrelationship is already loaded this method does not trigger a new\nload.</p>\n<p>Example</p>\n<div class=\"highlight app/models/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"builtin-name\">export</span><span class=\"built_in\"> default </span>DS.Model.extend({\n  comments: DS.hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> post = store.push({\n  <span class=\"attribute\">data</span>: {\n    <span class=\"attribute\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"attribute\">id:</span><span class=\"string\"> 1,\n    relationships</span>: {\n      <span class=\"attribute\">comments</span>: {\n        <span class=\"attribute\">data</span>: [{ <span class=\"attribute\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attribute\">id:</span><span class=\"string\"> 1 }]\n      }\n    }\n  }\n});\n\nlet</span> commentsRef = post.hasMany(<span class=\"string\">&apos;comments&apos;</span>);\n\ncommentsRef.load().then(<span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\">comments</span>) </span>{\n  <span class=\"comment\">//...</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "load",
+          "return": {
+            "description": "a promise that resolves with the ManyArray in\nthis has-many relationship.",
+            "type": "Promise"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 410,
+          "description": "<html><head></head><body><p>Reloads this has-many relationship.</p>\n<p>Example</p>\n<div class=\"highlight app/models/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"builtin-name\">export</span><span class=\"built_in\"> default </span>DS.Model.extend({\n  comments: DS.hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> post = store.push({\n  <span class=\"attribute\">data</span>: {\n    <span class=\"attribute\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"attribute\">id:</span><span class=\"string\"> 1,\n    relationships</span>: {\n      <span class=\"attribute\">comments</span>: {\n        <span class=\"attribute\">data</span>: [{ <span class=\"attribute\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attribute\">id:</span><span class=\"string\"> 1 }]\n      }\n    }\n  }\n});\n\nlet</span> commentsRef = post.hasMany(<span class=\"string\">&apos;comments&apos;</span>);\n\ncommentsRef.reload().then(<span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\">comments</span>) </span>{\n  <span class=\"comment\">//...</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "reload",
+          "return": {
+            "description": "a promise that resolves with the ManyArray in this has-many relationship.",
+            "type": "Promise"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.14.9-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.14.9",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

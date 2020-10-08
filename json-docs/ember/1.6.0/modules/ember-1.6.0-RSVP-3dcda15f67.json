@@ -1,0 +1,413 @@
+{
+  "data": {
+    "id": "ember-1.6.0-RSVP",
+    "type": "module",
+    "attributes": {
+      "name": "RSVP",
+      "submodules": {},
+      "fors": {
+        "Ember.RSVP": 1,
+        "Ember.RSVP.Promise": 1
+      },
+      "namespaces": {},
+      "tag": "module",
+      "file": "../packages/rsvp/lib/main.js",
+      "line": 950,
+      "parent": null,
+      "publicclasses": [
+        "Ember.RSVP",
+        "Ember.RSVP.EventTarget",
+        "Ember.RSVP.Promise"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {
+        "Ember.RSVP": [
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 11,
+            "description": "This is a convenient alias for `RSVP.Promise.all`.",
+            "itemtype": "method",
+            "name": "all",
+            "params": [
+              {
+                "name": "array",
+                "description": "Array of promises.",
+                "type": "Array"
+              },
+              {
+                "name": "label",
+                "description": "An optional label. This is useful\nfor tooling.",
+                "type": "String"
+              }
+            ],
+            "static": 1,
+            "class": "Ember.RSVP",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 33,
+            "description": "`RSVP.allSettled` is similar to `RSVP.all`, but instead of implementing\na fail-fast method, it waits until all the promises have returned and\nshows you all the results. This is useful if you want to handle multiple\npromises' failure states together as a set.\n\nReturns a promise that is fulfilled when all the given promises have been\nsettled. The return promise is fulfilled with an array of the states of\nthe promises passed into the `promises` array argument.\n\nEach state object will either indicate fulfillment or rejection, and\nprovide the corresponding value or reason. The states will take one of\nthe following formats:\n\n```javascript\n{ state: 'fulfilled', value: value }\n  or\n{ state: 'rejected', reason: reason }\n```\n\nExample:\n\n```javascript\nvar promise1 = RSVP.Promise.resolve(1);\nvar promise2 = RSVP.Promise.reject(new Error('2'));\nvar promise3 = RSVP.Promise.reject(new Error('3'));\nvar promises = [ promise1, promise2, promise3 ];\n\nRSVP.allSettled(promises).then(function(array){\n  // array == [\n  //   { state: 'fulfilled', value: 1 },\n  //   { state: 'rejected', reason: Error },\n  //   { state: 'rejected', reason: Error }\n  // ]\n  // Note that for the second item, reason.message will be \"2\", and for the\n  // third item, reason.message will be \"3\".\n}, function(error) {\n  // Not run. (This block would only be called if allSettled had failed,\n  // for instance if passed an incorrect argument type.)\n});\n```",
+            "itemtype": "method",
+            "name": "allSettled",
+            "params": [
+              {
+                "name": "promises",
+                "description": "",
+                "type": "Array"
+              },
+              {
+                "name": "label",
+                "description": "- optional string that describes the promise.\nUseful for tooling.",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "promise that is fulfilled with an array of the settled\nstates of the constituent promises.",
+              "type": "Promise"
+            },
+            "static": 1,
+            "class": "Ember.RSVP",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 833,
+            "description": "`RSVP.denodeify` takes a \"node-style\" function and returns a function that\nwill return an `RSVP.Promise`. You can use `denodeify` in Node.js or the\nbrowser when you'd prefer to use promises over using callbacks. For example,\n`denodeify` transforms the following:\n\n```javascript\nvar fs = require('fs');\n\nfs.readFile('myfile.txt', function(err, data){\n  if (err) return handleError(err);\n  handleData(data);\n});\n```\n\ninto:\n\n```javascript\nvar fs = require('fs');\n\nvar readFile = RSVP.denodeify(fs.readFile);\n\nreadFile('myfile.txt').then(handleData, handleError);\n```\n\nUsing `denodeify` makes it easier to compose asynchronous operations instead\nof using callbacks. For example, instead of:\n\n```javascript\nvar fs = require('fs');\nvar log = require('some-async-logger');\n\nfs.readFile('myfile.txt', function(err, data){\n  if (err) return handleError(err);\n  fs.writeFile('myfile2.txt', data, function(err){\n    if (err) throw err;\n    log('success', function(err) {\n      if (err) throw err;\n    });\n  });\n});\n```\n\nYou can chain the operations together using `then` from the returned promise:\n\n```javascript\nvar fs = require('fs');\nvar denodeify = RSVP.denodeify;\nvar readFile = denodeify(fs.readFile);\nvar writeFile = denodeify(fs.writeFile);\nvar log = denodeify(require('some-async-logger'));\n\nreadFile('myfile.txt').then(function(data){\n  return writeFile('myfile2.txt', data);\n}).then(function(){\n  return log('SUCCESS');\n}).then(function(){\n  // success handler\n}, function(reason){\n  // rejection handler\n});\n```",
+            "itemtype": "method",
+            "name": "denodeify",
+            "params": [
+              {
+                "name": "nodeFunc",
+                "description": "a \"node-style\" function that takes a callback as\nits last argument. The callback expects an error to be passed as its first\nargument (if an error occurred, otherwise null), and the value from the\noperation as its second argument (\"function(err, value){ }\").",
+                "type": "Function"
+              },
+              {
+                "name": "binding",
+                "description": "optional argument for binding the \"this\" value when\ncalling the `nodeFunc` function.",
+                "type": "Any"
+              }
+            ],
+            "return": {
+              "description": "a function that wraps `nodeFunc` to return an\n`RSVP.Promise`",
+              "type": "Function"
+            },
+            "static": 1,
+            "class": "Ember.RSVP",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 548,
+            "description": "`RSVP.hash` is similar to `RSVP.all`, but takes an object instead of an array\nfor its `promises` argument.\n\nReturns a promise that is fulfilled when all the given promises have been\nfulfilled, or rejected if any of them become rejected. The returned promise\nis fulfilled with a hash that has the same key names as the `promises` object\nargument. If any of the values in the object are not promises, they will\nsimply be copied over to the fulfilled object.\n\nExample:\n\n```javascript\nvar promises = {\n  myPromise: RSVP.resolve(1),\n  yourPromise: RSVP.resolve(2),\n  theirPromise: RSVP.resolve(3),\n  notAPromise: 4\n};\n\nRSVP.hash(promises).then(function(hash){\n  // hash here is an object that looks like:\n  // {\n  //   myPromise: 1,\n  //   yourPromise: 2,\n  //   theirPromise: 3,\n  //   notAPromise: 4\n  // }\n});\n````\n\nIf any of the `promises` given to `RSVP.hash` are rejected, the first promise\nthat is rejected will be given as the reason to the rejection handler.\n\nExample:\n\n```javascript\nvar promises = {\n  myPromise: RSVP.resolve(1),\n  rejectedPromise: RSVP.reject(new Error(\"rejectedPromise\")),\n  anotherRejectedPromise: RSVP.reject(new Error(\"anotherRejectedPromise\")),\n};\n\nRSVP.hash(promises).then(function(hash){\n  // Code here never runs because there are rejected promises!\n}, function(reason) {\n  // reason.message === \"rejectedPromise\"\n});\n```\n\nAn important note: `RSVP.hash` is intended for plain JavaScript objects that\nare just a set of keys and values. `RSVP.hash` will NOT preserve prototype\nchains.\n\nExample:\n\n```javascript\nfunction MyConstructor(){\n  this.example = RSVP.resolve(\"Example\");\n}\n\nMyConstructor.prototype = {\n  protoProperty: RSVP.resolve(\"Proto Property\")\n};\n\nvar myObject = new MyConstructor();\n\nRSVP.hash(myObject).then(function(hash){\n  // protoProperty will not be present, instead you will just have an\n  // object that looks like:\n  // {\n  //   example: \"Example\"\n  // }\n  //\n  // hash.hasOwnProperty('protoProperty'); // false\n  // 'undefined' === typeof hash.protoProperty\n});\n```",
+            "itemtype": "method",
+            "name": "hash",
+            "params": [
+              {
+                "name": "promises",
+                "description": "",
+                "type": "Object"
+              },
+              {
+                "name": "label",
+                "description": "optional string that describes the promise.\nUseful for tooling.",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "promise that is fulfilled when all properties of `promises`\nhave been fulfilled, or rejected if any of them become rejected.",
+              "type": "Promise"
+            },
+            "static": 1,
+            "class": "Ember.RSVP",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 713,
+            "description": "`RSVP.map` is similar to JavaScript's native `map` method, except that it\n waits for all promises to become fulfilled before running the `mapFn` on\n each item in given to `promises`. `RSVP.map` returns a promise that will\n become fulfilled with the result of running `mapFn` on the values the promises\n become fulfilled with.\n\n For example:\n\n ```javascript\n\n var promise1 = RSVP.resolve(1);\n var promise2 = RSVP.resolve(2);\n var promise3 = RSVP.resolve(3);\n var promises = [ promise1, promise2, promise3 ];\n\n var mapFn = function(item){\n   return item + 1;\n };\n\n RSVP.map(promises, mapFn).then(function(result){\n   // result is [ 2, 3, 4 ]\n });\n ```\n\n If any of the `promises` given to `RSVP.map` are rejected, the first promise\n that is rejected will be given as an argument to the returned promise's\n rejection handler. For example:\n\n ```javascript\n var promise1 = RSVP.resolve(1);\n var promise2 = RSVP.reject(new Error(\"2\"));\n var promise3 = RSVP.reject(new Error(\"3\"));\n var promises = [ promise1, promise2, promise3 ];\n\n var mapFn = function(item){\n   return item + 1;\n };\n\n RSVP.map(promises, mapFn).then(function(array){\n   // Code here never runs because there are rejected promises!\n }, function(reason) {\n   // reason.message === \"2\"\n });\n ```\n\n `RSVP.map` will also wait if a promise is returned from `mapFn`. For example,\n say you want to get all comments from a set of blog posts, but you need\n the blog posts first becuase they contain a url to those comments.\n\n ```javscript\n\n var mapFn = function(blogPost){\n   // getComments does some ajax and returns an RSVP.Promise that is fulfilled\n   // with some comments data\n   return getComments(blogPost.comments_url);\n };\n\n // getBlogPosts does some ajax and returns an RSVP.Promise that is fulfilled\n // with some blog post data\n RSVP.map(getBlogPosts(), mapFn).then(function(comments){\n   // comments is the result of asking the server for the comments\n   // of all blog posts returned from getBlogPosts()\n });\n ```",
+            "itemtype": "method",
+            "name": "map",
+            "params": [
+              {
+                "name": "promises",
+                "description": "",
+                "type": "Array"
+              },
+              {
+                "name": "mapFn",
+                "description": "function to be called on each fulfilled promise.",
+                "type": "Function"
+              },
+              {
+                "name": "label",
+                "description": "optional string for labeling the promise.\n Useful for tooling.",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "promise that is fulfilled with the result of calling\n `mapFn` on each fulfilled promise or value when they become fulfilled.\n  The promise will be rejected if any of the given `promises` become rejected.",
+              "type": "Promise"
+            },
+            "static": 1,
+            "class": "Ember.RSVP",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 1961,
+            "description": "This is a convenient alias for `RSVP.Promise.reject`.",
+            "itemtype": "method",
+            "name": "reject",
+            "params": [
+              {
+                "name": "reason",
+                "description": "value that the returned promise will be rejected with.",
+                "type": "Any"
+              },
+              {
+                "name": "label",
+                "description": "optional string for identifying the returned promise.\nUseful for tooling.",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "a promise rejected with the given `reason`.",
+              "type": "Promise"
+            },
+            "static": 1,
+            "class": "Ember.RSVP",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 1982,
+            "description": "This is a convenient alias for `RSVP.Promise.resolve`.",
+            "itemtype": "method",
+            "name": "resolve",
+            "params": [
+              {
+                "name": "value",
+                "description": "value that the returned promise will be resolved with",
+                "type": "Any"
+              },
+              {
+                "name": "label",
+                "description": "optional string for identifying the returned promise.\nUseful for tooling.",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "a promise that will become fulfilled with the given\n`value`",
+              "type": "Promise"
+            },
+            "static": 1,
+            "class": "Ember.RSVP",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 2002,
+            "description": "`RSVP.rethrow` will rethrow an error on the next turn of the JavaScript event\nloop in order to aid debugging.\n\nPromises A+ specifies that any exceptions that occur with a promise must be\ncaught by the promises implementation and bubbled to the last handler. For\nthis reason, it is recommended that you always specify a second rejection\nhandler function to `then`. However, `RSVP.rethrow` will throw the exception\noutside of the promise, so it bubbles up to your console if in the browser,\nor domain/cause uncaught exception in Node. `rethrow` will also throw the\nerror again so the error can be handled by the promise per the spec.\n\n```javascript\nfunction throws(){\n  throw new Error('Whoops!');\n}\n\nvar promise = new RSVP.Promise(function(resolve, reject){\n  throws();\n});\n\npromise.catch(RSVP.rethrow).then(function(){\n  // Code here doesn't run because the promise became rejected due to an\n  // error!\n}, function (err){\n  // handle the error here\n});\n```\n\nThe 'Whoops' error will be thrown on the next turn of the event loop\nand you can watch for it in your console. You can also handle it using a\nrejection handler given to `.then` or `.catch` on the returned promise.",
+            "itemtype": "method",
+            "name": "rethrow",
+            "params": [
+              {
+                "name": "reason",
+                "description": "reason the promise became rejected.",
+                "type": "Error"
+              }
+            ],
+            "throws": {
+              "description": "Error"
+            },
+            "static": 1,
+            "class": "Ember.RSVP",
+            "module": "RSVP",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.RSVP.Promise": [
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 1562,
+            "description": "`RSVP.Promise.all` accepts an array of promises, and returns a new promise which\nis fulfilled with an array of fulfillment values for the passed promises, or\nrejected with the reason of the first passed promise to be rejected. It casts all\nelements of the passed iterable to promises as it runs this algorithm.\n\nExample:\n\n```javascript\nvar promise1 = RSVP.resolve(1);\nvar promise2 = RSVP.resolve(2);\nvar promise3 = RSVP.resolve(3);\nvar promises = [ promise1, promise2, promise3 ];\n\nRSVP.Promise.all(promises).then(function(array){\n  // The array here would be [ 1, 2, 3 ];\n});\n```\n\nIf any of the `promises` given to `RSVP.all` are rejected, the first promise\nthat is rejected will be given as an argument to the returned promises's\nrejection handler. For example:\n\nExample:\n\n```javascript\nvar promise1 = RSVP.resolve(1);\nvar promise2 = RSVP.reject(new Error(\"2\"));\nvar promise3 = RSVP.reject(new Error(\"3\"));\nvar promises = [ promise1, promise2, promise3 ];\n\nRSVP.Promise.all(promises).then(function(array){\n  // Code here never runs because there are rejected promises!\n}, function(error) {\n  // error.message === \"2\"\n});\n```",
+            "itemtype": "method",
+            "name": "all",
+            "params": [
+              {
+                "name": "entries",
+                "description": "array of promises",
+                "type": "Array"
+              },
+              {
+                "name": "label",
+                "description": "optional string for labeling the promise.\nUseful for tooling.",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "promise that is fulfilled when all `promises` have been\nfulfilled, or rejected if any of them become rejected.",
+              "type": "Promise"
+            },
+            "static": 1,
+            "class": "Ember.RSVP.Promise",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 1660,
+            "description": "`RSVP.Promise.cast` coerces its argument to a promise, or returns the\nargument if it is already a promise which shares a constructor with the caster.\n\nExample:\n\n```javascript\nvar promise = RSVP.Promise.resolve(1);\nvar casted = RSVP.Promise.cast(promise);\n\nconsole.log(promise === casted); // true\n```\n\nIn the case of a promise whose constructor does not match, it is assimilated.\nThe resulting promise will fulfill or reject based on the outcome of the\npromise being casted.\n\nExample:\n\n```javascript\nvar thennable = $.getJSON('/api/foo');\nvar casted = RSVP.Promise.cast(thennable);\n\nconsole.log(thennable === casted); // false\nconsole.log(casted instanceof RSVP.Promise) // true\n\ncasted.then(function(data) {\n  // data is the value getJSON fulfills with\n});\n```\n\nIn the case of a non-promise, a promise which will fulfill with that value is\nreturned.\n\nExample:\n\n```javascript\nvar value = 1; // could be a number, boolean, string, undefined...\nvar casted = RSVP.Promise.cast(value);\n\nconsole.log(value === casted); // false\nconsole.log(casted instanceof RSVP.Promise) // true\n\ncasted.then(function(val) {\n  val === value // => true\n});\n```\n\n`RSVP.Promise.cast` is similar to `RSVP.Promise.resolve`, but `RSVP.Promise.cast` differs in the\nfollowing ways:\n\n* `RSVP.Promise.cast` serves as a memory-efficient way of getting a promise, when you\nhave something that could either be a promise or a value. RSVP.resolve\nwill have the same effect but will create a new promise wrapper if the\nargument is a promise.\n* `RSVP.Promise.cast` is a way of casting incoming thenables or promise subclasses to\npromises of the exact class specified, so that the resulting object's `then` is\nensured to have the behavior of the constructor you are calling cast on (i.e., RSVP.Promise).",
+            "itemtype": "method",
+            "name": "cast",
+            "params": [
+              {
+                "name": "object",
+                "description": "to be casted",
+                "type": "Object"
+              },
+              {
+                "name": "label",
+                "description": "optional string for labeling the promise.\nUseful for tooling.",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "promise",
+              "type": "Promise"
+            },
+            "static": 1,
+            "class": "Ember.RSVP.Promise",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 1750,
+            "description": "`RSVP.Promise.race` returns a new promise which is settled in the same way as the\nfirst passed promise to settle.\n\nExample:\n\n```javascript\nvar promise1 = new RSVP.Promise(function(resolve, reject){\n  setTimeout(function(){\n    resolve(\"promise 1\");\n  }, 200);\n});\n\nvar promise2 = new RSVP.Promise(function(resolve, reject){\n  setTimeout(function(){\n    resolve(\"promise 2\");\n  }, 100);\n});\n\nRSVP.Promise.race([promise1, promise2]).then(function(result){\n  // result === \"promise 2\" because it was resolved before promise1\n  // was resolved.\n});\n```\n\n`RSVP.Promise.race` is deterministic in that only the state of the first\nsettled promise matters. For example, even if other promises given to the\n`promises` array argument are resolved, but the first settled promise has\nbecome rejected before the other promises became fulfilled, the returned\npromise will become rejected:\n\n```javascript\nvar promise1 = new RSVP.Promise(function(resolve, reject){\n  setTimeout(function(){\n    resolve(\"promise 1\");\n  }, 200);\n});\n\nvar promise2 = new RSVP.Promise(function(resolve, reject){\n  setTimeout(function(){\n    reject(new Error(\"promise 2\"));\n  }, 100);\n});\n\nRSVP.Promise.race([promise1, promise2]).then(function(result){\n  // Code here never runs\n}, function(reason){\n  // reason.message === \"promise2\" because promise 2 became rejected before\n  // promise 1 became fulfilled\n});\n```\n\nAn example real-world use case is implementing timeouts:\n\n```javascript\nRSVP.Promise.race([ajax('foo.json'), timeout(5000)])\n```",
+            "itemtype": "method",
+            "name": "race",
+            "params": [
+              {
+                "name": "promises",
+                "description": "array of promises to observe",
+                "type": "Array"
+              },
+              {
+                "name": "label",
+                "description": "optional string for describing the promise returned.\nUseful for tooling.",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "a promise which settles in the same way as the first passed\npromise to settle.",
+              "type": "Promise"
+            },
+            "static": 1,
+            "class": "Ember.RSVP.Promise",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 1942,
+            "description": "This is a convenient alias for `RSVP.Promise.race`.",
+            "itemtype": "method",
+            "name": "race",
+            "params": [
+              {
+                "name": "array",
+                "description": "Array of promises.",
+                "type": "Array"
+              },
+              {
+                "name": "label",
+                "description": "An optional label. This is useful\nfor tooling.",
+                "type": "String"
+              }
+            ],
+            "static": 1,
+            "class": "Ember.RSVP.Promise",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 1847,
+            "description": "`RSVP.Promise.reject` returns a promise rejected with the passed `reason`.\nIt is shorthand for the following:\n\n```javascript\nvar promise = new RSVP.Promise(function(resolve, reject){\n  reject(new Error('WHOOPS'));\n});\n\npromise.then(function(value){\n  // Code here doesn't run because the promise is rejected!\n}, function(reason){\n  // reason.message === 'WHOOPS'\n});\n```\n\nInstead of writing the above, your code now simply becomes the following:\n\n```javascript\nvar promise = RSVP.Promise.reject(new Error('WHOOPS'));\n\npromise.then(function(value){\n  // Code here doesn't run because the promise is rejected!\n}, function(reason){\n  // reason.message === 'WHOOPS'\n});\n```",
+            "itemtype": "method",
+            "name": "reject",
+            "params": [
+              {
+                "name": "reason",
+                "description": "value that the returned promise will be rejected with.",
+                "type": "Any"
+              },
+              {
+                "name": "label",
+                "description": "optional string for identifying the returned promise.\nUseful for tooling.",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "a promise rejected with the given `reason`.",
+              "type": "Promise"
+            },
+            "static": 1,
+            "class": "Ember.RSVP.Promise",
+            "module": "RSVP",
+            "namespace": "Ember"
+          },
+          {
+            "file": "../packages/rsvp/lib/main.js",
+            "line": 1895,
+            "description": "`RSVP.Promise.resolve` returns a promise that will become resolved with the\npassed `value`. It is shorthand for the following:\n\n```javascript\nvar promise = new RSVP.Promise(function(resolve, reject){\n  resolve(1);\n});\n\npromise.then(function(value){\n  // value === 1\n});\n```\n\nInstead of writing the above, your code now simply becomes the following:\n\n```javascript\nvar promise = RSVP.Promise.resolve(1);\n\npromise.then(function(value){\n  // value === 1\n});\n```",
+            "itemtype": "method",
+            "name": "resolve",
+            "params": [
+              {
+                "name": "value",
+                "description": "value that the returned promise will be resolved with",
+                "type": "Any"
+              },
+              {
+                "name": "label",
+                "description": "optional string for identifying the returned promise.\nUseful for tooling.",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "a promise that will become fulfilled with the given\n`value`",
+              "type": "Promise"
+            },
+            "static": 1,
+            "class": "Ember.RSVP.Promise",
+            "module": "RSVP",
+            "namespace": "Ember"
+          }
+        ]
+      },
+      "version": "1.6.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.6.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

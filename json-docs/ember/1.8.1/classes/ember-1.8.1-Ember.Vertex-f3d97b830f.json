@@ -1,0 +1,157 @@
+{
+  "data": {
+    "id": "ember-1.8.1-Ember.Vertex",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Vertex",
+      "shortname": "Vertex",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "../packages/ember-application/lib/system/dag.js",
+      "line": 43,
+      "description": "<html><head></head><body><p>DAG Vertex</p>\n</body></html>",
+      "is_constructor": 1,
+      "methods": [
+        {
+          "file": "../packages/ember-application/lib/system/dag.js",
+          "line": 58,
+          "description": "<html><head></head><body><p>Adds a vertex entry to the graph unless it is already added.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "add",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the vertex to add",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.Vertex",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-application/lib/system/dag.js",
+          "line": 78,
+          "description": "<html><head></head><body><p>Adds a vertex to the graph and sets its value.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "map",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the vertex.",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to put in the vertex."
+            }
+          ],
+          "class": "Ember.Vertex",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-application/lib/system/dag.js",
+          "line": 90,
+          "description": "<html><head></head><body><p>Connects the vertices with the given names, adding them to the graph if\nnecessary, only if this does not produce is any circular dependency.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addEdge",
+          "params": [
+            {
+              "name": "fromName",
+              "description": "The name the vertex where the edge starts.",
+              "type": "String"
+            },
+            {
+              "name": "toName",
+              "description": "The name the vertex where the edge ends.",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.Vertex",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-application/lib/system/dag.js",
+          "line": 119,
+          "description": "<html><head></head><body><p>Visits all the vertex of the graph calling the given function with each one,\nensuring that the vertices are visited respecting their precedence.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "topsort",
+          "params": [
+            {
+              "name": "fn",
+              "description": "The function to be invoked on each vertex.",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember.Vertex",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-application/lib/system/dag.js",
+          "line": 141,
+          "description": "<html><head></head><body><p>Adds a vertex with the given name and value to the graph and joins it with the\nvertices referenced in <em>before</em> and <em>after</em>. If there isn&apos;t vertices with those\nnames, they are added too.</p>\n<p>If either <em>before</em> or <em>after</em> are falsy/empty, the added vertex will not have\nan incoming/outgoing edge.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "addEdges",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the vertex to be added.",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value of that vertex."
+            },
+            {
+              "name": "before",
+              "description": "An string or array of strings with the names of the vertices before\n                     which this vertex must be visited."
+            },
+            {
+              "name": "after",
+              "description": "An string or array of strings with the names of the vertex after\n                     which this vertex must be visited."
+            }
+          ],
+          "class": "Ember.Vertex",
+          "module": "ember",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.8.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.8.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

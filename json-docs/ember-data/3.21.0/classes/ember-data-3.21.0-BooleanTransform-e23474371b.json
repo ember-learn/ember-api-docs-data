@@ -1,0 +1,96 @@
+{
+  "data": {
+    "id": "ember-data-3.21.0-BooleanTransform",
+    "type": "class",
+    "attributes": {
+      "name": "BooleanTransform",
+      "shortname": "BooleanTransform",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/serializer",
+      "namespace": "",
+      "file": "../serializer/addon/-private/transforms/boolean.js",
+      "line": 9,
+      "description": "<html><head></head><body><p>The <code>BooleanTransform</code> class is used to serialize and deserialize\nboolean attributes on Ember Data record objects. This transform is\nused when <code>boolean</code> is passed as the type parameter to the\n<a href=\"/ember-data/release/functions/@ember-data%2Fmodel/attr\">attr</a> function.</p>\n<p>Usage</p>\n<div class=\"highlight app/models/user.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/user.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Model, { attr } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/model&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Model.extend({\n  isAdmin: attr(<span class=\"string\">&apos;boolean&apos;</span>),\n  name: attr(<span class=\"string\">&apos;string&apos;</span>),\n  email: attr(<span class=\"string\">&apos;string&apos;</span>)\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>By default, the boolean transform only allows for values of <code>true</code> or\n<code>false</code>. You can opt into allowing <code>null</code> values for\nboolean attributes via <code>attr(&apos;boolean&apos;, { allowNull: true })</code></p>\n<div class=\"highlight app/models/user.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/user.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Model, { attr } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/model&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Model.extend({\n  email: attr(<span class=\"string\">&apos;string&apos;</span>),\n  username: attr(<span class=\"string\">&apos;string&apos;</span>),\n  wantsWeeklyEmail: attr(<span class=\"string\">&apos;boolean&apos;</span>, { allowNull: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "extends": "Transform",
+      "methods": [
+        {
+          "file": "../serializer/addon/-private/transforms/transform.js",
+          "line": 78,
+          "description": "<html><head></head><body><p>When given a deserialized value from a record attribute this\nmethod must return the serialized value.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { isEmpty } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/utils&apos;</span>;\n\nserialize(deserialized, <span class=\"keyword\">options</span>) {\n  <span class=\"keyword\">return</span> isEmpty(deserialized) ? <span class=\"keyword\">null</span> : Number(deserialized);\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "deserialized",
+              "description": "The deserialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `attr`"
+            }
+          ],
+          "return": {
+            "description": "The serialized value"
+          },
+          "class": "BooleanTransform",
+          "module": "@ember-data/serializer",
+          "inherited": true,
+          "inheritedFrom": "Transform"
+        },
+        {
+          "file": "../serializer/addon/-private/transforms/transform.js",
+          "line": 99,
+          "description": "<html><head></head><body><p>When given a serialized value from a JSON object this method must\nreturn the deserialized value for the record attribute.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>deserialize(serialized, options) {\n  <span class=\"keyword\">return</span> empty(serialized) ? <span class=\"literal\">null</span> : <span class=\"built_in\">Number</span>(serialized);\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "deserialize",
+          "params": [
+            {
+              "name": "serialized",
+              "description": "The serialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `attr`"
+            }
+          ],
+          "return": {
+            "description": "The deserialized value"
+          },
+          "class": "BooleanTransform",
+          "module": "@ember-data/serializer",
+          "inherited": true,
+          "inheritedFrom": "Transform"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.21.0-Transform",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.21.0-@ember-data/serializer",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.21.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

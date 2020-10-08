@@ -1,0 +1,694 @@
+{
+  "data": {
+    "id": "ember-1.9.1-Ember.Test",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Test",
+      "shortname": "Ember.Test",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-testing",
+      "namespace": "Ember",
+      "file": "packages/ember-testing/lib/test.js",
+      "line": 17,
+      "description": "<html><head></head><body><p>This is a container for an assortment of testing related functionality:</p>\n<ul>\n<li>Choose your default test adapter (for your framework of choice).</li>\n<li>Register/Unregister additional test helpers.</li>\n<li>Setup callbacks to be fired when the test helpers are injected into\nyour application.</li>\n</ul>\n</body></html>",
+      "version": "1.9.1",
+      "since": "1.9.1",
+      "methods": [
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 206,
+          "description": "<html><head></head><body><p>Loads a route, sets up any controllers, and renders any templates associated\nwith the route as though a real user had triggered the route change while\nusing your app.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>visit(<span class=\"string\">&apos;posts/index&apos;</span>).<span class=\"keyword\">then</span>(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span></span> {\n  // <span class=\"built_in\">assert</span> something\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "visit",
+          "params": [
+            {
+              "name": "url",
+              "description": "the name of the route",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise"
+          },
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 225,
+          "description": "<html><head></head><body><p>Clicks an element and triggers any actions triggered by the element&apos;s <code>click</code>\nevent.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>click(<span class=\"string\">&apos;.some-jQuery-selector&apos;</span>).<span class=\"keyword\">then</span>(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span></span> {\n  // <span class=\"built_in\">assert</span> something\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "click",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery selector for finding element on the DOM",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise"
+          },
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 243,
+          "description": "<html><head></head><body><p>Simulates a key event, e.g. <code>keypress</code>, <code>keydown</code>, <code>keyup</code> with the desired keyCode</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>keyEvent(<span class=\"string\">&apos;.some-jQuery-selector&apos;</span>, <span class=\"string\">&apos;keypress&apos;</span>, <span class=\"number\">13</span>).<span class=\"keyword\">then</span>(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span></span> {\n // <span class=\"built_in\">assert</span> something\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "keyEvent",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery selector for finding element on the DOM",
+              "type": "String"
+            },
+            {
+              "name": "type",
+              "description": "the type of key event, e.g. `keypress`, `keydown`, `keyup`",
+              "type": "String"
+            },
+            {
+              "name": "keyCode",
+              "description": "the keyCode of the simulated key event",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise"
+          },
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 263,
+          "description": "<html><head></head><body><p>Fills in an input element with some text.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>fillIn(<span class=\"string\">&apos;#email&apos;</span>, <span class=\"string\">&apos;you@example.com&apos;</span>).<span class=\"keyword\">then</span>(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span></span> {\n  // <span class=\"built_in\">assert</span> something\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "fillIn",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery selector finding an input element on the DOM\nto fill text with",
+              "type": "String"
+            },
+            {
+              "name": "text",
+              "description": "text to place inside the input element",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise"
+          },
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 282,
+          "description": "<html><head></head><body><p>Finds an element in the context of the app&apos;s container element. A simple alias\nfor <code>app.$(selector)</code>.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"built_in\">var</span> $el = find(<span class=\"string\">&apos;.my-selector&apos;</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "find",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery string selector for element lookup",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "jQuery object representing the results of the query",
+            "type": "Object"
+          },
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 298,
+          "description": "<html><head></head><body><p>Like <code>find</code>, but throws an error if the element selector returns no results.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"built_in\">var</span> $el = findWithAssert(<span class=\"string\">&apos;.doesnt-exist&apos;</span>); <span class=\"comment\">// throws error</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "findWithAssert",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery selector string for finding an element within\nthe DOM",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "jQuery object representing the results of the query",
+            "type": "Object"
+          },
+          "throws": {
+            "description": "throws error if jQuery object returned has a length of 0",
+            "type": "Error"
+          },
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 315,
+          "description": "<html><head></head><body><p>Causes the run loop to process any pending events. This is used to ensure that\nany async operations from other helpers (or your assertions) have been processed.</p>\n<p>This is most often used as the return value for the helper functions (see &apos;click&apos;,\n&apos;fillIn&apos;,&apos;visit&apos;,etc).</p>\n<p>Example:</p>\n<p>```javascript\nEmber.Test.registerAsyncHelper(&apos;loginUser&apos;, function(app, username, password) {\n  visit(&apos;secured/path/here&apos;)\n  .fillIn(&apos;#username&apos;, username)\n  .fillIn(&apos;#password&apos;, password)\n  .click(&apos;.submit&apos;)</p>\n<p>  return app.testHelpers.wait();\n});</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "wait",
+          "params": [
+            {
+              "name": "value",
+              "description": "The value to be returned.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise"
+          },
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 342,
+          "description": "<html><head></head><body><p>Returns the currently active route name.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">function</span> <span class=\"selector-tag\">validateRouteName</span>(){\n<span class=\"selector-tag\">equal</span>(currentRouteName(), <span class=\"string\">&apos;some.path&apos;</span>, <span class=\"string\">&quot;correct route was transitioned into.&quot;</span>);\n}\n\n<span class=\"selector-tag\">visit</span>(<span class=\"string\">&apos;/some/path&apos;</span>)<span class=\"selector-class\">.then</span>(validateRouteName)</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "currentRouteName",
+          "return": {
+            "description": "The name of the currently active route.",
+            "type": "Object"
+          },
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 361,
+          "description": "<html><head></head><body><p>Returns the current path.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">function</span> <span class=\"selector-tag\">validateURL</span>(){\n<span class=\"selector-tag\">equal</span>(currentPath(), <span class=\"string\">&apos;some.path.index&apos;</span>, <span class=\"string\">&quot;correct path was transitioned into.&quot;</span>);\n}\n\n<span class=\"selector-tag\">click</span>(<span class=\"string\">&apos;#some-link-id&apos;</span>)<span class=\"selector-class\">.then</span>(validateURL);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "currentPath",
+          "return": {
+            "description": "The currently active path.",
+            "type": "Object"
+          },
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 380,
+          "description": "<html><head></head><body><p>Returns the current URL.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">function</span> <span class=\"selector-tag\">validateURL</span>(){\n<span class=\"selector-tag\">equal</span>(currentURL(<span class=\"string\"></span>), <span class=\"string\">&apos;/some/path&apos;</span>, <span class=\"string\">&quot;correct URL was transitioned into.&quot;</span>);\n}\n\n<span class=\"selector-tag\">click</span>(<span class=\"string\">&apos;#some-link-id&apos;</span>)<span class=\"selector-class\">.then</span>(validateURL);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "currentURL",
+          "return": {
+            "description": "The currently active URL.",
+            "type": "Object"
+          },
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 400,
+          "description": "<html><head></head><body><p>Pauses the current test - this is useful for debugging while testing or for test-driving.\nIt allows you to inspect the state of your application at any point.</p>\n<p>Example (The test will pause before clicking the button):</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">visit</span>(<span class=\"string\">&apos;/&apos;</span>)\n<span class=\"selector-tag\">return</span> <span class=\"selector-tag\">pauseTest</span>();\n\n<span class=\"selector-tag\">click</span>(<span class=\"string\">&apos;.btn&apos;</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "pauseTest",
+          "return": {
+            "description": "A promise that will never resolve",
+            "type": "Object"
+          },
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers.js",
+          "line": 419,
+          "description": "<html><head></head><body><p>Triggers the given DOM event on the element identified by the provided selector.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">triggerEvent</span>(<span class=\"string\">&apos;#some-elem-id&apos;</span>, <span class=\"string\">&apos;blur&apos;</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This is actually used internally by the <code>keyEvent</code> helper like so:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>triggerEvent(<span class=\"string\">&apos;#some-elem-id&apos;</span>, <span class=\"string\">&apos;keypress&apos;</span>, { <span class=\"string\">keyCode:</span> <span class=\"number\">13</span> });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "triggerEvent",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery selector for finding element on the DOM",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "jQuery selector that will limit the selector\n                         argument to find only within the context's children",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "type",
+              "description": "The event type to be triggered.",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "The options to be passed to jQuery.Event.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise"
+          },
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/setup_for_testing.js",
+          "line": 22,
+          "description": "<html><head></head><body><p>Sets Ember up for testing. This is useful to perform\nbasic setup steps in order to unit test.</p>\n<p>Use <code>App.setupForTesting</code> to perform integration tests (full\napplication testing).</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "setupForTesting",
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "namespace": "Ember",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/support.js",
+          "line": 11,
+          "description": "<html><head></head><body><p>This method creates a checkbox and triggers the click event to fire the\npassed in handler. It is used to correct for a bug in older versions\nof jQuery (e.g 1.8.3).</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "testCheckboxClick",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 38,
+          "description": "<html><head></head><body><p><code>registerHelper</code> is used to register a test helper that will be injected\nwhen <code>App.injectTestHelpers</code> is called.</p>\n<p>The helper method will always be called with the current Application as\nthe first parameter.</p>\n<p>For example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>Ember.<span class=\"keyword\">Test</span>.registerHelper(&apos;<span class=\"keyword\">boot</span>&apos;, function(<span class=\"keyword\">app</span>) {\n  Ember.<span class=\"keyword\">run</span>(<span class=\"keyword\">app</span>, <span class=\"keyword\">app</span>.advanceReadiness);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This helper can later be called without arguments because it will be\ncalled with <code>app</code> as the first parameter.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"attribute\">App</span> = Ember.Application.create()<span class=\"comment\">;</span>\nApp.injectTestHelpers()<span class=\"comment\">;</span>\nboot()<span class=\"comment\">;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registerHelper",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the helper method to add.",
+              "type": "String"
+            },
+            {
+              "name": "helperMethod",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 75,
+          "description": "<html><head></head><body><p><code>registerAsyncHelper</code> is used to register an async test helper that will be injected\nwhen <code>App.injectTestHelpers</code> is called.</p>\n<p>The helper method will always be called with the current Application as\nthe first parameter.</p>\n<p>For example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>Ember.<span class=\"keyword\">Test</span>.registerAsyncHelper(&apos;<span class=\"keyword\">boot</span>&apos;, function(<span class=\"keyword\">app</span>) {\n  Ember.<span class=\"keyword\">run</span>(<span class=\"keyword\">app</span>, <span class=\"keyword\">app</span>.advanceReadiness);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The advantage of an async helper is that it will not run\nuntil the last async helper has completed.  All async helpers\nafter it will wait for it complete before running.</p>\n<p>For example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">Ember</span><span class=\"selector-class\">.Test</span><span class=\"selector-class\">.registerAsyncHelper</span>(<span class=\"string\">&apos;deletePost&apos;</span>, function(app, postId) {\n  <span class=\"selector-tag\">click</span>(<span class=\"string\">&apos;.delete-&apos;</span> + postId);\n});\n\n<span class=\"comment\">// ... in your test</span>\n<span class=\"selector-tag\">visit</span>(<span class=\"string\">&apos;/post/2&apos;</span>);\n<span class=\"selector-tag\">deletePost</span>(<span class=\"number\">2</span>);\n<span class=\"selector-tag\">visit</span>(<span class=\"string\">&apos;/post/3&apos;</span>);\n<span class=\"selector-tag\">deletePost</span>(<span class=\"number\">3</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registerAsyncHelper",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the helper method to add.",
+              "type": "String"
+            },
+            {
+              "name": "helperMethod",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 122,
+          "description": "<html><head></head><body><p>Remove a previously added helper method.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">Ember</span><span class=\"selector-class\">.Test</span><span class=\"selector-class\">.unregisterHelper</span>(<span class=\"string\">&apos;wait&apos;</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "unregisterHelper",
+          "params": [
+            {
+              "name": "name",
+              "description": "The helper to remove.",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 140,
+          "description": "<html><head></head><body><p>Used to register callbacks to be fired whenever <code>App.injectTestHelpers</code>\nis called.</p>\n<p>The callback will receive the current application as an argument.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre>Ember.Test.onInjectHelpers(<span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\"></span>) </span>{\n  Ember.$(<span class=\"built_in\">document</span>).ajaxSend(<span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\"></span>) </span>{\n    Test.pendingAjaxRequests++;\n  });\n\n  Ember.$(<span class=\"built_in\">document</span>).ajaxComplete(<span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\"></span>) </span>{\n    Test.pendingAjaxRequests--;\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "onInjectHelpers",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The function to be called.",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 168,
+          "description": "<html><head></head><body><p>This returns a thenable tailored for testing.  It catches failed\n<code>onSuccess</code> callbacks and invokes the <code>Ember.Test.adapter.exception</code>\ncallback in the last chained then.</p>\n<p>This method should be returned by async helpers such as <code>wait</code>.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "promise",
+          "params": [
+            {
+              "name": "resolver",
+              "description": "The function used to resolve the promise.",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 204,
+          "description": "<html><head></head><body><p>Replacement for <code>Ember.RSVP.resolve</code>\nThe only difference is this uses\nan instance of <code>Ember.Test.Promise</code></p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "resolve",
+          "params": [
+            {
+              "name": "The",
+              "description": "value to resolve",
+              "type": "Mixed"
+            }
+          ],
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 220,
+          "description": "<html><head></head><body><p>This allows ember-testing to play nicely with other asynchronous\nevents, such as an application that is waiting for a CSS3\ntransition or an IndexDB transaction.</p>\n<p>For example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>Ember.Test.registerWaiter(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n  <span class=\"keyword\">return</span> myPendingTransactions() == <span class=\"number\">0</span>;\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The <code>context</code> argument allows you to optionally specify the <code>this</code>\nwith which your callback will be invoked.</p>\n<p>For example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">Ember</span><span class=\"selector-class\">.Test</span><span class=\"selector-class\">.registerWaiter</span>(<span class=\"selector-tag\">MyDB</span>, <span class=\"selector-tag\">MyDB</span><span class=\"selector-class\">.hasPendingTransactions</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registerWaiter",
+          "params": [
+            {
+              "name": "context",
+              "description": "(optional)",
+              "type": "Object"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 257,
+          "description": "<html><head></head><body><p><code>unregisterWaiter</code> is used to unregister a callback that was\nregistered with <code>registerWaiter</code>.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "unregisterWaiter",
+          "params": [
+            {
+              "name": "context",
+              "description": "(optional)",
+              "type": "Object"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 364,
+          "description": "<html><head></head><body><p>This hook defers the readiness of the application, so that you can start\nthe app when your tests are ready to run. It also sets the router&apos;s\nlocation to &apos;none&apos;, so that the window&apos;s location will not be modified\n(preventing both accidental leaking of state between tests and interference\nwith your testing framework).</p>\n<p>Example:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>  App.setupForTesting()<span class=\"comment\">;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    </body></html>",
+          "itemtype": "method",
+          "name": "setupForTesting",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 400,
+          "description": "<html><head></head><body><p>This injects the test helpers into the <code>helperContainer</code> object. If an object is provided\nit will be used as the helperContainer. If <code>helperContainer</code> is not set it will default\nto <code>window</code>. If a function of the same name has already been defined it will be cached\n(so that it can be reset if the helper is removed with <code>unregisterHelper</code> or\n<code>removeTestHelpers</code>).</p>\n<p>   Any callbacks registered with <code>onInjectHelpers</code> will be called once the\n   helpers have been injected.</p>\n<p>  Example:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>  App.injectTestHelpers()<span class=\"comment\">;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    </body></html>",
+          "itemtype": "method",
+          "name": "injectTestHelpers",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 432,
+          "description": "<html><head></head><body><p>This removes all helpers that have been registered, and resets and functions\nthat were overridden by the helpers.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>App.removeTestHelpers()<span class=\"comment\">;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "removeTestHelpers",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 29,
+          "description": "<html><head></head><body><p>Hash containing all known test helpers.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "_helpers",
+          "access": "private",
+          "tagname": "",
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 183,
+          "description": "<html><head></head><body><p>Used to allow ember-testing to communicate with a specific testing\nframework.</p>\n<p>You can manually set it before calling <code>App.setupForTesting()</code>.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>Ember<span class=\"selector-class\">.Test</span><span class=\"selector-class\">.adapter</span> = MyCustomAdapter.create()</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If you do not set it, ember-testing will default to <code>Ember.Test.QUnitAdapter</code>.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "adapter",
+          "type": "{Class} The adapter to be used.",
+          "default": "Ember.Test.QUnitAdapter",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 324,
+          "description": "<html><head></head><body><p>This property contains the testing helpers for the current application. These\nare created once you call <code>injectTestHelpers</code> on your <code>Ember.Application</code>\ninstance. The included helpers are also available on the <code>window</code> object by\ndefault, but can be used from this object on the individual application also.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "testHelpers",
+          "type": "{Object}",
+          "default": "{}",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1",
+          "since": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 336,
+          "description": "<html><head></head><body><p>This property will contain the original methods that were registered\non the <code>helperContainer</code> before <code>injectTestHelpers</code> is called.</p>\n<p>When <code>removeTestHelpers</code> is called, these methods are restored to the\n<code>helperContainer</code>.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "originalMethods",
+          "type": "{Object}",
+          "default": "{}",
+          "access": "private",
+          "tagname": "",
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 352,
+          "description": "<html><head></head><body><p>This property indicates whether or not this application is currently in\ntesting mode. This is set when <code>setupForTesting</code> is called on the current\napplication.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "testing",
+          "type": "{Boolean}",
+          "default": "false",
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 389,
+          "description": "<html><head></head><body><p>This will be used as the container to inject the test helpers into. By\ndefault the helpers are injected into <code>window</code>.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "helperContainer",
+          "type": "{Object} The object to be used for test helpers.",
+          "default": "window",
+          "since": "1.9.1",
+          "class": "Ember.Test",
+          "module": "ember",
+          "submodule": "ember-testing",
+          "namespace": "Ember",
+          "version": "1.9.1"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.9.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.9.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

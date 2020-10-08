@@ -1,0 +1,127 @@
+{
+  "data": {
+    "id": "ember-3.3.0-Ember.ControllerMixin",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ControllerMixin",
+      "shortname": "Ember.ControllerMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/ember-routing/lib/ext/controller.js",
+          "line": 33,
+          "description": "<html><head></head><body><p>This property is updated to various different callback functions depending on\nthe current &quot;state&quot; of the backing route. It is used by\n<code>Controller.prototype._qpChanged</code>.</p>\n<p>The methods backing each state can be found in the <code>Route.prototype._qp</code> computed\nproperty return value (the <code>.states</code> property). The current values are listed here for\nthe sanity of future travelers:</p>\n<ul>\n<li><code>inactive</code> - This state is used when this controller instance is not part of the active\nroute hierarchy. Set in <code>Route.prototype._reset</code> (a <code>router.js</code> microlib hook) and\n<code>Route.prototype.actions.finalizeQueryParamChange</code>.</li>\n<li><code>active</code> - This state is used when this controller instance is part of the active\nroute hierarchy. Set in <code>Route.prototype.actions.finalizeQueryParamChange</code>.</li>\n<li><code>allowOverrides</code> - This state is used in <code>Route.prototype.setup</code> (<code>route.js</code> microlib hook).</li>\n</ul>\n</body></html>",
+          "itemtype": "method",
+          "name": "_qpDelegate",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/ext/controller.js",
+          "line": 54,
+          "description": "<html><head></head><body><p>During <code>Route#setup</code> observers are created to invoke this method\nwhen any of the query params declared in <code>Controller#queryParams</code> property\nare changed.</p>\n<p>When invoked this method uses the currently active query param update delegate\n(see <code>Controller.prototype._qpDelegate</code> for details) and invokes it with\nthe QP key/value being changed.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "_qpChanged",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/ext/controller.js",
+          "line": 75,
+          "description": "<html><head></head><body><p>Transition the application into another route. The route may\nbe either a single route or route path:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPosts</span>&apos;)</span>;\naController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPosts</span>.<span class=\"params\">recentEntries</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Optionally supply a model for the route in question. The model\nwill be serialized into the URL using the <code>serialize</code> hook of\nthe route:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPost</span>&apos;, <span class=\"params\">aPost</span>)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the <code>model</code>\nhook of the route will be triggered:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">aController</span><span class=\"selector-class\">.transitionToRoute</span>(<span class=\"string\">&apos;blogPost&apos;</span>, <span class=\"number\">1</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Multiple models will be applied last to first recursively up the\nroute tree.</p>\n<div class=\"highlight app/router.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/router.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>Router.map(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;blogPost&apos;</span>, { path: <span class=\"string\">&apos;:blogPostId&apos;</span> }, <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;blogComment&apos;</span>, { path: <span class=\"string\">&apos;:blogCommentId&apos;</span>, resetNamespace: <span class=\"literal\">true</span> });\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogComment</span>&apos;, <span class=\"params\">aPost</span>, <span class=\"params\">aComment</span>)</span>;\naController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogComment</span>&apos;, 1, 13)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It is also possible to pass a URL (a string that starts with a\n<code>/</code>). This is intended for testing and debugging purposes and\nshould rarely be used in production code.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"operator\">/</span>&apos;)</span>;\naController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"operator\">/</span><span class=\"params\">blog</span><span class=\"operator\">/</span><span class=\"params\">post</span><span class=\"operator\">/</span>1<span class=\"operator\">/</span><span class=\"params\">comment</span><span class=\"operator\">/</span>13&apos;)</span>;\naController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"operator\">/</span><span class=\"params\">blog</span><span class=\"operator\">/</span><span class=\"params\">posts</span>?<span class=\"params\">sort</span>=<span class=\"params\">title</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>An options hash with a <code>queryParams</code> property may be provided as\nthe final argument to add query parameters to the destination URL.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">aController</span><span class=\"selector-class\">.transitionToRoute</span>(<span class=\"string\">&apos;blogPost&apos;</span>, <span class=\"number\">1</span>, {\n  <span class=\"attribute\">queryParams</span>: { <span class=\"attribute\">showComments</span>: <span class=\"string\">&apos;true&apos;</span> }\n});\n\n<span class=\"comment\">// if you just want to transition the query parameters without changing the route</span>\n<span class=\"selector-tag\">aController</span><span class=\"selector-class\">.transitionToRoute</span>({ <span class=\"attribute\">queryParams</span>: { <span class=\"attribute\">sort</span>: <span class=\"string\">&apos;date&apos;</span> } });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>See also <a href=\"/api/ember/release/classes/Ember.ControllerMixin/methods/replaceRoute?anchor=replaceRoute\">replaceRoute</a>.</p>\n</body></html>",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\n  while transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\n  containing a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "itemtype": "method",
+          "name": "transitionToRoute",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/ext/controller.js",
+          "line": 156,
+          "description": "<html><head></head><body><p>Transition into another route while replacing the current URL, if possible.\nThis will replace the current history entry instead of adding a new one.\nBeside that, it is identical to <code>transitionToRoute</code> in all other respects.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPosts</span>&apos;)</span>;\naController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPosts</span>.<span class=\"params\">recentEntries</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Optionally supply a model for the route in question. The model\nwill be serialized into the URL using the <code>serialize</code> hook of\nthe route:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPost</span>&apos;, <span class=\"params\">aPost</span>)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the <code>model</code>\nhook of the route will be triggered:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">aController</span><span class=\"selector-class\">.replaceRoute</span>(<span class=\"string\">&apos;blogPost&apos;</span>, <span class=\"number\">1</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Multiple models will be applied last to first recursively up the\nroute tree.</p>\n<div class=\"highlight app/router.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/router.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>Router.map(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;blogPost&apos;</span>, { path: <span class=\"string\">&apos;:blogPostId&apos;</span> }, <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span> </span>{\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;blogComment&apos;</span>, { path: <span class=\"string\">&apos;:blogCommentId&apos;</span>, resetNamespace: <span class=\"literal\">true</span> });\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogComment</span>&apos;, <span class=\"params\">aPost</span>, <span class=\"params\">aComment</span>)</span>;\naController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogComment</span>&apos;, 1, 13)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    <p>It is also possible to pass a URL (a string that starts with a\n<code>/</code>). This is intended for testing and debugging purposes and\nshould rarely be used in production code.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"operator\">/</span>&apos;)</span>;\naController.replace<span class=\"constructor\">Route(&apos;<span class=\"operator\">/</span><span class=\"params\">blog</span><span class=\"operator\">/</span><span class=\"params\">post</span><span class=\"operator\">/</span>1<span class=\"operator\">/</span><span class=\"params\">comment</span><span class=\"operator\">/</span>13&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\nwhile transitioning to the route.",
+              "type": "...Object"
+            }
+          ],
+          "itemtype": "method",
+          "name": "replaceRoute",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-routing/lib/ext/controller.js",
+          "line": 12,
+          "description": "<html><head></head><body><p>Defines which query parameters the controller accepts.\nIf you give the names <code>[&apos;category&apos;,&apos;page&apos;]</code> it will bind\nthe values of these query parameters to the variables\n<code>this.category</code> and <code>this.page</code>.\nBy default, Ember coerces query parameter values using <code>toggleProperty</code>.\nThis behavior may lead to unexpected results.\nTo explicitly configure a query parameter property so it coerces as expected, you must define a type property:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>  <span class=\"attribute\">queryParams</span>: [{\n    <span class=\"attribute\">category</span>: {\n      <span class=\"attribute\">type</span>: <span class=\"string\">&apos;boolean&apos;</span>\n    }\n  }]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "queryParams",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.3.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

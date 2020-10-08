@@ -1,0 +1,124 @@
+{
+  "data": {
+    "id": "ember-3.10.0-ComputedProperty",
+    "type": "class",
+    "attributes": {
+      "name": "ComputedProperty",
+      "shortname": "ComputedProperty",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/object",
+      "namespace": "",
+      "file": "packages/@ember/-internals/metal/lib/computed.ts",
+      "line": 53,
+      "description": "<html><head></head><body><p><code>@computed</code> is a decorator that turns a JavaScript getter and setter into a\ncomputed property, which is a <em>cached, trackable value</em>. By default the getter\nwill only be called once and the result will be cached. You can specify\nvarious properties that your computed property depends on. This will force the\ncached result to be cleared if the dependencies are modified, and lazily recomputed the next time something asks for it.</p>\n<p>In the following example we decorate a getter - <code>fullName</code> -  by calling\n<code>computed</code> with the property dependencies (<code>firstName</code> and <code>lastName</code>) as\narguments. The <code>fullName</code> getter will be called once (regardless of how many\ntimes it is accessed) as long as its dependencies do not change. Once\n<code>firstName</code> or <code>lastName</code> are updated any future calls to <code>fullName</code> will\nincorporate the new values, and any watchers of the value such as templates\nwill be updated:</p>\n<p>```javascript\nimport { computed, set } from &apos;@ember/object&apos;;</p>\n<p>class Person {\n  constructor(firstName, lastName) {\n    set(this, &apos;firstName&apos;, firstName);\n    set(this, &apos;lastName&apos;, lastName);\n  }</p>\n</body></html>",
+      "computed": "('firstName', 'lastName').readOnly()\n  get fullName() {\n    return `${this.firstName} ${this.lastName}`;\n  }\n});\n\nlet person = new Person();\nperson.set('fullName', 'Peter Wagenet'); // Uncaught Error: Cannot set read-only property \"fullName\" on object: <(...):emberXXX>\n```\n\nAdditional resources:\n- [Decorators RFC](https://github.com/emberjs/rfcs/blob/master/text/0408-decorators.md)\n- [New CP syntax RFC](https://github.com/emberjs/rfcs/blob/master/text/0011-improved-cp-syntax.md)\n- [New computed syntax explained in \"Ember 1.12 released\" ](https://emberjs.com/blog/2015/05/13/ember-1-12-released.html#toc_new-computed-syntax)",
+      "join": "('firstName', 'lastName')\n  fullName;\n}\n```\n\nNote that when defined this way, getters and setters receive the _key_ of the\nproperty they are decorating as the first argument. Setters receive the value\nthey are setting to as the second argument instead. Additionally, setters must\n_return_ the value that should be cached:\n\n```javascript\nimport { computed, set } from '@ember/object';\n\nfunction fullNameMacro(firstNameKey, lastNameKey) {",
+      "fullnamemacro": "fullName;\n});\n\nlet person = new Person();\n\nset(person, 'fullName', 'Peter Wagenet');\nperson.firstName; // 'Peter'\nperson.lastName;  // 'Wagenet'\n```\n\nComputed properties can also be used in classic classes. To do this, we\nprovide the getter and setter as the last argument like we would for a macro,\nand we assign it to a property on the class definition. This is an _anonymous_\ncomputed macro:\n\n```javascript\nimport EmberObject, { computed, set } from '@ember/object';\n\nlet Person = EmberObject.extend({\n  // these will be supplied by `create`\n  firstName: null,\n  lastName: null,\n\n  fullName: computed('firstName', 'lastName', {\n    get() {\n      return `${this.firstName} ${this.lastName}`;\n    }\n\n    set(key, value) {\n      let [firstName, lastName] = value.split(' ');\n\n      set(this, 'firstName', firstName);\n      set(this, 'lastName', lastName);\n\n      return value;\n    }\n  })\n});\n\nlet tom = Person.create({\n  firstName: 'Tom',\n  lastName: 'Dale'\n});\n\ntom.get('fullName') // 'Tom Dale'\n```\n\nYou can overwrite computed property without setters with a normal property (no\nlonger computed) that won't change if dependencies change. You can also mark\ncomputed property as `.readOnly()` and block all attempts to set it.\n\n```javascript\nimport { computed, set } from '@ember/object';\n\nclass Person {\n  constructor(firstName, lastName) {\n    set(this, 'firstName', firstName);\n    set(this, 'lastName', lastName);\n  }",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/metal/lib/computed.ts",
+          "line": 355,
+          "description": "<html><head></head><body><p>Call on a computed property to set it into non-cached mode. When in this\nmode the computed property will not automatically cache the return value.\nIt also does not automatically fire any change events. You must manually notify\nany changes if you want to observe this property.\nDependency keys have no effect on volatile properties as they are for cache\ninvalidation and notification when cached value is invalidated.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> EmberObject, { computed } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n<span class=\"keyword\">let</span> outsideService = EmberObject.extend({\n  <span class=\"attr\">value</span>: computed(<span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\"></span>) </span>{\n    <span class=\"keyword\">return</span> OutsideService.getValue();\n  }).volatile()\n}).create();</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "volatile",
+          "return": {
+            "description": "this",
+            "type": "ComputedProperty"
+          },
+          "chainable": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "ComputedProperty",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/-internals/metal/lib/computed.ts",
+          "line": 389,
+          "description": "<html><head></head><body><p>Call on a computed property to set it into read-only mode. When in this\nmode the computed property will throw an error when set.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> EmberObject, { computed } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n<span class=\"keyword\">let</span> Person = EmberObject.extend({\n  <span class=\"attr\">guid</span>: computed(<span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\"></span>) </span>{\n    <span class=\"keyword\">return</span> <span class=\"string\">&apos;guid-guid-guid&apos;</span>;\n  }).readOnly()\n});\n<span class=\"keyword\">let</span> person = Person.create();\nperson.set(<span class=\"string\">&apos;guid&apos;</span>, <span class=\"string\">&apos;new-guid&apos;</span>); <span class=\"comment\">// will throw an exception</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "readOnly",
+          "return": {
+            "description": "this",
+            "type": "ComputedProperty"
+          },
+          "chainable": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "ComputedProperty",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/-internals/metal/lib/computed.ts",
+          "line": 415,
+          "description": "<html><head></head><body><p>Sets the dependent keys on this computed property. Pass any number of\narguments containing key paths that this computed property depends on.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> EmberObject, { computed } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n<span class=\"keyword\">let</span> President = EmberObject.extend({\n  <span class=\"attr\">fullName</span>: computed(<span class=\"string\">&apos;firstName&apos;</span>, <span class=\"string\">&apos;lastName&apos;</span>, <span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\"></span>) </span>{\n    <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.get(<span class=\"string\">&apos;firstName&apos;</span>) + <span class=\"string\">&apos; &apos;</span> + <span class=\"keyword\">this</span>.get(<span class=\"string\">&apos;lastName&apos;</span>);\n    <span class=\"comment\">// Tell Ember that this computed property depends on firstName</span>\n    <span class=\"comment\">// and lastName</span>\n  })\n});\n<span class=\"keyword\">let</span> president = President.create({\n  <span class=\"attr\">firstName</span>: <span class=\"string\">&apos;Barack&apos;</span>,\n  <span class=\"attr\">lastName</span>: <span class=\"string\">&apos;Obama&apos;</span>\n});\npresident.get(<span class=\"string\">&apos;fullName&apos;</span>); <span class=\"comment\">// &apos;Barack Obama&apos;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "property",
+          "params": [
+            {
+              "name": "path",
+              "description": "zero or more property paths",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "this",
+            "type": "ComputedProperty"
+          },
+          "chainable": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "ComputedProperty",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/-internals/metal/lib/computed.ts",
+          "line": 474,
+          "description": "<html><head></head><body><p>In some cases, you may want to annotate computed properties with additional\nmetadata about how they function or what values they operate on. For example,\ncomputed property functions may close over variables that are then no longer\navailable for introspection.\nYou can pass a hash of these values to a computed property like this:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { computed } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n<span class=\"keyword\">import</span> Person <span class=\"keyword\">from</span> <span class=\"string\">&apos;my-app/utils/person&apos;</span>;\nperson: computed(<span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\"></span>) </span>{\n  <span class=\"keyword\">let</span> personId = <span class=\"keyword\">this</span>.get(<span class=\"string\">&apos;personId&apos;</span>);\n  <span class=\"keyword\">return</span> Person.create({ <span class=\"attr\">id</span>: personId });\n}).meta({ <span class=\"attr\">type</span>: Person })</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    <p>The hash that you pass to the <code>meta()</code> function will be saved on the\ncomputed property descriptor under the <code>_meta</code> key. Ember runtime\nexposes a public API for retrieving these values from classes,\nvia the <code>metaForProperty()</code> function.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "meta",
+          "params": [
+            {
+              "name": "meta",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "chainable": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "ComputedProperty",
+          "module": "@ember/object"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.10.0-@ember/object",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.10.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "data": {
+    "id": "ember-data-3.16.2-TimeoutError",
+    "type": "class",
+    "attributes": {
+      "name": "TimeoutError",
+      "shortname": "TimeoutError",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/adapter",
+      "namespace": "",
+      "file": "../adapter/addon/error.js",
+      "line": 183,
+      "description": "<html><head></head><body><p>A <code>TimeoutError</code> is used by an adapter to signal that a request\nto the external API has timed out. I.e. no response was received from\nthe external API within an allowed time period.</p>\n<p>An example use case would be to warn the user to check their internet\nconnection if an adapter operation has timed out:</p>\n<div class=\"highlight app/routes/application.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/application.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Route from <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n<span class=\"keyword\">import</span> { TimeoutError } from <span class=\"string\">&apos;@ember-data/adapter/error&apos;</span>;\n\nexport <span class=\"function\"><span class=\"keyword\">default</span> Route.<span class=\"title\">extend</span><span class=\"params\">({\n  actions: {\n    <span class=\"keyword\">error</span>(<span class=\"keyword\">error</span>, transition)</span> </span>{\n      <span class=\"keyword\">if</span> (<span class=\"keyword\">error</span> <span class=\"keyword\">instanceof</span> TimeoutError) {\n        <span class=\"comment\">// alert the user</span>\n        alert(<span class=\"string\">&apos;Are you still connected to the internet?&apos;</span>);\n        <span class=\"keyword\">return</span>;\n      }\n\n      <span class=\"comment\">// ...other error handling logic</span>\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "extends": "AdapterError",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.16.2-AdapterError",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.16.2-@ember-data/adapter",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.16.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

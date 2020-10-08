@@ -1,0 +1,1293 @@
+{
+  "data": {
+    "id": "ember-data-2.2.1-DS.Store",
+    "type": "class",
+    "attributes": {
+      "name": "DS.Store",
+      "shortname": "DS.Store",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "packages/ember-data/lib/system/store.js",
+      "line": 138,
+      "description": "<html><head></head><body><p>The store contains all of the data for records loaded from the server.\nIt is also responsible for creating instances of <code>DS.Model</code> that wrap\nthe individual data for a record, so that they can be bound to in your\nHandlebars templates.</p>\n<p>Define your application&apos;s store like this:</p>\n<div class=\"highlight app/services/store.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/services/store.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> DS <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember-data&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> DS.Store.extend({\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Most Ember.js applications will only have a single <code>DS.Store</code> that is\nautomatically created by their <code>Ember.Application</code>.</p>\n<p>You can retrieve models from the store in several ways. To retrieve a record\nfor a specific id, use <code>DS.Store</code>&apos;s <code>findRecord()</code> method:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>store.findRecord(<span class=\"symbol\">&apos;person</span>&apos;, <span class=\"number\">123</span>).<span class=\"keyword\">then</span>(<span class=\"keyword\">function</span> <span class=\"title\"></span>(person) {\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>By default, the store will talk to your backend using a standard\nREST mechanism. You can customize how the store talks to your\nbackend by specifying a custom adapter:</p>\n<div class=\"highlight app/adapters/application.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/adapters/application.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> DS <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember-data&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> DS.Adapter.extend({\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>You can learn more about writing a custom adapter by reading the <code>DS.Adapter</code>\ndocumentation.</p>\n<h3 id=\"store-createrecord-vs-push-vs-pushpayload-\">Store createRecord() vs. push() vs. pushPayload()</h3>\n<p>The store provides multiple ways to create new record objects. They have\nsome subtle differences in their use which are detailed below:</p>\n<p><a href=\"#method_createRecord\">createRecord</a> is used for creating new\nrecords on the client side. This will return a new record in the\n<code>created.uncommitted</code> state. In order to persist this record to the\nbackend you will need to call <code>record.save()</code>.</p>\n<p><a href=\"#method_push\">push</a> is used to notify Ember Data&apos;s store of new or\nupdated records that exist in the backend. This will return a record\nin the <code>loaded.saved</code> state. The primary use-case for <code>store#push</code> is\nto notify Ember Data about record updates (full or partial) that happen\noutside of the normal adapter methods (for example\n<a href=\"http://dev.w3.org/html5/eventsource/\">SSE</a> or <a href=\"http://www.w3.org/TR/2009/WD-websockets-20091222/\">Web\nSockets</a>).</p>\n<p><a href=\"#method_pushPayload\">pushPayload</a> is a convenience wrapper for\n<code>store#push</code> that will deserialize payloads if the\nSerializer implements a <code>pushPayload</code> method.</p>\n<p>Note: When creating a new record using any of the above methods\nEmber Data will update <code>DS.RecordArray</code>s such as those returned by\n<code>store#peekAll()</code>, <code>store#findAll()</code> or <code>store#filter()</code>. This means any\ndata bindings or computed properties that depend on the RecordArray\nwill automatically be synced to include the new or updated record\nvalues.</p>\n</body></html>",
+      "extends": "Ember.Service",
+      "version": "2.2.1",
+      "since": "2.2.1",
+      "methods": [
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 213,
+          "itemtype": "method",
+          "name": "init",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 248,
+          "description": "<html><head></head><body><p>Returns a JSON representation of the record using a custom\ntype-specific serializer, if one exists.</p>\n<p>The available options are:</p>\n<ul>\n<li><code>includeId</code>: <code>true</code> if the record&apos;s ID should be included in\nthe JSON representation</li>\n</ul>\n</body></html>",
+          "itemtype": "method",
+          "name": "serialize",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "record",
+              "description": "the record to serialize",
+              "type": "DS.Model"
+            },
+            {
+              "name": "options",
+              "description": "an options hash",
+              "type": "Object"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 296,
+          "description": "<html><head></head><body><p>Create a new record in the current store. The properties passed\nto this method are set on the newly created record.</p>\n<p>To create a new instance of a <code>Post</code>:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>store.createRecord(<span class=\"string\">&apos;post&apos;</span>, {\n  <span class=\"keyword\">title</span>: <span class=\"string\">&quot;Rails is omakase&quot;</span>\n})<span class=\"comment\">;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>To create a new instance of a <code>Post</code> that has a relationship with a <code>User</code> record:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>var <span class=\"keyword\">user</span> <span class=\"title\">= this</span>.store.peekRecord(&apos;user&apos;, <span class=\"number\">1</span>);\nstore.createRecord(&apos;post&apos;, {\n  title: <span class=\"string\">&quot;Rails is omakase&quot;</span>,\n  user: <span class=\"keyword\">user</span>\n<span class=\"title\">});</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "createRecord",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "inputProperties",
+              "description": "a hash of properties to set on the\n  newly created record.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "DS.Model"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 358,
+          "description": "<html><head></head><body><p>If possible, this method asks the adapter to generate an ID for\na newly created record.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "_generateId",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "properties",
+              "description": "from the new record",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "if the adapter can generate one, an ID",
+            "type": "String"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 382,
+          "description": "<html><head></head><body><p>For symmetry, a record can be deleted via the store.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">var</span> <span class=\"keyword\">post</span> = store.createRecord(&apos;<span class=\"keyword\">post</span>&apos;, {\n  title: <span class=\"string\">&quot;Rails is omakase&quot;</span>\n});\n\nstore.deleteRecord(<span class=\"keyword\">post</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "deleteRecord",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "DS.Model"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 402,
+          "description": "<html><head></head><body><p>For symmetry, a record can be unloaded via the store. Only\nnon-dirty records can be unloaded.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>store.<span class=\"built_in\">find</span>(<span class=\"string\">&apos;post&apos;</span>, <span class=\"number\">1</span>).<span class=\"keyword\">then</span>(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(post)</span></span> {\n  store.unloadRecord(post);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "unloadRecord",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "DS.Model"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 425,
+          "itemtype": "method",
+          "name": "find",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String|Integer"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 457,
+          "description": "<html><head></head><body><p>This method returns a record for a given type and id combination.</p>\n<p>The <code>findRecord</code> method will always return a <strong>promise</strong> that will be\nresolved with the record. If the record was already in the store,\nthe promise will be resolved immediately. Otherwise, the store\nwill ask the adapter&apos;s <code>find</code> method to find the necessary data.</p>\n<p>The <code>findRecord</code> method will always resolve its promise with the same\nobject for a given type and <code>id</code>.</p>\n<p>Example</p>\n<div class=\"highlight app/routes/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Ember <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Ember.Route.extend({\n  <span class=\"attr\">model</span>: <span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\">params</span>) </span>{\n    <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.store.findRecord(<span class=\"string\">&apos;post&apos;</span>, params.post_id);\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If you would like to force the record to reload, instead of\nloading it from the cache when present you can set <code>reload: true</code>\nin the options object for <code>findRecord</code>.</p>\n<div class=\"highlight app/routes/post/edit.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/post/edit.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Ember <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Ember.Route.extend({\n  <span class=\"attr\">model</span>: <span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\">params</span>) </span>{\n    <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.store.findRecord(<span class=\"string\">&apos;post&apos;</span>, params.post_id, { <span class=\"attr\">reload</span>: <span class=\"literal\">true</span> });\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "findRecord",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "(String|Integer)"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 565,
+          "description": "<html><head></head><body><p>This method makes a series of requests to the adapter&apos;s <code>find</code> method\nand returns a promise that resolves once they are all loaded.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "findByIds",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "ids",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 584,
+          "description": "<html><head></head><body><p>This method is called by <code>findRecord</code> if it discovers that a particular\ntype/id pair hasn&apos;t been loaded yet to kick off a request to the\nadapter.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "fetchRecord",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "model",
+              "type": "InternalModel"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 734,
+          "description": "<html><head></head><body><p>Get a record by a given type and ID without triggering a fetch.</p>\n<p>This method will synchronously return the record if it is available in the store,\notherwise it will return <code>null</code>. A record is available if it has been fetched earlier, or\npushed manually into the store.</p>\n<p><em>Note: This is an synchronous method and does not return a promise.</em></p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">var</span> <span class=\"keyword\">post</span> = store.peekRecord(&apos;<span class=\"keyword\">post</span>&apos;, 1);\n\n<span class=\"keyword\">post</span>.<span class=\"built_in\">get</span>(&apos;id&apos;); <span class=\"comment\">// 1</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "peekRecord",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String|Integer"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "DS.Model|null"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 763,
+          "description": "<html><head></head><body><p>This method is called by the record&apos;s <code>reload</code> method.</p>\n<p>This method calls the adapter&apos;s <code>find</code> method, which returns a promise. When\n<strong>that</strong> promise resolves, <code>reloadRecord</code> will resolve the promise returned\nby the record&apos;s <code>reload</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "reloadRecord",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "DS.Model"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 787,
+          "description": "<html><head></head><body><p>Returns true if a record for a given type and ID is already loaded.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "hasRecordForId",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "(String|DS.Model)"
+            },
+            {
+              "name": "inputId",
+              "description": "",
+              "type": "(String|Integer)"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 803,
+          "description": "<html><head></head><body><p>Returns id record for a given type and ID. If one isn&apos;t already loaded,\nit builds a new record and leaves it in the <code>empty</code> state.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "recordForId",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "(String|Integer)"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "DS.Model"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 833,
+          "itemtype": "method",
+          "name": "findMany",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModels",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 844,
+          "description": "<html><head></head><body><p>If a relationship was originally populated by the adapter as a link\n(as opposed to a list of IDs), this method is called when the\nrelationship is fetched.</p>\n<p>The link (which is usually a URL) is passed through unchanged, so the\nadapter can make whatever request it wants.</p>\n<p>The usual use-case is for the server to register a URL as a link, and\nthen use that URL in the future to make a request for the relationship.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "findHasMany",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "owner",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "link",
+              "description": "",
+              "type": "Any"
+            },
+            {
+              "name": "relationship",
+              "description": "",
+              "type": "(Relationship)"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 871,
+          "itemtype": "method",
+          "name": "findBelongsTo",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "owner",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "link",
+              "description": "",
+              "type": "Any"
+            },
+            {
+              "name": "relationship",
+              "description": "",
+              "type": "Relationship"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 888,
+          "description": "<html><head></head><body><p>This method delegates a query to the adapter. This is the one place where\nadapter-level semantics are exposed to the application.</p>\n<p>Exposing queries this way seems preferable to creating an abstract query\nlanguage for all server-side queries, and then require all adapters to\nimplement them.</p>\n<hr>\n<p>If you do something like this:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>store.query(<span class=\"string\">&apos;person&apos;</span>, { <span class=\"string\">page:</span> <span class=\"number\">1</span> });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The call made to the server, using a Rails backend, will look something like this:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>Started GET <span class=\"string\">&quot;/api/v1/person?page=1&quot;</span>\nProcessing by Api::V1::PersonsController#index <span class=\"keyword\">as</span> HTML\nParameters: { <span class=\"string\">&quot;page&quot;</span>=&gt;<span class=\"string\">&quot;1&quot;</span> }</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    <hr>\n<p>If you do something like this:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>store.query(<span class=\"string\">&apos;person&apos;</span>, { <span class=\"string\">ids:</span> [<span class=\"number\">1</span>, <span class=\"number\">2</span>, <span class=\"number\">3</span>] });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The call to the server, using a Rails backend, will look something like this:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>Started GET <span class=\"string\">&quot;/api/v1/person?ids%5B%5D=1&amp;ids%5B%5D=2&amp;ids%5B%5D=3&quot;</span>\nProcessing by Api::V1::PersonsController<span class=\"comment\">#index as HTML</span>\nParameters: { <span class=\"string\">&quot;ids&quot;</span> =&gt; [<span class=\"string\">&quot;1&quot;</span>, <span class=\"string\">&quot;2&quot;</span>, <span class=\"string\">&quot;3&quot;</span>] }</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    <p>This method returns a promise, which is resolved with a <code>RecordArray</code>\nonce the server returns.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "query",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "query",
+              "description": "an opaque query to be used by the adapter",
+              "type": "Any"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 950,
+          "description": "<html><head></head><body><p>This method delegates a query to the adapter. This is the one place where\nadapter-level semantics are exposed to the application.</p>\n<p>Exposing queries this way seems preferable to creating an abstract query\nlanguage for all server-side queries, and then require all adapters to\nimplement them.</p>\n<p>This method returns a promise, which is resolved with a <code>RecordObject</code>\nonce the server returns.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "queryRecord",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String or subclass of DS.Model"
+            },
+            {
+              "name": "query",
+              "description": "an opaque query to be used by the adapter",
+              "type": "Any"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 980,
+          "description": "<html><head></head><body><p><code>findAll</code> ask the adapter&apos;s <code>findAll</code> method to find the records\nfor the given type, and return a promise that will be resolved\nonce the server returns the values. The promise will resolve into\nall records of this type present in the store, even if the server\nonly returns a subset of them.</p>\n<div class=\"highlight app/routes/authors.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/authors.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Ember <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Ember.Route.extend({\n  <span class=\"attr\">model</span>: <span class=\"function\"><span class=\"keyword\">function</span>(<span class=\"params\">params</span>) </span>{\n    <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.store.findAll(<span class=\"string\">&apos;author&apos;</span>);\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "findAll",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "DS.AdapterPopulatedRecordArray"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1009,
+          "itemtype": "method",
+          "name": "_fetchAll",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "array",
+              "description": "",
+              "type": "DS.RecordArray"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1038,
+          "itemtype": "method",
+          "name": "didUpdateAll",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "DS.Model"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1048,
+          "description": "<html><head></head><body><p>This method returns a filtered array that contains all of the\nknown records for a given type in the store.</p>\n<p>Note that because it&apos;s just a filter, the result will contain any\nlocally created records of the type, however, it will not make a\nrequest to the backend to retrieve additional records. If you\nwould like to request all the records from the backend please use\n<a href=\"#method_find\">store.find</a>.</p>\n<p>Also note that multiple calls to <code>peekAll</code> for a given type will always\nreturn the same <code>RecordArray</code>.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"attribute\">var localPosts</span> = store.peekAll(<span class=\"string\">&apos;post&apos;</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "peekAll",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "DS.RecordArray"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1081,
+          "description": "<html><head></head><body><p>This method unloads all records in the store.</p>\n<p>Optionally you can pass a type which unload all records for a given type.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">store</span><span class=\"selector-class\">.unloadAll</span>();\n<span class=\"selector-tag\">store</span><span class=\"selector-class\">.unloadAll</span>(<span class=\"string\">&apos;post&apos;</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "unloadAll",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String="
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1123,
+          "description": "<html><head></head><body><p>Takes a type and filter function, and returns a live RecordArray that\nremains up to date as new records are loaded into the store or created\nlocally.</p>\n<p>The filter function takes a materialized record, and returns true\nif the record should be included in the filter and false if it should\nnot.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>store.filter(<span class=\"string\">&apos;post&apos;</span>, <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(post)</span> </span>{\n  <span class=\"keyword\">return</span> post.get(<span class=\"string\">&apos;unread&apos;</span>);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The filter function is called once on all records for the type when\nit is created, and then once on each newly loaded or created record.</p>\n<p>If any of a record&apos;s properties change, or if it changes state, the\nfilter function will be invoked again to determine whether it should\nstill be in the array.</p>\n<p>Optionally you can pass a query, which is the equivalent of calling\n<a href=\"#method_find\">find</a> with that same query, to fetch additional records\nfrom the server. The results returned by the server could then appear\nin the filter if they match the filter function.</p>\n<p>The query itself is not used to filter records, it&apos;s only sent to your\nserver for you to be able to do server-side filtering. The filter\nfunction will be applied on the returned results regardless.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre>store.filter(<span class=\"string\">&apos;post&apos;</span>, { unread: <span class=\"type\">true </span>}, <span class=\"function\"><span class=\"keyword\">function</span></span>(post) {\n  <span class=\"keyword\">return</span> post.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;unread&apos;</span>);\n}).then(<span class=\"function\"><span class=\"keyword\">function</span></span>(unreadPosts) {\n  unreadPosts.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;length&apos;</span>); <span class=\"comment\">// 5</span>\n  <span class=\"keyword\">var</span> unreadPost = unreadPosts.objectAt(<span class=\"number\">0</span>);\n  unreadPost.<span class=\"keyword\">set</span>(<span class=\"string\">&apos;unread&apos;</span>, <span class=\"literal\">false</span>);\n  unreadPosts.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;length&apos;</span>); <span class=\"comment\">// 4</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "filter",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "query",
+              "description": "optional query",
+              "type": "Object"
+            },
+            {
+              "name": "filter",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "DS.PromiseArray"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1207,
+          "description": "<html><head></head><body><p>This method returns if a certain record is already loaded\nin the store. Use this function to know beforehand if a find()\nwill result in a request or that it will be a cache hit.</p>\n<p> Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>store.recordIsLoaded(<span class=\"string\">&apos;post&apos;</span>, <span class=\"number\">1</span>); // <span class=\"literal\">false</span>\nstore.<span class=\"built_in\">find</span>(<span class=\"string\">&apos;post&apos;</span>, <span class=\"number\">1</span>).<span class=\"keyword\">then</span>(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span></span> {\n  store.recordIsLoaded(<span class=\"string\">&apos;post&apos;</span>, <span class=\"number\">1</span>); // <span class=\"literal\">true</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "recordIsLoaded",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1231,
+          "itemtype": "method",
+          "name": "_metadataFor",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1243,
+          "itemtype": "method",
+          "name": "_setMetadataFor",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "metadata",
+              "description": "metadata to set",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1259,
+          "description": "<html><head></head><body><p>If the adapter updates attributes the record will notify\nthe store to update its  membership in any filters.\nTo avoid thrashing, this method is invoked only once per\nrun loop per record.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "dataWasUpdated",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "Class"
+            },
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1278,
+          "description": "<html><head></head><body><p>This method is called by <code>record.save</code>, and gets passed a\nresolver for the promise that <code>record.save</code> returns.</p>\n<p>It schedules saving to happen at the end of the run loop.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "scheduleSave",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            },
+            {
+              "name": "resolver",
+              "description": "",
+              "type": "Resolver"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1301,
+          "description": "<html><head></head><body><p>This method is called at the end of the run loop, and\nflushes any records passed into <code>scheduleSave</code></p>\n</body></html>",
+          "itemtype": "method",
+          "name": "flushPendingSave",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1333,
+          "description": "<html><head></head><body><p>This method is called once the promise returned by an\nadapter&apos;s <code>createRecord</code>, <code>updateRecord</code> or <code>deleteRecord</code>\nis resolved.</p>\n<p>If the data provides a server-generated ID, it will\nupdate the record and the store&apos;s indexes.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "didSaveRecord",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "the in-flight internal model",
+              "type": "InternalModel"
+            },
+            {
+              "name": "data",
+              "description": "optional data (see above)",
+              "type": "Object"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1362,
+          "description": "<html><head></head><body><p>This method is called once the promise returned by an\nadapter&apos;s <code>createRecord</code>, <code>updateRecord</code> or <code>deleteRecord</code>\nis rejected with a <code>DS.InvalidError</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "recordWasInvalid",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            },
+            {
+              "name": "errors",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1376,
+          "description": "<html><head></head><body><p>This method is called once the promise returned by an\nadapter&apos;s <code>createRecord</code>, <code>updateRecord</code> or <code>deleteRecord</code>\nis rejected (with anything other than a <code>DS.InvalidError</code>).</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "recordWasError",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            },
+            {
+              "name": "error",
+              "description": "",
+              "type": "Error"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1390,
+          "description": "<html><head></head><body><p>When an adapter&apos;s <code>createRecord</code>, <code>updateRecord</code> or <code>deleteRecord</code>\nresolves with data, this method extracts the ID from the supplied\ndata.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "updateId",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            },
+            {
+              "name": "data",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1411,
+          "description": "<html><head></head><body><p>Returns a map of IDs to client IDs for a given type.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "typeMapFor",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "DS.Model"
+            }
+          ],
+          "return": {
+            "description": "typeMap",
+            "type": "Object"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1442,
+          "description": "<html><head></head><body><p>This internal method is used by <code>push</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "_load",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "(String|DS.Model)"
+            },
+            {
+              "name": "data",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1498,
+          "description": "<html><head></head><body><p>Returns a model class for a particular key. Used by\nmethods that take a type key (like <code>find</code>, <code>createRecord</code>,\netc.)</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "modelFor",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "DS.Model"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1532,
+          "description": "<html><head></head><body><p>Push some data for a given type into the store.</p>\n<p>This method expects normalized <a href=\"http://jsonapi.org/\">JSON API</a> document. This means you have to follow <a href=\"http://jsonapi.org/format/\">JSON API specification</a> with few minor adjustments:</p>\n<ul>\n<li>record&apos;s <code>type</code> should always be in singular, dasherized form</li>\n<li>members (properties) should be camelCased</li>\n</ul>\n<p><a href=\"http://jsonapi.org/format/#document-top-level\">Your primary data should be wrapped inside <code>data</code> property</a>:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">store</span><span class=\"selector-class\">.push</span>({\n  <span class=\"attribute\">data</span>: {\n    <span class=\"comment\">// primary data for single record of type `Person`</span>\n    <span class=\"attribute\">id</span>: <span class=\"string\">&apos;1&apos;</span>,\n    <span class=\"attribute\">type</span>: <span class=\"string\">&apos;person&apos;</span>,\n    <span class=\"attribute\">attributes</span>: {\n      <span class=\"attribute\">firstName</span>: <span class=\"string\">&apos;Daniel&apos;</span>,\n      <span class=\"attribute\">lastName</span>: <span class=\"string\">&apos;Kmak&apos;</span>\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p><a href=\"http://ember-twiddle.com/fb99f18cd3b4d3e2a4c7\">Demo.</a></p>\n<p><code>data</code> property can also hold an array (of records):</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">store</span><span class=\"selector-class\">.push</span>({\n  <span class=\"attribute\">data</span>: [\n    <span class=\"comment\">// an array of records</span>\n    {\n      <span class=\"attribute\">id</span>: <span class=\"string\">&apos;1&apos;</span>,\n      <span class=\"attribute\">type</span>: <span class=\"string\">&apos;person&apos;</span>,\n      <span class=\"attribute\">attributes</span>: {\n        <span class=\"attribute\">firstName</span>: <span class=\"string\">&apos;Daniel&apos;</span>,\n        <span class=\"attribute\">lastName</span>: <span class=\"string\">&apos;Kmak&apos;</span>\n      }\n    },\n    {\n      <span class=\"attribute\">id</span>: <span class=\"string\">&apos;2&apos;</span>,\n      <span class=\"attribute\">type</span>: <span class=\"string\">&apos;person&apos;</span>,\n      <span class=\"attribute\">attributes</span>: {\n        <span class=\"attribute\">firstName</span>: <span class=\"string\">&apos;Tom&apos;</span>,\n        <span class=\"attribute\">lastName</span>: <span class=\"string\">&apos;Dale&apos;</span>\n      }\n    }\n  ]\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p><a href=\"http://ember-twiddle.com/69cdbeaa3702159dc355\">Demo.</a></p>\n<p>There are some typical properties for <code>JSONAPI</code> payload:</p>\n<ul>\n<li><code>id</code> - mandatory, unique record&apos;s key</li>\n<li><code>type</code> - mandatory string which matches <code>model</code>&apos;s dasherized name in singular form</li>\n<li><code>attributes</code> - object which holds data for record attributes - <code>DS.attr</code>&apos;s declared in model</li>\n<li><code>relationships</code> - object which must contain any of the following properties under each relationships&apos; respective key (example path is <code>relationships.achievements.data</code>):<ul>\n<li><a href=\"http://jsonapi.org/format/#document-links\"><code>links</code></a></li>\n<li><a href=\"http://jsonapi.org/format/#document-resource-object-linkage\"><code>data</code></a> - place for primary data</li>\n<li><a href=\"http://jsonapi.org/format/#document-meta\"><code>meta</code></a> - object which contains meta-information about relationship</li>\n</ul>\n</li>\n</ul>\n<p>For this model:</p>\n<div class=\"highlight app/models/person.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/person.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> DS <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember-data&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> DS.Model.extend({\n  firstName: DS.attr(<span class=\"string\">&apos;string&apos;</span>),\n  lastName: DS.attr(<span class=\"string\">&apos;string&apos;</span>),\n\n  children: DS.hasMany(<span class=\"string\">&apos;person&apos;</span>)\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>To represent the children as IDs:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n</pre></td>\n              <td class=\"code\"><pre>{\n  <span class=\"attribute\">data</span>: {\n    id: <span class=\"string\">&apos;1&apos;</span>,\n    type: <span class=\"string\">&apos;person&apos;</span>,\n    attributes: {\n      firstName: <span class=\"string\">&apos;Tom&apos;</span>,\n      lastName: <span class=\"string\">&apos;Dale&apos;</span>\n    },\n    <span class=\"selector-tag\">relationships</span>: {\n      <span class=\"attribute\">children</span>: {\n        data: [\n          {\n            id: <span class=\"string\">&apos;2&apos;</span>,\n            type: <span class=\"string\">&apos;person&apos;</span>\n          },\n          {\n            <span class=\"attribute\">id</span>: <span class=\"string\">&apos;3&apos;</span>,\n            type: <span class=\"string\">&apos;person&apos;</span>\n          },\n          {\n            <span class=\"attribute\">id</span>: <span class=\"string\">&apos;4&apos;</span>,\n            type: <span class=\"string\">&apos;person&apos;</span>\n          }\n        ]\n      }\n    }\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p><a href=\"http://ember-twiddle.com/343e1735e034091f5bde\">Demo.</a></p>\n<p>To represent the children relationship as a URL:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre>{\n  <span class=\"attribute\">data</span>: {\n    <span class=\"attribute\">id</span>: <span class=\"string\">&apos;1&apos;</span>,\n    <span class=\"attribute\">type</span>: <span class=\"string\">&apos;person&apos;</span>,\n    <span class=\"attribute\">attributes</span>: {\n      <span class=\"attribute\">firstName</span>: <span class=\"string\">&apos;Tom&apos;</span>,\n      <span class=\"attribute\">lastName</span>: <span class=\"string\">&apos;Dale&apos;</span>\n    },\n    <span class=\"attribute\">relationships</span>: {\n      <span class=\"attribute\">children</span>: {\n        <span class=\"attribute\">links</span>: {\n          <span class=\"attribute\">related</span>: <span class=\"string\">&apos;/people/1/children&apos;</span>\n        }\n      }\n    }\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If you&apos;re streaming data or implementing an adapter, make sure\nthat you have converted the incoming data into this form. The\nstore&apos;s <a href=\"#method_normalize\">normalize</a> method is a convenience\nhelper for converting a json payload into the form Ember Data\nexpects.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>store.<span class=\"keyword\">push</span>(store.normalize(<span class=\"string\">&apos;person&apos;</span>, data));</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This method can be used both to push in brand new\nrecords, as well as to update existing records.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "push",
+          "params": [
+            {
+              "name": "data",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the record(s) that was created or\n  updated.",
+            "type": "DS.Model|Array"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1754,
+          "description": "<html><head></head><body><p>Push some raw data into the store.</p>\n<p>This method can be used both to push in brand new\nrecords, as well as to update existing records. You\ncan push in more than one type of object at once.\nAll objects should be in the format expected by the\nserializer.</p>\n<div class=\"highlight app/serializers/application.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/serializers/application.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> DS <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember-data&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> DS.ActiveModelSerializer;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre>var pushData = {\n<span class=\"symbol\">  posts:</span> [\n    { <span class=\"string\">id:</span> <span class=\"number\">1</span>, <span class=\"string\">post_title:</span> <span class=\"string\">&quot;Great post&quot;</span>, <span class=\"string\">comment_ids:</span> [<span class=\"number\">2</span>] }\n  ],\n<span class=\"symbol\">  comments:</span> [\n    { <span class=\"string\">id:</span> <span class=\"number\">2</span>, <span class=\"string\">comment_body:</span> <span class=\"string\">&quot;Insightful comment&quot;</span> }\n  ]\n}\n\nstore.pushPayload(pushData);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>By default, the data will be deserialized using a default\nserializer (the application serializer if it exists).</p>\n<p>Alternatively, <code>pushPayload</code> will accept a model type which\nwill determine which serializer will process the payload.</p>\n<div class=\"highlight app/serializers/application.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/serializers/application.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> DS <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember-data&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> DS.ActiveModelSerializer;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight app/serializers/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/serializers/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> DS <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember-data&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> DS.JSONSerializer;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>store.pushPayload(&apos;comment&apos;, pushData); <span class=\"comment\">// Will use the application serializer</span>\nstore.pushPayload(&apos;post&apos;, pushData); <span class=\"comment\">// Will use the post serializer</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "pushPayload",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "Optionally, a model type used to determine which serializer will be used",
+              "type": "String"
+            },
+            {
+              "name": "inputPayload",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1824,
+          "description": "<html><head></head><body><p><code>normalize</code> converts a json payload into the normalized form that\n<a href=\"#method_push\">push</a> expects.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>socket.<span class=\"keyword\">on</span>(<span class=\"string\">&apos;message&apos;</span>, function(message) {\n  <span class=\"built_in\">var</span> modelName = message.model;\n  <span class=\"built_in\">var</span> <span class=\"built_in\">data</span> = message.<span class=\"built_in\">data</span>;\n  store.push(modelName, store.normalize(modelName, <span class=\"built_in\">data</span>));\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "normalize",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "The name of the model type for this payload",
+              "type": "String"
+            },
+            {
+              "name": "payload",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The normalized payload",
+            "type": "Object"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1850,
+          "description": "<html><head></head><body><p>Build a brand new record for a given type, ID, and\ninitial data.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "buildRecord",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "data",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "internal model",
+            "type": "InternalModel"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1892,
+          "description": "<html><head></head><body><p>When a record is destroyed, this un-indexes it and\nremoves it from any record arrays so it can be GCed.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "_dematerializeRecord",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            }
+          ],
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1919,
+          "description": "<html><head></head><body><p>Returns an instance of the adapter for a given type. For\nexample, <code>adapterFor(&apos;person&apos;)</code> will return an instance of\n<code>App.PersonAdapter</code>.</p>\n<p>If no <code>App.PersonAdapter</code> is found, this method will look\nfor an <code>App.ApplicationAdapter</code> (the default adapter for\nyour entire application).</p>\n<p>If no <code>App.ApplicationAdapter</code> is found, it will return\nthe value of the <code>defaultAdapter</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "adapterFor",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "DS.Adapter"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1951,
+          "description": "<html><head></head><body><p>Returns an instance of the serializer for a given type. For\nexample, <code>serializerFor(&apos;person&apos;)</code> will return an instance of\n<code>App.PersonSerializer</code>.</p>\n<p>If no <code>App.PersonSerializer</code> is found, this method will look\nfor an <code>App.ApplicationSerializer</code> (the default serializer for\nyour entire application).</p>\n<p>if no <code>App.ApplicationSerializer</code> is found, it will attempt\nto get the <code>defaultSerializer</code> from the <code>PersonAdapter</code>\n(<code>adapterFor(&apos;person&apos;)</code>).</p>\n<p>If a serializer cannot be found on the adapter, it will fall back\nto an instance of <code>DS.JSONSerializer</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "serializerFor",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "the record to serialize",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "DS.Serializer"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 1986,
+          "description": "<html><head></head><body><p>Retrieve a particular instance from the\ncontainer cache. If not found, creates it and\nplacing it in the cache.</p>\n<p>Enabled a store to manage local instances of\nadapters and serializers.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "retrieveManagedInstance",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "the object modelName",
+              "type": "String"
+            },
+            {
+              "name": "name",
+              "description": "the object name",
+              "type": "String"
+            },
+            {
+              "name": "fallbacks",
+              "description": "the fallback objects to lookup if the lookup for modelName or 'application' fails",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Object"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 231,
+          "description": "<html><head></head><body><p>The adapter to use to communicate to a backend server or other persistence layer.</p>\n<p>This can be specified as an instance, class, or string.</p>\n<p>If you want to specify <code>app/adapters/custom.js</code> as a string, do:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"string\">adapter:</span> <span class=\"string\">&apos;custom&apos;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "adapter",
+          "default": "DS.JSONAPIAdapter",
+          "type": "{(DS.Adapter|String)}",
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        },
+        {
+          "file": "packages/ember-data/lib/system/store.js",
+          "line": 267,
+          "description": "<html><head></head><body><p>This property returns the adapter, after resolving a possible\nstring key.</p>\n<p>If the supplied <code>adapter</code> was a class, or a String property\npath resolved to a class, this property will instantiate the\nclass.</p>\n<p>This property is cacheable, so the same instance of a specified\nadapter class should be used for the lifetime of the store.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "defaultAdapter",
+          "access": "private",
+          "tagname": "",
+          "return": {
+            "description": "DS.Adapter"
+          },
+          "class": "DS.Store",
+          "module": "ember-data",
+          "namespace": "DS",
+          "version": "2.2.1",
+          "since": "2.2.1"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Service",
+          "type": "missing",
+          "version": "2.2.1"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.2.1-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.2.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

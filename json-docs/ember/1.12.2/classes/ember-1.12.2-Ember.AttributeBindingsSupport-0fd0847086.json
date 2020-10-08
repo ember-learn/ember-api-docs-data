@@ -1,0 +1,114 @@
+{
+  "data": {
+    "id": "ember-1.12.2-Ember.AttributeBindingsSupport",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.AttributeBindingsSupport",
+      "shortname": "Ember.AttributeBindingsSupport",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.View"
+      ],
+      "module": "ember",
+      "submodule": "ember-views",
+      "namespace": "Ember",
+      "file": "packages/ember-views/lib/mixins/attribute_bindings_support.js",
+      "line": 14,
+      "version": "1.12.2",
+      "since": "1.12.2",
+      "methods": [
+        {
+          "file": "packages/ember-views/lib/mixins/attribute_bindings_support.js",
+          "line": 53,
+          "description": "<html><head></head><body><p>Iterates through the view&apos;s attribute bindings, sets up observers for each,\nthen applies the current value of the attributes to the passed render buffer.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "_applyAttributeBindings",
+          "params": [
+            {
+              "name": "buffer",
+              "description": "",
+              "type": "Ember.RenderBuffer"
+            },
+            {
+              "name": "attributeBindings",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.AttributeBindingsSupport",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "version": "1.12.2",
+          "since": "1.12.2"
+        },
+        {
+          "file": "packages/ember-views/lib/mixins/attribute_bindings_support.js",
+          "line": 100,
+          "description": "<html><head></head><body><p>We&apos;re using setUnknownProperty as a hook to setup attributeBinding observers for\nproperties that aren&apos;t defined on a view at initialization time.</p>\n<p>Note: setUnknownProperty will only be called once for each property.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "setUnknownProperty",
+          "params": [
+            {
+              "name": "key",
+              "description": ""
+            },
+            {
+              "name": "value",
+              "description": ""
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.AttributeBindingsSupport",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "version": "1.12.2",
+          "since": "1.12.2"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-views/lib/mixins/attribute_bindings_support.js",
+          "line": 21,
+          "description": "<html><head></head><body><p>A list of properties of the view to apply as attributes. If the property is\na string value, the value of that string will be applied as the attribute.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// Applies the type attribute to the element</span>\n<span class=\"comment\">// with the value &quot;button&quot;, like &lt;div type=&quot;button&quot;&gt;</span>\nEmber.View.extend({\n  attributeBindings: [&apos;<span class=\"class\"><span class=\"keyword\">type</span>&apos;],</span>\n  <span class=\"class\"><span class=\"keyword\">type</span>: &apos;<span class=\"title\">button</span>&apos;</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If the value of the property is a Boolean, the name of that property is\nadded as an attribute.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// Renders something like &lt;div enabled=&quot;enabled&quot;&gt;</span>\n<span class=\"selector-tag\">Ember</span><span class=\"selector-class\">.View</span><span class=\"selector-class\">.extend</span>({\n  <span class=\"attribute\">attributeBindings</span>: [<span class=\"string\">&apos;enabled&apos;</span>],\n  <span class=\"attribute\">enabled</span>: true\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "attributeBindings",
+          "class": "Ember.AttributeBindingsSupport",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "version": "1.12.2",
+          "since": "1.12.2"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.12.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.12.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

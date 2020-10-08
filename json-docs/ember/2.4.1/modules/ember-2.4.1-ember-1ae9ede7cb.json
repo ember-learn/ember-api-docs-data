@@ -1,0 +1,759 @@
+{
+  "data": {
+    "id": "ember-2.4.1-ember",
+    "type": "module",
+    "attributes": {
+      "name": "ember",
+      "submodules": {
+        "ember-application": 1,
+        "ember-debug": 1,
+        "ember-extension-support": 1,
+        "ember-templates": 1,
+        "ember-htmlbars": 1,
+        "ember-routing-htmlbars": 1,
+        "ember-routing-views": 1,
+        "ember-routing": 1,
+        "ember-views": 1,
+        "ember-runtime": 1,
+        "ember-testing": 1
+      },
+      "fors": {
+        "Ember": 1,
+        "Ember.Templates.helpers": 1,
+        "Ember.HTMLBars": 1,
+        "Ember.String": 1,
+        "Ember.computed": 1,
+        "Ember.FEATURES": 1,
+        "Ember.Logger": 1,
+        "Ember.ControllerMixin": 1,
+        "Ember.Route": 1,
+        "Ember.inject": 1,
+        "Function": 1,
+        "String": 1
+      },
+      "namespaces": {
+        "Ember.ApplicationInstance": 1,
+        "Ember": 1,
+        "Ember.Instrumentation": 1,
+        "Ember.Test": 1
+      },
+      "tag": "module",
+      "file": "packages/ember-views/lib/views/view.js",
+      "line": 31,
+      "parent": null,
+      "publicclasses": [
+        "RSVP.EventTarget",
+        "RSVP.Promise",
+        "Ember.ApplicationInstance",
+        "Ember.ApplicationInstance.BootOptions",
+        "Ember.Application",
+        "Ember.EngineInstance",
+        "Ember.Engine",
+        "Ember.DefaultResolver",
+        "Ember.Debug",
+        "Ember.ContainerDebugAdapter",
+        "Ember.DataAdapter",
+        "Ember.Helper",
+        "Ember.Binding",
+        "Ember.ComputedProperty",
+        "Ember.Error",
+        "Ember.Logger",
+        "Ember.Mixin",
+        "Ember.Route",
+        "Ember.Router",
+        "Ember.Controller",
+        "Ember.Array",
+        "Ember.Evented",
+        "Ember.MutableArray",
+        "Ember.MutableEnumerable",
+        "Ember.Observable",
+        "Ember.PromiseProxyMixin",
+        "Ember.ArrayProxy",
+        "Ember.CoreObject",
+        "Ember.Namespace",
+        "Ember.NativeArray",
+        "Ember.Object",
+        "Ember.ObjectProxy",
+        "Ember.Service",
+        "Ember.Test.Adapter",
+        "Ember.Test.QUnitAdapter",
+        "Ember.Test",
+        "Ember.Component",
+        "Ember.InstrumentationSupport",
+        "Ember.VisibilitySupport",
+        "Ember.Checkbox",
+        "Ember.TextArea",
+        "Ember.TextField"
+      ],
+      "privateclasses": [
+        "Backburner",
+        "Ember.InjectedProperty",
+        "Libraries",
+        "Ember.OrderedSet",
+        "Ember.Map",
+        "Ember.MapWithDefault",
+        "Ember.LinkComponent",
+        "Ember.ControllerMixin",
+        "Ember.HashLocation",
+        "Ember.HistoryLocation",
+        "Ember.NoneLocation",
+        "RoutingService",
+        "Ember.ProxyMixin",
+        "Ember.ActionHandler",
+        "Ember.Comparable",
+        "ContainerProxyMixin",
+        "Ember.Copyable",
+        "Ember.Enumerable",
+        "Ember.Freezable",
+        "RegistryProxyMixin",
+        "Ember.TargetActionSupport",
+        "Ember.EachProxy",
+        "Ember._Metamorph",
+        "Ember._MetamorphView",
+        "Ember.AriaRoleSupport",
+        "Ember.ClassNamesSupport",
+        "Ember.EmptyViewSupport",
+        "Ember.LegacyViewSupport",
+        "Ember.TemplateRenderingSupport",
+        "Ember.TextSupport",
+        "Ember.ViewTargetActionSupport",
+        "Ember.EventDispatcher",
+        "Ember.CollectionView",
+        "Ember.ContainerView",
+        "Ember.CoreView",
+        "Ember.Select",
+        "Ember.View"
+      ],
+      "staticfunctions": {
+        "Ember.Application": [
+          {
+            "file": "packages/ember-application/lib/system/application.js",
+            "line": 1041,
+            "description": "This creates a registry with the default Ember naming conventions.\n\nIt also configures the registry:\n\n* registered views are created every time they are looked up (they are\n  not singletons)\n* registered templates are not factories; the registered value is\n  returned directly.\n* the router receives the application as its `namespace` property\n* all controllers receive the router as their `target` and `controllers`\n  properties\n* all controllers receive the application as their `namespace` property\n* the application view receives the application controller as its\n  `controller` property\n* the application view receives the application template as its\n  `defaultTemplate` property",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "buildRegistry",
+            "static": 1,
+            "params": [
+              {
+                "name": "namespace",
+                "description": "the application for which to\n  build the registry",
+                "type": "Ember.Application"
+              }
+            ],
+            "return": {
+              "description": "the built registry",
+              "type": "Ember.Registry"
+            },
+            "class": "Ember.Application",
+            "module": "ember",
+            "submodule": "ember-application",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.Engine": [
+          {
+            "file": "packages/ember-application/lib/system/engine.js",
+            "line": 333,
+            "description": "This creates a registry with the default Ember naming conventions.\n\nIt also configures the registry:\n\n* registered views are created every time they are looked up (they are\n  not singletons)\n* registered templates are not factories; the registered value is\n  returned directly.\n* the router receives the application as its `namespace` property\n* all controllers receive the router as their `target` and `controllers`\n  properties\n* all controllers receive the application as their `namespace` property\n* the application view receives the application controller as its\n  `controller` property\n* the application view receives the application template as its\n  `defaultTemplate` property",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "buildRegistry",
+            "static": 1,
+            "params": [
+              {
+                "name": "namespace",
+                "description": "the application for which to\n  build the registry",
+                "type": "Ember.Application"
+              }
+            ],
+            "return": {
+              "description": "the built registry",
+              "type": "Ember.Registry"
+            },
+            "class": "Ember.Engine",
+            "module": "ember",
+            "submodule": "ember-application",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.Mixin": [
+          {
+            "file": "packages/ember-metal/lib/mixin.js",
+            "line": 524,
+            "itemtype": "method",
+            "name": "create",
+            "static": 1,
+            "params": [
+              {
+                "name": "arguments",
+                "description": "",
+                "multiple": true
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "Ember.Mixin",
+            "module": "ember",
+            "submodule": "ember-metal",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.CoreObject": [
+          {
+            "file": "packages/ember-runtime/lib/system/core_object.js",
+            "line": 657,
+            "description": "Creates an instance of a class. Accepts either no arguments, or an object\ncontaining values to initialize the newly instantiated object with.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  helloWorld: function() {\n    alert(\"Hi, my name is \" + this.get('name'));\n  }\n});\n\nvar tom = App.Person.create({\n  name: 'Tom Dale'\n});\n\ntom.helloWorld(); // alerts \"Hi, my name is Tom Dale\".\n```\n\n`create` will call the `init` function if defined during\n`Ember.AnyObject.extend`\n\nIf no arguments are passed to `create`, it will not set values to the new\ninstance during initialization:\n\n```javascript\nvar noName = App.Person.create();\nnoName.helloWorld(); // alerts undefined\n```\n\nNOTE: For performance reasons, you cannot declare methods or computed\nproperties during `create`. You should instead declare methods and computed\nproperties when using `extend`.",
+            "itemtype": "method",
+            "name": "create",
+            "static": 1,
+            "params": [
+              {
+                "name": "arguments",
+                "description": "",
+                "optional": true,
+                "multiple": true
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "Ember.CoreObject",
+            "module": "ember",
+            "submodule": "ember-runtime",
+            "namespace": "Ember"
+          },
+          {
+            "file": "packages/ember-runtime/lib/system/core_object.js",
+            "line": 549,
+            "description": "Creates a new subclass.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    alert(thing);\n   }\n});\n```\n\nThis defines a new subclass of Ember.Object: `App.Person`. It contains one method: `say()`.\n\nYou can also create a subclass from any existing class by calling its `extend()` method.\nFor example, you might want to create a subclass of Ember's built-in `Ember.View` class:\n\n```javascript\nApp.PersonView = Ember.View.extend({\n  tagName: 'li',\n  classNameBindings: ['isAdministrator']\n});\n```\n\nWhen defining a subclass, you can override methods but still access the\nimplementation of your parent class by calling the special `_super()` method:\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    var name = this.get('name');\n    alert(name + ' says: ' + thing);\n  }\n});\n\nApp.Soldier = App.Person.extend({\n  say: function(thing) {\n    this._super(thing + \", sir!\");\n  },\n  march: function(numberOfHours) {\n    alert(this.get('name') + ' marches for ' + numberOfHours + ' hours.');\n  }\n});\n\nvar yehuda = App.Soldier.create({\n  name: \"Yehuda Katz\"\n});\n\nyehuda.say(\"Yes\");  // alerts \"Yehuda Katz says: Yes, sir!\"\n```\n\nThe `create()` on line #17 creates an *instance* of the `App.Soldier` class.\nThe `extend()` on line #8 creates a *subclass* of `App.Person`. Any instance\nof the `App.Person` class will *not* have the `march()` method.\n\nYou can also pass `Mixin` classes to add additional properties to the subclass.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    alert(this.get('name') + ' says: ' + thing);\n  }\n});\n\nApp.SingingMixin = Mixin.create({\n  sing: function(thing){\n    alert(this.get('name') + ' sings: la la la ' + thing);\n  }\n});\n\nApp.BroadwayStar = App.Person.extend(App.SingingMixin, {\n  dance: function() {\n    alert(this.get('name') + ' dances: tap tap tap tap ');\n  }\n});\n```\n\nThe `App.BroadwayStar` class contains three methods: `say()`, `sing()`, and `dance()`.",
+            "itemtype": "method",
+            "name": "extend",
+            "static": 1,
+            "params": [
+              {
+                "name": "mixins",
+                "description": "One or more Mixin classes",
+                "type": "Mixin",
+                "optional": true,
+                "multiple": true
+              },
+              {
+                "name": "arguments",
+                "description": "Object containing values to use within the new class",
+                "type": "Object",
+                "optional": true,
+                "multiple": true
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "Ember.CoreObject",
+            "module": "ember",
+            "submodule": "ember-runtime",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.Helper": [
+          {
+            "file": "packages/ember-htmlbars/lib/helper.js",
+            "line": 94,
+            "description": "In many cases, the ceremony of a full `Ember.Helper` class is not required.\nThe `helper` method create pure-function helpers without instances. For\nexample:\n\n```js\n// app/helpers/format-currency.js\nexport default Ember.Helper.helper(function(params, hash) {\n  let cents = params[0];\n  let currency = hash.currency;\n  return `${currency}${cents * 0.01}`;\n});\n```",
+            "static": 1,
+            "params": [
+              {
+                "name": "helper",
+                "description": "The helper function",
+                "type": "Function"
+              }
+            ],
+            "itemtype": "method",
+            "name": "helper",
+            "access": "public",
+            "tagname": "",
+            "since": "1.13.0",
+            "class": "Ember.Helper",
+            "module": "ember",
+            "submodule": "ember-templates"
+          }
+        ],
+        "Ember.String": [
+          {
+            "file": "packages/ember-htmlbars/lib/utils/string.js",
+            "line": 10,
+            "description": "Mark a string as safe for unescaped output with Ember templates. If you\nreturn HTML from a helper, use this function to\nensure Ember's rendering layer does not escape the HTML.\n\n```javascript\nEmber.String.htmlSafe('<div>someString</div>')\n```",
+            "itemtype": "method",
+            "name": "htmlSafe",
+            "static": 1,
+            "return": {
+              "description": "a string that will not be html escaped by Handlebars",
+              "type": "Handlebars.SafeString"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "Ember.String",
+            "module": "ember",
+            "submodule": "ember-htmlbars"
+          }
+        ],
+        "Ember.Debug": [
+          {
+            "file": "packages/ember-debug/lib/index.js",
+            "line": 227,
+            "description": "Allows for runtime registration of handler functions that override the default deprecation behavior.\nDeprecations are invoked by calls to [Ember.deprecate](http://emberjs.com/api/classes/Ember.html#method_deprecate).\nThe following example demonstrates its usage by registering a handler that throws an error if the\nmessage contains the word \"should\", otherwise defers to the default handler.\n\n```javascript\nEmber.Debug.registerDeprecationHandler((message, options, next) => {\n  if (message.indexOf('should') !== -1) {\n    throw new Error(`Deprecation message with should: ${message}`);\n  } else {\n    // defer to whatever handler was registered before this one\n    next(message, options);\n  }\n}\n```\n\nThe handler function takes the following arguments:\n\n<ul>\n  <li> <code>message</code> - The message received from the deprecation call. </li>\n  <li> <code>options</code> - An object passed in with the deprecation call containing additional information including:</li>\n    <ul>\n      <li> <code>id</code> - an id of the deprecation in the form of <code>package-name.specific-deprecation</code>.</li>\n      <li> <code>until</code> - is the version number Ember the feature and deprecation will be removed in.</li>\n    </ul>\n  <li> <code>next</code> - a function that calls into the previously registered handler.</li>\n</ul>",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "registerDeprecationHandler",
+            "params": [
+              {
+                "name": "handler",
+                "description": "a function to handle deprecation calls",
+                "type": "Function"
+              }
+            ],
+            "since": "2.1.0",
+            "class": "Ember.Debug",
+            "module": "ember",
+            "submodule": "ember-debug"
+          },
+          {
+            "file": "packages/ember-debug/lib/index.js",
+            "line": 263,
+            "description": "Allows for runtime registration of handler functions that override the default warning behavior.\nWarnings are invoked by calls made to [Ember.warn](http://emberjs.com/api/classes/Ember.html#method_warn).\nThe following example demonstrates its usage by registering a handler that does nothing overriding Ember's\ndefault warning behavior.\n\n```javascript\n// next is not called, so no warnings get the default behavior\nEmber.Debug.registerWarnHandler(() => {});\n```\n\nThe handler function takes the following arguments:\n\n<ul>\n  <li> <code>message</code> - The message received from the warn call. </li>\n  <li> <code>options</code> - An object passed in with the warn call containing additional information including:</li>\n    <ul>\n      <li> <code>id</code> - an id of the warning in the form of <code>package-name.specific-warning</code>.</li>\n    </ul>\n  <li> <code>next</code> - a function that calls into the previously registered handler.</li>\n</ul>",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "registerWarnHandler",
+            "params": [
+              {
+                "name": "handler",
+                "description": "a function to handle warnings",
+                "type": "Function"
+              }
+            ],
+            "since": "2.1.0",
+            "class": "Ember.Debug",
+            "module": "ember",
+            "submodule": "ember-debug"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "Ember.HTMLBars": [
+          {
+            "file": "packages/ember-htmlbars/lib/system/bootstrap.js",
+            "line": 24,
+            "description": "Find templates stored in the head tag as script tags and make them available\nto `Ember.CoreView` in the global `Ember.TEMPLATES` object. This will be run\nas a jQuery DOM-ready callback.\n\nScript tags with `text/x-handlebars` will be compiled\nwith Ember's template compiler and are suitable for use as a view's template.\nThose with type `text/x-raw-handlebars` will be compiled with regular\nHandlebars and are suitable for use in views' computed properties.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "bootstrap",
+            "static": 1,
+            "params": [
+              {
+                "name": "ctx",
+                "description": ""
+              }
+            ],
+            "class": "Ember.HTMLBars",
+            "module": "ember",
+            "submodule": "ember-htmlbars"
+          }
+        ],
+        "Ember.Application": [
+          {
+            "file": "packages/ember-application/lib/system/application.js",
+            "line": 1041,
+            "description": "This creates a registry with the default Ember naming conventions.\n\nIt also configures the registry:\n\n* registered views are created every time they are looked up (they are\n  not singletons)\n* registered templates are not factories; the registered value is\n  returned directly.\n* the router receives the application as its `namespace` property\n* all controllers receive the router as their `target` and `controllers`\n  properties\n* all controllers receive the application as their `namespace` property\n* the application view receives the application controller as its\n  `controller` property\n* the application view receives the application template as its\n  `defaultTemplate` property",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "buildRegistry",
+            "static": 1,
+            "params": [
+              {
+                "name": "namespace",
+                "description": "the application for which to\n  build the registry",
+                "type": "Ember.Application"
+              }
+            ],
+            "return": {
+              "description": "the built registry",
+              "type": "Ember.Registry"
+            },
+            "class": "Ember.Application",
+            "module": "ember",
+            "submodule": "ember-application",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.Engine": [
+          {
+            "file": "packages/ember-application/lib/system/engine.js",
+            "line": 333,
+            "description": "This creates a registry with the default Ember naming conventions.\n\nIt also configures the registry:\n\n* registered views are created every time they are looked up (they are\n  not singletons)\n* registered templates are not factories; the registered value is\n  returned directly.\n* the router receives the application as its `namespace` property\n* all controllers receive the router as their `target` and `controllers`\n  properties\n* all controllers receive the application as their `namespace` property\n* the application view receives the application controller as its\n  `controller` property\n* the application view receives the application template as its\n  `defaultTemplate` property",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "buildRegistry",
+            "static": 1,
+            "params": [
+              {
+                "name": "namespace",
+                "description": "the application for which to\n  build the registry",
+                "type": "Ember.Application"
+              }
+            ],
+            "return": {
+              "description": "the built registry",
+              "type": "Ember.Registry"
+            },
+            "class": "Ember.Engine",
+            "module": "ember",
+            "submodule": "ember-application",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.EventDispatcher": [
+          {
+            "file": "packages/ember-views/lib/streams/class_name_binding.js",
+            "line": 53,
+            "description": "Get the class name for a given value, based on the path, optional\n`className` and optional `falsyClassName`.\n\n- if a `className` or `falsyClassName` has been specified:\n  - if the value is truthy and `className` has been specified,\n    `className` is returned\n  - if the value is falsy and `falsyClassName` has been specified,\n    `falsyClassName` is returned\n  - otherwise `null` is returned\n- if the value is `true`, the dasherized last part of the supplied path\n  is returned\n- if the value is not `false`, `undefined` or `null`, the `value`\n  is returned\n- if none of the above rules apply, `null` is returned",
+            "itemtype": "method",
+            "name": "classStringForValue",
+            "params": [
+              {
+                "name": "path",
+                "description": ""
+              },
+              {
+                "name": "val",
+                "description": ""
+              },
+              {
+                "name": "className",
+                "description": ""
+              },
+              {
+                "name": "falsyClassName",
+                "description": ""
+              }
+            ],
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "Ember.EventDispatcher",
+            "module": "ember",
+            "namespace": "Ember"
+          },
+          {
+            "file": "packages/ember-views/lib/streams/class_name_binding.js",
+            "line": 7,
+            "description": "Parse a path and return an object which holds the parsed properties.\n\nFor example a path like \"content.isEnabled:enabled:disabled\" will return the\nfollowing object:\n\n```javascript\n{\n  path: \"content.isEnabled\",\n  className: \"enabled\",\n  falsyClassName: \"disabled\",\n  classNames: \":enabled:disabled\"\n}\n```",
+            "itemtype": "method",
+            "name": "parsePropertyPath",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "Ember.EventDispatcher",
+            "module": "ember",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.OrderedSet": [
+          {
+            "file": "packages/ember-metal/lib/map.js",
+            "line": 77,
+            "itemtype": "method",
+            "name": "create",
+            "static": 1,
+            "return": {
+              "description": "",
+              "type": "Ember.OrderedSet"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Ember.OrderedSet",
+            "module": "ember",
+            "submodule": "ember-metal",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.Map": [
+          {
+            "file": "packages/ember-metal/lib/map.js",
+            "line": 259,
+            "itemtype": "method",
+            "name": "create",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "Ember.Map",
+            "module": "ember",
+            "submodule": "ember-metal",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.MapWithDefault": [
+          {
+            "file": "packages/ember-metal/lib/map.js",
+            "line": 437,
+            "itemtype": "method",
+            "name": "create",
+            "static": 1,
+            "params": [
+              {
+                "name": "options",
+                "description": "",
+                "optional": true,
+                "props": [
+                  {
+                    "name": "defaultValue",
+                    "description": "",
+                    "type": "*",
+                    "optional": true
+                  }
+                ]
+              }
+            ],
+            "return": {
+              "description": "If options are passed, returns\n  `Ember.MapWithDefault` otherwise returns `Ember.Map`",
+              "type": "Ember.MapWithDefault|Ember.Map"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Ember.MapWithDefault",
+            "module": "ember",
+            "submodule": "ember-metal",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.Mixin": [
+          {
+            "file": "packages/ember-metal/lib/mixin.js",
+            "line": 524,
+            "itemtype": "method",
+            "name": "create",
+            "static": 1,
+            "params": [
+              {
+                "name": "arguments",
+                "description": "",
+                "multiple": true
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "Ember.Mixin",
+            "module": "ember",
+            "submodule": "ember-metal",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.CoreObject": [
+          {
+            "file": "packages/ember-runtime/lib/system/core_object.js",
+            "line": 657,
+            "description": "Creates an instance of a class. Accepts either no arguments, or an object\ncontaining values to initialize the newly instantiated object with.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  helloWorld: function() {\n    alert(\"Hi, my name is \" + this.get('name'));\n  }\n});\n\nvar tom = App.Person.create({\n  name: 'Tom Dale'\n});\n\ntom.helloWorld(); // alerts \"Hi, my name is Tom Dale\".\n```\n\n`create` will call the `init` function if defined during\n`Ember.AnyObject.extend`\n\nIf no arguments are passed to `create`, it will not set values to the new\ninstance during initialization:\n\n```javascript\nvar noName = App.Person.create();\nnoName.helloWorld(); // alerts undefined\n```\n\nNOTE: For performance reasons, you cannot declare methods or computed\nproperties during `create`. You should instead declare methods and computed\nproperties when using `extend`.",
+            "itemtype": "method",
+            "name": "create",
+            "static": 1,
+            "params": [
+              {
+                "name": "arguments",
+                "description": "",
+                "optional": true,
+                "multiple": true
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "Ember.CoreObject",
+            "module": "ember",
+            "submodule": "ember-runtime",
+            "namespace": "Ember"
+          },
+          {
+            "file": "packages/ember-runtime/lib/system/core_object.js",
+            "line": 875,
+            "description": "Iterate over each computed property for the class, passing its name\nand any associated metadata (see `metaForProperty`) to the callback.",
+            "static": 1,
+            "itemtype": "method",
+            "name": "eachComputedProperty",
+            "params": [
+              {
+                "name": "callback",
+                "description": "",
+                "type": "Function"
+              },
+              {
+                "name": "binding",
+                "description": "",
+                "type": "Object"
+              }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Ember.CoreObject",
+            "module": "ember",
+            "submodule": "ember-runtime",
+            "namespace": "Ember"
+          },
+          {
+            "file": "packages/ember-runtime/lib/system/core_object.js",
+            "line": 549,
+            "description": "Creates a new subclass.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    alert(thing);\n   }\n});\n```\n\nThis defines a new subclass of Ember.Object: `App.Person`. It contains one method: `say()`.\n\nYou can also create a subclass from any existing class by calling its `extend()` method.\nFor example, you might want to create a subclass of Ember's built-in `Ember.View` class:\n\n```javascript\nApp.PersonView = Ember.View.extend({\n  tagName: 'li',\n  classNameBindings: ['isAdministrator']\n});\n```\n\nWhen defining a subclass, you can override methods but still access the\nimplementation of your parent class by calling the special `_super()` method:\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    var name = this.get('name');\n    alert(name + ' says: ' + thing);\n  }\n});\n\nApp.Soldier = App.Person.extend({\n  say: function(thing) {\n    this._super(thing + \", sir!\");\n  },\n  march: function(numberOfHours) {\n    alert(this.get('name') + ' marches for ' + numberOfHours + ' hours.');\n  }\n});\n\nvar yehuda = App.Soldier.create({\n  name: \"Yehuda Katz\"\n});\n\nyehuda.say(\"Yes\");  // alerts \"Yehuda Katz says: Yes, sir!\"\n```\n\nThe `create()` on line #17 creates an *instance* of the `App.Soldier` class.\nThe `extend()` on line #8 creates a *subclass* of `App.Person`. Any instance\nof the `App.Person` class will *not* have the `march()` method.\n\nYou can also pass `Mixin` classes to add additional properties to the subclass.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    alert(this.get('name') + ' says: ' + thing);\n  }\n});\n\nApp.SingingMixin = Mixin.create({\n  sing: function(thing){\n    alert(this.get('name') + ' sings: la la la ' + thing);\n  }\n});\n\nApp.BroadwayStar = App.Person.extend(App.SingingMixin, {\n  dance: function() {\n    alert(this.get('name') + ' dances: tap tap tap tap ');\n  }\n});\n```\n\nThe `App.BroadwayStar` class contains three methods: `say()`, `sing()`, and `dance()`.",
+            "itemtype": "method",
+            "name": "extend",
+            "static": 1,
+            "params": [
+              {
+                "name": "mixins",
+                "description": "One or more Mixin classes",
+                "type": "Mixin",
+                "optional": true,
+                "multiple": true
+              },
+              {
+                "name": "arguments",
+                "description": "Object containing values to use within the new class",
+                "type": "Object",
+                "optional": true,
+                "multiple": true
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "class": "Ember.CoreObject",
+            "module": "ember",
+            "submodule": "ember-runtime",
+            "namespace": "Ember"
+          },
+          {
+            "file": "packages/ember-runtime/lib/system/core_object.js",
+            "line": 814,
+            "description": "In some cases, you may want to annotate computed properties with additional\nmetadata about how they function or what values they operate on. For\nexample, computed property functions may close over variables that are then\nno longer available for introspection.\n\nYou can pass a hash of these values to a computed property like this:\n\n```javascript\nperson: function() {\n  var personId = this.get('personId');\n  return App.Person.create({ id: personId });\n}.property().meta({ type: App.Person })\n```\n\nOnce you've done this, you can retrieve the values saved to the computed\nproperty from your class like this:\n\n```javascript\nMyClass.metaForProperty('person');\n```\n\nThis will return the original hash that was passed to `meta()`.",
+            "static": 1,
+            "itemtype": "method",
+            "name": "metaForProperty",
+            "params": [
+              {
+                "name": "key",
+                "description": "property name",
+                "type": "String"
+              }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Ember.CoreObject",
+            "module": "ember",
+            "submodule": "ember-runtime",
+            "namespace": "Ember"
+          }
+        ],
+        "Ember.Helper": [
+          {
+            "file": "packages/ember-htmlbars/lib/helper.js",
+            "line": 94,
+            "description": "In many cases, the ceremony of a full `Ember.Helper` class is not required.\nThe `helper` method create pure-function helpers without instances. For\nexample:\n\n```js\n// app/helpers/format-currency.js\nexport default Ember.Helper.helper(function(params, hash) {\n  let cents = params[0];\n  let currency = hash.currency;\n  return `${currency}${cents * 0.01}`;\n});\n```",
+            "static": 1,
+            "params": [
+              {
+                "name": "helper",
+                "description": "The helper function",
+                "type": "Function"
+              }
+            ],
+            "itemtype": "method",
+            "name": "helper",
+            "access": "public",
+            "tagname": "",
+            "since": "1.13.0",
+            "class": "Ember.Helper",
+            "module": "ember",
+            "submodule": "ember-templates"
+          }
+        ],
+        "Ember.String": [
+          {
+            "file": "packages/ember-htmlbars/lib/utils/string.js",
+            "line": 10,
+            "description": "Mark a string as safe for unescaped output with Ember templates. If you\nreturn HTML from a helper, use this function to\nensure Ember's rendering layer does not escape the HTML.\n\n```javascript\nEmber.String.htmlSafe('<div>someString</div>')\n```",
+            "itemtype": "method",
+            "name": "htmlSafe",
+            "static": 1,
+            "return": {
+              "description": "a string that will not be html escaped by Handlebars",
+              "type": "Handlebars.SafeString"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "Ember.String",
+            "module": "ember",
+            "submodule": "ember-htmlbars"
+          }
+        ],
+        "Ember.Debug": [
+          {
+            "file": "packages/ember-debug/lib/index.js",
+            "line": 227,
+            "description": "Allows for runtime registration of handler functions that override the default deprecation behavior.\nDeprecations are invoked by calls to [Ember.deprecate](http://emberjs.com/api/classes/Ember.html#method_deprecate).\nThe following example demonstrates its usage by registering a handler that throws an error if the\nmessage contains the word \"should\", otherwise defers to the default handler.\n\n```javascript\nEmber.Debug.registerDeprecationHandler((message, options, next) => {\n  if (message.indexOf('should') !== -1) {\n    throw new Error(`Deprecation message with should: ${message}`);\n  } else {\n    // defer to whatever handler was registered before this one\n    next(message, options);\n  }\n}\n```\n\nThe handler function takes the following arguments:\n\n<ul>\n  <li> <code>message</code> - The message received from the deprecation call. </li>\n  <li> <code>options</code> - An object passed in with the deprecation call containing additional information including:</li>\n    <ul>\n      <li> <code>id</code> - an id of the deprecation in the form of <code>package-name.specific-deprecation</code>.</li>\n      <li> <code>until</code> - is the version number Ember the feature and deprecation will be removed in.</li>\n    </ul>\n  <li> <code>next</code> - a function that calls into the previously registered handler.</li>\n</ul>",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "registerDeprecationHandler",
+            "params": [
+              {
+                "name": "handler",
+                "description": "a function to handle deprecation calls",
+                "type": "Function"
+              }
+            ],
+            "since": "2.1.0",
+            "class": "Ember.Debug",
+            "module": "ember",
+            "submodule": "ember-debug"
+          },
+          {
+            "file": "packages/ember-debug/lib/index.js",
+            "line": 263,
+            "description": "Allows for runtime registration of handler functions that override the default warning behavior.\nWarnings are invoked by calls made to [Ember.warn](http://emberjs.com/api/classes/Ember.html#method_warn).\nThe following example demonstrates its usage by registering a handler that does nothing overriding Ember's\ndefault warning behavior.\n\n```javascript\n// next is not called, so no warnings get the default behavior\nEmber.Debug.registerWarnHandler(() => {});\n```\n\nThe handler function takes the following arguments:\n\n<ul>\n  <li> <code>message</code> - The message received from the warn call. </li>\n  <li> <code>options</code> - An object passed in with the warn call containing additional information including:</li>\n    <ul>\n      <li> <code>id</code> - an id of the warning in the form of <code>package-name.specific-warning</code>.</li>\n    </ul>\n  <li> <code>next</code> - a function that calls into the previously registered handler.</li>\n</ul>",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "registerWarnHandler",
+            "params": [
+              {
+                "name": "handler",
+                "description": "a function to handle warnings",
+                "type": "Function"
+              }
+            ],
+            "since": "2.1.0",
+            "class": "Ember.Debug",
+            "module": "ember",
+            "submodule": "ember-debug"
+          }
+        ]
+      },
+      "version": "2.4.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.4.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

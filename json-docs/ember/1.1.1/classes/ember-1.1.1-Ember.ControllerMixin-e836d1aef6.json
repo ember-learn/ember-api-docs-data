@@ -1,0 +1,723 @@
+{
+  "data": {
+    "id": "ember-1.1.1-Ember.ControllerMixin",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ControllerMixin",
+      "shortname": "Ember.ControllerMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.ArrayController",
+        "Ember.Controller",
+        "Ember.ObjectController"
+      ],
+      "module": "ember",
+      "submodule": "ember-views",
+      "namespace": "Ember",
+      "file": "../packages/ember-views/lib/system/controller.js",
+      "line": 11,
+      "description": "<html><head></head><body><p>Additional methods for the ControllerMixin</p>\n</body></html>",
+      "methods": [
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 44,
+          "description": "<html><head></head><body><p>Retrieve the value given a key, if the value is present at the current\nlevel use it, otherwise walk up the parent hierarchy and try again. If\nno matching key is found, return undefined.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "get",
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 64,
+          "description": "<html><head></head><body><p>Set the given value for the given key, at the current level.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Any"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 75,
+          "description": "<html><head></head><body><p>Delete the given key</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "remove",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 85,
+          "description": "<html><head></head><body><p>Check for the existence of given a key, if the key is present at the current\nlevel return true, otherwise walk up the parent hierarchy and try again. If\nno matching key is found, return false.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 108,
+          "description": "<html><head></head><body><p>Iterate and invoke a callback for each local key-value pair.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "eachLocal",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 213,
+          "description": "<html><head></head><body><p>Returns a new child of the current container. These children are configured\nto correctly inherit from the current container.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "child",
+          "return": {
+            "description": "",
+            "type": "Container"
+          },
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 226,
+          "description": "<html><head></head><body><p>Sets a key-value pair on the current container. If a parent container,\nhas the same key, once set on a child, the parent and child will diverge\nas expected.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "object",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Any"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 240,
+          "description": "<html><head></head><body><p>Registers a factory for later injection.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>var <span class=\"keyword\">container</span> = <span class=\"keyword\">new</span> Container();\n\n<span class=\"keyword\">container</span>.register(<span class=\"string\">&apos;model:user&apos;</span>, Person, {singleton: <span class=\"keyword\">false</span> });\n<span class=\"keyword\">container</span>.register(<span class=\"string\">&apos;fruit:favorite&apos;</span>, Orange);\n<span class=\"keyword\">container</span>.register(<span class=\"string\">&apos;communication:main&apos;</span>, Email, {singleton: <span class=\"keyword\">false</span>});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "register",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "factory",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 277,
+          "description": "<html><head></head><body><p>Unregister a fullName</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>var <span class=\"keyword\">container</span> = <span class=\"keyword\">new</span> Container();\n<span class=\"keyword\">container</span>.register(<span class=\"string\">&apos;model:user&apos;</span>, User);\n\n<span class=\"keyword\">container</span>.lookup(<span class=\"string\">&apos;model:user&apos;</span>) instanceof User <span class=\"comment\">//=&gt; true</span>\n\n<span class=\"keyword\">container</span>.unregister(<span class=\"string\">&apos;model:user&apos;</span>)\n<span class=\"keyword\">container</span>.lookup(<span class=\"string\">&apos;model:user&apos;</span>) === undefined <span class=\"comment\">//=&gt; true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "unregister",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 302,
+          "description": "<html><head></head><body><p>Given a fullName return the corresponding factory.</p>\n<p>By default <code>resolve</code> will retrieve the factory from\nits container&apos;s registry.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>var <span class=\"keyword\">container</span> = <span class=\"keyword\">new</span> Container();\n<span class=\"keyword\">container</span>.register(<span class=\"string\">&apos;api:twitter&apos;</span>, Twitter);\n\n<span class=\"keyword\">container</span>.resolve(<span class=\"string\">&apos;api:twitter&apos;</span>) <span class=\"comment\">// =&gt; Twitter</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Optionally the container can be provided with a custom resolver.\nIf provided, <code>resolve</code> will first provide the custom resolver\nthe oppertunity to resolve the fullName, otherwise it will fallback\nto the registry.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">var</span> container = <span class=\"keyword\">new</span> Container();\ncontainer.resolver = <span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(fullName)</span> </span>{\n  <span class=\"comment\">// lookup via the module system of choice</span>\n};\n\n<span class=\"comment\">// the twitter factory is added to the module system</span>\ncontainer.resolve(<span class=\"string\">&apos;api:twitter&apos;</span>) <span class=\"comment\">// =&gt; Twitter</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "resolve",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "fullName's factory",
+            "type": "Function"
+          },
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 338,
+          "description": "<html><head></head><body><p>A hook that can be used to describe how the resolver will\nattempt to find the factory.</p>\n<p>For example, the default Ember <code>.describe</code> returns the full\nclass name (including namespace) where Ember&apos;s resolver expects\nto find the <code>fullName</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "describe",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 352,
+          "description": "<html><head></head><body><p>A hook to enable custom fullName normalization behaviour</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "normalize",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "normalized fullName",
+            "type": "String"
+          },
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 363,
+          "itemtype": "method",
+          "name": "makeToString",
+          "params": [
+            {
+              "name": "factory",
+              "description": "",
+              "type": "Any"
+            },
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "toString function",
+            "type": "Function"
+          },
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 374,
+          "description": "<html><head></head><body><p>Given a fullName return a corresponding instance.</p>\n<p>The default behaviour is for lookup to return a singleton instance.\nThe singleton is scoped to the container, allowing multiple containers\nto all have their own locally scoped singletons.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">var</span> container = <span class=\"keyword\">new</span> Container();\ncontainer.register(<span class=\"string\">&apos;api:twitter&apos;</span>, Twitter);\n\n<span class=\"keyword\">var</span> twitter = container.lookup(<span class=\"string\">&apos;api:twitter&apos;</span>);\n\ntwitter <span class=\"keyword\">instanceof</span> Twitter; <span class=\"comment\">// =&gt; true</span>\n\n<span class=\"comment\">// by default the container will return singletons</span>\ntwitter2 = container.lookup(<span class=\"string\">&apos;api:twitter&apos;</span>);\ntwitter <span class=\"keyword\">instanceof</span> Twitter; <span class=\"comment\">// =&gt; true</span>\n\ntwitter === twitter2; <span class=\"comment\">//=&gt; true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If singletons are not wanted an optional flag can be provided at lookup.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>var <span class=\"keyword\">container</span> = <span class=\"keyword\">new</span> Container();\n<span class=\"keyword\">container</span>.register(<span class=\"string\">&apos;api:twitter&apos;</span>, Twitter);\n\nvar twitter = <span class=\"keyword\">container</span>.lookup(<span class=\"string\">&apos;api:twitter&apos;</span>, { singleton: <span class=\"keyword\">false</span> });\nvar twitter2 = <span class=\"keyword\">container</span>.lookup(<span class=\"string\">&apos;api:twitter&apos;</span>, { singleton: <span class=\"keyword\">false</span> });\n\ntwitter === twitter2; <span class=\"comment\">//=&gt; false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "lookup",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 433,
+          "description": "<html><head></head><body><p>Given a fullName return the corresponding factory.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "lookupFactory",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 444,
+          "description": "<html><head></head><body><p>Given a fullName check if the container is aware of its factory\nor singleton instance.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 460,
+          "description": "<html><head></head><body><p>Allow registering options for all factories of a type.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre>var <span class=\"keyword\">container</span> = <span class=\"keyword\">new</span> Container();\n\n<span class=\"comment\">// if all of type `connection` must not be singletons</span>\n<span class=\"keyword\">container</span>.optionsForType(<span class=\"string\">&apos;connection&apos;</span>, { singleton: <span class=\"keyword\">false</span> });\n\n<span class=\"keyword\">container</span>.register(<span class=\"string\">&apos;connection:twitter&apos;</span>, TwitterConnection);\n<span class=\"keyword\">container</span>.register(<span class=\"string\">&apos;connection:facebook&apos;</span>, FacebookConnection);\n\nvar twitter = <span class=\"keyword\">container</span>.lookup(<span class=\"string\">&apos;connection:twitter&apos;</span>);\nvar twitter2 = <span class=\"keyword\">container</span>.lookup(<span class=\"string\">&apos;connection:twitter&apos;</span>);\n\ntwitter === twitter2; <span class=\"comment\">// =&gt; false</span>\n\nvar facebook = <span class=\"keyword\">container</span>.lookup(<span class=\"string\">&apos;connection:facebook&apos;</span>);\nvar facebook2 = <span class=\"keyword\">container</span>.lookup(<span class=\"string\">&apos;connection:facebook&apos;</span>);\n\nfacebook === facebook2; <span class=\"comment\">// =&gt; false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "optionsForType",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 493,
+          "itemtype": "method",
+          "name": "options",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 502,
+          "access": "private",
+          "tagname": "Used only via `injection`.\n\nProvides a specialized form of injection, specifically enabling\nall objects of one type to be injected with a reference to another\nobject.\n\nFor example, provided each object of type `controller` needed a `router`.\none would do the following:\n\n```javascript\nvar container = new Container();\n\ncontainer.register('router:main', Router);\ncontainer.register('controller:user', UserController);\ncontainer.register('controller:post', PostController);\n\ncontainer.typeInjection('controller', 'router', 'router:main');\n\nvar user = container.lookup('controller:user');\nvar post = container.lookup('controller:post');\n\nuser.router instanceof Router; //=> true\npost.router instanceof Router; //=> true\n\n// both controllers share the same router\nuser.router === post.router; //=> true\n```",
+          "itemtype": "method",
+          "name": "typeInjection",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "property",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 544,
+          "description": "<html><head></head><body><p>Defines injection rules.</p>\n<p>These rules are used to inject dependencies onto objects when they\nare instantiated.</p>\n<p>Two forms of injections are possible:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>  * Injecting <span class=\"literal\">one</span> fullName <span class=\"keyword\">on</span> <span class=\"title\">another</span> <span class=\"title\">fullName</span>\n  * Injecting <span class=\"literal\">one</span> fullName <span class=\"keyword\">on</span> <span class=\"title\">a</span> <span class=\"title\">type</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    <p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n</pre></td>\n              <td class=\"code\"><pre>var <span class=\"keyword\">container</span> = new Container();\n\n<span class=\"keyword\">container</span>.register(<span class=\"string\">&apos;source:main&apos;</span>, Source);\n<span class=\"keyword\">container</span>.register(<span class=\"string\">&apos;model:user&apos;</span>, User);\n<span class=\"keyword\">container</span>.register(<span class=\"string\">&apos;model:post&apos;</span>, Post);\n\n<span class=\"comment\">// injecting one fullName on another fullName</span>\n<span class=\"comment\">// eg. each user model gets a post model</span>\n<span class=\"keyword\">container</span>.injection(<span class=\"string\">&apos;model:user&apos;</span>, <span class=\"string\">&apos;post&apos;</span>, <span class=\"string\">&apos;model:post&apos;</span>);\n\n<span class=\"comment\">// injecting one fullName on another type</span>\n<span class=\"keyword\">container</span>.injection(<span class=\"string\">&apos;model&apos;</span>, <span class=\"string\">&apos;source&apos;</span>, <span class=\"string\">&apos;source:main&apos;</span>);\n\nvar user = <span class=\"keyword\">container</span>.lookup(<span class=\"string\">&apos;model:user&apos;</span>);\nvar post = <span class=\"keyword\">container</span>.lookup(<span class=\"string\">&apos;model:post&apos;</span>);\n\nuser.<span class=\"keyword\">source</span> instanceof Source; <span class=\"comment\">//=&gt; true</span>\npost.<span class=\"keyword\">source</span> instanceof Source; <span class=\"comment\">//=&gt; true</span>\n\nuser.post instanceof Post; <span class=\"comment\">//=&gt; true</span>\n\n<span class=\"comment\">// and both models share the same source</span>\nuser.<span class=\"keyword\">source</span> === post.<span class=\"keyword\">source</span>; <span class=\"comment\">//=&gt; true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "injection",
+          "params": [
+            {
+              "name": "factoryName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "property",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "injectionName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 599,
+          "access": "private",
+          "tagname": "Used only via `factoryInjection`.\n\nProvides a specialized form of injection, specifically enabling\nall factory of one type to be injected with a reference to another\nobject.\n\nFor example, provided each factory of type `model` needed a `store`.\none would do the following:\n\n```javascript\nvar container = new Container();\n\ncontainer.registerFactory('model:user', User);\ncontainer.register('store:main', SomeStore);\n\ncontainer.factoryTypeInjection('model', 'store', 'store:main');\n\nvar store = container.lookup('store:main');\nvar UserFactory = container.lookupFactory('model:user');\n\nUserFactory.store instanceof SomeStore; //=> true\n```",
+          "itemtype": "method",
+          "name": "factoryTypeInjection",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "property",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 636,
+          "description": "<html><head></head><body><p>Defines factory injection rules.</p>\n<p>Similar to regular injection rules, but are run against factories, via\n<code>Container#lookupFactory</code>.</p>\n<p>These rules are used to inject objects onto factories when they\nare looked up.</p>\n<p>Two forms of injections are possible:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>  * Injecting <span class=\"literal\">one</span> fullName <span class=\"keyword\">on</span> <span class=\"title\">another</span> <span class=\"title\">fullName</span>\n  * Injecting <span class=\"literal\">one</span> fullName <span class=\"keyword\">on</span> <span class=\"title\">a</span> <span class=\"title\">type</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    <p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n</pre></td>\n              <td class=\"code\"><pre>var container = <span class=\"keyword\">new</span> <span class=\"constructor\">Container()</span>;\n\ncontainer.register(&apos;store:main&apos;, Store);\ncontainer.register(&apos;store:secondary&apos;, OtherStore);\ncontainer.register(&apos;model:user&apos;, User);\ncontainer.register(&apos;model:post&apos;, Post);\n\n<span class=\"comment\">// injecting one fullName on another type</span>\ncontainer.factory<span class=\"constructor\">Injection(&apos;<span class=\"params\">model</span>&apos;, &apos;<span class=\"params\">store</span>&apos;, &apos;<span class=\"params\">store</span>:<span class=\"params\">main</span>&apos;)</span>;\n\n<span class=\"comment\">// injecting one fullName on another fullName</span>\ncontainer.factory<span class=\"constructor\">Injection(&apos;<span class=\"params\">model</span>:<span class=\"params\">post</span>&apos;, &apos;<span class=\"params\">secondaryStore</span>&apos;, &apos;<span class=\"params\">store</span>:<span class=\"params\">secondary</span>&apos;)</span>;\n\nvar UserFactory = container.lookup<span class=\"constructor\">Factory(&apos;<span class=\"params\">model</span>:<span class=\"params\">user</span>&apos;)</span>;\nvar PostFactory = container.lookup<span class=\"constructor\">Factory(&apos;<span class=\"params\">model</span>:<span class=\"params\">post</span>&apos;)</span>;\nvar store = container.lookup(&apos;store:main&apos;);\n\n<span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">UserFactory</span>.</span></span>store instanceof Store; <span class=\"comment\">//=&gt; true</span>\n<span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">UserFactory</span>.</span></span>secondaryStore instanceof OtherStore; <span class=\"comment\">//=&gt; false</span>\n\n<span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">PostFactory</span>.</span></span>store instanceof Store; <span class=\"comment\">//=&gt; true</span>\n<span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">PostFactory</span>.</span></span>secondaryStore instanceof OtherStore; <span class=\"comment\">//=&gt; true</span>\n\n<span class=\"comment\">// and both models share the same source instance</span>\n<span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">UserFactory</span>.</span></span>store<span class=\"operator\"> === </span><span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">PostFactory</span>.</span></span>store; <span class=\"comment\">//=&gt; true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "factoryInjection",
+          "params": [
+            {
+              "name": "factoryName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "property",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "injectionName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 695,
+          "description": "<html><head></head><body><p>A depth first traversal, destroying the container, its descendant containers and all\ntheir managed objects.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "destroy",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 718,
+          "itemtype": "method",
+          "name": "reset",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-application/lib/ext/controller.js",
+          "line": 75,
+          "itemtype": "method",
+          "name": "controllerFor",
+          "see": [
+            "{Ember.Route#controllerFor}"
+          ],
+          "deprecated": true,
+          "deprecationMessage": "Use `needs` instead",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 9,
+          "description": "<html><head></head><body><p>Transition the application into another route. The route may\nbe either a single route or route path:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>  aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPosts</span>&apos;)</span>;\n  aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPosts</span>.<span class=\"params\">recentEntries</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Optionally supply a model for the route in question. The model\nwill be serialized into the URL using the <code>serialize</code> hook of\nthe route:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>  aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPost</span>&apos;, <span class=\"params\">aPost</span>)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Multiple models will be applied last to first recursively up the\nresource tree.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>  <span class=\"selector-tag\">this</span><span class=\"selector-class\">.resource</span>(<span class=\"string\">&apos;blogPost&apos;</span>, {<span class=\"attribute\">path</span>:<span class=\"string\">&apos;:blogPostId&apos;</span>}, <span class=\"selector-tag\">function</span>(){\n    <span class=\"selector-tag\">this</span><span class=\"selector-class\">.resource</span>(<span class=\"string\">&apos;blogComment&apos;</span>, {<span class=\"attribute\">path</span>: <span class=\"string\">&apos;:blogCommentId&apos;</span>});\n  });\n\n  <span class=\"selector-tag\">aController</span><span class=\"selector-class\">.transitionToRoute</span>(<span class=\"string\">&apos;blogComment&apos;</span>, aPost, aComment);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>See also &apos;replaceRoute&apos;.</p>\n</body></html>",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) to be used while transitioning\nto the route.",
+              "type": "...Object"
+            }
+          ],
+          "itemtype": "method",
+          "name": "transitionToRoute",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 53,
+          "deprecated": true,
+          "itemtype": "method",
+          "name": "transitionTo",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 63,
+          "description": "<html><head></head><body><p>Transition into another route while replacing the current URL, if possible.\nThis will replace the current history entry instead of adding a new one. \nBeside that, it is identical to <code>transitionToRoute</code> in all other respects.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>  aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPosts</span>&apos;)</span>;\n  aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPosts</span>.<span class=\"params\">recentEntries</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Optionally supply a model for the route in question. The model\nwill be serialized into the URL using the <code>serialize</code> hook of\nthe route:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>  aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPost</span>&apos;, <span class=\"params\">aPost</span>)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Multiple models will be applied last to first recursively up the\nresource tree.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>  <span class=\"selector-tag\">this</span><span class=\"selector-class\">.resource</span>(<span class=\"string\">&apos;blogPost&apos;</span>, {<span class=\"attribute\">path</span>:<span class=\"string\">&apos;:blogPostId&apos;</span>}, <span class=\"selector-tag\">function</span>(){\n    <span class=\"selector-tag\">this</span><span class=\"selector-class\">.resource</span>(<span class=\"string\">&apos;blogComment&apos;</span>, {<span class=\"attribute\">path</span>: <span class=\"string\">&apos;:blogCommentId&apos;</span>});\n  });\n\n  <span class=\"selector-tag\">aController</span><span class=\"selector-class\">.replaceRoute</span>(<span class=\"string\">&apos;blogComment&apos;</span>, aPost, aComment);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) to be used while transitioning\nto the route.",
+              "type": "...Object"
+            }
+          ],
+          "itemtype": "method",
+          "name": "replaceRoute",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 106,
+          "deprecated": true,
+          "itemtype": "method",
+          "name": "replaceWith",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 27,
+          "itemtype": "property",
+          "name": "parent",
+          "type": "InheritingDict",
+          "default": "null",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 35,
+          "description": "<html><head></head><body><p>Object used to store the current nodes data.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "dict",
+          "type": "Object",
+          "default": "Object",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 151,
+          "itemtype": "property",
+          "name": "parent",
+          "type": "Container",
+          "default": "null",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 158,
+          "itemtype": "property",
+          "name": "children",
+          "type": "Array",
+          "default": "[]",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 165,
+          "itemtype": "property",
+          "name": "resolver",
+          "type": "function",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 171,
+          "itemtype": "property",
+          "name": "registry",
+          "type": "InheritingDict",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 177,
+          "itemtype": "property",
+          "name": "cache",
+          "type": "InheritingDict",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 183,
+          "itemtype": "property",
+          "name": "typeInjections",
+          "type": "InheritingDict",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 189,
+          "itemtype": "property",
+          "name": "injections",
+          "type": "Object",
+          "default": "{}",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 196,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_options",
+          "type": "InheritingDict",
+          "default": "null",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/container/lib/main.js",
+          "line": 205,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_typeOptions",
+          "type": "InheritingDict",
+          "class": "Ember.ControllerMixin"
+        },
+        {
+          "file": "../packages/ember-application/lib/ext/controller.js",
+          "line": 31,
+          "description": "<html><head></head><body><p>An array of other controller objects available inside\ninstances of this controller via the <code>controllers</code>\nproperty:</p>\n<p>For example, when you define a controller:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>App.CommentsController = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Ember</span>.</span><span class=\"module\"><span class=\"identifier\">ArrayController</span>.</span></span>extend({\n  needs: <span class=\"literal\">[&apos;<span class=\"identifier\">post</span>&apos;]</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The application&apos;s single instance of these other\ncontrollers are accessible by name through the\n<code>controllers</code> property:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>this.get(&apos;controllers.post&apos;); //<span class=\"built_in\"> instance </span>of App.PostController</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This is only available for singleton controllers.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "needs",
+          "type": "Array",
+          "default": "[]",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-application/lib/ext/controller.js",
+          "line": 85,
+          "description": "<html><head></head><body><p>Stores the instances of other controllers available from within\nthis controller. Any controller listed by name in the <code>needs</code>\nproperty will be accessible by name through this property.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>App.CommentsController = Ember.ArrayController.extend({\n  needs: [<span class=\"string\">&apos;post&apos;</span>],\n  postTitle: function(){\n    <span class=\"keyword\">var</span> currentPost = <span class=\"keyword\">this</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;controllers.post&apos;</span>); <span class=\"comment\">// instance of App.PostController</span>\n    <span class=\"keyword\">return</span> currentPost.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;title&apos;</span>);\n  }.property(<span class=\"string\">&apos;controllers.post.title&apos;</span>)\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "see": [
+            "{Ember.ControllerMixin#needs}"
+          ],
+          "itemtype": "property",
+          "name": "controllers",
+          "type": "Object",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/controllers/controller.js",
+          "line": 23,
+          "description": "<html><head></head><body><p>The object to which actions from the view should be sent.</p>\n<p>For example, when a Handlebars template uses the <code>{{action}}</code> helper,\nit will attempt to send the action to the view&apos;s controller&apos;s <code>target</code>.</p>\n<p>By default, a controller&apos;s <code>target</code> is set to the router after it is\ninstantiated by <code>Ember.Application#initialize</code>.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "target",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.1.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.1.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
