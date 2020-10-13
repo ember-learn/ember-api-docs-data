@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - test-size-only
 
 jobs:
   sync:
@@ -15,6 +16,7 @@ jobs:
           args: >-
             --acl public-read
             --follow-symlinks
+            --size-only
             --exclude '.git/*'
             --exclude '.github/*'
             --exclude '.gitignore'
