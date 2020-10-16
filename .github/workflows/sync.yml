@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: ls -al --full-time
+      - run: ls -al --full-time json-docs/ember/3.9.1/classes
       - uses: jakejarvis/s3-sync-action@v0.5.1
         with:
           args: >-
