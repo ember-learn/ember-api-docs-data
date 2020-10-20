@@ -10,7 +10,15 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      - run: |
+          sudo apt-get update -y
+          sudo apt-get install -y git-restore-mtime
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: ls -al --full-time
+      - run: ls -al --full-time json-docs/ember/3.9.1/classes
+      - run: git-restore-mtime
       - run: ls -al --full-time
       - run: ls -al --full-time json-docs/ember/3.9.1/classes
       - uses: jakejarvis/s3-sync-action@v0.5.1
@@ -18,7 +26,6 @@ jobs:
           args: >-
             --acl public-read
             --follow-symlinks
-            --size-only
             --exclude '.git/*'
             --exclude '.github/*'
             --exclude '.gitignore'
