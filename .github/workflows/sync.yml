@@ -25,6 +25,8 @@ jobs:
             --exclude '.github/*'
             --exclude '.gitignore'
             --exclude 'README.md'
+            --exclude 'package.json'
+            --exclude 'yarn.lock'
         env:
           AWS_S3_BUCKET: ember-api-docs-test
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
