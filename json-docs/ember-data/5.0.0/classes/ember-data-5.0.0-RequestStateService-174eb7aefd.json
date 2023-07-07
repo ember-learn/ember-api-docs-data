@@ -1,0 +1,113 @@
+{
+  "data": {
+    "id": "ember-data-5.0.0-RequestStateService",
+    "type": "class",
+    "attributes": {
+      "name": "RequestStateService",
+      "shortname": "RequestStateService",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/src/-private/network/request-cache.ts",
+      "line": 31,
+      "description": "<html><head></head><body><p>The RequestStateService is used to track the state of requests\nfor fetching or updating known resource identifies that are inflight.</p>\n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/store/src/-private/network/request-cache.ts",
+          "line": 159,
+          "description": "<html><head></head><body><p>Subscribe to requests for a given resource identity.</p>\n<p>The callback will receive the current state of the request.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>interface RequestState {\n  state: <span class=\"string\">&apos;pending&apos;</span> | <span class=\"string\">&apos;fulfilled&apos;</span> | <span class=\"string\">&apos;rejected&apos;</span>;\n  type: <span class=\"string\">&apos;query&apos;</span> | <span class=\"string\">&apos;mutation&apos;</span>;\n  request: Request;\n  response?: { data: unknown };\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Note: It should be considered dangerous to use this API for more than simple\nstate derivation or debugging. The <code>request</code> and <code>response</code> properties are poorly\nspec&apos;d and may change unexpectedly when shifting what Handlers are in use or how\nrequests are issued from the Store.</p>\n<p>We expect to revisit this API in the near future as we continue to refine the\nRequestManager ergonomics, as a simpler but more powerful direct integration\nwith the RequestManager for these purposes is likely to be a better long-term\ndesign.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "subscribeForRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "(state: RequestState) => void"
+            }
+          ],
+          "class": "RequestStateService",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/store/src/-private/network/request-cache.ts",
+          "line": 195,
+          "description": "<html><head></head><body><p>Retrieve all active requests for a given resource identity.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "getPendingRequestsForRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            }
+          ],
+          "return": {
+            "description": "an array of request states for any pending requests for the given identifier",
+            "type": "RequestState[]"
+          },
+          "class": "RequestStateService",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/store/src/-private/network/request-cache.ts",
+          "line": 210,
+          "description": "<html><head></head><body><p>Retrieve the last completed request for a given resource identity.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "getLastRequestForRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            }
+          ],
+          "return": {
+            "description": "the state of the most recent request for the given identifier",
+            "type": "RequestState | null"
+          },
+          "class": "RequestStateService",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.0.0-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.0.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

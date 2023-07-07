@@ -1,0 +1,77 @@
+{
+  "data": {
+    "id": "ember-5.0.0-SafeString",
+    "type": "class",
+    "attributes": {
+      "name": "SafeString",
+      "shortname": "SafeString",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/template",
+      "namespace": "",
+      "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+      "line": 7,
+      "description": "<html><head></head><body><p>A wrapper around a string that has been marked as safe (&quot;trusted&quot;). <strong>When\nrendered in HTML, Ember will not perform any escaping.</strong></p>\n<p>Note:</p>\n<ol>\n<li><p>This does not <em>make</em> the string safe; it means that some code in your\napplication has <em>marked</em> it as safe using the <code>htmlSafe()</code> function.</p>\n</li>\n<li><p>The only public API for getting a <code>SafeString</code> is calling <code>htmlSafe()</code>. It\nis <em>not</em> user-constructible.</p>\n</li>\n</ol>\n<p>If a string contains user inputs or other untrusted data, you must sanitize\nthe string before using the <code>htmlSafe</code> method. Otherwise your code is\nvulnerable to <a href=\"https://owasp.org/www-community/attacks/DOM_Based_XSS\">Cross-Site Scripting</a>. There are many open source\nsanitization libraries to choose from, both for front end and server-side\nsanitization.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { htmlSafe } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/template&apos;</span>;\n\n<span class=\"keyword\">let</span> someTrustedOrSanitizedString = <span class=\"string\">&quot;&lt;div&gt;Hello!&lt;/div&gt;&quot;</span>\n\nhtmlSafe(someTrustedorSanitizedString);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "since": "4.12.0",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+          "line": 47,
+          "description": "<html><head></head><body><p>Get the string back to use as a string.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "toString",
+          "return": {
+            "description": "The string marked as trusted",
+            "type": "String"
+          },
+          "class": "SafeString",
+          "module": "@ember/template"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+          "line": 58,
+          "description": "<html><head></head><body><p>Get the wrapped string as HTML to use without escaping.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "toHTML",
+          "return": {
+            "description": "the trusted string, without any escaping applied",
+            "type": "String"
+          },
+          "class": "SafeString",
+          "module": "@ember/template"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.0.0-@ember/template",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.0.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

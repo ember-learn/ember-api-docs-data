@@ -1,0 +1,37 @@
+{
+  "data": {
+    "id": "ember-data-5.0.0-@ember-data/canary-features",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/canary-features",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../private-build-infra/virtual-packages/canary-features.js",
+      "line": 76,
+      "description": "<html><head></head><body><h2 id=\"canary-features\">Canary Features</h2>\n<p>EmberData allows users to test features that are implemented but not yet\navailable even in canary.</p>\n<p>Typically these features represent work that might introduce a new concept,\nnew API, change an API, or risk an unintended change in behavior to consuming\napplications.</p>\n<p>Such features have their implementations guarded by a &quot;feature flag&quot;, and the\nflag is only activated once the core-data team is prepared to ship the work\nin a canary release.</p>\n<h3 id=\"installing-canary\">Installing Canary</h3>\n<p>To test a feature you MUST be using a canary build. Canary builds are published\nto <code>npm</code> and can be installed using a precise tag (such as <code>ember-data@3.16.0-alpha.1</code>)\nor by installing the latest dist-tag published to the <code>canary</code> channel using your javascript\npackage manager of choice. For instance with <a href=\"https://pnpm.io/\">pnpm</a></p>\n<div class=\"highlight cli\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"symbol\">pnpm</span> <span class=\"keyword\">add</span> ember-<span class=\"meta\">data</span><span class=\"comment\">@canary</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h3 id=\"activating-a-canary-feature\">Activating a Canary Feature</h3>\n<p>Once you have installed canary, feature-flags can be activated at build-time</p>\n<p>by setting an environment variable:</p>\n<div class=\"highlight cli\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\"># Activate a single flag</span>\n<span class=\"attr\">EMBER_DATA_FEATURE_OVERRIDE</span>=SOME_FLAG ember build\n\n<span class=\"comment\"># Activate multiple flags by separating with commas</span>\n<span class=\"attr\">EMBER_DATA_FEATURE_OVERRIDE</span>=SOME_FLAG,OTHER_FLAG ember build\n\n<span class=\"comment\"># Activate all flags</span>\n<span class=\"attr\">EMBER_DATA_FEATURE_OVERRIDE</span>=ENABLE_ALL_OPTIONAL ember build</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>or by setting the appropriate flag in your <code>ember-cli-build</code> file:</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> app = <span class=\"keyword\">new</span> EmberApp(defaults, {\n  emberData: {\n    features: {\n      SAMPLE_FEATURE_FLAG: <span class=\"literal\">false</span> <span class=\"comment\">// utliize existing behavior, strip code for the new feature</span>\n      OTHER_FEATURE_FLAG: <span class=\"literal\">true</span> <span class=\"comment\">// utilize this new feature, strip code for the older behavior</span>\n    }\n  }\n})</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p><strong>The &quot;off&quot; branch of feature-flagged code is always stripped from production builds.</strong></p>\n<p>The list of available feature-flags is located <a href=\"https://github.com/emberjs/data/tree/main/packages/private-build-infra/virtual-packages/canary-features.js\" title=\"List of EmberData FeatureFlags\">here</a></p>\n<h3 id=\"preparing-a-project-to-use-a-canary-feature\">Preparing a Project to use a Canary Feature</h3>\n<p>For most projects, simple version detection should be enough.\nUsing the provided version compatibility helpers from <a href=\"https://github.com/embroider-build/embroider/tree/main/packages/macros#readme\">embroider-macros</a>\nthe following can be done:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">if</span> (macro<span class=\"constructor\">Condition(<span class=\"params\">dependencySatisfies</span>(&apos;@<span class=\"params\">ember</span>-<span class=\"params\">data</span><span class=\"operator\">/</span><span class=\"params\">store</span>&apos;, &apos;5.0&apos;)</span>)) {\n  <span class=\"comment\">// do thing</span>\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "CanaryFeatureFlags"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "5.0.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.0.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
