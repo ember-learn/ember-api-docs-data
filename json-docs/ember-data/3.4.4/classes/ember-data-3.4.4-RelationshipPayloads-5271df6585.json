@@ -23,7 +23,7 @@
           "line": 129,
           "description": "<html><head></head><body><p>Get the payload for the relationship of an individual record.</p>\n<p>This might return the raw payload as pushed into the store, or one computed\nfrom the payload of the inverse relationship.</p>\n</body></html>",
           "itemtype": "method",
-          "name": "",
+          "name": "get",
           "class": "RelationshipPayloads",
           "module": "ember-data"
         },
@@ -32,7 +32,7 @@
           "line": 153,
           "description": "<html><head></head><body><p>Push a relationship payload for an individual record.</p>\n<p>This will make the payload available later for both this relationship and its inverse.</p>\n</body></html>",
           "itemtype": "method",
-          "name": "",
+          "name": "push",
           "class": "RelationshipPayloads",
           "module": "ember-data"
         },
@@ -41,7 +41,7 @@
           "line": 164,
           "description": "<html><head></head><body><p>Unload the relationship payload for an individual record.</p>\n<p>This does not unload the inverse relationship payload.</p>\n</body></html>",
           "itemtype": "method",
-          "name": "",
+          "name": "unload",
           "class": "RelationshipPayloads",
           "module": "ember-data"
         },
@@ -53,7 +53,7 @@
             "type": "Boolean"
           },
           "itemtype": "method",
-          "name": "",
+          "name": "_isLHS",
           "class": "RelationshipPayloads",
           "module": "ember-data"
         },
@@ -65,7 +65,7 @@
             "type": "Boolean"
           },
           "itemtype": "method",
-          "name": "",
+          "name": "_isRHS",
           "class": "RelationshipPayloads",
           "module": "ember-data"
         },
@@ -76,7 +76,7 @@
           "access": "private",
           "tagname": "",
           "itemtype": "method",
-          "name": "",
+          "name": "_populateInverse",
           "class": "RelationshipPayloads",
           "module": "ember-data"
         },
@@ -87,7 +87,7 @@
           "access": "private",
           "tagname": "",
           "itemtype": "method",
-          "name": "",
+          "name": "_addToInverse",
           "class": "RelationshipPayloads",
           "module": "ember-data"
         },
@@ -96,7 +96,7 @@
           "line": 440,
           "description": "<html><head></head><body><p>Remove the relationship in <code>previousPayload</code> from its inverse(s), because\nthis relationship payload has just been updated (eg because the same\nrelationship had multiple payloads pushed before the relationship was\ninitialized).</p>\n</body></html>",
           "itemtype": "method",
-          "name": "",
+          "name": "_removeInverse",
           "class": "RelationshipPayloads",
           "module": "ember-data"
         },
@@ -105,7 +105,7 @@
           "line": 474,
           "description": "<html><head></head><body><p>Remove <code>id</code> from its inverse record with id <code>inverseId</code>.  If the inverse\nrelationship is a belongsTo, this means just setting it to null, if the\ninverse relationship is a hasMany, then remove that id from its array of ids.</p>\n</body></html>",
           "itemtype": "method",
-          "name": "",
+          "name": "_removeFromInverse",
           "class": "RelationshipPayloads",
           "module": "ember-data"
         }
