@@ -1,0 +1,38 @@
+{
+  "data": {
+    "id": "ember-data-4.4.1-@ember-data/serializer/rest",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/serializer/rest",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../serializer/addon/rest.js",
+      "line": 18,
+      "description": "<html><head></head><body><p>Normally, applications will use the <code>RESTSerializer</code> by implementing\nthe <code>normalize</code> method.</p>\n<p>This allows you to do whatever kind of munging you need and is\nespecially useful if your server is inconsistent and you need to\ndo munging differently for many different kinds of responses.</p>\n<p>See the <code>normalize</code> documentation for more information.</p>\n<h2 id=\"across-the-board-normalization\">Across the Board Normalization</h2>\n<p>There are also a number of hooks that you might find useful to define\nacross-the-board rules for your payload. These rules will be useful\nif your server is consistent, or if you&apos;re building an adapter for\nan infrastructure service, like Firebase, and want to encode service\nconventions.</p>\n<p>For example, if all of your keys are underscored and all-caps, but\notherwise consistent with the names you use in your models, you\ncan implement across-the-board rules for how to convert an attribute\nname in your model to a key in your JSON.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/serializers/application.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">RESTSerializer</span> from &apos;<span class=\"meta\">@ember</span>-data/serializer/rest&apos;;\n<span class=\"keyword\">import</span> { underscore } from &apos;<span class=\"meta\">@ember</span>/string&apos;;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">ApplicationSerializer</span> <span class=\"keyword\">extends</span> <span class=\"title\">RESTSerializer</span> </span>{\n  keyForAttribute(attr, method) {\n    <span class=\"keyword\">return</span> underscore(attr).toUpperCase();\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>You can also implement <code>keyForRelationship</code>, which takes the name\nof the relationship as the first parameter, the kind of\nrelationship (<code>hasMany</code> or <code>belongsTo</code>) as the second parameter, and\nthe method (<code>serialize</code> or <code>deserialize</code>) as the third parameter.</p>\n</body></html>",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "EmbeddedRecordsMixin",
+        "RESTSerializer"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "4.4.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.4.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

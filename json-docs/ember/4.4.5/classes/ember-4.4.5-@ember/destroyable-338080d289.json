@@ -1,0 +1,206 @@
+{
+  "data": {
+    "id": "ember-4.4.5-@ember/destroyable",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/destroyable",
+      "shortname": "@ember/destroyable",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/destroyable",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/destroyable/index.ts",
+          "line": 31,
+          "description": "<html><head></head><body><p>This function is used to associate a destroyable object with a parent. When the parent\nis destroyed, all registered children will also be destroyed.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">CustomSelect</span> <span class=\"keyword\">extends</span> <span class=\"title\">Component</span> </span>{\n  constructor(...args) {\n    <span class=\"keyword\">super</span>(...args);\n\n    <span class=\"comment\">// obj is now a child of the component. When the component is destroyed,</span>\n    <span class=\"comment\">// obj will also be destroyed, and have all of its destructors triggered.</span>\n    <span class=\"keyword\">this</span>.obj = associateDestroyableChild(<span class=\"keyword\">this</span>, {});\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Returns the associated child for convenience.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "associateDestroyableChild",
+          "params": [
+            {
+              "name": "parent",
+              "description": "the destroyable to entangle the child destroyables lifetime with",
+              "type": "Object|Function"
+            },
+            {
+              "name": "child",
+              "description": "the destroyable to be entangled with the parents lifetime",
+              "type": "Object|Function"
+            }
+          ],
+          "return": {
+            "description": "the child argument",
+            "type": "Object|Function"
+          },
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/destroyable",
+          "module": "@ember/destroyable"
+        },
+        {
+          "file": "packages/@ember/destroyable/index.ts",
+          "line": 58,
+          "description": "<html><head></head><body><p>Receives a destroyable, and returns true if the destroyable has begun destroying. Otherwise returns\nfalse.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> obj = {};\nis<span class=\"constructor\">Destroying(<span class=\"params\">obj</span>)</span>; <span class=\"comment\">// false</span>\ndestroy(obj);\nis<span class=\"constructor\">Destroying(<span class=\"params\">obj</span>)</span>; <span class=\"comment\">// true</span>\n<span class=\"comment\">// ...sometime later, after scheduled destruction</span>\nis<span class=\"constructor\">Destroyed(<span class=\"params\">obj</span>)</span>; <span class=\"comment\">// true</span>\nis<span class=\"constructor\">Destroying(<span class=\"params\">obj</span>)</span>; <span class=\"comment\">// true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isDestroying",
+          "params": [
+            {
+              "name": "destroyable",
+              "description": "the object to check",
+              "type": "Object|Function"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/destroyable",
+          "module": "@ember/destroyable"
+        },
+        {
+          "file": "packages/@ember/destroyable/index.ts",
+          "line": 80,
+          "description": "<html><head></head><body><p>Receives a destroyable, and returns true if the destroyable has finished destroying. Otherwise\nreturns false.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> obj = {};\n\nis<span class=\"constructor\">Destroyed(<span class=\"params\">obj</span>)</span>; <span class=\"comment\">// false</span>\ndestroy(obj);\n\n<span class=\"comment\">// ...sometime later, after scheduled destruction</span>\n\nis<span class=\"constructor\">Destroyed(<span class=\"params\">obj</span>)</span>; <span class=\"comment\">// true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isDestroyed",
+          "params": [
+            {
+              "name": "destroyable",
+              "description": "the object to check",
+              "type": "Object|Function"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/destroyable",
+          "module": "@ember/destroyable"
+        },
+        {
+          "file": "packages/@ember/destroyable/index.ts",
+          "line": 103,
+          "description": "<html><head></head><body><p>Initiates the destruction of a destroyable object. It runs all associated destructors, and then\ndestroys all children recursively.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> obj = {};\n\n<span class=\"title function_\">registerDestructor</span>(obj, <span class=\"function\">() =&gt;</span> <span class=\"variable language_\">console</span>.<span class=\"title function_\">log</span>(<span class=\"string\">&apos;destroyed!&apos;</span>));\n\n<span class=\"title function_\">destroy</span>(obj); <span class=\"comment\">// this will schedule the destructor to be called</span>\n\n<span class=\"comment\">// ...some time later, during scheduled destruction</span>\n\n<span class=\"comment\">// destroyed!</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Destruction via <code>destroy()</code> follows these steps:</p>\n<p>1, Mark the destroyable such that <code>isDestroying(destroyable)</code> returns <code>true</code>\n2, Call <code>destroy()</code> on each of the destroyable&apos;s associated children\n3, Schedule calling the destroyable&apos;s destructors\n4, Schedule setting destroyable such that <code>isDestroyed(destroyable)</code> returns <code>true</code></p>\n<p>This results in the entire tree of destroyables being first marked as destroying,\nthen having all of their destructors called, and finally all being marked as isDestroyed.\nThere won&apos;t be any in between states where some items are marked as <code>isDestroying</code> while\ndestroying, while others are not.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "destroy",
+          "params": [
+            {
+              "name": "destroyable",
+              "description": "the object to destroy",
+              "type": "Object|Function"
+            }
+          ],
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/destroyable",
+          "module": "@ember/destroyable"
+        },
+        {
+          "file": "packages/@ember/destroyable/index.ts",
+          "line": 138,
+          "description": "<html><head></head><body><p>This function asserts that all objects which have associated destructors or associated children\nhave been destroyed at the time it is called. It is meant to be a low level hook that testing\nframeworks can use to hook into and validate that all destroyables have in fact been destroyed.</p>\n<p>This function requires that <code>enableDestroyableTracking</code> was called previously, and is only\navailable in non-production builds.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "assertDestroyablesDestroyed",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/destroyable",
+          "module": "@ember/destroyable"
+        },
+        {
+          "file": "packages/@ember/destroyable/index.ts",
+          "line": 152,
+          "description": "<html><head></head><body><p>This function instructs the destroyable system to keep track of all destroyables (their\nchildren, destructors, etc). This enables a future usage of <code>assertDestroyablesDestroyed</code>\nto be used to ensure that all destroyable tasks (registered destructors and associated children)\nhave completed when <code>assertDestroyablesDestroyed</code> is called.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "enableDestroyableTracking",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/destroyable",
+          "module": "@ember/destroyable"
+        },
+        {
+          "file": "packages/@ember/destroyable/index.ts",
+          "line": 164,
+          "description": "<html><head></head><body><p>Receives a destroyable object and a destructor function, and associates the\nfunction with it. When the destroyable is destroyed with destroy, or when its\nparent is destroyed, the destructor function will be called.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Component</span> from &apos;<span class=\"meta\">@glimmer</span>/component&apos;;\n<span class=\"keyword\">import</span> { registerDestructor } from &apos;<span class=\"meta\">@ember</span>/destroyable&apos;;\n\n<span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Modal</span> <span class=\"keyword\">extends</span> <span class=\"title\">Component</span> </span>{\n  <span class=\"meta\">@service</span> resize;\n\n  constructor(...args) {\n    <span class=\"keyword\">super</span>(...args);\n\n    <span class=\"keyword\">this</span>.resize.register(<span class=\"keyword\">this</span>, <span class=\"keyword\">this</span>.layout);\n\n    registerDestructor(<span class=\"keyword\">this</span>, () =&gt; <span class=\"keyword\">this</span>.resize.unregister(<span class=\"keyword\">this</span>));\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Multiple destructors can be associated with a given destroyable, and they can be\nassociated over time, allowing libraries to dynamically add destructors as needed.\n<code>registerDestructor</code> also returns the associated destructor function, for convenience.</p>\n<p>The destructor function is passed a single argument, which is the destroyable itself.\nThis allows the function to be reused multiple times for many destroyables, rather\nthan creating a closure function per destroyable.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Component</span> from &apos;<span class=\"meta\">@glimmer</span>/component&apos;;\n<span class=\"keyword\">import</span> { registerDestructor } from &apos;<span class=\"meta\">@ember</span>/destroyable&apos;;\n\nfunction unregisterResize(instance) {\n  instance.resize.unregister(instance);\n}\n\n<span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Modal</span> <span class=\"keyword\">extends</span> <span class=\"title\">Component</span> </span>{\n  <span class=\"meta\">@service</span> resize;\n\n  constructor(...args) {\n    <span class=\"keyword\">super</span>(...args);\n\n    <span class=\"keyword\">this</span>.resize.register(<span class=\"keyword\">this</span>, <span class=\"keyword\">this</span>.layout);\n\n    registerDestructor(<span class=\"keyword\">this</span>, unregisterResize);\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "registerDestructor",
+          "params": [
+            {
+              "name": "destroyable",
+              "description": "the destroyable to register the destructor function with",
+              "type": "Object|Function"
+            },
+            {
+              "name": "destructor",
+              "description": "the destructor to run when the destroyable object is destroyed",
+              "type": "Function"
+            }
+          ],
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/destroyable",
+          "module": "@ember/destroyable"
+        },
+        {
+          "file": "packages/@ember/destroyable/index.ts",
+          "line": 229,
+          "description": "<html><head></head><body><p>Receives a destroyable and a destructor function, and de-associates the destructor\nfrom the destroyable.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Component from <span class=\"string\">&apos;@glimmer/component&apos;</span>;\n<span class=\"keyword\">import</span> { registerDestructor, unregisterDestructor } from <span class=\"string\">&apos;@ember/destroyable&apos;</span>;\n\n<span class=\"keyword\">class</span> <span class=\"title class_\">Modal</span> <span class=\"title\">extends</span> <span class=\"title\">Component</span> {\n  <span class=\"meta\">@service</span> modals;\n\n  <span class=\"keyword\">constructor</span>(...args) {\n    <span class=\"keyword\">super</span>(...args);\n\n    <span class=\"keyword\">this</span>.modals.add(<span class=\"keyword\">this</span>);\n\n    <span class=\"keyword\">this</span>.modalDestructor = registerDestructor(<span class=\"keyword\">this</span>, () =&gt; <span class=\"keyword\">this</span>.modals.remove(<span class=\"keyword\">this</span>));\n  }\n\n  <span class=\"meta\">@action</span> pinModal() {\n    unregisterDestructor(<span class=\"keyword\">this</span>, <span class=\"keyword\">this</span>.modalDestructor);\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "unregisterDestructor",
+          "params": [
+            {
+              "name": "destroyable",
+              "description": "the destroyable to unregister the destructor function from",
+              "type": "Object|Function"
+            },
+            {
+              "name": "destructor",
+              "description": "the destructor to remove from the destroyable",
+              "type": "Function"
+            }
+          ],
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/destroyable",
+          "module": "@ember/destroyable"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-4.4.5-@ember/destroyable",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-4.4.5",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

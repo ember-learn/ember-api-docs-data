@@ -1,0 +1,374 @@
+{
+  "data": {
+    "id": "ember-4.11.0-@ember/destroyable",
+    "type": "module",
+    "attributes": {
+      "name": "@ember/destroyable",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember/destroyable": 1
+      },
+      "namespaces": {},
+      "tag": "module",
+      "file": "packages/@ember/destroyable/index.ts",
+      "line": 15,
+      "description": "<html><head></head><body><p>Ember manages the lifecycles and lifetimes of many built in constructs, such\nas components, and does so in a hierarchical way - when a parent component is\ndestroyed, all of its children are destroyed as well.</p>\n<p>This destroyables API exposes the basic building blocks for destruction:</p>\n<ul>\n<li>registering a function to be ran when an object is destroyed</li>\n<li>checking if an object is in a destroying state</li>\n<li>associate an object as a child of another so that the child object will be destroyed\nwhen the associated parent object is destroyed.</li>\n</ul>\n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "parent": null,
+      "publicclasses": [],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@ember/destroyable": [
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 138,
+            "description": "This function asserts that all objects which have associated destructors or associated children\nhave been destroyed at the time it is called. It is meant to be a low level hook that testing\nframeworks can use to hook into and validate that all destroyables have in fact been destroyed.\n\nThis function requires that `enableDestroyableTracking` was called previously, and is only\navailable in non-production builds.",
+            "itemtype": "method",
+            "name": "assertDestroyablesDestroyed",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 31,
+            "description": "This function is used to associate a destroyable object with a parent. When the parent\nis destroyed, all registered children will also be destroyed.\n\n```js\nclass CustomSelect extends Component {\n  constructor(...args) {\n    super(...args);\n\n    // obj is now a child of the component. When the component is destroyed,\n    // obj will also be destroyed, and have all of its destructors triggered.\n    this.obj = associateDestroyableChild(this, {});\n  }\n}\n```\n\nReturns the associated child for convenience.",
+            "itemtype": "method",
+            "name": "associateDestroyableChild",
+            "params": [
+              {
+                "name": "parent",
+                "description": "the destroyable to entangle the child destroyables lifetime with",
+                "type": "Object|Function"
+              },
+              {
+                "name": "child",
+                "description": "the destroyable to be entangled with the parents lifetime",
+                "type": "Object|Function"
+              }
+            ],
+            "return": {
+              "description": "the child argument",
+              "type": "Object|Function"
+            },
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 103,
+            "description": "Initiates the destruction of a destroyable object. It runs all associated destructors, and then\ndestroys all children recursively.\n\n```js\nlet obj = {};\n\nregisterDestructor(obj, () => console.log('destroyed!'));\n\ndestroy(obj); // this will schedule the destructor to be called\n\n// ...some time later, during scheduled destruction\n\n// destroyed!\n```\n\nDestruction via `destroy()` follows these steps:\n\n1, Mark the destroyable such that `isDestroying(destroyable)` returns `true`\n2, Call `destroy()` on each of the destroyable's associated children\n3, Schedule calling the destroyable's destructors\n4, Schedule setting destroyable such that `isDestroyed(destroyable)` returns `true`\n\nThis results in the entire tree of destroyables being first marked as destroying,\nthen having all of their destructors called, and finally all being marked as isDestroyed.\nThere won't be any in between states where some items are marked as `isDestroying` while\ndestroying, while others are not.",
+            "itemtype": "method",
+            "name": "destroy",
+            "params": [
+              {
+                "name": "destroyable",
+                "description": "the object to destroy",
+                "type": "Object|Function"
+              }
+            ],
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 152,
+            "description": "This function instructs the destroyable system to keep track of all destroyables (their\nchildren, destructors, etc). This enables a future usage of `assertDestroyablesDestroyed`\nto be used to ensure that all destroyable tasks (registered destructors and associated children)\nhave completed when `assertDestroyablesDestroyed` is called.",
+            "itemtype": "method",
+            "name": "enableDestroyableTracking",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 80,
+            "description": "Receives a destroyable, and returns true if the destroyable has finished destroying. Otherwise\nreturns false.\n\n```js\nlet obj = {};\n\nisDestroyed(obj); // false\ndestroy(obj);\n\n// ...sometime later, after scheduled destruction\n\nisDestroyed(obj); // true\n```",
+            "itemtype": "method",
+            "name": "isDestroyed",
+            "params": [
+              {
+                "name": "destroyable",
+                "description": "the object to check",
+                "type": "Object|Function"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Boolean"
+            },
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 58,
+            "description": "Receives a destroyable, and returns true if the destroyable has begun destroying. Otherwise returns\nfalse.\n\n ```js\n let obj = {};\n isDestroying(obj); // false\n destroy(obj);\n isDestroying(obj); // true\n // ...sometime later, after scheduled destruction\n isDestroyed(obj); // true\n isDestroying(obj); // true\n ```",
+            "itemtype": "method",
+            "name": "isDestroying",
+            "params": [
+              {
+                "name": "destroyable",
+                "description": "the object to check",
+                "type": "Object|Function"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Boolean"
+            },
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 164,
+            "description": "Receives a destroyable object and a destructor function, and associates the\nfunction with it. When the destroyable is destroyed with destroy, or when its\nparent is destroyed, the destructor function will be called.\n\n```js\nimport Component from '@glimmer/component';\nimport { registerDestructor } from '@ember/destroyable';\n\nclass Modal extends Component {\n  @service resize;\n\n  constructor(...args) {\n    super(...args);\n\n    this.resize.register(this, this.layout);\n\n    registerDestructor(this, () => this.resize.unregister(this));\n  }\n}\n```\n\nMultiple destructors can be associated with a given destroyable, and they can be\nassociated over time, allowing libraries to dynamically add destructors as needed.\n`registerDestructor` also returns the associated destructor function, for convenience.\n\nThe destructor function is passed a single argument, which is the destroyable itself.\nThis allows the function to be reused multiple times for many destroyables, rather\nthan creating a closure function per destroyable.\n\n```js\nimport Component from '@glimmer/component';\nimport { registerDestructor } from '@ember/destroyable';\n\nfunction unregisterResize(instance) {\n  instance.resize.unregister(instance);\n}\n\nclass Modal extends Component {\n  @service resize;\n\n  constructor(...args) {\n    super(...args);\n\n    this.resize.register(this, this.layout);\n\n    registerDestructor(this, unregisterResize);\n  }\n}\n```",
+            "itemtype": "method",
+            "name": "registerDestructor",
+            "params": [
+              {
+                "name": "destroyable",
+                "description": "the destroyable to register the destructor function with",
+                "type": "Object|Function"
+              },
+              {
+                "name": "destructor",
+                "description": "the destructor to run when the destroyable object is destroyed",
+                "type": "Function"
+              }
+            ],
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 229,
+            "description": "Receives a destroyable and a destructor function, and de-associates the destructor\nfrom the destroyable.\n\n```js\nimport Component from '@glimmer/component';\nimport { registerDestructor, unregisterDestructor } from '@ember/destroyable';\n\nclass Modal extends Component {\n  @service modals;\n\n  constructor(...args) {\n    super(...args);\n\n    this.modals.add(this);\n\n    this.modalDestructor = registerDestructor(this, () => this.modals.remove(this));\n  }\n\n  @action pinModal() {\n    unregisterDestructor(this, this.modalDestructor);\n  }\n}\n```",
+            "itemtype": "method",
+            "name": "unregisterDestructor",
+            "params": [
+              {
+                "name": "destroyable",
+                "description": "the destroyable to unregister the destructor function from",
+                "type": "Object|Function"
+              },
+              {
+                "name": "destructor",
+                "description": "the destructor to remove from the destroyable",
+                "type": "Function"
+              }
+            ],
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember/destroyable": [
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 138,
+            "description": "This function asserts that all objects which have associated destructors or associated children\nhave been destroyed at the time it is called. It is meant to be a low level hook that testing\nframeworks can use to hook into and validate that all destroyables have in fact been destroyed.\n\nThis function requires that `enableDestroyableTracking` was called previously, and is only\navailable in non-production builds.",
+            "itemtype": "method",
+            "name": "assertDestroyablesDestroyed",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 31,
+            "description": "This function is used to associate a destroyable object with a parent. When the parent\nis destroyed, all registered children will also be destroyed.\n\n```js\nclass CustomSelect extends Component {\n  constructor(...args) {\n    super(...args);\n\n    // obj is now a child of the component. When the component is destroyed,\n    // obj will also be destroyed, and have all of its destructors triggered.\n    this.obj = associateDestroyableChild(this, {});\n  }\n}\n```\n\nReturns the associated child for convenience.",
+            "itemtype": "method",
+            "name": "associateDestroyableChild",
+            "params": [
+              {
+                "name": "parent",
+                "description": "the destroyable to entangle the child destroyables lifetime with",
+                "type": "Object|Function"
+              },
+              {
+                "name": "child",
+                "description": "the destroyable to be entangled with the parents lifetime",
+                "type": "Object|Function"
+              }
+            ],
+            "return": {
+              "description": "the child argument",
+              "type": "Object|Function"
+            },
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 103,
+            "description": "Initiates the destruction of a destroyable object. It runs all associated destructors, and then\ndestroys all children recursively.\n\n```js\nlet obj = {};\n\nregisterDestructor(obj, () => console.log('destroyed!'));\n\ndestroy(obj); // this will schedule the destructor to be called\n\n// ...some time later, during scheduled destruction\n\n// destroyed!\n```\n\nDestruction via `destroy()` follows these steps:\n\n1, Mark the destroyable such that `isDestroying(destroyable)` returns `true`\n2, Call `destroy()` on each of the destroyable's associated children\n3, Schedule calling the destroyable's destructors\n4, Schedule setting destroyable such that `isDestroyed(destroyable)` returns `true`\n\nThis results in the entire tree of destroyables being first marked as destroying,\nthen having all of their destructors called, and finally all being marked as isDestroyed.\nThere won't be any in between states where some items are marked as `isDestroying` while\ndestroying, while others are not.",
+            "itemtype": "method",
+            "name": "destroy",
+            "params": [
+              {
+                "name": "destroyable",
+                "description": "the object to destroy",
+                "type": "Object|Function"
+              }
+            ],
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 152,
+            "description": "This function instructs the destroyable system to keep track of all destroyables (their\nchildren, destructors, etc). This enables a future usage of `assertDestroyablesDestroyed`\nto be used to ensure that all destroyable tasks (registered destructors and associated children)\nhave completed when `assertDestroyablesDestroyed` is called.",
+            "itemtype": "method",
+            "name": "enableDestroyableTracking",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 80,
+            "description": "Receives a destroyable, and returns true if the destroyable has finished destroying. Otherwise\nreturns false.\n\n```js\nlet obj = {};\n\nisDestroyed(obj); // false\ndestroy(obj);\n\n// ...sometime later, after scheduled destruction\n\nisDestroyed(obj); // true\n```",
+            "itemtype": "method",
+            "name": "isDestroyed",
+            "params": [
+              {
+                "name": "destroyable",
+                "description": "the object to check",
+                "type": "Object|Function"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Boolean"
+            },
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 58,
+            "description": "Receives a destroyable, and returns true if the destroyable has begun destroying. Otherwise returns\nfalse.\n\n ```js\n let obj = {};\n isDestroying(obj); // false\n destroy(obj);\n isDestroying(obj); // true\n // ...sometime later, after scheduled destruction\n isDestroyed(obj); // true\n isDestroying(obj); // true\n ```",
+            "itemtype": "method",
+            "name": "isDestroying",
+            "params": [
+              {
+                "name": "destroyable",
+                "description": "the object to check",
+                "type": "Object|Function"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Boolean"
+            },
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 164,
+            "description": "Receives a destroyable object and a destructor function, and associates the\nfunction with it. When the destroyable is destroyed with destroy, or when its\nparent is destroyed, the destructor function will be called.\n\n```js\nimport Component from '@glimmer/component';\nimport { registerDestructor } from '@ember/destroyable';\n\nclass Modal extends Component {\n  @service resize;\n\n  constructor(...args) {\n    super(...args);\n\n    this.resize.register(this, this.layout);\n\n    registerDestructor(this, () => this.resize.unregister(this));\n  }\n}\n```\n\nMultiple destructors can be associated with a given destroyable, and they can be\nassociated over time, allowing libraries to dynamically add destructors as needed.\n`registerDestructor` also returns the associated destructor function, for convenience.\n\nThe destructor function is passed a single argument, which is the destroyable itself.\nThis allows the function to be reused multiple times for many destroyables, rather\nthan creating a closure function per destroyable.\n\n```js\nimport Component from '@glimmer/component';\nimport { registerDestructor } from '@ember/destroyable';\n\nfunction unregisterResize(instance) {\n  instance.resize.unregister(instance);\n}\n\nclass Modal extends Component {\n  @service resize;\n\n  constructor(...args) {\n    super(...args);\n\n    this.resize.register(this, this.layout);\n\n    registerDestructor(this, unregisterResize);\n  }\n}\n```",
+            "itemtype": "method",
+            "name": "registerDestructor",
+            "params": [
+              {
+                "name": "destroyable",
+                "description": "the destroyable to register the destructor function with",
+                "type": "Object|Function"
+              },
+              {
+                "name": "destructor",
+                "description": "the destructor to run when the destroyable object is destroyed",
+                "type": "Function"
+              }
+            ],
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          },
+          {
+            "file": "packages/@ember/destroyable/index.ts",
+            "line": 229,
+            "description": "Receives a destroyable and a destructor function, and de-associates the destructor\nfrom the destroyable.\n\n```js\nimport Component from '@glimmer/component';\nimport { registerDestructor, unregisterDestructor } from '@ember/destroyable';\n\nclass Modal extends Component {\n  @service modals;\n\n  constructor(...args) {\n    super(...args);\n\n    this.modals.add(this);\n\n    this.modalDestructor = registerDestructor(this, () => this.modals.remove(this));\n  }\n\n  @action pinModal() {\n    unregisterDestructor(this, this.modalDestructor);\n  }\n}\n```",
+            "itemtype": "method",
+            "name": "unregisterDestructor",
+            "params": [
+              {
+                "name": "destroyable",
+                "description": "the destroyable to unregister the destructor function from",
+                "type": "Object|Function"
+              },
+              {
+                "name": "destructor",
+                "description": "the destructor to remove from the destroyable",
+                "type": "Function"
+              }
+            ],
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/destroyable",
+            "module": "@ember/destroyable"
+          }
+        ]
+      },
+      "version": "4.11.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-4.11.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

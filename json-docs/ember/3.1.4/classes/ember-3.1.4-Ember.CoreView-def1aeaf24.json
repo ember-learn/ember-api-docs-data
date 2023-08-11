@@ -1,0 +1,989 @@
+{
+  "data": {
+    "id": "ember-3.1.4-Ember.CoreView",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.CoreView",
+      "shortname": "Ember.CoreView",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "packages/ember-views/lib/views/core_view.js",
+      "line": 9,
+      "description": "<html><head></head><body><p><code>Ember.CoreView</code> is an abstract class that exists to give view-like behavior\nto both Ember&apos;s main view class <code>Component</code> and other classes that don&apos;t need\nthe full functionality of <code>Component</code>.</p>\n<p>Unless you have specific needs for <code>CoreView</code>, you will use <code>Component</code>\nin your applications.</p>\n</body></html>",
+      "extends": "EmberObject",
+      "deprecated": true,
+      "deprecationMessage": "Use `Component` instead.",
+      "uses": [
+        "Evented",
+        "Ember.ActionHandler"
+      ],
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/ember-views/lib/system/utils.js",
+          "line": 24,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getRootViews",
+          "params": [
+            {
+              "name": "owner",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.CoreView",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/utils.js",
+          "line": 45,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewId",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Ember.CoreView",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/utils.js",
+          "line": 60,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewElement",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Ember.CoreView",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/utils.js",
+          "line": 79,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getChildViews",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Ember.CoreView",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/utils.js",
+          "line": 116,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewBounds",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Ember.CoreView",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/utils.js",
+          "line": 125,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewRange",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Ember.CoreView",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/utils.js",
+          "line": 140,
+          "description": "<html><head></head><body><p><code>getViewClientRects</code> provides information about the position of the border\nbox edges of a view relative to the viewport.</p>\n<p>It is only intended to be used by development tools like the Ember Inspector\nand may not work on older browsers.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewClientRects",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Ember.CoreView",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/utils.js",
+          "line": 156,
+          "description": "<html><head></head><body><p><code>getViewBoundingClientRect</code> provides information about the position of the\nbounding border box edges of a view relative to the viewport.</p>\n<p>It is only intended to be used by development tools like the Ember Inspector\nand may not work on older browsers.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewBoundingClientRect",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Ember.CoreView",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/utils.js",
+          "line": 172,
+          "description": "<html><head></head><body><p>Determines if the element matches the specified selector.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "matches",
+          "params": [
+            {
+              "name": "el",
+              "description": "",
+              "type": "DOMElement"
+            },
+            {
+              "name": "selector",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.CoreView",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-views/lib/views/core_view.js",
+          "line": 60,
+          "description": "<html><head></head><body><p>Override the default event firing from <code>Evented</code> to\nalso call methods with the given name.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "trigger",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/evented.js",
+          "line": 55,
+          "description": "<html><head></head><body><p>Subscribes to a named event with given function.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>person.on(<span class=\"string\">&apos;didLoad&apos;</span>, <span class=\"keyword\">function</span><span class=\"params\">()</span> {\n  <span class=\"comment\">// fired once the person has loaded</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>An optional target can be passed in as the 2nd argument that will\nbe set as the &quot;this&quot; for the callback. This is a good way to give your\nfunction access to the object triggering the event. When the target\nparameter is used the callback becomes the third argument.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "on",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The \"this\" binding for the callback",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "method",
+              "description": "The callback to execute",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Evented"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/evented.js",
+          "line": 81,
+          "description": "<html><head></head><body><p>Subscribes a function to a named event and then cancels the subscription\nafter the first time the event is triggered. It is good to use <code>one</code> when\nyou only care about the first time an event has taken place.</p>\n<p>This function takes an optional 2nd argument that will become the &quot;this&quot;\nvalue for the callback. If this argument is passed then the 3rd argument\nbecomes the function.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "one",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The \"this\" binding for the callback",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "method",
+              "description": "The callback to execute",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Evented"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/evented.js",
+          "line": 107,
+          "description": "<html><head></head><body><p>Triggers a named event for the object. Any additional arguments\nwill be passed as parameters to the functions that are subscribed to the\nevent.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>person.on(<span class=\"string\">&apos;didEat&apos;</span>, <span class=\"keyword\">function</span>(<span class=\"params\">food</span>) {\n  <span class=\"built_in\">console</span>.<span class=\"built_in\">log</span>(<span class=\"string\">&apos;person ate some &apos;</span> + food);\n});\n\nperson.trigger(<span class=\"string\">&apos;didEat&apos;</span>, <span class=\"string\">&apos;broccoli&apos;</span>);\n\n<span class=\"comment\">// outputs: person ate some broccoli</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "trigger",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "Optional arguments to pass on",
+              "type": "Object..."
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Evented"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/evented.js",
+          "line": 130,
+          "description": "<html><head></head><body><p>Cancels subscription for given name, target, and method.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "off",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target of the subscription",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The function of the subscription",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Evented"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/evented.js",
+          "line": 145,
+          "description": "<html><head></head><body><p>Checks to see if object has any subscriptions for named event.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "does the object have a subscription for event",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Evented"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 167,
+          "description": "<html><head></head><body><p>Triggers a named action on the <code>ActionHandler</code>. Any parameters\nsupplied after the <code>actionName</code> string will be passed as arguments\nto the action target function.</p>\n<p>If the <code>ActionHandler</code> has its <code>target</code> property set, actions may\nbubble to the <code>target</code>. Bubbling happens when an <code>actionName</code> can\nnot be found in the <code>ActionHandler</code>&apos;s <code>actions</code> hash or if the\naction target function returns <code>true</code>.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/welcome.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">playTheme</span>(<span class=\"params\"></span>) {\n      <span class=\"variable language_\">this</span>.<span class=\"title function_\">send</span>(<span class=\"string\">&apos;playMusic&apos;</span>, <span class=\"string\">&apos;theme.mp3&apos;</span>);\n    },\n    <span class=\"title function_\">playMusic</span>(<span class=\"params\">track</span>) {\n      <span class=\"comment\">// ...</span>\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "actionName",
+              "description": "The action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 296,
+          "description": "<html><head></head><body><p>An overridable method called when objects are instantiated. By default,\ndoes nothing unless it is overridden during class definition.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">EmberObject</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n\n<span class=\"keyword\">const</span> <span class=\"title class_\">Person</span> = <span class=\"title class_\">EmberObject</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"title function_\">init</span>(<span class=\"params\"></span>) {\n    <span class=\"title function_\">alert</span>(<span class=\"string\">`Name is <span class=\"subst\">${<span class=\"variable language_\">this</span>.get(<span class=\"string\">&apos;name&apos;</span>)}</span>`</span>);\n  }\n});\n\n<span class=\"keyword\">let</span> steve = <span class=\"title class_\">Person</span>.<span class=\"title function_\">create</span>({\n  <span class=\"attr\">name</span>: <span class=\"string\">&apos;Steve&apos;</span>\n});\n\n<span class=\"comment\">// alerts &apos;Name is Steve&apos;.</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>NOTE: If you do override <code>init</code> for a framework class like <code>Ember.View</code>,\nbe sure to call <code>this._super(...arguments)</code> in your\n<code>init</code> declaration! If you don&apos;t, Ember may not have an opportunity to\ndo important setup work, and you&apos;ll see strange behavior in your\napplication.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "init",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 511,
+          "description": "<html><head></head><body><p>Destroys an object by setting the <code>isDestroyed</code> flag and removing its\nmetadata, which effectively destroys observers and bindings.</p>\n<p>If you try to set a property on a destroyed object, an exception will be\nraised.</p>\n<p>Note that destruction is scheduled for the end of the run loop and does not\nhappen immediately.  It will set an isDestroying flag immediately.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "destroy",
+          "return": {
+            "description": "receiver",
+            "type": "EmberObject"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 537,
+          "description": "<html><head></head><body><p>Override to implement teardown.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "willDestroy",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 545,
+          "description": "<html><head></head><body><p>Invoked by the run loop to actually destroy the object. This is\nscheduled for execution by the <code>destroy</code> method.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_scheduledDestroy",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 558,
+          "description": "<html><head></head><body><p>Returns a string representation which attempts to provide more information\nthan Javascript&apos;s <code>toString</code> typically does, in a generic way for all Ember\nobjects.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>import EmberObject from &apos;@ember/<span class=\"keyword\">object</span>&apos;;\n\nconst Person = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">EmberObject</span>.</span></span>extend<span class=\"literal\">()</span>;\nperson = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Person</span>.</span></span>create<span class=\"literal\">()</span>;\nperson.<span class=\"keyword\">to</span><span class=\"constructor\">String()</span>; <span class=\"comment\">//=&gt; &quot;&lt;Person:ember1024&gt;&quot;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If the object&apos;s class is not defined on an Ember namespace, it will\nindicate it is a subclass of the registered superclass:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>const Student = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Person</span>.</span></span>extend<span class=\"literal\">()</span>;\n<span class=\"keyword\">let</span> student = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Student</span>.</span></span>create<span class=\"literal\">()</span>;\nstudent.<span class=\"keyword\">to</span><span class=\"constructor\">String()</span>; <span class=\"comment\">//=&gt; &quot;&lt;(subclass of Person):ember1025&gt;&quot;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If the method <code>toStringExtension</code> is defined, its return value will be\nincluded in the output.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">const</span> Teacher = Person.extend({\n  toStringExtension() {\n    <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;fullName&apos;</span>);\n  }\n});\nteacher = Teacher.create();\nteacher.toString(); <span class=\"comment\">//=&gt; &quot;&lt;Teacher:ember1026:Tom Dale&gt;&quot;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "toString",
+          "return": {
+            "description": "string representation",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 97,
+          "description": "<html><head></head><body><p>Retrieves the value of a property from the object.</p>\n<p>This method is usually similar to using <code>object[keyName]</code> or <code>object.keyName</code>,\nhowever it supports both computed properties and the unknownProperty\nhandler.</p>\n<p>Because <code>get</code> unifies the syntax for accessing all these kinds\nof properties, it can make many refactorings easier, such as replacing a\nsimple property with a computed property, or vice versa.</p>\n<h3 id=\"computed-properties\">Computed Properties</h3>\n<p>Computed properties are methods defined with the <code>property</code> modifier\ndeclared at the end, such as:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { computed } from <span class=\"string\">&apos;@ember/object&apos;</span>;\n\nfullName: computed(<span class=\"string\">&apos;firstName&apos;</span>, <span class=\"string\">&apos;lastName&apos;</span>, function() {\n  <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;firstName&apos;</span>) + <span class=\"string\">&apos; &apos;</span> + <span class=\"keyword\">this</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;lastName&apos;</span>);\n})</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>When you call <code>get</code> on a computed property, the function will be\ncalled and the return value will be returned instead of the function\nitself.</p>\n<h3 id=\"unknown-properties\">Unknown Properties</h3>\n<p>Likewise, if you try to call <code>get</code> on a property whose value is\n<code>undefined</code>, the <code>unknownProperty()</code> method will be called on the object.\nIf this method returns any value other than <code>undefined</code>, it will be returned\ninstead. This allows you to implement &quot;virtual&quot; properties that are\nnot defined upfront.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to retrieve",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The property value or undefined.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 142,
+          "description": "<html><head></head><body><p>To get the values of multiple properties at once, call <code>getProperties</code>\nwith a list of strings or an array:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>record.getProperties(<span class=\"string\">&apos;firstName&apos;</span>, <span class=\"string\">&apos;lastName&apos;</span>, <span class=\"string\">&apos;zipCode&apos;</span>);\n<span class=\"regexp\">//</span> { firstName: <span class=\"string\">&apos;John&apos;</span>, lastName: <span class=\"string\">&apos;Doe&apos;</span>, zipCode: <span class=\"string\">&apos;10011&apos;</span> }</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>is equivalent to:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>record.getProperties([<span class=\"string\">&apos;firstName&apos;</span>, <span class=\"string\">&apos;lastName&apos;</span>, <span class=\"string\">&apos;zipCode&apos;</span>]);\n<span class=\"regexp\">//</span> { firstName: <span class=\"string\">&apos;John&apos;</span>, lastName: <span class=\"string\">&apos;Doe&apos;</span>, zipCode: <span class=\"string\">&apos;10011&apos;</span> }</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "getProperties",
+          "params": [
+            {
+              "name": "list",
+              "description": "of keys to get",
+              "type": "String...|Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 167,
+          "description": "<html><head></head><body><p>Sets the provided key or path to the value.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"built_in\">record</span>.<span class=\"keyword\">set</span>(<span class=\"string\">&quot;key&quot;</span>, value);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This method is generally very similar to calling <code>object[&quot;key&quot;] = value</code> or\n<code>object.key = value</code>, except that it provides support for computed\nproperties, the <code>setUnknownProperty()</code> method and property observers.</p>\n<h3 id=\"computed-properties\">Computed Properties</h3>\n<p>If you try to set a value on a key that has a computed property handler\ndefined (see the <code>get()</code> method for an example), then <code>set()</code> will call\nthat method, passing both the value and key instead of simply changing\nthe value itself. This is useful for those times when you need to\nimplement a property that is composed of one or more member\nproperties.</p>\n<h3 id=\"unknown-properties\">Unknown Properties</h3>\n<p>If you try to set a value on a key that is undefined in the target\nobject, then the <code>setUnknownProperty()</code> handler will be called instead. This\ngives you an opportunity to implement complex &quot;virtual&quot; properties that\nare not predefined on the object. If <code>setUnknownProperty()</code> returns\nundefined, then <code>set()</code> will simply set the value on the object.</p>\n<h3 id=\"property-observers\">Property Observers</h3>\n<p>In addition to changing the property, <code>set()</code> will also register a property\nchange with the object. Unless you have placed this call inside of a\n<code>beginPropertyChanges()</code> and <code>endPropertyChanges(),</code> any &quot;local&quot; observers\n(i.e. observer methods declared on the same object), will be called\nimmediately. Any &quot;remote&quot; observers (i.e. observer methods declared on\nanother object) will be placed in a queue and called at a later time in a\ncoalesced manner.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to set or `null`.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed value",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 216,
+          "description": "<html><head></head><body><p>Sets a list of properties at once. These properties are set inside\na single <code>beginPropertyChanges</code> and <code>endPropertyChanges</code> batch, so\nobservers will be buffered.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>record.<span class=\"title function_ invoke__\">setProperties</span>({ <span class=\"attr\">firstName</span>: <span class=\"string\">&apos;Charles&apos;</span>, <span class=\"attr\">lastName</span>: <span class=\"string\">&apos;Jolley&apos;</span> });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "setProperties",
+          "params": [
+            {
+              "name": "hash",
+              "description": "the hash of keys and values to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed in hash",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 234,
+          "description": "<html><head></head><body><p>Begins a grouping of property changes.</p>\n<p>You can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call this\nmethod at the beginning of the changes to begin deferring change\nnotifications. When you are done making changes, call\n<code>endPropertyChanges()</code> to deliver the deferred change notifications and end\ndeferring.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "beginPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 254,
+          "description": "<html><head></head><body><p>Ends a grouping of property changes.</p>\n<p>You can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call\n<code>beginPropertyChanges()</code> at the beginning of the changes to defer change\nnotifications. When you are done making changes, call this method to\ndeliver the deferred change notifications and end deferring.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "endPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 273,
+          "itemtype": "method",
+          "name": "propertyWillChange",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 282,
+          "itemtype": "method",
+          "name": "propertyDidChange",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 291,
+          "description": "<html><head></head><body><p>Notify the observer system that a property has just changed.</p>\n<p>Sometimes you need to change a value directly or indirectly without\nactually calling <code>get()</code> or <code>set()</code> on it. In this case, you can use this\nmethod instead. Calling this method will notify all observers that the\nproperty has potentially changed value.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "notifyPropertyChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key to be notified about.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 309,
+          "description": "<html><head></head><body><p>Adds an observer on a property.</p>\n<p>This is the core method used to register an observer for a property.</p>\n<p>Once you call this method, any time the key&apos;s value is set, your observer\nwill be notified. Note that the observers are triggered any time the\nvalue is set, regardless of whether it has actually changed. Your\nobserver should be prepared to handle that.</p>\n<h3 id=\"observer-methods\">Observer Methods</h3>\n<p>Observer methods have the following signature:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">component.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Component</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/component&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Component</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"title function_\">init</span>(<span class=\"params\"></span>) {\n    <span class=\"variable language_\">this</span>.<span class=\"title function_\">_super</span>(...<span class=\"variable language_\">arguments</span>);\n    <span class=\"variable language_\">this</span>.<span class=\"title function_\">addObserver</span>(<span class=\"string\">&apos;foo&apos;</span>, <span class=\"variable language_\">this</span>, <span class=\"string\">&apos;fooDidChange&apos;</span>);\n  },\n\n  <span class=\"title function_\">fooDidChange</span>(<span class=\"params\">sender, key, value, rev</span>) {\n    <span class=\"comment\">// your code</span>\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The <code>sender</code> is the object that changed. The <code>key</code> is the property that\nchanges. The <code>value</code> property is currently reserved and unused. The <code>rev</code>\nis the last property revision of the object when it changed, which you can\nuse to detect if the key value has really changed or not.</p>\n<p>Usually you will not need the value or revision parameters at\nthe end. In this case, it is common to write observer methods that take\nonly a sender and key value as parameters or, if you aren&apos;t interested in\nany of these values, to write an observer that has no parameters at all.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "addObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observe",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke",
+              "type": "String|Function"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 360,
+          "description": "<html><head></head><body><p>Remove an observer you have previously registered on this object. Pass\nthe same key, target, and method you passed to <code>addObserver()</code> and your\ntarget will no longer receive notifications.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "removeObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observe",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke",
+              "type": "String|Function"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 377,
+          "description": "<html><head></head><body><p>Returns <code>true</code> if the object currently has observers registered for a\nparticular key. You can use this method to potentially defer performing\nan expensive action until someone begins observing a particular property\non the object.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "hasObserverFor",
+          "params": [
+            {
+              "name": "key",
+              "description": "Key to check",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 392,
+          "description": "<html><head></head><body><p>Retrieves the value of a property, or a default value in the case that the\nproperty returns <code>undefined</code>.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>person.getWithDefault(&apos;lastName&apos;, &apos;Doe&apos;);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "getWithDefault",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to retrieve",
+              "type": "String"
+            },
+            {
+              "name": "defaultValue",
+              "description": "The value to return if the property value is undefined",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The property value or the defaultValue.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 410,
+          "description": "<html><head></head><body><p>Set the value of a property to the current value plus some amount.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>person.increment<span class=\"constructor\">Property(&apos;<span class=\"params\">age</span>&apos;)</span>;\nteam.increment<span class=\"constructor\">Property(&apos;<span class=\"params\">score</span>&apos;, 2)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "incrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to increment",
+              "type": "String"
+            },
+            {
+              "name": "increment",
+              "description": "The amount to increment by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 430,
+          "description": "<html><head></head><body><p>Set the value of a property to the current value minus some amount.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>player.decrement<span class=\"constructor\">Property(&apos;<span class=\"params\">lives</span>&apos;)</span>;\norc.decrement<span class=\"constructor\">Property(&apos;<span class=\"params\">health</span>&apos;, 5)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "decrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to decrement",
+              "type": "String"
+            },
+            {
+              "name": "decrement",
+              "description": "The amount to decrement by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 450,
+          "description": "<html><head></head><body><p>Set the value of a boolean property to the opposite of its\ncurrent value.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>starship.toggle<span class=\"constructor\">Property(&apos;<span class=\"params\">warpDriveEngaged</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "toggleProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to toggle",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 467,
+          "description": "<html><head></head><body><p>Returns the cached value of a computed property, if it exists.\nThis allows you to inspect the value of a computed property\nwithout accidentally invoking it if it is intended to be\ngenerated lazily.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "cacheFor",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The cached value of the computed property, if any",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-views/lib/views/core_view.js",
+          "line": 42,
+          "description": "<html><head></head><body><p>If the view is currently inserted into the DOM of a parent view, this\nproperty will point to the parent of the view.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "parentView",
+          "type": "Ember.View",
+          "default": "null",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 22,
+          "description": "<html><head></head><body><p>The collection of functions, keyed by name, available on this\n<code>ActionHandler</code> as action targets.</p>\n<p>These functions will be invoked when a matching <code>{{action}}</code> is triggered\nfrom within a template and the application&apos;s current route is this route.</p>\n<p>Actions can also be invoked from other parts of your application\nvia <code>ActionHandler#send</code>.</p>\n<p>The <code>actions</code> hash will inherit action handlers from\nthe <code>actions</code> hash defined on extended parent classes\nor mixins rather than just replace the entire hash, e.g.:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">banner.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Mixin</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/mixin&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Mixin</span>.<span class=\"title function_\">create</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">displayBanner</span>(<span class=\"params\">msg</span>) {\n      <span class=\"comment\">// ...</span>\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/welcome.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n<span class=\"keyword\">import</span> <span class=\"title class_\">CanDisplayBanner</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;../mixins/can-display-banner&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>(<span class=\"title class_\">CanDisplayBanner</span>, {\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">playMusic</span>(<span class=\"params\"></span>) {\n      <span class=\"comment\">// ...</span>\n    }\n  }\n});\n\n<span class=\"comment\">// `WelcomeRoute`, when active, will be able to respond</span>\n<span class=\"comment\">// to both actions, since the actions hash is merged rather</span>\n<span class=\"comment\">// then replaced when extending mixins / parent classes.</span>\n<span class=\"variable language_\">this</span>.<span class=\"title function_\">send</span>(<span class=\"string\">&apos;displayBanner&apos;</span>);\n<span class=\"variable language_\">this</span>.<span class=\"title function_\">send</span>(<span class=\"string\">&apos;playMusic&apos;</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Within a Controller, Route or Component&apos;s action handler,\nthe value of the <code>this</code> context is the Controller, Route or\nComponent object:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/song.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">myAction</span>(<span class=\"params\"></span>) {\n      <span class=\"variable language_\">this</span>.<span class=\"title function_\">controllerFor</span>(<span class=\"string\">&quot;song&quot;</span>);\n      <span class=\"variable language_\">this</span>.<span class=\"title function_\">transitionTo</span>(<span class=\"string\">&quot;other.route&quot;</span>);\n      ...\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It is also possible to call <code>this._super(...arguments)</code> from within an\naction handler if it overrides a handler defined on a parent\nclass or mixin:</p>\n<p>Take for example the following routes:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">route.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Mixin</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/mixin&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Mixin</span>.<span class=\"title function_\">create</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">debugRouteInformation</span>(<span class=\"params\"></span>) {\n      <span class=\"variable language_\">console</span>.<span class=\"title function_\">debug</span>(<span class=\"string\">&quot;It&apos;s a-me, console.debug!&quot;</span>);\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">debug.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n<span class=\"keyword\">import</span> <span class=\"title class_\">DebugRoute</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;../mixins/debug-route&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>(<span class=\"title class_\">DebugRoute</span>, {\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">debugRouteInformation</span>(<span class=\"params\"></span>) {\n      <span class=\"comment\">// also call the debugRouteInformation of mixed in DebugRoute</span>\n      <span class=\"variable language_\">this</span>.<span class=\"title function_\">_super</span>(...<span class=\"variable language_\">arguments</span>);\n\n      <span class=\"comment\">// show additional annoyance</span>\n      <span class=\"variable language_\">window</span>.<span class=\"title function_\">alert</span>(...);\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h2 id=\"bubbling\">Bubbling</h2>\n<p>By default, an action will stop bubbling once a handler defined\non the <code>actions</code> hash handles it. To continue bubbling the action,\nyou must return <code>true</code> from the handler:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/router.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>Router.map(<span class=\"keyword\">function</span><span class=\"params\">()</span> {\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&quot;album&quot;</span>, <span class=\"keyword\">function</span><span class=\"params\">()</span> {\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&quot;song&quot;</span>);\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/album.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"attr\">startPlaying</span>: <span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">song.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">startPlaying</span>(<span class=\"params\"></span>) {\n      <span class=\"comment\">// ...</span>\n\n      <span class=\"keyword\">if</span> (actionShouldAlsoBeTriggeredOnParentRoute) {\n        <span class=\"keyword\">return</span> <span class=\"literal\">true</span>;\n      }\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "actions",
+          "type": "Object",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 336,
+          "description": "<html><head></head><body><p>Defines the properties that will be concatenated from the superclass\n(instead of overridden).</p>\n<p>By default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property&apos;s value by combining the superclass&apos; property\nvalue with the subclass&apos; value. An example of this in use within Ember\nis the <code>classNames</code> property of <code>Ember.View</code>.</p>\n<p>Here is some sample code showing the difference between a concatenated\nproperty and a normal one:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n</pre></td>\n              <td class=\"code\"><pre>import EmberObject <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n\n<span class=\"keyword\">const</span> Bar = EmberObject.extend({\n  <span class=\"comment\">// Configure which properties to concatenate</span>\n  concatenatedProperties: [<span class=\"string\">&apos;concatenatedProperty&apos;</span>],\n\n  someNonConcatenatedProperty: [<span class=\"string\">&apos;bar&apos;</span>],\n  concatenatedProperty: [<span class=\"string\">&apos;bar&apos;</span>]\n});\n\n<span class=\"keyword\">const</span> FooBar = Bar.extend({\n  someNonConcatenatedProperty: [<span class=\"string\">&apos;foo&apos;</span>],\n  concatenatedProperty: [<span class=\"string\">&apos;foo&apos;</span>]\n});\n\n<span class=\"keyword\">let</span> fooBar = FooBar.create();\nfooBar.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;someNonConcatenatedProperty&apos;</span>); <span class=\"comment\">// [&apos;foo&apos;]</span>\nfooBar.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;concatenatedProperty&apos;</span>); <span class=\"comment\">// [&apos;bar&apos;, &apos;foo&apos;]</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This behavior extends to object creation as well. Continuing the\nabove example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>let fooBar = FooBar.create({\n  someNonConcatenatedProperty: [<span class=\"string\">&apos;baz&apos;</span>],\n  concatenatedProperty: [<span class=\"string\">&apos;baz&apos;</span>]\n})\nfooBar.get(<span class=\"string\">&apos;someNonConcatenatedProperty&apos;</span>); <span class=\"regexp\">//</span> [<span class=\"string\">&apos;baz&apos;</span>]\nfooBar.get(<span class=\"string\">&apos;concatenatedProperty&apos;</span>); <span class=\"regexp\">//</span> [<span class=\"string\">&apos;bar&apos;</span>, <span class=\"string\">&apos;foo&apos;</span>, <span class=\"string\">&apos;baz&apos;</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Adding a single property that is not an array will just add it in the array:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let fooBar = FooBar.<span class=\"keyword\">create</span>({\n  concatenatedProperty: <span class=\"string\">&apos;baz&apos;</span>\n})\n<span class=\"keyword\">view</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;concatenatedProperty&apos;</span>); // [<span class=\"string\">&apos;bar&apos;</span>, <span class=\"string\">&apos;foo&apos;</span>, <span class=\"string\">&apos;baz&apos;</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Using the <code>concatenatedProperties</code> property, we can tell Ember to mix the\ncontent of the properties.</p>\n<p>In <code>Component</code> the <code>classNames</code>, <code>classNameBindings</code> and\n<code>attributeBindings</code> properties are concatenated.</p>\n<p>This feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual concatenated property (to not\nmislead your users to think they can override the property in a subclass).</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "concatenatedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 411,
+          "description": "<html><head></head><body><p>Defines the properties that will be merged from the superclass\n(instead of overridden).</p>\n<p>By default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property&apos;s value by merging the superclass property value\nwith the subclass property&apos;s value. An example of this in use within Ember\nis the <code>queryParams</code> property of routes.</p>\n<p>Here is some sample code showing the difference between a merged\nproperty and a normal one:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n</pre></td>\n              <td class=\"code\"><pre>import EmberObject <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n\n<span class=\"keyword\">const</span> <span class=\"variable constant_\">Bar</span> = EmberObject.<span class=\"title function_ invoke__\">extend</span>({\n  // Configure which properties are to be merged\n  <span class=\"attr\">mergedProperties</span>: [<span class=\"string\">&apos;mergedProperty&apos;</span>],\n\n  <span class=\"attr\">someNonMergedProperty</span>: {\n    <span class=\"attr\">nonMerged</span>: <span class=\"string\">&apos;superclass value of nonMerged&apos;</span>\n  },\n  <span class=\"attr\">mergedProperty</span>: {\n    <span class=\"attr\">page</span>: { <span class=\"attr\">replace</span>: <span class=\"literal\">false</span> },\n    <span class=\"attr\">limit</span>: { <span class=\"attr\">replace</span>: <span class=\"literal\">true</span> }\n  }\n});\n\n<span class=\"keyword\">const</span> <span class=\"variable constant_\">FooBar</span> = Bar.<span class=\"title function_ invoke__\">extend</span>({\n  <span class=\"attr\">someNonMergedProperty</span>: {\n    <span class=\"attr\">completelyNonMerged</span>: <span class=\"string\">&apos;subclass value of nonMerged&apos;</span>\n  },\n  <span class=\"attr\">mergedProperty</span>: {\n    <span class=\"attr\">limit</span>: { <span class=\"attr\">replace</span>: <span class=\"literal\">false</span> }\n  }\n});\n\nlet fooBar = FooBar.<span class=\"title function_ invoke__\">create</span>();\n\nfooBar.<span class=\"title function_ invoke__\">get</span>(<span class=\"string\">&apos;someNonMergedProperty&apos;</span>);\n<span class=\"comment\">// =&gt; { completelyNonMerged: &apos;subclass value of nonMerged&apos; }</span>\n<span class=\"comment\">//</span>\n<span class=\"comment\">// Note the entire object, including the nonMerged property of</span>\n<span class=\"comment\">// the superclass object, has been replaced</span>\n\nfooBar.<span class=\"title function_ invoke__\">get</span>(<span class=\"string\">&apos;mergedProperty&apos;</span>);\n<span class=\"comment\">// =&gt; {</span>\n<span class=\"comment\">//   page: {replace: false},</span>\n<span class=\"comment\">//   limit: {replace: false}</span>\n<span class=\"comment\">// }</span>\n<span class=\"comment\">//</span>\n<span class=\"comment\">// Note the page remains from the superclass, and the</span>\n<span class=\"comment\">// `limit` property&apos;s value of `false` has been merged from</span>\n<span class=\"comment\">// the subclass.</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This behavior is not available during object <code>create</code> calls. It is only\navailable at <code>extend</code> time.</p>\n<p>In <code>Route</code> the <code>queryParams</code> property is merged.</p>\n<p>This feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual merged property (to not\nmislead your users to think they can override the property in a subclass).</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "mergedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 487,
+          "description": "<html><head></head><body><p>Destroyed object property flag.</p>\n<p>if this property is <code>true</code> the observers and bindings were already\nremoved by the effect of calling the <code>destroy()</code> method.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "isDestroyed",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 499,
+          "description": "<html><head></head><body><p>Destruction scheduled flag. The <code>destroy()</code> method has been called.</p>\n<p>The object stays intact until the end of the run loop at which point\nthe <code>isDestroyed</code> flag is set.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "isDestroying",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.CoreView",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-3.1.4-EmberObject",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-3.1.4-Component"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.1.4-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.1.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

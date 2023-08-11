@@ -1,0 +1,189 @@
+{
+  "data": {
+    "id": "ember-5.0.0-@ember/array",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/array",
+      "shortname": "@ember/array",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/array/lib/make-array.ts",
+          "line": 5,
+          "description": "<html><head></head><body><p>Forces the passed object to be part of an array. If the object is already\nan array, it will return the object. Otherwise, it will add the object to\nan array. If object is <code>null</code> or <code>undefined</code>, it will return an empty array.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n</pre></td>\n              <td class=\"code\"><pre>import { makeArray } from &apos;@ember/<span class=\"built_in\">array</span>&apos;;\nimport ArrayProxy from &apos;@ember/<span class=\"built_in\">array</span>/proxy&apos;;\n\nmake<span class=\"constructor\">Array()</span>;            <span class=\"comment\">// []</span>\nmake<span class=\"constructor\">Array(<span class=\"params\">null</span>)</span>;        <span class=\"comment\">// []</span>\nmake<span class=\"constructor\">Array(<span class=\"params\">undefined</span>)</span>;   <span class=\"comment\">// []</span>\nmake<span class=\"constructor\">Array(&apos;<span class=\"params\">lindsay</span>&apos;)</span>;   <span class=\"comment\">// [&apos;lindsay&apos;]</span>\nmake<span class=\"constructor\">Array([1, 2, 42])</span>;  <span class=\"comment\">// [1, 2, 42]</span>\n\n<span class=\"keyword\">let</span> proxy = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">ArrayProxy</span>.</span></span>create({ content: <span class=\"literal\">[]</span> });\n\nmake<span class=\"constructor\">Array(<span class=\"params\">proxy</span>)</span><span class=\"operator\"> === </span>proxy;  <span class=\"comment\">// false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "makeArray",
+          "static": 1,
+          "params": [
+            {
+              "name": "obj",
+              "description": "the object",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 140,
+          "description": "<html><head></head><body><p>Returns true if the passed object is an array or Array-like.</p>\n<p>Objects are considered Array-like if any of the following are true:</p>\n<ul>\n<li>the object is a native Array</li>\n<li>the object has an objectAt property</li>\n<li>the object is an Object, and has a length property</li>\n</ul>\n<p>Unlike <code>typeOf</code> this method returns true even if the passed object is\nnot formally an array but appears to be array-like (i.e. implements <code>Array</code>)</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">isArray</span> } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/array&apos;</span>;\nimport ArrayProxy <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/array/proxy&apos;</span>;\n\n<span class=\"built_in\">isArray</span>();                                      <span class=\"comment\">// false</span>\n<span class=\"built_in\">isArray</span>([]);                                    <span class=\"comment\">// true</span>\n<span class=\"built_in\">isArray</span>(ArrayProxy.create({ content: [] }));    <span class=\"comment\">// true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isArray",
+          "static": 1,
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "true if the passed object is an array or Array-like",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1859,
+          "description": "<html><head></head><body><p>Creates an <code>Ember.NativeArray</code> from an Array-like object.\nDoes not modify the original object&apos;s contents. <code>A()</code> is not needed if\n<code>EmberENV.EXTEND_PROTOTYPES</code> is <code>true</code> (the default value). However,\nit is recommended that you use <code>A()</code> when creating addons for\nember or when you can not guarantee that <code>EmberENV.EXTEND_PROTOTYPES</code>\nwill be <code>true</code>.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">component.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Component from <span class=\"string\">&apos;@ember/component&apos;</span>;\n<span class=\"keyword\">import</span> { A } from <span class=\"string\">&apos;@ember/array&apos;</span>;\n\nexport default Component.extend({\n  tagName: <span class=\"string\">&apos;ul&apos;</span>,\n  classNames: [<span class=\"string\">&apos;pagination&apos;</span>],\n\n  <span class=\"keyword\">init</span>() {\n    <span class=\"keyword\">this</span>._super(...arguments);\n\n    <span class=\"keyword\">if</span> (!<span class=\"keyword\">this</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;content&apos;</span>)) {\n      <span class=\"keyword\">this</span>.<span class=\"keyword\">set</span>(<span class=\"string\">&apos;content&apos;</span>, A());\n      <span class=\"keyword\">this</span>.<span class=\"keyword\">set</span>(<span class=\"string\">&apos;otherContent&apos;</span>, A([<span class=\"number\">1</span>,<span class=\"number\">2</span>,<span class=\"number\">3</span>]));\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "A",
+          "static": 1,
+          "return": {
+            "description": "",
+            "type": "Ember.NativeArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1978,
+          "description": "<html><head></head><body><p>Remove all occurrences of an object in the array.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>let cities = [<span class=\"string\">&apos;Chicago&apos;</span>, <span class=\"string\">&apos;Berlin&apos;</span>, <span class=\"string\">&apos;Lima&apos;</span>, <span class=\"string\">&apos;Chicago&apos;</span>];\n\ncities.removeObject(<span class=\"string\">&apos;Chicago&apos;</span>);  <span class=\"regexp\">//</span> [<span class=\"string\">&apos;Berlin&apos;</span>, <span class=\"string\">&apos;Lima&apos;</span>]\ncities.removeObject(<span class=\"string\">&apos;Lima&apos;</span>);     <span class=\"regexp\">//</span> [<span class=\"string\">&apos;Berlin&apos;</span>]\ncities.removeObject(<span class=\"string\">&apos;Tokyo&apos;</span>)     <span class=\"regexp\">//</span> [<span class=\"string\">&apos;Berlin&apos;</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "removeObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to remove",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1999,
+          "description": "<html><head></head><body><p>Push the object onto the end of the array if it is not already\npresent in the array.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let cities = [<span class=\"string\">&apos;Chicago&apos;</span>, <span class=\"string\">&apos;Berlin&apos;</span>];\n\ncities.addObject(<span class=\"string\">&apos;Lima&apos;</span>);    <span class=\"regexp\">//</span> [<span class=\"string\">&apos;Chicago&apos;</span>, <span class=\"string\">&apos;Berlin&apos;</span>, <span class=\"string\">&apos;Lima&apos;</span>]\ncities.addObject(<span class=\"string\">&apos;Berlin&apos;</span>);  <span class=\"regexp\">//</span> [<span class=\"string\">&apos;Chicago&apos;</span>, <span class=\"string\">&apos;Berlin&apos;</span>, <span class=\"string\">&apos;Lima&apos;</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "addObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to add, if not already present",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 2020,
+          "description": "<html><head></head><body><p>Sets the value on the named property for each member. This is more\nergonomic than using other methods defined on this helper. If the object\nimplements Observable, the value will be changed to <code>set(),</code> otherwise\nit will be set directly. <code>null</code> objects are skipped.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> people = [<span class=\"built_in\">{name</span>: <span class=\"string\">&apos;Joe&apos;</span>}, <span class=\"built_in\">{name</span>: <span class=\"string\">&apos;Matt&apos;</span>}];\n\npeople.setEach(<span class=\"string\">&apos;zipCode&apos;</span>, <span class=\"string\">&apos;10011&apos;</span>);\n// [<span class=\"built_in\">{name</span>: <span class=\"string\">&apos;Joe&apos;</span>, zipCode: <span class=\"string\">&apos;10011&apos;</span>}, <span class=\"built_in\">{name</span>: <span class=\"string\">&apos;Matt&apos;</span>, zipCode: <span class=\"string\">&apos;10011&apos;</span>}];</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "setEach",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The object to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 2040,
+          "description": "<html><head></head><body><p>This is the handler for the special array content property. If you get\nthis property, it will return this. If you set this property to a new\narray, it will replace the current content.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>let peopleToMoon = [<span class=\"string\">&apos;Armstrong&apos;</span>, <span class=\"string\">&apos;Aldrin&apos;</span>];\n\npeopleToMoon.get(<span class=\"string\">&apos;[]&apos;</span>); <span class=\"regexp\">//</span> [<span class=\"string\">&apos;Armstrong&apos;</span>, <span class=\"string\">&apos;Aldrin&apos;</span>]\n\npeopleToMoon.set(<span class=\"string\">&apos;[]&apos;</span>, [<span class=\"string\">&apos;Collins&apos;</span>]); <span class=\"regexp\">//</span> [<span class=\"string\">&apos;Collins&apos;</span>]\npeopleToMoon.get(<span class=\"string\">&apos;[]&apos;</span>); <span class=\"regexp\">//</span> [<span class=\"string\">&apos;Collins&apos;</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "[]",
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.0.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.0.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

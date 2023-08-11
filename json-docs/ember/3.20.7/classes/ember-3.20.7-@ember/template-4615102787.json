@@ -1,0 +1,73 @@
+{
+  "data": {
+    "id": "ember-3.20.7-@ember/template",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/template",
+      "shortname": "@ember/template",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/template",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+          "line": 61,
+          "description": "<html><head></head><body><p>Mark a string as safe for unescaped output with Ember templates. If you\nreturn HTML from a helper, use this function to\nensure Ember&apos;s rendering layer does not escape the HTML.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { htmlSafe } <span class=\"keyword\">from</span> &apos;@ember/<span class=\"keyword\">template</span>&apos;;\n\nhtmlSafe(&apos;&lt;<span class=\"keyword\">div</span>&gt;someString&lt;/<span class=\"keyword\">div</span>&gt;&apos;)</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "htmlSafe",
+          "static": 1,
+          "return": {
+            "description": "A string that will not be HTML escaped by Handlebars.",
+            "type": "SafeString"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/template",
+          "module": "@ember/template"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+          "line": 87,
+          "description": "<html><head></head><body><p>Detects if a string was decorated using <code>htmlSafe</code>.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>import { htmlSafe, isHTMLSafe } from &apos;@ember/template&apos;;\n\nvar plainString = &apos;plain <span class=\"built_in\">string</span>&apos;,\n    safeString = html<span class=\"constructor\">Safe(&apos;&lt;<span class=\"params\">div</span>&gt;<span class=\"params\">someValue</span>&lt;<span class=\"operator\">/</span><span class=\"params\">div</span>&gt;&apos;)</span>;\n\nis<span class=\"constructor\">HTMLSafe(<span class=\"params\">plainString</span>)</span>; <span class=\"comment\">// false</span>\nis<span class=\"constructor\">HTMLSafe(<span class=\"params\">safeString</span>)</span>;  <span class=\"comment\">// true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isHTMLSafe",
+          "static": 1,
+          "return": {
+            "description": "`true` if the string was decorated with `htmlSafe`, `false` otherwise.",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/template",
+          "module": "@ember/template"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.20.7-@ember/template",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.20.7",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

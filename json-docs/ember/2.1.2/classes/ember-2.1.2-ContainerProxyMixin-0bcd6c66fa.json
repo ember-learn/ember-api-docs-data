@@ -1,0 +1,114 @@
+{
+  "data": {
+    "id": "ember-2.1.2-ContainerProxyMixin",
+    "type": "class",
+    "attributes": {
+      "name": "ContainerProxyMixin",
+      "shortname": "ContainerProxyMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.ApplicationInstance"
+      ],
+      "module": "ember",
+      "submodule": "ember-runtime",
+      "namespace": "",
+      "file": "packages/ember-runtime/lib/mixins/container_proxy.js",
+      "line": 9,
+      "description": "<html><head></head><body><p>ContainerProxyMixin is used to provide public access to specific\ncontainer functionality.</p>\n</body></html>",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/ember-runtime/lib/mixins/container_proxy.js",
+          "line": 25,
+          "description": "<html><head></head><body><p>Given a fullName return a corresponding instance.</p>\n<p>The default behaviour is for lookup to return a singleton instance.\nThe singleton is scoped to the container, allowing multiple containers\nto all have their own locally scoped singletons.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre><span class=\"built_in\">var</span> registry = <span class=\"keyword\">new</span> Registry();\n<span class=\"built_in\">var</span> <span class=\"built_in\">container</span> = registry.<span class=\"built_in\">container</span>();\n\nregistry.register(<span class=\"string\">&apos;api:twitter&apos;</span>, Twitter);\n\n<span class=\"built_in\">var</span> twitter = <span class=\"built_in\">container</span>.lookup(<span class=\"string\">&apos;api:twitter&apos;</span>);\n\ntwitter instanceof Twitter; <span class=\"comment\">// =&gt; true</span>\n\n<span class=\"comment\">// by default the container will return singletons</span>\n<span class=\"built_in\">var</span> twitter2 = <span class=\"built_in\">container</span>.lookup(<span class=\"string\">&apos;api:twitter&apos;</span>);\ntwitter2 instanceof Twitter; <span class=\"comment\">// =&gt; true</span>\n\ntwitter === twitter2; <span class=\"comment\">//=&gt; true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If singletons are not wanted an optional flag can be provided at lookup.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"built_in\">var</span> registry = <span class=\"keyword\">new</span> Registry();\n<span class=\"built_in\">var</span> <span class=\"built_in\">container</span> = registry.<span class=\"built_in\">container</span>();\n\nregistry.register(<span class=\"string\">&apos;api:twitter&apos;</span>, Twitter);\n\n<span class=\"built_in\">var</span> twitter = <span class=\"built_in\">container</span>.lookup(<span class=\"string\">&apos;api:twitter&apos;</span>, { singleton: <span class=\"literal\">false</span> });\n<span class=\"built_in\">var</span> twitter2 = <span class=\"built_in\">container</span>.lookup(<span class=\"string\">&apos;api:twitter&apos;</span>, { singleton: <span class=\"literal\">false</span> });\n\ntwitter === twitter2; <span class=\"comment\">//=&gt; false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "lookup",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "ContainerProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/container_proxy.js",
+          "line": 71,
+          "description": "<html><head></head><body><p>Given a fullName return the corresponding factory.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_lookupFactory",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "ContainerProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-runtime/lib/mixins/container_proxy.js",
+          "line": 17,
+          "description": "<html><head></head><body><p>The container stores state.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "__container__",
+          "type": "Ember.Container",
+          "class": "ContainerProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.1.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.1.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
