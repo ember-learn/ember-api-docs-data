@@ -1,0 +1,120 @@
+{
+  "data": {
+    "id": "ember-data-5.2.0-NotificationManager",
+    "type": "class",
+    "attributes": {
+      "name": "NotificationManager",
+      "shortname": "NotificationManager",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/src/-private/managers/notification-manager.ts",
+      "line": 70,
+      "description": "<html><head></head><body><p>The NotificationManager provides the ability to subscribe to\nchanges to Cache state.</p>\n<p>This Feature is what allows EmberData to create subscriptions that\nwork with any framework or change-notification system.</p>\n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/store/src/-private/managers/notification-manager.ts",
+          "line": 101,
+          "description": "<html><head></head><body><p>Subscribe to changes for a given resource identifier, resource addition/removal, or document addition/removal.</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n</pre></td>\n              <td class=\"code\"><pre>export type CacheOperation = <span class=\"string\">&apos;added&apos;</span> | <span class=\"string\">&apos;removed&apos;</span> | <span class=\"string\">&apos;updated&apos;</span> | <span class=\"string\">&apos;state&apos;</span>;\n\nexport <span class=\"class\"><span class=\"keyword\">interface</span> <span class=\"title\">NotificationCallback</span> {</span>\n  (<span class=\"string\">identifier:</span> StableRecordIdentifier, <span class=\"string\">notificationType:</span> <span class=\"string\">&apos;attributes&apos;</span> | <span class=\"string\">&apos;relationships&apos;</span>, key?: string): <span class=\"keyword\">void</span>;\n  (<span class=\"string\">identifier:</span> StableRecordIdentifier, <span class=\"string\">notificationType:</span> <span class=\"string\">&apos;errors&apos;</span> | <span class=\"string\">&apos;meta&apos;</span> | <span class=\"string\">&apos;identity&apos;</span> | <span class=\"string\">&apos;state&apos;</span>): <span class=\"keyword\">void</span>;\n  (<span class=\"string\">identifier:</span> StableRecordIdentifier, <span class=\"string\">notificationType:</span> NotificationType, key?: string): <span class=\"keyword\">void</span>;\n}\nexport <span class=\"class\"><span class=\"keyword\">interface</span> <span class=\"title\">ResourceOperationCallback</span> {</span>\n  <span class=\"comment\">// resource updates</span>\n  (<span class=\"string\">identifier:</span> StableRecordIdentifier, <span class=\"string\">notificationType:</span> CacheOperation): <span class=\"keyword\">void</span>;\n}\nexport <span class=\"class\"><span class=\"keyword\">interface</span> <span class=\"title\">DocumentOperationCallback</span> {</span>\n  <span class=\"comment\">// document updates</span>\n  (<span class=\"string\">identifier:</span> StableDocumentIdentifier, <span class=\"string\">notificationType:</span> CacheOperation): <span class=\"keyword\">void</span>;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "subscribe",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableDocumentIdentifier | StableRecordIdentifier | 'resource' | 'document'"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "NotificationCallback | ResourceOperationCallback | DocumentOperationCallback"
+            }
+          ],
+          "return": {
+            "description": "an opaque token to be used with unsubscribe",
+            "type": "UnsubscribeToken"
+          },
+          "class": "NotificationManager",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/store/src/-private/managers/notification-manager.ts",
+          "line": 156,
+          "description": "<html><head></head><body><p>remove a previous subscription</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "unsubscribe",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "token",
+              "description": "",
+              "type": "UnsubscribeToken"
+            }
+          ],
+          "class": "NotificationManager",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/store/src/-private/managers/notification-manager.ts",
+          "line": 169,
+          "description": "<html><head></head><body><p>Custom Caches and Application Code should not call this method directly.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "notify",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "value",
+              "description": ""
+            },
+            {
+              "name": "key",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "whether a notification was delivered to any subscribers",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "NotificationManager",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.2.0-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.2.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

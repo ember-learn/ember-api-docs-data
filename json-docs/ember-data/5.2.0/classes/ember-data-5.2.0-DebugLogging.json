@@ -1,0 +1,154 @@
+{
+  "data": {
+    "id": "ember-data-5.2.0-DebugLogging",
+    "type": "class",
+    "attributes": {
+      "name": "DebugLogging",
+      "shortname": "DebugLogging",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/debug",
+      "namespace": "",
+      "file": "../private-build-infra/virtual-packages/debugging.js",
+      "line": 4,
+      "description": "<html><head></head><body><p>Many portions of the internals are helpfully instrumented with logging that can be activated\nat build time. This instrumentation is always removed from production builds or any builds\nthat has not explicitly activated it. To activate it set the appropriate flag to <code>true</code>.</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n</pre></td>\n              <td class=\"code\"><pre>  <span class=\"string\">let</span> <span class=\"string\">app</span> <span class=\"string\">=</span> <span class=\"string\">new</span> <span class=\"string\">EmberApp(defaults,</span> <span class=\"string\">{</span>\n<span class=\"attr\">    emberData:</span> <span class=\"string\">{</span>\n<span class=\"attr\">      debug:</span> <span class=\"string\">{</span>\n<span class=\"attr\">          LOG_PAYLOADS:</span> <span class=\"literal\">false</span><span class=\"string\">,</span> <span class=\"string\">//</span> <span class=\"string\">data</span> <span class=\"string\">store</span> <span class=\"string\">received</span> <span class=\"string\">to</span> <span class=\"string\">update</span> <span class=\"string\">cache</span> <span class=\"string\">with</span>\n<span class=\"attr\">          LOG_OPERATIONS:</span> <span class=\"literal\">false</span><span class=\"string\">,</span> <span class=\"string\">//</span> <span class=\"string\">updates</span> <span class=\"string\">to</span> <span class=\"string\">cache</span> <span class=\"string\">remote</span> <span class=\"string\">state</span>\n<span class=\"attr\">          LOG_MUTATIONS:</span> <span class=\"literal\">false</span><span class=\"string\">,</span> <span class=\"string\">//</span> <span class=\"string\">updates</span> <span class=\"string\">to</span> <span class=\"string\">cache</span> <span class=\"string\">local</span> <span class=\"string\">state</span>\n<span class=\"attr\">          LOG_NOTIFICATIONS:</span> <span class=\"literal\">false</span><span class=\"string\">,</span>\n<span class=\"attr\">          LOG_REQUESTS:</span> <span class=\"literal\">false</span><span class=\"string\">,</span>\n<span class=\"attr\">          LOG_REQUEST_STATUS:</span> <span class=\"literal\">false</span><span class=\"string\">,</span>\n<span class=\"attr\">          LOG_IDENTIFIERS:</span> <span class=\"literal\">false</span><span class=\"string\">,</span>\n<span class=\"attr\">          LOG_GRAPH:</span> <span class=\"literal\">false</span><span class=\"string\">,</span>\n<span class=\"attr\">          LOG_INSTANCE_CACHE:</span> <span class=\"literal\">false</span><span class=\"string\">,</span>\n      <span class=\"string\">}</span>\n    <span class=\"string\">}</span>\n  <span class=\"string\">});</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/private-build-infra/virtual-packages/debugging.js",
+          "line": 31,
+          "description": "<html><head></head><body><p>log payloads received by the store\nvia <code>push</code> or returned from a delete/update/create\noperation.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "LOG_PAYLOADS",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/debugging.js",
+          "line": 40,
+          "description": "<html><head></head><body><p>log remote-state updates to the cache</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "LOG_OPERATIONS",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/debugging.js",
+          "line": 47,
+          "description": "<html><head></head><body><p>log local-state updates to the cache</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "LOG_MUTATIONS",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/debugging.js",
+          "line": 54,
+          "description": "<html><head></head><body><p>log notifications received by the NotificationManager</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "LOG_NOTIFICATIONS",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/debugging.js",
+          "line": 61,
+          "description": "<html><head></head><body><p>log requests issued by the RequestManager</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "LOG_REQUESTS",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/debugging.js",
+          "line": 68,
+          "description": "<html><head></head><body><p>log updates to requests the store has issued to\nthe network (adapter) to fulfill.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "LOG_REQUEST_STATUS",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/debugging.js",
+          "line": 76,
+          "description": "<html><head></head><body><p>log peek, generation and updates to\nRecord Identifiers.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "LOG_IDENTIFIERS",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/debugging.js",
+          "line": 84,
+          "description": "<html><head></head><body><p>log updates received by the graph (relationship pointer storage)</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "LOG_GRAPH",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/debugging.js",
+          "line": 91,
+          "description": "<html><head></head><body><p>log creation/removal of RecordData and Record\ninstances.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "LOG_INSTANCE_CACHE",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@ember-data/debug"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.2.0-@ember-data/debug",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.2.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
