@@ -1,0 +1,143 @@
+{
+  "data": {
+    "id": "ember-data-5.2.0-ManyArray",
+    "type": "class",
+    "attributes": {
+      "name": "ManyArray",
+      "shortname": "ManyArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../model/src/-private/many-array.ts",
+      "line": 43,
+      "access": "public",
+      "description": "<html><head></head><body><p>A <code>ManyArray</code> is a <code>MutableArray</code> that represents the contents of a has-many\nrelationship.</p>\n<p>The <code>ManyArray</code> is instantiated lazily the first time the relationship is\nrequested.</p>\n<p>This class is not intended to be directly instantiated by consuming applications.</p>\n<h3 id=\"inverses\">Inverses</h3>\n<p>Often, the relationships in Ember Data applications will have\nan inverse. For example, imagine the following models are\ndefined:</p>\n<div class=\"highlight app/models/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Model</span>, { hasMany } from &apos;<span class=\"meta\">@ember</span>-data/model&apos;;\n\nexport <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">PostModel</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@hasmany</span>(<span class=\"symbol\">&apos;commen</span>t&apos;) comments;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight app/models/comment.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/comment.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Model</span>, { belongsTo } from &apos;<span class=\"meta\">@ember</span>-data/model&apos;;\n\nexport <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">CommentModel</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@belongsto</span>(<span class=\"symbol\">&apos;pos</span>t&apos;) post;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If you created a new instance of <code>Post</code> and added\na <code>Comment</code> record to its <code>comments</code> has-many\nrelationship, you would expect the comment&apos;s <code>post</code>\nproperty to be set to the post that contained\nthe has-many.</p>\n<p>We call the record to which a relationship belongs-to the\nrelationship&apos;s <em>owner</em>.</p>\n</body></html>",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/model/src/-private/many-array.ts",
+          "line": 284,
+          "description": "<html><head></head><body><p>Reloads all of the records in the manyArray. If the manyArray\nholds a relationship that was originally fetched using a links url\nEmber Data will revisit the original links url to repopulate the\nrelationship.</p>\n<p>If the manyArray holds the result of a <code>store.query()</code> reload will\nre-run the original query.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> user = store.peekRecord(<span class=\"string\">&apos;user&apos;</span>, <span class=\"string\">&apos;1&apos;</span>)\n<span class=\"keyword\">await</span> login(user);\n\n<span class=\"keyword\">let</span> permissions = <span class=\"keyword\">await</span> user.permissions;\n<span class=\"keyword\">await</span> permissions.reload();</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "reload",
+          "access": "public",
+          "tagname": "",
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/model/src/-private/many-array.ts",
+          "line": 311,
+          "description": "<html><head></head><body><p>Saves all of the records in the <code>ManyArray</code>.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> inbox = <span class=\"keyword\">await</span> store.findRecord(<span class=\"string\">&apos;inbox&apos;</span>, <span class=\"string\">&apos;1&apos;</span>);\n<span class=\"keyword\">let</span> messages = <span class=\"keyword\">await</span> inbox.messages;\nmessages.forEach(<span class=\"function\">(<span class=\"params\">message</span>) =&gt;</span> {\n  message.isRead = <span class=\"literal\">true</span>;\n});\nmessages.save();</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "save",
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "promise",
+            "type": "PromiseArray"
+          },
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/model/src/-private/many-array.ts",
+          "line": 330,
+          "description": "<html><head></head><body><p>Create a child record within the owner</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "createRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "hash",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "Model"
+          },
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/model/src/-private/many-array.ts",
+          "line": 88,
+          "description": "<html><head></head><body><p>The loading state of this array</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "isLoaded",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/model/src/-private/many-array.ts",
+          "line": 96,
+          "description": "<html><head></head><body><p><code>true</code> if the relationship is polymorphic, <code>false</code> otherwise.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "isPolymorphic",
+          "type": "Boolean",
+          "access": "private",
+          "tagname": "",
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/model/src/-private/many-array.ts",
+          "line": 104,
+          "description": "<html><head></head><body><p>Metadata associated with the request for async hasMany relationships.</p>\n<p>Example</p>\n<p>Given that the server returns the following JSON payload when fetching a\nhasMany relationship:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre>{\n  <span class=\"string\">&quot;comments&quot;</span>: [{\n    <span class=\"string\">&quot;id&quot;</span>: <span class=\"number\">1</span>,\n    <span class=\"string\">&quot;comment&quot;</span>: <span class=\"string\">&quot;This is the first comment&quot;</span>,\n  }, {\n// ...\n  }],\n\n  <span class=\"string\">&quot;meta&quot;</span>: {\n    <span class=\"string\">&quot;page&quot;</span>: <span class=\"number\">1</span>,\n    <span class=\"string\">&quot;total&quot;</span>: <span class=\"number\">5</span>\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>You can then access the meta data via the <code>meta</code> property:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> <span class=\"attr\">comments</span> = await post.comments;\n<span class=\"keyword\">let</span> <span class=\"attr\">meta</span> = comments.meta;\n\n// meta.<span class=\"attr\">page</span> =&gt; <span class=\"number\">1</span>\n// meta.<span class=\"attr\">total</span> =&gt; <span class=\"number\">5</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "meta",
+          "type": "Object | null",
+          "access": "public",
+          "tagname": "",
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/model/src/-private/many-array.ts",
+          "line": 142,
+          "description": "<html><head></head><body><p>Retrieve the links for this relationship</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "links",
+          "type": "Object | null",
+          "access": "public",
+          "tagname": "",
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.2.0-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.2.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

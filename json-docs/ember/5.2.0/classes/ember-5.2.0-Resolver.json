@@ -1,0 +1,154 @@
+{
+  "data": {
+    "id": "ember-5.2.0-Resolver",
+    "type": "class",
+    "attributes": {
+      "name": "Resolver",
+      "shortname": "Resolver",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/owner",
+      "namespace": "",
+      "file": "packages/@ember/-internals/owner/index.ts",
+      "line": 416,
+      "description": "<html><head></head><body><p>A <code>Resolver</code> is the mechanism responsible for looking up code in your\napplication and converting its naming conventions into the actual classes,\nfunctions, and templates that Ember needs to resolve its dependencies, for\nexample, what template to render for a given route. It is a system that helps\nthe app resolve the lookup of JavaScript modules agnostic of what kind of\nmodule system is used, which can be AMD, CommonJS or just plain globals. It\nis used to lookup routes, models, components, templates, or anything that is\nused in your Ember app.</p>\n<p>This interface is not a concrete class; instead, it represents the contract a\ncustom resolver must implement. Most apps never need to think about this: in\nthe default blueprint, this is supplied by the <code>ember-resolver</code> package.</p>\n</body></html>",
+      "since": "4.10.0",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 436,
+          "description": "<html><head></head><body><p>The one required method for a <code>Resolver</code>. Given a string, resolve it to a\n<code>Factory</code>, if one exists.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "resolve",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Resolver",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 446,
+          "itemtype": "method",
+          "name": "knownForType",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Resolver",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 454,
+          "itemtype": "method",
+          "name": "lookupDescription",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Resolver",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 462,
+          "itemtype": "method",
+          "name": "makeToString",
+          "params": [
+            {
+              "name": "factory",
+              "description": "",
+              "type": "Factory"
+            },
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Resolver",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 471,
+          "itemtype": "method",
+          "name": "normalize",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Resolver",
+          "module": "@ember/owner"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.2.0-@ember/owner",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.2.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
