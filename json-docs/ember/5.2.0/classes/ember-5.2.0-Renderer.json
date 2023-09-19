@@ -1,0 +1,60 @@
+{
+  "data": {
+    "id": "ember-5.2.0-Renderer",
+    "type": "class",
+    "attributes": {
+      "name": "Renderer",
+      "shortname": "Renderer",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/renderer",
+      "namespace": "",
+      "file": "packages/@ember/renderer/index.ts",
+      "line": 6,
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/renderer/index.ts",
+          "line": 11,
+          "description": "<html><head></head><body><p>Returns a promise which will resolve when rendering has completed. In\nthis context, rendering is completed when all auto-tracked state that is\nconsumed in the template (including any tracked state in models, services,\netc. that are then used in a template) has been updated in the DOM.</p>\n<p>For example, in a test you might want to update some tracked state and\nthen run some assertions after rendering has completed. You <em>could</em> use\n<code>await settled()</code> in that location, but in some contexts you don&apos;t want to\nwait for full settledness (which includes test waiters, pending AJAX/fetch,\nrun loops, etc) but instead only want to know when that updated value has\nbeen rendered in the DOM. <strong>THAT</strong> is what <code>await renderSettled()</code> is\n<em>perfect</em> for.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { renderSettled } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/renderer&apos;</span>;\n<span class=\"keyword\">import</span> { render } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/test-helpers&apos;</span>;\n<span class=\"keyword\">import</span> { tracked } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@glimmer/tracking&apos;</span>;\n<span class=\"keyword\">import</span> { hbs } <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember-cli-htmlbars&apos;</span>;\n<span class=\"keyword\">import</span> { setupRenderingTest } <span class=\"keyword\">from</span> <span class=\"string\">&apos;my-app/tests/helpers&apos;</span>;\n<span class=\"keyword\">import</span> { <span class=\"built_in\">module</span>, test } <span class=\"keyword\">from</span> <span class=\"string\">&apos;qunit&apos;</span>;\n\n<span class=\"built_in\">module</span>(<span class=\"string\">&apos;Integration | Component | profile-card&apos;</span>, <span class=\"function\"><span class=\"keyword\">function</span> (<span class=\"params\">hooks</span>) </span>{\n  setupRenderingTest(hooks);\n\n  test(<span class=\"string\">&quot;it renders the person&apos;s name&quot;</span>, <span class=\"keyword\">async</span> <span class=\"function\"><span class=\"keyword\">function</span> (<span class=\"params\">assert</span>) </span>{\n    <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Person</span> </span>{\n      @tracked name = <span class=\"string\">&apos;&apos;</span>;\n    }\n\n    <span class=\"keyword\">this</span>.person = <span class=\"keyword\">new</span> Person();\n    <span class=\"keyword\">this</span>.person.name = <span class=\"string\">&apos;John&apos;</span>;\n\n    <span class=\"keyword\">await</span> render(hbs<span class=\"string\">`\n      &lt;ProfileCard @name={{this.person.name}} /&gt;\n    `</span>);\n\n    assert.dom(<span class=\"keyword\">this</span>.element).hasText(<span class=\"string\">&apos;John&apos;</span>);\n\n    <span class=\"keyword\">this</span>.person.name = <span class=\"string\">&apos;Jane&apos;</span>;\n\n    <span class=\"keyword\">await</span> renderSettled(); <span class=\"comment\">// Wait until rendering has completed.</span>\n\n    assert.dom(<span class=\"keyword\">this</span>.element).hasText(<span class=\"string\">&apos;Jane&apos;</span>);\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "renderSettled",
+          "return": {
+            "description": "a promise which fulfills when rendering has completed",
+            "type": "Promise<void>"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Renderer",
+          "module": "@ember/renderer"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.2.0-@ember/renderer",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.2.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
