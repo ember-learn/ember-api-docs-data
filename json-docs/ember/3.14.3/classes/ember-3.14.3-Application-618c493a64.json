@@ -1,0 +1,1332 @@
+{
+  "data": {
+    "id": "ember-3.14.3-Application",
+    "type": "class",
+    "attributes": {
+      "name": "Application",
+      "shortname": "Application",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/application",
+      "namespace": "",
+      "file": "packages/@ember/application/lib/application.js",
+      "line": 37,
+      "description": "<html><head></head><body><p>An instance of <code>Application</code> is the starting point for every Ember\napplication. It helps to instantiate, initialize and coordinate the many\nobjects that make up your app.</p>\n<p>Each Ember app has one and only one <code>Application</code> object. In fact, the\nvery first thing you should do in your application is create the instance:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n\n<span class=\"keyword\">window</span>.App = Application.<span class=\"keyword\">create</span>();</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Typically, the application object is the only global variable. All other\nclasses in your app should be properties on the <code>Application</code> instance,\nwhich highlights its first role: a global namespace.</p>\n<p>For example, if you define a view class, it might look like this:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n\nApp.MyView = Ember.<span class=\"keyword\">View</span>.extend();</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>By default, calling <code>Application.create()</code> will automatically initialize\nyour application by calling the <code>Application.initialize()</code> method. If\nyou need to delay initialization, you can call your app&apos;s <code>deferReadiness()</code>\nmethod. When you are ready for your app to be initialized, call its\n<code>advanceReadiness()</code> method.</p>\n<p>You can define a <code>ready</code> method on the <code>Application</code> instance, which\nwill be run by Ember when the application is initialized.</p>\n<p>Because <code>Application</code> inherits from <code>Ember.Namespace</code>, any classes\nyou create will have useful string representations when calling <code>toString()</code>.\nSee the <code>Ember.Namespace</code> documentation for more information.</p>\n<p>While you can think of your <code>Application</code> as a container that holds the\nother classes in your application, there are several other responsibilities\ngoing on under-the-hood that you may want to understand.</p>\n<h3 id=\"event-delegation\">Event Delegation</h3>\n<p>Ember uses a technique called <em>event delegation</em>. This allows the framework\nto set up a global, shared event listener instead of requiring each view to\ndo it manually. For example, instead of each view registering its own\n<code>mousedown</code> listener on its associated element, Ember sets up a <code>mousedown</code>\nlistener on the <code>body</code>.</p>\n<p>If a <code>mousedown</code> event occurs, Ember will look at the target of the event and\nstart walking up the DOM node tree, finding corresponding views and invoking\ntheir <code>mouseDown</code> method as it goes.</p>\n<p><code>Application</code> has a number of default events that it listens for, as\nwell as a mapping from lowercase events to camel-cased view method names. For\nexample, the <code>keypress</code> event causes the <code>keyPress</code> method on the view to be\ncalled, the <code>dblclick</code> event causes <code>doubleClick</code> to be called, and so on.</p>\n<p>If there is a bubbling browser event that Ember does not listen for by\ndefault, you can specify custom events and their corresponding view method\nnames by setting the application&apos;s <code>customEvents</code> property:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n\n<span class=\"keyword\">let</span> App = Application.create({\n  customEvents: {\n    <span class=\"comment\">// add support for the paste event</span>\n    paste: <span class=\"string\">&apos;paste&apos;</span>\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>To prevent Ember from setting up a listener for a default event,\nspecify the event name with a <code>null</code> value in the <code>customEvents</code>\nproperty:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Application</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n\n<span class=\"keyword\">let</span> <span class=\"title class_\">App</span> = <span class=\"title class_\">Application</span>.<span class=\"title function_\">create</span>({\n  <span class=\"attr\">customEvents</span>: {\n    <span class=\"comment\">// prevent listeners for mouseenter/mouseleave events</span>\n    <span class=\"attr\">mouseenter</span>: <span class=\"literal\">null</span>,\n    <span class=\"attr\">mouseleave</span>: <span class=\"literal\">null</span>\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>By default, the application sets up these event listeners on the document\nbody. However, in cases where you are embedding an Ember application inside\nan existing page, you may want it to set up the listeners on an element\ninside the body.</p>\n<p>For example, if only events inside a DOM element with the ID of <code>ember-app</code>\nshould be delegated, set your application&apos;s <code>rootElement</code> property:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n\n<span class=\"keyword\">let</span> App = Application.create({\n  rootElement: <span class=\"string\">&apos;#ember-app&apos;</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The <code>rootElement</code> can be either a DOM element or a jQuery-compatible selector\nstring. Note that <em>views appended to the DOM outside the root element will\nnot receive events.</em> If you specify a custom root element, make sure you only\nappend views inside it!</p>\n<p>To learn more about the events Ember components use, see</p>\n<p><a href=\"https://guides.emberjs.com/release/components/handling-events/#toc_event-names\">components/handling-events</a>.</p>\n<h3 id=\"initializers\">Initializers</h3>\n<p>Libraries on top of Ember can add initializers, like so:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Application</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n\n<span class=\"title class_\">Application</span>.<span class=\"title function_\">initializer</span>({\n  <span class=\"attr\">name</span>: <span class=\"string\">&apos;api-adapter&apos;</span>,\n\n  <span class=\"attr\">initialize</span>: <span class=\"keyword\">function</span>(<span class=\"params\">application</span>) {\n    application.<span class=\"title function_\">register</span>(<span class=\"string\">&apos;api-adapter:main&apos;</span>, <span class=\"title class_\">ApiAdapter</span>);\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Initializers provide an opportunity to access the internal registry, which\norganizes the different components of an Ember application. Additionally\nthey provide a chance to access the instantiated application. Beyond\nbeing used for libraries, initializers are also a great way to organize\ndependency injection or setup in your own application.</p>\n<h3 id=\"routing\">Routing</h3>\n<p>In addition to creating your application&apos;s router, <code>Application</code> is\nalso responsible for telling the router when to start routing. Transitions\nbetween routes can be logged with the <code>LOG_TRANSITIONS</code> flag, and more\ndetailed intra-transition logging can be logged with\nthe <code>LOG_TRANSITIONS_INTERNAL</code> flag:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Application</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n\n<span class=\"keyword\">let</span> <span class=\"title class_\">App</span> = <span class=\"title class_\">Application</span>.<span class=\"title function_\">create</span>({\n  <span class=\"attr\">LOG_TRANSITIONS</span>: <span class=\"literal\">true</span>, <span class=\"comment\">// basic logging of successful transitions</span>\n  <span class=\"attr\">LOG_TRANSITIONS_INTERNAL</span>: <span class=\"literal\">true</span> <span class=\"comment\">// detailed logging of all routing steps</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>By default, the router will begin trying to translate the current URL into\napplication state once the browser emits the <code>DOMContentReady</code> event. If you\nneed to defer routing, you can call the application&apos;s <code>deferReadiness()</code>\nmethod. Once routing can begin, call the <code>advanceReadiness()</code> method.</p>\n<p>If there is any setup required before routing begins, you can implement a\n<code>ready()</code> method on your app that will be invoked immediately before routing\nbegins.</p>\n</body></html>",
+      "extends": "Engine",
+      "uses": [
+        "RegistryProxyMixin"
+      ],
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 398,
+          "description": "<html><head></head><body><p>Create an ApplicationInstance for this application.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "buildInstance",
+          "return": {
+            "description": "the application instance",
+            "type": "ApplicationInstance"
+          },
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 411,
+          "description": "<html><head></head><body><p>Start tracking an ApplicationInstance for this application.\nUsed when the ApplicationInstance is created.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_watchInstance",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 422,
+          "description": "<html><head></head><body><p>Stop tracking an ApplicationInstance for this application.\nUsed when the ApplicationInstance is about to be destroyed.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_unwatchInstance",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 433,
+          "description": "<html><head></head><body><p>Enable the legacy globals mode by allowing this application to act\nas a global namespace. See the docs on the <code>_globalsMode</code> property\nfor details.</p>\n<p>Most of these features are already deprecated in 1.x, so we can\nstop using them internally and try to remove them.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_prepareForGlobalsMode",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 477,
+          "description": "<html><head></head><body><p>Automatically kick-off the boot process for the application once the\nDOM has become ready.</p>\n<p>The initialization itself is scheduled on the actions queue which\nensures that code-loading finishes before booting.</p>\n<p>If you are asynchronously loading code, you should call <code>deferReadiness()</code>\nto defer booting, and then call <code>advanceReadiness()</code> once all of your code\nhas finished loading.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "waitForDOMReady",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 499,
+          "description": "<html><head></head><body><p>This is the autoboot flow:</p>\n<ol>\n<li>Boot the app by calling <code>this.boot()</code></li>\n<li>Create an instance (or use the <code>__deprecatedInstance__</code> in globals mode)</li>\n<li>Boot the instance by calling <code>instance.boot()</code></li>\n<li>Invoke the <code>App.ready()</code> callback</li>\n<li>Kick-off routing on the instance</li>\n</ol>\n<p>Ideally, this is all we would need to do:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"title function_\">_autoBoot</span>(<span class=\"params\"></span>) {\n  <span class=\"variable language_\">this</span>.<span class=\"title function_\">boot</span>().<span class=\"title function_\">then</span>(<span class=\"function\">() =&gt;</span> {\n    <span class=\"keyword\">let</span> instance = (<span class=\"variable language_\">this</span>.<span class=\"property\">_globalsMode</span>) ? <span class=\"variable language_\">this</span>.<span class=\"property\">__deprecatedInstance__</span> : <span class=\"variable language_\">this</span>.<span class=\"title function_\">buildInstance</span>();\n    <span class=\"keyword\">return</span> instance.<span class=\"title function_\">boot</span>();\n  }).<span class=\"title function_\">then</span>(<span class=\"function\">(<span class=\"params\">instance</span>) =&gt;</span> {\n    <span class=\"title class_\">App</span>.<span class=\"title function_\">ready</span>();\n    instance.<span class=\"title function_\">startRouting</span>();\n  });\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Unfortunately, we cannot actually write this because we need to participate\nin the &quot;synchronous&quot; boot process. While the code above would work fine on\nthe initial boot (i.e. DOM ready), when <code>App.reset()</code> is called, we need to\nboot a new instance synchronously (see the documentation on <code>_bootSync()</code>\nfor details).</p>\n<p>Because of this restriction, the actual logic of this method is located\ninside <code>didBecomeReady()</code>.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "domReady",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 544,
+          "description": "<html><head></head><body><p>Use this to defer readiness until some condition is true.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre>import Application from &apos;@ember/application&apos;;\n\n<span class=\"keyword\">let</span> App = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Application</span>.</span></span>create<span class=\"literal\">()</span>;\n\n<span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">App</span>.</span></span>defer<span class=\"constructor\">Readiness()</span>;\n\n<span class=\"comment\">// $ is a reference to the jQuery object/function</span>\nimport $ from &apos;jquery;\n\n$.get<span class=\"constructor\">JSON(&apos;<span class=\"operator\">/</span><span class=\"params\">auth</span>-<span class=\"params\">token</span>&apos;, <span class=\"params\">function</span>(<span class=\"params\">token</span>)</span> {\n  <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">App</span>.</span></span>token = token;\n  <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">App</span>.</span></span>advance<span class=\"constructor\">Readiness()</span>;\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This allows you to perform asynchronous setup logic and defer\nbooting your application until the setup has finished.</p>\n<p>However, if the setup requires a loading UI, it might be better\nto use the router for this purpose.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "deferReadiness",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 586,
+          "description": "<html><head></head><body><p>Call <code>advanceReadiness</code> after any asynchronous setup logic has completed.\nEach call to <code>deferReadiness</code> must be matched by a call to <code>advanceReadiness</code>\nor the application will never become ready and routing will not begin.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "advanceReadiness",
+          "see": [
+            "{Application#deferReadiness}"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 607,
+          "description": "<html><head></head><body><p>Initialize the application and return a promise that resolves with the <code>Application</code>\nobject when the boot process is complete.</p>\n<p>Run any application initializers and run the application load hook. These hooks may\nchoose to defer readiness. For example, an authentication hook might want to defer\nreadiness until the auth token has been retrieved.</p>\n<p>By default, this method is called automatically on &quot;DOM ready&quot;; however, if autoboot\nis disabled, this is automatically called when the first application instance is\ncreated via <code>visit</code>.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "boot",
+          "return": {
+            "description": "",
+            "type": "Promise<Application,Error>"
+          },
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 677,
+          "description": "<html><head></head><body><p>Reset the application. This is typically used only in tests. It cleans up\nthe application in the following order:</p>\n<ol>\n<li>Deactivate existing routes</li>\n<li>Destroy all objects in the container</li>\n<li>Create a new application container</li>\n<li>Re-route to the existing url</li>\n</ol>\n<p>Typical Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Application</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n<span class=\"keyword\">let</span> <span class=\"title class_\">App</span>;\n\n<span class=\"title function_\">run</span>(<span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n  <span class=\"title class_\">App</span> = <span class=\"title class_\">Application</span>.<span class=\"title function_\">create</span>();\n});\n\n<span class=\"title function_\">module</span>(<span class=\"string\">&apos;acceptance test&apos;</span>, {\n  <span class=\"attr\">setup</span>: <span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n    <span class=\"title class_\">App</span>.<span class=\"title function_\">reset</span>();\n  }\n});\n\n<span class=\"title function_\">test</span>(<span class=\"string\">&apos;first test&apos;</span>, <span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n  <span class=\"comment\">// App is freshly reset</span>\n});\n\n<span class=\"title function_\">test</span>(<span class=\"string\">&apos;second test&apos;</span>, <span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n  <span class=\"comment\">// App is again freshly reset</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Advanced Example:</p>\n<p>Occasionally you may want to prevent the app from initializing during\nsetup. This could enable extra configuration, or enable asserting prior\nto the app becoming ready.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Application</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n<span class=\"keyword\">let</span> <span class=\"title class_\">App</span>;\n\n<span class=\"title function_\">run</span>(<span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n  <span class=\"title class_\">App</span> = <span class=\"title class_\">Application</span>.<span class=\"title function_\">create</span>();\n});\n\n<span class=\"title function_\">module</span>(<span class=\"string\">&apos;acceptance test&apos;</span>, {\n  <span class=\"attr\">setup</span>: <span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n    <span class=\"title function_\">run</span>(<span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n      <span class=\"title class_\">App</span>.<span class=\"title function_\">reset</span>();\n      <span class=\"title class_\">App</span>.<span class=\"title function_\">deferReadiness</span>();\n    });\n  }\n});\n\n<span class=\"title function_\">test</span>(<span class=\"string\">&apos;first test&apos;</span>, <span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n  <span class=\"title function_\">ok</span>(<span class=\"literal\">true</span>, <span class=\"string\">&apos;something before app is initialized&apos;</span>);\n\n  <span class=\"title function_\">run</span>(<span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n    <span class=\"title class_\">App</span>.<span class=\"title function_\">advanceReadiness</span>();\n  });\n\n  <span class=\"title function_\">ok</span>(<span class=\"literal\">true</span>, <span class=\"string\">&apos;something after app is initialized&apos;</span>);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "reset",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 773,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "didBecomeReady",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 853,
+          "description": "<html><head></head><body><p>Boot a new instance of <code>ApplicationInstance</code> for the current\napplication and navigate it to the given <code>url</code>. Returns a <code>Promise</code> that\nresolves with the instance when the initial routing and rendering is\ncomplete, or rejects with any error that occurred during the boot process.</p>\n<p>When <code>autoboot</code> is disabled, calling <code>visit</code> would first cause the\napplication to boot, which runs the application initializers.</p>\n<p>This method also takes a hash of boot-time configuration options for\ncustomizing the instance&apos;s behavior. See the documentation on\n<code>ApplicationInstance.BootOptions</code> for details.</p>\n<p><code>ApplicationInstance.BootOptions</code> is an interface class that exists\npurely to document the available options; you do not need to construct it\nmanually. Simply pass a regular JavaScript object containing of the\ndesired options:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>MyApp.<span class=\"title function_ invoke__\">visit</span>(<span class=\"string\">&quot;/&quot;</span>, { <span class=\"attr\">location</span>: <span class=\"string\">&quot;none&quot;</span>, <span class=\"attr\">rootElement</span>: <span class=\"string\">&quot;#container&quot;</span> });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h3 id=\"supported-scenarios\">Supported Scenarios</h3>\n<p>While the <code>BootOptions</code> class exposes a large number of knobs, not all\ncombinations of them are valid; certain incompatible combinations might\nresult in unexpected behavior.</p>\n<p>For example, booting the instance in the full browser environment\nwhile specifying a foreign <code>document</code> object (e.g. <code>{ isBrowser: true, document: iframe.contentDocument }</code>) does not work correctly today,\nlargely due to Ember&apos;s jQuery dependency.</p>\n<p>Currently, there are three officially supported scenarios/configurations.\nUsages outside of these scenarios are not guaranteed to work, but please\nfeel free to file bug reports documenting your experience and any issues\nyou encountered to help expand support.</p>\n<h4 id=\"browser-applications-manual-boot\">Browser Applications (Manual Boot)</h4>\n<p>The setup is largely similar to how Ember works out-of-the-box. Normally,\nEmber will boot a default instance for your Application on &quot;DOM ready&quot;.\nHowever, you can customize this behavior by disabling <code>autoboot</code>.</p>\n<p>For example, this allows you to render a miniture demo of your application\ninto a specific area on your marketing website:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">MyApp</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;my-app&apos;</span>;\n\n$(<span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n  <span class=\"keyword\">let</span> <span class=\"title class_\">App</span> = <span class=\"title class_\">MyApp</span>.<span class=\"title function_\">create</span>({ <span class=\"attr\">autoboot</span>: <span class=\"literal\">false</span> });\n\n  <span class=\"keyword\">let</span> options = {\n    <span class=\"comment\">// Override the router&apos;s location adapter to prevent it from updating</span>\n    <span class=\"comment\">// the URL in the address bar</span>\n    <span class=\"attr\">location</span>: <span class=\"string\">&apos;none&apos;</span>,\n\n    <span class=\"comment\">// Override the default `rootElement` on the app to render into a</span>\n    <span class=\"comment\">// specific `div` on the page</span>\n    <span class=\"attr\">rootElement</span>: <span class=\"string\">&apos;#demo&apos;</span>\n  };\n\n  <span class=\"comment\">// Start the app at the special demo URL</span>\n  <span class=\"title class_\">App</span>.<span class=\"title function_\">visit</span>(<span class=\"string\">&apos;/demo&apos;</span>, options);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Or perhaps you might want to boot two instances of your app on the same\npage for a split-screen multiplayer experience:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">MyApp</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;my-app&apos;</span>;\n\n$(<span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n  <span class=\"keyword\">let</span> <span class=\"title class_\">App</span> = <span class=\"title class_\">MyApp</span>.<span class=\"title function_\">create</span>({ <span class=\"attr\">autoboot</span>: <span class=\"literal\">false</span> });\n\n  <span class=\"keyword\">let</span> sessionId = <span class=\"title class_\">MyApp</span>.<span class=\"title function_\">generateSessionID</span>();\n\n  <span class=\"keyword\">let</span> player1 = <span class=\"title class_\">App</span>.<span class=\"title function_\">visit</span>(<span class=\"string\">`/matches/join?name=Player+1&amp;session=<span class=\"subst\">${sessionId}</span>`</span>, { <span class=\"attr\">rootElement</span>: <span class=\"string\">&apos;#left&apos;</span>, <span class=\"attr\">location</span>: <span class=\"string\">&apos;none&apos;</span> });\n  <span class=\"keyword\">let</span> player2 = <span class=\"title class_\">App</span>.<span class=\"title function_\">visit</span>(<span class=\"string\">`/matches/join?name=Player+2&amp;session=<span class=\"subst\">${sessionId}</span>`</span>, { <span class=\"attr\">rootElement</span>: <span class=\"string\">&apos;#right&apos;</span>, <span class=\"attr\">location</span>: <span class=\"string\">&apos;none&apos;</span> });\n\n  <span class=\"title class_\">Promise</span>.<span class=\"title function_\">all</span>([player1, player2]).<span class=\"title function_\">then</span>(<span class=\"function\">() =&gt;</span> {\n    <span class=\"comment\">// Both apps have completed the initial render</span>\n    $(<span class=\"string\">&apos;#loading&apos;</span>).<span class=\"title function_\">fadeOut</span>();\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Do note that each app instance maintains their own registry/container, so\nthey will run in complete isolation by default.</p>\n<h4 id=\"server-side-rendering-also-known-as-fastboot\">Server-Side Rendering (also known as FastBoot)</h4>\n<p>This setup allows you to run your Ember app in a server environment using\nNode.js and render its content into static HTML for SEO purposes.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n</pre></td>\n              <td class=\"code\"><pre>const HTMLSerializer = <span class=\"keyword\">new</span> SimpleDOM.<span class=\"constructor\">HTMLSerializer(SimpleDOM.<span class=\"params\">voidMap</span>)</span>;\n\n<span class=\"keyword\">function</span> render<span class=\"constructor\">URL(<span class=\"params\">url</span>)</span> {\n  <span class=\"keyword\">let</span> dom = <span class=\"keyword\">new</span> SimpleDOM.<span class=\"constructor\">Document()</span>;\n  <span class=\"keyword\">let</span> rootElement = dom.body;\n  <span class=\"keyword\">let</span> options = { isBrowser: <span class=\"literal\">false</span>, document: dom, rootElement: rootElement };\n\n  return <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">MyApp</span>.</span></span>visit(options).<span class=\"keyword\">then</span>(instance =&gt; {\n    <span class=\"keyword\">try</span> {\n      return <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">HTMLSerializer</span>.</span></span>serialize(rootElement.firstChild);\n    } finally {\n      instance.destroy<span class=\"literal\">()</span>;\n    }\n  });\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>In this scenario, because Ember does not have access to a global <code>document</code>\nobject in the Node.js environment, you must provide one explicitly. In practice,\nin the non-browser environment, the stand-in <code>document</code> object only needs to\nimplement a limited subset of the full DOM API. The <code>SimpleDOM</code> library is known\nto work.</p>\n<p>Since there is no access to jQuery in the non-browser environment, you must also\nspecify a DOM <code>Element</code> object in the same <code>document</code> for the <code>rootElement</code> option\n(as opposed to a selector string like <code>&quot;body&quot;</code>).</p>\n<p>See the documentation on the <code>isBrowser</code>, <code>document</code> and <code>rootElement</code> properties\non <code>ApplicationInstance.BootOptions</code> for details.</p>\n<h4 id=\"server-side-resource-discovery\">Server-Side Resource Discovery</h4>\n<p>This setup allows you to run the routing layer of your Ember app in a server\nenvironment using Node.js and completely disable rendering. This allows you\nto simulate and discover the resources (i.e. AJAX requests) needed to fulfill\na given request and eagerly &quot;push&quot; these resources to the client.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">service.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">BrowserNetworkService</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;app/services/network/browser&apos;</span>;\n<span class=\"keyword\">import</span> <span class=\"title class_\">NodeNetworkService</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;app/services/network/node&apos;</span>;\n\n<span class=\"comment\">// Inject a (hypothetical) service for abstracting all AJAX calls and use</span>\n<span class=\"comment\">// the appropriate implementation on the client/server. This also allows the</span>\n<span class=\"comment\">// server to log all the AJAX calls made during a particular request and use</span>\n<span class=\"comment\">// that for resource-discovery purpose.</span>\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">function</span> <span class=\"title function_\">initialize</span>(<span class=\"params\">application</span>) {\n  <span class=\"keyword\">if</span> (<span class=\"variable language_\">window</span>) { <span class=\"comment\">// browser</span>\n    application.<span class=\"title function_\">register</span>(<span class=\"string\">&apos;service:network&apos;</span>, <span class=\"title class_\">BrowserNetworkService</span>);\n  } <span class=\"keyword\">else</span> { <span class=\"comment\">// node</span>\n    application.<span class=\"title function_\">register</span>(<span class=\"string\">&apos;service:network&apos;</span>, <span class=\"title class_\">NodeNetworkService</span>);\n  }\n\n  application.<span class=\"title function_\">inject</span>(<span class=\"string\">&apos;route&apos;</span>, <span class=\"string\">&apos;network&apos;</span>, <span class=\"string\">&apos;service:network&apos;</span>);\n};\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> {\n  <span class=\"attr\">name</span>: <span class=\"string\">&apos;network-service&apos;</span>,\n  <span class=\"attr\">initialize</span>: initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n\n<span class=\"comment\">// An example of how the (hypothetical) service is used in routes.</span>\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"title function_\">model</span>(<span class=\"params\">params</span>) {\n    <span class=\"keyword\">return</span> <span class=\"variable language_\">this</span>.<span class=\"property\">network</span>.<span class=\"title function_\">fetch</span>(<span class=\"string\">`/api/posts/<span class=\"subst\">${params.post_id}</span>.json`</span>);\n  },\n\n  <span class=\"title function_\">afterModel</span>(<span class=\"params\">post</span>) {\n    <span class=\"keyword\">if</span> (post.<span class=\"property\">isExternalContent</span>) {\n      <span class=\"keyword\">return</span> <span class=\"variable language_\">this</span>.<span class=\"property\">network</span>.<span class=\"title function_\">fetch</span>(<span class=\"string\">`/api/external/?url=<span class=\"subst\">${post.externalURL}</span>`</span>);\n    } <span class=\"keyword\">else</span> {\n      <span class=\"keyword\">return</span> post;\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// Finally, put all the pieces together</span>\n\n<span class=\"function\"><span class=\"keyword\">function</span> <span class=\"title\">discoverResourcesFor</span>(<span class=\"params\">url</span>) </span>{\n  <span class=\"keyword\">return</span> MyApp.<span class=\"title function_ invoke__\">visit</span>(url, { <span class=\"attr\">isBrowser</span>: <span class=\"literal\">false</span>, <span class=\"attr\">shouldRender</span>: <span class=\"literal\">false</span> }).<span class=\"title function_ invoke__\">then</span>(instance =&gt; {\n    let networkService = instance.<span class=\"title function_ invoke__\">lookup</span>(<span class=\"string\">&apos;service:network&apos;</span>);\n    <span class=\"keyword\">return</span> networkService.requests; // =&gt; { <span class=\"string\">&quot;/api/posts/123.json&quot;</span>: <span class=\"string\">&quot;...&quot;</span> }\n  });\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "visit",
+          "params": [
+            {
+              "name": "url",
+              "description": "The initial URL to navigate to",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "ApplicationInstance.BootOptions"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise<ApplicationInstance, Error>"
+          },
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 1066,
+          "description": "<html><head></head><body><p>This creates a registry with the default Ember naming conventions.</p>\n<p>It also configures the registry:</p>\n<ul>\n<li>registered views are created every time they are looked up (they are\nnot singletons)</li>\n<li>registered templates are not factories; the registered value is\nreturned directly.</li>\n<li>the router receives the application as its <code>namespace</code> property</li>\n<li>all controllers receive the router as their <code>target</code> and <code>controllers</code>\nproperties</li>\n<li>all controllers receive the application as their <code>namespace</code> property</li>\n<li>the application view receives the application controller as its\n<code>controller</code> property</li>\n<li>the application view receives the application template as its\n<code>defaultTemplate</code> property</li>\n</ul>\n</body></html>",
+          "itemtype": "method",
+          "name": "buildRegistry",
+          "static": 1,
+          "params": [
+            {
+              "name": "namespace",
+              "description": "the application for which to\n  build the registry",
+              "type": "Application"
+            }
+          ],
+          "return": {
+            "description": "the built registry",
+            "type": "Ember.Registry"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 62,
+          "description": "<html><head></head><body><p>Ensure that initializers are run once, and only once, per engine.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "ensureInitializers",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 75,
+          "description": "<html><head></head><body><p>Create an EngineInstance for this engine.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "buildInstance",
+          "return": {
+            "description": "the engine instance",
+            "type": "EngineInstance"
+          },
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 88,
+          "description": "<html><head></head><body><p>Build and configure the registry for the current engine.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "buildRegistry",
+          "return": {
+            "description": "the configured registry",
+            "type": "Ember.Registry"
+          },
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 101,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "initializer",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 109,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "instanceInitializer",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 117,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "runInitializers",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 128,
+          "access": "private",
+          "tagname": "",
+          "since": "1.12.0",
+          "itemtype": "method",
+          "name": "runInstanceInitializers",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 159,
+          "description": "<html><head></head><body><p>The goal of initializers should be to register dependencies and injections.\nThis phase runs once. Because these initializers may load code, they are\nallowed to defer application readiness and advance it. If you need to access\nthe container or store you should use an InstanceInitializer that will be run\nafter all initializers and therefore after all code is loaded and the app is\nready.</p>\n<p>Initializer receives an object which has the following attributes:\n<code>name</code>, <code>before</code>, <code>after</code>, <code>initialize</code>. The only required attribute is\n<code>initialize</code>, all others are optional.</p>\n<ul>\n<li><code>name</code> allows you to specify under which name the initializer is registered.\nThis must be a unique name, as trying to register two initializers with the\nsame name will result in an error.</li>\n</ul>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">initializer.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/debug&apos;</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">&apos;Running namedInitializer!&apos;</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">&apos;named-initializer&apos;</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><code>before</code> and <code>after</code> are used to ensure that this initializer is ran prior\nor after the one identified by the value. This value can be a single string\nor an array of strings, referencing the <code>name</code> of other initializers.</li>\n</ul>\n<p>An example of ordering initializers, we create an initializer named <code>first</code>:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/initializer/first.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/debug&apos;</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">&apos;First initializer!&apos;</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">&apos;first&apos;</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight bash\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"regexp\">//</span> DEBUG: First initializer!</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>We add another initializer named <code>second</code>, specifying that it should run\nafter the initializer named <code>first</code>:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/initializer/second.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/debug&apos;</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">&apos;Second initializer!&apos;</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">&apos;second&apos;</span>,\n  after: <span class=\"string\">&apos;first&apos;</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"regexp\">//</span> DEBUG: First initializer!\n<span class=\"regexp\">//</span> DEBUG: Second initializer!</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Afterwards we add a further initializer named <code>pre</code>, this time specifying\nthat it should run before the initializer named <code>first</code>:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/initializer/pre.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/debug&apos;</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">&apos;Pre initializer!&apos;</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">&apos;pre&apos;</span>,\n  before: <span class=\"string\">&apos;first&apos;</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight bash\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"regexp\">//</span> DEBUG: Pre initializer!\n<span class=\"regexp\">//</span> DEBUG: First initializer!\n<span class=\"regexp\">//</span> DEBUG: Second initializer!</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Finally we add an initializer named <code>post</code>, specifying it should run after\nboth the <code>first</code> and the <code>second</code> initializers:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/initializer/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/debug&apos;</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">&apos;Post initializer!&apos;</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">&apos;post&apos;</span>,\n  after: [<span class=\"string\">&apos;first&apos;</span>, <span class=\"string\">&apos;second&apos;</span>],\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight bash\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"regexp\">//</span> DEBUG: Pre initializer!\n<span class=\"regexp\">//</span> DEBUG: First initializer!\n<span class=\"regexp\">//</span> DEBUG: Second initializer!\n<span class=\"regexp\">//</span> DEBUG: Post initializer!</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><code>initialize</code> is a callback function that receives one argument,\n<code>application</code>, on which you can operate.</li>\n</ul>\n<p>Example of using <code>application</code> to register an adapter:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">adapter.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">ApiAdapter</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;../utils/api-adapter&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">function</span> <span class=\"title function_\">initialize</span>(<span class=\"params\">application</span>) {\n  application.<span class=\"title function_\">register</span>(<span class=\"string\">&apos;api-adapter:main&apos;</span>, <span class=\"title class_\">ApiAdapter</span>);\n}\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> {\n  <span class=\"attr\">name</span>: <span class=\"string\">&apos;post&apos;</span>,\n  <span class=\"attr\">after</span>: [<span class=\"string\">&apos;first&apos;</span>, <span class=\"string\">&apos;second&apos;</span>],\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "initializer",
+          "params": [
+            {
+              "name": "initializer",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 306,
+          "description": "<html><head></head><body><p>Instance initializers run after all initializers have run. Because\ninstance initializers run after the app is fully set up. We have access\nto the store, container, and other items. However, these initializers run\nafter code has loaded and are not allowed to defer readiness.</p>\n<p>Instance initializer receives an object which has the following attributes:\n<code>name</code>, <code>before</code>, <code>after</code>, <code>initialize</code>. The only required attribute is\n<code>initialize</code>, all others are optional.</p>\n<ul>\n<li><code>name</code> allows you to specify under which name the instanceInitializer is\nregistered. This must be a unique name, as trying to register two\ninstanceInitializer with the same name will result in an error.</li>\n</ul>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">initializer.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/debug&apos;</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">&apos;Running named-instance-initializer!&apos;</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">&apos;named-instance-initializer&apos;</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><p><code>before</code> and <code>after</code> are used to ensure that this initializer is ran prior\nor after the one identified by the value. This value can be a single string\nor an array of strings, referencing the <code>name</code> of other initializers.</p>\n</li>\n<li><p>See Application.initializer for discussion on the usage of before\nand after.</p>\n</li>\n</ul>\n<p>Example instanceInitializer to preload data into the store.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">data.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> $ <span class=\"keyword\">from</span> <span class=\"string\">&apos;jquery&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">function</span> <span class=\"title function_\">initialize</span>(<span class=\"params\">application</span>) {\n    <span class=\"keyword\">var</span> userConfig, userConfigEncoded, store;\n    <span class=\"comment\">// We have a HTML escaped JSON representation of the user&apos;s basic</span>\n    <span class=\"comment\">// configuration generated server side and stored in the DOM of the main</span>\n    <span class=\"comment\">// index.html file. This allows the app to have access to a set of data</span>\n    <span class=\"comment\">// without making any additional remote calls. Good for basic data that is</span>\n    <span class=\"comment\">// needed for immediate rendering of the page. Keep in mind, this data,</span>\n    <span class=\"comment\">// like all local models and data can be manipulated by the user, so it</span>\n    <span class=\"comment\">// should not be relied upon for security or authorization.</span>\n\n    <span class=\"comment\">// Grab the encoded data from the meta tag</span>\n    userConfigEncoded = $(<span class=\"string\">&apos;head meta[name=app-user-config]&apos;</span>).<span class=\"title function_\">attr</span>(<span class=\"string\">&apos;content&apos;</span>);\n\n    <span class=\"comment\">// Unescape the text, then parse the resulting JSON into a real object</span>\n    userConfig = <span class=\"title class_\">JSON</span>.<span class=\"title function_\">parse</span>(<span class=\"built_in\">unescape</span>(userConfigEncoded));\n\n    <span class=\"comment\">// Lookup the store</span>\n    store = application.<span class=\"title function_\">lookup</span>(<span class=\"string\">&apos;service:store&apos;</span>);\n\n    <span class=\"comment\">// Push the encoded JSON into the store</span>\n    store.<span class=\"title function_\">pushPayload</span>(userConfig);\n}\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> {\n  <span class=\"attr\">name</span>: <span class=\"string\">&apos;named-instance-initializer&apos;</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "instanceInitializer",
+          "params": [
+            {
+              "name": "instanceInitializer",
+              "description": ""
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 380,
+          "description": "<html><head></head><body><p>This creates a registry with the default Ember naming conventions.</p>\n<p>It also configures the registry:</p>\n<ul>\n<li>registered views are created every time they are looked up (they are\nnot singletons)</li>\n<li>registered templates are not factories; the registered value is\nreturned directly.</li>\n<li>the router receives the application as its <code>namespace</code> property</li>\n<li>all controllers receive the router as their <code>target</code> and <code>controllers</code>\nproperties</li>\n<li>all controllers receive the application as their <code>namespace</code> property</li>\n<li>the application view receives the application controller as its\n<code>controller</code> property</li>\n<li>the application view receives the application template as its\n<code>defaultTemplate</code> property</li>\n</ul>\n</body></html>",
+          "itemtype": "method",
+          "name": "buildRegistry",
+          "static": 1,
+          "params": [
+            {
+              "name": "namespace",
+              "description": "the application for which to\n  build the registry",
+              "type": "Application"
+            }
+          ],
+          "return": {
+            "description": "the built registry",
+            "type": "Ember.Registry"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 438,
+          "description": "<html><head></head><body><p>This function defines the default lookup rules for container lookups:</p>\n<ul>\n<li>templates are looked up on <code>Ember.TEMPLATES</code></li>\n<li>other names are looked up on the application after classifying the name.\nFor example, <code>controller:post</code> looks up <code>App.PostController</code> by default.</li>\n<li>if the default lookup fails, look for registered classes on the container</li>\n</ul>\n<p>This allows the application to register default injections in the container\nthat could be overridden by the normal naming convention.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "resolverFor",
+          "params": [
+            {
+              "name": "namespace",
+              "description": "the namespace to look for classes",
+              "type": "Ember.Namespace"
+            }
+          ],
+          "return": {
+            "description": "the resolved value for a given lookup",
+            "type": "*"
+          },
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/registry_proxy.js",
+          "line": 18,
+          "description": "<html><head></head><body><p>Given a fullName return the corresponding factory.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "resolveRegistration",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "fullName's factory",
+            "type": "Function"
+          },
+          "class": "Application",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "RegistryProxyMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/registry_proxy.js",
+          "line": 31,
+          "description": "<html><head></head><body><p>Registers a factory that can be used for dependency injection (with\n<code>inject</code>) or for service lookup. Each factory is registered with\na full name including two parts: <code>type:name</code>.</p>\n<p>A simple example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n<span class=\"keyword\">import</span> EmberObject <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n\n<span class=\"keyword\">let</span> App = Application.create();\n\nApp.Orange = EmberObject.extend();\nApp.register(<span class=\"string\">&apos;fruit:favorite&apos;</span>, App.Orange);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Ember will resolve factories from the <code>App</code> namespace automatically.\nFor example <code>App.CarsController</code> will be discovered and returned if\nan application requests <code>controller:cars</code>.</p>\n<p>An example of registering a controller with a non-standard name:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n<span class=\"keyword\">import</span> Controller <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/controller&apos;</span>;\n\n<span class=\"keyword\">let</span> App = Application.create();\n<span class=\"keyword\">let</span> Session = Controller.extend();\n\nApp.register(<span class=\"string\">&apos;controller:session&apos;</span>, Session);\n\n<span class=\"comment\">// The Session controller can now be treated like a normal controller,</span>\n<span class=\"comment\">// despite its non-standard name.</span>\nApp.ApplicationController = Controller.extend({\n  needs: [<span class=\"string\">&apos;session&apos;</span>]\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Registered factories are <strong>instantiated</strong> by having <code>create</code>\ncalled on them. Additionally they are <strong>singletons</strong>, each time\nthey are looked up they return the same instance.</p>\n<p>Some examples modifying that default behavior:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n<span class=\"keyword\">import</span> EmberObject <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n\nlet App = Application.<span class=\"keyword\">create</span>();\n\nApp.Person = EmberObject.extend();\nApp.Orange = EmberObject.extend();\nApp.Email = EmberObject.extend();\nApp.<span class=\"keyword\">session</span> = EmberObject.<span class=\"keyword\">create</span>();\n\nApp.register(<span class=\"string\">&apos;model:user&apos;</span>, App.Person, { singleton: <span class=\"keyword\">false</span> });\nApp.register(<span class=\"string\">&apos;fruit:favorite&apos;</span>, App.Orange);\nApp.register(<span class=\"string\">&apos;communication:main&apos;</span>, App.Email, { singleton: <span class=\"keyword\">false</span> });\nApp.register(<span class=\"string\">&apos;session&apos;</span>, App.<span class=\"keyword\">session</span>, { instantiate: <span class=\"keyword\">false</span> });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "register",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "type:name (e.g., 'model:user')",
+              "type": "String"
+            },
+            {
+              "name": "factory",
+              "description": "(e.g., App.Person)",
+              "type": "Any"
+            },
+            {
+              "name": "options",
+              "description": "(optional) disable instantiation or singleton usage",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "RegistryProxyMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/registry_proxy.js",
+          "line": 101,
+          "description": "<html><head></head><body><p>Unregister a factory.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n<span class=\"keyword\">import</span> EmberObject <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n\nlet App = Application.<span class=\"keyword\">create</span>();\nlet <span class=\"keyword\">User</span> = EmberObject.extend();\nApp.register(<span class=\"string\">&apos;model:user&apos;</span>, <span class=\"keyword\">User</span>);\n\nApp.resolveRegistration(<span class=\"string\">&apos;model:user&apos;</span>).<span class=\"keyword\">create</span>() instanceof <span class=\"keyword\">User</span> //=&gt; <span class=\"keyword\">true</span>\n\nApp.unregister(<span class=\"string\">&apos;model:user&apos;</span>)\nApp.resolveRegistration(<span class=\"string\">&apos;model:user&apos;</span>) === undefined //=&gt; <span class=\"keyword\">true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "unregister",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Application",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "RegistryProxyMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/registry_proxy.js",
+          "line": 124,
+          "description": "<html><head></head><body><p>Check if a factory is registered.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "hasRegistration",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Application",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "RegistryProxyMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/registry_proxy.js",
+          "line": 134,
+          "description": "<html><head></head><body><p>Return a specific registered option for a particular factory.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registeredOption",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "optionName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "options",
+            "type": "Object"
+          },
+          "class": "Application",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "RegistryProxyMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/registry_proxy.js",
+          "line": 145,
+          "description": "<html><head></head><body><p>Register options for a particular factory.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registerOptions",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Application",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "RegistryProxyMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/registry_proxy.js",
+          "line": 155,
+          "description": "<html><head></head><body><p>Return registered options for a particular factory.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registeredOptions",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "options",
+            "type": "Object"
+          },
+          "class": "Application",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "RegistryProxyMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/registry_proxy.js",
+          "line": 165,
+          "description": "<html><head></head><body><p>Allow registering options for all factories of a type.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Application</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n\n<span class=\"keyword\">let</span> <span class=\"title class_\">App</span> = <span class=\"title class_\">Application</span>.<span class=\"title function_\">create</span>();\n<span class=\"keyword\">let</span> appInstance = <span class=\"title class_\">App</span>.<span class=\"title function_\">buildInstance</span>();\n\n<span class=\"comment\">// if all of type `connection` must not be singletons</span>\nappInstance.<span class=\"title function_\">registerOptionsForType</span>(<span class=\"string\">&apos;connection&apos;</span>, { <span class=\"attr\">singleton</span>: <span class=\"literal\">false</span> });\n\nappInstance.<span class=\"title function_\">register</span>(<span class=\"string\">&apos;connection:twitter&apos;</span>, <span class=\"title class_\">TwitterConnection</span>);\nappInstance.<span class=\"title function_\">register</span>(<span class=\"string\">&apos;connection:facebook&apos;</span>, <span class=\"title class_\">FacebookConnection</span>);\n\n<span class=\"keyword\">let</span> twitter = appInstance.<span class=\"title function_\">lookup</span>(<span class=\"string\">&apos;connection:twitter&apos;</span>);\n<span class=\"keyword\">let</span> twitter2 = appInstance.<span class=\"title function_\">lookup</span>(<span class=\"string\">&apos;connection:twitter&apos;</span>);\n\ntwitter === twitter2; <span class=\"comment\">// =&gt; false</span>\n\n<span class=\"keyword\">let</span> facebook = appInstance.<span class=\"title function_\">lookup</span>(<span class=\"string\">&apos;connection:facebook&apos;</span>);\n<span class=\"keyword\">let</span> facebook2 = appInstance.<span class=\"title function_\">lookup</span>(<span class=\"string\">&apos;connection:facebook&apos;</span>);\n\nfacebook === facebook2; <span class=\"comment\">// =&gt; false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registerOptionsForType",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Application",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "RegistryProxyMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/registry_proxy.js",
+          "line": 198,
+          "description": "<html><head></head><body><p>Return the registered options for all factories of a type.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registeredOptionsForType",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "options",
+            "type": "Object"
+          },
+          "class": "Application",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "RegistryProxyMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/registry_proxy.js",
+          "line": 208,
+          "description": "<html><head></head><body><p>Define a dependency injection onto a specific factory or all factories\nof a type.</p>\n<p>When Ember instantiates a controller, view, or other framework component\nit can attach a dependency to that component. This is often used to\nprovide services to a set of framework components.</p>\n<p>An example of providing a session object to all controllers:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { <span class=\"keyword\">alias</span> } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object/computed&apos;</span>;\n<span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n<span class=\"keyword\">import</span> Controller <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/controller&apos;</span>;\n<span class=\"keyword\">import</span> EmberObject <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n\nlet App = Application.<span class=\"keyword\">create</span>();\nlet <span class=\"keyword\">Session</span> = EmberObject.extend({ isAuthenticated: <span class=\"keyword\">false</span> });\n\n// A factory must be registered <span class=\"keyword\">before</span> it can be injected\nApp.register(<span class=\"string\">&apos;session:main&apos;</span>, <span class=\"keyword\">Session</span>);\n\n// Inject <span class=\"string\">&apos;session:main&apos;</span> onto <span class=\"keyword\">all</span> factories <span class=\"keyword\">of</span> the <span class=\"keyword\">type</span> <span class=\"string\">&apos;controller&apos;</span>\n// <span class=\"keyword\">with</span> the <span class=\"type\">name</span> <span class=\"string\">&apos;session&apos;</span>\nApp.inject(<span class=\"string\">&apos;controller&apos;</span>, <span class=\"string\">&apos;session&apos;</span>, <span class=\"string\">&apos;session:main&apos;</span>);\n\nApp.IndexController = Controller.extend({\n  isLoggedIn: <span class=\"keyword\">alias</span>(<span class=\"string\">&apos;session.isAuthenticated&apos;</span>)\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Injections can also be performed on specific factories.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"type\">App</span>.inject(&lt;full_name or <span class=\"keyword\">type</span>&gt;, &lt;property name&gt;, &lt;full_name&gt;)\n<span class=\"type\">App</span>.inject(<span class=\"symbol\">&apos;route&apos;</span>, <span class=\"symbol\">&apos;source&apos;</span>, <span class=\"symbol\">&apos;source</span>:main&apos;)\n<span class=\"type\">App</span>.inject(<span class=\"symbol\">&apos;route</span>:application&apos;, <span class=\"symbol\">&apos;email&apos;</span>, <span class=\"symbol\">&apos;model</span>:email&apos;)</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It is important to note that injections can only be performed on\nclasses that are instantiated by Ember itself. Instantiating a class\ndirectly (via <code>create</code> or <code>new</code>) bypasses the dependency injection\nsystem.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "inject",
+          "params": [
+            {
+              "name": "factoryNameOrType",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "property",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "injectionName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Application",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "RegistryProxyMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 319,
+          "description": "<html><head></head><body><p>An overridable method called when objects are instantiated. By default,\ndoes nothing unless it is overridden during class definition.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">EmberObject</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n\n<span class=\"keyword\">const</span> <span class=\"title class_\">Person</span> = <span class=\"title class_\">EmberObject</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"title function_\">init</span>(<span class=\"params\"></span>) {\n    <span class=\"title function_\">alert</span>(<span class=\"string\">`Name is <span class=\"subst\">${<span class=\"variable language_\">this</span>.get(<span class=\"string\">&apos;name&apos;</span>)}</span>`</span>);\n  }\n});\n\n<span class=\"keyword\">let</span> steve = <span class=\"title class_\">Person</span>.<span class=\"title function_\">create</span>({\n  <span class=\"attr\">name</span>: <span class=\"string\">&apos;Steve&apos;</span>\n});\n\n<span class=\"comment\">// alerts &apos;Name is Steve&apos;.</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>NOTE: If you do override <code>init</code> for a framework class like <code>Ember.View</code>,\nbe sure to call <code>this._super(...arguments)</code> in your\n<code>init</code> declaration! If you don&apos;t, Ember may not have an opportunity to\ndo important setup work, and you&apos;ll see strange behavior in your\napplication.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "init",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 537,
+          "description": "<html><head></head><body><p>Destroys an object by setting the <code>isDestroyed</code> flag and removing its\nmetadata, which effectively destroys observers and bindings.</p>\n<p>If you try to set a property on a destroyed object, an exception will be\nraised.</p>\n<p>Note that destruction is scheduled for the end of the run loop and does not\nhappen immediately.  It will set an isDestroying flag immediately.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "destroy",
+          "return": {
+            "description": "receiver",
+            "type": "EmberObject"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 565,
+          "description": "<html><head></head><body><p>Override to implement teardown.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "willDestroy",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 573,
+          "description": "<html><head></head><body><p>Invoked by the run loop to actually destroy the object. This is\nscheduled for execution by the <code>destroy</code> method.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_scheduledDestroy",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 588,
+          "description": "<html><head></head><body><p>Returns a string representation which attempts to provide more information\nthan Javascript&apos;s <code>toString</code> typically does, in a generic way for all Ember\nobjects.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>import EmberObject from &apos;@ember/<span class=\"keyword\">object</span>&apos;;\n\nconst Person = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">EmberObject</span>.</span></span>extend<span class=\"literal\">()</span>;\nperson = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Person</span>.</span></span>create<span class=\"literal\">()</span>;\nperson.<span class=\"keyword\">to</span><span class=\"constructor\">String()</span>; <span class=\"comment\">//=&gt; &quot;&lt;Person:ember1024&gt;&quot;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If the object&apos;s class is not defined on an Ember namespace, it will\nindicate it is a subclass of the registered superclass:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>const Student = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Person</span>.</span></span>extend<span class=\"literal\">()</span>;\n<span class=\"keyword\">let</span> student = <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">Student</span>.</span></span>create<span class=\"literal\">()</span>;\nstudent.<span class=\"keyword\">to</span><span class=\"constructor\">String()</span>; <span class=\"comment\">//=&gt; &quot;&lt;(subclass of Person):ember1025&gt;&quot;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If the method <code>toStringExtension</code> is defined, its return value will be\nincluded in the output.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">const</span> Teacher = Person.extend({\n  toStringExtension() {\n    <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;fullName&apos;</span>);\n  }\n});\nteacher = Teacher.create();\nteacher.toString(); <span class=\"comment\">//=&gt; &quot;&lt;Teacher:ember1026:Tom Dale&gt;&quot;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "toString",
+          "return": {
+            "description": "string representation",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 93,
+          "description": "<html><head></head><body><p>Retrieves the value of a property from the object.</p>\n<p>This method is usually similar to using <code>object[keyName]</code> or <code>object.keyName</code>,\nhowever it supports both computed properties and the unknownProperty\nhandler.</p>\n<p>Because <code>get</code> unifies the syntax for accessing all these kinds\nof properties, it can make many refactorings easier, such as replacing a\nsimple property with a computed property, or vice versa.</p>\n<h3 id=\"computed-properties\">Computed Properties</h3>\n<p>Computed properties are methods defined with the <code>property</code> modifier\ndeclared at the end, such as:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { computed } from <span class=\"string\">&apos;@ember/object&apos;</span>;\n\nfullName: computed(<span class=\"string\">&apos;firstName&apos;</span>, <span class=\"string\">&apos;lastName&apos;</span>, function() {\n  <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;firstName&apos;</span>) + <span class=\"string\">&apos; &apos;</span> + <span class=\"keyword\">this</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;lastName&apos;</span>);\n})</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>When you call <code>get</code> on a computed property, the function will be\ncalled and the return value will be returned instead of the function\nitself.</p>\n<h3 id=\"unknown-properties\">Unknown Properties</h3>\n<p>Likewise, if you try to call <code>get</code> on a property whose value is\n<code>undefined</code>, the <code>unknownProperty()</code> method will be called on the object.\nIf this method returns any value other than <code>undefined</code>, it will be returned\ninstead. This allows you to implement &quot;virtual&quot; properties that are\nnot defined upfront.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to retrieve",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The property value or undefined.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 138,
+          "description": "<html><head></head><body><p>To get the values of multiple properties at once, call <code>getProperties</code>\nwith a list of strings or an array:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>record.getProperties(<span class=\"string\">&apos;firstName&apos;</span>, <span class=\"string\">&apos;lastName&apos;</span>, <span class=\"string\">&apos;zipCode&apos;</span>);\n<span class=\"regexp\">//</span> { firstName: <span class=\"string\">&apos;John&apos;</span>, lastName: <span class=\"string\">&apos;Doe&apos;</span>, zipCode: <span class=\"string\">&apos;10011&apos;</span> }</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>is equivalent to:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>record.getProperties([<span class=\"string\">&apos;firstName&apos;</span>, <span class=\"string\">&apos;lastName&apos;</span>, <span class=\"string\">&apos;zipCode&apos;</span>]);\n<span class=\"regexp\">//</span> { firstName: <span class=\"string\">&apos;John&apos;</span>, lastName: <span class=\"string\">&apos;Doe&apos;</span>, zipCode: <span class=\"string\">&apos;10011&apos;</span> }</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "getProperties",
+          "params": [
+            {
+              "name": "list",
+              "description": "of keys to get",
+              "type": "String...|Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 163,
+          "description": "<html><head></head><body><p>Sets the provided key or path to the value.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"built_in\">record</span>.<span class=\"keyword\">set</span>(<span class=\"string\">&quot;key&quot;</span>, value);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This method is generally very similar to calling <code>object[&quot;key&quot;] = value</code> or\n<code>object.key = value</code>, except that it provides support for computed\nproperties, the <code>setUnknownProperty()</code> method and property observers.</p>\n<h3 id=\"computed-properties\">Computed Properties</h3>\n<p>If you try to set a value on a key that has a computed property handler\ndefined (see the <code>get()</code> method for an example), then <code>set()</code> will call\nthat method, passing both the value and key instead of simply changing\nthe value itself. This is useful for those times when you need to\nimplement a property that is composed of one or more member\nproperties.</p>\n<h3 id=\"unknown-properties\">Unknown Properties</h3>\n<p>If you try to set a value on a key that is undefined in the target\nobject, then the <code>setUnknownProperty()</code> handler will be called instead. This\ngives you an opportunity to implement complex &quot;virtual&quot; properties that\nare not predefined on the object. If <code>setUnknownProperty()</code> returns\nundefined, then <code>set()</code> will simply set the value on the object.</p>\n<h3 id=\"property-observers\">Property Observers</h3>\n<p>In addition to changing the property, <code>set()</code> will also register a property\nchange with the object. Unless you have placed this call inside of a\n<code>beginPropertyChanges()</code> and <code>endPropertyChanges(),</code> any &quot;local&quot; observers\n(i.e. observer methods declared on the same object), will be called\nimmediately. Any &quot;remote&quot; observers (i.e. observer methods declared on\nanother object) will be placed in a queue and called at a later time in a\ncoalesced manner.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to set or `null`.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed value",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 211,
+          "description": "<html><head></head><body><p>Sets a list of properties at once. These properties are set inside\na single <code>beginPropertyChanges</code> and <code>endPropertyChanges</code> batch, so\nobservers will be buffered.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>record.<span class=\"title function_ invoke__\">setProperties</span>({ <span class=\"attr\">firstName</span>: <span class=\"string\">&apos;Charles&apos;</span>, <span class=\"attr\">lastName</span>: <span class=\"string\">&apos;Jolley&apos;</span> });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "setProperties",
+          "params": [
+            {
+              "name": "hash",
+              "description": "the hash of keys and values to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed in hash",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 229,
+          "description": "<html><head></head><body><p>Begins a grouping of property changes.</p>\n<p>You can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call this\nmethod at the beginning of the changes to begin deferring change\nnotifications. When you are done making changes, call\n<code>endPropertyChanges()</code> to deliver the deferred change notifications and end\ndeferring.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "beginPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 249,
+          "description": "<html><head></head><body><p>Ends a grouping of property changes.</p>\n<p>You can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call\n<code>beginPropertyChanges()</code> at the beginning of the changes to defer change\nnotifications. When you are done making changes, call this method to\ndeliver the deferred change notifications and end deferring.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "endPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 268,
+          "description": "<html><head></head><body><p>Notify the observer system that a property has just changed.</p>\n<p>Sometimes you need to change a value directly or indirectly without\nactually calling <code>get()</code> or <code>set()</code> on it. In this case, you can use this\nmethod instead. Calling this method will notify all observers that the\nproperty has potentially changed value.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "notifyPropertyChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key to be notified about.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 286,
+          "description": "<html><head></head><body><p>Adds an observer on a property.</p>\n<p>This is the core method used to register an observer for a property.</p>\n<p>Once you call this method, any time the key&apos;s value is set, your observer\nwill be notified. Note that the observers are triggered any time the\nvalue is set, regardless of whether it has actually changed. Your\nobserver should be prepared to handle that.</p>\n<p>There are two common invocation patterns for <code>.addObserver()</code>:</p>\n<ul>\n<li>Passing two arguments:<ul>\n<li>the name of the property to observe (as a string)</li>\n<li>the function to invoke (an actual function)</li>\n</ul>\n</li>\n<li>Passing three arguments:<ul>\n<li>the name of the property to observe (as a string)</li>\n<li>the target object (will be used to look up and invoke a\nfunction on)</li>\n<li>the name of the function to invoke on the target object\n(as a string).</li>\n</ul>\n</li>\n</ul>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">component.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Component</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/component&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Component</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"title function_\">init</span>(<span class=\"params\"></span>) {\n    <span class=\"variable language_\">this</span>.<span class=\"title function_\">_super</span>(...<span class=\"variable language_\">arguments</span>);\n\n    <span class=\"comment\">// the following are equivalent:</span>\n\n    <span class=\"comment\">// using three arguments</span>\n    <span class=\"variable language_\">this</span>.<span class=\"title function_\">addObserver</span>(<span class=\"string\">&apos;foo&apos;</span>, <span class=\"variable language_\">this</span>, <span class=\"string\">&apos;fooDidChange&apos;</span>);\n\n    <span class=\"comment\">// using two arguments</span>\n    <span class=\"variable language_\">this</span>.<span class=\"title function_\">addObserver</span>(<span class=\"string\">&apos;foo&apos;</span>, <span class=\"function\">(<span class=\"params\">...args</span>) =&gt;</span> {\n      <span class=\"variable language_\">this</span>.<span class=\"title function_\">fooDidChange</span>(...args);\n    });\n  },\n\n  <span class=\"title function_\">fooDidChange</span>(<span class=\"params\"></span>) {\n    <span class=\"comment\">// your custom logic code</span>\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h3 id=\"observer-methods\">Observer Methods</h3>\n<p>Observer methods have the following signature:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">component.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Component</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/component&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Component</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"title function_\">init</span>(<span class=\"params\"></span>) {\n    <span class=\"variable language_\">this</span>.<span class=\"title function_\">_super</span>(...<span class=\"variable language_\">arguments</span>);\n    <span class=\"variable language_\">this</span>.<span class=\"title function_\">addObserver</span>(<span class=\"string\">&apos;foo&apos;</span>, <span class=\"variable language_\">this</span>, <span class=\"string\">&apos;fooDidChange&apos;</span>);\n  },\n\n  <span class=\"title function_\">fooDidChange</span>(<span class=\"params\">sender, key, value, rev</span>) {\n    <span class=\"comment\">// your code</span>\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The <code>sender</code> is the object that changed. The <code>key</code> is the property that\nchanges. The <code>value</code> property is currently reserved and unused. The <code>rev</code>\nis the last property revision of the object when it changed, which you can\nuse to detect if the key value has really changed or not.</p>\n<p>Usually you will not need the value or revision parameters at\nthe end. In this case, it is common to write observer methods that take\nonly a sender and key value as parameters or, if you aren&apos;t interested in\nany of these values, to write an observer that has no parameters at all.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "addObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observe",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke",
+              "type": "String|Function"
+            },
+            {
+              "name": "sync",
+              "description": "Whether the observer is sync or not",
+              "type": "Boolean"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 374,
+          "description": "<html><head></head><body><p>Remove an observer you have previously registered on this object. Pass\nthe same key, target, and method you passed to <code>addObserver()</code> and your\ntarget will no longer receive notifications.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "removeObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observe",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke",
+              "type": "String|Function"
+            },
+            {
+              "name": "sync",
+              "description": "Whether the observer is async or not",
+              "type": "Boolean"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 392,
+          "description": "<html><head></head><body><p>Returns <code>true</code> if the object currently has observers registered for a\nparticular key. You can use this method to potentially defer performing\nan expensive action until someone begins observing a particular property\non the object.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "hasObserverFor",
+          "params": [
+            {
+              "name": "key",
+              "description": "Key to check",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 407,
+          "description": "<html><head></head><body><p>Retrieves the value of a property, or a default value in the case that the\nproperty returns <code>undefined</code>.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>person.getWithDefault(&apos;lastName&apos;, &apos;Doe&apos;);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "getWithDefault",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to retrieve",
+              "type": "String"
+            },
+            {
+              "name": "defaultValue",
+              "description": "The value to return if the property value is undefined",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The property value or the defaultValue.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 425,
+          "description": "<html><head></head><body><p>Set the value of a property to the current value plus some amount.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>person.increment<span class=\"constructor\">Property(&apos;<span class=\"params\">age</span>&apos;)</span>;\nteam.increment<span class=\"constructor\">Property(&apos;<span class=\"params\">score</span>&apos;, 2)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "incrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to increment",
+              "type": "String"
+            },
+            {
+              "name": "increment",
+              "description": "The amount to increment by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 447,
+          "description": "<html><head></head><body><p>Set the value of a property to the current value minus some amount.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>player.decrement<span class=\"constructor\">Property(&apos;<span class=\"params\">lives</span>&apos;)</span>;\norc.decrement<span class=\"constructor\">Property(&apos;<span class=\"params\">health</span>&apos;, 5)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "decrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to decrement",
+              "type": "String"
+            },
+            {
+              "name": "decrement",
+              "description": "The amount to decrement by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 469,
+          "description": "<html><head></head><body><p>Set the value of a boolean property to the opposite of its\ncurrent value.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>starship.toggle<span class=\"constructor\">Property(&apos;<span class=\"params\">warpDriveEngaged</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "toggleProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to toggle",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 486,
+          "description": "<html><head></head><body><p>Returns the cached value of a computed property, if it exists.\nThis allows you to inspect the value of a computed property\nwithout accidentally invoking it if it is intended to be\ngenerated lazily.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "cacheFor",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The cached value of the computed property, if any",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        }
+      ],
+      "events": [
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 824,
+          "description": "<html><head></head><body><p>Called when the Application has become ready, immediately before routing\nbegins. The call will be delayed until the DOM has become ready.</p>\n</body></html>",
+          "itemtype": "event",
+          "name": "ready",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        }
+      ],
+      "properties": [
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 208,
+          "description": "<html><head></head><body><p>The root DOM element of the Application. This can be specified as an\nelement or a\n<a href=\"http://api.jquery.com/category/selectors/\">jQuery-compatible selector string</a>.</p>\n<p>This is the element that will be passed to the Application&apos;s,\n<code>eventDispatcher</code>, which sets up the listeners for event delegation. Every\nview in your application should be a child of the element you specify here.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "rootElement",
+          "type": "DOMElement",
+          "default": "'body'",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 224,
+          "description": "<html><head></head><body><p>The <code>Ember.EventDispatcher</code> responsible for delegating events to this\napplication&apos;s views.</p>\n<p>The event dispatcher is created by the application at initialization time\nand sets up event listeners on the DOM element described by the\napplication&apos;s <code>rootElement</code> property.</p>\n<p>See the documentation for <code>Ember.EventDispatcher</code> for more information.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "eventDispatcher",
+          "type": "Ember.EventDispatcher",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 241,
+          "description": "<html><head></head><body><p>The DOM events for which the event dispatcher should listen.</p>\n<p>By default, the application&apos;s <code>Ember.EventDispatcher</code> listens\nfor a set of standard DOM events, such as <code>mousedown</code> and\n<code>keyup</code>, and delegates them to your application&apos;s <code>Ember.View</code>\ninstances.</p>\n<p>If you would like additional bubbling events to be delegated to your\nviews, set your <code>Application</code>&apos;s <code>customEvents</code> property\nto a hash containing the DOM event name as the key and the\ncorresponding view method name as the value. Setting an event to\na value of <code>null</code> will prevent a default event listener from being\nadded for that event.</p>\n<p>To add new events to be listened to:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n\n<span class=\"keyword\">let</span> App = Application.create({\n  customEvents: {\n    <span class=\"comment\">// add support for the paste event</span>\n    paste: <span class=\"string\">&apos;paste&apos;</span>\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>To prevent default events from being listened to:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Application</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/application&apos;</span>;\n\n<span class=\"keyword\">let</span> <span class=\"title class_\">App</span> = <span class=\"title class_\">Application</span>.<span class=\"title function_\">create</span>({\n  <span class=\"attr\">customEvents</span>: {\n    <span class=\"comment\">// remove support for mouseenter / mouseleave events</span>\n    <span class=\"attr\">mouseenter</span>: <span class=\"literal\">null</span>,\n    <span class=\"attr\">mouseleave</span>: <span class=\"literal\">null</span>\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "customEvents",
+          "type": "Object",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 289,
+          "description": "<html><head></head><body><p>Whether the application should automatically start routing and render\ntemplates to the <code>rootElement</code> on DOM ready. While default by true,\nother environments such as FastBoot or a testing harness can set this\nproperty to <code>false</code> and control the precise timing and behavior of the boot\nprocess.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "autoboot",
+          "type": "Boolean",
+          "default": "true",
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 303,
+          "description": "<html><head></head><body><p>Whether the application should be configured for the legacy &quot;globals mode&quot;.\nUnder this mode, the Application object serves as a global namespace for all\nclasses.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application from <span class=\"string\">&apos;@ember/application&apos;</span>;\n<span class=\"keyword\">import</span> Component from <span class=\"string\">&apos;@ember/component&apos;</span>;\n\n<span class=\"keyword\">let</span> App = Application.create({\n  <span class=\"params\">...</span>\n});\n\nApp.Router.reopen({\n  location: <span class=\"string\">&apos;none&apos;</span>\n});\n\nApp.Router.<span class=\"built_in\">map</span>({\n  <span class=\"params\">...</span>\n});\n\nApp.MyComponent = Component.extend({\n  <span class=\"params\">...</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This flag also exposes other internal APIs that assumes the existence of\na special &quot;default instance&quot;, like <code>App.__container__.lookup(...)</code>.</p>\n<p>This option is currently not configurable, its value is derived from\nthe <code>autoboot</code> flag &#x2013; disabling <code>autoboot</code> also implies opting-out of\nglobals mode support, although they are ultimately orthogonal concerns.</p>\n<p>Some of the global modes features are already deprecated in 1.x. The\nexistence of this flag is to untangle the globals mode code paths from\nthe autoboot code paths, so that these legacy features can be reviewed\nfor deprecation/removal separately.</p>\n<p>Forcing the (autoboot=true, _globalsMode=false) here and running the tests\nwould reveal all the places where we are still relying on these legacy\nbehavior internally (mostly just tests).</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "_globalsMode",
+          "type": "Boolean",
+          "default": "true",
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/application.js",
+          "line": 352,
+          "description": "<html><head></head><body><p>An array of application instances created by <code>buildInstance()</code>. Used\ninternally to ensure that all instances get destroyed.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "_applicationInstances",
+          "type": "Array",
+          "default": "null",
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 54,
+          "description": "<html><head></head><body><p>A private flag indicating whether an engine&apos;s initializers have run yet.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_initializersRan",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 420,
+          "description": "<html><head></head><body><p>Set this to provide an alternate class to <code>DefaultResolver</code></p>\n</body></html>",
+          "deprecated": true,
+          "deprecationMessage": "Use 'Resolver' instead",
+          "itemtype": "property",
+          "name": "resolver",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.js",
+          "line": 429,
+          "description": "<html><head></head><body><p>Set this to provide an alternate class to <code>DefaultResolver</code></p>\n</body></html>",
+          "itemtype": "property",
+          "name": "resolver",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 352,
+          "description": "<html><head></head><body><p>Defines the properties that will be concatenated from the superclass\n(instead of overridden).</p>\n<p>By default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property&apos;s value by combining the superclass&apos; property\nvalue with the subclass&apos; value. An example of this in use within Ember\nis the <code>classNames</code> property of <code>Ember.View</code>.</p>\n<p>Here is some sample code showing the difference between a concatenated\nproperty and a normal one:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n</pre></td>\n              <td class=\"code\"><pre>import EmberObject <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n\n<span class=\"keyword\">const</span> Bar = EmberObject.extend({\n  <span class=\"comment\">// Configure which properties to concatenate</span>\n  concatenatedProperties: [<span class=\"string\">&apos;concatenatedProperty&apos;</span>],\n\n  someNonConcatenatedProperty: [<span class=\"string\">&apos;bar&apos;</span>],\n  concatenatedProperty: [<span class=\"string\">&apos;bar&apos;</span>]\n});\n\n<span class=\"keyword\">const</span> FooBar = Bar.extend({\n  someNonConcatenatedProperty: [<span class=\"string\">&apos;foo&apos;</span>],\n  concatenatedProperty: [<span class=\"string\">&apos;foo&apos;</span>]\n});\n\n<span class=\"keyword\">let</span> fooBar = FooBar.create();\nfooBar.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;someNonConcatenatedProperty&apos;</span>); <span class=\"comment\">// [&apos;foo&apos;]</span>\nfooBar.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;concatenatedProperty&apos;</span>); <span class=\"comment\">// [&apos;bar&apos;, &apos;foo&apos;]</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This behavior extends to object creation as well. Continuing the\nabove example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>let fooBar = FooBar.create({\n  someNonConcatenatedProperty: [<span class=\"string\">&apos;baz&apos;</span>],\n  concatenatedProperty: [<span class=\"string\">&apos;baz&apos;</span>]\n})\nfooBar.get(<span class=\"string\">&apos;someNonConcatenatedProperty&apos;</span>); <span class=\"regexp\">//</span> [<span class=\"string\">&apos;baz&apos;</span>]\nfooBar.get(<span class=\"string\">&apos;concatenatedProperty&apos;</span>); <span class=\"regexp\">//</span> [<span class=\"string\">&apos;bar&apos;</span>, <span class=\"string\">&apos;foo&apos;</span>, <span class=\"string\">&apos;baz&apos;</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Adding a single property that is not an array will just add it in the array:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let fooBar = FooBar.<span class=\"keyword\">create</span>({\n  concatenatedProperty: <span class=\"string\">&apos;baz&apos;</span>\n})\n<span class=\"keyword\">view</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;concatenatedProperty&apos;</span>); // [<span class=\"string\">&apos;bar&apos;</span>, <span class=\"string\">&apos;foo&apos;</span>, <span class=\"string\">&apos;baz&apos;</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Using the <code>concatenatedProperties</code> property, we can tell Ember to mix the\ncontent of the properties.</p>\n<p>In <code>Component</code> the <code>classNames</code>, <code>classNameBindings</code> and\n<code>attributeBindings</code> properties are concatenated.</p>\n<p>This feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual concatenated property (to not\nmislead your users to think they can override the property in a subclass).</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "concatenatedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 426,
+          "description": "<html><head></head><body><p>Defines the properties that will be merged from the superclass\n(instead of overridden).</p>\n<p>By default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property&apos;s value by merging the superclass property value\nwith the subclass property&apos;s value. An example of this in use within Ember\nis the <code>queryParams</code> property of routes.</p>\n<p>Here is some sample code showing the difference between a merged\nproperty and a normal one:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n39\n40\n41\n</pre></td>\n              <td class=\"code\"><pre>import EmberObject <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/object&apos;</span>;\n\n<span class=\"keyword\">const</span> <span class=\"variable constant_\">Bar</span> = EmberObject.<span class=\"title function_ invoke__\">extend</span>({\n  // Configure which properties are to be merged\n  <span class=\"attr\">mergedProperties</span>: [<span class=\"string\">&apos;mergedProperty&apos;</span>],\n\n  <span class=\"attr\">someNonMergedProperty</span>: {\n    <span class=\"attr\">nonMerged</span>: <span class=\"string\">&apos;superclass value of nonMerged&apos;</span>\n  },\n  <span class=\"attr\">mergedProperty</span>: {\n    <span class=\"attr\">page</span>: { <span class=\"attr\">replace</span>: <span class=\"literal\">false</span> },\n    <span class=\"attr\">limit</span>: { <span class=\"attr\">replace</span>: <span class=\"literal\">true</span> }\n  }\n});\n\n<span class=\"keyword\">const</span> <span class=\"variable constant_\">FooBar</span> = Bar.<span class=\"title function_ invoke__\">extend</span>({\n  <span class=\"attr\">someNonMergedProperty</span>: {\n    <span class=\"attr\">completelyNonMerged</span>: <span class=\"string\">&apos;subclass value of nonMerged&apos;</span>\n  },\n  <span class=\"attr\">mergedProperty</span>: {\n    <span class=\"attr\">limit</span>: { <span class=\"attr\">replace</span>: <span class=\"literal\">false</span> }\n  }\n});\n\nlet fooBar = FooBar.<span class=\"title function_ invoke__\">create</span>();\n\nfooBar.<span class=\"title function_ invoke__\">get</span>(<span class=\"string\">&apos;someNonMergedProperty&apos;</span>);\n<span class=\"comment\">// =&gt; { completelyNonMerged: &apos;subclass value of nonMerged&apos; }</span>\n<span class=\"comment\">//</span>\n<span class=\"comment\">// Note the entire object, including the nonMerged property of</span>\n<span class=\"comment\">// the superclass object, has been replaced</span>\n\nfooBar.<span class=\"title function_ invoke__\">get</span>(<span class=\"string\">&apos;mergedProperty&apos;</span>);\n<span class=\"comment\">// =&gt; {</span>\n<span class=\"comment\">//   page: {replace: false},</span>\n<span class=\"comment\">//   limit: {replace: false}</span>\n<span class=\"comment\">// }</span>\n<span class=\"comment\">//</span>\n<span class=\"comment\">// Note the page remains from the superclass, and the</span>\n<span class=\"comment\">// `limit` property&apos;s value of `false` has been merged from</span>\n<span class=\"comment\">// the subclass.</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This behavior is not available during object <code>create</code> calls. It is only\navailable at <code>extend</code> time.</p>\n<p>In <code>Route</code> the <code>queryParams</code> property is merged.</p>\n<p>This feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual merged property (to not\nmislead your users to think they can override the property in a subclass).</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "mergedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 501,
+          "description": "<html><head></head><body><p>Destroyed object property flag.</p>\n<p>if this property is <code>true</code> the observers and bindings were already\nremoved by the effect of calling the <code>destroy()</code> method.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "isDestroyed",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 519,
+          "description": "<html><head></head><body><p>Destruction scheduled flag. The <code>destroy()</code> method has been called.</p>\n<p>The object stays intact until the end of the run loop at which point\nthe <code>isDestroyed</code> flag is set.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "isDestroying",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-3.14.3-Engine",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.14.3-@ember/application",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.14.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
