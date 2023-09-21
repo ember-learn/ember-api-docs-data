@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "serve": "http-server -p 5050 --cors tmp",
-    "test": "mocha"
+    "test": "mocha",
+    "fix:files": "node clean-urls.js && node fix-rev-index.js && node delete-unused-files.js"
   },
   "devDependencies": {
     "chai": "^4.3.7",
