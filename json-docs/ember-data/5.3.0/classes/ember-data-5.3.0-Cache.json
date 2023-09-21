@@ -1,0 +1,694 @@
+{
+  "data": {
+    "id": "ember-data-5.3.0-Cache",
+    "type": "class",
+    "attributes": {
+      "name": "Cache",
+      "shortname": "Cache",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/json-api",
+      "namespace": "",
+      "file": "../json-api/src/-private/cache.ts",
+      "line": 84,
+      "description": "<html><head></head><body><p>A JSON:API Cache implementation.</p>\n<p>What cache the store uses is configurable. Using a different\nimplementation can be achieved by implementing the store&apos;s\ncreateCache hook.</p>\n<p>This is the cache implementation used by <code>ember-data</code>.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Cache</span> from &apos;<span class=\"meta\">@ember</span>-data/json-api&apos;;\n<span class=\"keyword\">import</span> <span class=\"type\">Store</span> from &apos;<span class=\"meta\">@ember</span>-data/store&apos;;\n\nexport <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Store</span> </span>{\n  createCache(wrapper) {\n    <span class=\"keyword\">return</span> <span class=\"keyword\">new</span> <span class=\"type\">Cache</span>(wrapper);\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 135,
+          "description": "<html><head></head><body><p>Cache the response to a request</p>\n<p>Implements <code>Cache.put</code>.</p>\n<p>Expects a StructuredDocument whose <code>content</code> member is a JsonApiDocument.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n</pre></td>\n              <td class=\"code\"><pre><span class=\"selector-tag\">cache</span><span class=\"selector-class\">.put</span>({\n  <span class=\"attribute\">request</span>: { <span class=\"attribute\">url</span>: <span class=\"string\">&apos;https://api.example.com/v1/user/1&apos;</span> },\n  <span class=\"attribute\">content</span>: {\n    <span class=\"attribute\">data</span>: {\n      <span class=\"attribute\">type</span>: <span class=\"string\">&apos;user&apos;</span>,\n      <span class=\"attribute\">id</span>: <span class=\"string\">&apos;1&apos;</span>,\n      <span class=\"attribute\">attributes</span>: {\n        <span class=\"attribute\">name</span>: <span class=\"string\">&apos;Chris&apos;</span>\n      }\n    }\n  }\n})</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<blockquote>\n<p><strong>Note:</strong> The nested <code>content</code> and <code>data</code> members are not a mistake. This is because\nthere are two separate concepts involved here, the <code>StructuredDocument</code> which contains\nthe context of a given Request that has been issued with the returned contents as its\n<code>content</code> property, and a <code>JSON:API Document</code> which is the json contents returned by\nthis endpoint and which uses its <code>data</code> property to signify which resources are the\nprimary resources associated with the request.</p>\n</blockquote>\n<p>StructuredDocument&apos;s with urls will be cached as full documents with\nassociated resource membership order and contents preserved but linked\ninto the cache.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "put",
+          "params": [
+            {
+              "name": "doc",
+              "description": "",
+              "type": "StructuredDocument"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "ResourceDocument"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 319,
+          "description": "<html><head></head><body><p>Update the &quot;remote&quot; or &quot;canonical&quot; (persisted) state of the Cache\nby merging new information into the existing state.</p>\n<p>Note: currently the only valid resource operation is a MergeOperation\nwhich occurs when a collision of identifiers is detected.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "patch",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "op",
+              "description": "the operation to perform",
+              "type": "Operation"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 352,
+          "description": "<html><head></head><body><p>Update the &quot;local&quot; or &quot;current&quot; (unpersisted) state of the Cache</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "mutate",
+          "params": [
+            {
+              "name": "mutation",
+              "description": "",
+              "type": "Mutation"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 374,
+          "description": "<html><head></head><body><p>Peek resource data from the Cache.</p>\n<p>In development, if the return value\nis JSON the return value\nwill be deep-cloned and deep-frozen\nto prevent mutation thereby enforcing cache\nImmutability.</p>\n<p>This form of peek is useful for implementations\nthat want to feed raw-data from cache to the UI\nor which want to interact with a blob of data\ndirectly from the presentation cache.</p>\n<p>An implementation might want to do this because\nde-referencing records which read from their own\nblob is generally safer because the record does\nnot require retainining connections to the Store\nand Cache to present data on a per-field basis.</p>\n<p>This generally takes the place of <code>getAttr</code> as\nan API and may even take the place of <code>getRelationship</code>\ndepending on implementation specifics, though this\nlatter usage is less recommended due to the advantages\nof the Graph handling necessary entanglements and\nnotifications for relational data.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "peek",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier | StableDocumentIdentifier"
+            }
+          ],
+          "return": {
+            "description": "the known resource data",
+            "type": "ResourceDocument | ResourceBlob | null"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 448,
+          "description": "<html><head></head><body><p>Peek the Cache for the existing request data associated with\na cacheable request</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "peekRequest",
+          "params": [
+            {
+              "name": "UNKNOWN",
+              "description": "",
+              "type": "StableDocumentIdentifier"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "StableDocumentIdentifier | null"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 461,
+          "description": "<html><head></head><body><p>Push resource data from a remote source into the cache for this identifier</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "upsert",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "data",
+              "description": ""
+            },
+            {
+              "name": "hasRecord",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "if `hasRecord` is true then calculated key changes should be returned",
+            "type": "Void | string[]"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 549,
+          "description": "<html><head></head><body><p>Merge a fork back into a parent Cache.</p>\n<p>Applications should typically not call this method themselves,\npreferring instead to merge at the Store level, which will\nutilize this method to merge the caches.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "merge",
+          "params": [
+            {
+              "name": "cache",
+              "description": "",
+              "type": "Cache"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "Promise<void>"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 565,
+          "description": "<html><head></head><body><p>Generate the list of changes applied to all\nrecord in the store.</p>\n<p>Each individual resource or document that has\nbeen mutated should be described as an individual\n<code>Change</code> entry in the returned array.</p>\n<p>A <code>Change</code> is described by an object containing up to\nthree properties: (1) the <code>identifier</code> of the entity that\nchanged; (2) the <code>op</code> code of that change being one of\n<code>upsert</code> or <code>remove</code>, and if the op is <code>upsert</code> a <code>patch</code>\ncontaining the data to merge into the cache for the given\nentity.</p>\n<p>This <code>patch</code> is opaque to the Store but should be understood\nby the Cache and may expect to be utilized by an Adapter\nwhen generating data during a <code>save</code> operation.</p>\n<p>It is generally recommended that the <code>patch</code> contain only\nthe updated state, ignoring fields that are unchanged</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">interface</span> <span class=\"title\">Change</span> {</span>\n<span class=\"symbol\"> identifier:</span> StableRecordIdentifier | StableDocumentIdentifier;\n<span class=\"symbol\"> op:</span> <span class=\"string\">&apos;upsert&apos;</span> | <span class=\"string\">&apos;remove&apos;</span>;\n patch?: unknown;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "diff",
+          "access": "public",
+          "tagname": "",
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 605,
+          "description": "<html><head></head><body><p>Serialize the entire contents of the Cache into a Stream\nwhich may be fed back into a new instance of the same Cache\nvia <code>cache.hydrate</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "dump",
+          "return": {
+            "description": "",
+            "type": "Promise<ReadableStream>"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 618,
+          "description": "<html><head></head><body><p>hydrate a Cache from a Stream with content previously serialized\nfrom another instance of the same Cache, resolving when hydration\nis complete.</p>\n<p>This method should expect to be called both in the context of restoring\nthe Cache during application rehydration after SSR <strong>AND</strong> at unknown\ntimes during the lifetime of an already booted application when it is\ndesired to bulk-load additional information into the cache. This latter\nbehavior supports optimizing pre/fetching of data for route transitions\nvia data-only SSR modes.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "hydrate",
+          "params": [
+            {
+              "name": "stream",
+              "description": "",
+              "type": "ReadableStream"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise<void>"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 642,
+          "description": "<html><head></head><body><p>[LIFECYCLE] Signal to the cache that a new record has been instantiated on the client</p>\n<p>It returns properties from options that should be set on the record during the create\nprocess. This return value behavior is deprecated.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "clientDidCreate",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "createArgs",
+              "description": ""
+            }
+          ],
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 729,
+          "description": "<html><head></head><body><p>[LIFECYCLE] Signals to the cache that a resource\nwill be part of a save transaction.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "willCommit",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 761,
+          "description": "<html><head></head><body><p>[LIFECYCLE] Signals to the cache that a resource\nwas successfully updated as part of a save transaction.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "didCommit",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "data",
+              "description": ""
+            }
+          ],
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 900,
+          "description": "<html><head></head><body><p>[LIFECYCLE] Signals to the cache that a resource\nwas update via a save transaction failed.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "commitWasRejected",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "errors",
+              "description": ""
+            }
+          ],
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 929,
+          "description": "<html><head></head><body><p>[LIFECYCLE] Signals to the cache that all data for a resource\nshould be cleared.</p>\n<p>This method is a candidate to become a mutation</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "unloadRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1012,
+          "description": "<html><head></head><body><p>Retrieve the data for an attribute from the cache</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "getAttr",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "field",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Unknown"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1035,
+          "description": "<html><head></head><body><p>Mutate the data for an attribute in the cache</p>\n<p>This method is a candidate to become a mutation</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "setAttr",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "field",
+              "description": ""
+            },
+            {
+              "name": "value",
+              "description": ""
+            }
+          ],
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1067,
+          "description": "<html><head></head><body><p>Query the cache for the changed attributes of a resource.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "changedAttrs",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "{ <field>: [<old>, <new>] }",
+            "type": "ChangedAttributesHash"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1080,
+          "description": "<html><head></head><body><p>Query the cache for whether any mutated attributes exist</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "hasChangedAttrs",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1097,
+          "description": "<html><head></head><body><p>Tell the cache to discard any uncommitted mutations to attributes</p>\n<p>This method is a candidate to become a mutation</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "rollbackAttrs",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "the names of fields that were restored",
+            "type": "String[]"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1141,
+          "description": "<html><head></head><body><p>Query the cache for the changes to relationships of a resource.</p>\n<p>Returns a map of relationship names to RelationshipDiff objects.</p>\n<p><code>ts\ntype RelationshipDiff =\n   | {\n       kind: &apos;collection&apos;;\n       remoteState: StableRecordIdentifier[];\n       additions: Set&lt;StableRecordIdentifier&gt;;\n       removals: Set&lt;StableRecordIdentifier&gt;;\n       localState: StableRecordIdentifier[];\n       reordered: boolean;\n     }\n   | {\n       kind: &apos;resource&apos;;\n       remoteState: StableRecordIdentifier | null;\n       localState: StableRecordIdentifier | null;\n     };</code></p>\n</body></html>",
+          "itemtype": "method",
+          "name": "changedRelationships",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Map<string, RelationshipDiff>"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1172,
+          "description": "<html><head></head><body><p>Query the cache for whether any mutated attributes exist</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "hasChangedRelationships",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1184,
+          "description": "<html><head></head><body><p>Tell the cache to discard any uncommitted mutations to relationships.</p>\n<p>This will also discard the change on any appropriate inverses.</p>\n<p>This method is a candidate to become a mutation</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "rollbackRelationships",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            }
+          ],
+          "return": {
+            "description": "the names of relationships that were restored",
+            "type": "String[]"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1205,
+          "description": "<html><head></head><body><p>Query the cache for the current state of a relationship property</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "getRelationship",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "field",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "resource relationship object"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1224,
+          "description": "<html><head></head><body><p>Update the cache state for the given resource to be marked\nas locally deleted, or remove such a mark.</p>\n<p>This method is a candidate to become a mutation</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "setIsDeleted",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "isDeleted",
+              "description": "",
+              "type": "Boolean"
+            }
+          ],
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1242,
+          "description": "<html><head></head><body><p>Query the cache for any validation errors applicable to the given resource.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "getErrors",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "JsonApiError[]"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1254,
+          "description": "<html><head></head><body><p>Query the cache for whether a given resource has any available data</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isEmpty",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1267,
+          "description": "<html><head></head><body><p>Query the cache for whether a given resource was created locally and not\nyet persisted.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isNew",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1281,
+          "description": "<html><head></head><body><p>Query the cache for whether a given resource is marked as deleted (but not\nnecessarily persisted yet).</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isDeleted",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        },
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 1295,
+          "description": "<html><head></head><body><p>Query the cache for whether a given resource has been deleted and that deletion\nhas also been persisted.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isDeletionCommitted",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/json-api/src/-private/cache.ts",
+          "line": 109,
+          "description": "<html><head></head><body><p>The Cache Version that this implementation implements.</p>\n</body></html>",
+          "type": "{'2'}",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "version",
+          "class": "Cache",
+          "module": "@ember-data/json-api"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.3.0-@ember-data/json-api",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

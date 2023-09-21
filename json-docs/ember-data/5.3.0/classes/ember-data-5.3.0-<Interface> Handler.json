@@ -1,0 +1,67 @@
+{
+  "data": {
+    "id": "ember-data-5.3.0-<Interface> Handler",
+    "type": "class",
+    "attributes": {
+      "name": "<Interface> Handler",
+      "shortname": "<Interface> Handler",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/request",
+      "namespace": "",
+      "file": "../request/src/-private/types.ts",
+      "line": 205,
+      "description": "<html><head></head><body><p>Requests are fulfilled by handlers. A handler receives the request context\nas well as a <code>next</code> function with which to pass along a request to the next\nhandler if it so chooses.</p>\n<p>A handler may be any object with a <code>request</code> method. This allows both stateful and non-stateful\nhandlers to be utilized.</p>\n<p>If a handler calls <code>next</code>, it receives a <code>Future</code> which resolves to a <code>StructuredDocument</code>\nthat it can then compose how it sees fit with its own response.</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>type NextFn&lt;P&gt; = (req: RequestInfo) =&gt; Future&lt;P&gt;;\n<span class=\"built_in\">\ninterface </span>Handler {\n async request&lt;T&gt;(context: RequestContext, next: NextFn&lt;P&gt;): T;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p><code>RequestContext</code> contains a readonly version of the RequestInfo as well as a few methods for building up the <code>StructuredDocument</code> and <code>Future</code> that will be part of the response.</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">interface</span> <span class=\"title\">RequestContext</span>&lt;<span class=\"title\">T</span>&gt; {</span>\n readonly <span class=\"string\">request:</span> RequestInfo;\n\n setStream(<span class=\"string\">stream:</span> ReadableStream | Promise&lt;ReadableStream&gt;): <span class=\"keyword\">void</span>;\n setResponse(<span class=\"string\">response:</span> Response | ResponseInfo): <span class=\"keyword\">void</span>;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>A basic <code>fetch</code> handler with support for streaming content updates while\nthe download is still underway might look like the following, where we use\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/Response/clone\"><code>response.clone()</code></a> to <code>tee</code> the <code>ReadableStream</code> into two streams.</p>\n<p>A more efficient handler might read from the response stream, building up the\nresponse content before passing along the chunk downstream.</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre>const FetchHandler = {\n async request(<span class=\"built_in\">context</span>) {\n   const response = await fetch(<span class=\"built_in\">context</span>.request)<span class=\"comment\">;</span>\n   <span class=\"built_in\">context</span>.setResponse(reponse)<span class=\"comment\">;</span>\n   <span class=\"built_in\">context</span>.setStream(response.<span class=\"keyword\">clone().body);\n</span>\n   return response.<span class=\"keyword\">json();\n</span> }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h3 id=\"stream-currying\">Stream Currying</h3>\n<p><code>RequestManager.request</code> and <code>next</code> differ from <code>fetch</code> in one <strong>crucial detail</strong> in that the outer Promise resolves only once the response stream has been processed.</p>\n<p>For context, it helps to understand a few of the use-cases that RequestManager\nis intended to allow.</p>\n<ul>\n<li>to manage and return streaming content (such as video files)</li>\n<li>to fulfill a request from multiple sources or by splitting one request into multiple requests<ul>\n<li>for instance one API call for a user and another for the user&apos;s friends</li>\n<li>or e.g. fulfilling part of the request from one source (one API, in-memory, localStorage, IndexedDB etc.) and the rest from another source (a different API, a WebWorker, etc.)</li>\n</ul>\n</li>\n<li>to coalesce multiple requests</li>\n<li>to decorate a request with additional info<ul>\n<li>e.g. an Auth handler that ensures the correct tokens or headers or cookies are attached.</li>\n</ul>\n</li>\n</ul>\n<hr>\n<p><code>await fetch(&lt;req&gt;)</code> resolves at the moment headers are received. This allows for the body of the request to be processed as a stream by application\ncode <em>while chunks are still being received by the browser</em>.</p>\n<p>When an app chooses to <code>await response.json()</code> what occurs is the browser reads the stream to completion and then returns the result. Additionally, this stream may only be read <strong>once</strong>.</p>\n<p>The <code>RequestManager</code> preserves this ability to subscribe to and utilize the stream by either the application or the handler &#x2013; thereby delivering the full power and flexibility of native APIs &#x2013; without restricting developers in ways that lead to complicated workarounds.</p>\n<p>Each handler may call <code>setStream</code> only once, but may do so <em>at any time</em> until the promise that the handler returns has resolved. The associated promise returned by calling <code>future.getStream</code> will resolve with the stream set by <code>setStream</code> if that method is called, or <code>null</code> if that method\nhas not been called by the time that the handler&apos;s request method has resolved.</p>\n<p>Handlers that do not create a stream of their own, but which call <code>next</code>, should defensively pipe the stream forward. While this is not required (see automatic currying below) it is better to do so in most cases as otherwise the stream may not become available to downstream handlers or the application until the upstream handler has fully read it.</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>context.set<span class=\"constructor\">Stream(<span class=\"params\">future</span>.<span class=\"params\">getStream</span>()</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Handlers that either call <code>next</code> multiple times or otherwise have reason to create multiple  fetch requests should either choose to return no stream, meaningfully combine the streams, or select a single prioritized stream.</p>\n<p>Of course, any handler may choose to read and handle the stream, and return either no stream or a different stream in the process.</p>\n<h3 id=\"automatic-currying-of-stream-and-response\">Automatic Currying of Stream and Response</h3>\n<p>In order to simplify the common case for handlers which decorate a request, if <code>next</code> is called only a single time and <code>setResponse</code> was never called by the handler, the response set by the next handler in the chain will be applied to that handler&apos;s outcome. For instance, this makes the following pattern possible <code>return (await next(&lt;req&gt;)).content;</code>.</p>\n<p>Similarly, if <code>next</code> is called only a single time and neither <code>setStream</code> nor <code>getStream</code> was called, we automatically curry the stream from the future returned by <code>next</code> onto the future returned by the handler.</p>\n<p>Finally, if the return value of a handler is a <code>Future</code>, we curry <code>content</code> and <code>errors</code> as well, thus enabling the simplest form <code>return next(&lt;req&gt;)</code>.</p>\n<p>In the case of the <code>Future</code> being returned, <code>Stream</code> proxying is automatic and immediate and does not wait for the <code>Future</code> to resolve.</p>\n<h3 id=\"handler-order\">Handler Order</h3>\n<p>Request handlers are registered by configuring the manager via <code>use</code></p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">const</span> manager = <span class=\"keyword\">new</span> RequestManager();\n\nmanager.<span class=\"keyword\">use</span>([Handler1, Handler2]);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Handlers will be invoked in the order they are registered (&quot;fifo&quot;, first-in first-out), and may only be registered up until the first request is made. It is recommended but not required to register all handlers at one time in order to ensure explicitly visible handler ordering.</p>\n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/request/src/-private/types.ts",
+          "line": 318,
+          "description": "<html><head></head><body><p>Method to implement to handle requests. Receives the request\ncontext and a nextFn to call to pass-along the request to\nother handlers.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "request",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "context",
+              "description": ""
+            },
+            {
+              "name": "next",
+              "description": ""
+            }
+          ],
+          "class": "<Interface> Handler",
+          "module": "@ember-data/request"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.3.0-@ember-data/request",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
