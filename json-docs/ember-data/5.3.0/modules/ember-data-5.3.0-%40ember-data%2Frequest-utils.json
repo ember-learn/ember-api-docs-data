@@ -1,0 +1,337 @@
+{
+  "data": {
+    "id": "ember-data-5.3.0-@ember-data/request-utils",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/request-utils",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember-data/request-utils": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "../request-utils/src/index.ts",
+      "line": 582,
+      "description": "<html><head></head><body><p>Simple utility function to assist in url building,\nquery params, and other common request operations.</p>\n<p>These primitives may be used directly or composed\nby request builders to provide a consistent interface\nfor building requests.</p>\n<p>For instance:</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { buildBaseURL, buildQueryParams } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/request-utils&apos;</span>;\n\n<span class=\"keyword\">const</span> baseURL = buildBaseURL({\n  host: <span class=\"string\">&apos;https://api.example.com&apos;</span>,\n  <span class=\"keyword\">namespace</span>: <span class=\"string\">&apos;api/v1&apos;</span>,\n  resourcePath: <span class=\"string\">&apos;emberDevelopers&apos;</span>,\n  op: <span class=\"string\">&apos;query&apos;</span>,\n  identifier: { <span class=\"keyword\">type</span>: <span class=\"string\">&apos;ember-developer&apos;</span> }\n});\n<span class=\"keyword\">const</span> url = <span class=\"string\">`<span class=\"subst\">${baseURL}</span>?<span class=\"subst\">${buildQueryParams({ name: <span class=\"string\">&apos;Chris&apos;</span>, include:[<span class=\"string\">&apos;pets&apos;</span>] }</span>)}`</span>;\n<span class=\"comment\">// =&gt; &apos;https://api.example.com/api/v1/emberDevelopers?include=pets&amp;name=Chris&apos;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This is useful, but not as useful as the REST request builder for query which is sugar\nover this (and more!):</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { query } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/rest/request&apos;</span>;\n\nconst <span class=\"keyword\">options</span> = query(<span class=\"string\">&apos;ember-developer&apos;</span>, { <span class=\"type\">name</span>: <span class=\"string\">&apos;Chris&apos;</span>, <span class=\"keyword\">include</span>:[<span class=\"string\">&apos;pets&apos;</span>] });\n// =&gt; { url: <span class=\"string\">&apos;https://api.example.com/api/v1/emberDevelopers?include=pets&amp;name=Chris&apos;</span> }\n// Note: <span class=\"keyword\">options</span> will <span class=\"keyword\">also</span> <span class=\"keyword\">include</span> other request <span class=\"keyword\">options</span> <span class=\"keyword\">like</span> headers, <span class=\"keyword\">method</span>, etc.</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "LifetimesService"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@ember-data/request-utils": [
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 185,
+            "description": "Builds a URL for a request based on the provided options.\nDoes not include support for building query params (see `buildQueryParams`)\nso that it may be composed cleanly with other query-params strategies.\n\nUsage:\n\n```ts\nimport { buildBaseURL } from '@ember-data/request-utils';\n\nconst url = buildBaseURL({\n  host: 'https://api.example.com',\n  namespace: 'api/v1',\n  resourcePath: 'emberDevelopers',\n  op: 'query',\n  identifier: { type: 'ember-developer' }\n});\n\n// => 'https://api.example.com/api/v1/emberDevelopers'\n```\n\nOn the surface this may seem like a lot of work to do something simple, but\nit is designed to be composable with other utilities and interfaces that the\naverage product engineer will never need to see or use.\n\nA few notes:\n\n- `resourcePath` is optional, but if it is not provided, `identifier.type` will be used.\n- `host` and `namespace` are optional, but if they are not provided, the values globally\n   configured via `setBuildURLConfig` will be used.\n- `op` is required and must be one of the following:\n  - 'findRecord' 'query' 'findMany' 'findRelatedCollection' 'findRelatedRecord'` 'createRecord' 'updateRecord' 'deleteRecord'\n- Depending on the value of `op`, `identifier` or `identifiers` will be required.",
+            "itemtype": "method",
+            "name": "buildBaseURL",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "urlOptions",
+                "description": ""
+              }
+            ],
+            "return": {
+              "description": "string"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          },
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 338,
+            "description": "filter out keys of an object that have falsy values or point to empty arrays\nreturning a new object with only those keys that have truthy values / non-empty arrays",
+            "itemtype": "method",
+            "name": "filterEmpty",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "source",
+                "description": "object to filter keys with empty values from",
+                "type": "Record<string, Serializable>"
+              }
+            ],
+            "return": {
+              "description": "A new object with the keys that contained empty values removed",
+              "type": "Record<string, Serializable>"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          },
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 488,
+            "description": "Parses a string Cache-Control header value into an object with the following structure:\n\n ```ts\n interface CacheControlValue {\n immutable?: boolean;\n 'max-age'?: number;\n 'must-revalidate'?: boolean;\n 'must-understand'?: boolean;\n 'no-cache'?: boolean;\n 'no-store'?: boolean;\n 'no-transform'?: boolean;\n 'only-if-cached'?: boolean;\n private?: boolean;\n 'proxy-revalidate'?: boolean;\n public?: boolean;\n 's-maxage'?: number;\n 'stale-if-error'?: number;\n 'stale-while-revalidate'?: number;\n }\n ```",
+            "itemtype": "method",
+            "name": "parseCacheControl",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "header",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "CacheControlValue"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          },
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 60,
+            "description": "Sets the global configuration for `buildBaseURL`\nfor host and namespace values for the application.\n\nThese values may still be overridden by passing\nthem to buildBaseURL directly.\n\nThis method may be called as many times as needed\n\n```ts\ntype BuildURLConfig = {\n  host: string;\n  namespace: string'\n}\n```",
+            "itemtype": "method",
+            "name": "setBuildURLConfig",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "config",
+                "description": "",
+                "type": "BuildURLConfig"
+              }
+            ],
+            "return": {
+              "description": "void"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          },
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 363,
+            "description": "Sorts query params by both key and value returning a new URLSearchParams\nobject with the keys inserted in sorted order.\n\nTreats `included` specially, splicing it into an array if it is a string and sorting the array.\n\nOptions:\n- arrayFormat: 'bracket' | 'indices' | 'repeat' | 'comma'\n\n'bracket': appends [] to the key for every value e.g. `&ids[]=1&ids[]=2`\n'indices': appends [i] to the key for every value e.g. `&ids[0]=1&ids[1]=2`\n'repeat': appends the key for every value e.g. `&ids=1&ids=2`\n'comma' (default): appends the key once with a comma separated list of values e.g. `&ids=1,2`",
+            "itemtype": "method",
+            "name": "sortQueryParams",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "params",
+                "description": "",
+                "type": "URLSearchParams | object"
+              },
+              {
+                "name": "options",
+                "description": "",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "A URLSearchParams with keys inserted in sorted order",
+              "type": "URLSearchParams"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          },
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 445,
+            "description": "Sorts query params by both key and value, returning a query params string\n\nTreats `included` specially, splicing it into an array if it is a string and sorting the array.\n\nOptions:\n- arrayFormat: 'bracket' | 'indices' | 'repeat' | 'comma'\n\n'bracket': appends [] to the key for every value e.g. `ids[]=1&ids[]=2`\n'indices': appends [i] to the key for every value e.g. `ids[0]=1&ids[1]=2`\n'repeat': appends the key for every value e.g. `ids=1&ids=2`\n'comma' (default): appends the key once with a comma separated list of values e.g. `ids=1,2`",
+            "itemtype": "method",
+            "name": "sortQueryParams",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "params",
+                "description": "",
+                "type": "URLSearchParams | object"
+              },
+              {
+                "name": "options",
+                "description": "",
+                "type": "Object",
+                "optional": true
+              }
+            ],
+            "return": {
+              "description": "A sorted query params string without the leading `?`",
+              "type": "String"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember-data/request-utils": [
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 185,
+            "description": "Builds a URL for a request based on the provided options.\nDoes not include support for building query params (see `buildQueryParams`)\nso that it may be composed cleanly with other query-params strategies.\n\nUsage:\n\n```ts\nimport { buildBaseURL } from '@ember-data/request-utils';\n\nconst url = buildBaseURL({\n  host: 'https://api.example.com',\n  namespace: 'api/v1',\n  resourcePath: 'emberDevelopers',\n  op: 'query',\n  identifier: { type: 'ember-developer' }\n});\n\n// => 'https://api.example.com/api/v1/emberDevelopers'\n```\n\nOn the surface this may seem like a lot of work to do something simple, but\nit is designed to be composable with other utilities and interfaces that the\naverage product engineer will never need to see or use.\n\nA few notes:\n\n- `resourcePath` is optional, but if it is not provided, `identifier.type` will be used.\n- `host` and `namespace` are optional, but if they are not provided, the values globally\n   configured via `setBuildURLConfig` will be used.\n- `op` is required and must be one of the following:\n  - 'findRecord' 'query' 'findMany' 'findRelatedCollection' 'findRelatedRecord'` 'createRecord' 'updateRecord' 'deleteRecord'\n- Depending on the value of `op`, `identifier` or `identifiers` will be required.",
+            "itemtype": "method",
+            "name": "buildBaseURL",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "urlOptions",
+                "description": ""
+              }
+            ],
+            "return": {
+              "description": "string"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          },
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 338,
+            "description": "filter out keys of an object that have falsy values or point to empty arrays\nreturning a new object with only those keys that have truthy values / non-empty arrays",
+            "itemtype": "method",
+            "name": "filterEmpty",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "source",
+                "description": "object to filter keys with empty values from",
+                "type": "Record<string, Serializable>"
+              }
+            ],
+            "return": {
+              "description": "A new object with the keys that contained empty values removed",
+              "type": "Record<string, Serializable>"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          },
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 488,
+            "description": "Parses a string Cache-Control header value into an object with the following structure:\n\n ```ts\n interface CacheControlValue {\n immutable?: boolean;\n 'max-age'?: number;\n 'must-revalidate'?: boolean;\n 'must-understand'?: boolean;\n 'no-cache'?: boolean;\n 'no-store'?: boolean;\n 'no-transform'?: boolean;\n 'only-if-cached'?: boolean;\n private?: boolean;\n 'proxy-revalidate'?: boolean;\n public?: boolean;\n 's-maxage'?: number;\n 'stale-if-error'?: number;\n 'stale-while-revalidate'?: number;\n }\n ```",
+            "itemtype": "method",
+            "name": "parseCacheControl",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "header",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "CacheControlValue"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          },
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 60,
+            "description": "Sets the global configuration for `buildBaseURL`\nfor host and namespace values for the application.\n\nThese values may still be overridden by passing\nthem to buildBaseURL directly.\n\nThis method may be called as many times as needed\n\n```ts\ntype BuildURLConfig = {\n  host: string;\n  namespace: string'\n}\n```",
+            "itemtype": "method",
+            "name": "setBuildURLConfig",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "config",
+                "description": "",
+                "type": "BuildURLConfig"
+              }
+            ],
+            "return": {
+              "description": "void"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          },
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 363,
+            "description": "Sorts query params by both key and value returning a new URLSearchParams\nobject with the keys inserted in sorted order.\n\nTreats `included` specially, splicing it into an array if it is a string and sorting the array.\n\nOptions:\n- arrayFormat: 'bracket' | 'indices' | 'repeat' | 'comma'\n\n'bracket': appends [] to the key for every value e.g. `&ids[]=1&ids[]=2`\n'indices': appends [i] to the key for every value e.g. `&ids[0]=1&ids[1]=2`\n'repeat': appends the key for every value e.g. `&ids=1&ids=2`\n'comma' (default): appends the key once with a comma separated list of values e.g. `&ids=1,2`",
+            "itemtype": "method",
+            "name": "sortQueryParams",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "params",
+                "description": "",
+                "type": "URLSearchParams | object"
+              },
+              {
+                "name": "options",
+                "description": "",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "A URLSearchParams with keys inserted in sorted order",
+              "type": "URLSearchParams"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          },
+          {
+            "file": "../packages/request-utils/src/index.ts",
+            "line": 445,
+            "description": "Sorts query params by both key and value, returning a query params string\n\nTreats `included` specially, splicing it into an array if it is a string and sorting the array.\n\nOptions:\n- arrayFormat: 'bracket' | 'indices' | 'repeat' | 'comma'\n\n'bracket': appends [] to the key for every value e.g. `ids[]=1&ids[]=2`\n'indices': appends [i] to the key for every value e.g. `ids[0]=1&ids[1]=2`\n'repeat': appends the key for every value e.g. `ids=1&ids=2`\n'comma' (default): appends the key once with a comma separated list of values e.g. `ids=1,2`",
+            "itemtype": "method",
+            "name": "sortQueryParams",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "params",
+                "description": "",
+                "type": "URLSearchParams | object"
+              },
+              {
+                "name": "options",
+                "description": "",
+                "type": "Object",
+                "optional": true
+              }
+            ],
+            "return": {
+              "description": "A sorted query params string without the leading `?`",
+              "type": "String"
+            },
+            "class": "@ember-data/request-utils",
+            "module": "@ember-data/request-utils"
+          }
+        ]
+      },
+      "version": "5.3.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
