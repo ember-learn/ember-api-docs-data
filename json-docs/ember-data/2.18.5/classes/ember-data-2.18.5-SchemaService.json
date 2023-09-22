@@ -1,0 +1,116 @@
+{
+  "data": {
+    "id": "ember-data-2.18.5-SchemaService",
+    "type": "class",
+    "attributes": {
+      "name": "SchemaService",
+      "shortname": "SchemaService",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../../ember-data-types/q/schema-service.ts",
+      "line": 8,
+      "description": "<html><head></head><body><p>A SchemaDefinitionService implementation provides the ability\nto query for various information about a resource in an abstract manner.</p>\n<p>How an implementation determines this information is left up to the implementation,\nthis means that schema information could be lazily populated, derived-on-demand,\nor progressively enhanced during the course of an application&apos;s runtime.</p>\n<p>The implementation provided to work with <code>@ember-data/model</code> makes use of the\nstatic schema properties on those classes to respond to these queries; however,\nthat is not a necessary approach. For instance, Schema information could be sideloaded\nor pre-flighted for API calls, resulting in no need to bundle and ship potentially\nlarge and expensive JSON or JS schemas to pull information from.</p>\n<p>To register a custom schema implementation, extend the store service or\nlookup and register the schema service first thing on app-boot. Example below\nshows extending the service.</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Store</span> from &apos;<span class=\"meta\">@ember</span>-data/store&apos;;\n<span class=\"keyword\">import</span> <span class=\"type\">CustomSchemas</span> from &apos;./custom-schemas&apos;;\n\nexport <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Store</span> </span>{\n  constructor(...args) {\n    <span class=\"keyword\">super</span>(...args);\n    <span class=\"keyword\">this</span>.registerSchemaDefinitionService(<span class=\"keyword\">new</span> <span class=\"type\">CustomSchemas</span>());\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>At runtime, both the <code>Store</code> and the <code>StoreWrapper</code> provide\naccess to this service via the <code>getSchemaDefinitionService()</code> method.</p>\n<p>```ts\nexport default class extends Component {</p>\n</body></html>",
+      "service": "store;\n\n get attributes() {\n   return this.store\n     .getSchemaDefinitionService()\n     .attributesDefinitionFor(this.args.dataType);\n }\n}\n```\n\nThis is not a class and cannot be instantiated.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../ember-data-types/q/schema-service.ts",
+          "line": 59,
+          "description": "<html><head></head><body><p>Queries whether the schema-definition-service recognizes <code>type</code> as a resource type</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "doesTypeExist",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "SchemaService",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../ember-data-types/q/schema-service.ts",
+          "line": 69,
+          "description": "<html><head></head><body><p>Returns definitions for all properties of the specified resource\nthat are considered &quot;attributes&quot;. Generally these are properties\nthat are not related to book-keeping state on the client and do\nnot represent a linkage to another resource.</p>\n<p>The return value should be a dictionary of key:value pairs\nwhere the <code>key</code> is the attribute or property&apos;s name and <code>value</code>\nis an object with at least the property <code>name</code> which should also\nmatch <code>key</code>.</p>\n<p>Optionally, this object may also specify <code>type</code>, which should\nbe a string reference to a <code>transform</code>, and <code>options</code> which\nshould be dictionary in which any key:value pairs are permissable.</p>\n<p>For instance, when using <code>@ember-data/model</code>, the following attribute\ndefinition:</p>\n<p>```ts\nclass extends Model {</p>\n</body></html>",
+          "attr": "firstName;\n}\n```\n\nWould be returned as:\n\n```js\n{\n  greeting: { name: 'greeting', type: 'string', options: { defaultValue: 'hello' } },\n  birthday: { name: 'birthday', type: 'date' },\n  firstName: { name: 'firstName' }\n}\n```",
+          "itemtype": "method",
+          "name": "attributesDefinitionFor",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "}",
+              "description": "identifier",
+              "type": "RecordIdentifier| type: string"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "AttributesSchema"
+          },
+          "class": "SchemaService",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../ember-data-types/q/schema-service.ts",
+          "line": 112,
+          "description": "<html><head></head><body><p>Returns definitions for all properties of the specified resource\nthat are considered &quot;relationships&quot;. Generally these are properties\nthat represent a linkage to another resource.</p>\n<p>The return value should be a dictionary of key:value pairs\nwhere the <code>key</code> is the relationship or property&apos;s name and <code>value</code>\nis an object with at least the following properties:</p>\n<ul>\n<li><p><code>name</code> which should also match the <code>key</code> used in the dictionary.</p>\n</li>\n<li><p><code>kind</code> which should be either <code>belongsTo</code> or <code>hasMany</code></p>\n</li>\n<li><p><code>type</code> which should be the related resource&apos;s string &quot;type&quot;</p>\n</li>\n<li><p><code>options</code> which should be a dictionary allowing any key but with\n at least the below keys present.</p>\n</li>\n<li><p><code>options.async</code> a boolean representing whether data for this relationship is\n   typically loaded on-demand.</p>\n</li>\n<li><p><code>options.inverse</code> a string or null representing the field name / key of the</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>corresponding relationship <span class=\"keyword\">on</span> <span class=\"keyword\">the</span> inverse resource.</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    </li>\n</ul>\n<p>Additionally the following options properties are optional. See <a href=\"https://rfcs.emberjs.com/id/0793-polymporphic-relations-without-inheritance\">Polymorphic Relationships</a></p>\n<ul>\n<li><code>options.polymorphic</code> a boolean representing whether multiple resource types\n can be used to satisfy this relationship.</li>\n<li><code>options.as</code> a string representing the abstract type that the concrete side of\n a relationship must specify when fulfilling a polymorphic inverse.</li>\n</ul>\n<p>For example, the following Model using @ember-data/model would generate this relationships\ndefinition by default:</p>\n<p>```js\nclass User extends Model {</p>\n</body></html>",
+          "belongsto": "('user', { async: false, inverse: null }) bestFriend;",
+          "hasmany": "('pet', { async: false, polymorphic: true, inverse: 'owner' }) pets;\n}\n```\n\nWhich would be returned as\n\n```js\n{\n  bestFriend: {\n    name: 'bestFriend',\n    kind: 'belongsTo',\n    type: 'user',\n    options: {\n      async: false,\n      inverse: null\n    }\n  },\n  friends: {\n    name: 'friends',\n    kind: 'hasMany',\n    type: 'user',\n    options: {\n      async: true,\n      inverse: 'friends'\n    }\n  },\n  pets: {\n    name: 'pets',\n    kind: 'hasMany',\n    type: 'pet',\n    options: {\n      async: false,\n      polymorphic: true,\n      inverse: 'owner'\n    }\n  },\n}\n```",
+          "itemtype": "method",
+          "name": "relationshipsDefinitionFor",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "}",
+              "description": "identifier",
+              "type": "RecordIdentifier| type: string"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RelationshipsSchema"
+          },
+          "class": "SchemaService",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.18.5-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.18.5",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

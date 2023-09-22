@@ -1,0 +1,229 @@
+{
+  "data": {
+    "id": "ember-data-2.18.5-Errors",
+    "type": "class",
+    "attributes": {
+      "name": "Errors",
+      "shortname": "Errors",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/model",
+      "namespace": "",
+      "file": "../model/src/-private/errors.ts",
+      "line": 30,
+      "description": "<html><head></head><body><p>Holds validation errors for a given record, organized by attribute names.</p>\n<p>This class is not directly instantiable.</p>\n<p>Every <code>Model</code> has an <code>errors</code> property that is an instance of\n<code>Errors</code>. This can be used to display validation error\nmessages returned from the server when a <code>record.save()</code> rejects.</p>\n<p>For Example, if you had a <code>User</code> model that looked like this:</p>\n<p>```app/models/user.js\nimport Model, { attr } from &apos;@ember-data/model&apos;;</p>\n<p>export default class UserModel extends Model {</p>\n</body></html>",
+      "attr": "('string') email;\n}\n```\nAnd you attempted to save a record that did not validate on the backend:\n\n```javascript\nlet user = store.createRecord('user', {\n  username: 'tomster',\n  email: 'invalidEmail'\n});\nuser.save();\n```\n\nYour backend would be expected to return an error response that described\nthe problem, so that error messages can be generated on the app.\n\nAPI responses will be translated into instances of `Errors` differently,\ndepending on the specific combination of adapter and serializer used. You\nmay want to check the documentation or the source code of the libraries\nthat you are using, to know how they expect errors to be communicated.\n\nErrors can be displayed to the user by accessing their property name\nto get an array of all the error objects for that property. Each\nerror object is a JavaScript object with two keys:\n\n- `message` A string containing the error message from the backend\n- `attribute` The name of the property associated with this error message\n\n```handlebars\n<label>Username: <Input @value={{@model.username}} /> </label>\n{{#each @model.errors.username as |error|}}\n  <div class=\"error\">\n    {{error.message}}\n  </div>\n{{/each}}\n\n<label>Email: <Input @value={{@model.email}} /> </label>\n{{#each @model.errors.email as |error|}}\n  <div class=\"error\">\n    {{error.message}}\n  </div>\n{{/each}}\n```\n\nYou can also access the special `messages` property on the error\nobject to get an array of all the error strings.\n\n```handlebars\n{{#each @model.errors.messages as |message|}}\n  <div class=\"error\">\n    {{message}}\n  </div>\n{{/each}}\n```",
+      "access": "public",
+      "tagname": "",
+      "extends": "Ember.ArrayProxy",
+      "methods": [
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 117,
+          "description": "<html><head></head><body><p>Returns errors for a given attribute</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre>let user = store.createRecord(<span class=\"string\">&apos;user&apos;</span>, {\n  username: <span class=\"string\">&apos;tomster&apos;</span>,\n  email: <span class=\"string\">&apos;invalidEmail&apos;</span>\n});\nuser.save().<span class=\"keyword\">catch</span>(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">()</span></span>{\n  user.errors.errorsFor(<span class=\"string\">&apos;email&apos;</span>); <span class=\"comment\">// returns:</span>\n  <span class=\"comment\">// [{attribute: &quot;email&quot;, message: &quot;Doesn&apos;t look like a valid email.&quot;}]</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "errorsFor",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "attribute",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "class": "Errors",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 184,
+          "itemtype": "method",
+          "name": "unknownProperty",
+          "access": "private",
+          "tagname": "",
+          "class": "Errors",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 216,
+          "description": "<html><head></head><body><p>Manually adds errors to the record. This will trigger the <code>becameInvalid</code> event/ lifecycle method on\n the record and transition the record into an <code>invalid</code> state.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n</pre></td>\n              <td class=\"code\"><pre> let errors = user.errors;\n\n <span class=\"regexp\">//</span> add multiple errors\n errors.add(<span class=\"string\">&apos;password&apos;</span>, [\n   <span class=\"string\">&apos;Must be at least 12 characters&apos;</span>,\n   <span class=\"string\">&apos;Must contain at least one symbol&apos;</span>,\n   <span class=\"string\">&apos;Cannot contain your name&apos;</span>\n ]);\n\n errors.errorsFor(<span class=\"string\">&apos;password&apos;</span>);\n <span class=\"regexp\">//</span> =&gt;\n <span class=\"regexp\">//</span> [\n <span class=\"regexp\">//</span>   { attribute: <span class=\"string\">&apos;password&apos;</span>, message: <span class=\"string\">&apos;Must be at least 12 characters&apos;</span> },\n <span class=\"regexp\">//</span>   { attribute: <span class=\"string\">&apos;password&apos;</span>, message: <span class=\"string\">&apos;Must contain at least one symbol&apos;</span> },\n <span class=\"regexp\">//</span>   { attribute: <span class=\"string\">&apos;password&apos;</span>, message: <span class=\"string\">&apos;Cannot contain your name&apos;</span> },\n <span class=\"regexp\">//</span> ]\n\n <span class=\"regexp\">//</span> add a single error\n errors.add(<span class=\"string\">&apos;username&apos;</span>, <span class=\"string\">&apos;This field is required&apos;</span>);\n\n errors.errorsFor(<span class=\"string\">&apos;username&apos;</span>);\n <span class=\"regexp\">//</span> =&gt;\n <span class=\"regexp\">//</span> [\n <span class=\"regexp\">//</span>   { attribute: <span class=\"string\">&apos;username&apos;</span>, message: <span class=\"string\">&apos;This field is required&apos;</span> },\n <span class=\"regexp\">//</span> ]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "add",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "attribute",
+              "description": "- the property name of an attribute or relationship",
+              "type": "String"
+            },
+            {
+              "name": "messages",
+              "description": "- an error message or array of error messages for the attribute",
+              "type": "String[]|string"
+            }
+          ],
+          "class": "Errors",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 263,
+          "itemtype": "method",
+          "name": "_findOrCreateMessages",
+          "access": "private",
+          "tagname": "",
+          "class": "Errors",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 288,
+          "description": "<html><head></head><body><p>Manually removes all errors for a given member from the record.\n  This will transition the record into a <code>valid</code> state, and\n triggers the <code>becameValid</code> event and lifecycle method.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre> let errors = user.errors;\n errors.add(<span class=\"string\">&apos;phone&apos;</span>, [<span class=\"string\">&apos;error-1&apos;</span>, <span class=\"string\">&apos;error-2&apos;</span>]);\n\n errors.errorsFor(<span class=\"string\">&apos;phone&apos;</span>);\n <span class=\"regexp\">//</span> =&gt;\n <span class=\"regexp\">//</span> [\n <span class=\"regexp\">//</span>   { attribute: <span class=\"string\">&apos;phone&apos;</span>, message: <span class=\"string\">&apos;error-1&apos;</span> },\n <span class=\"regexp\">//</span>   { attribute: <span class=\"string\">&apos;phone&apos;</span>, message: <span class=\"string\">&apos;error-2&apos;</span> },\n <span class=\"regexp\">//</span> ]\n\n errors.remove(<span class=\"string\">&apos;phone&apos;</span>);\n\n errors.errorsFor(<span class=\"string\">&apos;phone&apos;</span>);\n <span class=\"regexp\">//</span> =&gt; undefined</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "remove",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "member",
+              "description": "- the property name of an attribute or relationship",
+              "type": "String"
+            }
+          ],
+          "class": "Errors",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 339,
+          "description": "<html><head></head><body><p>Manually clears all errors for the record.\n  This will transition the record into a <code>valid</code> state, and\n  will trigger the <code>becameValid</code> event and lifecycle method.</p>\n<p>  Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n</pre></td>\n              <td class=\"code\"><pre>let errors = user.errors;\nerrors.add(<span class=\"string\">&apos;username&apos;</span>, [<span class=\"string\">&apos;error-a&apos;</span>]);\nerrors.add(<span class=\"string\">&apos;phone&apos;</span>, [<span class=\"string\">&apos;error-1&apos;</span>, <span class=\"string\">&apos;error-2&apos;</span>]);\n\nerrors.errorsFor(<span class=\"string\">&apos;username&apos;</span>);\n<span class=\"regexp\">//</span> =&gt;\n<span class=\"regexp\">//</span> [\n<span class=\"regexp\">//</span>   { attribute: <span class=\"string\">&apos;username&apos;</span>, message: <span class=\"string\">&apos;error-a&apos;</span> },\n<span class=\"regexp\">//</span> ]\n\nerrors.errorsFor(<span class=\"string\">&apos;phone&apos;</span>);\n<span class=\"regexp\">//</span> =&gt;\n<span class=\"regexp\">//</span> [\n<span class=\"regexp\">//</span>   { attribute: <span class=\"string\">&apos;phone&apos;</span>, message: <span class=\"string\">&apos;error-1&apos;</span> },\n<span class=\"regexp\">//</span>   { attribute: <span class=\"string\">&apos;phone&apos;</span>, message: <span class=\"string\">&apos;error-2&apos;</span> },\n<span class=\"regexp\">//</span> ]\n\nerrors.clear();\n\nerrors.errorsFor(<span class=\"string\">&apos;username&apos;</span>);\n<span class=\"regexp\">//</span> =&gt; undefined\n\nerrors.errorsFor(<span class=\"string\">&apos;phone&apos;</span>);\n<span class=\"regexp\">//</span> =&gt; undefined\n\nerrors.messages\n<span class=\"regexp\">//</span> =&gt; []</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "clear",
+          "access": "public",
+          "tagname": "",
+          "class": "Errors",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 399,
+          "description": "<html><head></head><body><p>Checks if there are error messages for the given attribute.</p>\n<p>```app/controllers/user/edit.js\nimport Controller from &apos;@ember/controller&apos;;\nimport { action } from &apos;@ember/object&apos;;</p>\n<p>export default class UserEditController extends Controller {</p>\n</body></html>",
+          "action": "save(user) {\n    if (user.errors.has('email')) {\n      return alert('Please update your email before attempting to save.');\n    }\n    user.save();\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "has",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "attribute",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "true if there some errors on given attribute",
+            "type": "Boolean"
+          },
+          "class": "Errors",
+          "module": "@ember-data/model"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 107,
+          "itemtype": "property",
+          "name": "errorsByAttributeName",
+          "type": "{MapWithDefault}",
+          "access": "private",
+          "tagname": "",
+          "class": "Errors",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 155,
+          "description": "<html><head></head><body><p>An array containing all of the error messages for this\nrecord. This is useful for displaying all errors to the user.</p>\n<div class=\"highlight handlebars\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"xml\"></span><span class=\"template-tag\">{{#<span class=\"name\"><span class=\"builtin-name\">each</span></span> @model.errors.messages <span class=\"keyword\">as</span> |message|}}</span><span class=\"xml\">\n  <span class=\"tag\">&lt;<span class=\"name\">div</span> <span class=\"attr\">class</span>=<span class=\"string\">&quot;error&quot;</span>&gt;</span>\n    </span><span class=\"template-variable\">{{message}}</span><span class=\"xml\">\n  <span class=\"tag\">&lt;/<span class=\"name\">div</span>&gt;</span>\n</span><span class=\"template-tag\">{{/<span class=\"name\"><span class=\"builtin-name\">each</span></span>}}</span><span class=\"xml\"></span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "messages",
+          "access": "public",
+          "tagname": "",
+          "type": "{Array}",
+          "class": "Errors",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 174,
+          "itemtype": "property",
+          "name": "content",
+          "type": "{Array}",
+          "access": "private",
+          "tagname": "",
+          "class": "Errors",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 196,
+          "description": "<html><head></head><body><p>Total number of errors.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "length",
+          "type": "{Number}",
+          "access": "public",
+          "tagname": "",
+          "readonly": "",
+          "class": "Errors",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/errors.ts",
+          "line": 205,
+          "description": "<html><head></head><body><p><code>true</code> if we have no errors.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "isEmpty",
+          "type": "{Boolean}",
+          "access": "public",
+          "tagname": "",
+          "readonly": "",
+          "class": "Errors",
+          "module": "@ember-data/model"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.ArrayProxy",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.18.5-@ember-data/model",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.18.5",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
