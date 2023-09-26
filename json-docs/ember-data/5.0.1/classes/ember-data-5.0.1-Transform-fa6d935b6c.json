@@ -1,0 +1,94 @@
+{
+  "data": {
+    "id": "ember-data-5.0.1-Transform",
+    "type": "class",
+    "attributes": {
+      "name": "Transform",
+      "shortname": "Transform",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/serializer",
+      "namespace": "",
+      "file": "../serializer/src/-private/transforms/transform.js",
+      "line": 5,
+      "access": "public",
+      "description": "<html><head></head><body><p>The <code>Transform</code> class is used to serialize and deserialize model\nattributes when they are saved or loaded from an\nadapter. Subclassing <code>Transform</code> is useful for creating custom\nattributes. All subclasses of <code>Transform</code> must implement a\n<code>serialize</code> and a <code>deserialize</code> method.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/transforms/temperature.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// Converts centigrade in the JSON to fahrenheit in the app</span>\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"keyword\">class</span> <span class=\"title class_\">TemperatureTransform</span> {\n  <span class=\"title function_\">deserialize</span>(<span class=\"params\">serialized, options</span>) {\n    <span class=\"keyword\">return</span> (serialized *  <span class=\"number\">1.8</span>) + <span class=\"number\">32</span>;\n  }\n\n  <span class=\"title function_\">serialize</span>(<span class=\"params\">deserialized, options</span>) {\n    <span class=\"keyword\">return</span> (deserialized - <span class=\"number\">32</span>) / <span class=\"number\">1.8</span>;\n  }\n\n  <span class=\"keyword\">static</span> <span class=\"title function_\">create</span>(<span class=\"params\"></span>) {\n    <span class=\"keyword\">return</span> <span class=\"keyword\">new</span> <span class=\"title function_\">this</span>();\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Usage</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/requirement.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Model</span>, { attr } from &apos;<span class=\"meta\">@ember</span>-data/model&apos;;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">RequirementModel</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@attr</span>(&apos;markdown&apos;, {\n    markdown: {\n      gfm: <span class=\"literal\">false</span>,\n      sanitize: <span class=\"literal\">true</span>\n    }\n  })\n  markdown;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/transforms/markdown.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"keyword\">class</span> <span class=\"title class_\">MarkdownTransform</span> {\n  <span class=\"title function_\">serialize</span>(<span class=\"params\">deserialized, options</span>) {\n    <span class=\"keyword\">return</span> deserialized.<span class=\"property\">raw</span>;\n  }\n\n  <span class=\"title function_\">deserialize</span>(<span class=\"params\">serialized, options</span>) {\n    <span class=\"keyword\">let</span> markdownOptions = options.<span class=\"property\">markdown</span> || {};\n\n    <span class=\"keyword\">return</span> <span class=\"title function_\">marked</span>(serialized, markdownOptions);\n  }\n\n  <span class=\"keyword\">static</span> <span class=\"title function_\">create</span>(<span class=\"params\"></span>) {\n    <span class=\"keyword\">return</span> <span class=\"keyword\">new</span> <span class=\"title function_\">this</span>();\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/serializer/src/-private/transforms/transform.js",
+          "line": 82,
+          "description": "<html><head></head><body><p>When given a deserialized value from a record attribute this\nmethod must return the serialized value.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"title function_\">serialize</span>(<span class=\"params\">deserialized, options</span>) {\n  <span class=\"keyword\">return</span> deserialized ? <span class=\"literal\">null</span> : <span class=\"title class_\">Number</span>(deserialized);\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "serialize",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "deserialized",
+              "description": "The deserialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `attr`"
+            }
+          ],
+          "return": {
+            "description": "The serialized value"
+          },
+          "class": "Transform",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../packages/serializer/src/-private/transforms/transform.js",
+          "line": 100,
+          "description": "<html><head></head><body><p>When given a serialized value from a JSON object this method must\nreturn the deserialized value for the record attribute.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"title function_\">deserialize</span>(<span class=\"params\">serialized, options</span>) {\n  <span class=\"keyword\">return</span> <span class=\"title function_\">empty</span>(serialized) ? <span class=\"literal\">null</span> : <span class=\"title class_\">Number</span>(serialized);\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "deserialize",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "serialized",
+              "description": "The serialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `attr`"
+            }
+          ],
+          "return": {
+            "description": "The deserialized value"
+          },
+          "class": "Transform",
+          "module": "@ember-data/serializer"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.0.1-@ember-data/serializer",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.0.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

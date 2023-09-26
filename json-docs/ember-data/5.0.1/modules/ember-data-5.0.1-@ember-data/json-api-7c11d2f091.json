@@ -1,0 +1,37 @@
+{
+  "data": {
+    "id": "ember-data-5.0.1-@ember-data/json-api",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/json-api",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../json-api/src/-private/cache.ts",
+      "line": 84,
+      "description": "<html><head></head><body><p align=\"center\">\n <img class=\"project-logo\" src=\"https://raw.githubusercontent.com/emberjs/data/4612c9354e4c54d53327ec2cf21955075ce21294/ember-data-logo-light.svg#gh-light-mode-only\" alt=\"EmberData\" width=\"240px\" title=\"EmberData\">\n</p>\n\n<p>This package provides an in-memory <a href=\"https://jsonapi.org/\">JSON:API</a> document and resource <a href=\"https://github.com/emberjs/data/blob/main/ember-data-types/cache/cache.ts\"><em>Ember</em><strong>Data</strong> Cache</a> implementation.</p>\n<h2 id=\"installation\">Installation</h2>\n<p>Install using your javascript package manager of choice. For instance with <a href=\"https://pnpm.io/\">pnpm</a></p>\n<div class=\"highlight highlight\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>pnpm <span class=\"keyword\">add</span><span class=\"language-bash\"> @ember-data/json-api</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h2 id=\"&#x1F680;-setup\">&#x1F680; Setup</h2>\n<blockquote>\n<p><strong>Note</strong> When using <a href=\"https://github.com/emberjs/data/blob/main/packages/-ember-data\">ember-data</a> the below\nconfiguration is handled for you automatically.</p>\n</blockquote>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Store</span> from &apos;<span class=\"meta\">@ember</span>-data/store&apos;;\n<span class=\"keyword\">import</span> <span class=\"type\">Cache</span> from &apos;<span class=\"meta\">@ember</span>-data/json-api&apos;;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Store</span> </span>{\n createCache(wrapper) {\n   <span class=\"keyword\">return</span> <span class=\"keyword\">new</span> <span class=\"type\">Cache</span>(wrapper);\n }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h2 id=\"usage\">Usage</h2>\n<p>Usually you will directly interact with the cache only if implementing a presentation class. Below we\ngive an example of a read-only record (mutations never written back to the cache). More typically cache\ninteractions are something that the <code>Store</code> coordinates as part of the <code>request/response</code> lifecycle.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34\n35\n36\n37\n38\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Store</span>, { recordIdentifierFor } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/store&apos;</span>;\n<span class=\"keyword\">import</span> <span class=\"title class_\">Cache</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/json-api&apos;</span>;\n<span class=\"keyword\">import</span> { <span class=\"title class_\">TrackedObject</span> } <span class=\"keyword\">from</span> <span class=\"string\">&apos;tracked-built-ins&apos;</span>;\n\n<span class=\"keyword\">class</span> <span class=\"title class_\">extends</span> <span class=\"title class_\">Store</span> {\n <span class=\"title function_\">createCache</span>(<span class=\"params\">wrapper</span>) {\n   <span class=\"keyword\">return</span> <span class=\"keyword\">new</span> <span class=\"title class_\">Cache</span>(wrapper);\n }\n\n <span class=\"title function_\">instantiateRecord</span>(<span class=\"params\">identifier</span>) {\n   <span class=\"keyword\">const</span> { cache, notifications } = <span class=\"variable language_\">this</span>;\n   <span class=\"keyword\">const</span> { <span class=\"keyword\">type</span>, id } = identifier;\n\n   <span class=\"comment\">// create a TrackedObject with our attributes, id and type</span>\n   <span class=\"keyword\">const</span> attrs = cache.<span class=\"title function_\">peek</span>(identifier).<span class=\"property\">attributes</span>;\n   <span class=\"keyword\">const</span> data = <span class=\"title class_\">Object</span>.<span class=\"title function_\">assign</span>({}, attrs, { <span class=\"keyword\">type</span>, id });\n   <span class=\"keyword\">const</span> record = <span class=\"keyword\">new</span> <span class=\"title class_\">TrackedObject</span>(data);\n\n   <span class=\"comment\">// update the TrackedObject whenever attributes change</span>\n   <span class=\"keyword\">const</span> token = notifications.<span class=\"title function_\">subscribe</span>(identifier, <span class=\"function\">(<span class=\"params\">_, change</span>) =&gt;</span> {\n     <span class=\"keyword\">if</span> (change === <span class=\"string\">&apos;attributes&apos;</span>) {\n       <span class=\"title class_\">Object</span>.<span class=\"title function_\">assign</span>(record, cache.<span class=\"title function_\">peek</span>(identifier).<span class=\"property\">attributes</span>);\n     }\n   });\n\n   <span class=\"comment\">// setup the ability to teardown the subscription when the</span>\n   <span class=\"comment\">// record is no longer needed</span>\n   record.<span class=\"property\">destroy</span> = <span class=\"function\">() =&gt;</span> {\n     <span class=\"variable language_\">this</span>.<span class=\"property\">notifications</span>.<span class=\"title function_\">unsubscribe</span>(token);\n   };\n\n   <span class=\"keyword\">return</span> record;\n }\n\n <span class=\"title function_\">teardownRecord</span>(<span class=\"params\">record: FakeRecord</span>) {\n   record.<span class=\"title function_\">destroy</span>();\n }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>For the full list of APIs available read the code documentation for <a href=\"https://github.com/emberjs/data/blob/main/ember-data-types/cache/cache.ts\"><em>Ember</em><strong>Data</strong> Cache</a></p>\n</body></html>",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "Cache"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "5.0.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.0.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
