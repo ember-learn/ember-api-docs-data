@@ -1,0 +1,90 @@
+{
+  "data": {
+    "id": "ember-data-4.10.0-RequestManager",
+    "type": "class",
+    "attributes": {
+      "name": "RequestManager",
+      "shortname": "RequestManager",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/request",
+      "namespace": "",
+      "file": "../packages/request/src/-private/manager.ts",
+      "line": 325,
+      "description": "<html><head></head><body><div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { RequestManager } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/request&apos;</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>A RequestManager provides a request/response flow in which configured\nhandlers are successively given the opportunity to handle, modify, or\npass-along a request.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">interface</span> <span class=\"symbol\">RequestManager</span> {\n  request&lt;T&gt;(req: RequestInfo): Future&lt;T&gt;;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>For example:</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { <span class=\"title class_\">RequestManager</span> } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/request&apos;</span>;\n<span class=\"keyword\">import</span> { <span class=\"title class_\">Fetch</span> } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/data/request/fetch&apos;</span>;\n<span class=\"keyword\">import</span> <span class=\"title class_\">Auth</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;ember-simple-auth/ember-data-handler&apos;</span>;\n<span class=\"keyword\">import</span> <span class=\"title class_\">Config</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;./config&apos;</span>;\n\n<span class=\"keyword\">const</span> { apiUrl } = <span class=\"title class_\">Config</span>;\n\n<span class=\"comment\">// ... create manager</span>\n<span class=\"keyword\">const</span> manager = <span class=\"keyword\">new</span> <span class=\"title class_\">RequestManager</span>();\nmanager.<span class=\"title function_\">use</span>([<span class=\"title class_\">Auth</span>, <span class=\"title class_\">Fetch</span>]);\n\n<span class=\"comment\">// ... execute a request</span>\n<span class=\"keyword\">const</span> response = <span class=\"keyword\">await</span> manager.<span class=\"title function_\">request</span>({\n  <span class=\"attr\">url</span>: <span class=\"string\">`<span class=\"subst\">${apiUrl}</span>/users`</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h3 id=\"futures\">Futures</h3>\n<p>The return value of <code>manager.request</code> is a <code>Future</code>, which allows\naccess to limited information about the request while it is still\npending and fulfills with the final state when the request completes.</p>\n<p>A <code>Future</code> is cancellable via <code>abort</code>.</p>\n<p>Handlers may optionally expose a <code>ReadableStream</code> to the <code>Future</code> for\nstreaming data; however, when doing so the future should not resolve\nuntil the response stream is fully read.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">interface</span> <span class=\"symbol\">Future</span>&lt;<span class=\"symbol\">T</span>&gt; <span class=\"symbol\">extends</span> <span class=\"symbol\">Promise</span>&lt;<span class=\"symbol\">StructuredDocument</span>&lt;<span class=\"symbol\">T</span>&gt;&gt; {\n  abort(): <span class=\"built_in\">void</span>;\n\n  async getStream(): ReadableStream | <span class=\"literal\">null</span>;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h3 id=\"structureddocuments\">StructuredDocuments</h3>\n<p>A Future resolves with a <code>StructuredDataDocument</code> or rejects with a <code>StructuredErrorDocument</code>.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">interface</span> <span class=\"symbol\">StructuredDataDocument</span>&lt;<span class=\"symbol\">T</span>&gt; {\n  request: ImmutableRequestInfo;\n  response: ImmutableResponseInfo;\n  data: T;\n}\n<span class=\"keyword\">interface</span> <span class=\"symbol\">StructuredErrorDocument</span> <span class=\"symbol\">extends</span> <span class=\"symbol\">Error</span> {\n  request: ImmutableRequestInfo;\n  response: ImmutableResponseInfo;\n  error: <span class=\"built_in\">string</span> | object;\n}\ntype StructuredDocument&lt;T&gt; = StructuredDataDocument&lt;T&gt; | StructuredErrorDocument;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/request/src/-private/manager.ts",
+          "line": 408,
+          "description": "<html><head></head><body><p>Register handler(s) to use when a request is issued.</p>\n<p>Handlers will be invoked in the order they are registered.\nEach Handler is given the opportunity to handle the request,\ncurry the request, or pass along a modified request.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "use",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "newHandlers",
+              "description": "",
+              "type": "Hanlder[]"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "RequestManager",
+          "module": "@ember-data/request"
+        },
+        {
+          "file": "../packages/request/src/-private/manager.ts",
+          "line": 442,
+          "description": "<html><head></head><body><p>Issue a Request.</p>\n<p>Returns a Future that fulfills with a StructuredDocument</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "request",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "request",
+              "description": "",
+              "type": "RequestInfo"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Future"
+          },
+          "class": "RequestManager",
+          "module": "@ember-data/request"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.10.0-@ember-data/request",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.10.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
