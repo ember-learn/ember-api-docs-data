@@ -1,0 +1,597 @@
+{
+  "data": {
+    "id": "ember-data-3.20.5-MinimumAdapterInterface",
+    "type": "class",
+    "attributes": {
+      "name": "MinimumAdapterInterface",
+      "shortname": "MinimumAdapterInterface",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/adapter",
+      "namespace": "",
+      "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+      "line": 149,
+      "methods": [
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 161,
+          "description": "<html><head></head><body><p><code>adapter.findRecord</code> takes a request for a resource of a given <code>type</code> and <code>id</code> combination\nand should return a <code>Promise</code> which fulfills with data for a single resource matching that\n<code>type</code> and <code>id</code>.</p>\n<p>The response will be fed to the associated serializer&apos;s <code>normalizeResponse</code> method with the\n<code>requestType</code> set to <code>findRecord</code>, which should return a <code>JSON:API</code> document.</p>\n<p>The final result after normalization to <code>JSON:API</code> will be added to store via <code>store.push</code> where\nit will merge with any existing data for the record.</p>\n<p>&#x26A0;&#xFE0F; If the adapter&apos;s response resolves to a false-y value, the associated <code>serializer.normalizeResponse</code>\ncall will NOT be made. In this scenario you may need to do at least a minimum amount of response\nprocessing within the adapter.</p>\n<p><code>adapter.findRecord</code> is called whenever the <code>store</code> needs to load, reload, or backgroundReload\nthe resource data for a given <code>type</code> and <code>id</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "findRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "schema",
+              "description": "An object with methods for accessing information about\n the type, attributes and relationships of the primary type associated with the request.",
+              "type": "ModelSchema"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "a promise resolving with resource data to feed to the associated serializer",
+            "type": "Promise"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 190,
+          "description": "<html><head></head><body><p><code>adapter.findAll</code> takes a request for resources of a given <code>type</code> and should return\n a <code>Promise</code> which fulfills with a collection of resource data matching that <code>type</code>.</p>\n<p>The response will be fed to the associated serializer&apos;s <code>normalizeResponse</code> method\n with the <code>requestType</code> set to <code>findAll</code>, which should return a <code>JSON:API</code> document.</p>\n<p>The final result after normalization to <code>JSON:API</code> will be added to store via <code>store.push</code> where\nit will merge with any existing records for <code>type</code>. Existing records for the <code>type</code> will not be removed.</p>\n<p>&#x26A0;&#xFE0F; If the adapter&apos;s response resolves to a false-y value, the associated <code>serializer.normalizeResponse</code>\ncall will NOT be made. In this scenario you may need to do at least a minimum amount of response\nprocessing within the adapter.</p>\n<p><code>adapter.findAll</code> is called whenever <code>store.findAll</code> is asked to reload or backgroundReload.\nThe records in the response are merged with the contents of the store. Existing records for\nthe <code>type</code> will not be removed.</p>\n<p>See also <code>shouldReloadAll</code> and <code>shouldBackgroundReloadAll</code></p>\n</body></html>",
+          "itemtype": "method",
+          "name": "findAll",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "schema",
+              "description": "An object with methods for accessing information about\n the type, attributes and relationships of the primary type associated with the request.",
+              "type": "ModelSchema"
+            },
+            {
+              "name": "sinceToken",
+              "description": "This parameter is no longer used and will always be null.",
+              "type": "Null"
+            },
+            {
+              "name": "snapshotRecordArray",
+              "description": "an object containing any passed in options,\n adapterOptions, and the ability to access a snapshot for each existing record of the type.",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "a promise resolving with resource data to feed to the associated serializer",
+            "type": "Promise"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 227,
+          "description": "<html><head></head><body><p><code>adapter.query</code> takes a request for resources of a given <code>type</code> and should return\n a <code>Promise</code> which fulfills with a collection of resource data matching that <code>type</code>.</p>\n<p>The response will be fed to the associated serializer&apos;s <code>normalizeResponse</code> method\n with the <code>requestType</code> set to <code>query</code>, which should return a <code>JSON:API</code> document.</p>\n<p>As with <code>findAll</code>, the final result after normalization to <code>JSON:API</code> will be added to\nstore via <code>store.push</code> where it will merge with any existing records for <code>type</code>.</p>\n<p>&#x26A0;&#xFE0F; If the adapter&apos;s response resolves to a false-y value, the associated <code>serializer.normalizeResponse</code>\ncall will NOT be made. In this scenario you may need to do at least a minimum amount of response\nprocessing within the adapter.</p>\n<p><code>adapter.query</code> is called whenever <code>store.query</code> is called or a previous query result is\nasked to reload.</p>\n<p>Existing records for the <code>type</code> will not be removed. The key difference is in the result\nreturned by the <code>store</code>. For <code>findAll</code> the result is all known records of the <code>type</code>,\nwhile for <code>query</code> it will only be the records returned from <code>adapter.query</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "query",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "schema",
+              "description": "An object with methods for accessing information about\n the type, attributes and relationships of the primary type associated with the request.",
+              "type": "ModelSchema"
+            },
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "recordArray",
+              "description": "",
+              "type": "AdapterPopulatedRecordArray"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "a promise resolving with resource data to feed to the associated serializer",
+            "type": "Promise"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 266,
+          "description": "<html><head></head><body><p><code>adapter.queryRecord</code> takes a request for resource of a given <code>type</code> and should return\n a <code>Promise</code> which fulfills with data for a single resource matching that <code>type</code>.</p>\n<p>The response will be fed to the associated serializer&apos;s <code>normalizeResponse</code> method\n with the <code>requestType</code> set to <code>queryRecord</code>, which should return a <code>JSON:API</code> document.</p>\n<p>The final result after normalization to <code>JSON:API</code> will be added to store via <code>store.push</code> where\nit will merge with any existing data for the returned record.</p>\n<p>&#x26A0;&#xFE0F; If the adapter&apos;s response resolves to a false-y value, the associated <code>serializer.normalizeResponse</code>\ncall will NOT be made. In this scenario you may need to do at least a minimum amount of response\nprocessing within the adapter.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "queryRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "schema",
+              "description": "An object with methods for accessing information about\n the type, attributes and relationships of the primary type associated with the request.",
+              "type": "ModelSchema"
+            },
+            {
+              "name": "query",
+              "description": ""
+            },
+            {
+              "name": "options",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "a promise resolving with resource data to feed to the associated serializer",
+            "type": "Promise"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 296,
+          "description": "<html><head></head><body><p><code>adapter.createRecord</code> takes a request to create a resource of a given <code>type</code> and should\nreturn a <code>Promise</code> which fulfills with data for the newly created resource.</p>\n<p>The response will be fed to the associated serializer&apos;s <code>normalizeResponse</code> method\n with the <code>requestType</code> set to <code>createRecord</code>, which should return a <code>JSON:API</code> document.</p>\n<p>The final result after normalization to <code>JSON:API</code> will be added to store via <code>store.push</code> where\nit will merge with any existing data for the record.</p>\n<p>&#x26A0;&#xFE0F; If the adapter&apos;s response resolves to a false-y value, the associated <code>serializer.normalizeResponse</code>\ncall will NOT be made. In this scenario you may need to do at least a minimum amount of response\nprocessing within the adapter.</p>\n<p>If the adapter rejects or throws an error the record will enter an error state and the attributes\nthat had attempted to be saved will still be considered dirty.</p>\n<h3 id=\"invaliderrors\">InvalidErrors</h3>\n<p>When rejecting a <code>createRecord</code> request due to validation issues during save (typically a 422 status code),\nyou may throw an <code>InvalidError</code>.</p>\n<p>Throwing an <code>InvalidError</code> makes per-attribute errors available for records to use in the UI as needed.\nRecords can also use this information to mark themselves as being in an <code>invalid</code> state.\nFor more reading <a href=\"https://emberjs.github.io/rfcs/0465-record-data-errors.html\">see the RecordData Errors RFC</a></p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre>let <span class=\"keyword\">error</span> = <span class=\"keyword\">new</span> Error(errorMessage);\n\n<span class=\"comment\">// these two properties combined</span>\n<span class=\"comment\">// alert EmberData to this error being for</span>\n<span class=\"comment\">// invalid properties on the record during</span>\n<span class=\"comment\">// the request</span>\n<span class=\"keyword\">error</span>.isAdapterError = <span class=\"keyword\">true</span>;\n<span class=\"keyword\">error</span>.code = <span class=\"string\">&apos;InvalidError&apos;</span>;\n\n<span class=\"comment\">// A JSON:API formatted array of errors</span>\n<span class=\"comment\">// See https://jsonapi.org/format/#errors</span>\n<span class=\"keyword\">error</span>.errors = [];\n\n<span class=\"keyword\">throw</span> <span class=\"keyword\">error</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "createRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "schema",
+              "description": "An object with methods for accessing information about\n the type, attributes and relationships of the primary type associated with the request.",
+              "type": "ModelSchema"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "a promise resolving with resource data to feed to the associated serializer",
+            "type": "Promise"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 349,
+          "description": "<html><head></head><body><p><code>adapter.updateRecord</code> takes a request to update a resource of a given <code>type</code> and should\nreturn a <code>Promise</code> which fulfills with the updated data for the resource.</p>\n<p>The response will be fed to the associated serializer&apos;s <code>normalizeResponse</code> method\n with the <code>requestType</code> set to <code>updateRecord</code>, which should return a <code>JSON:API</code> document.</p>\n<p>The final result after normalization to <code>JSON:API</code> will be added to store via <code>store.push</code> where\nit will merge with any existing data for the record.</p>\n<p>&#x26A0;&#xFE0F; If the adapter&apos;s response resolves to a false-y value, the associated <code>serializer.normalizeResponse</code>\ncall will NOT be made. In this scenario you may need to do at least a minimum amount of response\nprocessing within the adapter.</p>\n<p>If the adapter rejects or throws an error the record will enter an error state and the attributes\nthat had attempted to be saved will still be considered dirty.</p>\n<h3 id=\"invaliderrors\">InvalidErrors</h3>\n<p>When rejecting a <code>createRecord</code> request due to validation issues during save (typically a 422 status code),\nyou may throw an <code>InvalidError</code>.</p>\n<p>Throwing an <code>InvalidError</code> makes per-attribute errors available for records to use in the UI as needed.\nRecords can also use this information to mark themselves as being in an <code>invalid</code> state.\nFor more reading <a href=\"https://emberjs.github.io/rfcs/0465-record-data-errors.html\">see the RecordData Errors RFC</a></p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre>let <span class=\"keyword\">error</span> = <span class=\"keyword\">new</span> Error(errorMessage);\n\n<span class=\"comment\">// these two properties combined</span>\n<span class=\"comment\">// alert EmberData to this error being for</span>\n<span class=\"comment\">// invalid properties on the record during</span>\n<span class=\"comment\">// the request</span>\n<span class=\"keyword\">error</span>.isAdapterError = <span class=\"keyword\">true</span>;\n<span class=\"keyword\">error</span>.code = <span class=\"string\">&apos;InvalidError&apos;</span>;\n\n<span class=\"comment\">// A JSON:API formatted array of errors</span>\n<span class=\"comment\">// See https://jsonapi.org/format/#errors</span>\n<span class=\"keyword\">error</span>.errors = [];\n\n<span class=\"keyword\">throw</span> <span class=\"keyword\">error</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "updateRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "schema",
+              "description": "An object with methods for accessing information about\n the type, attributes and relationships of the primary type associated with the request.",
+              "type": "ModelSchema"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 401,
+          "description": "<html><head></head><body><p><code>adapter.deleteRecord</code> takes a request to delete a resource of a given <code>type</code> and\nshould return a <code>Promise</code> which resolves when that deletion is complete.</p>\n<p>Usually the response will be empty, but you may include additional updates in the\nresponse. The response will be fed to the associated serializer&apos;s <code>normalizeResponse</code> method\nwith the <code>requestType</code> set to <code>deleteRecord</code>, which should return a <code>JSON:API</code> document.</p>\n<p>The final result after normalization to <code>JSON:API</code> will be added to store via <code>store.push</code> where\nit will merge with any existing data.</p>\n<p>&#x26A0;&#xFE0F; If the adapter&apos;s response resolves to a false-y value, the associated <code>serializer.normalizeResponse</code>\ncall will NOT be made. In this scenario you may need to do at least a minimum amount of response\nprocessing within the adapter.</p>\n<p>If the adapter rejects or errors the record will need to be saved again once the reason\nfor the error is addressed in order to persist the deleted state.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "deleteRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "schema",
+              "description": "An object with methods for accessing information about\n the type, attributes and relationships of the primary type associated with the request.",
+              "type": "ModelSchema"
+            },
+            {
+              "name": "snapshot",
+              "description": "A Snapshot containing the record's current data",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": ""
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 429,
+          "description": "<html><head></head><body><p><code>adapter.findBelongsTo</code> takes a request to fetch a related resource located at a\n<code>relatedLink</code> and should return a <code>Promise</code> which fulfills with data for a single\n resource.</p>\n<p>&#x26A0;&#xFE0F; This method is only called if the store previously received relationship information for a resource\ncontaining a <a href=\"https://jsonapi.org/format/#document-resource-object-related-resource-links\">related link</a>.</p>\n<p>If the cache does not have a <code>link</code> for the relationship then <code>findRecord</code> will be used if a <code>type</code> and <code>id</code>\nfor the related resource is known.</p>\n<p>The response will be fed to the associated serializer&apos;s <code>normalizeResponse</code> method\n with the <code>requestType</code> set to <code>findBelongsTo</code>, which should return a <code>JSON:API</code> document.</p>\n<p>The final result after normalization to <code>JSON:API</code> will be added to store via <code>store.push</code> where\nit will merge with any existing data.</p>\n<p>&#x26A0;&#xFE0F; If the adapter&apos;s response resolves to a false-y value, the associated <code>serializer.normalizeResponse</code>\ncall will NOT be made. In this scenario you may need to do at least a minimum amount of response\nprocessing within the adapter.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "findBelongsTo [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "A Snapshot containing the parent record's current data",
+              "type": "Snapshot"
+            },
+            {
+              "name": "relatedLink",
+              "description": "The link at which the associated resource might be found",
+              "type": "String"
+            },
+            {
+              "name": "relationship",
+              "description": "",
+              "type": "RelationshipSchema"
+            }
+          ],
+          "return": {
+            "description": "a promise resolving with resource data to feed to the associated serializer",
+            "type": "Promise"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 466,
+          "description": "<html><head></head><body><p><code>adapter.findHasMany</code> takes a request to fetch a related resource collection located\n at a <code>relatedLink</code> and should return a <code>Promise</code> which fulfills with data for that\n collection.</p>\n<p>&#x26A0;&#xFE0F; This method is only called if the store previously received relationship information for a resource\ncontaining a <a href=\"https://jsonapi.org/format/#document-resource-object-related-resource-links\">related link</a>.</p>\n<p>If the cache does not have a <code>link</code> for the relationship but the <code>type</code> and <code>id</code> of\nrelated resources are known then <code>findRecord</code> will be used for each individual related\nresource.</p>\n<p>The response will be fed to the associated serializer&apos;s <code>normalizeResponse</code> method\n with the <code>requestType</code> set to <code>findHasMany</code>, which should return a <code>JSON:API</code> document.</p>\n<p>The final result after normalization to <code>JSON:API</code> will be added to store via <code>store.push</code> where\nit will merge with any existing data.</p>\n<p>&#x26A0;&#xFE0F; If the adapter&apos;s response resolves to a false-y value, the associated <code>serializer.normalizeResponse</code>\ncall will NOT be made. In this scenario you may need to do at least a minimum amount of response\nprocessing within the adapter.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "findhasMany [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "A Snapshot containing the parent record's current data",
+              "type": "Snapshot"
+            },
+            {
+              "name": "relatedLink",
+              "description": "The link at which the associated resource collection might be found",
+              "type": "String"
+            },
+            {
+              "name": "relationship",
+              "description": "",
+              "type": "RelationshipSchema"
+            }
+          ],
+          "return": {
+            "description": "a promise resolving with resource data to feed to the associated serializer",
+            "type": "Promise"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 504,
+          "description": "<html><head></head><body><p>&#x26A0;&#xFE0F; This Method is only called if <code>coalesceFindRequests</code> is <code>true</code>. The array passed to it is determined\nby the adapter&apos;s <code>groupRecordsForFindMany</code> method, and will be called once per group returned.</p>\n<p><code>adapter.findMany</code> takes a request to fetch a collection of resources and should return a\n<code>Promise</code> which fulfills with data for that collection.</p>\n<p>The response will be fed to the associated serializer&apos;s <code>normalizeResponse</code> method\n with the <code>requestType</code> set to <code>findMany</code>, which should return a <code>JSON:API</code> document.</p>\n<p>The final result after normalization to <code>JSON:API</code> will be added to store via <code>store.push</code> where\nit will merge with any existing data.</p>\n<p>&#x26A0;&#xFE0F; If the adapter&apos;s response resolves to a false-y value, the associated <code>serializer.normalizeResponse</code>\ncall will NOT be made. In this scenario you may need to do at least a minimum amount of response\nprocessing within the adapter.</p>\n<p>See also <code>groupRecordsForFindMany</code> and <code>coalesceFindRequests</code></p>\n</body></html>",
+          "itemtype": "method",
+          "name": "findMany [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "schema",
+              "description": "An object with methods for accessing information about\n the type, attributes and relationships of the primary type associated with the request.",
+              "type": "ModelSchema"
+            },
+            {
+              "name": "ids",
+              "description": "An array of the ids of the resources to fetch",
+              "type": "Array<string>"
+            },
+            {
+              "name": "snapshots",
+              "description": "An array of snapshots of the available data for the resources to fetch",
+              "type": "Array<Snapshot>"
+            }
+          ],
+          "return": {
+            "description": "a promise resolving with resource data to feed to the associated serializer",
+            "type": "Promise"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 535,
+          "description": "<html><head></head><body><p>This method provides the ability to generate an ID to assign to a new record whenever <code>store.createRecord</code>\nis called if no <code>id</code> was provided.</p>\n<p>Alternatively you can pass an id into the call to <code>store.createRecord</code> directly.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> id = generate<span class=\"constructor\">NewId(<span class=\"params\">type</span>)</span>;\n<span class=\"keyword\">let</span> newRecord = store.create<span class=\"constructor\">Record(<span class=\"params\">type</span>, { <span class=\"params\">id</span> })</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "generateIdForRecord [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "The type (or modelName) of record being created",
+              "type": "String"
+            },
+            {
+              "name": "properties",
+              "description": "the properties passed as the second arg to `store.createRecord`"
+            }
+          ],
+          "return": {
+            "description": "a string ID that should be unique (no other models of `type` in the cache should have this `id`)",
+            "type": "String"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 575,
+          "description": "<html><head></head><body><p>&#x26A0;&#xFE0F; This Method is only called if <code>coalesceFindRequests</code> is <code>true</code>.</p>\n<p>This method allows for you to split pending requests for records into multiple <code>findMany</code>\nrequests. It receives an array of snapshots where each snapshot represents a unique record\nrequested via <code>store.findRecord</code> during the most recent <code>runloop</code> that was not found in the\ncache or needs to be reloaded. It should return an array of groups.</p>\n<p>A group is an array of snapshots meant to be fetched together by a single <code>findMany</code> request.</p>\n<p>By default if this method is not implemented EmberData will call <code>findMany</code> once with all\nrequested records as a single group when <code>coalesceFindRequests</code> is <code>true</code>.</p>\n<p>See also <code>findMany</code> and <code>coalesceFindRequests</code></p>\n</body></html>",
+          "itemtype": "method",
+          "name": "groupRecordsForFindMany [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "snapshots",
+              "description": "An array of snapshots",
+              "type": "Array<Snapshot>"
+            }
+          ],
+          "return": {
+            "description": "An array of Snapshot arrays",
+            "type": "Array<Array<Snapshot>>"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 599,
+          "description": "<html><head></head><body><p>When a record is already available in the store and is requested again via <code>store.findRecord</code>,\nand <code>reload</code> is not specified as an option in the request, this method is called to determine\nwhether the record should be reloaded prior to returning the result.</p>\n<p>If <code>reload</code> is specified as an option in the request (<code>true</code> or <code>false</code>) this method will not\nbe called.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>store.<span class=\"title function_ invoke__\">findRecord</span>(<span class=\"string\">&apos;user&apos;</span>, <span class=\"string\">&apos;1&apos;</span>, { <span class=\"attr\">reload</span>: <span class=\"literal\">false</span> })</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The default behavior if this method is not implemented and the option is not specified is to\nnot reload, the same as a return of <code>false</code>.</p>\n<p>See also the documentation for <code>shouldBackgroundReloadRecord</code> which defaults to <code>true</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "shouldReloadRecord [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "A Snapshot containing the record's current data",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "true if the record should be reloaded immediately, false otherwise",
+            "type": "Boolean"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 625,
+          "description": "<html><head></head><body><p>When <code>store.findAll(&lt;type&gt;)</code> is called without a <code>reload</code> option, the adapter\nis presented the opportunity to trigger a new request for records of that type.</p>\n<p>If <code>reload</code> is specified as an option in the request (<code>true</code> or <code>false</code>) this method will not\nbe called.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>store.find<span class=\"constructor\">All(&apos;<span class=\"params\">user</span>&apos;, { <span class=\"params\">reload</span>: <span class=\"params\">false</span> })</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The default behavior if this method is not implemented and the option is not specified is to\nnot reload, the same as a return of <code>false</code>.</p>\n<p>Note: the Promise returned by <code>store.findAll</code> resolves to the same RecordArray instance\nreturned by <code>store.peekAll</code> for that type, and will include all records in the store for\nthe given type, including any previously existing records not returned by the reload request.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "shouldReloadAll [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "snapshotArray",
+              "description": "",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "true if the a new request for all records of the type in SnapshotRecordArray should be made immediately, false otherwise",
+            "type": "Boolean"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 652,
+          "description": "<html><head></head><body><p>When a record is already available in the store and is requested again via <code>store.findRecord</code>,\nand the record does not need to be reloaded prior to return, this method provides the ability\nto specify whether a refresh of the data for the reload should be scheduled to occur in the background.</p>\n<p>Users may explicitly declare a record should/should not be background reloaded by passing\n<code>backgroundReload: true</code> or <code>backgroundReload: false</code> as an option to the request respectively.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>store.<span class=\"title function_ invoke__\">findRecord</span>(<span class=\"string\">&apos;user&apos;</span>, <span class=\"string\">&apos;1&apos;</span>, { <span class=\"attr\">backgroundReload</span>: <span class=\"literal\">false</span> })</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If the <code>backgroundReload</code> option is not present, this method will be called to determine whether\na backgroundReload should be performed.</p>\n<p>The default behavior if this method is not implemented and the option was not specified is to\nbackground reload, the same as a return of <code>true</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "shouldBackgroundReloadRecord [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "A Snapshot containing the record's current data",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "true if the record should be reloaded in the background, false otherwise",
+            "type": "Boolean"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 679,
+          "description": "<html><head></head><body><p>When <code>store.findAll(&lt;type&gt;)</code> is called and a <code>reload</code> is not initiated, the adapter\nis presented the opportunity to trigger a new non-blocking (background) request for\nrecords of that type</p>\n<p>Users may explicitly declare that this background request should/should not occur by passing\n<code>backgroundReload: true</code> or <code>backgroundReload: false</code> as an option to the request respectively.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>store.find<span class=\"constructor\">All(&apos;<span class=\"params\">user</span>&apos;, { <span class=\"params\">backgroundReload</span>: <span class=\"params\">false</span> })</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The default behavior if this method is not implemented and the option is not specified is to\nperform a reload, the same as a return of <code>true</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "shouldBackgroundReloadAll [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "snapshotArray",
+              "description": "",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "true if the a new request for all records of the type in SnapshotRecordArray should be made in the background, false otherwise",
+            "type": "Boolean"
+          },
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 703,
+          "description": "<html><head></head><body><p>In some situations the adapter may need to perform cleanup when destroyed,\nthat cleanup can be done in <code>destroy</code>.</p>\n<p>If not implemented, the store does not inform the adapter of destruction.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "destroy [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+          "line": 556,
+          "description": "<html><head></head><body><p>If your adapter implements <code>findMany</code>, setting this to <code>true</code> will cause <code>findRecord</code>\nrequests triggered within the same <code>runloop</code> to be coalesced into one or more calls\nto <code>adapter.findMany</code>. The number of calls made and the records contained in each call\ncan be tuned by your adapter&apos;s <code>groupRecordsForHasMany</code> method.</p>\n<p>Implementing coalescing using this flag and the associated methods does not always offer\nthe right level of correctness, timing control or granularity. If your application would\nbe better suited coalescing across multiple types, coalescing for longer than a single runloop,\nor with a more custom request structure, coalescing within your application adapter may prove\nmore effective.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "coalesceFindRequests [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "type": "{boolean} true if the requests to find individual records should be coalesced, false otherwise",
+          "class": "MinimumAdapterInterface",
+          "module": "@ember-data/adapter"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.20.5-@ember-data/adapter",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.20.5",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
