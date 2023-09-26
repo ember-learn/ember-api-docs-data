@@ -1,0 +1,332 @@
+{
+  "data": {
+    "id": "ember-data-4.12.3-CurrentDeprecations",
+    "type": "class",
+    "attributes": {
+      "name": "CurrentDeprecations",
+      "shortname": "CurrentDeprecations",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/deprecations",
+      "namespace": "",
+      "file": "../private-build-infra/virtual-packages/deprecations.js",
+      "line": 61,
+      "description": "<html><head></head><body><p>The following list represents deprecations currently active.</p>\n<p>Some deprecation flags guard multiple deprecation IDs. All\nassociated IDs are listed.</p>\n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 73,
+          "description": "<html><head></head><body><p><strong>id: ember-data:rsvp-unresolved-async</strong></p>\n<p>Deprecates when a request promise did not resolve prior to the store tearing down.</p>\n<p>Note: in most cases even with the promise guard that is now being deprecated\na test crash would still be encountered.</p>\n<p>To resolve: Tests or Fastboot instances which crash need to find triggers requests\nand properly await them before tearing down.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_RSVP_PROMISE",
+          "since": "4.4",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 91,
+          "description": "<html><head></head><body><p><strong>id: ember-data:model-save-promise</strong></p>\n<p>Affects</p>\n<ul>\n<li>model.save / store.saveRecord</li>\n<li>model.reload</li>\n</ul>\n<p>Deprecates the promise-proxy returned by these methods in favor of\na Promise return value.</p>\n<p>To resolve this deprecation, <code>await</code> or <code>.then</code> the return value\nbefore doing work with the result instead of accessing values via\nthe proxy.</p>\n<p>To continue utilizing flags such as <code>isPending</code> in your templates\nconsider using <a href=\"https://github.com/fivetanley/ember-promise-helpers\">ember-promise-helpers</a></p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_SAVE_PROMISE_ACCESS",
+          "since": "4.4",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 115,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-snapshot-model-class-access</strong></p>\n<p>Deprecates accessing the factory class for a given resource type\nvia properties on various classes.</p>\n<p>Guards</p>\n<ul>\n<li>SnapshotRecordArray.type</li>\n<li>Snapshot.type</li>\n<li>RecordArray.type</li>\n</ul>\n<p>Use <code>store.modelFor(&lt;resource-type&gt;)</code> instead.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_SNAPSHOT_MODEL_CLASS_ACCESS",
+          "since": "4.5",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 136,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-store-find</strong></p>\n<p>Deprecates using <code>store.find</code> instead of <code>store.findRecord</code>. Typically\n<code>store.find</code> is a mistaken call that occurs when using implicit route behaviors\nin Ember which attempt to derive how to load data via parsing the route params\nfor a route which does not implement a <code>model</code> hook.</p>\n<p>To resolve, use <code>store.findRecord</code>. This may require implementing an associated\nroute&apos;s <code>model() {}</code> hook.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_STORE_FIND",
+          "since": "4.5",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 154,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-has-record-for-id</strong></p>\n<p>Deprecates <code>store.hasRecordForId(type, id)</code> in favor of <code>store.peekRecord({ type, id }) !== null</code>.</p>\n<p>Broadly speaking, while the ability to query for presence is important, a key distinction exists\nbetween these methods that make relying on <code>hasRecordForId</code> unsafe, as it may report <code>true</code> for a\nrecord which is not-yet loaded and un-peekable. <code>peekRecord</code> offers a safe mechanism by which to check\nfor whether a record is present in a usable manner.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_HAS_RECORD",
+          "since": "4.5",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 171,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-string-arg-schemas</strong></p>\n<p>Deprecates <code>schema.attributesDefinitionFor(type)</code> and\n<code>schema.relationshipsDefinitionFor(type)</code> in favor of\na consistent object signature (<code>identifier | { type }</code>).</p>\n<p>To resolve change</p>\n<div class=\"highlight diff\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>- store.get<span class=\"constructor\">SchemaDefinitionService()</span>.attributes<span class=\"constructor\">DefinitionFor(&apos;<span class=\"params\">user</span>&apos;)</span>\n+ store.get<span class=\"constructor\">SchemaDefinitionService()</span>.attributes<span class=\"constructor\">DefinitionFor({ <span class=\"params\">type</span>: &apos;<span class=\"params\">user</span>&apos; })</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_STRING_ARG_SCHEMAS",
+          "since": "4.5",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 192,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-secret-adapter-fallback</strong></p>\n<p>Deprecates the secret <code>-json-api</code> fallback adapter in favor\nor an explicit &quot;catch all&quot; application adapter. In addition\nto this deprecation ensuring the user has explicitly chosen an\nadapter, this ensures that the user may choose to use no adapter\nat all.</p>\n<p>Simplest fix:</p>\n<p><em><project>/app/adapters/application.js</project></em></p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"built_in\">export</span> {<span class=\"built_in\"> default </span>} <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/adapter/json-api&apos;</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_JSON_API_FALLBACK",
+          "since": "4.5",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 215,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-model-reopen</strong></p>\n<hr>\n<p>For properties known ahead of time, instead of</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">User</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{ <span class=\"meta\">@attr</span> firstName; }\n\n<span class=\"type\">User</span>.reopen({ lastName: attr() });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Extend <code>User</code> again or include it in the initial definition.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">User</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{ <span class=\"meta\">@attr</span> firstName; <span class=\"meta\">@attr</span> lastName }</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>For properties generated dynamically, consider registering\na <code>SchemaDefinitionService</code> with the store , as such services\nare capable of dynamically adjusting their schemas, and utilize\nthe <code>instantiateRecord</code> hook to create a Proxy based class that\ncan react to the changes in the schema.</p>\n<p>Use Foo extends Model to extend your class instead</p>\n<p><strong>id: ember-data:deprecate-model-reopenclass</strong></p>\n<hr>\n<p>Instead of reopenClass, define <code>static</code> properties with native class syntax\nor add them to the final object.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// instead of</span>\n<span class=\"title class_\">User</span>.<span class=\"title function_\">reopenClass</span>({ <span class=\"title function_\">aStaticMethod</span>(<span class=\"params\"></span>) {} });\n\n<span class=\"comment\">// do this</span>\n<span class=\"keyword\">class</span> <span class=\"title class_\">User</span> {\n  <span class=\"keyword\">static</span> <span class=\"title function_\">aStaticMethod</span>(<span class=\"params\"></span>) {}\n}\n\n<span class=\"comment\">// or do this</span>\n<span class=\"title class_\">User</span>.<span class=\"property\">aStaticMethod</span> = <span class=\"keyword\">function</span>(<span class=\"params\"></span>) {}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_MODEL_REOPEN",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 274,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-early-static</strong></p>\n<p>This deprecation triggers if static computed properties\nor methods are triggered without looking up the record\nvia the store service&apos;s <code>modelFor</code> hook. Accessing this\nstatic information without looking up the model via the\nstore most commonly occurs when</p>\n<ul>\n<li>using ember-cli-mirage (to fix, refactor to not use its auto-discovery of ember-data models)</li>\n<li>importing a model class and accessing its static information via the import</li>\n</ul>\n<p>Instead of</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"keyword\">User</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;my-app/models/user&apos;</span>;\n\nconst relationships = <span class=\"keyword\">User</span>.relationshipsByName;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Do <em>at least</em> this</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">const</span> relationships = store.modelFor(<span class=\"string\">&apos;user&apos;</span>).relationshipsByName;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>However, the much more future proof refactor is to not use <code>modelFor</code> at all but instead\nto utilize the schema service for this static information.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>const relationships = store.get<span class=\"constructor\">SchemaDefinitionService()</span>.relationships<span class=\"constructor\">DefinitionFor({ <span class=\"params\">type</span>: &apos;<span class=\"params\">user</span>&apos; })</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_EARLY_STATIC",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 315,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-errors-hash-to-array-helper</strong>\n<strong>id: ember-data:deprecate-errors-array-to-hash-helper</strong>\n<strong>id: ember-data:deprecate-normalize-modelname-helper</strong></p>\n<p>Deprecates <code>errorsHashToArray</code> <code>errorsArrayToHash</code> and <code>normalizeModelName</code></p>\n<p>Users making use of these (already private) utilities can trivially copy them\ninto their own codebase to continue using them, though we recommend refactoring\nto a more direct conversion into the expected errors format for the errors helpers.</p>\n<p>For refactoring normalizeModelName we also recommend following the guidance in\n<a href=\"https://github.com/emberjs/rfcs/pull/740\">RFC#740 Deprecate Non-Strict Types</a>.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_HELPERS",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 337,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-promise-many-array-behavior</strong></p>\n<p><a href=\"https://rfcs.emberjs.com/id/0745-ember-data-deprecate-methods-on-promise-many-array\">RFC Documentation</a></p>\n<p>This deprecation deprecates accessing values on the asynchronous proxy\nin favor of first &quot;resolving&quot; or &quot;awaiting&quot; the promise to retrieve a\nsynchronous value.</p>\n<p>Template iteration of the asynchronous value will still work and not trigger\nthe deprecation, but all JS access should be avoided and HBS access for anything\nbut <code>{{#each}}</code> should also be refactored.</p>\n<p>Recommended approaches include using the addon <code>ember-promise-helpers</code>, using\nEmber&apos;s <code>resource</code> pattern (including potentially the addon <code>ember-data-resources</code>),\nresolving the value in routes/provider components, or using the references API.</p>\n<p>An example of using the <a href=\"https://api.emberjs.com/ember-data/4.11/classes/Model/methods/hasMany?anchor=hasMany\">hasMany</a> <a href=\"https://api.emberjs.com/ember-data/release/classes/HasManyReference\">reference API</a>:</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// get the synchronous &quot;ManyArray&quot; value for the asynchronous &quot;friends&quot; relationship.</span>\n<span class=\"comment\">// note, this will return `null` if the relationship has not been loaded yet</span>\n<span class=\"keyword\">const</span> value = person.hasMany(<span class=\"string\">&apos;friends&apos;</span>).value();\n\n<span class=\"comment\">// to get just the list of related IDs</span>\n<span class=\"keyword\">const</span> ids = person.hasMany(<span class=\"string\">&apos;friends&apos;</span>).ids();</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>References participate in autotracking and getters/cached getters etc. which consume them\nwill recompute if the value changes.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_PROMISE_MANY_ARRAY_BEHAVIORS",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 375,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-v1cache-store-apis</strong></p>\n<p>Deprecates various methods on the store and store-cache-wrapper\nthat were specific to the v1 cache.</p>\n<p>Most applications should not encounter this deprecation, but if you\ndo it means that an addon you are using is likely using these methods\nas part of having implemented its own cache.</p>\n<p>The implementation will need to update to the V2 Cache API equivalent method\nas detailed in the deprecation method. Generally this means the implementation\nneeds to be more broadly reworked to use the newer V2.1 Cache API.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_V1CACHE_STORE_APIS",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 396,
+          "itemtype": "property",
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-non-strict-relationships</strong></p>\n<p>Deprecates when belongsTo and hasMany relationships are defined\nwithout specifying the inverse record&apos;s type.</p>\n<p>Instead of</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Company</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@hasmany</span>(&apos;employee&apos;, { async: <span class=\"literal\">true</span>, inverse: &apos;company&apos; }) employees;\n}\n\n<span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Employee</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@belongsto</span>(&apos;company&apos;, { async: <span class=\"literal\">true</span>, inverse: &apos;employees&apos; }) company;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "name": "DEPRECATE_RELATIONSHIPS_WITHOUT_TYPE",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 432,
+          "itemtype": "property",
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-non-strict-relationships</strong></p>\n<p>Deprecates when belongsTo and hasMany relationships are defined\nwithout specifying whether the relationship is asynchronous.</p>\n<p>The current behavior is that relationships which do not define\nthis setting are aschronous (<code>{ async: true }</code>).</p>\n<p>Instead of</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Company</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@hasmany</span>(&apos;employee&apos;, { async: <span class=\"literal\">true</span>, inverse: &apos;company&apos; }) employees;\n}\n\n<span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Employee</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@belongsto</span>(&apos;company&apos;, { async: <span class=\"literal\">true</span>, inverse: &apos;employees&apos; }) company;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "name": "DEPRECATE_RELATIONSHIPS_WITHOUT_ASYNC",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 471,
+          "itemtype": "property",
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-non-strict-relationships</strong></p>\n<p>Deprecates when belongsTo and hasMany relationships are defined\nwithout specifying the inverse field on the related type.</p>\n<p>The current behavior is that relationships which do not define\nthis setting have their inverse determined at runtime, which is\npotentially non-deterministic when mixins and polymorphism are involved.</p>\n<p>If an inverse relationship exists and you wish changes on one side to\nreflect onto the other side, use the inverse key. If you wish to not have\nchanges reflected or no inverse relationship exists, specify <code>inverse: null</code>.</p>\n<p>Instead of</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Company</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@hasmany</span>(&apos;employee&apos;, { async: <span class=\"literal\">true</span>, inverse: <span class=\"literal\">null</span> }) employees;\n}\n\n<span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Employee</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@belongsto</span>(&apos;company&apos;, { async: <span class=\"literal\">true</span>, inverse: &apos;employees&apos; }) company;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Instead of</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Company</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@attr</span> name;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "name": "DEPRECATE_RELATIONSHIPS_WITHOUT_INVERSE",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 538,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-v1-cache</strong></p>\n<p>Deprecates instantiating a non-singleton cache via <code>store.createRecordDataFor</code>\nin favor of a singleton-cache via <code>store.createCache</code>.</p>\n<p>Most applications should not encounter this deprecation, but if you\ndo it means that an addon you are using is likely using an unsupported cache\nimplementation.</p>\n<p>The implementation will need to update to the V2 Cache API and be integrated\nvia the <code>createCache</code> hook.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_V1_RECORD_DATA",
+          "since": "4.12",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 558,
+          "itemtype": "property",
+          "description": "<html><head></head><body><p><strong>id: ember-data:no-a-with-array-like</strong></p>\n<p>Deprecates when calling <code>A()</code> on an EmberData ArrayLike class\nis detected. This deprecation may not always trigger due to complexities\nin ember-source versions and the use (or disabling) of prototype extensions.</p>\n<p>To fix, just use the native array methods instead of the EmberArray methods\nand refrain from wrapping the array in <code>A()</code>.</p>\n<p>Note that some computed property macros may themselves utilize <code>A()</code>, in which\nscenario the computed properties need to be upgraded to octane syntax.</p>\n<p>For instance, instead of:</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Component</span> </span>{\n  <span class=\"meta\">@filterBy</span>(&apos;items&apos;, &apos;isComplete&apos;) completedItems;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Use the following:</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Component</span> </span>{\n  get completedItems() {\n    <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.items.filter(item =&gt; item.isComplete);\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "name": "DEPRECATE_A_USAGE",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 596,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-promise-proxies</strong></p>\n<p>Additional Reading: <a href=\"https://rfcs.emberjs.com/id/0846-ember-data-deprecate-proxies\">RFC#846 Deprecate Proxies</a></p>\n<p>Deprecates using the proxy object/proxy array capabilities of values returned from</p>\n<ul>\n<li><code>store.findRecord</code></li>\n<li><code>store.findAll</code></li>\n<li><code>store.query</code></li>\n<li><code>store.queryRecord</code></li>\n<li><code>record.save</code></li>\n<li><code>recordArray.save</code></li>\n<li><code>recordArray.update</code></li>\n</ul>\n<p>These methods will now return a native Promise that resolves with the value.</p>\n<p>Note that this does not deprecate the proxy behaviors of <code>PromiseBelongsTo</code>. See RFC for reasoning.\nThe opportunity should still be taken if available to stop using these proxy behaviors; however, this class\nwill remain until <code>import Model from &apos;@ember-data/model&apos;;</code> is deprecated more broadly.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_PROMISE_PROXIES",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 624,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-array-like</strong></p>\n<p>Deprecates Ember &quot;Array-like&quot; methods on RecordArray and ManyArray.</p>\n<p>These are the arrays returned respectively by <code>store.peekAll()</code>, <code>store.findAll()</code>and\nhasMany relationships on instance of Model or <code>record.hasMany(&apos;relationshipName&apos;).value()</code>.</p>\n<p>The appropriate refactor is to treat these arrays as native arrays and to use native array methods.</p>\n<p>For instance, instead of:</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>users.firstObject<span class=\"comment\">;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Use:</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>users<span class=\"selector-attr\">[0]</span>;\n<span class=\"comment\">// or</span>\nusers<span class=\"selector-class\">.at</span>(<span class=\"number\">0</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_ARRAY_LIKE",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 655,
+          "description": "<html><head></head><body><p><strong>id: <none yet=\"\" assigned=\"\"></none></strong></p>\n<p>This is a planned deprecation which will trigger when observer or computed\nchains are used to watch for changes on any EmberData RecordArray, ManyArray\nor PromiseManyArray.</p>\n<p>Support for these chains is currently guarded by the inactive deprecation flag\nlisted here.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_COMPUTED_CHAINS",
+          "since": "5.0",
+          "until": "6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 672,
+          "itemtype": "property",
+          "description": "<html><head></head><body><p><strong>id: ember-data:non-explicit-relationships</strong></p>\n<p>Deprecates when polymorphic relationships are detected via inheritance or mixins\nand no polymorphic relationship configuration has been setup.</p>\n<p>For further reading please review <a href=\"https://rfcs.emberjs.com/id/0793-polymporphic-relations-without-inheritance\">RFC#793</a>\nwhich introduced support for explicit relationship polymorphism without\nmixins or inheritance.</p>\n<p>You may still use mixins and inheritance to setup your polymorphism; however, the class\nstructure is no longer what drives the design. Instead polymorphism is &quot;traits&quot; based or &quot;structural&quot;:\nso long as each model which can satisfy the polymorphic relationship defines the inverse in the same\nway they work.</p>\n<p>Notably: <code>inverse: null</code> relationships can receive any type as a record with no additional configuration\nat all.</p>\n<p>Example Polymorphic Relationship Configuration</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// polymorphic relationship</span>\n<span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Tag</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@hasmany</span>(<span class=\"string\">&quot;tag&quot;</span>, { async: <span class=\"literal\">false</span>, inverse: <span class=\"string\">&quot;tagged&quot;</span>, as: <span class=\"string\">&quot;taggable&quot;</span> }) tags;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "name": "DEPRECATE_NON_EXPLICIT_POLYMORPHISM",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        },
+        {
+          "file": "../packages/private-build-infra/virtual-packages/deprecations.js",
+          "line": 711,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-instantiate-record-args</strong></p>\n<p>Deprecates using the former 3rd and 4th arguments to <code>Store.instantiateRecord</code> which are now\navailable as properties on the store.</p>\n<p><strong>old</strong></p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>{\n  instantiate<span class=\"constructor\">Record(<span class=\"params\">identifier</span>, <span class=\"params\">createArgs</span>, <span class=\"params\">recordDataFor</span>, <span class=\"params\">notifications</span>)</span> {\n    const cache = record<span class=\"constructor\">DataFor(<span class=\"params\">identifier</span>)</span>;\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p><strong>new</strong></p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>{\n  <span class=\"title function_\">instantiateRecord</span>(<span class=\"params\">identifier, createArgs</span>) {\n     <span class=\"keyword\">const</span> { cache, notifications } = <span class=\"variable language_\">this</span>;\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_INSTANTIATE_RECORD_ARGS",
+          "since": "4.7",
+          "until": "5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@ember-data/deprecations"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.12.3-@ember-data/deprecations",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.12.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
