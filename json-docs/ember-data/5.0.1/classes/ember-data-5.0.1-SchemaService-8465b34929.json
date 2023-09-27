@@ -1,0 +1,112 @@
+{
+  "data": {
+    "id": "ember-data-5.0.1-SchemaService",
+    "type": "class",
+    "attributes": {
+      "name": "SchemaService",
+      "shortname": "SchemaService",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../../ember-data-types/q/schema-service.ts",
+      "line": 8,
+      "access": "public",
+      "description": "<html><head></head><body><p>A SchemaDefinitionService implementation provides the ability\nto query for various information about a resource in an abstract manner.</p>\n<p>How an implementation determines this information is left up to the implementation,\nthis means that schema information could be lazily populated, derived-on-demand,\nor progressively enhanced during the course of an application&apos;s runtime.</p>\n<p>The implementation provided to work with <code>@ember-data/model</code> makes use of the\nstatic schema properties on those classes to respond to these queries; however,\nthat is not a necessary approach. For instance, Schema information could be sideloaded\nor pre-flighted for API calls, resulting in no need to bundle and ship potentially\nlarge and expensive JSON or JS schemas to pull information from.</p>\n<p>To register a custom schema implementation, extend the store service or\nlookup and register the schema service first thing on app-boot. Example below\nshows extending the service.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Store</span> from &apos;<span class=\"meta\">@ember</span>-data/store&apos;;\n<span class=\"keyword\">import</span> <span class=\"type\">CustomSchemas</span> from &apos;./custom-schemas&apos;;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Store</span> </span>{\n  constructor(...args) {\n    <span class=\"keyword\">super</span>(...args);\n    <span class=\"keyword\">this</span>.registerSchemaDefinitionService(<span class=\"keyword\">new</span> <span class=\"type\">CustomSchemas</span>());\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>At runtime, both the <code>Store</code> and the <code>StoreWrapper</code> provide\naccess to this service via the <code>getSchemaDefinitionService()</code> method.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Component</span> </span>{\n  <span class=\"meta\">@service</span> store;\n\n get attributes() {\n   <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.store\n     .getSchemaDefinitionService()\n     .attributesDefinitionFor(<span class=\"keyword\">this</span>.args.dataType);\n }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This is not a class and cannot be instantiated.</p>\n</body></html>",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../ember-data-types/q/schema-service.ts",
+          "line": 59,
+          "description": "<html><head></head><body><p>Queries whether the schema-definition-service recognizes <code>type</code> as a resource type</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "doesTypeExist",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "SchemaService",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../ember-data-types/q/schema-service.ts",
+          "line": 69,
+          "itemtype": "method",
+          "description": "<html><head></head><body><p>Returns definitions for all properties of the specified resource\nthat are considered &quot;attributes&quot;. Generally these are properties\nthat are not related to book-keeping state on the client and do\nnot represent a linkage to another resource.</p>\n<p>The return value should be a dictionary of key:value pairs\nwhere the <code>key</code> is the attribute or property&apos;s name and <code>value</code>\nis an object with at least the property <code>name</code> which should also\nmatch <code>key</code>.</p>\n<p>Optionally, this object may also specify <code>type</code>, which should\nbe a string reference to a <code>transform</code>, and <code>options</code> which\nshould be dictionary in which any key:value pairs are permissable.</p>\n<p>For instance, when using <code>@ember-data/model</code>, the following attribute\ndefinition:</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@attr</span> firstName;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Would be returned as:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>{\n  greeting: { name: <span class=\"string\">&apos;greeting&apos;</span>, type: <span class=\"string\">&apos;string&apos;</span>, options: { defaultValue: <span class=\"string\">&apos;hello&apos;</span> } },\n  birthday: { name: <span class=\"string\">&apos;birthday&apos;</span>, type: <span class=\"string\">&apos;date&apos;</span> },\n  firstName: { name: <span class=\"string\">&apos;firstName&apos;</span> }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "name": "attributesDefinitionFor",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "}",
+              "description": "identifier",
+              "type": "RecordIdentifier| type: string"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "AttributesSchema"
+          },
+          "class": "SchemaService",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../ember-data-types/q/schema-service.ts",
+          "line": 112,
+          "itemtype": "method",
+          "description": "<html><head></head><body><p>Returns definitions for all properties of the specified resource\nthat are considered &quot;relationships&quot;. Generally these are properties\nthat represent a linkage to another resource.</p>\n<p>The return value should be a dictionary of key:value pairs\nwhere the <code>key</code> is the relationship or property&apos;s name and <code>value</code>\nis an object with at least the following properties:</p>\n<ul>\n<li><p><code>name</code> which should also match the <code>key</code> used in the dictionary.</p>\n</li>\n<li><p><code>kind</code> which should be either <code>belongsTo</code> or <code>hasMany</code></p>\n</li>\n<li><p><code>type</code> which should be the related resource&apos;s string &quot;type&quot;</p>\n</li>\n<li><p><code>options</code> which should be a dictionary allowing any key but with\n at least the below keys present.</p>\n</li>\n<li><p><code>options.async</code> a boolean representing whether data for this relationship is\n   typically loaded on-demand.</p>\n</li>\n<li><p><code>options.inverse</code> a string or null representing the field name / key of the\ncorresponding relationship on the inverse resource.</p>\n</li>\n</ul>\n<p>Additionally the following options properties are optional. See <a href=\"https://rfcs.emberjs.com/id/0793-polymporphic-relations-without-inheritance\">Polymorphic Relationships</a></p>\n<ul>\n<li><code>options.polymorphic</code> a boolean representing whether multiple resource types\n can be used to satisfy this relationship.</li>\n<li><code>options.as</code> a string representing the abstract type that the concrete side of\n a relationship must specify when fulfilling a polymorphic inverse.</li>\n</ul>\n<p>For example, the following Model using @ember-data/model would generate this relationships\ndefinition by default:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">User</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@belongsto</span>(&apos;user&apos;, { async: <span class=\"literal\">false</span>, inverse: <span class=\"literal\">null</span> }) bestFriend;\n  <span class=\"meta\">@hasmany</span>(&apos;pet&apos;, { async: <span class=\"literal\">false</span>, polymorphic: <span class=\"literal\">true</span>, inverse: &apos;owner&apos; }) pets;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Which would be returned as</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n</pre></td>\n              <td class=\"code\"><pre>{\n  <span class=\"attr\">bestFriend:</span> {\n    <span class=\"attr\">name:</span> <span class=\"string\">&apos;bestFriend&apos;</span>,\n    <span class=\"attr\">kind:</span> <span class=\"string\">&apos;belongsTo&apos;</span>,\n    <span class=\"attr\">type:</span> <span class=\"string\">&apos;user&apos;</span>,\n    <span class=\"attr\">options:</span> {\n      <span class=\"attr\">async:</span> <span class=\"literal\">false</span>,\n      <span class=\"attr\">inverse:</span> <span class=\"literal\">null</span>\n    }\n  },\n  <span class=\"attr\">friends:</span> {\n    <span class=\"attr\">name:</span> <span class=\"string\">&apos;friends&apos;</span>,\n    <span class=\"attr\">kind:</span> <span class=\"string\">&apos;hasMany&apos;</span>,\n    <span class=\"attr\">type:</span> <span class=\"string\">&apos;user&apos;</span>,\n    <span class=\"attr\">options:</span> {\n      <span class=\"attr\">async:</span> <span class=\"literal\">true</span>,\n      <span class=\"attr\">inverse:</span> <span class=\"string\">&apos;friends&apos;</span>\n    }\n  },\n  <span class=\"attr\">pets:</span> {\n    <span class=\"attr\">name:</span> <span class=\"string\">&apos;pets&apos;</span>,\n    <span class=\"attr\">kind:</span> <span class=\"string\">&apos;hasMany&apos;</span>,\n    <span class=\"attr\">type:</span> <span class=\"string\">&apos;pet&apos;</span>,\n    <span class=\"attr\">options:</span> {\n      <span class=\"attr\">async:</span> <span class=\"literal\">false</span>,\n      <span class=\"attr\">polymorphic:</span> <span class=\"literal\">true</span>,\n      <span class=\"attr\">inverse:</span> <span class=\"string\">&apos;owner&apos;</span>\n    }\n  },\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "name": "relationshipsDefinitionFor",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "}",
+              "description": "identifier",
+              "type": "RecordIdentifier| type: string"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RelationshipsSchema"
+          },
+          "class": "SchemaService",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.0.1-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.0.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

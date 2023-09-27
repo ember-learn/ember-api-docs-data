@@ -1,0 +1,192 @@
+{
+  "data": {
+    "id": "ember-data-3.15.1-HasManyReference",
+    "type": "class",
+    "attributes": {
+      "name": "HasManyReference",
+      "shortname": "HasManyReference",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/addon/-private/system/references/has-many.js",
+      "line": 12,
+      "description": "<html><head></head><body><p>A <code>HasManyReference</code> is a low-level API that allows users and addon\nauthors to perform meta-operations on a has-many relationship.</p>\n</body></html>",
+      "extends": "Reference",
+      "methods": [
+        {
+          "file": "../store/addon/-private/system/references/has-many.js",
+          "line": 35,
+          "description": "<html><head></head><body><p>This returns a string that represents how the reference will be\nlooked up when it is loaded. If the relationship has a link it will\nuse the &quot;link&quot; otherwise it defaults to &quot;id&quot;.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Model, { hasMany } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/model&apos;</span>;\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Model.extend({\n  comments: hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n</pre></td>\n              <td class=\"code\"><pre><span class=\"built_in\">let</span> post = store.push({\n  data: {\n    <span class=\"built_in\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"built_in\">id</span>: 1,\n    relationships: {\n      comments: {\n        data: [{ <span class=\"built_in\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"built_in\">id</span>: 1 }]\n      }\n    }\n  }\n});\n\n<span class=\"built_in\">let</span> commentsRef = post.hasMany(<span class=\"string\">&apos;comments&apos;</span>);\n\n// get the identifier of the reference\n<span class=\"keyword\">if</span> (commentsRef.remoteType() === <span class=\"string\">&quot;ids&quot;</span>) {\n  <span class=\"built_in\">let</span> ids = commentsRef.ids();\n} <span class=\"keyword\">else</span> <span class=\"keyword\">if</span> (commentsRef.remoteType() === <span class=\"string\">&quot;link&quot;</span>) {\n  <span class=\"built_in\">let</span> <span class=\"built_in\">link</span> = commentsRef.<span class=\"built_in\">link</span>();\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "remoteType",
+          "return": {
+            "description": "The name of the remote type. This should either be `link` or `ids`",
+            "type": "String"
+          },
+          "class": "HasManyReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/has-many.js",
+          "line": 84,
+          "description": "<html><head></head><body><p><code>ids()</code> returns an array of the record IDs in this relationship.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Model, { hasMany } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/model&apos;</span>;\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Model.extend({\n  comments: hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n</pre></td>\n              <td class=\"code\"><pre>let post = store.<span class=\"title function_ invoke__\">push</span>({\n  <span class=\"attr\">data</span>: {\n    <span class=\"attr\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"attr\">id</span>: <span class=\"number\">1</span>,\n    <span class=\"attr\">relationships</span>: {\n      <span class=\"attr\">comments</span>: {\n        <span class=\"attr\">data</span>: [{ <span class=\"attr\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attr\">id</span>: <span class=\"number\">1</span> }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.<span class=\"title function_ invoke__\">hasMany</span>(<span class=\"string\">&apos;comments&apos;</span>);\n\ncommentsRef.<span class=\"title function_ invoke__\">ids</span>(); <span class=\"comment\">// [&apos;1&apos;]</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "ids",
+          "return": {
+            "description": "The ids in this has-many relationship",
+            "type": "Array"
+          },
+          "class": "HasManyReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/has-many.js",
+          "line": 128,
+          "description": "<html><head></head><body><p><code>push</code> can be used to update the data in the relationship and Ember\nData will treat the new data as the canonical value of this\nrelationship on the backend.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Model, { hasMany } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/model&apos;</span>;\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Model.extend({\n  comments: hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n</pre></td>\n              <td class=\"code\"><pre>let post = store.<span class=\"title function_ invoke__\">push</span>({\n  <span class=\"attr\">data</span>: {\n    <span class=\"attr\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"attr\">id</span>: <span class=\"number\">1</span>,\n    <span class=\"attr\">relationships</span>: {\n      <span class=\"attr\">comments</span>: {\n        <span class=\"attr\">data</span>: [{ <span class=\"attr\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attr\">id</span>: <span class=\"number\">1</span> }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.<span class=\"title function_ invoke__\">hasMany</span>(<span class=\"string\">&apos;comments&apos;</span>);\n\ncommentsRef.<span class=\"title function_ invoke__\">ids</span>(); <span class=\"comment\">// [&apos;1&apos;]</span>\n\ncommentsRef.<span class=\"title function_ invoke__\">push</span>([\n[{ <span class=\"attr\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attr\">id</span>: <span class=\"number\">2</span> }],\n[{ <span class=\"attr\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attr\">id</span>: <span class=\"number\">3</span> }],\n])\n\ncommentsRef.<span class=\"title function_ invoke__\">ids</span>(); <span class=\"comment\">// [&apos;2&apos;, &apos;3&apos;]</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "push",
+          "params": [
+            {
+              "name": "objectOrPromise",
+              "description": "a promise that resolves to a JSONAPI document object describing the new value of this relationship.",
+              "type": "Array|Promise"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "ManyArray"
+          },
+          "class": "HasManyReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/has-many.js",
+          "line": 213,
+          "description": "<html><head></head><body><p><code>value()</code> synchronously returns the current value of the has-many\nrelationship. Unlike <code>record.get(&apos;relationshipName&apos;)</code>, calling\n<code>value()</code> on a reference does not trigger a fetch if the async\nrelationship is not yet loaded. If the relationship is not loaded\nit will always return <code>null</code>.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Model, { hasMany } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/model&apos;</span>;\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Model.extend({\n  comments: hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre>let post = store.<span class=\"title function_ invoke__\">push</span>({\n  <span class=\"attr\">data</span>: {\n    <span class=\"attr\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"attr\">id</span>: <span class=\"number\">1</span>,\n    <span class=\"attr\">relationships</span>: {\n      <span class=\"attr\">comments</span>: {\n        <span class=\"attr\">data</span>: [{ <span class=\"attr\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attr\">id</span>: <span class=\"number\">1</span> }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.<span class=\"title function_ invoke__\">hasMany</span>(<span class=\"string\">&apos;comments&apos;</span>);\n\npost.<span class=\"title function_ invoke__\">get</span>(<span class=\"string\">&apos;comments&apos;</span>).<span class=\"title function_ invoke__\">then</span>(function(comments) {\n  commentsRef.<span class=\"title function_ invoke__\">value</span>() === comments\n})</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "value",
+          "return": {
+            "description": "",
+            "type": "ManyArray"
+          },
+          "class": "HasManyReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/has-many.js",
+          "line": 260,
+          "description": "<html><head></head><body><p>Loads the relationship if it is not already loaded.  If the\nrelationship is already loaded this method does not trigger a new\nload. This causes a request to the specified\nrelationship link or reloads all items currently in the relationship.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Model, { hasMany } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/model&apos;</span>;\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Model.extend({\n  comments: hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre>let post = store.<span class=\"title function_ invoke__\">push</span>({\n  <span class=\"attr\">data</span>: {\n    <span class=\"attr\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"attr\">id</span>: <span class=\"number\">1</span>,\n    <span class=\"attr\">relationships</span>: {\n      <span class=\"attr\">comments</span>: {\n        <span class=\"attr\">data</span>: [{ <span class=\"attr\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attr\">id</span>: <span class=\"number\">1</span> }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.<span class=\"title function_ invoke__\">hasMany</span>(<span class=\"string\">&apos;comments&apos;</span>);\n\ncommentsRef.<span class=\"title function_ invoke__\">load</span>().<span class=\"title function_ invoke__\">then</span>(function(comments) {\n  <span class=\"comment\">//...</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>You may also pass in an options object whose properties will be\nfed forward. This enables you to pass <code>adapterOptions</code> into the\nrequest given to the adapter via the reference.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"variable\">commentsRef</span>.<span class=\"property\">load</span>({ <span class=\"variable\">adapterOptions</span>: { isPrivate: <span class=\"literal\">true</span> } })\n  .<span class=\"property\">then</span>(<span class=\"title function_\">function</span>(<span class=\"params\">comments</span>) {\n    <span class=\"comment\">//...</span>\n  });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/adapters/comment.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>export default <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">ApplicationAdapter</span>.</span></span>extend({\n  find<span class=\"constructor\">Many(<span class=\"params\">store</span>, <span class=\"params\">type</span>, <span class=\"params\">id</span>, <span class=\"params\">snapshots</span>)</span> {\n    <span class=\"comment\">// In the adapter you will have access to adapterOptions.</span>\n    <span class=\"keyword\">let</span> adapterOptions = snapshots<span class=\"literal\">[<span class=\"number\">0</span>]</span>.adapterOptions;\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "load",
+          "params": [
+            {
+              "name": "options",
+              "description": "the options to pass in.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "a promise that resolves with the ManyArray in\nthis has-many relationship.",
+            "type": "Promise"
+          },
+          "class": "HasManyReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/has-many.js",
+          "line": 326,
+          "description": "<html><head></head><body><p>Reloads this has-many relationship. This causes a request to the specified\nrelationship link or reloads all items currently in the relationship.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Model, { hasMany } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/model&apos;</span>;\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Model.extend({\n  comments: hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre>let post = store.<span class=\"title function_ invoke__\">push</span>({\n  <span class=\"attr\">data</span>: {\n    <span class=\"attr\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"attr\">id</span>: <span class=\"number\">1</span>,\n    <span class=\"attr\">relationships</span>: {\n      <span class=\"attr\">comments</span>: {\n        <span class=\"attr\">data</span>: [{ <span class=\"attr\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"attr\">id</span>: <span class=\"number\">1</span> }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.<span class=\"title function_ invoke__\">hasMany</span>(<span class=\"string\">&apos;comments&apos;</span>);\n\ncommentsRef.<span class=\"title function_ invoke__\">reload</span>().<span class=\"title function_ invoke__\">then</span>(function(comments) {\n  <span class=\"comment\">//...</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>You may also pass in an options object whose properties will be\nfed forward. This enables you to pass <code>adapterOptions</code> into the\nrequest given to the adapter via the reference. A full example\ncan be found in the <code>load</code> method.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>commentsRef.<span class=\"title function_ invoke__\">reload</span>({ <span class=\"attr\">adapterOptions</span>: { <span class=\"attr\">isPrivate</span>: <span class=\"literal\">true</span> } })</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "reload",
+          "params": [
+            {
+              "name": "options",
+              "description": "the options to pass in.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "a promise that resolves with the ManyArray in this has-many relationship.",
+            "type": "Promise"
+          },
+          "class": "HasManyReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/reference.ts",
+          "line": 44,
+          "description": "<html><head></head><body><p>This returns a string that represents how the reference will be\nlooked up when it is loaded. If the relationship has a link it will\nuse the &quot;link&quot; otherwise it defaults to &quot;id&quot;.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Model, { hasMany } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/model&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Model.extend({\n  comments: hasMany({ async: <span class=\"literal\">true</span> })\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n</pre></td>\n              <td class=\"code\"><pre><span class=\"built_in\">let</span> post = store.push({\n  data: {\n    <span class=\"built_in\">type</span>: <span class=\"string\">&apos;post&apos;</span>,\n    <span class=\"built_in\">id</span>: 1,\n    relationships: {\n      comments: {\n        data: [{ <span class=\"built_in\">type</span>: <span class=\"string\">&apos;comment&apos;</span>, <span class=\"built_in\">id</span>: 1 }]\n      }\n    }\n  }\n});\n\n<span class=\"built_in\">let</span> commentsRef = post.hasMany(<span class=\"string\">&apos;comments&apos;</span>);\n\n// get the identifier of the reference\n<span class=\"keyword\">if</span> (commentsRef.remoteType() === <span class=\"string\">&quot;ids&quot;</span>) {\n  <span class=\"built_in\">let</span> ids = commentsRef.ids();\n} <span class=\"keyword\">else</span> <span class=\"keyword\">if</span> (commentsRef.remoteType() === <span class=\"string\">&quot;link&quot;</span>) {\n  <span class=\"built_in\">let</span> <span class=\"built_in\">link</span> = commentsRef.<span class=\"built_in\">link</span>();\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "remoteType",
+          "return": {
+            "description": "The name of the remote type. This should either be \"link\" or \"ids\"",
+            "type": "String"
+          },
+          "class": "HasManyReference",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "Reference"
+        },
+        {
+          "file": "../store/addon/-private/system/references/reference.ts",
+          "line": 93,
+          "description": "<html><head></head><body><p>The link Ember Data will use to fetch or reload this belongs-to\nrelationship.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// models/blog.js</span>\nimport Model, { belongsTo } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/model&apos;</span>;\nexport <span class=\"keyword\">default</span> Model.<span class=\"title function_ invoke__\">extend</span>({\n   <span class=\"attr\">user</span>: <span class=\"title function_ invoke__\">belongsTo</span>({ <span class=\"attr\">async</span>: <span class=\"literal\">true</span> })\n });\n\nlet blog = store.<span class=\"title function_ invoke__\">push</span>({\n   <span class=\"attr\">data</span>: {\n     <span class=\"attr\">type</span>: <span class=\"string\">&apos;blog&apos;</span>,\n     <span class=\"attr\">id</span>: <span class=\"number\">1</span>,\n     <span class=\"attr\">relationships</span>: {\n       <span class=\"attr\">user</span>: {\n         <span class=\"attr\">links</span>: {\n           <span class=\"attr\">related</span>: <span class=\"string\">&apos;/articles/1/author&apos;</span>\n         }\n       }\n     }\n   }\n });\nlet userRef = blog.<span class=\"title function_ invoke__\">belongsTo</span>(<span class=\"string\">&apos;user&apos;</span>);\n\n<span class=\"comment\">// get the identifier of the reference</span>\n<span class=\"keyword\">if</span> (userRef.<span class=\"title function_ invoke__\">remoteType</span>() === <span class=\"string\">&quot;link&quot;</span>) {\n   let link = userRef.<span class=\"title function_ invoke__\">link</span>();\n }</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "link",
+          "return": {
+            "description": "The link Ember Data will use to fetch or reload this belongs-to relationship.",
+            "type": "String"
+          },
+          "class": "HasManyReference",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "Reference"
+        },
+        {
+          "file": "../store/addon/-private/system/references/reference.ts",
+          "line": 143,
+          "description": "<html><head></head><body><p>The meta data for the belongs-to relationship.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// models/blog.js</span>\nimport Model, { belongsTo } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember-data/model&apos;</span>;\nexport <span class=\"keyword\">default</span> Model.<span class=\"title function_ invoke__\">extend</span>({\n   <span class=\"attr\">user</span>: <span class=\"title function_ invoke__\">belongsTo</span>({ <span class=\"attr\">async</span>: <span class=\"literal\">true</span> })\n });\n\nlet blog = store.<span class=\"title function_ invoke__\">push</span>({\n   <span class=\"attr\">data</span>: {\n     <span class=\"attr\">type</span>: <span class=\"string\">&apos;blog&apos;</span>,\n     <span class=\"attr\">id</span>: <span class=\"number\">1</span>,\n     <span class=\"attr\">relationships</span>: {\n       <span class=\"attr\">user</span>: {\n         <span class=\"attr\">links</span>: {\n           <span class=\"attr\">related</span>: {\n             <span class=\"attr\">href</span>: <span class=\"string\">&apos;/articles/1/author&apos;</span>\n           },\n           <span class=\"attr\">meta</span>: {\n             <span class=\"attr\">lastUpdated</span>: <span class=\"number\">1458014400000</span>\n           }\n         }\n       }\n     }\n   }\n });\n\nlet userRef = blog.<span class=\"title function_ invoke__\">belongsTo</span>(<span class=\"string\">&apos;user&apos;</span>);\n\nuserRef.<span class=\"title function_ invoke__\">meta</span>() <span class=\"comment\">// { lastUpdated: 1458014400000 }</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "meta",
+          "return": {
+            "description": "The meta information for the belongs-to relationship.",
+            "type": "Object"
+          },
+          "class": "HasManyReference",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "Reference"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.15.1-Reference",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.15.1-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.15.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
