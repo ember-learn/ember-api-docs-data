@@ -1,0 +1,223 @@
+{
+  "data": {
+    "id": "ember-4.6.0-Ember.ControllerMixin",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ControllerMixin",
+      "shortname": "Ember.ControllerMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Controller"
+      ],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "packages/@ember/controller/lib/controller_mixin.ts",
+      "line": 17,
+      "uses": [
+        "Ember.ActionHandler"
+      ],
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/ext/controller.ts",
+          "line": 54,
+          "description": "<html><head></head><body><p>This property is updated to various different callback functions depending on\nthe current &quot;state&quot; of the backing route. It is used by\n<code>Controller.prototype._qpChanged</code>.</p>\n<p>The methods backing each state can be found in the <code>Route.prototype._qp</code> computed\nproperty return value (the <code>.states</code> property). The current values are listed here for\nthe sanity of future travelers:</p>\n<ul>\n<li><code>inactive</code> - This state is used when this controller instance is not part of the active\nroute hierarchy. Set in <code>Route.prototype._reset</code> (a <code>router.js</code> microlib hook) and\n<code>Route.prototype.actions.finalizeQueryParamChange</code>.</li>\n<li><code>active</code> - This state is used when this controller instance is part of the active\nroute hierarchy. Set in <code>Route.prototype.actions.finalizeQueryParamChange</code>.</li>\n<li><code>allowOverrides</code> - This state is used in <code>Route.prototype.setup</code> (<code>route.js</code> microlib hook).</li>\n</ul>\n</body></html>",
+          "itemtype": "method",
+          "name": "_qpDelegate",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/ext/controller.ts",
+          "line": 75,
+          "description": "<html><head></head><body><p>During <code>Route#setup</code> observers are created to invoke this method\nwhen any of the query params declared in <code>Controller#queryParams</code> property\nare changed.</p>\n<p>When invoked this method uses the currently active query param update delegate\n(see <code>Controller.prototype._qpDelegate</code> for details) and invokes it with\nthe QP key/value being changed.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "_qpChanged",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/ext/controller.ts",
+          "line": 96,
+          "description": "<html><head></head><body><p>Transition the application into another route. The route may\nbe either a single route or route path:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPosts</span>&apos;)</span>;\naController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPosts</span>.<span class=\"params\">recentEntries</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Optionally supply a model for the route in question. The model\nwill be serialized into the URL using the <code>serialize</code> hook of\nthe route:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPost</span>&apos;, <span class=\"params\">aPost</span>)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the <code>model</code>\nhook of the route will be triggered:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogPost</span>&apos;, 1)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Multiple models will be applied last to first recursively up the\nroute tree.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/router.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>Router.map(<span class=\"keyword\">function</span><span class=\"params\">()</span> {\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;blogPost&apos;</span>, { path: <span class=\"string\">&apos;:blogPostId&apos;</span> }, <span class=\"keyword\">function</span><span class=\"params\">()</span> {\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;blogComment&apos;</span>, { path: <span class=\"string\">&apos;:blogCommentId&apos;</span>, resetNamespace: <span class=\"literal\">true</span> });\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogComment</span>&apos;, <span class=\"params\">aPost</span>, <span class=\"params\">aComment</span>)</span>;\naController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"params\">blogComment</span>&apos;, 1, 13)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It is also possible to pass a URL (a string that starts with a\n<code>/</code>).</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>aController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"operator\">/</span>&apos;)</span>;\naController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"operator\">/</span><span class=\"params\">blog</span><span class=\"operator\">/</span><span class=\"params\">post</span><span class=\"operator\">/</span>1<span class=\"operator\">/</span><span class=\"params\">comment</span><span class=\"operator\">/</span>13&apos;)</span>;\naController.transition<span class=\"constructor\">ToRoute(&apos;<span class=\"operator\">/</span><span class=\"params\">blog</span><span class=\"operator\">/</span><span class=\"params\">posts</span>?<span class=\"params\">sort</span>=<span class=\"params\">title</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>An options hash with a <code>queryParams</code> property may be provided as\nthe final argument to add query parameters to the destination URL.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>aController.<span class=\"title function_ invoke__\">transitionToRoute</span>(<span class=\"string\">&apos;blogPost&apos;</span>, <span class=\"number\">1</span>, {\n  <span class=\"attr\">queryParams</span>: { <span class=\"attr\">showComments</span>: <span class=\"string\">&apos;true&apos;</span> }\n});\n\n<span class=\"comment\">// if you just want to transition the query parameters without changing the route</span>\naController.<span class=\"title function_ invoke__\">transitionToRoute</span>({ <span class=\"attr\">queryParams</span>: { <span class=\"attr\">sort</span>: <span class=\"string\">&apos;date&apos;</span> } });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>See also <a href=\"/ember/release/classes/Ember.ControllerMixin/methods/replaceRoute?anchor=replaceRoute\">replaceRoute</a>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "transitionToRoute",
+          "deprecated": true,
+          "deprecationMessage": "Use transitionTo from the Router service instead.",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\n  while transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\n  containing a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the transition object associated with this\n  attempted transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/ext/controller.ts",
+          "line": 186,
+          "description": "<html><head></head><body><p>Transition into another route while replacing the current URL, if possible.\nThis will replace the current history entry instead of adding a new one.\nBeside that, it is identical to <code>transitionToRoute</code> in all other respects.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPosts</span>&apos;)</span>;\naController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPosts</span>.<span class=\"params\">recentEntries</span>&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Optionally supply a model for the route in question. The model\nwill be serialized into the URL using the <code>serialize</code> hook of\nthe route:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPost</span>&apos;, <span class=\"params\">aPost</span>)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the <code>model</code>\nhook of the route will be triggered:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogPost</span>&apos;, 1)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Multiple models will be applied last to first recursively up the\nroute tree.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/router.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>Router.map(<span class=\"keyword\">function</span><span class=\"params\">()</span> {\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;blogPost&apos;</span>, { path: <span class=\"string\">&apos;:blogPostId&apos;</span> }, <span class=\"keyword\">function</span><span class=\"params\">()</span> {\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;blogComment&apos;</span>, { path: <span class=\"string\">&apos;:blogCommentId&apos;</span>, resetNamespace: <span class=\"literal\">true</span> });\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogComment</span>&apos;, <span class=\"params\">aPost</span>, <span class=\"params\">aComment</span>)</span>;\naController.replace<span class=\"constructor\">Route(&apos;<span class=\"params\">blogComment</span>&apos;, 1, 13)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It is also possible to pass a URL (a string that starts with a\n<code>/</code>).</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>aController.replace<span class=\"constructor\">Route(&apos;<span class=\"operator\">/</span>&apos;)</span>;\naController.replace<span class=\"constructor\">Route(&apos;<span class=\"operator\">/</span><span class=\"params\">blog</span><span class=\"operator\">/</span><span class=\"params\">post</span><span class=\"operator\">/</span>1<span class=\"operator\">/</span><span class=\"params\">comment</span><span class=\"operator\">/</span>13&apos;)</span>;</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "replaceRoute",
+          "deprecated": true,
+          "deprecationMessage": "Use replaceWith from the Router service instead.",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\nwhile transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\ncontaining a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the transition object associated with this\n  attempted transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/action_handler.ts",
+          "line": 171,
+          "description": "<html><head></head><body><p>Triggers a named action on the <code>ActionHandler</code>. Any parameters\nsupplied after the <code>actionName</code> string will be passed as arguments\nto the action target function.</p>\n<p>If the <code>ActionHandler</code> has its <code>target</code> property set, actions may\nbubble to the <code>target</code>. Bubbling happens when an <code>actionName</code> can\nnot be found in the <code>ActionHandler</code>&apos;s <code>actions</code> hash or if the\naction target function returns <code>true</code>.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/welcome.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">playTheme</span>(<span class=\"params\"></span>) {\n      <span class=\"variable language_\">this</span>.<span class=\"title function_\">send</span>(<span class=\"string\">&apos;playMusic&apos;</span>, <span class=\"string\">&apos;theme.mp3&apos;</span>);\n    },\n    <span class=\"title function_\">playMusic</span>(<span class=\"params\">track</span>) {\n      <span class=\"comment\">// ...</span>\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "actionName",
+              "description": "The action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/ext/controller.ts",
+          "line": 26,
+          "description": "<html><head></head><body><p>Defines which query parameters the controller accepts.\nIf you give the names <code>[&apos;category&apos;,&apos;page&apos;]</code> it will bind\nthe values of these query parameters to the variables\n<code>this.category</code> and <code>this.page</code>.</p>\n<p>By default, query parameters are parsed as strings. This\nmay cause unexpected behavior if a query parameter is used with <code>toggleProperty</code>,\nbecause the initial value set for <code>param=false</code> will be the string <code>&quot;false&quot;</code>, which is truthy.</p>\n<p>To avoid this, you may specify that the query parameter should be parsed as a boolean\nby using the following verbose form with a <code>type</code> property:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>  queryParams: [{\n    category: {\n      type: <span class=\"string\">&apos;boolean&apos;</span>\n    }\n  }]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Available values for the <code>type</code> parameter are <code>&apos;boolean&apos;</code>, <code>&apos;number&apos;</code>, <code>&apos;array&apos;</code>, and <code>&apos;string&apos;</code>.\nIf query param type is not specified, it will default to <code>&apos;string&apos;</code>.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "queryParams",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/controller/lib/controller_mixin.ts",
+          "line": 43,
+          "description": "<html><head></head><body><p>The object to which actions from the view should be sent.</p>\n<p>For example, when a Handlebars template uses the <code>{{action}}</code> helper,\nit will attempt to send the action to the view&apos;s controller&apos;s <code>target</code>.</p>\n<p>By default, the value of the target property is set to the router, and\nis injected when a controller is instantiated. This injection is applied\nas part of the application&apos;s initialization process. In most cases the\n<code>target</code> property will automatically be set to the logical consumer of\nactions for the controller.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "target",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/controller/lib/controller_mixin.ts",
+          "line": 63,
+          "description": "<html><head></head><body><p>The controller&apos;s current model. When retrieving or modifying a controller&apos;s\nmodel, this property should be used instead of the <code>content</code> property.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "model",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/action_handler.ts",
+          "line": 26,
+          "description": "<html><head></head><body><p>The collection of functions, keyed by name, available on this\n<code>ActionHandler</code> as action targets.</p>\n<p>These functions will be invoked when a matching <code>{{action}}</code> is triggered\nfrom within a template and the application&apos;s current route is this route.</p>\n<p>Actions can also be invoked from other parts of your application\nvia <code>ActionHandler#send</code>.</p>\n<p>The <code>actions</code> hash will inherit action handlers from\nthe <code>actions</code> hash defined on extended parent classes\nor mixins rather than just replace the entire hash, e.g.:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">banner.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Mixin</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/mixin&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Mixin</span>.<span class=\"title function_\">create</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">displayBanner</span>(<span class=\"params\">msg</span>) {\n      <span class=\"comment\">// ...</span>\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/welcome.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n<span class=\"keyword\">import</span> <span class=\"title class_\">CanDisplayBanner</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;../mixins/can-display-banner&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>(<span class=\"title class_\">CanDisplayBanner</span>, {\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">playMusic</span>(<span class=\"params\"></span>) {\n      <span class=\"comment\">// ...</span>\n    }\n  }\n});\n\n<span class=\"comment\">// `WelcomeRoute`, when active, will be able to respond</span>\n<span class=\"comment\">// to both actions, since the actions hash is merged rather</span>\n<span class=\"comment\">// then replaced when extending mixins / parent classes.</span>\n<span class=\"variable language_\">this</span>.<span class=\"title function_\">send</span>(<span class=\"string\">&apos;displayBanner&apos;</span>);\n<span class=\"variable language_\">this</span>.<span class=\"title function_\">send</span>(<span class=\"string\">&apos;playMusic&apos;</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Within a Controller, Route or Component&apos;s action handler,\nthe value of the <code>this</code> context is the Controller, Route or\nComponent object:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/song.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">myAction</span>(<span class=\"params\"></span>) {\n      <span class=\"variable language_\">this</span>.<span class=\"title function_\">controllerFor</span>(<span class=\"string\">&quot;song&quot;</span>);\n      <span class=\"variable language_\">this</span>.<span class=\"title function_\">transitionTo</span>(<span class=\"string\">&quot;other.route&quot;</span>);\n      ...\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It is also possible to call <code>this._super(...arguments)</code> from within an\naction handler if it overrides a handler defined on a parent\nclass or mixin:</p>\n<p>Take for example the following routes:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">route.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Mixin</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/mixin&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Mixin</span>.<span class=\"title function_\">create</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">debugRouteInformation</span>(<span class=\"params\"></span>) {\n      <span class=\"variable language_\">console</span>.<span class=\"title function_\">debug</span>(<span class=\"string\">&quot;It&apos;s a-me, console.debug!&quot;</span>);\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">debug.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n<span class=\"keyword\">import</span> <span class=\"title class_\">DebugRoute</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;../mixins/debug-route&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>(<span class=\"title class_\">DebugRoute</span>, {\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">debugRouteInformation</span>(<span class=\"params\"></span>) {\n      <span class=\"comment\">// also call the debugRouteInformation of mixed in DebugRoute</span>\n      <span class=\"variable language_\">this</span>.<span class=\"title function_\">_super</span>(...<span class=\"variable language_\">arguments</span>);\n\n      <span class=\"comment\">// show additional annoyance</span>\n      <span class=\"variable language_\">window</span>.<span class=\"title function_\">alert</span>(...);\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h2 id=\"bubbling\">Bubbling</h2>\n<p>By default, an action will stop bubbling once a handler defined\non the <code>actions</code> hash handles it. To continue bubbling the action,\nyou must return <code>true</code> from the handler:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/router.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>Router.map(<span class=\"keyword\">function</span><span class=\"params\">()</span> {\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&quot;album&quot;</span>, <span class=\"keyword\">function</span><span class=\"params\">()</span> {\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&quot;song&quot;</span>);\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/routes/album.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"attr\">startPlaying</span>: <span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">song.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Route</span> <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/routing/route&apos;</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Route</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"attr\">actions</span>: {\n    <span class=\"title function_\">startPlaying</span>(<span class=\"params\"></span>) {\n      <span class=\"comment\">// ...</span>\n\n      <span class=\"keyword\">if</span> (actionShouldAlsoBeTriggeredOnParentRoute) {\n        <span class=\"keyword\">return</span> <span class=\"literal\">true</span>;\n      }\n    }\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "actions",
+          "type": "Object",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-4.6.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-4.6.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "data": {
+    "id": "ember-2.5.1-Ember.Location",
+    "type": "namespace",
+    "attributes": {
+      "name": "Ember.Location",
+      "shortname": "Ember.Location",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-routing",
+      "namespace": "Ember",
+      "file": "packages/ember-routing/lib/location/api.js",
+      "line": 10,
+      "description": "<html><head></head><body><p>Ember.Location returns an instance of the correct implementation of\nthe <code>location</code> API.</p>\n<h2 id=\"implementations\">Implementations</h2>\n<p>You can pass an implementation name (<code>hash</code>, <code>history</code>, <code>none</code>) to force a\nparticular implementation to be used in your application.</p>\n<h3 id=\"hashlocation\">HashLocation</h3>\n<p>Using <code>HashLocation</code> results in URLs with a <code>#</code> (hash sign) separating the\nserver side URL portion of the URL from the portion that is used by Ember.\nThis relies upon the <code>hashchange</code> event existing in the browser.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre>App.Router.map(<span class=\"keyword\">function</span><span class=\"params\">()</span> {\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;posts&apos;</span>, <span class=\"keyword\">function</span><span class=\"params\">()</span> {\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;new&apos;</span>);\n  });\n});\n\nApp.Router.reopen({\n  location: <span class=\"string\">&apos;hash&apos;</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This will result in a posts.new url of <code>/#/posts/new</code>.</p>\n<h3 id=\"historylocation\">HistoryLocation</h3>\n<p>Using <code>HistoryLocation</code> results in URLs that are indistinguishable from a\nstandard URL. This relies upon the browser&apos;s <code>history</code> API.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre>App.Router.map(<span class=\"keyword\">function</span><span class=\"params\">()</span> {\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;posts&apos;</span>, <span class=\"keyword\">function</span><span class=\"params\">()</span> {\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;new&apos;</span>);\n  });\n});\n\nApp.Router.reopen({\n  location: <span class=\"string\">&apos;history&apos;</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This will result in a posts.new url of <code>/posts/new</code>.</p>\n<p>Keep in mind that your server must serve the Ember app at all the routes you\ndefine.</p>\n<h3 id=\"autolocation\">AutoLocation</h3>\n<p>Using <code>AutoLocation</code>, the router will use the best Location class supported by\nthe browser it is running in.</p>\n<p>Browsers that support the <code>history</code> API will use <code>HistoryLocation</code>, those that\ndo not, but still support the <code>hashchange</code> event will use <code>HashLocation</code>, and\nin the rare case neither is supported will use <code>NoneLocation</code>.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre>App.Router.map(<span class=\"keyword\">function</span><span class=\"params\">()</span> {\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;posts&apos;</span>, <span class=\"keyword\">function</span><span class=\"params\">()</span> {\n    <span class=\"keyword\">this</span>.route(<span class=\"string\">&apos;new&apos;</span>);\n  });\n});\n\nApp.Router.reopen({\n  location: <span class=\"string\">&apos;auto&apos;</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This will result in a posts.new url of <code>/posts/new</code> for modern browsers that\nsupport the <code>history</code> api or <code>/#/posts/new</code> for older ones, like Internet\nExplorer 9 and below.</p>\n<p>When a user visits a link to your application, they will be automatically\nupgraded or downgraded to the appropriate <code>Location</code> class, with the URL\ntransformed accordingly, if needed.</p>\n<p>Keep in mind that since some of your users will use <code>HistoryLocation</code>, your\nserver must serve the Ember app at all the routes you define.</p>\n<h3 id=\"nonelocation\">NoneLocation</h3>\n<p>Using <code>NoneLocation</code> causes Ember to not store the applications URL state\nin the actual URL. This is generally used for testing purposes, and is one\nof the changes made when calling <code>App.setupForTesting()</code>.</p>\n<h2 id=\"location-api\">Location API</h2>\n<p>Each location implementation must provide the following methods:</p>\n<ul>\n<li>implementation: returns the string name used to reference the implementation.</li>\n<li>getURL: returns the current URL.</li>\n<li>setURL(path): sets the current URL.</li>\n<li>replaceURL(path): replace the current URL (optional).</li>\n<li>onUpdateURL(callback): triggers the callback when the URL changes.</li>\n<li>formatURL(url): formats <code>url</code> to be placed into <code>href</code> attribute.</li>\n<li>detect() (optional): instructs the location to do any feature detection\n  necessary. If the location needs to redirect to a different URL, it\n  can cancel routing by setting the <code>cancelRouterSetup</code> property on itself\n  to <code>false</code>.</li>\n</ul>\n<p>Calling setURL or replaceURL will not trigger onUpdateURL callbacks.</p>\n</body></html>",
+      "static": 1,
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/ember-routing/lib/location/api.js",
+          "line": 128,
+          "description": "<html><head></head><body><p>This is deprecated in favor of using the container to lookup the location\nimplementation as desired.</p>\n<p>For example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// Given a location registered as follows:</span>\n<span class=\"built_in\">container</span>.register(<span class=\"string\">&apos;location:history-test&apos;</span>, HistoryTestLocation);\n\n<span class=\"comment\">// You could create a new instance via:</span>\n<span class=\"built_in\">container</span>.lookup(<span class=\"string\">&apos;location:history-test&apos;</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "create",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "an instance of an implementation of the `location` API",
+            "type": "Object"
+          },
+          "deprecated": true,
+          "deprecationMessage": "Use the container to lookup the location implementation that you\n need.",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Location",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/location/api.js",
+          "line": 162,
+          "description": "<html><head></head><body><p>Returns the current <code>location.hash</code> by parsing location.href since browsers\ninconsistently URL-decode <code>location.hash</code>.</p>\n<p><a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=483304\">https://bugzilla.mozilla.org/show_bug.cgi?id=483304</a></p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getHash",
+          "since": "1.4.0",
+          "class": "Ember.Location",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.5.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.5.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
