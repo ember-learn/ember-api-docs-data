@@ -12,19 +12,18 @@ https://github.com/ember-learn/ember-jsonapi-docs
 ## Previewing these docs in the front end
 
 If you want to see how these docs will look in the
-front end app:
+front end app, clone `ember-api-docs` and then clone `ember-api-docs-data` into the `ember-api-docs` directory as that is where `ember-api-docs` will search for the JSON files:
 
 ```
+git clone https://github.com/ember-learn/ember-api-docs
+cd ember-api-docs
+npm install
+npm run start:local
+
 git clone https://github.com/ember-learn/ember-api-docs-data
 cd ember-api-docs-data
 yarn install
 yarn serve
-
-cd ..
-git clone https://github.com/ember-learn/ember-api-docs
-cd ember-api-docs-data
-yarn install
-yarn start:local
 ```
 
 The JSON files will be served at `http://localhost:5050` and the app can be viewed in the browser at [http://localhost:4200]().
