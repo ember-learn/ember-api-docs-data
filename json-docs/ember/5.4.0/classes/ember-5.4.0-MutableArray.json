@@ -1,0 +1,1240 @@
+{
+  "data": {
+    "id": "ember-5.4.0-MutableArray",
+    "type": "class",
+    "attributes": {
+      "name": "MutableArray",
+      "shortname": "MutableArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.NativeArray",
+        "ArrayProxy"
+      ],
+      "module": "@ember/array",
+      "namespace": "",
+      "file": "packages/@ember/array/index.ts",
+      "line": 1463,
+      "description": "<html><head></head><body><p>This mixin defines the API for modifying array-like objects. These methods\ncan be applied only to a collection that keeps its items in an ordered set.\nIt builds upon the Array mixin and adds methods to modify the array.\nOne concrete implementations of this class include ArrayProxy.</p>\n<p>It is important to use the methods in this class to modify arrays so that\nchanges are observable. This allows the binding system in Ember to function\ncorrectly.</p>\n<p>Note that an Array can change even if it does not implement this mixin.\nFor example, one might implement a SparseArray that cannot be directly\nmodified, but if its underlying enumerable changes, it will change also.</p>\n</body></html>",
+      "uses": [
+        "MutableEnumerable",
+        "EmberArray"
+      ],
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1484,
+          "description": "<html><head></head><body><p><strong>Required.</strong> You must implement this method to apply this mixin.</p>\n<p>This is one of the primitives you must implement to support <code>Array</code>.\nYou should replace amt objects started at idx with the objects in the\npassed array.</p>\n<p>Note that this method is expected to validate the type(s) of objects that it expects.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "replace",
+          "params": [
+            {
+              "name": "idx",
+              "description": "Starting index in the array to replace. If\n  idx >= length, then append to the end of the array.",
+              "type": "Number"
+            },
+            {
+              "name": "amt",
+              "description": "Number of elements that should be removed from\n  the array, starting at *idx*.",
+              "type": "Number"
+            },
+            {
+              "name": "objects",
+              "description": "An optional array of zero or more objects that should be\n  inserted into the array at *idx*",
+              "type": "EmberArray",
+              "optional": true
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1503,
+          "description": "<html><head></head><body><p>Remove all elements from the array. This is useful if you\nwant to reuse an existing array without having to recreate it.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>let colors = [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>];\n\ncolors.<span class=\"built_in\">length</span>;  <span class=\"comment\">// 3</span>\ncolors.<span class=\"keyword\">clear</span>(); <span class=\"comment\">// []</span>\ncolors.<span class=\"built_in\">length</span>;  <span class=\"comment\">// 0</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "clear",
+          "return": {
+            "description": "An empty Array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1520,
+          "description": "<html><head></head><body><p>This will use the primitive <code>replace()</code> method to insert an object at the\nspecified index.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let colors = [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>];\n\ncolors.insertAt(<span class=\"number\">2</span>, <span class=\"string\">'yellow'</span>);  // [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>, <span class=\"string\">'yellow'</span>, <span class=\"string\">'blue'</span>]\ncolors.insertAt(<span class=\"number\">5</span>, <span class=\"string\">'orange'</span>);  // Error: <span class=\"keyword\">Index</span> <span class=\"keyword\">out</span> <span class=\"keyword\">of</span> range</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "insertAt",
+          "params": [
+            {
+              "name": "idx",
+              "description": "index of insert the object at.",
+              "type": "Number"
+            },
+            {
+              "name": "object",
+              "description": "object to insert",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1538,
+          "description": "<html><head></head><body><p>Remove an object at the specified index using the <code>replace()</code> primitive\nmethod. You can pass either a single index, or a start and a length.</p>\n<p>If you pass a start and length that is beyond the\nlength this method will throw an assertion.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>let colors = [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>, <span class=\"string\">'yellow'</span>, <span class=\"string\">'orange'</span>];\n\ncolors.removeAt(<span class=\"number\">0</span>);     <span class=\"regexp\">//</span> [<span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>, <span class=\"string\">'yellow'</span>, <span class=\"string\">'orange'</span>]\ncolors.removeAt(<span class=\"number\">2</span>, <span class=\"number\">2</span>);  <span class=\"regexp\">//</span> [<span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>]\ncolors.removeAt(<span class=\"number\">4</span>, <span class=\"number\">2</span>);  <span class=\"regexp\">//</span> Error: Index out of range</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "removeAt",
+          "params": [
+            {
+              "name": "start",
+              "description": "index, start of range",
+              "type": "Number"
+            },
+            {
+              "name": "len",
+              "description": "length of passing range",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1560,
+          "description": "<html><head></head><body><p>Push the object onto the end of the array. Works just like <code>push()</code> but it\nis KVO-compliant.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let colors = [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>];\n\ncolors.pushObject(<span class=\"string\">'black'</span>);     // [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>, <span class=\"string\">'black'</span>]\ncolors.pushObject([<span class=\"string\">'yellow'</span>]);  // [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>, [<span class=\"string\">'yellow'</span>]]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "pushObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to push",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "object same object passed as a param"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1577,
+          "description": "<html><head></head><body><p>Add the objects in the passed array to the end of the array. Defers\nnotifying observers of the change until all objects are added.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>let colors = [<span class=\"string\">'red'</span>];\n\ncolors.pushObjects([<span class=\"string\">'yellow'</span>, <span class=\"string\">'orange'</span>]);  // [<span class=\"string\">'red'</span>, <span class=\"string\">'yellow'</span>, <span class=\"string\">'orange'</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "pushObjects",
+          "params": [
+            {
+              "name": "objects",
+              "description": "the objects to add",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "MutableArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1593,
+          "description": "<html><head></head><body><p>Pop object from array or nil if none are left. Works just like <code>pop()</code> but\nit is KVO-compliant.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let colors = [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>];\n\ncolors.popObject();   <span class=\"regexp\">//</span> <span class=\"string\">'blue'</span>\nconsole.log(colors);  <span class=\"regexp\">//</span> [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "popObject",
+          "return": {
+            "description": "object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1609,
+          "description": "<html><head></head><body><p>Shift an object from start of array or nil if none are left. Works just\nlike <code>shift()</code> but it is KVO-compliant.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let colors = [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>];\n\ncolors.shiftObject();  <span class=\"regexp\">//</span> <span class=\"string\">'red'</span>\nconsole.log(colors);   <span class=\"regexp\">//</span> [<span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "shiftObject",
+          "return": {
+            "description": "object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1625,
+          "description": "<html><head></head><body><p>Unshift an object to start of array. Works just like <code>unshift()</code> but it is\nKVO-compliant.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let colors = [<span class=\"string\">'red'</span>];\n\ncolors.unshiftObject(<span class=\"string\">'yellow'</span>);    // [<span class=\"string\">'yellow'</span>, <span class=\"string\">'red'</span>]\ncolors.unshiftObject([<span class=\"string\">'black'</span>]);   // [[<span class=\"string\">'black'</span>], <span class=\"string\">'yellow'</span>, <span class=\"string\">'red'</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "unshiftObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to unshift",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "object same object passed as a param"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1642,
+          "description": "<html><head></head><body><p>Adds the named objects to the beginning of the array. Defers notifying\nobservers until all objects have been added.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let colors = [<span class=\"symbol\">'red</span>'];\n\ncolors.unshiftObjects([<span class=\"symbol\">'black</span>', <span class=\"symbol\">'white</span>']);   // [<span class=\"symbol\">'black</span>', <span class=\"symbol\">'white</span>', <span class=\"symbol\">'red</span>']\ncolors.unshiftObjects(<span class=\"symbol\">'yellow</span>'); // <span class=\"keyword\">Type</span> <span class=\"type\">Error: </span><span class=\"symbol\">'undefined</span>' <span class=\"keyword\">is</span> <span class=\"keyword\">not</span> a <span class=\"keyword\">function</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "unshiftObjects",
+          "params": [
+            {
+              "name": "objects",
+              "description": "the objects to add",
+              "type": "Enumerable"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1659,
+          "description": "<html><head></head><body><p>Reverse objects in the array. Works just like <code>reverse()</code> but it is\nKVO-compliant.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "reverseObjects",
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1668,
+          "description": "<html><head></head><body><p>Replace all the receiver's content with content of the argument.\nIf argument is an empty array receiver will be cleared.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let colors = [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>];\n\ncolors.setObjects([<span class=\"string\">'black'</span>, <span class=\"string\">'white'</span>]);  // [<span class=\"string\">'black'</span>, <span class=\"string\">'white'</span>]\ncolors.setObjects([]);                  // []</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "setObjects",
+          "params": [
+            {
+              "name": "objects",
+              "description": "array whose content will be used for replacing\n    the content of the receiver",
+              "type": "EmberArray"
+            }
+          ],
+          "return": {
+            "description": "receiver with the new content",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1686,
+          "description": "<html><head></head><body><p>Remove all occurrences of an object in the array.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>let cities = [<span class=\"string\">'Chicago'</span>, <span class=\"string\">'Berlin'</span>, <span class=\"string\">'Lima'</span>, <span class=\"string\">'Chicago'</span>];\n\ncities.removeObject(<span class=\"string\">'Chicago'</span>);  // [<span class=\"string\">'Berlin'</span>, <span class=\"string\">'Lima'</span>]\ncities.removeObject(<span class=\"string\">'Lima'</span>);     // [<span class=\"string\">'Berlin'</span>]\ncities.removeObject(<span class=\"string\">'Tokyo'</span>)     // [<span class=\"string\">'Berlin'</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "removeObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to remove",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1703,
+          "description": "<html><head></head><body><p>Removes each object in the passed array from the receiver.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "removeObjects",
+          "params": [
+            {
+              "name": "objects",
+              "description": "the objects to remove",
+              "type": "EmberArray"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1712,
+          "description": "<html><head></head><body><p>Push the object onto the end of the array if it is not already\npresent in the array.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let cities = [<span class=\"string\">'Chicago'</span>, <span class=\"string\">'Berlin'</span>];\n\ncities.addObject(<span class=\"string\">'Lima'</span>);    // [<span class=\"string\">'Chicago'</span>, <span class=\"string\">'Berlin'</span>, <span class=\"string\">'Lima'</span>]\ncities.addObject(<span class=\"string\">'Berlin'</span>);  // [<span class=\"string\">'Chicago'</span>, <span class=\"string\">'Berlin'</span>, <span class=\"string\">'Lima'</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "addObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to add, if not already present",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1729,
+          "description": "<html><head></head><body><p>Adds each object in the passed array to the receiver.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "addObjects",
+          "params": [
+            {
+              "name": "objects",
+              "description": "the objects to add.",
+              "type": "EmberArray"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 263,
+          "description": "<html><head></head><body><p>Returns the object at the given <code>index</code>. If the given <code>index</code> is negative\nor is greater or equal than the array length, returns <code>undefined</code>.</p>\n<p>This is one of the primitives you must implement to support <code>EmberArray</code>.\nIf your object supports retrieving the value of an array item using <code>get()</code>\n(i.e. <code>myArray.get(0)</code>), then you do not need to implement this method\nyourself.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>let arr = [<span class=\"string\">'a'</span>, <span class=\"string\">'b'</span>, <span class=\"string\">'c'</span>, <span class=\"string\">'d'</span>];\n\narr.objectAt<span class=\"comment\">(0)</span>;   <span class=\"comment\">// 'a'</span>\narr.objectAt<span class=\"comment\">(3)</span>;   <span class=\"comment\">// 'd'</span>\narr.objectAt<span class=\"comment\">(-1)</span>;  <span class=\"comment\">// undefined</span>\narr.objectAt<span class=\"comment\">(4)</span>;   <span class=\"comment\">// undefined</span>\narr.objectAt<span class=\"comment\">(5)</span>;   <span class=\"comment\">// undefined</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "objectAt",
+          "params": [
+            {
+              "name": "idx",
+              "description": "The index of the item to return.",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "item at index or undefined",
+            "type": "*"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 288,
+          "description": "<html><head></head><body><p>This returns the objects at the specified indexes, using <code>objectAt</code>.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let arr = [<span class=\"string\">'a'</span>, <span class=\"string\">'b'</span>, <span class=\"string\">'c'</span>, <span class=\"string\">'d'</span>];\n\narr.objectsAt([<span class=\"number\">0</span>, <span class=\"number\">1</span>, <span class=\"number\">2</span>]);  // [<span class=\"string\">'a'</span>, <span class=\"string\">'b'</span>, <span class=\"string\">'c'</span>]\narr.objectsAt([<span class=\"number\">2</span>, <span class=\"number\">3</span>, <span class=\"number\">4</span>]);  // [<span class=\"string\">'c'</span>, <span class=\"string\">'d'</span>, undefined]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "objectsAt",
+          "params": [
+            {
+              "name": "indexes",
+              "description": "An array of indexes of items to return.",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 354,
+          "description": "<html><head></head><body><p>Returns a new array that is a slice of the receiver. This implementation\nuses the observable array methods to retrieve the objects for the new\nslice.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>let arr = [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>];\n\narr.slice(<span class=\"number\">0</span>);       // [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>]\narr.slice(<span class=\"number\">0</span>, <span class=\"number\">2</span>);    // [<span class=\"string\">'red'</span>, <span class=\"string\">'green'</span>]\narr.slice(<span class=\"number\">1</span>, <span class=\"number\">100</span>);  // [<span class=\"string\">'green'</span>, <span class=\"string\">'blue'</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "slice",
+          "params": [
+            {
+              "name": "beginIndex",
+              "description": "(Optional) index to begin slicing from.",
+              "type": "Number"
+            },
+            {
+              "name": "endIndex",
+              "description": "(Optional) index to end the slice at (but not included).",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "New array with specified slice",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 374,
+          "description": "<html><head></head><body><p>Used to determine the passed object's first occurrence in the array.\nReturns the index if found, -1 if no match is found.</p>\n<p>The optional <code>startAt</code> argument can be used to pass a starting\nindex to search from, effectively slicing the searchable portion\nof the array. If it's negative it will add the array length to\nthe startAt value passed in as the index to search from. If less\nthan or equal to <code>-1 * array.length</code> the entire array is searched.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n</pre></td>\n              <td class=\"code\"><pre>let arr = [<span class=\"string\">'a'</span>, <span class=\"string\">'b'</span>, <span class=\"string\">'c'</span>, <span class=\"string\">'d'</span>, <span class=\"string\">'a'</span>];\n\narr.<span class=\"built_in\">indexOf</span>(<span class=\"string\">'a'</span>);       <span class=\"comment\">//  0</span>\narr.<span class=\"built_in\">indexOf</span>(<span class=\"string\">'z'</span>);       <span class=\"comment\">// -1</span>\narr.<span class=\"built_in\">indexOf</span>(<span class=\"string\">'a'</span>, <span class=\"number\">2</span>);    <span class=\"comment\">//  4</span>\narr.<span class=\"built_in\">indexOf</span>(<span class=\"string\">'a'</span>, <span class=\"number\">-1</span>);   <span class=\"comment\">//  4, equivalent to indexOf('a', 4)</span>\narr.<span class=\"built_in\">indexOf</span>(<span class=\"string\">'a'</span>, <span class=\"number\">-100</span>); <span class=\"comment\">//  0, searches entire array</span>\narr.<span class=\"built_in\">indexOf</span>(<span class=\"string\">'b'</span>, <span class=\"number\">3</span>);    <span class=\"comment\">// -1</span>\narr.<span class=\"built_in\">indexOf</span>(<span class=\"string\">'a'</span>, <span class=\"number\">100</span>);  <span class=\"comment\">// -1</span>\n\nlet people = [{ <span class=\"attr\">name</span>: <span class=\"string\">'Zoey'</span> }, { <span class=\"attr\">name</span>: <span class=\"string\">'Bob'</span> }]\nlet newPerson = { <span class=\"attr\">name</span>: <span class=\"string\">'Tom'</span> };\npeople = [newPerson, ...people, newPerson];\n\npeople.<span class=\"built_in\">indexOf</span>(newPerson);     <span class=\"comment\">//  0</span>\npeople.<span class=\"built_in\">indexOf</span>(newPerson, <span class=\"number\">1</span>);  <span class=\"comment\">//  3</span>\npeople.<span class=\"built_in\">indexOf</span>(newPerson, <span class=\"number\">-4</span>); <span class=\"comment\">//  0</span>\npeople.<span class=\"built_in\">indexOf</span>(newPerson, <span class=\"number\">10</span>); <span class=\"comment\">// -1</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "indexOf",
+          "params": [
+            {
+              "name": "object",
+              "description": "the item to search for",
+              "type": "Object"
+            },
+            {
+              "name": "startAt",
+              "description": "optional starting location to search, default 0",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "index or -1 if not found",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 412,
+          "description": "<html><head></head><body><p>Returns the index of the given <code>object</code>'s last occurrence.</p>\n<ul>\n<li>If no <code>startAt</code> argument is given, the search starts from\nthe last position.</li>\n<li>If it's greater than or equal to the length of the array,\nthe search starts from the last position.</li>\n<li>If it's negative, it is taken as the offset from the end\nof the array i.e. <code>startAt + array.length</code>.</li>\n<li>If it's any other positive number, will search backwards\nfrom that index of the array.</li>\n</ul>\n<p>Returns -1 if no match is found.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> arr = [<span class=\"string\">'a'</span>, <span class=\"string\">'b'</span>, <span class=\"string\">'c'</span>, <span class=\"string\">'d'</span>, <span class=\"string\">'a'</span>];\n\narr.lastIndexOf(<span class=\"string\">'a'</span>);       <span class=\"comment\">//  4</span>\narr.lastIndexOf(<span class=\"string\">'z'</span>);       <span class=\"comment\">// -1</span>\narr.lastIndexOf(<span class=\"string\">'a'</span>, <span class=\"number\">2</span>);    <span class=\"comment\">//  0</span>\narr.lastIndexOf(<span class=\"string\">'a'</span>, -<span class=\"number\">1</span>);   <span class=\"comment\">//  4</span>\narr.lastIndexOf(<span class=\"string\">'a'</span>, -<span class=\"number\">3</span>);   <span class=\"comment\">//  0</span>\narr.lastIndexOf(<span class=\"string\">'b'</span>, <span class=\"number\">3</span>);    <span class=\"comment\">//  1</span>\narr.lastIndexOf(<span class=\"string\">'a'</span>, <span class=\"number\">100</span>);  <span class=\"comment\">//  4</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "lastIndexOf",
+          "params": [
+            {
+              "name": "object",
+              "description": "the item to search for",
+              "type": "Object"
+            },
+            {
+              "name": "startAt",
+              "description": "optional starting location to search from\nbackwards, defaults to `(array.length - 1)`",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The last index of the `object` in the array or -1\nif not found",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 447,
+          "description": "<html><head></head><body><p>Iterates through the array, calling the passed function on each\nitem. This method corresponds to the <code>forEach()</code> method defined in\nJavaScript 1.6.</p>\n<p>The callback method you provide should have the following signature (all\nparameters are optional):</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(item, <span class=\"keyword\">index</span>, <span class=\"keyword\">array</span>)</span>;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><code>item</code> is the current item in the iteration.</li>\n<li><code>index</code> is the current index in the iteration.</li>\n<li><code>array</code> is the array itself.</li>\n</ul>\n<p>Note that in addition to a callback, you can also pass an optional target\nobject that will be set as <code>this</code> on the context. This is a good way\nto give your iterator function access to the current object.</p>\n<p>Example Usage:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n</pre></td>\n              <td class=\"code\"><pre>let foods = [\n  { <span class=\"attr\">name</span>: <span class=\"string\">'apple'</span>, <span class=\"attr\">eaten</span>: <span class=\"literal\">false</span> },\n  { <span class=\"attr\">name</span>: <span class=\"string\">'banana'</span>, <span class=\"attr\">eaten</span>: <span class=\"literal\">false</span> },\n  { <span class=\"attr\">name</span>: <span class=\"string\">'carrot'</span>, <span class=\"attr\">eaten</span>: <span class=\"literal\">false</span> }\n];\n\nfoods.forEach(<span class=\"function\">(<span class=\"params\">food</span>) =&gt;</span> food.eaten = <span class=\"literal\">true</span>);\n\nlet output = <span class=\"string\">''</span>;\nfoods.forEach(<span class=\"function\">(<span class=\"params\">item, index, <span class=\"built_in\">array</span></span>) =&gt;</span>\n  output += <span class=\"string\">`<span class=\"subst\">${index + <span class=\"number\">1</span>}</span>/<span class=\"subst\">${<span class=\"built_in\">array</span>.<span class=\"built_in\">length</span>}</span> <span class=\"subst\">${item.name}</span>\\n`</span>;\n);\n<span class=\"built_in\">console</span>.<span class=\"built_in\">log</span>(output);\n<span class=\"comment\">// 1/3 apple</span>\n<span class=\"comment\">// 2/3 banana</span>\n<span class=\"comment\">// 3/3 carrot</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "forEach",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 498,
+          "description": "<html><head></head><body><p>Alias for <code>mapBy</code>.</p>\n<p>Returns the value of the named\nproperty on all items in the enumeration.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>let people = [{name: <span class=\"string\">'Joe'</span>}, {name: <span class=\"string\">'Matt'</span>}];\n\npeople.getEach(<span class=\"string\">'name'</span>);\n// [<span class=\"string\">'Joe'</span>, <span class=\"string\">'Matt'</span>];\n\npeople.getEach(<span class=\"string\">'nonexistentProperty'</span>);\n// [undefined, undefined];</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "getEach",
+          "params": [
+            {
+              "name": "key",
+              "description": "name of the property",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The mapped array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 520,
+          "description": "<html><head></head><body><p>Sets the value on the named property for each member. This is more\nergonomic than using other methods defined on this helper. If the object\nimplements Observable, the value will be changed to <code>set(),</code> otherwise\nit will be set directly. <code>null</code> objects are skipped.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> people = [<span class=\"built_in\">{name</span>: <span class=\"string\">'Joe'</span>}, <span class=\"built_in\">{name</span>: <span class=\"string\">'Matt'</span>}];\n\npeople.setEach(<span class=\"string\">'zipCode'</span>, <span class=\"string\">'10011'</span>);\n// [<span class=\"built_in\">{name</span>: <span class=\"string\">'Joe'</span>, zipCode: <span class=\"string\">'10011'</span>}, <span class=\"built_in\">{name</span>: <span class=\"string\">'Matt'</span>, zipCode: <span class=\"string\">'10011'</span>}];</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "setEach",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The object to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 540,
+          "description": "<html><head></head><body><p>Maps all of the items in the enumeration to another value, returning\na new array. This method corresponds to <code>map()</code> defined in JavaScript 1.6.</p>\n<p>The callback method you provide should have the following signature (all\nparameters are optional):</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">function</span>(<span class=\"type\">item</span>, index, <span class=\"keyword\">array</span>);\n<span class=\"keyword\">let</span> arr = [<span class=\"number\">1</span>, <span class=\"number\">2</span>, <span class=\"number\">3</span>, <span class=\"number\">4</span>, <span class=\"number\">5</span>, <span class=\"number\">6</span>];\n\narr.<span class=\"keyword\">map</span>(<span class=\"keyword\">element</span> =&gt; <span class=\"keyword\">element</span> * <span class=\"keyword\">element</span>);\n// [1, 4, 9, 16, 25, 36];\n\narr.map((<span class=\"keyword\">element</span>, index) =&gt; <span class=\"keyword\">element</span> + index);\n// [1, 3, 5, 7, 9, 11];</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><code>item</code> is the current item in the iteration.</li>\n<li><code>index</code> is the current index in the iteration.</li>\n<li><code>array</code> is the array itself.</li>\n</ul>\n<p>It should return the mapped value.</p>\n<p>Note that in addition to a callback, you can also pass an optional target\nobject that will be set as <code>this</code> on the context. This is a good way\nto give your iterator function access to the current object.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "map",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "The mapped array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 578,
+          "description": "<html><head></head><body><p>Similar to map, this specialized function returns the value of the named\nproperty on all items in the enumeration.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>let people = [{name: <span class=\"string\">'Joe'</span>}, {name: <span class=\"string\">'Matt'</span>}];\n\npeople.mapBy(<span class=\"string\">'name'</span>);\n// [<span class=\"string\">'Joe'</span>, <span class=\"string\">'Matt'</span>];\n\npeople.mapBy(<span class=\"string\">'unknownProperty'</span>);\n// [undefined, undefined];</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "mapBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "name of the property",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The mapped array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 599,
+          "description": "<html><head></head><body><p>Returns a new array with all of the items in the enumeration that the provided\ncallback function returns true for. This method corresponds to <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter\">Array.prototype.filter()</a>.</p>\n<p>The callback method should have the following signature:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(item, <span class=\"keyword\">index</span>, <span class=\"keyword\">array</span>)</span>;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><code>item</code> is the current item in the iteration.</li>\n<li><code>index</code> is the current index in the iteration.</li>\n<li><code>array</code> is the array itself.</li>\n</ul>\n<p>All parameters are optional. The function should return <code>true</code> to include the item\nin the results, and <code>false</code> otherwise.</p>\n<p>Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">function</span> isAdult(person) {\n  <span class=\"keyword\">return</span> person.age &gt; <span class=\"number\">18</span>;\n};\n\nlet people = Ember.A([{ <span class=\"type\">name</span>: <span class=\"string\">'John'</span>, age: <span class=\"number\">14</span> }, { <span class=\"type\">name</span>: <span class=\"string\">'Joan'</span>, age: <span class=\"number\">45</span> }]);\n\npeople.<span class=\"keyword\">filter</span>(isAdult); // <span class=\"keyword\">returns</span> [{ <span class=\"type\">name</span>: <span class=\"string\">'Joan'</span>, age: <span class=\"number\">45</span> }];</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Note that in addition to a callback, you can pass an optional target object\nthat will be set as <code>this</code> on the context. This is a good way to give your\niterator function access to the current object. For example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">function</span> <span class=\"title function_\">isAdultAndEngineer</span>(<span class=\"params\">person</span>) {\n  <span class=\"keyword\">return</span> person.<span class=\"property\">age</span> &gt; <span class=\"number\">18</span> &amp;&amp; <span class=\"variable language_\">this</span>.<span class=\"property\">engineering</span>;\n}\n\n<span class=\"keyword\">class</span> <span class=\"title class_\">AdultsCollection</span> {\n  engineering = <span class=\"literal\">false</span>;\n\n  <span class=\"title function_\">constructor</span>(<span class=\"params\">opts = {}</span>) {\n    <span class=\"variable language_\">super</span>(...<span class=\"variable language_\">arguments</span>);\n\n    <span class=\"variable language_\">this</span>.<span class=\"property\">engineering</span> = opts.<span class=\"property\">engineering</span>;\n    <span class=\"variable language_\">this</span>.<span class=\"property\">people</span> = <span class=\"title class_\">Ember</span>.<span class=\"title function_\">A</span>([{ <span class=\"attr\">name</span>: <span class=\"string\">'John'</span>, <span class=\"attr\">age</span>: <span class=\"number\">14</span> }, { <span class=\"attr\">name</span>: <span class=\"string\">'Joan'</span>, <span class=\"attr\">age</span>: <span class=\"number\">45</span> }]);\n  }\n}\n\n<span class=\"keyword\">let</span> collection = <span class=\"keyword\">new</span> <span class=\"title class_\">AdultsCollection</span>({ <span class=\"attr\">engineering</span>: <span class=\"literal\">true</span> });\ncollection.<span class=\"property\">people</span>.<span class=\"title function_\">filter</span>(isAdultAndEngineer, { <span class=\"attr\">target</span>: collection });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "filter",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "A filtered array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 662,
+          "description": "<html><head></head><body><p>Returns an array with all of the items in the enumeration where the passed\nfunction returns false. This method is the inverse of filter().</p>\n<p>The callback method you provide should have the following signature (all\nparameters are optional):</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(item, <span class=\"keyword\">index</span>, <span class=\"keyword\">array</span>)</span>;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><em>item</em> is the current item in the iteration.</li>\n<li><em>index</em> is the current index in the iteration</li>\n<li><em>array</em> is the array itself.</li>\n</ul>\n<p>It should return a falsey value to include the item in the results.</p>\n<p>Note that in addition to a callback, you can also pass an optional target\nobject that will be set as \"this\" on the context. This is a good way\nto give your iterator function access to the current object.</p>\n<p>Example Usage:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">const</span> food = [\n  { food: <span class=\"string\">'apple'</span>, isFruit: <span class=\"literal\">true</span> },\n  { food: <span class=\"string\">'bread'</span>, isFruit: <span class=\"literal\">false</span> },\n  { food: <span class=\"string\">'banana'</span>, isFruit: <span class=\"literal\">true</span> }\n];\n<span class=\"keyword\">const</span> nonFruits = food.reject(<span class=\"keyword\">function</span><span class=\"params\">(thing)</span> {\n  <span class=\"keyword\">return</span> thing.isFruit;\n}); <span class=\"comment\">// [{food: 'bread', isFruit: false}]</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "reject",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "A rejected array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 706,
+          "description": "<html><head></head><body><p>Filters the array by the property and an optional value. If a value is given, it returns\nthe items that have said value for the property. If not, it returns all the items that\nhave a truthy value for the property.</p>\n<p>Example Usage:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let things = <span class=\"title class_\">Ember</span>.A([{ <span class=\"symbol\">food:</span> <span class=\"string\">'apple'</span>, <span class=\"symbol\">isFruit:</span> <span class=\"literal\">true</span> }, { <span class=\"symbol\">food:</span> <span class=\"string\">'beans'</span>, <span class=\"symbol\">isFruit:</span> <span class=\"literal\">false</span> }]);\n\nthings.filterBy(<span class=\"string\">'food'</span>, <span class=\"string\">'beans'</span>); <span class=\"regexp\">//</span> [{ <span class=\"symbol\">food:</span> <span class=\"string\">'beans'</span>, <span class=\"symbol\">isFruit:</span> <span class=\"literal\">false</span> }]\nthings.filterBy(<span class=\"string\">'isFruit'</span>); <span class=\"regexp\">//</span> [{ <span class=\"symbol\">food:</span> <span class=\"string\">'apple'</span>, <span class=\"symbol\">isFruit:</span> <span class=\"literal\">true</span> }]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "filterBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against.",
+              "type": "*",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "filtered array",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 727,
+          "description": "<html><head></head><body><p>Returns an array with the items that do not have truthy values for the provided key.\nYou can pass an optional second argument with a target value to reject for the key.\nOtherwise this will reject objects where the provided property evaluates to false.</p>\n<p>Example Usage:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>  <span class=\"keyword\">let</span> food = [\n    {<span class=\"built_in\"> name</span>: <span class=\"string\">\"apple\"</span>, isFruit:<span class=\"built_in\"> true</span> },\n    {<span class=\"built_in\"> name</span>: <span class=\"string\">\"carrot\"</span>, isFruit:<span class=\"built_in\"> false</span> },\n    {<span class=\"built_in\"> name</span>: <span class=\"string\">\"bread\"</span>, isFruit:<span class=\"built_in\"> false</span> },\n  ];\n  food.rejectBy(<span class=\"string\">'isFruit'</span>); // [{<span class=\"built_in\"> name</span>: <span class=\"string\">\"carrot\"</span>, isFruit:<span class=\"built_in\"> false</span> }, {<span class=\"built_in\"> name</span>: <span class=\"string\">\"bread\"</span>, isFruit:<span class=\"built_in\"> false</span> }]\n  food.rejectBy(<span class=\"string\">'name'</span>, <span class=\"string\">'carrot'</span>); // [{<span class=\"built_in\"> name</span>: <span class=\"string\">\"apple\"</span>, isFruit:<span class=\"built_in\"> true</span> }}, {<span class=\"built_in\"> name</span>: <span class=\"string\">\"bread\"</span>, isFruit:<span class=\"built_in\"> false</span> }]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "rejectBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against.",
+              "type": "*",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "rejected array",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 751,
+          "description": "<html><head></head><body><p>Returns the first item in the array for which the callback returns true.\nThis method is similar to the <code>find()</code> method defined in ECMAScript 2015.</p>\n<p>The callback method you provide should have the following signature (all\nparameters are optional):</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(item, <span class=\"keyword\">index</span>, <span class=\"keyword\">array</span>)</span>;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><code>item</code> is the current item in the iteration.</li>\n<li><code>index</code> is the current index in the iteration.</li>\n<li><code>array</code> is the array itself.</li>\n</ul>\n<p>It should return the <code>true</code> to include the item in the results, <code>false</code>\notherwise.</p>\n<p>Note that in addition to a callback, you can also pass an optional target\nobject that will be set as <code>this</code> on the context. This is a good way\nto give your iterator function access to the current object.</p>\n<p>Example Usage:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> users = [\n  {<span class=\"built_in\"> id</span>: <span class=\"number\">1</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Yehuda'</span> },\n  {<span class=\"built_in\"> id</span>: <span class=\"number\">2</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Tom'</span> },\n  {<span class=\"built_in\"> id</span>: <span class=\"number\">3</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Melanie'</span> },\n  {<span class=\"built_in\"> id</span>: <span class=\"number\">4</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Leah'</span> }\n];\n\nusers.find((user) =&gt; user<span class=\"built_in\">.name</span> == <span class=\"string\">'Tom'</span>); // [{<span class=\"built_in\"> id</span>: <span class=\"number\">2</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Tom'</span> }]\nusers.find(({<span class=\"built_in\"> id</span> }) =&gt;<span class=\"built_in\"> id</span> == <span class=\"number\">3</span>); // [{<span class=\"built_in\"> id</span>: <span class=\"number\">3</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Melanie'</span> }]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "find",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "Found item or `undefined`.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 801,
+          "description": "<html><head></head><body><p>Returns the first item with a property matching the passed value. You\ncan pass an optional second argument with the target value. Otherwise\nthis will match any property that evaluates to <code>true</code>.</p>\n<p>This method works much like the more generic <code>find()</code> method.</p>\n<p>Usage Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> users = [\n  {<span class=\"built_in\"> id</span>: <span class=\"number\">1</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Yehuda'</span>, isTom:<span class=\"built_in\"> false</span> },\n  {<span class=\"built_in\"> id</span>: <span class=\"number\">2</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Tom'</span>, isTom:<span class=\"built_in\"> true</span> },\n  {<span class=\"built_in\"> id</span>: <span class=\"number\">3</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Melanie'</span>, isTom:<span class=\"built_in\"> false</span> },\n  {<span class=\"built_in\"> id</span>: <span class=\"number\">4</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Leah'</span>, isTom:<span class=\"built_in\"> false</span> }\n];\n\nusers.findBy(<span class=\"string\">'id'</span>, <span class=\"number\">4</span>); // {<span class=\"built_in\"> id</span>: <span class=\"number\">4</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Leah'</span>, isTom:<span class=\"built_in\"> false</span> }\nusers.findBy(<span class=\"string\">'name'</span>, <span class=\"string\">'Melanie'</span>); // {<span class=\"built_in\"> id</span>: <span class=\"number\">3</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Melanie'</span>, isTom:<span class=\"built_in\"> false</span> }\nusers.findBy(<span class=\"string\">'isTom'</span>); // {<span class=\"built_in\"> id</span>: <span class=\"number\">2</span>,<span class=\"built_in\"> name</span>: <span class=\"string\">'Tom'</span>, isTom:<span class=\"built_in\"> true</span> }</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "findBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against.",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "found item or `undefined`",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 831,
+          "description": "<html><head></head><body><p>Returns <code>true</code> if the passed function returns true for every item in the\nenumeration. This corresponds with the <code>Array.prototype.every()</code> method defined in ES5.</p>\n<p>The callback method should have the following signature:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(item, <span class=\"keyword\">index</span>, <span class=\"keyword\">array</span>)</span>;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><code>item</code> is the current item in the iteration.</li>\n<li><code>index</code> is the current index in the iteration.</li>\n<li><code>array</code> is the array itself.</li>\n</ul>\n<p>All params are optional. The method should return <code>true</code> or <code>false</code>.</p>\n<p>Note that in addition to a callback, you can also pass an optional target\nobject that will be set as <code>this</code> on the context. This is a good way\nto give your iterator function access to the current object.</p>\n<p>Usage example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"function\"><span class=\"keyword\">function</span> <span class=\"title\">isAdult</span>(<span class=\"params\">person</span>) </span>{\n  <span class=\"keyword\">return</span> person.age &gt; <span class=\"number\">18</span>;\n};\n\n<span class=\"keyword\">const</span> <span class=\"variable constant_\">people</span> = Ember.<span class=\"title function_ invoke__\">A</span>([{ <span class=\"attr\">name</span>: <span class=\"string\">'John'</span>, <span class=\"attr\">age</span>: <span class=\"number\">24</span> }, { <span class=\"attr\">name</span>: <span class=\"string\">'Joan'</span>, <span class=\"attr\">age</span>: <span class=\"number\">45</span> }]);\n<span class=\"keyword\">const</span> <span class=\"variable constant_\">areAllAdults</span> = people.<span class=\"title function_ invoke__\">every</span>(isAdult);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "every",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 872,
+          "description": "<html><head></head><body><p>Returns <code>true</code> if the passed property resolves to the value of the second\nargument for all items in the array. This method is often simpler/faster\nthan using a callback.</p>\n<p>Note that like the native <code>Array.every</code>, <code>isEvery</code> will return true when called\non any empty array.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">class</span> <span class=\"keyword\">Language</span> {\n  constructor(<span class=\"type\">name</span>, isProgrammingLanguage) {\n    this.name = <span class=\"type\">name</span>;\n    this.programmingLanguage = isProgrammingLanguage;\n  }\n}\n\nconst compiledLanguages = [\n  <span class=\"built_in\">new</span> <span class=\"keyword\">Language</span>(<span class=\"string\">'Java'</span>, <span class=\"keyword\">true</span>),\n  <span class=\"built_in\">new</span> <span class=\"keyword\">Language</span>(<span class=\"string\">'Go'</span>, <span class=\"keyword\">true</span>),\n  <span class=\"built_in\">new</span> <span class=\"keyword\">Language</span>(<span class=\"string\">'Rust'</span>, <span class=\"keyword\">true</span>)\n]\n\nconst languagesKnownByMe = [\n  <span class=\"built_in\">new</span> <span class=\"keyword\">Language</span>(<span class=\"string\">'Javascript'</span>, <span class=\"keyword\">true</span>),\n  <span class=\"built_in\">new</span> <span class=\"keyword\">Language</span>(<span class=\"string\">'English'</span>, <span class=\"keyword\">false</span>),\n  <span class=\"built_in\">new</span> <span class=\"keyword\">Language</span>(<span class=\"string\">'Ruby'</span>, <span class=\"keyword\">true</span>)\n]\n\ncompiledLanguages.isEvery(<span class=\"string\">'programmingLanguage'</span>); // <span class=\"keyword\">true</span>\nlanguagesKnownByMe.isEvery(<span class=\"string\">'programmingLanguage'</span>); // <span class=\"keyword\">false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isEvery",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against. Defaults to `true`",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 912,
+          "description": "<html><head></head><body><p>The any() method executes the callback function once for each element\npresent in the array until it finds the one where callback returns a truthy\nvalue (i.e. <code>true</code>). If such an element is found, any() immediately returns\ntrue. Otherwise, any() returns false.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(item, <span class=\"keyword\">index</span>, <span class=\"keyword\">array</span>)</span>;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><code>item</code> is the current item in the iteration.</li>\n<li><code>index</code> is the current index in the iteration.</li>\n<li><code>array</code> is the array object itself.</li>\n</ul>\n<p>Note that in addition to a callback, you can also pass an optional target\nobject that will be set as <code>this</code> on the context. It can be a good way\nto give your iterator function access to an object in cases where an ES6\narrow function would not be appropriate.</p>\n<p>Usage Example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre>let includesManager = people.any(<span class=\"keyword\">this</span>.findPersonInManagersList, <span class=\"keyword\">this</span>);\n\nlet includesStockHolder = people.any(person =&gt; {\n  <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.findPersonInStockHoldersList(person)\n});\n\n<span class=\"keyword\">if</span> (includesManager || includesStockHolder) {\n  Paychecks.addBiggerBonus();\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "any",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "`true` if the passed function returns `true` for any item",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 955,
+          "description": "<html><head></head><body><p>Returns <code>true</code> if the passed property resolves to the value of the second\nargument for any item in the array. This method is often simpler/faster\nthan using a callback.</p>\n<p>Example usage:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"string\">const</span> <span class=\"string\">food</span> <span class=\"string\">=</span> [\n  { <span class=\"attr\">food:</span> <span class=\"string\">'apple'</span>, <span class=\"attr\">isFruit:</span> <span class=\"literal\">true</span> },\n  { <span class=\"attr\">food:</span> <span class=\"string\">'bread'</span>, <span class=\"attr\">isFruit:</span> <span class=\"literal\">false</span> },\n  { <span class=\"attr\">food:</span> <span class=\"string\">'banana'</span>, <span class=\"attr\">isFruit:</span> <span class=\"literal\">true</span> }\n]<span class=\"string\">;</span>\n\n<span class=\"string\">food.isAny('isFruit');</span> <span class=\"string\">//</span> <span class=\"literal\">true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isAny",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against. Defaults to `true`",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 981,
+          "description": "<html><head></head><body><p>This will combine the values of the array into a single value. It\nis a useful way to collect a summary value from an array. This\ncorresponds to the <code>reduce()</code> method defined in JavaScript 1.8.</p>\n<p>The callback method you provide should have the following signature (all\nparameters are optional):</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(previousValue, item, <span class=\"keyword\">index</span>, <span class=\"keyword\">array</span>)</span>;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><code>previousValue</code> is the value returned by the last call to the iterator.</li>\n<li><code>item</code> is the current item in the iteration.</li>\n<li><code>index</code> is the current index in the iteration.</li>\n<li><code>array</code> is the array itself.</li>\n</ul>\n<p>Return the new cumulative value.</p>\n<p>In addition to the callback you can also pass an <code>initialValue</code>. An error\nwill be raised if you do not pass an initial value and the enumerator is\nempty.</p>\n<p>Note that unlike the other methods, this method does not allow you to\npass a target object to set as this for the callback. It's part of the\nspec. Sorry.</p>\n<p>Example Usage:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n</pre></td>\n              <td class=\"code\"><pre>  let numbers = [<span class=\"number\">1</span>, <span class=\"number\">2</span>, <span class=\"number\">3</span>, <span class=\"number\">4</span>, <span class=\"number\">5</span>];\n\n  numbers.reduce(<span class=\"keyword\">function</span>(summation, <span class=\"keyword\">current</span>) {\n    <span class=\"keyword\">return</span> summation + <span class=\"keyword\">current</span>;\n  }); // <span class=\"number\">15</span> (<span class=\"number\">1</span> + <span class=\"number\">2</span> + <span class=\"number\">3</span> + <span class=\"number\">4</span> + <span class=\"number\">5</span>)\n\n  numbers.reduce(<span class=\"keyword\">function</span>(summation, <span class=\"keyword\">current</span>) {\n    <span class=\"keyword\">return</span> summation + <span class=\"keyword\">current</span>;\n  }, <span class=\"number\">-15</span>); // <span class=\"number\">0</span> (<span class=\"number\">-15</span> + <span class=\"number\">1</span> + <span class=\"number\">2</span> + <span class=\"number\">3</span> + <span class=\"number\">4</span> + <span class=\"number\">5</span>)\n\n\n  let binaryValues = [<span class=\"keyword\">true</span>, <span class=\"keyword\">false</span>, <span class=\"keyword\">false</span>];\n\n  binaryValues.reduce(<span class=\"keyword\">function</span>(truthValue, <span class=\"keyword\">current</span>) {\n    <span class=\"keyword\">return</span> truthValue &amp;&amp; <span class=\"keyword\">current</span>;\n  }); // <span class=\"keyword\">false</span> (<span class=\"keyword\">true</span> &amp;&amp; <span class=\"keyword\">false</span> &amp;&amp; <span class=\"keyword\">false</span>)</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "reduce",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "initialValue",
+              "description": "Initial value for the reduce",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The reduced value.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1039,
+          "description": "<html><head></head><body><p>Invokes the named method on every object in the receiver that\nimplements it. This method corresponds to the implementation in\nPrototype 1.6.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">class</span> <span class=\"title class_\">Person</span> {\n  name = <span class=\"literal\">null</span>;\n\n  <span class=\"title function_\">constructor</span>(<span class=\"params\">name</span>) {\n    <span class=\"variable language_\">this</span>.<span class=\"property\">name</span> = name;\n  }\n\n  <span class=\"title function_\">greet</span>(<span class=\"params\">prefix=<span class=\"string\">'Hello'</span></span>) {\n    <span class=\"keyword\">return</span> <span class=\"string\">`<span class=\"subst\">${prefix}</span> <span class=\"subst\">${<span class=\"variable language_\">this</span>.name}</span>`</span>;\n  }\n}\n\n<span class=\"keyword\">let</span> people = [<span class=\"keyword\">new</span> <span class=\"title class_\">Person</span>(<span class=\"string\">'Joe'</span>), <span class=\"keyword\">new</span> <span class=\"title class_\">Person</span>(<span class=\"string\">'Matt'</span>)];\n\npeople.<span class=\"title function_\">invoke</span>(<span class=\"string\">'greet'</span>); <span class=\"comment\">// ['Hello Joe', 'Hello Matt']</span>\npeople.<span class=\"title function_\">invoke</span>(<span class=\"string\">'greet'</span>, <span class=\"string\">'Bonjour'</span>); <span class=\"comment\">// ['Bonjour Joe', 'Bonjour Matt']</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "invoke",
+          "params": [
+            {
+              "name": "methodName",
+              "description": "the name of the method",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "optional arguments to pass as well.",
+              "type": "Object..."
+            }
+          ],
+          "return": {
+            "description": "return values from calling invoke.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1073,
+          "description": "<html><head></head><body><p>Simply converts the object into a genuine array. The order is not\nguaranteed. Corresponds to the method implemented by Prototype.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "toArray",
+          "return": {
+            "description": "the object as an array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1082,
+          "description": "<html><head></head><body><p>Returns a copy of the array with all <code>null</code> and <code>undefined</code> elements removed.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>let arr = [<span class=\"string\">'a'</span>, <span class=\"literal\">null</span>, <span class=\"string\">'c'</span>, <span class=\"literal\">undefined</span>];\narr.compact();  <span class=\"regexp\">//</span> [<span class=\"string\">'a'</span>, <span class=\"string\">'c'</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "compact",
+          "return": {
+            "description": "the array without null and undefined elements.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1095,
+          "description": "<html><head></head><body><p>Used to determine if the array contains the passed object.\nReturns <code>true</code> if found, <code>false</code> otherwise.</p>\n<p>The optional <code>startAt</code> argument can be used to pass a starting\nindex to search from, effectively slicing the searchable portion\nof the array. If it's negative it will add the array length to\nthe startAt value passed in as the index to search from. If less\nthan or equal to <code>-1 * array.length</code> the entire array is searched.</p>\n<p>This method has the same behavior of JavaScript's <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes\">Array.includes</a>.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre>[1, 2, 3]<span class=\"string\">.includes</span><span class=\"params\">(2)</span>;     <span class=\"string\">//</span> <span class=\"literal\">true</span>\n[1, 2, 3]<span class=\"string\">.includes</span><span class=\"params\">(4)</span>;     <span class=\"string\">//</span> <span class=\"literal\">false</span>\n[1, 2, 3]<span class=\"string\">.includes</span><span class=\"params\">(3, 2)</span>;  <span class=\"string\">//</span> <span class=\"literal\">true</span>\n[1, 2, 3]<span class=\"string\">.includes</span><span class=\"params\">(3, 3)</span>;  <span class=\"string\">//</span> <span class=\"literal\">false</span>\n[1, 2, 3]<span class=\"string\">.includes</span><span class=\"params\">(3, -1)</span>; <span class=\"string\">//</span> <span class=\"literal\">true</span>\n[1, 2, 3]<span class=\"string\">.includes</span><span class=\"params\">(1, -1)</span>; <span class=\"string\">//</span> <span class=\"literal\">false</span>\n[1, 2, 3]<span class=\"string\">.includes</span><span class=\"params\">(1, -4)</span>; <span class=\"string\">//</span> <span class=\"literal\">true</span>\n[1, 2, NaN]<span class=\"string\">.includes</span><span class=\"params\">(NaN)</span>; <span class=\"string\">//</span> <span class=\"literal\">true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "includes",
+          "params": [
+            {
+              "name": "object",
+              "description": "The object to search for.",
+              "type": "Object"
+            },
+            {
+              "name": "startAt",
+              "description": "optional starting location to search, default 0",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "`true` if object is found in the array.",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1125,
+          "description": "<html><head></head><body><p>Sorts the array by the keys specified in the argument.</p>\n<p>You may provide multiple arguments to sort by multiple properties.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre>   <span class=\"keyword\">let</span> colors = [\n {<span class=\"built_in\"> name</span>: <span class=\"string\">'red'</span>, weight: <span class=\"number\">500</span> },\n {<span class=\"built_in\"> name</span>: <span class=\"string\">'green'</span>, weight: <span class=\"number\">600</span> },\n {<span class=\"built_in\"> name</span>: <span class=\"string\">'blue'</span>, weight: <span class=\"number\">500</span> }\n];\n\n   colors.sortBy(<span class=\"string\">'name'</span>);\n   // [<span class=\"built_in\">{name</span>: <span class=\"string\">'blue'</span>, weight: <span class=\"number\">500</span>}, <span class=\"built_in\">{name</span>: <span class=\"string\">'green'</span>, weight: <span class=\"number\">600</span>}, <span class=\"built_in\">{name</span>: <span class=\"string\">'red'</span>, weight: <span class=\"number\">500</span>}]\n\n   colors.sortBy(<span class=\"string\">'weight'</span>, <span class=\"string\">'name'</span>);\n   // [<span class=\"built_in\">{name</span>: <span class=\"string\">'blue'</span>, weight: <span class=\"number\">500</span>}, <span class=\"built_in\">{name</span>: <span class=\"string\">'red'</span>, weight: <span class=\"number\">500</span>}, <span class=\"built_in\">{name</span>: <span class=\"string\">'green'</span>, weight: <span class=\"number\">600</span>}]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "sortBy",
+          "params": [
+            {
+              "name": "property",
+              "description": "name(s) to sort on",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The sorted array.",
+            "type": "Array"
+          },
+          "since": "1.2.0",
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1150,
+          "description": "<html><head></head><body><p>Returns a new array that contains only unique values. The default\nimplementation returns an array regardless of the receiver type.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>let arr = [<span class=\"string\">'a'</span>, <span class=\"string\">'a'</span>, <span class=\"string\">'b'</span>, <span class=\"string\">'b'</span>];\narr.uni<span class=\"string\">q()</span>;  <span class=\"regexp\">//</span> [<span class=\"string\">'a'</span>, <span class=\"string\">'b'</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This only works on primitive data types, e.g. Strings, Numbers, etc.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "uniq",
+          "return": {
+            "description": "",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1166,
+          "description": "<html><head></head><body><p>Returns a new array that contains only items containing a unique property value.\nThe default implementation returns an array regardless of the receiver type.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>let arr = [{ value: <span class=\"string\">'a'</span> }, { value: <span class=\"string\">'a'</span> }, { value: <span class=\"string\">'b'</span> }, { value: <span class=\"string\">'b'</span> }];\narr.uniqBy(<span class=\"string\">'value'</span>);  // [{ value: <span class=\"string\">'a'</span> }, { value: <span class=\"string\">'b'</span> }]\n\nlet arr = [<span class=\"number\">2.2</span>, <span class=\"number\">2.1</span>, <span class=\"number\">3.2</span>, <span class=\"number\">3.3</span>];\narr.uniqBy(<span class=\"symbol\">Math</span>.floor);  // [<span class=\"number\">2.2</span>, <span class=\"number\">3.2</span>];</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "uniqBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "String,Function"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1185,
+          "description": "<html><head></head><body><p>Returns a new array that excludes the passed value. The default\nimplementation returns an array regardless of the receiver type.\nIf the receiver does not contain the value it returns the original array.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre>let arr = [<span class=\"string\">'a'</span>, <span class=\"string\">'b'</span>, <span class=\"string\">'a'</span>, <span class=\"string\">'c'</span>];\narr.without(<span class=\"string\">'a'</span>);  // [<span class=\"string\">'b'</span>, <span class=\"string\">'c'</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "without",
+          "params": [
+            {
+              "name": "value",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 253,
+          "description": "<html><head></head><body><p><strong>Required.</strong> You must implement this method to apply this mixin.</p>\n<p>Your array must support the <code>length</code> property. Your replace methods should\nset this property whenever it changes.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "length",
+          "type": "Number",
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 304,
+          "description": "<html><head></head><body><p>This is the handler for the special array content property. If you get\nthis property, it will return this. If you set this property to a new\narray, it will replace the current content.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>let peopleToMoon = [<span class=\"string\">'Armstrong'</span>, <span class=\"string\">'Aldrin'</span>];\n\npeopleToMoon.get(<span class=\"string\">'[]'</span>); // [<span class=\"string\">'Armstrong'</span>, <span class=\"string\">'Aldrin'</span>]\n\npeopleToMoon.set(<span class=\"string\">'[]'</span>, [<span class=\"string\">'Collins'</span>]); // [<span class=\"string\">'Collins'</span>]\npeopleToMoon.get(<span class=\"string\">'[]'</span>); // [<span class=\"string\">'Collins'</span>]</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "[]",
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 324,
+          "description": "<html><head></head><body><p>The first object in the array, or <code>undefined</code> if the array is empty.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre>let vowels = [<span class=\"string\">'a'</span>, <span class=\"string\">'e'</span>, <span class=\"string\">'i'</span>, <span class=\"string\">'o'</span>, <span class=\"string\">'u'</span>];\nvowels.firstObject; <span class=\"regexp\">//</span> <span class=\"string\">'a'</span>\n\nvowels.shiftObject();\nvowels.firstObject; <span class=\"regexp\">//</span> <span class=\"string\">'e'</span>\n\nvowels.reverseObjects();\nvowels.firstObject; <span class=\"regexp\">//</span> <span class=\"string\">'u'</span>\n\nvowels.clear();\nvowels.firstObject; <span class=\"regexp\">//</span> undefined</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "firstObject",
+          "return": {
+            "description": "The first object in the array",
+            "type": "Object | undefined"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 346,
+          "description": "<html><head></head><body><p>The last object in the array, or <code>undefined</code> if the array is empty.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "lastObject",
+          "return": {
+            "description": "The last object in the array",
+            "type": "Object | undefined"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "MutableArray",
+          "module": "@ember/array",
+          "inherited": true,
+          "inheritedFrom": "EmberArray"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.4.0-@ember/array",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.4.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
