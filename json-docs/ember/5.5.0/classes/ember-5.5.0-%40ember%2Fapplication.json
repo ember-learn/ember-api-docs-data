@@ -1,0 +1,89 @@
+{
+  "data": {
+    "id": "ember-5.5.0-@ember/application",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/application",
+      "shortname": "@ember/application",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/application",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/application/lib/lazy_load.ts",
+          "line": 14,
+          "description": "<html><head></head><body><p>Detects when a specific package of Ember (e.g. 'Application')\nhas fully loaded and is available for extension.</p>\n<p>The provided <code>callback</code> will be called with the <code>name</code> passed\nresolved from a string into the object:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { onLoad } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/application'</span>;\n\n<span class=\"title function_\">onLoad</span>(<span class=\"string\">'Ember.Application'</span> <span class=\"keyword\">function</span>(<span class=\"params\">hbars</span>) {\n  hbars.<span class=\"title function_\">registerHelper</span>(...);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "onLoad",
+          "static": 1,
+          "params": [
+            {
+              "name": "name",
+              "description": "name of hook",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "callback to be called",
+              "type": "Function"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/lazy_load.ts",
+          "line": 47,
+          "description": "<html><head></head><body><p>Called when an Ember.js package (e.g Application) has finished\nloading. Triggers any callbacks registered for this event.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "runLoadHooks",
+          "static": 1,
+          "params": [
+            {
+              "name": "name",
+              "description": "name of hook",
+              "type": "String"
+            },
+            {
+              "name": "object",
+              "description": "object to pass to callbacks",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/application",
+          "module": "@ember/application"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.5.0-@ember/application",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
