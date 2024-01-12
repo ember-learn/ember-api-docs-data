@@ -14,13 +14,13 @@
       "namespace": "DS",
       "file": "addon/transforms/number.js",
       "line": 8,
-      "description": "<html><head></head><body><p>The <code>DS.NumberTransform</code> class is used to serialize and deserialize\nnumeric attributes on Ember Data record objects. This transform is\nused when <code>number</code> is passed as the type parameter to the\n<a href=\"../../data#method_attr\">DS.attr</a> function.</p>\n<p>Usage</p>\n<div class=\"highlight app/models/score.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/score.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>import DS from &apos;ember-data&apos;;\n\nexport default <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span><span class=\"module\"><span class=\"identifier\">Model</span>.</span></span>extend({\n  value: <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span></span>attr(&apos;number&apos;),\n  player: <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span></span>belongs<span class=\"constructor\">To(&apos;<span class=\"params\">player</span>&apos;)</span>,\n  date: <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span></span>attr(&apos;date&apos;)\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "description": "The `DS.NumberTransform` class is used to serialize and deserialize\nnumeric attributes on Ember Data record objects. This transform is\nused when `number` is passed as the type parameter to the\n[DS.attr](../../data#method_attr) function.\n\nUsage\n\n```js {data-filename=app/models/score.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  value: DS.attr('number'),\n  player: DS.belongsTo('player'),\n  date: DS.attr('date')\n});\n```",
       "extends": "DS.Transform",
       "methods": [
         {
           "file": "addon/transforms/transform.js",
           "line": 71,
-          "description": "<html><head></head><body><p>When given a deserialized value from a record attribute this\nmethod must return the serialized value.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { isEmpty } <span class=\"keyword\">from</span> <span class=\"string\">&apos;@ember/utils&apos;</span>;\n\nserialize(deserialized, <span class=\"keyword\">options</span>) {\n  <span class=\"keyword\">return</span> isEmpty(deserialized) ? <span class=\"keyword\">null</span> : Number(deserialized);\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "When given a deserialized value from a record attribute this\nmethod must return the serialized value.\n\nExample\n\n```javascript\nimport { isEmpty } from '@ember/utils';\n\nserialize(deserialized, options) {\n  return isEmpty(deserialized) ? null : Number(deserialized);\n}\n```",
           "itemtype": "method",
           "name": "serialize",
           "params": [
@@ -45,7 +45,7 @@
         {
           "file": "addon/transforms/transform.js",
           "line": 92,
-          "description": "<html><head></head><body><p>When given a serialize value from a JSON object this method must\nreturn the deserialized value for the record attribute.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>deserialize(serialized, options) {\n  <span class=\"keyword\">return</span> empty(serialized) ? <span class=\"literal\">null</span> : <span class=\"built_in\">Number</span>(serialized);\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "When given a serialize value from a JSON object this method must\nreturn the deserialized value for the record attribute.\n\nExample\n\n```javascript\ndeserialize(serialized, options) {\n  return empty(serialized) ? null : Number(serialized);\n}\n```",
           "itemtype": "method",
           "name": "deserialize",
           "params": [

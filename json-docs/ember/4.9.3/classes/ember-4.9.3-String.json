@@ -1,0 +1,200 @@
+{
+  "data": {
+    "id": "ember-4.9.3-String",
+    "type": "class",
+    "attributes": {
+      "name": "String",
+      "shortname": "String",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/string",
+      "namespace": "",
+      "file": "packages/@ember/string/index.ts",
+      "line": 74,
+      "description": "Defines string helper methods including string formatting and localization.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/string/index.ts",
+          "line": 81,
+          "description": "Splits a string into separate units separated by spaces, eliminating any\nempty strings in the process.\n\n```javascript\nimport { w } from '@ember/string';\n\nw(\"alpha beta gamma\").forEach(function(key) {\n  console.log(key);\n});\n\n// > alpha\n// > beta\n// > gamma\n```",
+          "itemtype": "method",
+          "name": "w",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to split",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "array containing the split strings",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "String",
+          "module": "@ember/string"
+        },
+        {
+          "file": "packages/@ember/string/index.ts",
+          "line": 106,
+          "description": "Converts a camelized string into all lower case separated by underscores.\n\n```javascript\nimport { decamelize } from '@ember/string';\n\ndecamelize('innerHTML');          // 'inner_html'\ndecamelize('action_name');        // 'action_name'\ndecamelize('css-class-name');     // 'css-class-name'\ndecamelize('my favorite items');  // 'my favorite items'\n```",
+          "itemtype": "method",
+          "name": "decamelize",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to decamelize.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the decamelized string.",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "String",
+          "module": "@ember/string"
+        },
+        {
+          "file": "packages/@ember/string/index.ts",
+          "line": 127,
+          "description": "Replaces underscores, spaces, or camelCase with dashes.\n\n```javascript\nimport { dasherize } from '@ember/string';\n\ndasherize('innerHTML');                // 'inner-html'\ndasherize('action_name');              // 'action-name'\ndasherize('css-class-name');           // 'css-class-name'\ndasherize('my favorite items');        // 'my-favorite-items'\ndasherize('privateDocs/ownerInvoice';  // 'private-docs/owner-invoice'\n```",
+          "itemtype": "method",
+          "name": "dasherize",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to dasherize.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the dasherized string.",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "String",
+          "module": "@ember/string"
+        },
+        {
+          "file": "packages/@ember/string/index.ts",
+          "line": 149,
+          "description": "Returns the lowerCamelCase form of a string.\n\n```javascript\nimport { camelize } from '@ember/string';\n\ncamelize('innerHTML');                   // 'innerHTML'\ncamelize('action_name');                 // 'actionName'\ncamelize('css-class-name');              // 'cssClassName'\ncamelize('my favorite items');           // 'myFavoriteItems'\ncamelize('My Favorite Items');           // 'myFavoriteItems'\ncamelize('private-docs/owner-invoice');  // 'privateDocs/ownerInvoice'\n```",
+          "itemtype": "method",
+          "name": "camelize",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to camelize.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the camelized string.",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "String",
+          "module": "@ember/string"
+        },
+        {
+          "file": "packages/@ember/string/index.ts",
+          "line": 172,
+          "description": "Returns the UpperCamelCase form of a string.\n\n```javascript\nimport { classify } from '@ember/string';\n\nclassify('innerHTML');                   // 'InnerHTML'\nclassify('action_name');                 // 'ActionName'\nclassify('css-class-name');              // 'CssClassName'\nclassify('my favorite items');           // 'MyFavoriteItems'\nclassify('private-docs/owner-invoice');  // 'PrivateDocs/OwnerInvoice'\n```",
+          "itemtype": "method",
+          "name": "classify",
+          "params": [
+            {
+              "name": "str",
+              "description": "the string to classify",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the classified string",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "String",
+          "module": "@ember/string"
+        },
+        {
+          "file": "packages/@ember/string/index.ts",
+          "line": 194,
+          "description": "More general than decamelize. Returns the lower\\_case\\_and\\_underscored\nform of a string.\n\n```javascript\nimport { underscore } from '@ember/string';\n\nunderscore('innerHTML');                 // 'inner_html'\nunderscore('action_name');               // 'action_name'\nunderscore('css-class-name');            // 'css_class_name'\nunderscore('my favorite items');         // 'my_favorite_items'\nunderscore('privateDocs/ownerInvoice');  // 'private_docs/owner_invoice'\n```",
+          "itemtype": "method",
+          "name": "underscore",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to underscore.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the underscored string.",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "String",
+          "module": "@ember/string"
+        },
+        {
+          "file": "packages/@ember/string/index.ts",
+          "line": 217,
+          "description": "Returns the Capitalized form of a string\n\n```javascript\nimport { capitalize } from '@ember/string';\n\ncapitalize('innerHTML')                 // 'InnerHTML'\ncapitalize('action_name')               // 'Action_name'\ncapitalize('css-class-name')            // 'Css-class-name'\ncapitalize('my favorite items')         // 'My favorite items'\ncapitalize('privateDocs/ownerInvoice'); // 'PrivateDocs/ownerInvoice'\n```",
+          "itemtype": "method",
+          "name": "capitalize",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to capitalize.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The capitalized string.",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "String",
+          "module": "@ember/string"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-4.9.3-@ember/string",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-4.9.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

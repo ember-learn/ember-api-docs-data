@@ -1,0 +1,89 @@
+{
+  "data": {
+    "id": "ember-data-4.9.1-@ember-data/adapter/error",
+    "type": "class",
+    "attributes": {
+      "name": "@ember-data/adapter/error",
+      "shortname": "@ember-data/adapter/error",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/adapter/error",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "../packages/adapter/addon/error.js",
+          "line": 356,
+          "description": "Convert an hash of errors into an array with errors in JSON-API format.\n ```javascript\n import { errorsHashToArray } from '@ember-data/adapter/error';\n\n let errors = {\n  base: 'Invalid attributes on saving this record',\n  name: 'Must be present',\n  age: ['Must be present', 'Must be a number']\n};\n let errorsArray = errorsHashToArray(errors);\n// [\n//   {\n//     title: \"Invalid Document\",\n//     detail: \"Invalid attributes on saving this record\",\n//     source: { pointer: \"/data\" }\n//   },\n//   {\n//     title: \"Invalid Attribute\",\n//     detail: \"Must be present\",\n//     source: { pointer: \"/data/attributes/name\" }\n//   },\n//   {\n//     title: \"Invalid Attribute\",\n//     detail: \"Must be present\",\n//     source: { pointer: \"/data/attributes/age\" }\n//   },\n//   {\n//     title: \"Invalid Attribute\",\n//     detail: \"Must be a number\",\n//     source: { pointer: \"/data/attributes/age\" }\n//   }\n// ]\n```",
+          "itemtype": "method",
+          "name": "errorsHashToArray",
+          "static": 1,
+          "deprecated": true,
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "errors",
+              "description": "hash with errors as properties",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "array of errors in JSON-API format",
+            "type": "Array"
+          },
+          "class": "@ember-data/adapter/error",
+          "module": "@ember-data/adapter/error"
+        },
+        {
+          "file": "../packages/adapter/addon/error.js",
+          "line": 434,
+          "description": "Convert an array of errors in JSON-API format into an object.\n\n```javascript\nimport { errorsArrayToHash } from '@ember-data/adapter/error';\n\nlet errorsArray = [\n  {\n    title: 'Invalid Attribute',\n    detail: 'Must be present',\n    source: { pointer: '/data/attributes/name' }\n  },\n  {\n    title: 'Invalid Attribute',\n    detail: 'Must be present',\n    source: { pointer: '/data/attributes/age' }\n  },\n  {\n    title: 'Invalid Attribute',\n    detail: 'Must be a number',\n    source: { pointer: '/data/attributes/age' }\n  }\n];\n\nlet errors = errorsArrayToHash(errorsArray);\n// {\n//   \"name\": [\"Must be present\"],\n//   \"age\":  [\"Must be present\", \"must be a number\"]\n// }\n```",
+          "itemtype": "method",
+          "name": "errorsArrayToHash",
+          "static": 1,
+          "deprecated": true,
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "errors",
+              "description": "array of errors in JSON-API format",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "@ember-data/adapter/error",
+          "module": "@ember-data/adapter/error"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.9.1-@ember-data/adapter/error",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.9.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

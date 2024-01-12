@@ -1,0 +1,180 @@
+{
+  "data": {
+    "id": "ember-1.2.2-Ember.TextSupport",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.TextSupport",
+      "shortname": "Ember.TextSupport",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.TextArea",
+        "Ember.TextField"
+      ],
+      "module": "ember",
+      "submodule": "ember-handlebars",
+      "namespace": "Ember",
+      "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+      "line": 11,
+      "description": "Shared mixin used by `Ember.TextField` and `Ember.TextArea`.",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 92,
+          "description": "The action to be sent when the user inserts a new line.\n\nCalled by the `Ember.TextSupport` mixin on keyUp if keycode matches 13.\nUses sendAction to send the `enter` action to the controller.",
+          "itemtype": "method",
+          "name": "insertNewline",
+          "params": [
+            {
+              "name": "event",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "class": "Ember.TextSupport",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 106,
+          "description": "Called when the user hits escape.\n\nCalled by the `Ember.TextSupport` mixin on keyUp if keycode matches 27.\nUses sendAction to send the `escape-press` action to the controller.",
+          "itemtype": "method",
+          "name": "cancel",
+          "params": [
+            {
+              "name": "event",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "class": "Ember.TextSupport",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 119,
+          "description": "Called when the text area is focused.",
+          "itemtype": "method",
+          "name": "focusIn",
+          "params": [
+            {
+              "name": "event",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "class": "Ember.TextSupport",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 129,
+          "description": "Called when the text area is blurred.",
+          "itemtype": "method",
+          "name": "focusOut",
+          "params": [
+            {
+              "name": "event",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "class": "Ember.TextSupport",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 139,
+          "description": "The action to be sent when the user presses a key. Enabled by setting\nthe `onEvent` property to `keyPress`.\n\nUses sendAction to send the `keyPress` action to the controller.",
+          "itemtype": "method",
+          "name": "keyPress",
+          "params": [
+            {
+              "name": "event",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "class": "Ember.TextSupport",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 36,
+          "description": "The action to be sent when the user presses the return key.\n\nThis is similar to the `{{action}}` helper, but is fired when\nthe user presses the return key when editing a text field, and sends\nthe value of the field as the context.",
+          "itemtype": "property",
+          "name": "action",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.TextSupport",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 49,
+          "description": "The event that should send the action.\n\nOptions are:\n\n* `enter`: the user pressed enter\n* `keyPress`: the user pressed a key",
+          "itemtype": "property",
+          "name": "onEvent",
+          "type": "String",
+          "default": "enter",
+          "class": "Ember.TextSupport",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 63,
+          "description": "Whether they `keyUp` event that triggers an `action` to be sent continues\npropagating to other views.\n\nBy default, when the user presses the return key on their keyboard and\nthe text field has an `action` set, the action will be sent to the view's\ncontroller and the key event will stop propagating.\n\nIf you would like parent views to receive the `keyUp` event even after an\naction has been dispatched, set `bubbles` to true.",
+          "itemtype": "property",
+          "name": "bubbles",
+          "type": "Boolean",
+          "default": "false",
+          "class": "Ember.TextSupport",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.2.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.2.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

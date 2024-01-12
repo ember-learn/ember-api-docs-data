@@ -1,0 +1,102 @@
+{
+  "data": {
+    "id": "ember-data-4.11.3-DateTransform",
+    "type": "class",
+    "attributes": {
+      "name": "DateTransform",
+      "shortname": "DateTransform",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/serializer",
+      "namespace": "",
+      "file": "../packages/serializer/addon/-private/transforms/date.js",
+      "line": 7,
+      "access": "public",
+      "description": "The `DateTransform` class is used to serialize and deserialize\ndate attributes on Ember Data record objects. This transform is used\nwhen `date` is passed as the type parameter to the\n[attr](/ember-data/release/functions/@ember-data%2Fmodel/attr) function. It uses the [`ISO 8601`](https://en.wikipedia.org/wiki/ISO_8601)\nstandard.\n\n```js {data-filename=app/models/score.js}\nimport Model, { attr, belongsTo } from '@ember-data/model';\n\nexport default class ScoreModel extends Model {\n  @attr('date') date;\n }\n```\n  @belongsto('player') player;\n",
+      "tagname": "",
+      "extends": "Transform",
+      "methods": [
+        {
+          "file": "../packages/serializer/addon/-private/transforms/transform.js",
+          "line": 80,
+          "description": "When given a deserialized value from a record attribute this\nmethod must return the serialized value.\n\nExample\n\n```javascript\nimport { isEmpty } from '@ember/utils';\n\nserialize(deserialized, options) {\n  return isEmpty(deserialized) ? null : Number(deserialized);\n}\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "deserialized",
+              "description": "The deserialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `attr`"
+            }
+          ],
+          "return": {
+            "description": "The serialized value"
+          },
+          "class": "DateTransform",
+          "module": "@ember-data/serializer",
+          "inherited": true,
+          "inheritedFrom": "Transform"
+        },
+        {
+          "file": "../packages/serializer/addon/-private/transforms/transform.js",
+          "line": 100,
+          "description": "When given a serialized value from a JSON object this method must\nreturn the deserialized value for the record attribute.\n\nExample\n\n```javascript\ndeserialize(serialized, options) {\n  return empty(serialized) ? null : Number(serialized);\n}\n```",
+          "itemtype": "method",
+          "name": "deserialize",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "serialized",
+              "description": "The serialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `attr`"
+            }
+          ],
+          "return": {
+            "description": "The deserialized value"
+          },
+          "class": "DateTransform",
+          "module": "@ember-data/serializer",
+          "inherited": true,
+          "inheritedFrom": "Transform"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-4.11.3-Transform",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.11.3-@ember-data/serializer",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.11.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

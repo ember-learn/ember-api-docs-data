@@ -1,0 +1,1708 @@
+{
+  "data": {
+    "id": "ember-3.26.2-Component",
+    "type": "class",
+    "attributes": {
+      "name": "Component",
+      "shortname": "Component",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/component",
+      "namespace": "",
+      "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+      "line": 32,
+      "description": "A component is a reusable UI element that consists of a `.hbs` template and an\noptional JavaScript class that defines its behavior. For example, someone\nmight make a `button` in the template and handle the click behavior in the\nJavaScript file that shares the same name as the template.\n\nComponents are broken down into two categories:\n\n- Components _without_ JavaScript, that are based only on a template. These\n  are called Template-only or TO components.\n- Components _with_ JavaScript, which consist of a template and a backing\n  class.\n\nEmber ships with two types of JavaScript classes for components:\n\n1. Glimmer components, imported from `@glimmer/component`, which are the\n   default component's for Ember Octane (3.15) and more recent editions.\n2. Classic components, imported from `@ember/component`, which were the\n   default for older editions of Ember (pre 3.15).\n\nBelow is the documentation for Classic components. If you are looking for the\nAPI documentation for Template-only or Glimmer components, it is\n[available here](/ember/release/modules/@glimmer%2Fcomponent).\n\n## Defining a Classic Component\n\nIf you want to customize the component in order to handle events, transform\narguments or maintain internal state, you implement a subclass of `Component`.\n\nOne example is to add computed properties to your component:\n\n```js {data-filename=app/components/person-profile.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  displayName: computed('person.title', 'person.firstName', 'person.lastName', function() {\n    let { title, firstName, lastName } = this.person;\n\n    if (title) {\n      return `${title} ${lastName}`;\n    } else {\n      return `${firstName} ${lastName}`;\n    }\n  })\n});\n```\n\nAnd then use it in the component's template:\n\n```handlebars {data-filename=app/templates/components/person-profile.hbs}\n<h1>{{this.displayName}}</h1>\n{{yield}}\n```\n\n## Customizing a Classic Component's HTML Element in JavaScript\n\n### HTML Tag\n\nThe default HTML tag name used for a component's HTML representation is `div`.\nThis can be customized by setting the `tagName` property.\n\nConsider the following component class:\n\n```js {data-filename=app/components/emphasized-paragraph.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  tagName: 'em'\n});\n```\n\nWhen invoked, this component would produce output that looks something like\nthis:\n\n```html\n<em id=\"ember1\" class=\"ember-view\"></em>\n```\n\n### HTML `class` Attribute\n\nThe HTML `class` attribute of a component's tag can be set by providing a\n`classNames` property that is set to an array of strings:\n\n```js {data-filename=app/components/my-widget.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  classNames: ['my-class', 'my-other-class']\n});\n```\n\nInvoking this component will produce output that looks like this:\n\n```html\n<div id=\"ember1\" class=\"ember-view my-class my-other-class\"></div>\n```\n\n`class` attribute values can also be set by providing a `classNameBindings`\nproperty set to an array of properties names for the component. The return\nvalue of these properties will be added as part of the value for the\ncomponents's `class` attribute. These properties can be computed properties:\n\n```js {data-filename=app/components/my-widget.js}\nimport Component from '@ember/component';\nimport { computed } from '@ember/object';\n\nexport default Component.extend({\n  classNames: ['my-class', 'my-other-class'],\n  classNameBindings: ['propertyA', 'propertyB'],\n\n  propertyA: 'from-a',\n  propertyB: computed(function() {\n    if (someLogic) { return 'from-b'; }\n  })\n});\n```\n\nInvoking this component will produce HTML that looks like:\n\n```html\n<div id=\"ember1\" class=\"ember-view my-class my-other-class from-a from-b\"></div>\n```\n\nNote that `classNames` and `classNameBindings` is in addition to the `class`\nattribute passed with the angle bracket invocation syntax. Therefore, if this\ncomponent was invoked like so:\n\n```handlebars\n<MyWidget class=\"from-invocation\" />\n```\n\nThe resulting HTML will look similar to this:\n\n```html\n<div id=\"ember1\" class=\"from-invocation ember-view my-class my-other-class from-a from-b\"></div>\n```\n\nIf the value of a class name binding returns a boolean the property name\nitself will be used as the class name if the property is true. The class name\nwill not be added if the value is `false` or `undefined`.\n\n```js {data-filename=app/components/my-widget.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  classNameBindings: ['hovered'],\n\n  hovered: true\n});\n```\n\nInvoking this component will produce HTML that looks like:\n\n```html\n<div id=\"ember1\" class=\"ember-view hovered\"></div>\n```\n\n### Custom Class Names for Boolean Values\n\nWhen using boolean class name bindings you can supply a string value other\nthan the property name for use as the `class` HTML attribute by appending the\npreferred value after a \":\" character when defining the binding:\n\n```js {data-filename=app/components/my-widget.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  classNameBindings: ['awesome:so-very-cool'],\n\n  awesome: true\n});\n```\n\nInvoking this component will produce HTML that looks like:\n\n```html\n<div id=\"ember1\" class=\"ember-view so-very-cool\"></div>\n```\n\nBoolean value class name bindings whose property names are in a\ncamelCase-style format will be converted to a dasherized format:\n\n```js {data-filename=app/components/my-widget.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  classNameBindings: ['isUrgent'],\n\n  isUrgent: true\n});\n```\n\nInvoking this component will produce HTML that looks like:\n\n```html\n<div id=\"ember1\" class=\"ember-view is-urgent\"></div>\n```\n\nClass name bindings can also refer to object values that are found by\ntraversing a path relative to the component itself:\n\n```js {data-filename=app/components/my-widget.js}\nimport Component from '@ember/component';\nimport EmberObject from '@ember/object';\n\nexport default Component.extend({\n  classNameBindings: ['messages.empty'],\n\n  messages: EmberObject.create({\n    empty: true\n  })\n});\n```\n\nInvoking this component will produce HTML that looks like:\n\n```html\n<div id=\"ember1\" class=\"ember-view empty\"></div>\n```\n\nIf you want to add a class name for a property which evaluates to true and\nand a different class name if it evaluates to false, you can pass a binding\nlike this:\n\n```js {data-filename=app/components/my-widget.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  classNameBindings: ['isEnabled:enabled:disabled'],\n  isEnabled: true\n});\n```\n\nInvoking this component will produce HTML that looks like:\n\n```html\n<div id=\"ember1\" class=\"ember-view enabled\"></div>\n```\n\nWhen isEnabled is `false`, the resulting HTML representation looks like this:\n\n```html\n<div id=\"ember1\" class=\"ember-view disabled\"></div>\n```\n\nThis syntax offers the convenience to add a class if a property is `false`:\n\n```js {data-filename=app/components/my-widget.js}\nimport Component from '@ember/component';\n\n// Applies no class when isEnabled is true and class 'disabled' when isEnabled is false\nexport default Component.extend({\n  classNameBindings: ['isEnabled::disabled'],\n  isEnabled: true\n});\n```\n\nInvoking this component when the `isEnabled` property is true will produce\nHTML that looks like:\n\n```html\n<div id=\"ember1\" class=\"ember-view\"></div>\n```\n\nInvoking it when the `isEnabled` property on the component is `false` will\nproduce HTML that looks like:\n\n```html\n<div id=\"ember1\" class=\"ember-view disabled\"></div>\n```\n\nUpdates to the value of a class name binding will result in automatic update\nof the  HTML `class` attribute in the component's rendered HTML\nrepresentation. If the value becomes `false` or `undefined` the class name\nwill be removed.\n\nBoth `classNames` and `classNameBindings` are concatenated properties. See\n[EmberObject](/ember/release/classes/EmberObject) documentation for more\ninformation about concatenated properties.\n\n### Other HTML Attributes\n\nThe HTML attribute section of a component's tag can be set by providing an\n`attributeBindings` property set to an array of property names on the component.\nThe return value of these properties will be used as the value of the component's\nHTML associated attribute:\n\n```js {data-filename=app/components/my-anchor.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  tagName: 'a',\n  attributeBindings: ['href'],\n\n  href: 'http://google.com'\n});\n```\n\nInvoking this component will produce HTML that looks like:\n\n```html\n<a id=\"ember1\" class=\"ember-view\" href=\"http://google.com\"></a>\n```\n\nOne property can be mapped on to another by placing a \":\" between\nthe source property and the destination property:\n\n```js {data-filename=app/components/my-anchor.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  tagName: 'a',\n  attributeBindings: ['url:href'],\n\n  url: 'http://google.com'\n});\n```\n\nInvoking this component will produce HTML that looks like:\n\n```html\n<a id=\"ember1\" class=\"ember-view\" href=\"http://google.com\"></a>\n```\n\nHTML attributes passed with angle bracket invocations will take precedence\nover those specified in `attributeBindings`. Therefore, if this component was\ninvoked like so:\n\n```handlebars\n<MyAnchor href=\"http://bing.com\" @url=\"http://google.com\" />\n```\n\nThe resulting HTML will looks like this:\n\n```html\n<a id=\"ember1\" class=\"ember-view\" href=\"http://bing.com\"></a>\n```\n\nNote that the `href` attribute is ultimately set to `http://bing.com`,\ndespite it having attribute binidng to the `url` property, which was\nset to `http://google.com`.\n\nNamespaced attributes (e.g. `xlink:href`) are supported, but have to be\nmapped, since `:` is not a valid character for properties in Javascript:\n\n```js {data-filename=app/components/my-use.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  tagName: 'use',\n  attributeBindings: ['xlinkHref:xlink:href'],\n\n  xlinkHref: '#triangle'\n});\n```\n\nInvoking this component will produce HTML that looks like:\n\n```html\n<use xlink:href=\"#triangle\"></use>\n```\n\nIf the value of a property monitored by `attributeBindings` is a boolean, the\nattribute will be present or absent depending on the value:\n\n```js {data-filename=app/components/my-text-input.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  tagName: 'input',\n  attributeBindings: ['disabled'],\n\n  disabled: false\n});\n```\n\nInvoking this component will produce HTML that looks like:\n\n```html\n<input id=\"ember1\" class=\"ember-view\" />\n```\n\n`attributeBindings` can refer to computed properties:\n\n```js {data-filename=app/components/my-text-input.js}\nimport Component from '@ember/component';\nimport { computed } from '@ember/object';\n\nexport default Component.extend({\n  tagName: 'input',\n  attributeBindings: ['disabled'],\n\n  disabled: computed(function() {\n    if (someLogic) {\n      return true;\n    } else {\n      return false;\n    }\n  })\n});\n```\n\nTo prevent setting an attribute altogether, use `null` or `undefined` as the\nvalue of the property used in `attributeBindings`:\n\n```js {data-filename=app/components/my-text-input.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  tagName: 'form',\n  attributeBindings: ['novalidate'],\n  novalidate: null\n});\n```\n\nUpdates to the property of an attribute binding will result in automatic\nupdate of the  HTML attribute in the component's HTML output.\n\n`attributeBindings` is a concatenated property. See\n[EmberObject](/ember/release/classes/EmberObject) documentation for more\ninformation about concatenated properties.\n\n## Layouts\n\nThe `layout` property can be used to dynamically specify a template associated\nwith a component class, instead of relying on Ember to link together a\ncomponent class and a template based on file names.\n\nIn general, applications should not use this feature, but it's commonly used\nin addons for historical reasons.\n\nThe `layout` property should be set to the default export of a template\nmodule, which is the name of a template file without the `.hbs` extension.\n\n```handlebars {data-filename=app/templates/components/person-profile.hbs}\n<h1>Person's Title</h1>\n<div class='details'>{{yield}}</div>\n```\n\n```js {data-filename=app/components/person-profile.js}\n  import Component from '@ember/component';\n  import layout from '../templates/components/person-profile';\n\n  export default Component.extend({\n    layout\n  });\n```\n\nIf you invoke the component:\n\n```handlebars\n<PersonProfile>\n  <h2>Chief Basket Weaver</h2>\n  <h3>Fisherman Industries</h3>\n</PersonProfile>\n```\n\nor\n\n```handlebars\n{{#person-profile}}\n  <h2>Chief Basket Weaver</h2>\n  <h3>Fisherman Industries</h3>\n{{/person-profile}}\n```\n\nIt will result in the following HTML output:\n\n```html\n<h1>Person's Title</h1>\n  <div class=\"details\">\n  <h2>Chief Basket Weaver</h2>\n  <h3>Fisherman Industries</h3>\n</div>\n```\n\n## Handling Browser Events\n\nComponents can respond to user-initiated events in one of three ways: passing\nactions with angle bracket invocation, adding event handler methods to the\ncomponent's class, or adding actions to the component's template.\n\n### Passing Actions With Angle Bracket Invocation\n\nFor one-off events specific to particular instance of a component, it is possible\nto pass actions to the component's element using angle bracket invocation syntax.\n\n```handlebars\n<MyWidget {{action 'firstWidgetClicked'}} />\n\n<MyWidget {{action 'secondWidgetClicked'}} />\n```\n\nIn this case, when the first component is clicked on, Ember will invoke the\n`firstWidgetClicked` action. When the second component is clicked on, Ember\nwill invoke the `secondWidgetClicked` action instead.\n\nBesides `{{action}}`, it is also possible to pass any arbitrary element modifiers\nusing the angle bracket invocation syntax.\n\n### Event Handler Methods\n\nComponents can also respond to user-initiated events by implementing a method\nthat matches the event name. This approach is appropriate when the same event\nshould be handled by all instances of the same component.\n\nAn event object will be passed as the argument to the event handler method.\n\n```js {data-filename=app/components/my-widget.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  click(event) {\n    // `event.target` is either the component's element or one of its children\n    let tag = event.target.tagName.toLowerCase();\n    console.log('clicked on a `<${tag}>` HTML element!');\n  }\n});\n```\n\nIn this example, whenever the user clicked anywhere inside the component, it\nwill log a message to the console.\n\nIt is possible to handle event types other than `click` by implementing the\nfollowing event handler methods. In addition, custom events can be registered\nby using `Application.customEvents`.\n\nTouch events:\n\n* `touchStart`\n* `touchMove`\n* `touchEnd`\n* `touchCancel`\n\nKeyboard events:\n\n* `keyDown`\n* `keyUp`\n* `keyPress`\n\nMouse events:\n\n* `mouseDown`\n* `mouseUp`\n* `contextMenu`\n* `click`\n* `doubleClick`\n* `focusIn`\n* `focusOut`\n\nForm events:\n\n* `submit`\n* `change`\n* `focusIn`\n* `focusOut`\n* `input`\n\nDrag and drop events:\n\n* `dragStart`\n* `drag`\n* `dragEnter`\n* `dragLeave`\n* `dragOver`\n* `dragEnd`\n* `drop`\n\n### `{{action}}` Helper\n\nInstead of handling all events of a particular type anywhere inside the\ncomponent's element, you may instead want to limit it to a particular\nelement in the component's template. In this case, it would be more\nconvenient to implement an action instead.\n\nFor example, you could implement the action `hello` for the `person-profile`\ncomponent:\n\n```js {data-filename=app/components/person-profile.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  actions: {\n    hello(name) {\n      console.log(\"Hello\", name);\n    }\n  }\n});\n```\n\nAnd then use it in the component's template:\n\n```handlebars {data-filename=app/templates/components/person-profile.hbs}\n<h1>{{@person.name}}</h1>\n\n<button {{action 'hello' @person.name}}>\n  Say Hello to {{@person.name}}\n</button>\n```\n\nWhen the user clicks the button, Ember will invoke the `hello` action,\npassing in the current value of `@person.name` as an argument.\n\nSee [Ember.Templates.helpers.action](/ember/release/classes/Ember.Templates.helpers/methods/action?anchor=action).",
+      "extends": "Ember.CoreView",
+      "uses": [
+        "Ember.ViewStateSupport",
+        "Ember.ViewMixin",
+        "Ember.ActionSupport",
+        "Ember.ClassNamesSupport",
+        "Ember.TargetActionSupport"
+      ],
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 747,
+          "description": "Normally, Ember's component model is \"write-only\". The component takes a\nbunch of attributes that it got passed in, and uses them to render its\ntemplate.\n\nOne nice thing about this model is that if you try to set a value to the\nsame thing as last time, Ember (through HTMLBars) will avoid doing any\nwork on the DOM.\n\nThis is not just a performance optimization. If an attribute has not\nchanged, it is important not to clobber the element's \"hidden state\".\nFor example, if you set an input's `value` to the same value as before,\nit will clobber selection state and cursor position. In other words,\nsetting an attribute is not **always** idempotent.\n\nThis method provides a way to read an element's attribute and also\nupdate the last value Ember knows about at the same time. This makes\nsetting an attribute idempotent.\n\nIn particular, what this means is that if you get an `<input>` element's\n`value` attribute and then re-render the template with the same value,\nit will avoid clobbering the cursor and selection position.\nSince most attribute sets are idempotent in the browser, you typically\ncan get away with reading attributes using jQuery, but the most reliable\nway to do so is through this method.",
+          "itemtype": "method",
+          "name": "readDOMAttr",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the attribute",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 874,
+          "description": "Called when the attributes passed into the component have been updated.\nCalled both during the initial render of a container and during a rerender.\nCan be used in place of an observer; code placed here will be executed\nevery time any attribute updates.",
+          "itemtype": "method",
+          "name": "didReceiveAttrs",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 895,
+          "description": "Called after a component has been rendered, both on initial render and\nin subsequent rerenders.",
+          "itemtype": "method",
+          "name": "didRender",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 912,
+          "description": "Called before a component has been rendered, both on initial render and\nin subsequent rerenders.",
+          "itemtype": "method",
+          "name": "willRender",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 929,
+          "description": "Called when the attributes passed into the component have been changed.\nCalled only during a rerender, not during an initial render.",
+          "itemtype": "method",
+          "name": "didUpdateAttrs",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 946,
+          "description": "Called when the component is about to update and rerender itself.\nCalled only during a rerender, not during an initial render.",
+          "itemtype": "method",
+          "name": "willUpdate",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 963,
+          "description": "Called when the component has updated and rerendered itself.\nCalled only during a rerender, not during an initial render.",
+          "itemtype": "method",
+          "name": "didUpdate",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 997,
+          "description": "Returns a jQuery object for this component's element. If you pass in a selector\nstring, this method will return a jQuery object, using the current element\nas its buffer.\n\nFor example, calling `component.$('li')` will return a jQuery object containing\nall of the `li` elements inside the DOM element of this component.\n\nPlease note that jQuery integration is off by default and this feature will\nnot work properly. To enable this feature, you can read the instructions in\nthe [jquery-integration optional feature guide](https://guides.emberjs.com/release/configuring-ember/optional-features/#toc_jquery-integration).",
+          "itemtype": "method",
+          "name": "$",
+          "params": [
+            {
+              "name": "selector",
+              "description": "a jQuery-compatible selector string",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the jQuery object for the DOM node",
+            "type": "JQuery"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/system/utils.ts",
+          "line": 41,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getRootViews",
+          "params": [
+            {
+              "name": "owner",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/system/utils.ts",
+          "line": 62,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewId",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/system/utils.ts",
+          "line": 82,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewElement",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/system/utils.ts",
+          "line": 114,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getChildViews",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/system/utils.ts",
+          "line": 156,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewBounds",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/system/utils.ts",
+          "line": 165,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewRange",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/system/utils.ts",
+          "line": 180,
+          "description": "`getViewClientRects` provides information about the position of the border\nbox edges of a view relative to the viewport.\n\nIt is only intended to be used by development tools like the Ember Inspector\nand may not work on older browsers.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewClientRects",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/system/utils.ts",
+          "line": 196,
+          "description": "`getViewBoundingClientRect` provides information about the position of the\nbounding border box edges of a view relative to the viewport.\n\nIt is only intended to be used by development tools like the Ember Inspector\nand may not work on older browsers.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getViewBoundingClientRect",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/system/utils.ts",
+          "line": 212,
+          "description": "Determines if the element matches the specified selector.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "matches",
+          "params": [
+            {
+              "name": "el",
+              "description": "",
+              "type": "DOMElement"
+            },
+            {
+              "name": "selector",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/views/core_view.js",
+          "line": 52,
+          "description": "Override the default event firing from `Evented` to\nalso call methods with the given name.",
+          "itemtype": "method",
+          "name": "trigger",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 73,
+          "description": "Return the nearest ancestor that is an instance of the provided\nclass or mixin.",
+          "itemtype": "method",
+          "name": "nearestOfType",
+          "params": [
+            {
+              "name": "klass",
+              "description": "Subclass of Ember.View (or Ember.View itself),\nor an instance of Mixin.",
+              "type": "Class,Mixin"
+            }
+          ],
+          "return": {
+            "description": "Ember.View"
+          },
+          "deprecated": true,
+          "deprecationMessage": "use `yield` and contextual components for composition instead.",
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 99,
+          "description": "Return the nearest ancestor that has a given property.",
+          "itemtype": "method",
+          "name": "nearestWithProperty",
+          "params": [
+            {
+              "name": "property",
+              "description": "A property name",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Ember.View"
+          },
+          "deprecated": true,
+          "deprecationMessage": "use `yield` and contextual components for composition instead.",
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 119,
+          "description": "Renders the view again. This will work regardless of whether the\nview is already in the DOM or not. If the view is in the DOM, the\nrendering process will be deferred to give bindings a chance\nto synchronize.\n\nIf children were added during the rendering process using `appendChild`,\n`rerender` will remove them, because they will be added again\nif needed by the next `render`.\n\nIn general, if the display of your view changes, you should modify\nthe DOM element directly instead of manually calling `rerender`, which can\nbe slow.",
+          "itemtype": "method",
+          "name": "rerender",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 159,
+          "description": "Appends the view's element to the specified parent element.\n\nNote that this method just schedules the view to be appended; the DOM\nelement will not be appended to the given element until all bindings have\nfinished synchronizing.\n\nThis is not typically a function that you will need to call directly when\nbuilding your application. If you do need to use `appendTo`, be sure that\nthe target element you are providing is associated with an `Application`\nand does not have an ancestor element that is associated with an Ember view.",
+          "itemtype": "method",
+          "name": "appendTo",
+          "params": [
+            {
+              "name": "A",
+              "description": "selector, element, HTML string, or jQuery object",
+              "type": "String|DOMElement|jQuery"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.View"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 217,
+          "description": "Appends the view's element to the document body. If the view does\nnot have an HTML representation yet\nthe element will be generated automatically.\n\nIf your application uses the `rootElement` property, you must append\nthe view within that element. Rendering views outside of the `rootElement`\nis not supported.\n\nNote that this method just schedules the view to be appended; the DOM\nelement will not be appended to the document body until all bindings have\nfinished synchronizing.",
+          "itemtype": "method",
+          "name": "append",
+          "return": {
+            "description": "receiver",
+            "type": "Ember.View"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 302,
+          "description": "You must call `destroy` on a view to destroy the view (and all of its\nchild views). This will remove the view from any parent node, then make\nsure that the DOM element managed by the view can be released by the\nmemory manager.",
+          "itemtype": "method",
+          "name": "destroy",
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 376,
+          "description": "Setup a view, but do not finish waking it up.\n\n* configure `childViews`\n* register the view with the global views hash, which is used for event\ndispatch",
+          "itemtype": "method",
+          "name": "init",
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 412,
+          "description": "Handle events from `EventDispatcher`",
+          "itemtype": "method",
+          "name": "handleEvent",
+          "params": [
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "evt",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 426,
+          "description": "Returns a jQuery object for this view's element. If you pass in a selector\nstring, this method will return a jQuery object, using the current element\nas its buffer.\n\nFor example, calling `view.$('li')` will return a jQuery object containing\nall of the `li` elements inside the DOM element of this view.",
+          "itemtype": "method",
+          "name": "$",
+          "params": [
+            {
+              "name": "selector",
+              "description": "a jQuery-compatible selector string",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the jQuery object for the DOM node",
+            "type": "JQuery"
+          },
+          "access": "public",
+          "tagname": "",
+          "deprecated": true,
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/action_support.js",
+          "line": 40,
+          "description": "Calls an action passed to a component.\n\nFor example a component for playing or pausing music may translate click events\ninto action notifications of \"play\" or \"stop\" depending on some internal state\nof the component:\n\n```js {data-filename=app/components/play-button.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  click() {\n    if (this.get('isPlaying')) {\n      this.sendAction('play');\n    } else {\n      this.sendAction('stop');\n    }\n  }\n});\n```\n\nThe actions \"play\" and \"stop\" must be passed to this `play-button` component:\n\n```handlebars\n{{! app/templates/application.hbs }}\n{{play-button play=(action \"musicStarted\") stop=(action \"musicStopped\")}}\n```\n\nWhen the component receives a browser `click` event it translate this\ninteraction into application-specific semantics (\"play\" or \"stop\") and\ncalls the specified action.\n\n```js {data-filename=app/controller/application.js}\nimport Controller from '@ember/controller';\n\nexport default Controller.extend({\n  actions: {\n    musicStarted() {\n      // called when the play button is clicked\n      // and the music started playing\n    },\n    musicStopped() {\n      // called when the play button is clicked\n      // and the music stopped playing\n    }\n  }\n});\n```\n\nIf no action is passed to `sendAction` a default name of \"action\"\nis assumed.\n\n```js {data-filename=app/components/next-button.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  click() {\n    this.sendAction();\n  }\n});\n```\n\n```handlebars\n{{! app/templates/application.hbs }}\n{{next-button action=(action \"playNextSongInAlbum\")}}\n```\n\n```js {data-filename=app/controllers/application.js}\nimport Controller from '@ember/controller';\n\nexport default Controller.extend({\n  actions: {\n    playNextSongInAlbum() {\n      ...\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "sendAction",
+          "params": [
+            {
+              "name": "action",
+              "description": "the action to call",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "params",
+              "description": "arguments for the action",
+              "type": "*",
+              "optional": true
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "deprecated": true,
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionSupport"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/target_action_support.js",
+          "line": 39,
+          "description": "Send an `action` with an `actionContext` to a `target`. The action, actionContext\nand target will be retrieved from properties of the object. For example:\n\n```javascript\nimport { alias } from '@ember/object/computed';\n\nApp.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {\n  target: alias('controller'),\n  action: 'save',\n  actionContext: alias('context'),\n  click() {\n    this.triggerAction(); // Sends the `save` action, along with the current context\n                          // to the current controller\n  }\n});\n```\n\nThe `target`, `action`, and `actionContext` can be provided as properties of\nan optional object argument to `triggerAction` as well.\n\n```javascript\nApp.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {\n  click() {\n    this.triggerAction({\n      action: 'save',\n      target: this.get('controller'),\n      actionContext: this.get('context')\n    }); // Sends the `save` action, along with the current context\n        // to the current controller\n  }\n});\n```\n\nThe `actionContext` defaults to the object you are mixing `TargetActionSupport` into.\nBut `target` and `action` must be specified either as properties or with the argument\nto `triggerAction`, or a combination:\n\n```javascript\nimport { alias } from '@ember/object/computed';\n\nApp.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {\n  target: alias('controller'),\n  click() {\n    this.triggerAction({\n      action: 'save'\n    }); // Sends the `save` action, along with a reference to `this`,\n        // to the current controller\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "triggerAction",
+          "params": [
+            {
+              "name": "opts",
+              "description": "(optional, with the optional keys action, target and/or actionContext)",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "true if the action was sent successfully and did not return false",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.TargetActionSupport"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/action_handler.js",
+          "line": 167,
+          "description": "Triggers a named action on the `ActionHandler`. Any parameters\nsupplied after the `actionName` string will be passed as arguments\nto the action target function.\n\nIf the `ActionHandler` has its `target` property set, actions may\nbubble to the `target`. Bubbling happens when an `actionName` can\nnot be found in the `ActionHandler`'s `actions` hash or if the\naction target function returns `true`.\n\nExample\n\n```js {data-filename=app/routes/welcome.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    playTheme() {\n      this.send('playMusic', 'theme.mp3');\n    },\n    playMusic(track) {\n      // ...\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "actionName",
+              "description": "The action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/evented.js",
+          "line": 54,
+          "description": "Subscribes to a named event with given function.\n\n```javascript\nperson.on('didLoad', function() {\n  // fired once the person has loaded\n});\n```\n\nAn optional target can be passed in as the 2nd argument that will\nbe set as the \"this\" for the callback. This is a good way to give your\nfunction access to the object triggering the event. When the target\nparameter is used the callback method becomes the third argument.",
+          "itemtype": "method",
+          "name": "on",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The \"this\" binding for the callback",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Evented"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/evented.js",
+          "line": 80,
+          "description": "Subscribes a function to a named event and then cancels the subscription\nafter the first time the event is triggered. It is good to use ``one`` when\nyou only care about the first time an event has taken place.\n\nThis function takes an optional 2nd argument that will become the \"this\"\nvalue for the callback. When the target parameter is used the callback method\nbecomes the third argument.",
+          "itemtype": "method",
+          "name": "one",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The \"this\" binding for the callback",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Evented"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/evented.js",
+          "line": 101,
+          "description": "Triggers a named event for the object. Any additional arguments\nwill be passed as parameters to the functions that are subscribed to the\nevent.\n\n```javascript\nperson.on('didEat', function(food) {\n  console.log('person ate some ' + food);\n});\n\nperson.trigger('didEat', 'broccoli');\n\n// outputs: person ate some broccoli\n```",
+          "itemtype": "method",
+          "name": "trigger",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "Optional arguments to pass on",
+              "type": "Object..."
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Evented"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/evented.js",
+          "line": 124,
+          "description": "Cancels subscription for given name, target, and method.",
+          "itemtype": "method",
+          "name": "off",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target of the subscription",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The function or the name of a function of the subscription",
+              "type": "Function|String"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Evented"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/evented.js",
+          "line": 139,
+          "description": "Checks to see if object has any subscriptions for named event.",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "does the object have a subscription for event",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Evented"
+        },
+        {
+          "file": "packages/@ember/-internals/metal/lib/mixin.ts",
+          "line": 466,
+          "itemtype": "method",
+          "name": "mixin",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "mixins",
+              "description": "",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "obj"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Mixin"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 397,
+          "description": "An overridable method called when objects are instantiated. By default,\ndoes nothing unless it is overridden during class definition.\n\nExample:\n\n```javascript\nimport EmberObject from '@ember/object';\n\nconst Person = EmberObject.extend({\n  init() {\n    alert(`Name is ${this.get('name')}`);\n  }\n});\n\nlet steve = Person.create({\n  name: 'Steve'\n});\n\n// alerts 'Name is Steve'.\n```\n\nNOTE: If you do override `init` for a framework class like `Component`\nfrom `@ember/component`, be sure to call `this._super(...arguments)`\nin your `init` declaration!\nIf you don't, Ember may not have an opportunity to\ndo important setup work, and you'll see strange behavior in your\napplication.",
+          "itemtype": "method",
+          "name": "init",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 616,
+          "description": "Destroys an object by setting the `isDestroyed` flag and removing its\nmetadata, which effectively destroys observers and bindings.\n\nIf you try to set a property on a destroyed object, an exception will be\nraised.\n\nNote that destruction is scheduled for the end of the run loop and does not\nhappen immediately.  It will set an isDestroying flag immediately.",
+          "itemtype": "method",
+          "name": "destroy",
+          "return": {
+            "description": "receiver",
+            "type": "EmberObject"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 643,
+          "description": "Override to implement teardown.",
+          "itemtype": "method",
+          "name": "willDestroy",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 651,
+          "description": "Returns a string representation which attempts to provide more information\nthan Javascript's `toString` typically does, in a generic way for all Ember\nobjects.\n\n```javascript\nimport EmberObject from '@ember/object';\n\nconst Person = EmberObject.extend();\nperson = Person.create();\nperson.toString(); //=> \"<Person:ember1024>\"\n```\n\nIf the object's class is not defined on an Ember namespace, it will\nindicate it is a subclass of the registered superclass:\n\n```javascript\nconst Student = Person.extend();\nlet student = Student.create();\nstudent.toString(); //=> \"<(subclass of Person):ember1025>\"\n```\n\nIf the method `toStringExtension` is defined, its return value will be\nincluded in the output.\n\n```javascript\nconst Teacher = Person.extend({\n  toStringExtension() {\n    return this.get('fullName');\n  }\n});\nteacher = Teacher.create();\nteacher.toString(); //=> \"<Teacher:ember1026:Tom Dale>\"\n```",
+          "itemtype": "method",
+          "name": "toString",
+          "return": {
+            "description": "string representation",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 93,
+          "description": "Retrieves the value of a property from the object.\n\nThis method is usually similar to using `object[keyName]` or `object.keyName`,\nhowever it supports both computed properties and the unknownProperty\nhandler.\n\nBecause `get` unifies the syntax for accessing all these kinds\nof properties, it can make many refactorings easier, such as replacing a\nsimple property with a computed property, or vice versa.\n\n### Computed Properties\n\nComputed properties are methods defined with the `property` modifier\ndeclared at the end, such as:\n\n```javascript\nimport { computed } from '@ember/object';\n\nfullName: computed('firstName', 'lastName', function() {\n  return this.get('firstName') + ' ' + this.get('lastName');\n})\n```\n\nWhen you call `get` on a computed property, the function will be\ncalled and the return value will be returned instead of the function\nitself.\n\n### Unknown Properties\n\nLikewise, if you try to call `get` on a property whose value is\n`undefined`, the `unknownProperty()` method will be called on the object.\nIf this method returns any value other than `undefined`, it will be returned\ninstead. This allows you to implement \"virtual\" properties that are\nnot defined upfront.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to retrieve",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The property value or undefined.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 138,
+          "description": "To get the values of multiple properties at once, call `getProperties`\nwith a list of strings or an array:\n\n```javascript\nrecord.getProperties('firstName', 'lastName', 'zipCode');\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```\n\nis equivalent to:\n\n```javascript\nrecord.getProperties(['firstName', 'lastName', 'zipCode']);\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```",
+          "itemtype": "method",
+          "name": "getProperties",
+          "params": [
+            {
+              "name": "list",
+              "description": "of keys to get",
+              "type": "String...|Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 163,
+          "description": "Sets the provided key or path to the value.\n\n```javascript\nrecord.set(\"key\", value);\n```\n\nThis method is generally very similar to calling `object[\"key\"] = value` or\n`object.key = value`, except that it provides support for computed\nproperties, the `setUnknownProperty()` method and property observers.\n\n### Computed Properties\n\nIf you try to set a value on a key that has a computed property handler\ndefined (see the `get()` method for an example), then `set()` will call\nthat method, passing both the value and key instead of simply changing\nthe value itself. This is useful for those times when you need to\nimplement a property that is composed of one or more member\nproperties.\n\n### Unknown Properties\n\nIf you try to set a value on a key that is undefined in the target\nobject, then the `setUnknownProperty()` handler will be called instead. This\ngives you an opportunity to implement complex \"virtual\" properties that\nare not predefined on the object. If `setUnknownProperty()` returns\nundefined, then `set()` will simply set the value on the object.\n\n### Property Observers\n\nIn addition to changing the property, `set()` will also register a property\nchange with the object. Unless you have placed this call inside of a\n`beginPropertyChanges()` and `endPropertyChanges(),` any \"local\" observers\n(i.e. observer methods declared on the same object), will be called\nimmediately. Any \"remote\" observers (i.e. observer methods declared on\nanother object) will be placed in a queue and called at a later time in a\ncoalesced manner.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to set or `null`.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed value",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 211,
+          "description": "Sets a list of properties at once. These properties are set inside\na single `beginPropertyChanges` and `endPropertyChanges` batch, so\nobservers will be buffered.\n\n```javascript\nrecord.setProperties({ firstName: 'Charles', lastName: 'Jolley' });\n```",
+          "itemtype": "method",
+          "name": "setProperties",
+          "params": [
+            {
+              "name": "hash",
+              "description": "the hash of keys and values to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed in hash",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 229,
+          "description": "Begins a grouping of property changes.\n\nYou can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call this\nmethod at the beginning of the changes to begin deferring change\nnotifications. When you are done making changes, call\n`endPropertyChanges()` to deliver the deferred change notifications and end\ndeferring.",
+          "itemtype": "method",
+          "name": "beginPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 249,
+          "description": "Ends a grouping of property changes.\n\nYou can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call\n`beginPropertyChanges()` at the beginning of the changes to defer change\nnotifications. When you are done making changes, call this method to\ndeliver the deferred change notifications and end deferring.",
+          "itemtype": "method",
+          "name": "endPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 268,
+          "description": "Notify the observer system that a property has just changed.\n\nSometimes you need to change a value directly or indirectly without\nactually calling `get()` or `set()` on it. In this case, you can use this\nmethod instead. Calling this method will notify all observers that the\nproperty has potentially changed value.",
+          "itemtype": "method",
+          "name": "notifyPropertyChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key to be notified about.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 286,
+          "description": "Adds an observer on a property.\n\nThis is the core method used to register an observer for a property.\n\nOnce you call this method, any time the key's value is set, your observer\nwill be notified. Note that the observers are triggered any time the\nvalue is set, regardless of whether it has actually changed. Your\nobserver should be prepared to handle that.\n\nThere are two common invocation patterns for `.addObserver()`:\n\n- Passing two arguments:\n  - the name of the property to observe (as a string)\n  - the function to invoke (an actual function)\n- Passing three arguments:\n  - the name of the property to observe (as a string)\n  - the target object (will be used to look up and invoke a\n    function on)\n  - the name of the function to invoke on the target object\n    (as a string).\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  init() {\n    this._super(...arguments);\n\n    // the following are equivalent:\n\n    // using three arguments\n    this.addObserver('foo', this, 'fooDidChange');\n\n    // using two arguments\n    this.addObserver('foo', (...args) => {\n      this.fooDidChange(...args);\n    });\n  },\n\n  fooDidChange() {\n    // your custom logic code\n  }\n});\n```\n\n### Observer Methods\n\nObserver methods have the following signature:\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  init() {\n    this._super(...arguments);\n    this.addObserver('foo', this, 'fooDidChange');\n  },\n\n  fooDidChange(sender, key, value, rev) {\n    // your code\n  }\n});\n```\n\nThe `sender` is the object that changed. The `key` is the property that\nchanges. The `value` property is currently reserved and unused. The `rev`\nis the last property revision of the object when it changed, which you can\nuse to detect if the key value has really changed or not.\n\nUsually you will not need the value or revision parameters at\nthe end. In this case, it is common to write observer methods that take\nonly a sender and key value as parameters or, if you aren't interested in\nany of these values, to write an observer that has no parameters at all.",
+          "itemtype": "method",
+          "name": "addObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observe",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke",
+              "type": "String|Function"
+            },
+            {
+              "name": "sync",
+              "description": "Whether the observer is sync or not",
+              "type": "Boolean"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 374,
+          "description": "Remove an observer you have previously registered on this object. Pass\nthe same key, target, and method you passed to `addObserver()` and your\ntarget will no longer receive notifications.",
+          "itemtype": "method",
+          "name": "removeObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observe",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke",
+              "type": "String|Function"
+            },
+            {
+              "name": "sync",
+              "description": "Whether the observer is async or not",
+              "type": "Boolean"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 392,
+          "description": "Returns `true` if the object currently has observers registered for a\nparticular key. You can use this method to potentially defer performing\nan expensive action until someone begins observing a particular property\non the object.",
+          "itemtype": "method",
+          "name": "hasObserverFor",
+          "params": [
+            {
+              "name": "key",
+              "description": "Key to check",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 407,
+          "description": "Retrieves the value of a property, or a default value in the case that the\nproperty returns `undefined`.\n\n```javascript\nperson.getWithDefault('lastName', 'Doe');\n```",
+          "itemtype": "method",
+          "name": "getWithDefault",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to retrieve",
+              "type": "String"
+            },
+            {
+              "name": "defaultValue",
+              "description": "The value to return if the property value is undefined",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The property value or the defaultValue.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "deprecated": true,
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 426,
+          "description": "Set the value of a property to the current value plus some amount.\n\n```javascript\nperson.incrementProperty('age');\nteam.incrementProperty('score', 2);\n```",
+          "itemtype": "method",
+          "name": "incrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to increment",
+              "type": "String"
+            },
+            {
+              "name": "increment",
+              "description": "The amount to increment by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 448,
+          "description": "Set the value of a property to the current value minus some amount.\n\n```javascript\nplayer.decrementProperty('lives');\norc.decrementProperty('health', 5);\n```",
+          "itemtype": "method",
+          "name": "decrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to decrement",
+              "type": "String"
+            },
+            {
+              "name": "decrement",
+              "description": "The amount to decrement by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 470,
+          "description": "Set the value of a boolean property to the opposite of its\ncurrent value.\n\n```javascript\nstarship.toggleProperty('warpDriveEngaged');\n```",
+          "itemtype": "method",
+          "name": "toggleProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to toggle",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/observable.js",
+          "line": 487,
+          "description": "Returns the cached value of a computed property, if it exists.\nThis allows you to inspect the value of a computed property\nwithout accidentally invoking it if it is intended to be\ngenerated lazily.",
+          "itemtype": "method",
+          "name": "cacheFor",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The cached value of the computed property, if any",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        }
+      ],
+      "events": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 885,
+          "description": "Called when the attributes passed into the component have been updated.\nCalled both during the initial render of a container and during a rerender.\nCan be used in place of an observer; code placed here will be executed\nevery time any attribute updates.",
+          "itemtype": "event",
+          "name": "didReceiveAttrs",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 904,
+          "description": "Called after a component has been rendered, both on initial render and\nin subsequent rerenders.",
+          "itemtype": "event",
+          "name": "didRender",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 921,
+          "description": "Called before a component has been rendered, both on initial render and\nin subsequent rerenders.",
+          "itemtype": "event",
+          "name": "willRender",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 938,
+          "description": "Called when the attributes passed into the component have been changed.\nCalled only during a rerender, not during an initial render.",
+          "itemtype": "event",
+          "name": "didUpdateAttrs",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 955,
+          "description": "Called when the component is about to update and rerender itself.\nCalled only during a rerender, not during an initial render.",
+          "itemtype": "event",
+          "name": "willUpdate",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 972,
+          "description": "Called when the component has updated and rerendered itself.\nCalled only during a rerender, not during an initial render.",
+          "itemtype": "event",
+          "name": "didUpdate",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 271,
+          "description": "Called when a view is going to insert an element into the DOM.",
+          "itemtype": "event",
+          "name": "willInsertElement",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 279,
+          "description": "Called when the element of the view has been inserted into the DOM.\nOverride this function to do any set up that requires an element\nin the document body.\n\nWhen a view has children, didInsertElement will be called on the\nchild view(s) first and on itself afterwards.",
+          "itemtype": "event",
+          "name": "didInsertElement",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 292,
+          "description": "Called when the view is about to rerender, but before anything has\nbeen torn down. This is a good opportunity to tear down any manual\nobservers you have installed based on the DOM state",
+          "itemtype": "event",
+          "name": "willClearRender",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 316,
+          "description": "Called when the element of the view is going to be destroyed. Override\nthis function to do any teardown that requires an element, like removing\nevent listeners.\n\nPlease note: any property changes made during this event will have no\neffect on object observers.",
+          "itemtype": "event",
+          "name": "willDestroyElement",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 329,
+          "description": "Called after the element of the view is destroyed.",
+          "itemtype": "event",
+          "name": "willDestroyElement",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 337,
+          "description": "Called when the parentView property has changed.",
+          "itemtype": "event",
+          "name": "parentViewDidChange",
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        }
+      ],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 798,
+          "description": "The WAI-ARIA role of the control represented by this view. For example, a\nbutton may have a role of type 'button', or a pane may have a role of\ntype 'alertdialog'. This property is used by assistive software to help\nvisually challenged users navigate rich web applications.\n\nThe full list of valid WAI-ARIA roles is available at:\n[https://www.w3.org/TR/wai-aria/#roles_categorization](https://www.w3.org/TR/wai-aria/#roles_categorization)",
+          "itemtype": "property",
+          "name": "ariaRole",
+          "type": "String",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 813,
+          "description": "Enables components to take a list of parameters as arguments.\nFor example, a component that takes two parameters with the names\n`name` and `age`:\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\n\nlet MyComponent = Component.extend();\n\nMyComponent.reopenClass({\n  positionalParams: ['name', 'age']\n});\n\nexport default MyComponent;\n```\n\nIt can then be invoked like this:\n\n```handlebars\n{{my-component \"John\" 38}}\n```\n\nThe parameters can be referred to just like named parameters:\n\n```handlebars\nName: {{name}}, Age: {{age}}.\n```\n\nUsing a string instead of an array allows for an arbitrary number of\nparameters:\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\n\nlet MyComponent = Component.extend();\n\nMyComponent.reopenClass({\n  positionalParams: 'names'\n});\n\nexport default MyComponent;\n```\n\nIt can then be invoked like this:\n\n```handlebars\n{{my-component \"John\" \"Michael\" \"Scott\"}}\n```\nThe parameters can then be referred to by enumerating over the list:\n\n```handlebars\n{{#each names as |name|}}{{name}}{{/each}}\n```",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "positionalParams",
+          "since": "1.13.0",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 980,
+          "description": "Layout can be used to wrap content in a component.",
+          "itemtype": "property",
+          "name": "layout",
+          "type": "Function",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 987,
+          "description": "The name of the layout to lookup if no layout is provided.\nBy default `Component` will lookup a template with this name in\n`Ember.TEMPLATES` (a shared global object).",
+          "itemtype": "property",
+          "name": "layoutName",
+          "type": "String",
+          "default": "null",
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 1014,
+          "description": "The HTML `id` of the component's element in the DOM. You can provide this\nvalue yourself but it must be unique (just as in HTML):\n\n```handlebars\n{{my-component elementId=\"a-really-cool-id\"}}\n```\n\n```handlebars\n<MyComponent @elementId=\"a-really-cool-id\" />\n```\nIf not manually set a default value will be provided by the framework.\nOnce rendered an element's `elementId` is considered immutable and you\nshould never change it. If you need to compute a dynamic value for the\n`elementId`, you should do this when the component or element is being\ninstantiated:\n\n```javascript\nexport default Component.extend({\n  init() {\n    this._super(...arguments);\n\n    var index = this.get('index');\n    this.set('elementId', `component-id${index}`);\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "elementId",
+          "type": "String",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/component.ts",
+          "line": 1047,
+          "description": "If `false`, the view will appear hidden in DOM.",
+          "itemtype": "property",
+          "name": "isVisible",
+          "type": "Boolean",
+          "default": "null",
+          "deprecated": true,
+          "deprecationMessage": "Use `<div hidden={{this.isHidden}}>` or `{{#if this.showComponent}} <MyComponent /> {{/if}}`",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/views/core_view.js",
+          "line": 34,
+          "description": "If the view is currently inserted into the DOM of a parent view, this\nproperty will point to the parent of the view.",
+          "itemtype": "property",
+          "name": "parentView",
+          "type": "Ember.View",
+          "default": "null",
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 15,
+          "description": "A list of properties of the view to apply as attributes. If the property\nis a string value, the value of that string will be applied as the value\nfor an attribute of the property's name.\n\nThe following example creates a tag like `<div priority=\"high\" />`.\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n   attributeBindings: ['priority'],\n   priority: 'high'\n });\n```\n\nIf the value of the property is a Boolean, the attribute is treated as\nan HTML Boolean attribute. It will be present if the property is `true`\nand omitted if the property is `false`.\n\nThe following example creates markup like `<div visible />`.\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n   attributeBindings: ['visible'],\n   visible: true\n });\n```\n\nIf you would prefer to use a custom value instead of the property name,\nyou can create the same markup as the last example with a binding like\nthis:\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n   attributeBindings: ['isVisible:visible'],\n   isVisible: true\n });\n```\n\nThis list of attributes is inherited from the component's superclasses,\nas well.",
+          "itemtype": "property",
+          "name": "attributeBindings",
+          "type": "Array",
+          "default": "[]",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 144,
+          "description": "Returns the current DOM element for the view.",
+          "itemtype": "property",
+          "name": "element",
+          "type": "DOMElement",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 238,
+          "description": "The HTML `id` of the view's element in the DOM. You can provide this\nvalue yourself but it must be unique (just as in HTML):\n\n```handlebars\n{{my-component elementId=\"a-really-cool-id\"}}\n```\n\nIf not manually set a default value will be provided by the framework.\n\nOnce rendered an element's `elementId` is considered immutable and you\nshould never change it. If you need to compute a dynamic value for the\n`elementId`, you should do this when the component or element is being\ninstantiated:\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n   init() {\n     this._super(...arguments);\n     let index = this.get('index');\n     this.set('elementId', 'component-id' + index);\n   }\n });\n```",
+          "itemtype": "property",
+          "name": "elementId",
+          "type": "String",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/view_support.js",
+          "line": 349,
+          "description": "Tag name for the view's outer element. The tag name is only used when an\nelement is first created. If you change the `tagName` for an element, you\nmust destroy and recreate the view element.\n\nBy default, the render buffer will use a `<div>` tag for views.\n\nIf the tagName is `''`, the view will be tagless, with no outer element.\nComponent properties that depend on the presence of an outer element, such\nas `classNameBindings` and `attributeBindings`, do not work with tagless\ncomponents. Tagless components cannot implement methods to handle events,\nand have no associated jQuery object to return with `$()`.",
+          "itemtype": "property",
+          "name": "tagName",
+          "type": "String",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ViewMixin"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/child_views_support.js",
+          "line": 8,
+          "description": "Array of child views. You should never edit this array directly.",
+          "itemtype": "property",
+          "name": "childViews",
+          "type": "Array",
+          "default": "[]",
+          "access": "private",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ClassNamesSupport"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/class_names_support.js",
+          "line": 31,
+          "description": "Standard CSS class names to apply to the view's outer element. This\nproperty automatically inherits any class names defined by the view's\nsuperclasses as well.",
+          "itemtype": "property",
+          "name": "classNames",
+          "type": "Array",
+          "default": "['ember-view']",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ClassNamesSupport"
+        },
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/class_names_support.js",
+          "line": 43,
+          "description": "A list of properties of the view to apply as class names. If the property\nis a string value, the value of that string will be applied as a class\nname.\n\n```javascript\n// Applies the 'high' class to the view element\nimport Component from '@ember/component';\nComponent.extend({\n  classNameBindings: ['priority'],\n  priority: 'high'\n});\n```\n\nIf the value of the property is a Boolean, the name of that property is\nadded as a dasherized class name.\n\n```javascript\n// Applies the 'is-urgent' class to the view element\nimport Component from '@ember/component';\nComponent.extend({\n  classNameBindings: ['isUrgent'],\n  isUrgent: true\n});\n```\n\nIf you would prefer to use a custom value instead of the dasherized\nproperty name, you can pass a binding like this:\n\n```javascript\n// Applies the 'urgent' class to the view element\nimport Component from '@ember/component';\nComponent.extend({\n  classNameBindings: ['isUrgent:urgent'],\n  isUrgent: true\n});\n```\n\nIf you would like to specify a class that should only be added when the\nproperty is false, you can declare a binding like this:\n\n```javascript\n// Applies the 'disabled' class to the view element\nimport Component from '@ember/component';\nComponent.extend({\n  classNameBindings: ['isEnabled::disabled'],\n  isEnabled: false\n});\n```\n\nThis list of properties is inherited from the component's superclasses as well.",
+          "itemtype": "property",
+          "name": "classNameBindings",
+          "type": "Array",
+          "default": "[]",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ClassNamesSupport"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/action_handler.js",
+          "line": 22,
+          "description": "The collection of functions, keyed by name, available on this\n`ActionHandler` as action targets.\n\nThese functions will be invoked when a matching `{{action}}` is triggered\nfrom within a template and the application's current route is this route.\n\nActions can also be invoked from other parts of your application\nvia `ActionHandler#send`.\n\nThe `actions` hash will inherit action handlers from\nthe `actions` hash defined on extended parent classes\nor mixins rather than just replace the entire hash, e.g.:\n\n```js {data-filename=app/mixins/can-display-banner.js}\nimport Mixin from '@ember/mixin';\n\nexport default Mixin.create({\n  actions: {\n    displayBanner(msg) {\n      // ...\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/welcome.js}\nimport Route from '@ember/routing/route';\nimport CanDisplayBanner from '../mixins/can-display-banner';\n\nexport default Route.extend(CanDisplayBanner, {\n  actions: {\n    playMusic() {\n      // ...\n    }\n  }\n});\n\n// `WelcomeRoute`, when active, will be able to respond\n// to both actions, since the actions hash is merged rather\n// then replaced when extending mixins / parent classes.\nthis.send('displayBanner');\nthis.send('playMusic');\n```\n\nWithin a Controller, Route or Component's action handler,\nthe value of the `this` context is the Controller, Route or\nComponent object:\n\n```js {data-filename=app/routes/song.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    myAction() {\n      this.controllerFor(\"song\");\n      this.transitionTo(\"other.route\");\n      ...\n    }\n  }\n});\n```\n\nIt is also possible to call `this._super(...arguments)` from within an\naction handler if it overrides a handler defined on a parent\nclass or mixin:\n\nTake for example the following routes:\n\n```js {data-filename=app/mixins/debug-route.js}\nimport Mixin from '@ember/mixin';\n\nexport default Mixin.create({\n  actions: {\n    debugRouteInformation() {\n      console.debug(\"It's a-me, console.debug!\");\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/annoying-debug.js}\nimport Route from '@ember/routing/route';\nimport DebugRoute from '../mixins/debug-route';\n\nexport default Route.extend(DebugRoute, {\n  actions: {\n    debugRouteInformation() {\n      // also call the debugRouteInformation of mixed in DebugRoute\n      this._super(...arguments);\n\n      // show additional annoyance\n      window.alert(...);\n    }\n  }\n});\n```\n\n## Bubbling\n\nBy default, an action will stop bubbling once a handler defined\non the `actions` hash handles it. To continue bubbling the action,\nyou must return `true` from the handler:\n\n```js {data-filename=app/router.js}\nRouter.map(function() {\n  this.route(\"album\", function() {\n    this.route(\"song\");\n  });\n});\n```\n\n```js {data-filename=app/routes/album.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    startPlaying: function() {\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/album-song.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    startPlaying() {\n      // ...\n\n      if (actionShouldAlsoBeTriggeredOnParentRoute) {\n        return true;\n      }\n    }\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "actions",
+          "type": "Object",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 431,
+          "description": "Defines the properties that will be concatenated from the superclass\n(instead of overridden).\n\nBy default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property's value by combining the superclass' property\nvalue with the subclass' value. An example of this in use within Ember\nis the `classNames` property of `Component` from `@ember/component`.\n\nHere is some sample code showing the difference between a concatenated\nproperty and a normal one:\n\n```javascript\nimport EmberObject from '@ember/object';\n\nconst Bar = EmberObject.extend({\n  // Configure which properties to concatenate\n  concatenatedProperties: ['concatenatedProperty'],\n\n  someNonConcatenatedProperty: ['bar'],\n  concatenatedProperty: ['bar']\n});\n\nconst FooBar = Bar.extend({\n  someNonConcatenatedProperty: ['foo'],\n  concatenatedProperty: ['foo']\n});\n\nlet fooBar = FooBar.create();\nfooBar.get('someNonConcatenatedProperty'); // ['foo']\nfooBar.get('concatenatedProperty'); // ['bar', 'foo']\n```\n\nThis behavior extends to object creation as well. Continuing the\nabove example:\n\n```javascript\nlet fooBar = FooBar.create({\n  someNonConcatenatedProperty: ['baz'],\n  concatenatedProperty: ['baz']\n})\nfooBar.get('someNonConcatenatedProperty'); // ['baz']\nfooBar.get('concatenatedProperty'); // ['bar', 'foo', 'baz']\n```\n\nAdding a single property that is not an array will just add it in the array:\n\n```javascript\nlet fooBar = FooBar.create({\n  concatenatedProperty: 'baz'\n})\nview.get('concatenatedProperty'); // ['bar', 'foo', 'baz']\n```\n\nUsing the `concatenatedProperties` property, we can tell Ember to mix the\ncontent of the properties.\n\nIn `Component` the `classNames`, `classNameBindings` and\n`attributeBindings` properties are concatenated.\n\nThis feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual concatenated property (to not\nmislead your users to think they can override the property in a subclass).",
+          "itemtype": "property",
+          "name": "concatenatedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 505,
+          "description": "Defines the properties that will be merged from the superclass\n(instead of overridden).\n\nBy default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property's value by merging the superclass property value\nwith the subclass property's value. An example of this in use within Ember\nis the `queryParams` property of routes.\n\nHere is some sample code showing the difference between a merged\nproperty and a normal one:\n\n```javascript\nimport EmberObject from '@ember/object';\n\nconst Bar = EmberObject.extend({\n  // Configure which properties are to be merged\n  mergedProperties: ['mergedProperty'],\n\n  someNonMergedProperty: {\n    nonMerged: 'superclass value of nonMerged'\n  },\n  mergedProperty: {\n    page: { replace: false },\n    limit: { replace: true }\n  }\n});\n\nconst FooBar = Bar.extend({\n  someNonMergedProperty: {\n    completelyNonMerged: 'subclass value of nonMerged'\n  },\n  mergedProperty: {\n    limit: { replace: false }\n  }\n});\n\nlet fooBar = FooBar.create();\n\nfooBar.get('someNonMergedProperty');\n// => { completelyNonMerged: 'subclass value of nonMerged' }\n//\n// Note the entire object, including the nonMerged property of\n// the superclass object, has been replaced\n\nfooBar.get('mergedProperty');\n// => {\n//   page: {replace: false},\n//   limit: {replace: false}\n// }\n//\n// Note the page remains from the superclass, and the\n// `limit` property's value of `false` has been merged from\n// the subclass.\n```\n\nThis behavior is not available during object `create` calls. It is only\navailable at `extend` time.\n\nIn `Route` the `queryParams` property is merged.\n\nThis feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual merged property (to not\nmislead your users to think they can override the property in a subclass).",
+          "itemtype": "property",
+          "name": "mergedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 580,
+          "description": "Destroyed object property flag.\n\nif this property is `true` the observers and bindings were already\nremoved by the effect of calling the `destroy()` method.",
+          "itemtype": "property",
+          "name": "isDestroyed",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/system/core_object.js",
+          "line": 598,
+          "description": "Destruction scheduled flag. The `destroy()` method has been called.\n\nThe object stays intact until the end of the run loop at which point\nthe `isDestroyed` flag is set.",
+          "itemtype": "property",
+          "name": "isDestroying",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "Component",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-3.26.2-Ember.CoreView",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-3.26.2-Checkbox"
+          },
+          {
+            "type": "class",
+            "id": "ember-3.26.2-LinkComponent"
+          },
+          {
+            "type": "class",
+            "id": "ember-3.26.2-TextField"
+          },
+          {
+            "type": "class",
+            "id": "ember-3.26.2-TextArea"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.26.2-@ember/component",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.26.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

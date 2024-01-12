@@ -1,0 +1,175 @@
+{
+  "data": {
+    "id": "ember-data-4.12.3-SnapshotRecordArray",
+    "type": "class",
+    "attributes": {
+      "name": "SnapshotRecordArray",
+      "shortname": "SnapshotRecordArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/legacy-compat",
+      "namespace": "",
+      "file": "../legacy-compat/src/legacy-network-handler/snapshot-record-array.ts",
+      "line": 17,
+      "description": "SnapshotRecordArray is not directly instantiable.\nInstances are provided to consuming application's\nadapters for certain requests.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot-record-array.ts",
+          "line": 34,
+          "description": "SnapshotRecordArray is not directly instantiable.\nInstances are provided to consuming application's\nadapters and serializers for certain requests.",
+          "itemtype": "method",
+          "name": "constructor",
+          "access": "private",
+          "tagname": "",
+          "is_constructor": 1,
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": ""
+            }
+          ],
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/legacy-compat"
+        },
+        {
+          "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot-record-array.ts",
+          "line": 146,
+          "description": "Get snapshots of the underlying record array\n\nExample\n\n```js {data-filename=app/adapters/post.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default class PostAdapter extends JSONAPIAdapter {\n  shouldReloadAll(store, snapshotArray) {\n    let snapshots = snapshotArray.snapshots();\n\n    return snapshots.any(function(ticketSnapshot) {\n      let timeDiff = moment().diff(ticketSnapshot.attr('lastAccessedAt'), 'minutes');\n      if (timeDiff > 20) {\n        return true;\n      } else {\n        return false;\n      }\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "snapshots",
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "Array of snapshots",
+            "type": "Array"
+          },
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/legacy-compat"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot-record-array.ts",
+          "line": 48,
+          "description": "An array of snapshots",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_snapshots",
+          "type": "{Array}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/legacy-compat"
+        },
+        {
+          "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot-record-array.ts",
+          "line": 56,
+          "description": "The modelName of the underlying records for the snapshots in the array, as a Model",
+          "itemtype": "property",
+          "name": "modelName",
+          "access": "public",
+          "tagname": "",
+          "type": "{Model}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/legacy-compat"
+        },
+        {
+          "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot-record-array.ts",
+          "line": 64,
+          "description": "A hash of adapter options passed into the store method for this request.\n\nExample\n\n```js {data-filename=app/adapters/post.js}\nimport MyCustomAdapter from './custom-adapter';\n\nexport default class PostAdapter extends MyCustomAdapter {\n  findAll(store, type, sinceToken, snapshotRecordArray) {\n    if (snapshotRecordArray.adapterOptions.subscribe) {\n      // ...\n    }\n    // ...\n  }\n}\n```",
+          "itemtype": "property",
+          "name": "adapterOptions",
+          "access": "public",
+          "tagname": "",
+          "type": "{Object}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/legacy-compat"
+        },
+        {
+          "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot-record-array.ts",
+          "line": 88,
+          "description": "The relationships to include for this request.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\n\nexport default class ApplicationAdapter extends Adapter {\n  findAll(store, type, snapshotRecordArray) {\n    let url = `/${type.modelName}?include=${encodeURIComponent(snapshotRecordArray.include)}`;\n\n    return fetch(url).then((response) => response.json())\n  }\n}\n```",
+          "itemtype": "property",
+          "name": "include",
+          "access": "public",
+          "tagname": "",
+          "type": "{String|Array}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/legacy-compat"
+        },
+        {
+          "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot-record-array.ts",
+          "line": 112,
+          "description": "An array of records",
+          "itemtype": "property",
+          "name": "_recordArray",
+          "access": "private",
+          "tagname": "",
+          "type": "{Array}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/legacy-compat"
+        },
+        {
+          "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot-record-array.ts",
+          "line": 123,
+          "description": "Number of records in the array\n\nExample\n\n```js {data-filename=app/adapters/post.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default class PostAdapter extends JSONAPIAdapter {\n  shouldReloadAll(store, snapshotRecordArray) {\n    return !snapshotRecordArray.length;\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "length",
+          "access": "public",
+          "tagname": "",
+          "type": "{Number}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/legacy-compat"
+        },
+        {
+          "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot-record-array.ts",
+          "line": 189,
+          "description": "The type of the underlying records for the snapshots in the array, as a Model",
+          "deprecated": true,
+          "itemtype": "property",
+          "name": "type",
+          "access": "public",
+          "tagname": "",
+          "type": "{Model}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/legacy-compat"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.12.3-@ember-data/legacy-compat",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.12.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

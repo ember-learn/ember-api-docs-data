@@ -1,0 +1,164 @@
+{
+  "data": {
+    "id": "ember-2.17.2-CoreObject",
+    "type": "class",
+    "attributes": {
+      "name": "CoreObject",
+      "shortname": "CoreObject",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/object",
+      "namespace": "",
+      "file": "packages/ember-runtime/lib/system/core_object.js",
+      "line": 197,
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 209,
+          "description": "An overridable method called when objects are instantiated. By default,\ndoes nothing unless it is overridden during class definition.\n\nExample:\n\n```javascript\nconst Person = Ember.Object.extend({\n  init() {\n    alert(`Name is ${this.get('name')}`);\n  }\n});\n\nlet steve = Person.create({\n  name: 'Steve'\n});\n\n// alerts 'Name is Steve'.\n```\n\nNOTE: If you do override `init` for a framework class like `Ember.View`,\nbe sure to call `this._super(...arguments)` in your\n`init` declaration! If you don't, Ember may not have an opportunity to\ndo important setup work, and you'll see strange behavior in your\napplication.",
+          "itemtype": "method",
+          "name": "init",
+          "access": "public",
+          "tagname": "",
+          "class": "CoreObject",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 444,
+          "description": "Destroys an object by setting the `isDestroyed` flag and removing its\nmetadata, which effectively destroys observers and bindings.\n\nIf you try to set a property on a destroyed object, an exception will be\nraised.\n\nNote that destruction is scheduled for the end of the run loop and does not\nhappen immediately.  It will set an isDestroying flag immediately.",
+          "itemtype": "method",
+          "name": "destroy",
+          "return": {
+            "description": "receiver",
+            "type": "EmberObject"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "CoreObject",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 470,
+          "description": "Override to implement teardown.",
+          "itemtype": "method",
+          "name": "willDestroy",
+          "access": "public",
+          "tagname": "",
+          "class": "CoreObject",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 478,
+          "description": "Invoked by the run loop to actually destroy the object. This is\nscheduled for execution by the `destroy` method.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_scheduledDestroy",
+          "class": "CoreObject",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 497,
+          "description": "Returns a string representation which attempts to provide more information\nthan Javascript's `toString` typically does, in a generic way for all Ember\nobjects.\n\n```javascript\nconst Person = Ember.Object.extend()\nperson = Person.create()\nperson.toString() //=> \"<Person:ember1024>\"\n```\n\nIf the object's class is not defined on an Ember namespace, it will\nindicate it is a subclass of the registered superclass:\n\n```javascript\nconst Student = Person.extend()\nlet student = Student.create()\nstudent.toString() //=> \"<(subclass of Person):ember1025>\"\n```\n\nIf the method `toStringExtension` is defined, its return value will be\nincluded in the output.\n\n```javascript\nconst Teacher = Person.extend({\n  toStringExtension() {\n    return this.get('fullName');\n  }\n});\nteacher = Teacher.create()\nteacher.toString(); //=> \"<Teacher:ember1026:Tom Dale>\"\n```",
+          "itemtype": "method",
+          "name": "toString",
+          "return": {
+            "description": "string representation",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "CoreObject",
+          "module": "@ember/object"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 247,
+          "description": "Defines the properties that will be concatenated from the superclass\n(instead of overridden).\n\nBy default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property's value by combining the superclass' property\nvalue with the subclass' value. An example of this in use within Ember\nis the `classNames` property of `Ember.View`.\n\nHere is some sample code showing the difference between a concatenated\nproperty and a normal one:\n\n```javascript\nconst Bar = Ember.Object.extend({\n  // Configure which properties to concatenate\n  concatenatedProperties: ['concatenatedProperty'],\n\n  someNonConcatenatedProperty: ['bar'],\n  concatenatedProperty: ['bar']\n});\n\nconst FooBar = Bar.extend({\n  someNonConcatenatedProperty: ['foo'],\n  concatenatedProperty: ['foo']\n});\n\nlet fooBar = FooBar.create();\nfooBar.get('someNonConcatenatedProperty'); // ['foo']\nfooBar.get('concatenatedProperty'); // ['bar', 'foo']\n```\n\nThis behavior extends to object creation as well. Continuing the\nabove example:\n\n```javascript\nlet fooBar = FooBar.create({\n  someNonConcatenatedProperty: ['baz'],\n  concatenatedProperty: ['baz']\n})\nfooBar.get('someNonConcatenatedProperty'); // ['baz']\nfooBar.get('concatenatedProperty'); // ['bar', 'foo', 'baz']\n```\n\nAdding a single property that is not an array will just add it in the array:\n\n```javascript\nlet fooBar = FooBar.create({\n  concatenatedProperty: 'baz'\n})\nview.get('concatenatedProperty'); // ['bar', 'foo', 'baz']\n```\n\nUsing the `concatenatedProperties` property, we can tell Ember to mix the\ncontent of the properties.\n\nIn `Ember.Component` the `classNames`, `classNameBindings` and\n`attributeBindings` properties are concatenated.\n\nThis feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual concatenated property (to not\nmislead your users to think they can override the property in a subclass).",
+          "itemtype": "property",
+          "name": "concatenatedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "CoreObject",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 320,
+          "description": "Defines the properties that will be merged from the superclass\n(instead of overridden).\n\nBy default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property's value by merging the superclass property value\nwith the subclass property's value. An example of this in use within Ember\nis the `queryParams` property of routes.\n\nHere is some sample code showing the difference between a merged\nproperty and a normal one:\n\n```javascript\nconst Bar = Ember.Object.extend({\n  // Configure which properties are to be merged\n  mergedProperties: ['mergedProperty'],\n\n  someNonMergedProperty: {\n    nonMerged: 'superclass value of nonMerged'\n  },\n  mergedProperty: {\n    page: { replace: false },\n    limit: { replace: true }\n  }\n});\n\nconst FooBar = Bar.extend({\n  someNonMergedProperty: {\n    completelyNonMerged: 'subclass value of nonMerged'\n  },\n  mergedProperty: {\n    limit: { replace: false }\n  }\n});\n\nlet fooBar = FooBar.create();\n\nfooBar.get('someNonMergedProperty');\n// => { completelyNonMerged: 'subclass value of nonMerged' }\n//\n// Note the entire object, including the nonMerged property of\n// the superclass object, has been replaced\n\nfooBar.get('mergedProperty');\n// => {\n//   page: {replace: false},\n//   limit: {replace: false}\n// }\n//\n// Note the page remains from the superclass, and the\n// `limit` property's value of `false` has been merged from\n// the subclass.\n```\n\nThis behavior is not available during object `create` calls. It is only\navailable at `extend` time.\n\nIn `Ember.Route` the `queryParams` property is merged.\n\nThis feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual merged property (to not\nmislead your users to think they can override the property in a subclass).",
+          "itemtype": "property",
+          "name": "mergedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "CoreObject",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 394,
+          "description": "Destroyed object property flag.\n\nif this property is `true` the observers and bindings were already\nremoved by the effect of calling the `destroy()` method.",
+          "itemtype": "property",
+          "name": "isDestroyed",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "CoreObject",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 419,
+          "description": "Destruction scheduled flag. The `destroy()` method has been called.\n\nThe object stays intact until the end of the run loop at which point\nthe `isDestroyed` flag is set.",
+          "itemtype": "property",
+          "name": "isDestroying",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "CoreObject",
+          "module": "@ember/object"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-2.17.2-EmberObject"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.17.2-@ember/object",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.17.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

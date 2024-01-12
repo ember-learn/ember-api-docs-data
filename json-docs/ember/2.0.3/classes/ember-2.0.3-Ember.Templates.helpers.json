@@ -1,0 +1,446 @@
+{
+  "data": {
+    "id": "ember-2.0.3-Ember.Templates.helpers",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Templates.helpers",
+      "shortname": "Ember.Templates.helpers",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-templates",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/ember-htmlbars/lib/helpers/-concat.js",
+          "line": 6,
+          "description": "Concatenates input params together.\n\nExample:\n\n```handlebars\n{{some-component name=(concat firstName \" \" lastName)}}\n\n{{! would pass name=\"<first name value> <last name value>\" to the component}}\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "concat",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/helpers/each-in.js",
+          "line": 10,
+          "description": "The `{{each-in}}` helper loops over properties on an object. It is unbound,\nin that new (or removed) properties added to the target object will not be\nrendered.\n\nFor example, given a `user` object that looks like:\n\n```javascript\n{\n  \"name\": \"Shelly Sails\",\n  \"age\": 42\n}\n```\n\nThis template would display all properties on the `user`\nobject in a list:\n\n```handlebars\n<ul>\n{{#each-in user as |key value|}}\n  <li>{{key}}: {{value}}</li>\n{{/each-in}}\n</ul>\n```\n\nOutputting their name and age.",
+          "itemtype": "method",
+          "name": "each-in",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/helpers/each.js",
+          "line": 9,
+          "description": "The `{{#each}}` helper loops over elements in a collection. It is an extension\nof the base Handlebars `{{#each}}` helper.\n\nThe default behavior of `{{#each}}` is to yield its inner block once for every\nitem in an array.\n\n```javascript\nvar developers = [{name: 'Yehuda'},{name: 'Tom'}, {name: 'Paul'}];\n```\n\n```handlebars\n{{#each developers key=\"name\" as |person|}}\n  {{person.name}}\n  {{! `this` is whatever it was outside the #each }}\n{{/each}}\n```\n\nThe same rules apply to arrays of primitives.\n\n```javascript\nvar developerNames = ['Yehuda', 'Tom', 'Paul']\n```\n\n```handlebars\n{{#each developerNames key=\"@index\" as |name|}}\n  {{name}}\n{{/each}}\n```\n\n### Specifying Keys\n\nThe `key` option is used to tell Ember how to determine if the array being\niterated over with `{{#each}}` has changed between renders. By helping Ember\ndetect that some elements in the array are the same, DOM elements can be\nre-used, significantly improving rendering speed.\n\nFor example, here's the `{{#each}}` helper with its `key` set to `id`:\n\n```handlebars\n{{#each model key=\"id\" as |item|}}\n{{/each}}\n```\n\nWhen this `{{#each}}` re-renders, Ember will match up the previously rendered\nitems (and reorder the generated DOM elements) based on each item's `id`\nproperty.\n\nBy default the item's own reference is used.\n\n### {{else}} condition\n\n`{{#each}}` can have a matching `{{else}}`. The contents of this block will render\nif the collection is empty.\n\n```handlebars\n{{#each developers as |person|}}\n  {{person.name}}\n{{else}}\n  <p>Sorry, nobody is available for this task.</p>\n{{/each}}\n```",
+          "itemtype": "method",
+          "name": "each",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/helpers/if_unless.js",
+          "line": 9,
+          "description": "Use the `if` block helper to conditionally render a block depending on a\nproperty. If the property is \"falsey\", for example: `false`, `undefined\n `null`, `\"\"`, `0` or an empty array, the block will not be rendered.\n\n ```handlebars\n{{! will not render if foo is falsey}}\n{{#if foo}}\n  Welcome to the {{foo.bar}}\n{{/if}}\n```\n\nYou can also specify a template to show if the property is falsey by using\nthe `else` helper.\n\n```handlebars\n{{!Is it raining outside?}}\n{{#if isRaining}}\n  Yes, grab an umbrella!\n{{else}}\n  No, it's lovely outside!\n{{/if}}\n```\n\nYou are also able to combine `else` and `if` helpers to create more complex\nconditional logic.\n\n```handlebars\n{{#if isMorning}}\n  Good morning\n{{else if isAfternoon}}\n  Good afternoon\n{{else}}\n  Good night\n{{/if}}\n```\n\nYou can use `if` inline to conditionally render a single property or string.\nThis helper acts like a ternary operator. If the first property is truthy,\nthe second argument will be displayed, if not, the third argument will be\ndisplayed\n\n```handlebars\n{{if useLongGreeting \"Hello\" \"Hi\"}} Dave\n```\n\nFinally, you can use the `if` helper inside another helper as a subexpression.\n\n```handlebars\n{{some-component height=(if isBig \"100\" \"10\")}}\n```",
+          "itemtype": "method",
+          "name": "if",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/helpers/if_unless.js",
+          "line": 69,
+          "description": "The `unless` helper is the inverse of the `if` helper. Its block will be\nrendered if the expression contains a falsey value.  All forms of the `if`\nhelper can also be used with `unless`.",
+          "itemtype": "method",
+          "name": "unless",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/helpers/loc.js",
+          "line": 8,
+          "description": "Calls [Ember.String.loc](/api/classes/Ember.String.html#method_loc) with the\nprovided string. This is a convenient way to localize text within a template.\nFor example:\n\n```javascript\nEmber.STRINGS = {\n  '_welcome_': 'Bonjour'\n};\n```\n\n```handlebars\n<div class='message'>\n  {{loc '_welcome_'}}\n</div>\n```\n\n```html\n<div class='message'>\n  Bonjour\n</div>\n```\n\nSee [Ember.String.loc](/api/classes/Ember.String.html#method_loc) for how to\nset up localized string references.",
+          "itemtype": "method",
+          "name": "loc",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to format",
+              "type": "String"
+            }
+          ],
+          "see": [
+            "{Ember.String#loc}"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/helpers/log.js",
+          "line": 8,
+          "description": "`log` allows you to output the value of variables in the current rendering\ncontext. `log` also accepts primitive types such as strings or numbers.\n\n```handlebars\n{{log \"myVariable:\" myVariable }}\n```",
+          "itemtype": "method",
+          "name": "log",
+          "params": [
+            {
+              "name": "values",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/helpers/with.js",
+          "line": 8,
+          "description": "Use the `{{with}}` helper when you want to alias a property to a new name. This is helpful\nfor semantic clarity as it allows you to retain default scope or to reference a property from another\n`{{with}}` block.\n\nIf the aliased property is \"falsey\", for example: `false`, `undefined` `null`, `\"\"`, `0` or\nan empty array, the block will not be rendered.\n\n```handlebars\n{{! Will only render if user.posts contains items}}\n{{#with user.posts as |blogPosts|}}\n  <div class=\"notice\">\n    There are {{blogPosts.length}} blog posts written by {{user.name}}.\n  </div>\n  {{#each blogPosts as |post|}}\n    <li>{{post.title}}</li>\n  {{/each}}\n{{/with}}\n```\n\nWithout the `as` operator, it would be impossible to reference `user.name` in the example above.\n\nNOTE: The alias should not reuse a name from the bound property path.\nFor example: `{{#with foo.bar as |foo|}}` is not supported because it attempts to alias using\nthe first part of the property path, `foo`. Instead, use `{{#with foo.bar as |baz|}}`.",
+          "itemtype": "method",
+          "name": "with",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "HTML string",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/keywords/collection.js",
+          "line": 11,
+          "description": "`{{collection}}` is a template helper for adding instances of\n`Ember.CollectionView` to a template. See [Ember.CollectionView](/api/classes/Ember.CollectionView.html)\n for additional information on how a `CollectionView` functions.\n\n`{{collection}}`'s primary use is as a block helper with a `contentBinding`\noption pointing towards an `Ember.Array`-compatible object. An `Ember.View`\ninstance will be created for each item in its `content` property. Each view\nwill have its own `content` property set to the appropriate item in the\ncollection.\n\nThe provided block will be applied as the template for each item's view.\n\nGiven an empty `<body>` the following template:\n\n```handlebars\n{{! application.hbs }}\n{{#collection content=model}}\n  Hi {{view.content.name}}\n{{/collection}}\n```\n\nAnd the following application code\n\n```javascript\nApp = Ember.Application.create();\nApp.ApplicationRoute = Ember.Route.extend({\n  model: function() {\n    return [{name: 'Yehuda'},{name: 'Tom'},{name: 'Peter'}];\n  }\n});\n```\n\nThe following HTML will result:\n\n```html\n<div class=\"ember-view\">\n  <div class=\"ember-view\">Hi Yehuda</div>\n  <div class=\"ember-view\">Hi Tom</div>\n  <div class=\"ember-view\">Hi Peter</div>\n</div>\n```\n\n### Non-block version of collection\n\nIf you provide an `itemViewClass` option that has its own `template` you may\nomit the block.\n\nThe following template:\n\n```handlebars\n{{! application.hbs }}\n{{collection content=model itemViewClass=\"an-item\"}}\n```\n\nAnd application code\n\n```javascript\nApp = Ember.Application.create();\nApp.ApplicationRoute = Ember.Route.extend({\n  model: function() {\n    return [{name: 'Yehuda'},{name: 'Tom'},{name: 'Peter'}];\n  }\n});\n\nApp.AnItemView = Ember.View.extend({\n  template: Ember.Handlebars.compile(\"Greetings {{view.content.name}}\")\n});\n```\n\nWill result in the HTML structure below\n\n```html\n<div class=\"ember-view\">\n  <div class=\"ember-view\">Greetings Yehuda</div>\n  <div class=\"ember-view\">Greetings Tom</div>\n  <div class=\"ember-view\">Greetings Peter</div>\n</div>\n```\n\n### Specifying a CollectionView subclass\n\nBy default the `{{collection}}` helper will create an instance of\n`Ember.CollectionView`. You can supply a `Ember.CollectionView` subclass to\nthe helper by passing it as the first argument:\n\n```handlebars\n{{#collection \"my-custom-collection\" content=model}}\n  Hi {{view.content.name}}\n{{/collection}}\n```\n\nThis example would look for the class `App.MyCustomCollection`.\n\n### Forwarded `item.*`-named Options\n\nAs with the `{{view}}`, helper options passed to the `{{collection}}` will be\nset on the resulting `Ember.CollectionView` as properties. Additionally,\noptions prefixed with `item` will be applied to the views rendered for each\nitem (note the camelcasing):\n\n```handlebars\n{{#collection content=model\n              itemTagName=\"p\"\n              itemClassNames=\"greeting\"}}\n  Howdy {{view.content.name}}\n{{/collection}}\n```\n\nWill result in the following HTML structure:\n\n```html\n<div class=\"ember-view\">\n  <p class=\"ember-view greeting\">Howdy Yehuda</p>\n  <p class=\"ember-view greeting\">Howdy Tom</p>\n  <p class=\"ember-view greeting\">Howdy Peter</p>\n</div>\n```",
+          "itemtype": "method",
+          "name": "collection",
+          "deprecated": true,
+          "deprecationMessage": "Use `{{each}}` helper instead.",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/keywords/component.js",
+          "line": 8,
+          "description": "The `{{component}}` helper lets you add instances of `Ember.Component` to a\ntemplate. See [Ember.Component](/api/classes/Ember.Component.html) for\nadditional information on how a `Component` functions.\n`{{component}}`'s primary use is for cases where you want to dynamically\nchange which type of component is rendered as the state of your application\nchanges. The provided block will be applied as the template for the component.\nGiven an empty `<body>` the following template:\n\n```handlebars\n{{! application.hbs }}\n{{component infographicComponentName}}\n```\n\nAnd the following application code:\n\n```javascript\nexport default Ember.Controller.extend({\n  infographicComponentName: computed('isMarketOpen', {\n    get() {\n      if (this.get('isMarketOpen')) {\n        return 'live-updating-chart';\n      } else {\n        return 'market-close-summary';\n      }\n    }\n  })\n});\n```\n\nThe `live-updating-chart` component will be appended when `isMarketOpen` is\n`true`, and the `market-close-summary` component will be appended when\n`isMarketOpen` is `false`. If the value changes while the app is running,\nthe component will be automatically swapped out accordingly.\nNote: You should not use this helper when you are consistently rendering the same\ncomponent. In that case, use standard component syntax, for example:\n\n```handlebars\n{{! application.hbs }}\n{{live-updating-chart}}\n```",
+          "itemtype": "method",
+          "name": "component",
+          "since": "1.11.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/keywords/debugger.js",
+          "line": 9,
+          "description": "Execute the `debugger` statement in the current template's context.\n\n```handlebars\n{{debugger}}\n```\n\nWhen using the debugger helper you will have access to a `get` function. This\nfunction retrieves values available in the context of the template.\nFor example, if you're wondering why a value `{{foo}}` isn't rendering as\nexpected within a template, you could place a `{{debugger}}` statement and,\nwhen the `debugger;` breakpoint is hit, you can attempt to retrieve this value:\n\n```\n> get('foo')\n```\n\n`get` is also aware of keywords. So in this situation\n\n```handlebars\n{{#each items as |item|}}\n  {{debugger}}\n{{/each}}\n```\n\nYou'll be able to get values from the current item:\n\n```\n> get('item.name')\n```\n\nYou can also access the context of the view to make sure it is the object that\nyou expect:\n\n```\n> context\n```",
+          "itemtype": "method",
+          "name": "debugger",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/keywords/get.js",
+          "line": 39,
+          "description": "Dynamically look up a property on an object. The second argument to `{{get}}`\nshould have a string value, although it can be bound.\n\nFor example, these two usages are equivilent:\n\n```handlebars\n{{person.height}}\n{{get person \"height\"}}\n```\n\nIf there were several facts about a person, the `{{get}}` helper can dynamically\npick one:\n\n```handlebars\n{{get person factName}}\n```\n\nFor a more complex example, this template would allow the user to switch\nbetween showing the user's height and weight with a click:\n\n```handlebars\n{{get person factName}}\n<button {{action (mut factName) \"height\"}}>Show height</button>\n<button {{action (mut factName) \"weight\"}}>Show weight</button>\n```\n\nThe `{{get}}` helper can also respect mutable values itself. For example:\n\n```handlebars\n{{input value=(mut (get person factName)) type=\"text\"}}\n<button {{action (mut factName) \"height\"}}>Show height</button>\n<button {{action (mut factName) \"weight\"}}>Show weight</button>\n```\n\nWould allow the user to swap what fact is being displayed, and also edit\nthat fact via a two-way mutable binding.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "get",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/keywords/input.js",
+          "line": 8,
+          "description": "The `{{input}}` helper lets you create an HTML `<input />` component.\nIt causes an `Ember.TextField` component to be rendered.  For more info,\nsee the [Ember.TextField](/api/classes/Ember.TextField.html) docs and\nthe [templates guide](http://emberjs.com/guides/templates/input-helpers/).\n\n```handlebars\n{{input value=\"987\"}}\n```\n\nrenders as:\n\n```HTML\n<input type=\"text\" value=\"987\" />\n```\n\n### Text field\n\nIf no `type` option is specified, a default of type 'text' is used.\n\nMany of the standard HTML attributes may be passed to this helper.\n\n<table>\n  <tr><td>`readonly`</td><td>`required`</td><td>`autofocus`</td></tr>\n  <tr><td>`value`</td><td>`placeholder`</td><td>`disabled`</td></tr>\n  <tr><td>`size`</td><td>`tabindex`</td><td>`maxlength`</td></tr>\n  <tr><td>`name`</td><td>`min`</td><td>`max`</td></tr>\n  <tr><td>`pattern`</td><td>`accept`</td><td>`autocomplete`</td></tr>\n  <tr><td>`autosave`</td><td>`formaction`</td><td>`formenctype`</td></tr>\n  <tr><td>`formmethod`</td><td>`formnovalidate`</td><td>`formtarget`</td></tr>\n  <tr><td>`height`</td><td>`inputmode`</td><td>`multiple`</td></tr>\n  <tr><td>`step`</td><td>`width`</td><td>`form`</td></tr>\n  <tr><td>`selectionDirection`</td><td>`spellcheck`</td><td>&nbsp;</td></tr>\n</table>\n\n\nWhen set to a quoted string, these values will be directly applied to the HTML\nelement. When left unquoted, these values will be bound to a property on the\ntemplate's current rendering context (most typically a controller instance).\n\n\nA very common use of this helper is to bind the `value` of an input to an Object's attribute:\n\n```handlebars\nSearch:\n{{input value=searchWord}}\n```\n\nIn this example, the inital value in the `<input />` will be set to the value of `searchWord`.\nIf the user changes the text, the value of `searchWord` will also be updated.\n\n### Actions\nThe helper can send multiple actions based on user events.\nThe action property defines the action which is sent when\nthe user presses the return key.\n\n```handlebars\n{{input action=\"submit\"}}\n```\n\nThe helper allows some user events to send actions.\n\n* `enter`\n* `insert-newline`\n* `escape-press`\n* `focus-in`\n* `focus-out`\n* `key-press`\n* `key-up`\n\n\nFor example, if you desire an action to be sent when the input is blurred,\nyou only need to setup the action name to the event name property.\n\n```handlebars\n{{input focus-in=\"alertMessage\"}}\n```\n\nSee more about [Text Support Actions](/api/classes/Ember.TextField.html)\n\n\n### Extending `Ember.TextField`\n\nInternally, `{{input type=\"text\"}}` creates an instance of `Ember.TextField`, passing\narguments from the helper to `Ember.TextField`'s `create` method. You can extend the\ncapabilities of text inputs in your applications by reopening this class. For example,\nif you are building a Bootstrap project where `data-*` attributes are used, you\ncan add one to the `TextField`'s `attributeBindings` property:\n\n\n```javascript\nEmber.TextField.reopen({\n  attributeBindings: ['data-error']\n});\n```\n\nKeep in mind when writing `Ember.TextField` subclasses that `Ember.TextField`\nitself extends `Ember.Component`. Expect isolated component semantics, not\nlegacy 1.x view semantics (like `controller` being present).\n\nSee more about [Ember components](/api/classes/Ember.Component.html)\n\n\n### Checkbox\n\nCheckboxes are special forms of the `{{input}}` helper.  To create a `<checkbox />`:\n\n```handlebars\nEmberize Everything:\n{{input type=\"checkbox\" name=\"isEmberized\" checked=isEmberized}}\n```\n\nThis will bind checked state of this checkbox to the value of `isEmberized`  -- if either one changes,\nit will be reflected in the other.\n\n\nThe following HTML attributes can be set via the helper:\n\n* `checked`\n* `disabled`\n* `tabindex`\n* `indeterminate`\n* `name`\n* `autofocus`\n* `form`\n\n\n### Extending `Ember.Checkbox`\n\nInternally, `{{input type=\"checkbox\"}}` creates an instance of `Ember.Checkbox`, passing\narguments from the helper to `Ember.Checkbox`'s `create` method. You can extend the\ncapablilties of checkbox inputs in your applications by reopening this class. For example,\nif you wanted to add a css class to all checkboxes in your application:\n\n```javascript\nEmber.Checkbox.reopen({\n  classNames: ['my-app-checkbox']\n});\n```",
+          "itemtype": "method",
+          "name": "input",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Hash"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/keywords/mut.js",
+          "line": 17,
+          "description": "The `mut` helper lets you __clearly specify__ that a child `Component` can update the\n(mutable) value passed to it, which will __change the value of the parent component__.\n\nThis is very helpful for passing mutable values to a `Component` of any size, but\ncritical to understanding the logic of a large/complex `Component`.\n\nTo specify that a parameter is mutable, when invoking the child `Component`:\n\n```handlebars\n<my-child child-click-count={{mut totalClicks}} />\n```\n\nThe child `Component` can then modify the parent's value as needed:\n\n```javascript\n// my-child.js\nexport default Component.extend({\n  click: function() {\n    this.attrs.childClickCount.update(this.attrs.childClickCount.value + 1);\n  }\n});\n```\n\nSee a [2.0 blog post](http://emberjs.com/blog/2015/05/10/run-up-to-two-oh.html#toc_the-code-mut-code-helper) for\nadditional information on using `{{mut}}`.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "mut",
+          "params": [
+            {
+              "name": "attr",
+              "description": "the \"two-way\" attribute that can be modified.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/keywords/outlet.js",
+          "line": 12,
+          "description": "The `{{outlet}}` helper lets you specify where a child routes will render in\nyour template. An important use of the `{{outlet}}` helper is in your\napplication's `application.hbs` file:\n\n```handlebars\n{{! app/templates/application.hbs }}\n\n<!-- header content goes here, and will always display -->\n{{my-header}}\n\n<div class=\"my-dynamic-content\">\n  <!-- this content will change based on the current route, which depends on the current URL -->\n  {{outlet}}\n</div>\n\n<!-- footer content goes here, and will always display -->\n{{my-footer}}\n```\n\nSee [templates guide](http://emberjs.com/guides/templates/the-application-template/) for\nadditional information on using `{{outlet}}` in `application.hbs`.\n\nYou may also specify a name for the `{{outlet}}`, which is useful when using more than one\n`{{outlet}}` in a template:\n\n```handlebars\n{{outlet \"menu\"}}\n{{outlet \"sidebar\"}}\n{{outlet \"main\"}}\n```\n\nYour routes can then render into a specific one of these `outlet`s by specifying the `outlet`\nattribute in your `renderTemplate` function:\n\n```javascript\n// app/routes/menu.js\n\nexport default Ember.Route.extend({\n  renderTemplate() {\n    this.render({ outlet: 'menu' });\n  }\n});\n```\n\nSee the [routing guide](http://emberjs.com/guides/routing/rendering-a-template/) for more\ninformation on how your `route` interacts with the `{{outlet}}` helper.\n\nNote: Your content __will not render__ if there isn't an `{{outlet}}` for it.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "outlet",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/keywords/partial.js",
+          "line": 9,
+          "description": "The `partial` helper renders another template without\nchanging the template context:\n\n```handlebars\n{{foo}}\n{{partial \"nav\"}}\n```\n\nThe above example template will render a template named\n\"_nav\", which has the same context as the parent template\nit's rendered into, so if the \"_nav\" template also referenced\n`{{foo}}`, it would print the same thing as the `{{foo}}`\nin the above example.\n\nIf a \"_nav\" template isn't found, the `partial` helper will\nfall back to a template named \"nav\".\n\n### Bound template names\n\nThe parameter supplied to `partial` can also be a path\nto a property containing a template name, e.g.:\n\n```handlebars\n{{partial someTemplateName}}\n```\n\nThe above example will look up the value of `someTemplateName`\non the template context (e.g. a controller) and use that\nvalue as the name of the template to render. If the resolved\nvalue is falsy, nothing will be rendered. If `someTemplateName`\nchanges, the partial will be re-rendered using the new template\nname.",
+          "itemtype": "method",
+          "name": "partial",
+          "params": [
+            {
+              "name": "partialName",
+              "description": "the name of the template to render minus the leading underscore",
+              "type": "String"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/keywords/textarea.js",
+          "line": 6,
+          "description": "`{{textarea}}` inserts a new instance of `<textarea>` tag into the template.\nThe attributes of `{{textarea}}` match those of the native HTML tags as\nclosely as possible.\n\nThe following HTML attributes can be set:\n\n  * `value`\n  * `name`\n  * `rows`\n  * `cols`\n  * `placeholder`\n  * `disabled`\n  * `maxlength`\n  * `tabindex`\n  * `selectionEnd`\n  * `selectionStart`\n  * `selectionDirection`\n  * `wrap`\n  * `readonly`\n  * `autofocus`\n  * `form`\n  * `spellcheck`\n  * `required`\n\nWhen set to a quoted string, these value will be directly applied to the HTML\nelement. When left unquoted, these values will be bound to a property on the\ntemplate's current rendering context (most typically a controller instance).\n\nUnbound:\n\n```handlebars\n{{textarea value=\"Lots of static text that ISN'T bound\"}}\n```\n\nWould result in the following HTML:\n\n```html\n<textarea class=\"ember-text-area\">\n  Lots of static text that ISN'T bound\n</textarea>\n```\n\nBound:\n\nIn the following example, the `writtenWords` property on `App.ApplicationController`\nwill be updated live as the user types 'Lots of text that IS bound' into\nthe text area of their browser's window.\n\n```javascript\nApp.ApplicationController = Ember.Controller.extend({\n  writtenWords: \"Lots of text that IS bound\"\n});\n```\n\n```handlebars\n{{textarea value=writtenWords}}\n```\n\n Would result in the following HTML:\n\n```html\n<textarea class=\"ember-text-area\">\n  Lots of text that IS bound\n</textarea>\n```\n\nIf you wanted a one way binding between the text area and a div tag\nsomewhere else on your screen, you could use `Ember.computed.oneWay`:\n\n```javascript\nApp.ApplicationController = Ember.Controller.extend({\n  writtenWords: \"Lots of text that IS bound\",\n  outputWrittenWords: Ember.computed.oneWay(\"writtenWords\")\n});\n```\n\n```handlebars\n{{textarea value=writtenWords}}\n\n<div>\n  {{outputWrittenWords}}\n</div>\n```\n\nWould result in the following HTML:\n\n```html\n<textarea class=\"ember-text-area\">\n  Lots of text that IS bound\n</textarea>\n\n<-- the following div will be updated in real time as you type -->\n\n<div>\n  Lots of text that IS bound\n</div>\n```\n\nFinally, this example really shows the power and ease of Ember when two\nproperties are bound to eachother via `Ember.computed.alias`. Type into\neither text area box and they'll both stay in sync. Note that\n`Ember.computed.alias` costs more in terms of performance, so only use it when\nyour really binding in both directions:\n\n```javascript\nApp.ApplicationController = Ember.Controller.extend({\n  writtenWords: \"Lots of text that IS bound\",\n  twoWayWrittenWords: Ember.computed.alias(\"writtenWords\")\n});\n```\n\n```handlebars\n{{textarea value=writtenWords}}\n{{textarea value=twoWayWrittenWords}}\n```\n\n```html\n<textarea id=\"ember1\" class=\"ember-text-area\">\n  Lots of text that IS bound\n</textarea>\n\n<-- both updated in real time -->\n\n<textarea id=\"ember2\" class=\"ember-text-area\">\n  Lots of text that IS bound\n</textarea>\n```\n\n### Actions\n\nThe helper can send multiple actions based on user events.\n\nThe action property defines the action which is send when\nthe user presses the return key.\n\n```handlebars\n{{input action=\"submit\"}}\n```\n\nThe helper allows some user events to send actions.\n\n* `enter`\n* `insert-newline`\n* `escape-press`\n* `focus-in`\n* `focus-out`\n* `key-press`\n\nFor example, if you desire an action to be sent when the input is blurred,\nyou only need to setup the action name to the event name property.\n\n```handlebars\n{{textarea focus-in=\"alertMessage\"}}\n```\n\nSee more about [Text Support Actions](/api/classes/Ember.TextArea.html)\n\n### Extension\n\nInternally, `{{textarea}}` creates an instance of `Ember.TextArea`, passing\narguments from the helper to `Ember.TextArea`'s `create` method. You can\nextend the capabilities of text areas in your application by reopening this\nclass. For example, if you are building a Bootstrap project where `data-*`\nattributes are used, you can globally add support for a `data-*` attribute\non all `{{textarea}}`s' in your app by reopening `Ember.TextArea` or\n`Ember.TextSupport` and adding it to the `attributeBindings` concatenated\nproperty:\n\n```javascript\nEmber.TextArea.reopen({\n  attributeBindings: ['data-error']\n});\n```\n\nKeep in mind when writing `Ember.TextArea` subclasses that `Ember.TextArea`\nitself extends `Ember.Component`. Expect isolated component semantics, not\nlegacy 1.x view semantics (like `controller` being present).\n\nSee more about [Ember components](/api/classes/Ember.Component.html)",
+          "itemtype": "method",
+          "name": "textarea",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Hash"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/keywords/unbound.js",
+          "line": 8,
+          "description": "The `{{unbound}}` helper disconnects the one-way binding of a property,\nessentially freezing its value at the moment of rendering. For example,\nin this example the display of the variable `name` will not change even\nif it is set with a new value:\n\n```handlebars\n{{unbound name}}\n```\n\nLike any helper, the `unbound` helper can accept a nested helper expression.\nThis allows for custom helpers to be rendered unbound:\n\n```handlebars\n{{unbound (some-custom-helper)}}\n{{unbound (capitalize name)}}\n{{! You can use any helper, including unbound, in a nested expression }}\n{{capitalize (unbound name)}}\n```\n\nThe `unbound` helper only accepts a single argument, and it return an\nunbound value.",
+          "itemtype": "method",
+          "name": "unbound",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/keywords/view.js",
+          "line": 10,
+          "description": "`{{view}}` inserts a new instance of an `Ember.View` into a template passing its\noptions to the `Ember.View`'s `create` method and using the supplied block as\nthe view's own template.\n\nAn empty `<body>` and the following template:\n\n```handlebars\nA span:\n{{#view tagName=\"span\"}}\n  hello.\n{{/view}}\n```\n\nWill result in HTML structure:\n\n```html\n<body>\n  <!-- Note: the handlebars template script\n       also results in a rendered Ember.View\n       which is the outer <div> here -->\n\n  <div class=\"ember-view\">\n    A span:\n    <span id=\"ember1\" class=\"ember-view\">\n      Hello.\n    </span>\n  </div>\n</body>\n```\n\n### `parentView` setting\n\nThe `parentView` property of the new `Ember.View` instance created through\n`{{view}}` will be set to the `Ember.View` instance of the template where\n`{{view}}` was called.\n\n```javascript\naView = Ember.View.create({\n  template: Ember.Handlebars.compile(\"{{#view}} my parent: {{parentView.elementId}} {{/view}}\")\n});\n\naView.appendTo('body');\n```\n\nWill result in HTML structure:\n\n```html\n<div id=\"ember1\" class=\"ember-view\">\n  <div id=\"ember2\" class=\"ember-view\">\n    my parent: ember1\n  </div>\n</div>\n```\n\n### Setting CSS id and class attributes\n\nThe HTML `id` attribute can be set on the `{{view}}`'s resulting element with\nthe `id` option. This option will _not_ be passed to `Ember.View.create`.\n\n```handlebars\n{{#view tagName=\"span\" id=\"a-custom-id\"}}\n  hello.\n{{/view}}\n```\n\nResults in the following HTML structure:\n\n```html\n<div class=\"ember-view\">\n  <span id=\"a-custom-id\" class=\"ember-view\">\n    hello.\n  </span>\n</div>\n```\n\nThe HTML `class` attribute can be set on the `{{view}}`'s resulting element\nwith the `class` or `classNameBindings` options. The `class` option will\ndirectly set the CSS `class` attribute and will not be passed to\n`Ember.View.create`. `classNameBindings` will be passed to `create` and use\n`Ember.View`'s class name binding functionality:\n\n```handlebars\n{{#view tagName=\"span\" class=\"a-custom-class\"}}\n  hello.\n{{/view}}\n```\n\nResults in the following HTML structure:\n\n```html\n<div class=\"ember-view\">\n  <span id=\"ember2\" class=\"ember-view a-custom-class\">\n    hello.\n  </span>\n</div>\n```\n\n### Supplying a different view class\n\n`{{view}}` can take an optional first argument before its supplied options to\nspecify a path to a custom view class.\n\n```handlebars\n{{#view \"custom\"}}{{! will look up App.CustomView }}\n  hello.\n{{/view}}\n```\n\nThe first argument can also be a relative path accessible from the current\ncontext.\n\n```javascript\nMyApp = Ember.Application.create({});\nMyApp.OuterView = Ember.View.extend({\n  innerViewClass: Ember.View.extend({\n    classNames: ['a-custom-view-class-as-property']\n  }),\n  template: Ember.Handlebars.compile('{{#view view.innerViewClass}} hi {{/view}}')\n});\n\nMyApp.OuterView.create().appendTo('body');\n```\n\nWill result in the following HTML:\n\n```html\n<div id=\"ember1\" class=\"ember-view\">\n  <div id=\"ember2\" class=\"ember-view a-custom-view-class-as-property\">\n    hi\n  </div>\n</div>\n```\n\n### Blockless use\n\nIf you supply a custom `Ember.View` subclass that specifies its own template\nor provide a `templateName` option to `{{view}}` it can be used without\nsupplying a block. Attempts to use both a `templateName` option and supply a\nblock will throw an error.\n\n```javascript\nvar App = Ember.Application.create();\nApp.WithTemplateDefinedView = Ember.View.extend({\n  templateName: 'defined-template'\n});\n```\n\n```handlebars\n{{! application.hbs }}\n{{view 'with-template-defined'}}\n```\n\n```handlebars\n{{! defined-template.hbs }}\nSome content for the defined template view.\n```\n\n### `viewName` property\n\nYou can supply a `viewName` option to `{{view}}`. The `Ember.View` instance\nwill be referenced as a property of its parent view by this name.\n\n```javascript\naView = Ember.View.create({\n  template: Ember.Handlebars.compile('{{#view viewName=\"aChildByName\"}} hi {{/view}}')\n});\n\naView.appendTo('body');\naView.get('aChildByName') // the instance of Ember.View created by {{view}} helper\n```",
+          "itemtype": "method",
+          "name": "view",
+          "access": "public",
+          "tagname": "",
+          "deprecated": true,
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-routing-htmlbars/lib/helpers/query-params.js",
+          "line": 9,
+          "description": "This is a helper to be used in conjunction with the link-to helper.\nIt will supply url query parameters to the target route.\n\nExample\n\n```handlebars\n{{#link-to 'posts' (query-params direction=\"asc\")}}Sort{{/link-to}}\n```",
+          "itemtype": "method",
+          "name": "query-params",
+          "params": [
+            {
+              "name": "hash",
+              "description": "takes a hash of query parameters",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "A `QueryParams` object for `{{link-to}}`",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-routing-htmlbars"
+        },
+        {
+          "file": "packages/ember-routing-htmlbars/lib/keywords/action.js",
+          "line": 10,
+          "description": "The `{{action}}` helper provides a way to pass triggers for behavior (usually\njust a function) between components, and into components from controllers.\n\n### Passing functions with the action helper\n\nThere are three contexts an action helper can be used in. The first two\ncontexts to discuss are attribute context, and Handlebars value context.\n\n```handlebars\n{{! An example of attribute context }}\n<div onclick={{action \"save\"}}></div>\n{{! Examples of Handlebars value context }}\n{{input on-input=(action \"save\")}}\n{{yield (action \"refreshData\") andAnotherParam}}\n```\n\nIn these contexts,\nthe helper is called a \"closure action\" helper. It's behavior is simple:\nIf passed a function name, read that function off the `actions` property\nof the current context. Once that function is read (or if a function was\npassed), create a closure over that function and any arguments.\n\nThe resulting value of an action helper used this way is simply a function.\nFor example with this attribute context example:\n\n```handlebars\n{{! An example of attribute context }}\n<div onclick={{action \"save\"}}></div>\n```\n\nThe resulting template render logic would be:\n\n```js\nvar div = document.createElement('div');\nvar actionFunction = (function(context){\n  return function() {\n    return context.actions.save.apply(context, arguments);\n  };\n})(context);\ndiv.onclick = actionFunction;\n```\n\nThus when the div is clicked, the action on that context is called.\nBecause the `actionFunction` is just a function, closure actions can be\npassed between components the still execute in the correct context.\n\nHere is an example action handler on a component:\n\n```js\nexport default Ember.Component.extend({\n  actions: {\n    save(/* event *\\/) {\n      this.get('model').save();\n    }\n  }\n});\n```\n\nActions are always looked up on the `actions` property of the current context.\nThis avoids collisions in the naming of common actions, such as `destroy`.\n\nTwo options can be passed to the `action` helper when it is used in this way.\n\n* `target=someProperty` will look to `someProperty` instead of the current\n  context for the `actions` hash. This can be useful when targetting a\n  service for actions.\n* `value=\"target.value\"` will read the path `target.value` off the first\n  argument to the action when it is called and rewrite the first argument\n  to be that value. This is useful when attaching actions to event listeners.\n\n### Invoking an action\n\nClosure actions curry both their scope and any arguments. When invoked, any\nadditional arguments are added to the already curried list.\n\nActions should be invoked using the [sendAction](/api/classes/Ember.Component.html#method_sendAction)\nmethod. The first argument to `sendAction` is the action to be called, and\nadditional arguments are passed to the action function. This has interesting\nproperties combined with currying of arguments. For example:\n\n```js\nexport default Ember.Component.extend({\n  actions: {\n    // Usage {{input on-input=(action (action 'setName' model) value=\"target.value\")}}\n    setName(model, name) {\n      model.set('name', name);\n    }\n  }\n});\n```\n\nThe first argument (`model`) was curried over, and the run-time argument (`event`)\nbecomes a second argument. Action calls be nested this way because each simply\nreturns a function. Any function can be passed to the `{{action` helper, including\nother actions.\n\nActions invoked with `sendAction` have the same currying behavior as demonstrated\nwith `on-input` above. For example:\n\n```js\nexport default Ember.Component.extend({\n  actions: {\n    setName(model, name) {\n      model.set('name', name);\n    }\n  }\n});\n```\n\n```handlebars\n{{my-input submit=(action 'setName' model)}}\n```\n\n```js\n// app/components/my-component.js\nexport default Ember.Component.extend({\n  click() {\n    // Note that model is not passed, it was curried in the template\n    this.sendAction('submit', 'bob');\n  }\n});\n```\n\n### Attaching actions to DOM\n\nThe third context the `{{action` helper can be used in we call \"element space\".\nFor example:\n\n```handlebars\n{{! An example of element space }}\n<div {{action \"save\"}}></div>\n```\n\nUsed this way, the `{{action}}` helper provides a useful shortcut for\nregistering an HTML element within a template for a single DOM event and\nforwarding that interaction to the template's context (controller or component).\n\nIf the context of a template is a controller, actions used this way will\nbubble to routes when the controller does not implement the specified action.\nOnce an action hits a route, it will bubble through the route hierarchy.\n\n### Event Propagation\n\n`{{action` helpers called in element space can control event bubbling.\n\nEvents triggered through the action helper will automatically have\n`.preventDefault()` called on them. You do not need to do so in your event\nhandlers. If you need to allow event propagation (to handle file inputs for\nexample) you can supply the `preventDefault=false` option to the `{{action}}` helper:\n\n```handlebars\n<div {{action \"sayHello\" preventDefault=false}}>\n  <input type=\"file\" />\n  <input type=\"checkbox\" />\n</div>\n```\n\nTo disable bubbling, pass `bubbles=false` to the helper:\n\n```handlebars\n<button {{action 'edit' post bubbles=false}}>Edit</button>\n```\n\nIf you need the default handler to trigger you should either register your\nown event handler, or use event methods on your view class. See [Ember.View](/api/classes/Ember.View.html)\n'Responding to Browser Events' for more information.\n\n### Specifying DOM event type\n\n`{{action` helpers called in element space can specify an event type.\n\nBy default the `{{action}}` helper registers for DOM `click` events. You can\nsupply an `on` option to the helper to specify a different DOM event name:\n\n```handlebars\n<div {{action \"anActionName\" on=\"double-click\"}}>\n  click me\n</div>\n```\n\nSee [Event Names](/api/classes/Ember.View.html#toc_event-names) for a list of\nacceptable DOM event names.\n\n### Specifying whitelisted modifier keys\n\n`{{action` helpers called in element space can specify modifier keys.\n\nBy default the `{{action}}` helper will ignore click event with pressed modifier\nkeys. You can supply an `allowedKeys` option to specify which keys should not be ignored.\n\n```handlebars\n<div {{action \"anActionName\" allowedKeys=\"alt\"}}>\n  click me\n</div>\n```\n\nThis way the `{{action}}` will fire when clicking with the alt key pressed down.\n\nAlternatively, supply \"any\" to the `allowedKeys` option to accept any combination of modifier keys.\n\n```handlebars\n<div {{action \"anActionName\" allowedKeys=\"any\"}}>\n  click me with any key pressed\n</div>\n```\n\n### Specifying a Target\n\nA `target` option can be provided to the helper to change\nwhich object will receive the method call. This option must be a path\nto an object, accessible in the current context:\n\n```handlebars\n{{! app/templates/application.hbs }}\n<div {{action \"anActionName\" target=someService}}>\n  click me\n</div>\n```\n\n```javascript\n// app/controllers/application.js\nexport default Ember.Controller.extend({\n  someService: Ember.inject.service()\n});\n```",
+          "itemtype": "method",
+          "name": "action",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        },
+        {
+          "file": "packages/ember-routing-htmlbars/lib/keywords/link-to.js",
+          "line": 10,
+          "description": "The `{{link-to}}` helper renders a link to the supplied\n`routeName` passing an optionally supplied model to the\nroute as its `model` context of the route. The block\nfor `{{link-to}}` becomes the innerHTML of the rendered\nelement:\n\n```handlebars\n{{#link-to 'photoGallery'}}\n  Great Hamster Photos\n{{/link-to}}\n```\n\nYou can also use an inline form of `{{link-to}}` helper by\npassing the link text as the first argument\nto the helper:\n\n```handlebars\n{{link-to 'Great Hamster Photos' 'photoGallery'}}\n```\n\nBoth will result in:\n\n```html\n<a href=\"/hamster-photos\">\n  Great Hamster Photos\n</a>\n```\n\n### Supplying a tagName\nBy default `{{link-to}}` renders an `<a>` element. This can\nbe overridden for a single use of `{{link-to}}` by supplying\na `tagName` option:\n\n```handlebars\n{{#link-to 'photoGallery' tagName=\"li\"}}\n  Great Hamster Photos\n{{/link-to}}\n```\n\n```html\n<li>\n  Great Hamster Photos\n</li>\n```\n\nTo override this option for your entire application, see\n\"Overriding Application-wide Defaults\".\n\n### Disabling the `link-to` helper\nBy default `{{link-to}}` is enabled.\nany passed value to `disabled` helper property will disable the `link-to` helper.\n\nstatic use: the `disabled` option:\n\n```handlebars\n{{#link-to 'photoGallery' disabled=true}}\n  Great Hamster Photos\n{{/link-to}}\n```\n\ndynamic use: the `disabledWhen` option:\n\n```handlebars\n{{#link-to 'photoGallery' disabledWhen=controller.someProperty}}\n  Great Hamster Photos\n{{/link-to}}\n```\n\nany passed value to `disabled` will disable it except `undefined`.\nto ensure that only `true` disable the `link-to` helper you can\noverride the global behaviour of `Ember.LinkComponent`.\n\n```javascript\nEmber.LinkComponent.reopen({\n  disabled: Ember.computed(function(key, value) {\n    if (value !== undefined) {\n      this.set('_isDisabled', value === true);\n    }\n    return value === true ? get(this, 'disabledClass') : false;\n  })\n});\n```\n\nsee \"Overriding Application-wide Defaults\" for more.\n\n### Handling `href`\n`{{link-to}}` will use your application's Router to\nfill the element's `href` property with a url that\nmatches the path to the supplied `routeName` for your\nrouter's configured `Location` scheme, which defaults\nto Ember.HashLocation.\n\n### Handling current route\n`{{link-to}}` will apply a CSS class name of 'active'\nwhen the application's current route matches\nthe supplied routeName. For example, if the application's\ncurrent route is 'photoGallery.recent' the following\nuse of `{{link-to}}`:\n\n```handlebars\n{{#link-to 'photoGallery.recent'}}\n  Great Hamster Photos\n{{/link-to}}\n```\n\nwill result in\n\n```html\n<a href=\"/hamster-photos/this-week\" class=\"active\">\n  Great Hamster Photos\n</a>\n```\n\nThe CSS class name used for active classes can be customized\nfor a single use of `{{link-to}}` by passing an `activeClass`\noption:\n\n```handlebars\n{{#link-to 'photoGallery.recent' activeClass=\"current-url\"}}\n  Great Hamster Photos\n{{/link-to}}\n```\n\n```html\n<a href=\"/hamster-photos/this-week\" class=\"current-url\">\n  Great Hamster Photos\n</a>\n```\n\nTo override this option for your entire application, see\n\"Overriding Application-wide Defaults\".\n\n### Keeping a link active for other routes\n\nIf you need a link to be 'active' even when it doesn't match\nthe current route, you can use the the `current-when`\nargument.\n\n```handlebars\n{{#link-to 'photoGallery' current-when='photos'}}\n  Photo Gallery\n{{/link-to}}\n```\n\nThis may be helpful for keeping links active for:\n\n* non-nested routes that are logically related\n* some secondary menu approaches\n* 'top navigation' with 'sub navigation' scenarios\n\nA link will be active if `current-when` is `true` or the current\nroute is the route this link would transition to.\n\nTo match multiple routes 'space-separate' the routes:\n\n```handlebars\n{{#link-to 'gallery' current-when='photos drawings paintings'}}\n  Art Gallery\n{{/link-to}}\n```\n\n### Supplying a model\nAn optional model argument can be used for routes whose\npaths contain dynamic segments. This argument will become\nthe model context of the linked route:\n\n```javascript\nApp.Router.map(function() {\n  this.route(\"photoGallery\", {path: \"hamster-photos/:photo_id\"});\n});\n```\n\n```handlebars\n{{#link-to 'photoGallery' aPhoto}}\n  {{aPhoto.title}}\n{{/link-to}}\n```\n\n```html\n<a href=\"/hamster-photos/42\">\n  Tomster\n</a>\n```\n\n### Supplying multiple models\nFor deep-linking to route paths that contain multiple\ndynamic segments, multiple model arguments can be used.\nAs the router transitions through the route path, each\nsupplied model argument will become the context for the\nroute with the dynamic segments:\n\n```javascript\nApp.Router.map(function() {\n  this.route(\"photoGallery\", { path: \"hamster-photos/:photo_id\" }, function() {\n    this.route(\"comment\", {path: \"comments/:comment_id\"});\n  });\n});\n```\nThis argument will become the model context of the linked route:\n\n```handlebars\n{{#link-to 'photoGallery.comment' aPhoto comment}}\n  {{comment.body}}\n{{/link-to}}\n```\n\n```html\n<a href=\"/hamster-photos/42/comments/718\">\n  A+++ would snuggle again.\n</a>\n```\n\n### Supplying an explicit dynamic segment value\nIf you don't have a model object available to pass to `{{link-to}}`,\nan optional string or integer argument can be passed for routes whose\npaths contain dynamic segments. This argument will become the value\nof the dynamic segment:\n\n```javascript\nApp.Router.map(function() {\n  this.route(\"photoGallery\", { path: \"hamster-photos/:photo_id\" });\n});\n```\n\n```handlebars\n{{#link-to 'photoGallery' aPhotoId}}\n  {{aPhoto.title}}\n{{/link-to}}\n```\n\n```html\n<a href=\"/hamster-photos/42\">\n  Tomster\n</a>\n```\n\nWhen transitioning into the linked route, the `model` hook will\nbe triggered with parameters including this passed identifier.\n\n### Allowing Default Action\n\n By default the `{{link-to}}` helper prevents the default browser action\n by calling `preventDefault()` as this sort of action bubbling is normally\n handled internally and we do not want to take the browser to a new URL (for\n example).\n\n If you need to override this behavior specify `preventDefault=false` in\n your template:\n\n```handlebars\n{{#link-to 'photoGallery' aPhotoId preventDefault=false}}\n  {{aPhotoId.title}}\n{{/link-to}}\n```\n\n### Overriding attributes\nYou can override any given property of the Ember.LinkComponent\nthat is generated by the `{{link-to}}` helper by passing\nkey/value pairs, like so:\n\n```handlebars\n{{#link-to  aPhoto tagName='li' title='Following this link will change your life' classNames='pic sweet'}}\n  Uh-mazing!\n{{/link-to}}\n```\n\nSee [Ember.LinkComponent](/api/classes/Ember.LinkComponent.html) for a\ncomplete list of overrideable properties. Be sure to also\ncheck out inherited properties of `LinkComponent`.\n\n### Overriding Application-wide Defaults\n``{{link-to}}`` creates an instance of Ember.LinkComponent\nfor rendering. To override options for your entire\napplication, reopen Ember.LinkComponent and supply the\ndesired values:\n\n``` javascript\nEmber.LinkComponent.reopen({\n  activeClass: \"is-active\",\n  tagName: 'li'\n})\n```\n\nIt is also possible to override the default event in\nthis manner:\n\n``` javascript\nEmber.LinkComponent.reopen({\n  eventName: 'customEventName'\n});\n```",
+          "itemtype": "method",
+          "name": "link-to",
+          "params": [
+            {
+              "name": "routeName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "",
+              "type": "Object",
+              "optional": true,
+              "multiple": true
+            },
+            {
+              "name": "options",
+              "description": "Handlebars key/value pairs of options, you can override any property of Ember.LinkComponent",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "HTML string",
+            "type": "String"
+          },
+          "see": [
+            "{Ember.LinkComponent}"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-routing-htmlbars"
+        },
+        {
+          "file": "packages/ember-routing-htmlbars/lib/keywords/render.js",
+          "line": 15,
+          "description": "Calling ``{{render}}`` from within a template will insert another\ntemplate that matches the provided name. The inserted template will\naccess its properties on its own controller (rather than the controller\nof the parent template).\nIf a view class with the same name exists, the view class also will be used.\nNote: A given controller may only be used *once* in your app in this manner.\nA singleton instance of the controller will be created for you.\nExample:\n\n```javascript\nApp.NavigationController = Ember.Controller.extend({\n  who: \"world\"\n});\n```\n\n```handlebars\n<!-- navigation.hbs -->\nHello, {{who}}.\n```\n\n```handlebars\n<!-- application.hbs -->\n<h1>My great app</h1>\n{{render \"navigation\"}}\n```\n\n```html\n<h1>My great app</h1>\n<div class='ember-view'>\n  Hello, world.\n</div>\n```\n\nOptionally you may provide a second argument: a property path\nthat will be bound to the `model` property of the controller.\nIf a `model` property path is specified, then a new instance of the\ncontroller will be created and `{{render}}` can be used multiple times\nwith the same name.\n\nFor example if you had this `author` template.\n\n```handlebars\n<div class=\"author\">\n  Written by {{firstName}} {{lastName}}.\n  Total Posts: {{postCount}}\n</div>\n```\n\nYou could render it inside the `post` template using the `render` helper.\n\n```handlebars\n<div class=\"post\">\n  <h1>{{title}}</h1>\n  <div>{{body}}</div>\n  {{render \"author\" author}}\n</div>\n```",
+          "itemtype": "method",
+          "name": "render",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "",
+              "type": "Object?"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Hash"
+            }
+          ],
+          "return": {
+            "description": "HTML string",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember",
+          "submodule": "ember-templates"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.0.3-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.0.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

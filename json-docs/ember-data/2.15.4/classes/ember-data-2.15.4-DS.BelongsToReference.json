@@ -1,0 +1,174 @@
+{
+  "data": {
+    "id": "ember-data-2.15.4-DS.BelongsToReference",
+    "type": "class",
+    "attributes": {
+      "name": "DS.BelongsToReference",
+      "shortname": "DS.BelongsToReference",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/system/references/belongs-to.js",
+      "line": 9,
+      "description": "A BelongsToReference is a low level API that allows users and\naddon author to perform meta-operations on a belongs-to\nrelationship.",
+      "extends": "DS.Reference",
+      "methods": [
+        {
+          "file": "addon/-private/system/references/belongs-to.js",
+          "line": 31,
+          "description": "This returns a string that represents how the reference will be\nlooked up when it is loaded. If the relationship has a link it will\nuse the \"link\" otherwise it defaults to \"id\".\n\nExample\n\n```javascript\n // models/blog.js\n export default DS.Model.extend({\n   user: DS.belongsTo({ async: true })\n });\n\n let blog = store.push({\n   type: 'blog',\n   id: 1,\n   relationships: {\n     user: {\n       data: { type: 'user', id: 1 }\n     }\n   }\n });\n let userRef = blog.belongsTo('user');\n\n // get the identifier of the reference\n if (userRef.remoteType() === \"id\") {\n   let id = userRef.id();\n } else if (userRef.remoteType() === \"link\") {\n   let link = userRef.link();\n }\n ```",
+          "itemtype": "method",
+          "name": "remoteType",
+          "return": {
+            "description": "The name of the remote type. This should either be \"link\" or \"id\"",
+            "type": "String"
+          },
+          "class": "DS.BelongsToReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/belongs-to.js",
+          "line": 74,
+          "description": "The `id` of the record that this reference refers to. Together, the\n`type()` and `id()` methods form a composite key for the identity\nmap. This can be used to access the id of an async relationship\nwithout triggering a fetch that would normally happen if you\nattempted to use `record.get('relationship.id')`.\n\nExample\n\n```javascript\n // models/blog.js\n export default DS.Model.extend({\n   user: DS.belongsTo({ async: true })\n });\n\n let blog = store.push({\n   data: {\n     type: 'blog',\n     id: 1,\n     relationships: {\n       user: {\n         data: { type: 'user', id: 1 }\n       }\n     }\n   }\n });\n let userRef = blog.belongsTo('user');\n\n // get the identifier of the reference\n if (userRef.remoteType() === \"id\") {\n   let id = userRef.id();\n }\n ```",
+          "itemtype": "method",
+          "name": "id",
+          "return": {
+            "description": "The id of the record in this belongsTo relationship.",
+            "type": "String"
+          },
+          "class": "DS.BelongsToReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/belongs-to.js",
+          "line": 116,
+          "description": "The link Ember Data will use to fetch or reload this belongs-to\nrelationship.\n\nExample\n\n```javascript\n // models/blog.js\n export default DS.Model.extend({\n   user: DS.belongsTo({ async: true })\n });\n\n let blog = store.push({\n   data: {\n     type: 'blog',\n     id: 1,\n     relationships: {\n       user: {\n         links: {\n           related: '/articles/1/author'\n         }\n       }\n     }\n   }\n });\n let userRef = blog.belongsTo('user');\n\n // get the identifier of the reference\n if (userRef.remoteType() === \"link\") {\n   let link = userRef.link();\n }\n ```",
+          "itemtype": "method",
+          "name": "link",
+          "return": {
+            "description": "The link Ember Data will use to fetch or reload this belongs-to relationship.",
+            "type": "String"
+          },
+          "class": "DS.BelongsToReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/belongs-to.js",
+          "line": 156,
+          "description": "The meta data for the belongs-to relationship.\n\nExample\n\n```javascript\n // models/blog.js\n export default DS.Model.extend({\n   user: DS.belongsTo({ async: true })\n });\n\n let blog = store.push({\n   data: {\n     type: 'blog',\n     id: 1,\n     relationships: {\n       user: {\n         links: {\n           related: {\n             href: '/articles/1/author',\n             meta: {\n               lastUpdated: 1458014400000\n             }\n           }\n         }\n       }\n     }\n   }\n });\n\n let userRef = blog.belongsTo('user');\n\n userRef.meta() // { lastUpdated: 1458014400000 }\n ```",
+          "itemtype": "method",
+          "name": "meta",
+          "return": {
+            "description": "The meta information for the belongs-to relationship.",
+            "type": "Object"
+          },
+          "class": "DS.BelongsToReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/belongs-to.js",
+          "line": 198,
+          "description": "`push` can be used to update the data in the relationship and Ember\nData will treat the new data as the conanical value of this\nrelationship on the backend.\n\nExample\n\n ```javascript\n // models/blog.js\n export default DS.Model.extend({\n   user: DS.belongsTo({ async: true })\n });\n\n let blog = store.push({\n   data: {\n     type: 'blog',\n     id: 1,\n     relationships: {\n       user: {\n         data: { type: 'user', id: 1 }\n       }\n     }\n   }\n });\n let userRef = blog.belongsTo('user');\n\n // provide data for reference\n userRef.push({\n   data: {\n     type: 'user',\n     id: 1,\n     attributes: {\n       username: \"@user\"\n     }\n   }\n }).then(function(user) {\n   userRef.value() === user;\n });\n ```",
+          "itemtype": "method",
+          "name": "push",
+          "params": [
+            {
+              "name": "objectOrPromise",
+              "description": "a promise that resolves to a JSONAPI document object describing the new value of this relationship.",
+              "type": "Object|Promise"
+            }
+          ],
+          "return": {
+            "description": "A promise that resolves with the new value in this belongs-to relationship.",
+            "type": "Promise<record>"
+          },
+          "class": "DS.BelongsToReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/belongs-to.js",
+          "line": 266,
+          "description": "`value()` synchronously returns the current value of the belongs-to\nrelationship. Unlike `record.get('relationshipName')`, calling\n`value()` on a reference does not trigger a fetch if the async\nrelationship is not yet loaded. If the relationship is not loaded\nit will always return `null`.\n\nExample\n\n ```javascript\n // models/blog.js\n export default DS.Model.extend({\n   user: DS.belongsTo({ async: true })\n });\n\n let blog = store.push({\n   data: {\n     type: 'blog',\n     id: 1,\n     relationships: {\n       user: {\n         data: { type: 'user', id: 1 }\n       }\n     }\n   }\n });\n let userRef = blog.belongsTo('user');\n\n userRef.value(); // null\n\n // provide data for reference\n userRef.push({\n   data: {\n     type: 'user',\n     id: 1,\n     attributes: {\n       username: \"@user\"\n     }\n   }\n }).then(function(user) {\n   userRef.value(); // user\n });\n ```",
+          "itemtype": "method",
+          "name": "value",
+          "params": [
+            {
+              "name": "objectOrPromise",
+              "description": "a promise that resolves to a JSONAPI document object describing the new value of this relationship.",
+              "type": "Object|Promise"
+            }
+          ],
+          "return": {
+            "description": "the record in this relationship",
+            "type": "DS.Model"
+          },
+          "class": "DS.BelongsToReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/belongs-to.js",
+          "line": 324,
+          "description": "Loads a record in a belongs to relationship if it is not already\nloaded. If the relationship is already loaded this method does not\ntrigger a new load.\n\nExample\n\n ```javascript\n // models/blog.js\n export default DS.Model.extend({\n   user: DS.belongsTo({ async: true })\n });\n\n let blog = store.push({\n   data: {\n     type: 'blog',\n     id: 1,\n     relationships: {\n       user: {\n         data: { type: 'user', id: 1 }\n       }\n     }\n   }\n });\n let userRef = blog.belongsTo('user');\n\n userRef.value(); // null\n\n userRef.load().then(function(user) {\n   userRef.value() === user\n });",
+          "itemtype": "method",
+          "name": "load",
+          "return": {
+            "description": "a promise that resolves with the record in this belongs-to relationship.",
+            "type": "Promise"
+          },
+          "class": "DS.BelongsToReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/belongs-to.js",
+          "line": 371,
+          "description": "Triggers a reload of the value in this relationship. If the\nremoteType is `\"link\"` Ember Data will use the relationship link to\nreload the relationship. Otherwise it will reload the record by its\nid.\n\nExample\n\n ```javascript\n // models/blog.js\n export default DS.Model.extend({\n   user: DS.belongsTo({ async: true })\n });\n\n let blog = store.push({\n   data: {\n     type: 'blog',\n     id: 1,\n     relationships: {\n       user: {\n         data: { type: 'user', id: 1 }\n       }\n     }\n   }\n });\n let userRef = blog.belongsTo('user');\n\n userRef.reload().then(function(user) {\n   userRef.value() === user\n });",
+          "itemtype": "method",
+          "name": "reload",
+          "return": {
+            "description": "a promise that resolves with the record in this belongs-to relationship after the reload has completed.",
+            "type": "Promise"
+          },
+          "class": "DS.BelongsToReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "DS.Reference",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.15.4-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.15.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

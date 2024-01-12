@@ -1,0 +1,52 @@
+{
+  "data": {
+    "id": "ember-data-4.11.3-PromiseArray",
+    "type": "class",
+    "attributes": {
+      "name": "PromiseArray",
+      "shortname": "PromiseArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../packages/store/addon/-private/proxies/promise-proxies.ts",
+      "line": 17,
+      "description": "A `PromiseArray` is an object that acts like both an `Ember.Array`\nand a promise. When the promise is resolved the resulting value\nwill be set to the `PromiseArray`'s `content` property. This makes\nit easy to create data bindings with the `PromiseArray` that will be\nupdated when the promise resolves.\n\nThis class should not be imported and instantiated directly.\n\nFor more information see the [Ember.PromiseProxyMixin\ndocumentation](/ember/release/classes/PromiseProxyMixin).\n\nExample\n\n```javascript\nlet promiseArray = PromiseArray.create({\n  promise: $.getJSON('/some/remote/data.json')\n});\n\npromiseArray.length; // 0\n\npromiseArray.then(function() {\n  promiseArray.length; // 100\n});\n```",
+      "access": "public",
+      "tagname": "",
+      "extends": "Ember.ArrayProxy",
+      "uses": [
+        "Ember.PromiseProxyMixin"
+      ],
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.ArrayProxy",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.11.3-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.11.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

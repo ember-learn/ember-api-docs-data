@@ -1,0 +1,2289 @@
+{
+  "data": {
+    "id": "ember-1.4.0-Ember.TextField",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.TextField",
+      "shortname": "Ember.TextField",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-handlebars",
+      "namespace": "Ember",
+      "file": "../packages/ember-handlebars/lib/controls/text_field.js",
+      "line": 12,
+      "description": "The internal class used to create text inputs when the `{{input}}`\n  helper is used with `type` of `text`.\nSee [Handlebars.helpers.input](/api/classes/Ember.Handlebars.helpers.html#method_input)  for usage details.\n## Layout and LayoutName properties\nBecause HTML `input` elements are self closing `layout` and `layoutName`\n  properties will not be applied. See [Ember.View](/api/classes/Ember.View.html)'s\n  layout section for more information.",
+      "extends": "Ember.Component",
+      "uses": [
+        "Ember.TextSupport"
+      ],
+      "methods": [
+        {
+          "file": "../packages/ember-views/lib/views/component.js",
+          "line": 189,
+          "description": "Triggers a named action on the controller context where the component is used if\nthis controller has registered for notifications of the action.\n\nFor example a component for playing or pausing music may translate click events\ninto action notifications of \"play\" or \"stop\" depending on some internal state\nof the component:\n\n\n```javascript\nApp.PlayButtonComponent = Ember.Component.extend({\n  click: function(){\n    if (this.get('isPlaying')) {\n      this.sendAction('play');\n    } else {\n      this.sendAction('stop');\n    }\n  }\n});\n```\n\nWhen used inside a template these component actions are configured to\ntrigger actions in the outer application context:\n\n```handlebars\n{{! application.hbs }}\n{{play-button play=\"musicStarted\" stop=\"musicStopped\"}}\n```\n\nWhen the component receives a browser `click` event it translate this\ninteraction into application-specific semantics (\"play\" or \"stop\") and\ntriggers the specified action name on the controller for the template\nwhere the component is used: \n\n\n```javascript\nApp.ApplicationController = Ember.Controller.extend({\n  actions: {\n    musicStarted: function(){\n      // called when the play button is clicked\n      // and the music started playing\n    },\n    musicStopped: function(){\n      // called when the play button is clicked\n      // and the music stopped playing\n    }\n  }\n});\n```\n\nIf no action name is passed to `sendAction` a default name of \"action\"\nis assumed.\n\n```javascript\nApp.NextButtonComponent = Ember.Component.extend({\n  click: function(){\n    this.sendAction();\n  }\n});\n```\n\n```handlebars\n{{! application.hbs }}\n{{next-button action=\"playNextSongInAlbum\"}}\n```\n\n```javascript\nApp.ApplicationController = Ember.Controller.extend({\n  actions: {\n    playNextSongInAlbum: function(){\n      ...\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "sendAction",
+          "params": [
+            {
+              "name": "action",
+              "description": "the action to trigger",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*",
+              "optional": true
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Component"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 92,
+          "description": "The action to be sent when the user inserts a new line.\n\nCalled by the `Ember.TextSupport` mixin on keyUp if keycode matches 13.\nUses sendAction to send the `enter` action to the controller.",
+          "itemtype": "method",
+          "name": "insertNewline",
+          "params": [
+            {
+              "name": "event",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.TextSupport"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 106,
+          "description": "Called when the user hits escape.\n\nCalled by the `Ember.TextSupport` mixin on keyUp if keycode matches 27.\nUses sendAction to send the `escape-press` action to the controller.",
+          "itemtype": "method",
+          "name": "cancel",
+          "params": [
+            {
+              "name": "event",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.TextSupport"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 119,
+          "description": "Called when the text area is focused.",
+          "itemtype": "method",
+          "name": "focusIn",
+          "params": [
+            {
+              "name": "event",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.TextSupport"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 129,
+          "description": "Called when the text area is blurred.",
+          "itemtype": "method",
+          "name": "focusOut",
+          "params": [
+            {
+              "name": "event",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.TextSupport"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 139,
+          "description": "The action to be sent when the user presses a key. Enabled by setting\nthe `onEvent` property to `keyPress`.\n\nUses sendAction to send the `keyPress` action to the controller.",
+          "itemtype": "method",
+          "name": "keyPress",
+          "params": [
+            {
+              "name": "event",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.TextSupport"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1020,
+          "description": "If a value that affects template rendering changes, the view should be\nre-rendered to reflect the new value.",
+          "itemtype": "method",
+          "name": "_contextDidChange",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1111,
+          "description": "Return the nearest ancestor that has a given property.",
+          "itemtype": "method",
+          "name": "nearestWithProperty",
+          "params": [
+            {
+              "name": "property",
+              "description": "A property name",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1127,
+          "description": "Return the nearest ancestor whose parent is an instance of\n`klass`.",
+          "itemtype": "method",
+          "name": "nearestChildOf",
+          "params": [
+            {
+              "name": "klass",
+              "description": "Subclass of Ember.View (or Ember.View itself)",
+              "type": "Class"
+            }
+          ],
+          "return": {
+            "description": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1144,
+          "description": "When the parent view changes, recursively invalidate `controller`",
+          "itemtype": "method",
+          "name": "_parentViewDidChange",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1181,
+          "description": "Called on your view when it should push strings of HTML into a\n`Ember.RenderBuffer`. Most users will want to override the `template`\nor `templateName` properties instead of this method.\n\nBy default, `Ember.View` will look for a function in the `template`\nproperty and invoke it with the value of `context`. The value of\n`context` will be the view's controller unless you override it.",
+          "itemtype": "method",
+          "name": "render",
+          "params": [
+            {
+              "name": "buffer",
+              "description": "The render buffer",
+              "type": "Ember.RenderBuffer"
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1227,
+          "description": "Renders the view again. This will work regardless of whether the\nview is already in the DOM or not. If the view is in the DOM, the\nrendering process will be deferred to give bindings a chance\nto synchronize.\n\nIf children were added during the rendering process using `appendChild`,\n`rerender` will remove them, because they will be added again\nif needed by the next `render`.\n\nIn general, if the display of your view changes, you should modify\nthe DOM element directly instead of manually calling `rerender`, which can\nbe slow.",
+          "itemtype": "method",
+          "name": "rerender",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1262,
+          "description": "Iterates over the view's `classNameBindings` array, inserts the value\nof the specified property into the `classNames` array, then creates an\nobserver to update the view's element if the bound property ever changes\nin the future.",
+          "itemtype": "method",
+          "name": "_applyClassNameBindings",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1341,
+          "description": "Iterates through the view's attribute bindings, sets up observers for each,\nthen applies the current value of the attributes to the passed render buffer.",
+          "itemtype": "method",
+          "name": "_applyAttributeBindings",
+          "params": [
+            {
+              "name": "buffer",
+              "description": "",
+              "type": "Ember.RenderBuffer"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1376,
+          "description": "Given a property name, returns a dasherized version of that\nproperty name if the property evaluates to a non-falsy value.\n\nFor example, if the view has property `isUrgent` that evaluates to true,\npassing `isUrgent` to this method will return `\"is-urgent\"`.",
+          "itemtype": "method",
+          "name": "_classStringForProperty",
+          "params": [
+            {
+              "name": "property",
+              "description": ""
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1417,
+          "description": "Returns a jQuery object for this view's element. If you pass in a selector\nstring, this method will return a jQuery object, using the current element\nas its buffer.\n\nFor example, calling `view.$('li')` will return a jQuery object containing\nall of the `li` elements inside the DOM element of this view.",
+          "itemtype": "method",
+          "name": "$",
+          "params": [
+            {
+              "name": "selector",
+              "description": "a jQuery-compatible selector string",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the jQuery object for the DOM node",
+            "type": "JQuery"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1462,
+          "description": "Appends the view's element to the specified parent element.\n\nIf the view does not have an HTML representation yet, `createElement()`\nwill be called automatically.\n\nNote that this method just schedules the view to be appended; the DOM\nelement will not be appended to the given element until all bindings have\nfinished synchronizing.\n\nThis is not typically a function that you will need to call directly when\nbuilding your application. You might consider using `Ember.ContainerView`\ninstead. If you do need to use `appendTo`, be sure that the target element\nyou are providing is associated with an `Ember.Application` and does not\nhave an ancestor element that is associated with an Ember view.",
+          "itemtype": "method",
+          "name": "appendTo",
+          "params": [
+            {
+              "name": "A",
+              "description": "selector, element, HTML string, or jQuery object",
+              "type": "String|DOMElement|jQuery"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1494,
+          "description": "Replaces the content of the specified parent element with this view's\nelement. If the view does not have an HTML representation yet,\n`createElement()` will be called automatically.\n\nNote that this method just schedules the view to be appended; the DOM\nelement will not be appended to the given element until all bindings have\nfinished synchronizing",
+          "itemtype": "method",
+          "name": "replaceIn",
+          "params": [
+            {
+              "name": "target",
+              "description": "A selector, element, HTML string, or jQuery object",
+              "type": "String|DOMElement|jQuery"
+            }
+          ],
+          "return": {
+            "description": "received",
+            "type": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1519,
+          "description": "Schedules a DOM operation to occur during the next render phase. This\nensures that all bindings have finished synchronizing before the view is\nrendered.\n\nTo use, pass a function that performs a DOM operation.\n\nBefore your function is called, this view and all child views will receive\nthe `willInsertElement` event. After your function is invoked, this view\nand all of its child views will receive the `didInsertElement` event.\n\n```javascript\nview._insertElementLater(function() {\n  this.createElement();\n  this.$().appendTo('body');\n});\n```",
+          "itemtype": "method",
+          "name": "_insertElementLater",
+          "params": [
+            {
+              "name": "fn",
+              "description": "the function that inserts the element into the DOM",
+              "type": "Function"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1550,
+          "description": "Appends the view's element to the document body. If the view does\nnot have an HTML representation yet, `createElement()` will be called\nautomatically.\n\nIf your application uses the `rootElement` property, you must append\nthe view within that element. Rendering views outside of the `rootElement`\nis not supported.\n\nNote that this method just schedules the view to be appended; the DOM\nelement will not be appended to the document body until all bindings have\nfinished synchronizing.",
+          "itemtype": "method",
+          "name": "append",
+          "return": {
+            "description": "receiver",
+            "type": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1570,
+          "description": "Removes the view's element from the element to which it is attached.",
+          "itemtype": "method",
+          "name": "remove",
+          "return": {
+            "description": "receiver",
+            "type": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1590,
+          "description": "Attempts to discover the element in the parent element. The default\nimplementation looks for an element with an ID of `elementId` (or the\nview's guid if `elementId` is null). You can override this method to\nprovide your own form of lookup. For example, if you want to discover your\nelement using a CSS class name instead of an ID.",
+          "itemtype": "method",
+          "name": "findElementInParentElement",
+          "params": [
+            {
+              "name": "parentElement",
+              "description": "The parent's DOM element",
+              "type": "DOMElement"
+            }
+          ],
+          "return": {
+            "description": "The discovered element",
+            "type": "DOMElement"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1606,
+          "description": "Creates a DOM representation of the view and all of its\nchild views by recursively calling the `render()` method.\n\nAfter the element has been created, `didInsertElement` will\nbe called on this view and all of its child views.",
+          "itemtype": "method",
+          "name": "createElement",
+          "return": {
+            "description": "receiver",
+            "type": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1650,
+          "description": "Run this callback on the current view (unless includeSelf is false) and recursively on child views.",
+          "itemtype": "method",
+          "name": "invokeRecursively",
+          "params": [
+            {
+              "name": "fn",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "includeSelf",
+              "description": "Includes itself if true.",
+              "type": "Boolean"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1709,
+          "description": "Destroys any existing element along with the element for any child views\nas well. If the view does not currently have a element, then this method\nwill do nothing.\n\nIf you implement `willDestroyElement()` on your view, then this method will\nbe invoked on your view before your element is destroyed to give you a\nchance to clean up any event handlers, etc.\n\nIf you write a `willDestroyElement()` handler, you can assume that your\n`didInsertElement()` handler was called earlier for the same element.\n\nYou should not call or override this method yourself, but you may\nwant to implement the above callbacks.",
+          "itemtype": "method",
+          "name": "destroyElement",
+          "return": {
+            "description": "receiver",
+            "type": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1740,
+          "description": "Triggers the `willDestroyElement` event (which invokes the\n`willDestroyElement()` method if it exists) on this view and all child\nviews.\n\nBefore triggering `willDestroyElement`, it first triggers the\n`willClearRender` event recursively.",
+          "itemtype": "method",
+          "name": "_notifyWillDestroyElement",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1758,
+          "description": "If this view's element changes, we need to invalidate the caches of our\nchild views so that we do not retain references to DOM elements that are\nno longer needed.",
+          "itemtype": "method",
+          "name": "_elementDidChange",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1957,
+          "description": "Setup a view, but do not finish waking it up.\n\n* configure `childViews`\n* register the view with the global views hash, which is used for event\n  dispatch",
+          "itemtype": "method",
+          "name": "init",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1986,
+          "description": "Removes the child view from the parent view.",
+          "itemtype": "method",
+          "name": "removeChild",
+          "params": [
+            {
+              "name": "view",
+              "description": "",
+              "type": "Ember.View"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 2012,
+          "description": "Removes all children from the `parentView`.",
+          "itemtype": "method",
+          "name": "removeAllChildren",
+          "return": {
+            "description": "receiver",
+            "type": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 2030,
+          "description": "Removes the view from its `parentView`, if one is found. Otherwise\ndoes nothing.",
+          "itemtype": "method",
+          "name": "removeFromParent",
+          "return": {
+            "description": "receiver",
+            "type": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 2047,
+          "description": "You must call `destroy` on a view to destroy the view (and all of its\nchild views). This will remove the view from any parent node, then make\nsure that the DOM element managed by the view can be released by the\nmemory manager.",
+          "itemtype": "method",
+          "name": "destroy",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 2082,
+          "description": "Instantiates a view to be added to the childViews array during view\ninitialization. You generally will not call this method directly unless\nyou are overriding `createChildViews()`. Note that this method will\nautomatically configure the correct settings on the new view instance to\nact as a child of the parent.",
+          "itemtype": "method",
+          "name": "createChildView",
+          "params": [
+            {
+              "name": "viewClass",
+              "description": "",
+              "type": "Class|String"
+            },
+            {
+              "name": "attrs",
+              "description": "Attributes to add",
+              "type": "Hash",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "new instance",
+            "type": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 2143,
+          "description": "When the view's `isVisible` property changes, toggle the visibility\nelement of the actual DOM element.",
+          "itemtype": "method",
+          "name": "_isVisibleDidChange",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 2228,
+          "description": "Handle events from `Ember.EventDispatcher`",
+          "itemtype": "method",
+          "name": "handleEvent",
+          "params": [
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "evt",
+              "description": "",
+              "type": "Event"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 2342,
+          "description": "Parse a path and return an object which holds the parsed properties.\n\nFor example a path like \"content.isEnabled:enabled:disabled\" will return the\nfollowing object:\n\n```javascript\n{\n  path: \"content.isEnabled\",\n  className: \"enabled\",\n  falsyClassName: \"disabled\",\n  classNames: \":enabled:disabled\"\n}\n```",
+          "itemtype": "method",
+          "name": "_parsePropertyPath",
+          "static": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 2385,
+          "description": "Get the class name for a given value, based on the path, optional\n`className` and optional `falsyClassName`.\n\n- if a `className` or `falsyClassName` has been specified:\n  - if the value is truthy and `className` has been specified,\n    `className` is returned\n  - if the value is falsy and `falsyClassName` has been specified,\n    `falsyClassName` is returned\n  - otherwise `null` is returned\n- if the value is `true`, the dasherized last part of the supplied path\n  is returned\n- if the value is not `false`, `undefined` or `null`, the `value`\n  is returned\n- if none of the above rules apply, `null` is returned",
+          "itemtype": "method",
+          "name": "_classStringForValue",
+          "params": [
+            {
+              "name": "path",
+              "description": ""
+            },
+            {
+              "name": "val",
+              "description": ""
+            },
+            {
+              "name": "className",
+              "description": ""
+            },
+            {
+              "name": "falsyClassName",
+              "description": ""
+            }
+          ],
+          "static": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 114,
+          "description": "Invoked by the view system when this view needs to produce an HTML\nrepresentation. This method will create a new render buffer, if needed,\nthen apply any default attributes, such as class names and visibility.\nFinally, the `render()` method is invoked, which is responsible for\ndoing the bulk of the rendering.\n\nYou should not need to override this method; instead, implement the\n`template` property, or if you need more control, override the `render`\nmethod.",
+          "itemtype": "method",
+          "name": "renderToBuffer",
+          "params": [
+            {
+              "name": "buffer",
+              "description": "the render buffer. If no buffer is\n  passed, a default buffer, using the current view's `tagName`, will\n  be used.",
+              "type": "Ember.RenderBuffer"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 163,
+          "description": "Override the default event firing from `Ember.Evented` to\nalso call methods with the given name.",
+          "itemtype": "method",
+          "name": "trigger",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/evented.js",
+          "line": 43,
+          "description": "Subscribes to a named event with given function.\n\n```javascript\nperson.on('didLoad', function() {\n  // fired once the person has loaded\n});\n```\n\nAn optional target can be passed in as the 2nd argument that will\nbe set as the \"this\" for the callback. This is a good way to give your\nfunction access to the object triggering the event. When the target\nparameter is used the callback becomes the third argument.",
+          "itemtype": "method",
+          "name": "on",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The \"this\" binding for the callback",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "method",
+              "description": "The callback to execute",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Evented"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/evented.js",
+          "line": 68,
+          "description": "Subscribes a function to a named event and then cancels the subscription\nafter the first time the event is triggered. It is good to use ``one`` when\nyou only care about the first time an event has taken place.\n\nThis function takes an optional 2nd argument that will become the \"this\"\nvalue for the callback. If this argument is passed then the 3rd argument\nbecomes the function.",
+          "itemtype": "method",
+          "name": "one",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The \"this\" binding for the callback",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "method",
+              "description": "The callback to execute",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Evented"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/evented.js",
+          "line": 93,
+          "description": "Triggers a named event for the object. Any additional arguments\nwill be passed as parameters to the functions that are subscribed to the\nevent.\n\n```javascript\nperson.on('didEat', function(food) {\n  console.log('person ate some ' + food);\n});\n\nperson.trigger('didEat', 'broccoli');\n\n// outputs: person ate some broccoli\n```",
+          "itemtype": "method",
+          "name": "trigger",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "Optional arguments to pass on",
+              "type": "Object..."
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Evented"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/evented.js",
+          "line": 119,
+          "description": "Cancels subscription for given name, target, and method.",
+          "itemtype": "method",
+          "name": "off",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target of the subscription",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The function of the subscription",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Evented"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/evented.js",
+          "line": 133,
+          "description": "Checks to see if object has any subscriptions for named event.",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "does the object have a subscription for event",
+            "type": "Boolean"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Evented"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 142,
+          "description": "Moves `actions` to `_actions` at extend time. Note that this currently\nmodifies the mixin themselves, which is technically dubious but\nis practically of little consequence. This may change in the future.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "willMergeMixin",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 171,
+          "description": "Triggers a named action on the `ActionHandler`. Any parameters\nsupplied after the `actionName` string will be passed as arguments\nto the action target function.\n\nIf the `ActionHandler` has its `target` property set, actions may\nbubble to the `target`. Bubbling happens when an `actionName` can\nnot be found in the `ActionHandler`'s `actions` hash or if the\naction target function returns `true`.\n\nExample\n\n```js\nApp.WelcomeRoute = Ember.Route.extend({\n  actions: {\n    playTheme: function() {\n       this.send('playMusic', 'theme.mp3');\n    },\n    playMusic: function(track) {\n      // ...\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "actionName",
+              "description": "The action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*"
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 183,
+          "description": "An overridable method called when objects are instantiated. By default,\ndoes nothing unless it is overridden during class definition.\n\nExample:\n\n```javascript\nApp.Person = Ember.Object.extend({\n  init: function() {\n    alert('Name is ' + this.get('name'));\n  }\n});\n\nvar steve = App.Person.create({\n  name: \"Steve\"\n});\n\n// alerts 'Name is Steve'.\n```\n\nNOTE: If you do override `init` for a framework class like `Ember.View` or\n`Ember.ArrayController`, be sure to call `this._super()` in your\n`init` declaration! If you don't, Ember may not have an opportunity to\ndo important setup work, and you'll see strange behavior in your\napplication.",
+          "itemtype": "method",
+          "name": "init",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 303,
+          "description": "Destroys an object by setting the `isDestroyed` flag and removing its\nmetadata, which effectively destroys observers and bindings.\n\nIf you try to set a property on a destroyed object, an exception will be\nraised.\n\nNote that destruction is scheduled for the end of the run loop and does not\nhappen immediately.  It will set an isDestroying flag immediately.",
+          "itemtype": "method",
+          "name": "destroy",
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Object"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 325,
+          "description": "Override to implement teardown.",
+          "itemtype": "method",
+          "name": "willDestroy",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 332,
+          "description": "Invoked by the run loop to actually destroy the object. This is\nscheduled for execution by the `destroy` method.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_scheduledDestroy",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 351,
+          "description": "Returns a string representation which attempts to provide more information\nthan Javascript's `toString` typically does, in a generic way for all Ember\nobjects.\n\n```javascript\nApp.Person = Em.Object.extend()\nperson = App.Person.create()\nperson.toString() //=> \"<App.Person:ember1024>\"\n```\n\nIf the object's class is not defined on an Ember namespace, it will\nindicate it is a subclass of the registered superclass:\n\n   ```javascript\nStudent = App.Person.extend()\nstudent = Student.create()\nstudent.toString() //=> \"<(subclass of App.Person):ember1025>\"\n```\n\nIf the method `toStringExtension` is defined, its return value will be\nincluded in the output.\n\n```javascript\nApp.Teacher = App.Person.extend({\n  toStringExtension: function() {\n    return this.get('fullName');\n  }\n});\nteacher = App.Teacher.create()\nteacher.toString(); //=> \"<App.Teacher:ember1026:Tom Dale>\"\n```",
+          "itemtype": "method",
+          "name": "toString",
+          "return": {
+            "description": "string representation",
+            "type": "String"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 418,
+          "description": "Creates a new subclass.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    alert(thing);\n   }\n});\n```\n\nThis defines a new subclass of Ember.Object: `App.Person`. It contains one method: `say()`.\n\nYou can also create a subclass from any existing class by calling its `extend()`  method. For example, you might want to create a subclass of Ember's built-in `Ember.View` class:\n\n```javascript\nApp.PersonView = Ember.View.extend({\n  tagName: 'li',\n  classNameBindings: ['isAdministrator']\n});\n```\n\nWhen defining a subclass, you can override methods but still access the implementation of your parent class by calling the special `_super()` method:\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    var name = this.get('name');\n    alert(name + ' says: ' + thing);\n  }\n});\n\nApp.Soldier = App.Person.extend({\n  say: function(thing) {\n    this._super(thing + \", sir!\");\n  },\n  march: function(numberOfHours) {\n    alert(this.get('name') + ' marches for ' + numberOfHours + ' hours.')\n  }\n});\n\nvar yehuda = App.Soldier.create({\n  name: \"Yehuda Katz\"\n});\n\nyehuda.say(\"Yes\");  // alerts \"Yehuda Katz says: Yes, sir!\"\n```\n\nThe `create()` on line #17 creates an *instance* of the `App.Soldier` class. The `extend()` on line #8 creates a *subclass* of `App.Person`. Any instance of the `App.Person` class will *not* have the `march()` method.\n\nYou can also pass `Ember.Mixin` classes to add additional properties to the subclass.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    alert(this.get('name') + ' says: ' + thing);\n  }\n});\n\nApp.SingingMixin = Ember.Mixin.create({\n  sing: function(thing){\n    alert(this.get('name') + ' sings: la la la ' + thing);\n  }\n});\n\nApp.BroadwayStar = App.Person.extend(App.SingingMixin, {\n  dance: function() {\n    alert(this.get('name') + ' dances: tap tap tap tap ');\n  }\n});\n```\n\nThe `App.BroadwayStar` class contains three methods: `say()`, `sing()`, and `dance()`.",
+          "itemtype": "method",
+          "name": "extend",
+          "static": 1,
+          "params": [
+            {
+              "name": "mixins",
+              "description": "One or more Ember.Mixin classes",
+              "type": "Ember.Mixin",
+              "optional": true,
+              "multiple": true
+            },
+            {
+              "name": "arguments",
+              "description": "Object containing values to use within the new class",
+              "type": "Object",
+              "optional": true,
+              "multiple": true
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 520,
+          "description": "Equivalent to doing `extend(arguments).create()`.\nIf possible use the normal `create` method instead.",
+          "itemtype": "method",
+          "name": "createWithMixins",
+          "static": 1,
+          "params": [
+            {
+              "name": "arguments",
+              "description": "",
+              "optional": true,
+              "multiple": true
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 534,
+          "description": "Creates an instance of a class. Accepts either no arguments, or an object\ncontaining values to initialize the newly instantiated object with.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  helloWorld: function() {\n    alert(\"Hi, my name is \" + this.get('name'));\n  }\n});\n\nvar tom = App.Person.create({\n  name: 'Tom Dale'\n});\n\ntom.helloWorld(); // alerts \"Hi, my name is Tom Dale\".\n```\n\n`create` will call the `init` function if defined during\n`Ember.AnyObject.extend`\n\nIf no arguments are passed to `create`, it will not set values to the new\ninstance during initialization:\n\n```javascript\nvar noName = App.Person.create();\nnoName.helloWorld(); // alerts undefined\n```\n\nNOTE: For performance reasons, you cannot declare methods or computed\nproperties during `create`. You should instead declare methods and computed\nproperties when using `extend` or use the `createWithMixins` shorthand.",
+          "itemtype": "method",
+          "name": "create",
+          "static": 1,
+          "params": [
+            {
+              "name": "arguments",
+              "description": "",
+              "optional": true,
+              "multiple": true
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 577,
+          "description": "Augments a constructor's prototype with additional\nproperties and functions:\n\n```javascript\nMyObject = Ember.Object.extend({\n  name: 'an object'\n});\n\no = MyObject.create();\no.get('name'); // 'an object'\n\nMyObject.reopen({\n  say: function(msg){\n    console.log(msg);\n  }\n})\n\no2 = MyObject.create();\no2.say(\"hello\"); // logs \"hello\"\n\no.say(\"goodbye\"); // logs \"goodbye\"\n```\n\nTo add functions and properties to the constructor itself,\nsee `reopenClass`",
+          "itemtype": "method",
+          "name": "reopen",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 612,
+          "description": "Augments a constructor's own properties and functions:\n\n```javascript\nMyObject = Ember.Object.extend({\n  name: 'an object'\n});\n\nMyObject.reopenClass({\n  canBuild: false\n});\n\nMyObject.canBuild; // false\no = MyObject.create();\n```\n\nIn other words, this creates static properties and functions for the class. These are only available on the class\nand not on any instance of that class.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  name : \"\",\n  sayHello : function(){\n    alert(\"Hello. My name is \" + this.get('name'));\n  }\n});\n\nApp.Person.reopenClass({\n  species : \"Homo sapiens\",\n  createPerson: function(newPersonsName){\n    return App.Person.create({\n      name:newPersonsName\n    });\n  }\n});\n\nvar tom = App.Person.create({\n  name : \"Tom Dale\"\n});\nvar yehuda = App.Person.createPerson(\"Yehuda Katz\");\n\ntom.sayHello(); // \"Hello. My name is Tom Dale\"\nyehuda.sayHello(); // \"Hello. My name is Yehuda Katz\"\nalert(App.Person.species); // \"Homo sapiens\"\n```\n\nNote that `species` and `createPerson` are *not* valid on the `tom` and `yehuda`\nvariables. They are only valid on `App.Person`.\n\nTo add functions and properties to instances of\na constructor by extending the constructor's prototype\nsee `reopen`",
+          "itemtype": "method",
+          "name": "reopenClass",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 686,
+          "description": "In some cases, you may want to annotate computed properties with additional\nmetadata about how they function or what values they operate on. For\nexample, computed property functions may close over variables that are then\nno longer available for introspection.\n\nYou can pass a hash of these values to a computed property like this:\n\n```javascript\nperson: function() {\n  var personId = this.get('personId');\n  return App.Person.create({ id: personId });\n}.property().meta({ type: App.Person })\n```\n\nOnce you've done this, you can retrieve the values saved to the computed\nproperty from your class like this:\n\n```javascript\nMyClass.metaForProperty('person');\n```\n\nThis will return the original hash that was passed to `meta()`.",
+          "itemtype": "method",
+          "name": "metaForProperty",
+          "params": [
+            {
+              "name": "key",
+              "description": "property name",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 721,
+          "description": "Iterate over each computed property for the class, passing its name\nand any associated metadata (see `metaForProperty`) to the callback.",
+          "itemtype": "method",
+          "name": "eachComputedProperty",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 78,
+          "description": "Retrieves the value of a property from the object.\n\nThis method is usually similar to using `object[keyName]` or `object.keyName`,\nhowever it supports both computed properties and the unknownProperty\nhandler.\n\nBecause `get` unifies the syntax for accessing all these kinds\nof properties, it can make many refactorings easier, such as replacing a\nsimple property with a computed property, or vice versa.\n\n### Computed Properties\n\nComputed properties are methods defined with the `property` modifier\ndeclared at the end, such as:\n\n```javascript\nfullName: function() {\n  return this.get('firstName') + ' ' + this.get('lastName');\n}.property('firstName', 'lastName')\n```\n\nWhen you call `get` on a computed property, the function will be\ncalled and the return value will be returned instead of the function\nitself.\n\n### Unknown Properties\n\nLikewise, if you try to call `get` on a property whose value is\n`undefined`, the `unknownProperty()` method will be called on the object.\nIf this method returns any value other than `undefined`, it will be returned\ninstead. This allows you to implement \"virtual\" properties that are\nnot defined upfront.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to retrieve",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The property value or undefined.",
+            "type": "Object"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 120,
+          "description": "To get multiple properties at once, call `getProperties`\nwith a list of strings or an array:\n\n```javascript\nrecord.getProperties('firstName', 'lastName', 'zipCode');  // { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```\n\nis equivalent to:\n\n```javascript\nrecord.getProperties(['firstName', 'lastName', 'zipCode']);  // { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```",
+          "itemtype": "method",
+          "name": "getProperties",
+          "params": [
+            {
+              "name": "list",
+              "description": "of keys to get",
+              "type": "String...|Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Hash"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 142,
+          "description": "Sets the provided key or path to the value.\n\nThis method is generally very similar to calling `object[key] = value` or\n`object.key = value`, except that it provides support for computed\nproperties, the `setUnknownProperty()` method and property observers.\n\n### Computed Properties\n\nIf you try to set a value on a key that has a computed property handler\ndefined (see the `get()` method for an example), then `set()` will call\nthat method, passing both the value and key instead of simply changing\nthe value itself. This is useful for those times when you need to\nimplement a property that is composed of one or more member\nproperties.\n\n### Unknown Properties\n\nIf you try to set a value on a key that is undefined in the target\nobject, then the `setUnknownProperty()` handler will be called instead. This\ngives you an opportunity to implement complex \"virtual\" properties that\nare not predefined on the object. If `setUnknownProperty()` returns\nundefined, then `set()` will simply set the value on the object.\n\n### Property Observers\n\nIn addition to changing the property, `set()` will also register a property\nchange with the object. Unless you have placed this call inside of a\n`beginPropertyChanges()` and `endPropertyChanges(),` any \"local\" observers\n(i.e. observer methods declared on the same object), will be called\nimmediately. Any \"remote\" observers (i.e. observer methods declared on\nanother object) will be placed in a queue and called at a later time in a\ncoalesced manner.\n\n### Chaining\n\nIn addition to property changes, `set()` returns the value of the object\nitself so you can do chaining like this:\n\n```javascript\nrecord.set('firstName', 'Charles').set('lastName', 'Jolley');\n```",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to set or `null`.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 196,
+          "description": "Sets a list of properties at once. These properties are set inside\na single `beginPropertyChanges` and `endPropertyChanges` batch, so\nobservers will be buffered.\n\n```javascript\nrecord.setProperties({ firstName: 'Charles', lastName: 'Jolley' });\n```",
+          "itemtype": "method",
+          "name": "setProperties",
+          "params": [
+            {
+              "name": "hash",
+              "description": "the hash of keys and values to set",
+              "type": "Hash"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 213,
+          "description": "Begins a grouping of property changes.\n\nYou can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call this\nmethod at the beginning of the changes to begin deferring change\nnotifications. When you are done making changes, call\n`endPropertyChanges()` to deliver the deferred change notifications and end\ndeferring.",
+          "itemtype": "method",
+          "name": "beginPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 232,
+          "description": "Ends a grouping of property changes.\n\nYou can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call\n`beginPropertyChanges()` at the beginning of the changes to defer change\nnotifications. When you are done making changes, call this method to\ndeliver the deferred change notifications and end deferring.",
+          "itemtype": "method",
+          "name": "endPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 250,
+          "description": "Notify the observer system that a property is about to change.\n\nSometimes you need to change a value directly or indirectly without\nactually calling `get()` or `set()` on it. In this case, you can use this\nmethod and `propertyDidChange()` instead. Calling these two methods\ntogether will notify all observers that the property has potentially\nchanged value.\n\nNote that you must always call `propertyWillChange` and `propertyDidChange`\nas a pair. If you do not, it may get the property change groups out of\norder and cause notifications to be delivered more often than you would\nlike.",
+          "itemtype": "method",
+          "name": "propertyWillChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key that is about to change.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 273,
+          "description": "Notify the observer system that a property has just changed.\n\nSometimes you need to change a value directly or indirectly without\nactually calling `get()` or `set()` on it. In this case, you can use this\nmethod and `propertyWillChange()` instead. Calling these two methods\ntogether will notify all observers that the property has potentially\nchanged value.\n\nNote that you must always call `propertyWillChange` and `propertyDidChange`\nas a pair. If you do not, it may get the property change groups out of\norder and cause notifications to be delivered more often than you would\nlike.",
+          "itemtype": "method",
+          "name": "propertyDidChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key that has just changed.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 296,
+          "description": "Convenience method to call `propertyWillChange` and `propertyDidChange` in\nsuccession.",
+          "itemtype": "method",
+          "name": "notifyPropertyChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key to be notified about.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 314,
+          "description": "Adds an observer on a property.\n\nThis is the core method used to register an observer for a property.\n\nOnce you call this method, any time the key's value is set, your observer\nwill be notified. Note that the observers are triggered any time the\nvalue is set, regardless of whether it has actually changed. Your\nobserver should be prepared to handle that.\n\nYou can also pass an optional context parameter to this method. The\ncontext will be passed to your observer method whenever it is triggered.\nNote that if you add the same target/method pair on a key multiple times\nwith different context parameters, your observer will only be called once\nwith the last context you passed.\n\n### Observer Methods\n\nObserver methods you pass should generally have the following signature if\nyou do not pass a `context` parameter:\n\n```javascript\nfooDidChange: function(sender, key, value, rev) { };\n```\n\nThe sender is the object that changed. The key is the property that\nchanges. The value property is currently reserved and unused. The rev\nis the last property revision of the object when it changed, which you can\nuse to detect if the key value has really changed or not.\n\nIf you pass a `context` parameter, the context will be passed before the\nrevision like so:\n\n```javascript\nfooDidChange: function(sender, key, value, context, rev) { };\n```\n\nUsually you will not need the value, context or revision parameters at\nthe end. In this case, it is common to write observer methods that take\nonly a sender and key value as parameters or, if you aren't interested in\nany of these values, to write an observer that has no parameters at all.",
+          "itemtype": "method",
+          "name": "addObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observer",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke.",
+              "type": "String|Function"
+            }
+          ],
+          "return": {
+            "description": "self",
+            "type": "Ember.Object"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 366,
+          "description": "Remove an observer you have previously registered on this object. Pass\nthe same key, target, and method you passed to `addObserver()` and your\ntarget will no longer receive notifications.",
+          "itemtype": "method",
+          "name": "removeObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observer",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke.",
+              "type": "String|Function"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Observable"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 381,
+          "description": "Returns `true` if the object currently has observers registered for a\nparticular key. You can use this method to potentially defer performing\nan expensive action until someone begins observing a particular property\non the object.",
+          "itemtype": "method",
+          "name": "hasObserverFor",
+          "params": [
+            {
+              "name": "key",
+              "description": "Key to check",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 395,
+          "description": "Retrieves the value of a property, or a default value in the case that the\nproperty returns `undefined`.\n\n```javascript\nperson.getWithDefault('lastName', 'Doe');\n```",
+          "itemtype": "method",
+          "name": "getWithDefault",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to retrieve",
+              "type": "String"
+            },
+            {
+              "name": "defaultValue",
+              "description": "The value to return if the property value is undefined",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The property value or the defaultValue.",
+            "type": "Object"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 412,
+          "description": "Set the value of a property to the current value plus some amount.\n\n```javascript\nperson.incrementProperty('age');\nteam.incrementProperty('score', 2);\n```",
+          "itemtype": "method",
+          "name": "incrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to increment",
+              "type": "String"
+            },
+            {
+              "name": "increment",
+              "description": "The amount to increment by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 432,
+          "description": "Set the value of a property to the current value minus some amount.\n\n```javascript\nplayer.decrementProperty('lives');\norc.decrementProperty('health', 5);\n```",
+          "itemtype": "method",
+          "name": "decrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to decrement",
+              "type": "String"
+            },
+            {
+              "name": "decrement",
+              "description": "The amount to decrement by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 452,
+          "description": "Set the value of a boolean property to the opposite of it's\ncurrent value.\n\n```javascript\nstarship.toggleProperty('warpDriveEngaged');\n```",
+          "itemtype": "method",
+          "name": "toggleProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to toggle",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Object"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/observable.js",
+          "line": 469,
+          "description": "Returns the cached value of a computed property, if it exists.\nThis allows you to inspect the value of a computed property\nwithout accidentally invoking it if it is intended to be\ngenerated lazily.",
+          "itemtype": "method",
+          "name": "cacheFor",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The cached value of the computed property, if any",
+            "type": "Object"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        }
+      ],
+      "events": [
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1625,
+          "description": "Called when a view is going to insert an element into the DOM.",
+          "itemtype": "event",
+          "name": "willInsertElement",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1632,
+          "description": "Called when the element of the view has been inserted into the DOM\nor after the view was re-rendered. Override this function to do any\nset up that requires an element in the document body.",
+          "itemtype": "event",
+          "name": "didInsertElement",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1641,
+          "description": "Called when the view is about to rerender, but before anything has\nbeen torn down. This is a good opportunity to tear down any manual\nobservers you have installed based on the DOM state",
+          "itemtype": "event",
+          "name": "willClearRender",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1731,
+          "description": "Called when the element of the view is going to be destroyed. Override\nthis function to do any teardown that requires an element, like removing\nevent listeners.",
+          "itemtype": "event",
+          "name": "willDestroyElement",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1772,
+          "description": "Called when the parentView property has changed.",
+          "itemtype": "event",
+          "name": "parentViewDidChange",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        }
+      ],
+      "properties": [
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_field.js",
+          "line": 36,
+          "description": "The `value` attribute of the input element. As the user inputs text, this\nproperty is updated live.",
+          "itemtype": "property",
+          "name": "value",
+          "type": "String",
+          "default": "\"\"",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_field.js",
+          "line": 46,
+          "description": "The `type` attribute of the input element.",
+          "itemtype": "property",
+          "name": "type",
+          "type": "String",
+          "default": "\"text\"",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_field.js",
+          "line": 55,
+          "description": "The `size` of the text field in characters.",
+          "itemtype": "property",
+          "name": "size",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_field.js",
+          "line": 64,
+          "description": "The `pattern` attribute of input element.",
+          "itemtype": "property",
+          "name": "pattern",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_field.js",
+          "line": 73,
+          "description": "The `min` attribute of input element used with `type=\"number\"` or `type=\"range\"`.",
+          "itemtype": "property",
+          "name": "min",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_field.js",
+          "line": 82,
+          "description": "The `max` attribute of input element used with `type=\"number\"` or `type=\"range\"`.",
+          "itemtype": "property",
+          "name": "max",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/component.js",
+          "line": 109,
+          "description": "A components template property is set by passing a block\nduring its invocation. It is executed within the parent context.\n\nExample:\n\n```handlebars\n{{#my-component}}\n  // something that is run in the context\n  // of the parent context\n{{/my-component}}\n```\n\nSpecifying a template directly to a component is deprecated without\nalso specifying the layout property.",
+          "deprecated": true,
+          "itemtype": "property",
+          "name": "template",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Component"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/component.js",
+          "line": 139,
+          "description": "Specifying a components `templateName` is deprecated without also\nproviding the `layout` or `layoutName` properties.",
+          "deprecated": true,
+          "itemtype": "property",
+          "name": "templateName",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Component"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/component.js",
+          "line": 176,
+          "description": "If the component is currently inserted into the DOM of a parent view, this\nproperty will point to the controller of the parent view.",
+          "itemtype": "property",
+          "name": "targetObject",
+          "type": "Ember.Controller",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Component"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 36,
+          "description": "The action to be sent when the user presses the return key.\n\nThis is similar to the `{{action}}` helper, but is fired when\nthe user presses the return key when editing a text field, and sends\nthe value of the field as the context.",
+          "itemtype": "property",
+          "name": "action",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.TextSupport"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 49,
+          "description": "The event that should send the action.\n\nOptions are:\n\n* `enter`: the user pressed enter\n* `keyPress`: the user pressed a key",
+          "itemtype": "property",
+          "name": "onEvent",
+          "type": "String",
+          "default": "enter",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.TextSupport"
+        },
+        {
+          "file": "../packages/ember-handlebars/lib/controls/text_support.js",
+          "line": 63,
+          "description": "Whether they `keyUp` event that triggers an `action` to be sent continues\npropagating to other views.\n\nBy default, when the user presses the return key on their keyboard and\nthe text field has an `action` set, the action will be sent to the view's\ncontroller and the key event will stop propagating.\n\nIf you would like parent views to receive the `keyUp` event even after an\naction has been dispatched, set `bubbles` to true.",
+          "itemtype": "property",
+          "name": "bubbles",
+          "type": "Boolean",
+          "default": "false",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.TextSupport"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 859,
+          "itemtype": "property",
+          "name": "isView",
+          "type": "Boolean",
+          "default": "true",
+          "static": 1,
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 871,
+          "description": "The name of the template to lookup if no template is provided.\n\nBy default `Ember.View` will lookup a template with this name in\n`Ember.TEMPLATES` (a shared global object).",
+          "itemtype": "property",
+          "name": "templateName",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 883,
+          "description": "The name of the layout to lookup if no layout is provided.\n\nBy default `Ember.View` will lookup a template with this name in\n`Ember.TEMPLATES` (a shared global object).",
+          "itemtype": "property",
+          "name": "layoutName",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 895,
+          "description": "The template used to render the view. This should be a function that\naccepts an optional context parameter and returns a string of HTML that\nwill be inserted into the DOM relative to its parent view.\n\nIn general, you should set the `templateName` property instead of setting\nthe template yourself.",
+          "itemtype": "property",
+          "name": "template",
+          "type": "Function",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 917,
+          "description": "The controller managing this view. If this property is set, it will be\nmade available for use by the template.",
+          "itemtype": "property",
+          "name": "controller",
+          "type": "Object",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 929,
+          "description": "A view may contain a layout. A layout is a regular template but\nsupersedes the `template` property during rendering. It is the\nresponsibility of the layout template to retrieve the `template`\nproperty from the view (or alternatively, call `Handlebars.helpers.yield`,\n`{{yield}}`) to render it in the correct location.\n\nThis is useful for a view that has a shared wrapper, but which delegates\nthe rendering of the contents of the wrapper to the `template` property\non a subclass.",
+          "itemtype": "property",
+          "name": "layout",
+          "type": "Function",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 966,
+          "description": "The object from which templates should access properties.\n\nThis object will be passed to the template function each time the render\nmethod is called, but it is up to the individual function to decide what\nto do with it.\n\nBy default, this will be the view's controller.",
+          "itemtype": "property",
+          "name": "context",
+          "type": "Object",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 987,
+          "description": "Private copy of the view's template context. This can be set directly\nby Handlebars without triggering the observer that causes the view\nto be re-rendered.\n\nThe context of a view is looked up as follows:\n\n1. Supplied context (usually by Handlebars)\n2. Specified controller\n3. `parentView`'s context (for a child of a ContainerView)\n\nThe code in Handlebars that overrides the `_context` property first\nchecks to see whether the view has a specified controller. This is\nsomething of a hack and should be revisited.",
+          "itemtype": "property",
+          "name": "_context",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1031,
+          "description": "If `false`, the view will appear hidden in DOM.",
+          "itemtype": "property",
+          "name": "isVisible",
+          "type": "Boolean",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1040,
+          "description": "Array of child views. You should never edit this array directly.\nInstead, use `appendChild` and `removeFromParent`.",
+          "itemtype": "property",
+          "name": "childViews",
+          "type": "Array",
+          "default": "[]",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1071,
+          "description": "Return the nearest ancestor that is an instance of the provided\nclass.",
+          "itemtype": "property",
+          "name": "nearestInstanceOf",
+          "return": {
+            "description": "Ember.View"
+          },
+          "deprecated": true,
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "subprops": [
+            {
+              "name": "klass",
+              "description": "Subclass of Ember.View (or Ember.View itself)",
+              "type": "Class"
+            }
+          ],
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1090,
+          "description": "Return the nearest ancestor that is an instance of the provided\nclass or mixin.",
+          "itemtype": "property",
+          "name": "nearestOfType",
+          "return": {
+            "description": "Ember.View"
+          },
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "subprops": [
+            {
+              "name": "klass",
+              "description": "Subclass of Ember.View (or Ember.View itself),\n       or an instance of Ember.Mixin.",
+              "type": "Class,Mixin"
+            }
+          ],
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1403,
+          "description": "Returns the current DOM element for the view.",
+          "itemtype": "property",
+          "name": "element",
+          "type": "DOMElement",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1840,
+          "description": "Tag name for the view's outer element. The tag name is only used when an\nelement is first created. If you change the `tagName` for an element, you\nmust destroy and recreate the view element.\n\nBy default, the render buffer will use a `<div>` tag for views.",
+          "itemtype": "property",
+          "name": "tagName",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1856,
+          "description": "The WAI-ARIA role of the control represented by this view. For example, a\nbutton may have a role of type 'button', or a pane may have a role of\ntype 'alertdialog'. This property is used by assistive software to help\nvisually challenged users navigate rich web applications.\n\nThe full list of valid WAI-ARIA roles is available at:\n[http://www.w3.org/TR/wai-aria/roles#roles_categorization](http://www.w3.org/TR/wai-aria/roles#roles_categorization)",
+          "itemtype": "property",
+          "name": "ariaRole",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1871,
+          "description": "Standard CSS class names to apply to the view's outer element. This\nproperty automatically inherits any class names defined by the view's\nsuperclasses as well.",
+          "itemtype": "property",
+          "name": "classNames",
+          "type": "Array",
+          "default": "['ember-view']",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1882,
+          "description": "A list of properties of the view to apply as class names. If the property\nis a string value, the value of that string will be applied as a class\nname.\n\n```javascript\n// Applies the 'high' class to the view element\nEmber.View.extend({\n  classNameBindings: ['priority']\n  priority: 'high'\n});\n```\n\nIf the value of the property is a Boolean, the name of that property is\nadded as a dasherized class name.\n\n```javascript\n// Applies the 'is-urgent' class to the view element\nEmber.View.extend({\n  classNameBindings: ['isUrgent']\n  isUrgent: true\n});\n```\n\nIf you would prefer to use a custom value instead of the dasherized\nproperty name, you can pass a binding like this:\n\n```javascript\n// Applies the 'urgent' class to the view element\nEmber.View.extend({\n  classNameBindings: ['isUrgent:urgent']\n  isUrgent: true\n});\n```\n\nThis list of properties is inherited from the view's superclasses as well.",
+          "itemtype": "property",
+          "name": "classNameBindings",
+          "type": "Array",
+          "default": "[]",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 1925,
+          "description": "A list of properties of the view to apply as attributes. If the property is\na string value, the value of that string will be applied as the attribute.\n\n```javascript\n// Applies the type attribute to the element\n// with the value \"button\", like <div type=\"button\">\nEmber.View.extend({\n  attributeBindings: ['type'],\n  type: 'button'\n});\n```\n\nIf the value of the property is a Boolean, the name of that property is\nadded as an attribute.\n\n```javascript\n// Renders something like <div enabled=\"enabled\">\nEmber.View.extend({\n  attributeBindings: ['enabled'],\n  enabled: true\n});\n```",
+          "itemtype": "property",
+          "name": "attributeBindings",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 2459,
+          "description": "Global views hash",
+          "itemtype": "property",
+          "name": "views",
+          "static": 1,
+          "type": "Hash",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.View"
+        },
+        {
+          "file": "../packages/ember-views/lib/views/view.js",
+          "line": 80,
+          "description": "If the view is currently inserted into the DOM of a parent view, this\nproperty will point to the parent of the view.",
+          "itemtype": "property",
+          "name": "parentView",
+          "type": "Ember.View",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreView"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 22,
+          "description": "The collection of functions, keyed by name, available on this\n`ActionHandler` as action targets.\n\nThese functions will be invoked when a matching `{{action}}` is triggered\nfrom within a template and the application's current route is this route.\n\nActions can also be invoked from other parts of your application\nvia `ActionHandler#send`.\n\nThe `actions` hash will inherit action handlers from\nthe `actions` hash defined on extended parent classes\nor mixins rather than just replace the entire hash, e.g.:\n\n```js\nApp.CanDisplayBanner = Ember.Mixin.create({\n  actions: {\n    displayBanner: function(msg) {\n      // ...\n    }\n  }\n});\n\nApp.WelcomeRoute = Ember.Route.extend(App.CanDisplayBanner, {\n  actions: {\n    playMusic: function() {\n      // ...\n    }\n  }\n});\n\n// `WelcomeRoute`, when active, will be able to respond\n// to both actions, since the actions hash is merged rather\n// then replaced when extending mixins / parent classes.\nthis.send('displayBanner');\nthis.send('playMusic');\n```\n\nWithin a Controller, Route, View or Component's action handler,\nthe value of the `this` context is the Controller, Route, View or\nComponent object:\n\n```js\nApp.SongRoute = Ember.Route.extend({\n  actions: {\n    myAction: function() {\n      this.controllerFor(\"song\");\n      this.transitionTo(\"other.route\");\n      ...\n    }\n  }\n});\n```\n\nIt is also possible to call `this._super()` from within an\naction handler if it overrides a handler defined on a parent\nclass or mixin:\n\nTake for example the following routes:\n\n```js\nApp.DebugRoute = Ember.Mixin.create({\n  actions: {\n    debugRouteInformation: function() {\n      console.debug(\"trololo\");\n    }\n  }\n});\n\nApp.AnnoyingDebugRoute = Ember.Route.extend(App.DebugRoute, {\n  actions: {\n    debugRouteInformation: function() {\n      // also call the debugRouteInformation of mixed in App.DebugRoute\n      this._super();\n\n      // show additional annoyance\n      window.alert(...);\n    }\n  }\n});\n```\n\n## Bubbling\n\nBy default, an action will stop bubbling once a handler defined\non the `actions` hash handles it. To continue bubbling the action,\nyou must return `true` from the handler:\n\n```js\nApp.Router.map(function() {\n  this.resource(\"album\", function() {\n    this.route(\"song\");\n  });\n});\n\nApp.AlbumRoute = Ember.Route.extend({\n  actions: {\n    startPlaying: function() {\n    }\n  }\n});\n\nApp.AlbumSongRoute = Ember.Route.extend({\n  actions: {\n    startPlaying: function() {\n      // ...\n\n      if (actionShouldAlsoBeTriggeredOnParentRoute) {\n        return true;\n      }\n    }\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "actions",
+          "type": "Hash",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 213,
+          "description": "Defines the properties that will be concatenated from the superclass\n(instead of overridden).\n\nBy default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property's value by combining the superclass' property\nvalue with the subclass' value. An example of this in use within Ember\nis the `classNames` property of `Ember.View`.\n\nHere is some sample code showing the difference between a concatenated\nproperty and a normal one:\n\n```javascript\nApp.BarView = Ember.View.extend({\n  someNonConcatenatedProperty: ['bar'],\n  classNames: ['bar']\n});\n\nApp.FooBarView = App.BarView.extend({\n  someNonConcatenatedProperty: ['foo'],\n  classNames: ['foo'],\n});\n\nvar fooBarView = App.FooBarView.create();\nfooBarView.get('someNonConcatenatedProperty'); // ['foo']\nfooBarView.get('classNames'); // ['ember-view', 'bar', 'foo']\n```\n\nThis behavior extends to object creation as well. Continuing the\nabove example:\n\n```javascript\nvar view = App.FooBarView.create({\n  someNonConcatenatedProperty: ['baz'],\n  classNames: ['baz']\n})\nview.get('someNonConcatenatedProperty'); // ['baz']\nview.get('classNames'); // ['ember-view', 'bar', 'foo', 'baz']\n```\nAdding a single property that is not an array will just add it in the array:\n\n```javascript\nvar view = App.FooBarView.create({\n  classNames: 'baz'\n})\nview.get('classNames'); // ['ember-view', 'bar', 'foo', 'baz']\n```\n\nUsing the `concatenatedProperties` property, we can tell to Ember that mix\nthe content of the properties.\n\nIn `Ember.View` the `classNameBindings` and `attributeBindings` properties\nare also concatenated, in addition to `classNames`.\n\nThis feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual concatenated property (to not\nmislead your users to think they can override the property in a subclass).",
+          "itemtype": "property",
+          "name": "concatenatedProperties",
+          "type": "Array",
+          "default": "null",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 281,
+          "description": "Destroyed object property flag.\n\nif this property is `true` the observers and bindings were already\nremoved by the effect of calling the `destroy()` method.",
+          "itemtype": "property",
+          "name": "isDestroyed",
+          "default": "false",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/core_object.js",
+          "line": 292,
+          "description": "Destruction scheduled flag. The `destroy()` method has been called.\n\nThe object stays intact until the end of the run loop at which point\nthe `isDestroyed` flag is set.",
+          "itemtype": "property",
+          "name": "isDestroying",
+          "default": "false",
+          "class": "Ember.TextField",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-1.4.0-Ember.Component",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.4.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.4.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

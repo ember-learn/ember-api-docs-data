@@ -1,0 +1,3172 @@
+{
+  "data": {
+    "id": "ember-2.5.1-Ember.NativeArray",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.NativeArray",
+      "shortname": "Ember.NativeArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-runtime",
+      "namespace": "Ember",
+      "file": "packages/ember-runtime/lib/system/native_array.js",
+      "line": 21,
+      "description": "The NativeArray mixin contains the properties needed to make the native\nArray support Ember.MutableArray and all of its dependent APIs. Unless you\nhave `Ember.EXTEND_PROTOTYPES` or `Ember.EXTEND_PROTOTYPES.Array` set to\nfalse, this will be applied automatically. Otherwise you can apply the mixin\nat anytime by calling `Ember.NativeArray.activate`.",
+      "uses": [
+        "Ember.Copyable",
+        "Ember.Observable",
+        "Ember.MutableArray"
+      ],
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/ember-runtime/lib/mixins/controller_content_model_alias_deprecation.js",
+          "line": 19,
+          "access": "private",
+          "tagname": "Moves `content` to `model`  at extend time if a `model` is not also specified.\n\nNote that this currently modifies the mixin themselves, which is technically\ndubious but is practically of little consequence. This may change in the\nfuture.",
+          "itemtype": "method",
+          "name": "willMergeMixin",
+          "since": "1.4.0",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Copyable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/copyable.js",
+          "line": 29,
+          "description": "__Required.__ You must implement this method to apply this mixin.\n\nOverride to return a copy of the receiver. Default implementation raises\nan exception.",
+          "itemtype": "method",
+          "name": "copy",
+          "params": [
+            {
+              "name": "deep",
+              "description": "if `true`, a deep copy of the object should be made",
+              "type": "Boolean"
+            }
+          ],
+          "return": {
+            "description": "copy of receiver",
+            "type": "Object"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Copyable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/copyable.js",
+          "line": 42,
+          "description": "If the object implements `Ember.Freezable`, then this will return a new\ncopy if the object is not frozen and the receiver if the object is frozen.\n\nRaises an exception if you try to call this method on a object that does\nnot support freezing.\n\nYou should use this method whenever you want a copy of a freezable object\nsince a freezable object can simply return itself without actually\nconsuming more memory.",
+          "itemtype": "method",
+          "name": "frozenCopy",
+          "return": {
+            "description": "copy of receiver or receiver",
+            "type": "Object"
+          },
+          "deprecated": true,
+          "deprecationMessage": "Use `Object.freeze` instead.",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Copyable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 100,
+          "description": "Retrieves the value of a property from the object.\n\nThis method is usually similar to using `object[keyName]` or `object.keyName`,\nhowever it supports both computed properties and the unknownProperty\nhandler.\n\nBecause `get` unifies the syntax for accessing all these kinds\nof properties, it can make many refactorings easier, such as replacing a\nsimple property with a computed property, or vice versa.\n\n### Computed Properties\n\nComputed properties are methods defined with the `property` modifier\ndeclared at the end, such as:\n\n```javascript\nfullName: function() {\n  return this.get('firstName') + ' ' + this.get('lastName');\n}.property('firstName', 'lastName')\n```\n\nWhen you call `get` on a computed property, the function will be\ncalled and the return value will be returned instead of the function\nitself.\n\n### Unknown Properties\n\nLikewise, if you try to call `get` on a property whose value is\n`undefined`, the `unknownProperty()` method will be called on the object.\nIf this method returns any value other than `undefined`, it will be returned\ninstead. This allows you to implement \"virtual\" properties that are\nnot defined upfront.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to retrieve",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The property value or undefined.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 143,
+          "description": "To get the values of multiple properties at once, call `getProperties`\nwith a list of strings or an array:\n\n```javascript\nrecord.getProperties('firstName', 'lastName', 'zipCode');\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```\n\nis equivalent to:\n\n```javascript\nrecord.getProperties(['firstName', 'lastName', 'zipCode']);\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```",
+          "itemtype": "method",
+          "name": "getProperties",
+          "params": [
+            {
+              "name": "list",
+              "description": "of keys to get",
+              "type": "String...|Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 168,
+          "description": "Sets the provided key or path to the value.\n\nThis method is generally very similar to calling `object[key] = value` or\n`object.key = value`, except that it provides support for computed\nproperties, the `setUnknownProperty()` method and property observers.\n\n### Computed Properties\n\nIf you try to set a value on a key that has a computed property handler\ndefined (see the `get()` method for an example), then `set()` will call\nthat method, passing both the value and key instead of simply changing\nthe value itself. This is useful for those times when you need to\nimplement a property that is composed of one or more member\nproperties.\n\n### Unknown Properties\n\nIf you try to set a value on a key that is undefined in the target\nobject, then the `setUnknownProperty()` handler will be called instead. This\ngives you an opportunity to implement complex \"virtual\" properties that\nare not predefined on the object. If `setUnknownProperty()` returns\nundefined, then `set()` will simply set the value on the object.\n\n### Property Observers\n\nIn addition to changing the property, `set()` will also register a property\nchange with the object. Unless you have placed this call inside of a\n`beginPropertyChanges()` and `endPropertyChanges(),` any \"local\" observers\n(i.e. observer methods declared on the same object), will be called\nimmediately. Any \"remote\" observers (i.e. observer methods declared on\nanother object) will be placed in a queue and called at a later time in a\ncoalesced manner.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to set or `null`.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed value",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 213,
+          "description": "Sets a list of properties at once. These properties are set inside\na single `beginPropertyChanges` and `endPropertyChanges` batch, so\nobservers will be buffered.\n\n```javascript\nrecord.setProperties({ firstName: 'Charles', lastName: 'Jolley' });\n```",
+          "itemtype": "method",
+          "name": "setProperties",
+          "params": [
+            {
+              "name": "hash",
+              "description": "the hash of keys and values to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed in hash",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 231,
+          "description": "Begins a grouping of property changes.\n\nYou can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call this\nmethod at the beginning of the changes to begin deferring change\nnotifications. When you are done making changes, call\n`endPropertyChanges()` to deliver the deferred change notifications and end\ndeferring.",
+          "itemtype": "method",
+          "name": "beginPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 251,
+          "description": "Ends a grouping of property changes.\n\nYou can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call\n`beginPropertyChanges()` at the beginning of the changes to defer change\nnotifications. When you are done making changes, call this method to\ndeliver the deferred change notifications and end deferring.",
+          "itemtype": "method",
+          "name": "endPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 270,
+          "description": "Notify the observer system that a property is about to change.\n\nSometimes you need to change a value directly or indirectly without\nactually calling `get()` or `set()` on it. In this case, you can use this\nmethod and `propertyDidChange()` instead. Calling these two methods\ntogether will notify all observers that the property has potentially\nchanged value.\n\nNote that you must always call `propertyWillChange` and `propertyDidChange`\nas a pair. If you do not, it may get the property change groups out of\norder and cause notifications to be delivered more often than you would\nlike.",
+          "itemtype": "method",
+          "name": "propertyWillChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key that is about to change.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 294,
+          "description": "Notify the observer system that a property has just changed.\n\nSometimes you need to change a value directly or indirectly without\nactually calling `get()` or `set()` on it. In this case, you can use this\nmethod and `propertyWillChange()` instead. Calling these two methods\ntogether will notify all observers that the property has potentially\nchanged value.\n\nNote that you must always call `propertyWillChange` and `propertyDidChange`\nas a pair. If you do not, it may get the property change groups out of\norder and cause notifications to be delivered more often than you would\nlike.",
+          "itemtype": "method",
+          "name": "propertyDidChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key that has just changed.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 318,
+          "description": "Convenience method to call `propertyWillChange` and `propertyDidChange` in\nsuccession.",
+          "itemtype": "method",
+          "name": "notifyPropertyChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key to be notified about.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 333,
+          "description": "Adds an observer on a property.\n\nThis is the core method used to register an observer for a property.\n\nOnce you call this method, any time the key's value is set, your observer\nwill be notified. Note that the observers are triggered any time the\nvalue is set, regardless of whether it has actually changed. Your\nobserver should be prepared to handle that.\n\nYou can also pass an optional context parameter to this method. The\ncontext will be passed to your observer method whenever it is triggered.\nNote that if you add the same target/method pair on a key multiple times\nwith different context parameters, your observer will only be called once\nwith the last context you passed.\n\n### Observer Methods\n\nObserver methods you pass should generally have the following signature if\nyou do not pass a `context` parameter:\n\n```javascript\nfooDidChange: function(sender, key, value, rev) { };\n```\n\nThe sender is the object that changed. The key is the property that\nchanges. The value property is currently reserved and unused. The rev\nis the last property revision of the object when it changed, which you can\nuse to detect if the key value has really changed or not.\n\nIf you pass a `context` parameter, the context will be passed before the\nrevision like so:\n\n```javascript\nfooDidChange: function(sender, key, value, context, rev) { };\n```\n\nUsually you will not need the value, context or revision parameters at\nthe end. In this case, it is common to write observer methods that take\nonly a sender and key value as parameters or, if you aren't interested in\nany of these values, to write an observer that has no parameters at all.",
+          "itemtype": "method",
+          "name": "addObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observer",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke.",
+              "type": "String|Function"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 385,
+          "description": "Remove an observer you have previously registered on this object. Pass\nthe same key, target, and method you passed to `addObserver()` and your\ntarget will no longer receive notifications.",
+          "itemtype": "method",
+          "name": "removeObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observer",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke.",
+              "type": "String|Function"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 400,
+          "description": "Returns `true` if the object currently has observers registered for a\nparticular key. You can use this method to potentially defer performing\nan expensive action until someone begins observing a particular property\non the object.",
+          "itemtype": "method",
+          "name": "hasObserverFor",
+          "params": [
+            {
+              "name": "key",
+              "description": "Key to check",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 415,
+          "description": "Retrieves the value of a property, or a default value in the case that the\nproperty returns `undefined`.\n\n```javascript\nperson.getWithDefault('lastName', 'Doe');\n```",
+          "itemtype": "method",
+          "name": "getWithDefault",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to retrieve",
+              "type": "String"
+            },
+            {
+              "name": "defaultValue",
+              "description": "The value to return if the property value is undefined",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The property value or the defaultValue.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 433,
+          "description": "Set the value of a property to the current value plus some amount.\n\n```javascript\nperson.incrementProperty('age');\nteam.incrementProperty('score', 2);\n```",
+          "itemtype": "method",
+          "name": "incrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to increment",
+              "type": "String"
+            },
+            {
+              "name": "increment",
+              "description": "The amount to increment by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 453,
+          "description": "Set the value of a property to the current value minus some amount.\n\n```javascript\nplayer.decrementProperty('lives');\norc.decrementProperty('health', 5);\n```",
+          "itemtype": "method",
+          "name": "decrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to decrement",
+              "type": "String"
+            },
+            {
+              "name": "decrement",
+              "description": "The amount to decrement by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 473,
+          "description": "Set the value of a boolean property to the opposite of its\ncurrent value.\n\n```javascript\nstarship.toggleProperty('warpDriveEngaged');\n```",
+          "itemtype": "method",
+          "name": "toggleProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to toggle",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 490,
+          "description": "Returns the cached value of a computed property, if it exists.\nThis allows you to inspect the value of a computed property\nwithout accidentally invoking it if it is intended to be\ngenerated lazily.",
+          "itemtype": "method",
+          "name": "cacheFor",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The cached value of the computed property, if any",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 51,
+          "description": "__Required.__ You must implement this method to apply this mixin.\n\nThis is one of the primitives you must implement to support `Ember.Array`.\nYou should replace amt objects started at idx with the objects in the\npassed array. You should also call `this.enumerableContentDidChange()`",
+          "itemtype": "method",
+          "name": "replace",
+          "params": [
+            {
+              "name": "idx",
+              "description": "Starting index in the array to replace. If\n  idx >= length, then append to the end of the array.",
+              "type": "Number"
+            },
+            {
+              "name": "amt",
+              "description": "Number of elements that should be removed from\n  the array, starting at *idx*.",
+              "type": "Number"
+            },
+            {
+              "name": "objects",
+              "description": "An array of zero or more objects that should be\n  inserted into the array at *idx*",
+              "type": "Array"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 69,
+          "description": "Remove all elements from the array. This is useful if you\nwant to reuse an existing array without having to recreate it.\n\n```javascript\nvar colors = ['red', 'green', 'blue'];\n\ncolor.length();   //  3\ncolors.clear();   //  []\ncolors.length();  //  0\n```",
+          "itemtype": "method",
+          "name": "clear",
+          "return": {
+            "description": "An empty Array.",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 95,
+          "description": "This will use the primitive `replace()` method to insert an object at the\nspecified index.\n\n```javascript\nvar colors = ['red', 'green', 'blue'];\n\ncolors.insertAt(2, 'yellow');  // ['red', 'green', 'yellow', 'blue']\ncolors.insertAt(5, 'orange');  // Error: Index out of range\n```",
+          "itemtype": "method",
+          "name": "insertAt",
+          "params": [
+            {
+              "name": "idx",
+              "description": "index of insert the object at.",
+              "type": "Number"
+            },
+            {
+              "name": "object",
+              "description": "object to insert",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 121,
+          "description": "Remove an object at the specified index using the `replace()` primitive\nmethod. You can pass either a single index, or a start and a length.\n\nIf you pass a start and length that is beyond the\nlength this method will throw an `OUT_OF_RANGE_EXCEPTION`.\n\n```javascript\nvar colors = ['red', 'green', 'blue', 'yellow', 'orange'];\n\ncolors.removeAt(0);     // ['green', 'blue', 'yellow', 'orange']\ncolors.removeAt(2, 2);  // ['green', 'blue']\ncolors.removeAt(4, 2);  // Error: Index out of range\n```",
+          "itemtype": "method",
+          "name": "removeAt",
+          "params": [
+            {
+              "name": "start",
+              "description": "index, start of range",
+              "type": "Number"
+            },
+            {
+              "name": "len",
+              "description": "length of passing range",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 159,
+          "description": "Push the object onto the end of the array. Works just like `push()` but it\nis KVO-compliant.\n\n```javascript\nvar colors = ['red', 'green'];\n\ncolors.pushObject('black');     // ['red', 'green', 'black']\ncolors.pushObject(['yellow']);  // ['red', 'green', ['yellow']]\n```",
+          "itemtype": "method",
+          "name": "pushObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to push",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "object same object passed as a param"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 180,
+          "description": "Add the objects in the passed numerable to the end of the array. Defers\nnotifying observers of the change until all objects are added.\n\n```javascript\nvar colors = ['red'];\n\ncolors.pushObjects(['yellow', 'orange']);  // ['red', 'yellow', 'orange']\n```",
+          "itemtype": "method",
+          "name": "pushObjects",
+          "params": [
+            {
+              "name": "objects",
+              "description": "the objects to add",
+              "type": "Ember.Enumerable"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 203,
+          "description": "Pop object from array or nil if none are left. Works just like `pop()` but\nit is KVO-compliant.\n\n```javascript\nvar colors = ['red', 'green', 'blue'];\n\ncolors.popObject();   // 'blue'\nconsole.log(colors);  // ['red', 'green']\n```",
+          "itemtype": "method",
+          "name": "popObject",
+          "return": {
+            "description": "object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 229,
+          "description": "Shift an object from start of array or nil if none are left. Works just\nlike `shift()` but it is KVO-compliant.\n\n```javascript\nvar colors = ['red', 'green', 'blue'];\n\ncolors.shiftObject();  // 'red'\nconsole.log(colors);   // ['green', 'blue']\n```",
+          "itemtype": "method",
+          "name": "shiftObject",
+          "return": {
+            "description": "object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 254,
+          "description": "Unshift an object to start of array. Works just like `unshift()` but it is\nKVO-compliant.\n\n```javascript\nvar colors = ['red'];\n\ncolors.unshiftObject('yellow');    // ['yellow', 'red']\ncolors.unshiftObject(['black']);   // [['black'], 'yellow', 'red']\n```",
+          "itemtype": "method",
+          "name": "unshiftObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to unshift",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "object same object passed as a param"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 275,
+          "description": "Adds the named objects to the beginning of the array. Defers notifying\nobservers until all objects have been added.\n\n```javascript\nvar colors = ['red'];\n\ncolors.unshiftObjects(['black', 'white']);   // ['black', 'white', 'red']\ncolors.unshiftObjects('yellow'); // Type Error: 'undefined' is not a function\n```",
+          "itemtype": "method",
+          "name": "unshiftObjects",
+          "params": [
+            {
+              "name": "objects",
+              "description": "the objects to add",
+              "type": "Ember.Enumerable"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 296,
+          "description": "Reverse objects in the array. Works just like `reverse()` but it is\nKVO-compliant.",
+          "itemtype": "method",
+          "name": "reverseObjects",
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 315,
+          "description": "Replace all the receiver's content with content of the argument.\nIf argument is an empty array receiver will be cleared.\n\n```javascript\nvar colors = ['red', 'green', 'blue'];\n\ncolors.setObjects(['black', 'white']);  // ['black', 'white']\ncolors.setObjects([]);                  // []\n```",
+          "itemtype": "method",
+          "name": "setObjects",
+          "params": [
+            {
+              "name": "objects",
+              "description": "array whose content will be used for replacing\n    the content of the receiver",
+              "type": "Ember.Array"
+            }
+          ],
+          "return": {
+            "description": "receiver with the new content",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 346,
+          "description": "Remove all occurrences of an object in the array.\n\n```javascript\nvar cities = ['Chicago', 'Berlin', 'Lima', 'Chicago'];\n\ncities.removeObject('Chicago');  // ['Berlin', 'Lima']\ncities.removeObject('Lima');     // ['Berlin']\ncities.removeObject('Tokyo')     // ['Berlin']\n```",
+          "itemtype": "method",
+          "name": "removeObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to remove",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_array.js",
+          "line": 374,
+          "description": "Push the object onto the end of the array if it is not already\npresent in the array.\n\n```javascript\nvar cities = ['Chicago', 'Berlin'];\n\ncities.addObject('Lima');    // ['Chicago', 'Berlin', 'Lima']\ncities.addObject('Berlin');  // ['Chicago', 'Berlin', 'Lima']\n```",
+          "itemtype": "method",
+          "name": "addObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to add, if not already present",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableArray"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_enumerable.js",
+          "line": 52,
+          "description": "__Required.__ You must implement this method to apply this mixin.\n\nAttempts to add the passed object to the receiver if the object is not\nalready present in the collection. If the object is present, this method\nhas no effect.\n\nIf the passed object is of a type not supported by the receiver,\nthen this method should raise an exception.",
+          "itemtype": "method",
+          "name": "addObject",
+          "params": [
+            {
+              "name": "object",
+              "description": "The object to add to the enumerable.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the passed object",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableEnumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_enumerable.js",
+          "line": 69,
+          "description": "Adds each object in the passed enumerable to the receiver.",
+          "itemtype": "method",
+          "name": "addObjects",
+          "params": [
+            {
+              "name": "objects",
+              "description": "the objects to add.",
+              "type": "Ember.Enumerable"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableEnumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_enumerable.js",
+          "line": 84,
+          "description": "__Required.__ You must implement this method to apply this mixin.\n\nAttempts to remove the passed object from the receiver collection if the\nobject is present in the collection. If the object is not present,\nthis method has no effect.\n\nIf the passed object is of a type not supported by the receiver,\nthen this method should raise an exception.",
+          "itemtype": "method",
+          "name": "removeObject",
+          "params": [
+            {
+              "name": "object",
+              "description": "The object to remove from the enumerable.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the passed object",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableEnumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/mutable_enumerable.js",
+          "line": 102,
+          "description": "Removes each object in the passed enumerable from the receiver.",
+          "itemtype": "method",
+          "name": "removeObjects",
+          "params": [
+            {
+              "name": "objects",
+              "description": "the objects to remove",
+              "type": "Ember.Enumerable"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.MutableEnumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 119,
+          "description": "Returns the object at the given `index`. If the given `index` is negative\nor is greater or equal than the array length, returns `undefined`.\n\nThis is one of the primitives you must implement to support `Ember.Array`.\nIf your object supports retrieving the value of an array item using `get()`\n(i.e. `myArray.get(0)`), then you do not need to implement this method\nyourself.\n\n```javascript\nvar arr = ['a', 'b', 'c', 'd'];\n\narr.objectAt(0);   // 'a'\narr.objectAt(3);   // 'd'\narr.objectAt(-1);  // undefined\narr.objectAt(4);   // undefined\narr.objectAt(5);   // undefined\n```",
+          "itemtype": "method",
+          "name": "objectAt",
+          "params": [
+            {
+              "name": "idx",
+              "description": "The index of the item to return.",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "item at index or undefined",
+            "type": "*"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 151,
+          "description": "This returns the objects at the specified indexes, using `objectAt`.\n\n```javascript\nvar arr = ['a', 'b', 'c', 'd'];\n\narr.objectsAt([0, 1, 2]);  // ['a', 'b', 'c']\narr.objectsAt([2, 3, 4]);  // ['c', 'd', undefined]\n```",
+          "itemtype": "method",
+          "name": "objectsAt",
+          "params": [
+            {
+              "name": "indexes",
+              "description": "An array of indexes of items to return.",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 210,
+          "description": "Returns a new array that is a slice of the receiver. This implementation\nuses the observable array methods to retrieve the objects for the new\nslice.\n\n```javascript\nvar arr = ['red', 'green', 'blue'];\n\narr.slice(0);       // ['red', 'green', 'blue']\narr.slice(0, 2);    // ['red', 'green']\narr.slice(1, 100);  // ['green', 'blue']\n```",
+          "itemtype": "method",
+          "name": "slice",
+          "params": [
+            {
+              "name": "beginIndex",
+              "description": "(Optional) index to begin slicing from.",
+              "type": "Number"
+            },
+            {
+              "name": "endIndex",
+              "description": "(Optional) index to end the slice at (but not included).",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "New array with specified slice",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 256,
+          "description": "Returns the index of the given object's first occurrence.\nIf no `startAt` argument is given, the starting location to\nsearch is 0. If it's negative, will count backward from\nthe end of the array. Returns -1 if no match is found.\n\n```javascript\nvar arr = ['a', 'b', 'c', 'd', 'a'];\n\narr.indexOf('a');       //  0\narr.indexOf('z');       // -1\narr.indexOf('a', 2);    //  4\narr.indexOf('a', -1);   //  4\narr.indexOf('b', 3);    // -1\narr.indexOf('a', 100);  // -1\n```",
+          "itemtype": "method",
+          "name": "indexOf",
+          "params": [
+            {
+              "name": "object",
+              "description": "the item to search for",
+              "type": "Object"
+            },
+            {
+              "name": "startAt",
+              "description": "optional starting location to search, default 0",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "index or -1 if not found",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 300,
+          "description": "Returns the index of the given object's last occurrence.\nIf no `startAt` argument is given, the search starts from\nthe last position. If it's negative, will count backward\nfrom the end of the array. Returns -1 if no match is found.\n\n```javascript\nvar arr = ['a', 'b', 'c', 'd', 'a'];\n\narr.lastIndexOf('a');       //  4\narr.lastIndexOf('z');       // -1\narr.lastIndexOf('a', 2);    //  0\narr.lastIndexOf('a', -1);   //  4\narr.lastIndexOf('b', 3);    //  1\narr.lastIndexOf('a', 100);  //  4\n```",
+          "itemtype": "method",
+          "name": "lastIndexOf",
+          "params": [
+            {
+              "name": "object",
+              "description": "the item to search for",
+              "type": "Object"
+            },
+            {
+              "name": "startAt",
+              "description": "optional starting location to search, default 0",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "index or -1 if not found",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 348,
+          "description": "Adds an array observer to the receiving array. The array observer object\nnormally must implement two methods:\n\n* `arrayWillChange(observedObj, start, removeCount, addCount)` - This method will be\n  called just before the array is modified.\n* `arrayDidChange(observedObj, start, removeCount, addCount)` - This method will be\n  called just after the array is modified.\n\nBoth callbacks will be passed the observed object, starting index of the\nchange as well as a count of the items to be removed and added. You can use\nthese callbacks to optionally inspect the array during the change, clear\ncaches, or do any other bookkeeping necessary.\n\nIn addition to passing a target, you can also include an options hash\nwhich you can use to override the method names that will be invoked on the\ntarget.",
+          "itemtype": "method",
+          "name": "addArrayObserver",
+          "params": [
+            {
+              "name": "target",
+              "description": "The observer object.",
+              "type": "Object"
+            },
+            {
+              "name": "opts",
+              "description": "Optional hash of configuration options including\n  `willChange` and `didChange` option.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 378,
+          "description": "Removes an array observer from the object if the observer is current\nregistered. Calling this method multiple times with the same object will\nhave no effect.",
+          "itemtype": "method",
+          "name": "removeArrayObserver",
+          "params": [
+            {
+              "name": "target",
+              "description": "The object observing the array.",
+              "type": "Object"
+            },
+            {
+              "name": "opts",
+              "description": "Optional hash of configuration options including\n  `willChange` and `didChange` option.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 405,
+          "description": "If you are implementing an object that supports `Ember.Array`, call this\nmethod just before the array content changes to notify any observers and\ninvalidate any related properties. Pass the starting index of the change\nas well as a delta of the amounts to change.",
+          "itemtype": "method",
+          "name": "arrayContentWillChange",
+          "params": [
+            {
+              "name": "startIdx",
+              "description": "The starting index in the array that will change.",
+              "type": "Number"
+            },
+            {
+              "name": "removeAmt",
+              "description": "The number of items that will be removed. If you\n  pass `null` assumes 0",
+              "type": "Number"
+            },
+            {
+              "name": "addAmt",
+              "description": "The number of items that will be added. If you\n  pass `null` assumes 0.",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 460,
+          "description": "If you are implementing an object that supports `Ember.Array`, call this\nmethod just after the array content changes to notify any observers and\ninvalidate any related properties. Pass the starting index of the change\nas well as a delta of the amounts to change.",
+          "itemtype": "method",
+          "name": "arrayContentDidChange",
+          "params": [
+            {
+              "name": "startIdx",
+              "description": "The starting index in the array that did change.",
+              "type": "Number"
+            },
+            {
+              "name": "removeAmt",
+              "description": "The number of items that were removed. If you\n  pass `null` assumes 0",
+              "type": "Number"
+            },
+            {
+              "name": "addAmt",
+              "description": "The number of items that were added. If you\n  pass `null` assumes 0.",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 98,
+          "description": "__Required.__ You must implement this method to apply this mixin.\n\nImplement this method to make your class enumerable.\n\nThis method will be called repeatedly during enumeration. The index value\nwill always begin with 0 and increment monotonically. You don't have to\nrely on the index value to determine what object to return, but you should\nalways check the value and start from the beginning when you see the\nrequested index is 0.\n\nThe `previousObject` is the object that was returned from the last call\nto `nextObject` for the current iteration. This is a useful way to\nmanage iteration if you are tracing a linked list, for example.\n\nFinally the context parameter will always contain a hash you can use as\na \"scratchpad\" to maintain any other state you need in order to iterate\nproperly. The context object is reused and is not reset between\niterations so make sure you setup the context with a fresh state whenever\nthe index parameter is 0.\n\nGenerally iterators will continue to call `nextObject` until the index\nreaches the current length-1. If you run out of data before this\ntime for some reason, you should simply return undefined.\n\nThe default implementation of this method simply looks up the index.\nThis works great on any Array-like objects.",
+          "itemtype": "method",
+          "name": "nextObject",
+          "params": [
+            {
+              "name": "index",
+              "description": "the current index of the iteration",
+              "type": "Number"
+            },
+            {
+              "name": "previousObject",
+              "description": "the value returned by the last call to\n  `nextObject`.",
+              "type": "Object"
+            },
+            {
+              "name": "context",
+              "description": "a context object you can use to maintain state.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the next object in the iteration or undefined",
+            "type": "Object"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 213,
+          "description": "Returns `true` if the passed object can be found in the receiver. The\ndefault version will iterate through the enumerable until the object\nis found. You may want to override this with a more efficient version.\n\n```javascript\nvar arr = ['a', 'b', 'c'];\n\narr.contains('a'); // true\narr.contains('z'); // false\n```",
+          "itemtype": "method",
+          "name": "contains",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to search for.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "`true` if object is found in enumerable.",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 238,
+          "description": "Iterates through the enumerable, calling the passed function on each\nitem. This method corresponds to the `forEach()` method defined in\nJavaScript 1.6.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.",
+          "itemtype": "method",
+          "name": "forEach",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 289,
+          "description": "Alias for `mapBy`",
+          "itemtype": "method",
+          "name": "getEach",
+          "params": [
+            {
+              "name": "key",
+              "description": "name of the property",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The mapped array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 299,
+          "description": "Sets the value on the named property for each member. This is more\nefficient than using other methods defined on this helper. If the object\nimplements Ember.Observable, the value will be changed to `set(),` otherwise\nit will be set directly. `null` objects are skipped.",
+          "itemtype": "method",
+          "name": "setEach",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The object to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 317,
+          "description": "Maps all of the items in the enumeration to another value, returning\na new array. This method corresponds to `map()` defined in JavaScript 1.6.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nIt should return the mapped value.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.",
+          "itemtype": "method",
+          "name": "map",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "The mapped array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 354,
+          "description": "Similar to map, this specialized function returns the value of the named\nproperty on all items in the enumeration.",
+          "itemtype": "method",
+          "name": "mapBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "name of the property",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The mapped array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 369,
+          "description": "Returns an array with all of the items in the enumeration that the passed\nfunction returns true for. This method corresponds to `filter()` defined in\nJavaScript 1.6.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nIt should return `true` to include the item in the results, `false`\notherwise.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.",
+          "itemtype": "method",
+          "name": "filter",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "A filtered array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 410,
+          "description": "Returns an array with all of the items in the enumeration where the passed\nfunction returns false. This method is the inverse of filter().\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- *item* is the current item in the iteration.\n- *index* is the current index in the iteration\n- *enumerable* is the enumerable object itself.\n\nIt should return a falsey value to include the item in the results.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as \"this\" on the context. This is a good way\nto give your iterator function access to the current object.",
+          "itemtype": "method",
+          "name": "reject",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "A rejected array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 443,
+          "description": "Returns an array with just the items with the matched property. You\ncan pass an optional second argument with the target value. Otherwise\nthis will match any property that evaluates to `true`.",
+          "itemtype": "method",
+          "name": "filterBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against.",
+              "type": "*",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "filtered array",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 458,
+          "description": "Returns an array with the items that do not have truthy values for\nkey.  You can pass an optional second argument with the target value.  Otherwise\nthis will match any property that evaluates to false.",
+          "itemtype": "method",
+          "name": "rejectBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against.",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "rejected array",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 483,
+          "description": "Returns the first item in the array for which the callback returns true.\nThis method works similar to the `filter()` method defined in JavaScript 1.6\nexcept that it will stop working on the array once a match is found.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nIt should return the `true` to include the item in the results, `false`\notherwise.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.",
+          "itemtype": "method",
+          "name": "find",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "Found item or `undefined`.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 540,
+          "description": "Returns the first item with a property matching the passed value. You\ncan pass an optional second argument with the target value. Otherwise\nthis will match any property that evaluates to `true`.\n\nThis method works much like the more generic `find()` method.",
+          "itemtype": "method",
+          "name": "findBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against.",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "found item or `undefined`",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 557,
+          "description": "Returns `true` if the passed function returns true for every item in the\nenumeration. This corresponds with the `every()` method in JavaScript 1.6.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nIt should return the `true` or `false`.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.\n\nExample Usage:\n\n```javascript\nif (people.every(isEngineer)) {\n  Paychecks.addBigBonus();\n}\n```",
+          "itemtype": "method",
+          "name": "every",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 596,
+          "description": "Returns `true` if the passed property resolves to the value of the second\nargument for all items in the enumerable. This method is often simpler/faster\nthan using a callback.",
+          "itemtype": "method",
+          "name": "isEvery",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against. Defaults to `true`",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 612,
+          "description": "Returns `true` if the passed function returns true for any item in the\nenumeration. This corresponds with the `some()` method in JavaScript 1.6.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nIt should return the `true` to include the item in the results, `false`\notherwise.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.\n\nUsage Example:\n\n```javascript\nif (people.any(isManager)) {\n  Paychecks.addBiggerBonus();\n}\n```",
+          "itemtype": "method",
+          "name": "any",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "`true` if the passed function returns `true` for any item",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 670,
+          "description": "Returns `true` if the passed property resolves to the value of the second\nargument for any item in the enumerable. This method is often simpler/faster\nthan using a callback.",
+          "itemtype": "method",
+          "name": "isAny",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against. Defaults to `true`",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 686,
+          "description": "This will combine the values of the enumerator into a single value. It\nis a useful way to collect a summary value from an enumeration. This\ncorresponds to the `reduce()` method defined in JavaScript 1.8.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(previousValue, item, index, enumerable);\n```\n\n- `previousValue` is the value returned by the last call to the iterator.\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nReturn the new cumulative value.\n\nIn addition to the callback you can also pass an `initialValue`. An error\nwill be raised if you do not pass an initial value and the enumerator is\nempty.\n\nNote that unlike the other methods, this method does not allow you to\npass a target object to set as this for the callback. It's part of the\nspec. Sorry.",
+          "itemtype": "method",
+          "name": "reduce",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "initialValue",
+              "description": "Initial value for the reduce",
+              "type": "Object"
+            },
+            {
+              "name": "reducerProperty",
+              "description": "internal use only.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The reduced value.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 734,
+          "description": "Invokes the named method on every object in the receiver that\nimplements it. This method corresponds to the implementation in\nPrototype 1.6.",
+          "itemtype": "method",
+          "name": "invoke",
+          "params": [
+            {
+              "name": "methodName",
+              "description": "the name of the method",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "optional arguments to pass as well.",
+              "type": "Object..."
+            }
+          ],
+          "return": {
+            "description": "return values from calling invoke.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 759,
+          "description": "Simply converts the enumerable into a genuine array. The order is not\nguaranteed. Corresponds to the method implemented by Prototype.",
+          "itemtype": "method",
+          "name": "toArray",
+          "return": {
+            "description": "the enumerable as an array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 777,
+          "description": "Returns a copy of the array with all `null` and `undefined` elements removed.\n\n```javascript\nvar arr = ['a', null, 'c', undefined];\narr.compact();  // ['a', 'c']\n```",
+          "itemtype": "method",
+          "name": "compact",
+          "return": {
+            "description": "the array without null and undefined elements.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 795,
+          "description": "Returns a new enumerable that excludes the passed value. The default\nimplementation returns an array regardless of the receiver type unless\nthe receiver does not contain the value.\n\n```javascript\nvar arr = ['a', 'b', 'a', 'c'];\narr.without('a');  // ['b', 'c']\n```",
+          "itemtype": "method",
+          "name": "without",
+          "params": [
+            {
+              "name": "value",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Enumerable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 826,
+          "description": "Returns a new enumerable that contains only unique values. The default\nimplementation returns an array regardless of the receiver type.\n\n```javascript\nvar arr = ['a', 'a', 'b', 'b'];\narr.uniq();  // ['a', 'b']\n```\n\nThis only works on primitive data types, e.g. Strings, Numbers, etc.",
+          "itemtype": "method",
+          "name": "uniq",
+          "return": {
+            "description": "",
+            "type": "Ember.Enumerable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 874,
+          "description": "Registers an enumerable observer. Must implement `Ember.EnumerableObserver`\nmixin.",
+          "itemtype": "method",
+          "name": "addEnumerableObserver",
+          "params": [
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "opts",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 903,
+          "description": "Removes a registered enumerable observer.",
+          "itemtype": "method",
+          "name": "removeEnumerableObserver",
+          "params": [
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "opts",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 944,
+          "description": "Invoke this method just before the contents of your enumerable will\nchange. You can either omit the parameters completely or pass the objects\nto be removed or added if available or just a count.",
+          "itemtype": "method",
+          "name": "enumerableContentWillChange",
+          "params": [
+            {
+              "name": "removing",
+              "description": "An enumerable of the objects to\n  be removed or the number of items to be removed.",
+              "type": "Ember.Enumerable|Number"
+            },
+            {
+              "name": "adding",
+              "description": "An enumerable of the objects to be\n  added or the number of items to be added.",
+              "type": "Ember.Enumerable|Number"
+            }
+          ],
+          "chainable": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 997,
+          "description": "Invoke this method when the contents of your enumerable has changed.\nThis will notify any observers watching for content changes. If you are\nimplementing an ordered enumerable (such as an array), also pass the\nstart and end values where the content changed so that it can be used to\nnotify range observers.",
+          "itemtype": "method",
+          "name": "enumerableContentDidChange",
+          "params": [
+            {
+              "name": "removing",
+              "description": "An enumerable of the objects to\n  be removed or the number of items to be removed.",
+              "type": "Ember.Enumerable|Number"
+            },
+            {
+              "name": "adding",
+              "description": "An enumerable of the objects to\n  be added or the number of items to be added.",
+              "type": "Ember.Enumerable|Number"
+            }
+          ],
+          "chainable": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 1052,
+          "description": "Converts the enumerable into an array and sorts by the keys\nspecified in the argument.\n\nYou may provide multiple arguments to sort by multiple properties.",
+          "itemtype": "method",
+          "name": "sortBy",
+          "params": [
+            {
+              "name": "property",
+              "description": "name(s) to sort on",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The sorted array.",
+            "type": "Array"
+          },
+          "since": "1.2.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 98,
+          "description": "__Required.__ You must implement this method to apply this mixin.\n\nImplement this method to make your class enumerable.\n\nThis method will be called repeatedly during enumeration. The index value\nwill always begin with 0 and increment monotonically. You don't have to\nrely on the index value to determine what object to return, but you should\nalways check the value and start from the beginning when you see the\nrequested index is 0.\n\nThe `previousObject` is the object that was returned from the last call\nto `nextObject` for the current iteration. This is a useful way to\nmanage iteration if you are tracing a linked list, for example.\n\nFinally the context parameter will always contain a hash you can use as\na \"scratchpad\" to maintain any other state you need in order to iterate\nproperly. The context object is reused and is not reset between\niterations so make sure you setup the context with a fresh state whenever\nthe index parameter is 0.\n\nGenerally iterators will continue to call `nextObject` until the index\nreaches the current length-1. If you run out of data before this\ntime for some reason, you should simply return undefined.\n\nThe default implementation of this method simply looks up the index.\nThis works great on any Array-like objects.",
+          "itemtype": "method",
+          "name": "nextObject",
+          "params": [
+            {
+              "name": "index",
+              "description": "the current index of the iteration",
+              "type": "Number"
+            },
+            {
+              "name": "previousObject",
+              "description": "the value returned by the last call to\n  `nextObject`.",
+              "type": "Object"
+            },
+            {
+              "name": "context",
+              "description": "a context object you can use to maintain state.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the next object in the iteration or undefined",
+            "type": "Object"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 213,
+          "description": "Returns `true` if the passed object can be found in the receiver. The\ndefault version will iterate through the enumerable until the object\nis found. You may want to override this with a more efficient version.\n\n```javascript\nvar arr = ['a', 'b', 'c'];\n\narr.contains('a'); // true\narr.contains('z'); // false\n```",
+          "itemtype": "method",
+          "name": "contains",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to search for.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "`true` if object is found in enumerable.",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 238,
+          "description": "Iterates through the enumerable, calling the passed function on each\nitem. This method corresponds to the `forEach()` method defined in\nJavaScript 1.6.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.",
+          "itemtype": "method",
+          "name": "forEach",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 289,
+          "description": "Alias for `mapBy`",
+          "itemtype": "method",
+          "name": "getEach",
+          "params": [
+            {
+              "name": "key",
+              "description": "name of the property",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The mapped array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 299,
+          "description": "Sets the value on the named property for each member. This is more\nefficient than using other methods defined on this helper. If the object\nimplements Ember.Observable, the value will be changed to `set(),` otherwise\nit will be set directly. `null` objects are skipped.",
+          "itemtype": "method",
+          "name": "setEach",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The object to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 317,
+          "description": "Maps all of the items in the enumeration to another value, returning\na new array. This method corresponds to `map()` defined in JavaScript 1.6.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nIt should return the mapped value.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.",
+          "itemtype": "method",
+          "name": "map",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "The mapped array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 354,
+          "description": "Similar to map, this specialized function returns the value of the named\nproperty on all items in the enumeration.",
+          "itemtype": "method",
+          "name": "mapBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "name of the property",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The mapped array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 369,
+          "description": "Returns an array with all of the items in the enumeration that the passed\nfunction returns true for. This method corresponds to `filter()` defined in\nJavaScript 1.6.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nIt should return `true` to include the item in the results, `false`\notherwise.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.",
+          "itemtype": "method",
+          "name": "filter",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "A filtered array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 410,
+          "description": "Returns an array with all of the items in the enumeration where the passed\nfunction returns false. This method is the inverse of filter().\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- *item* is the current item in the iteration.\n- *index* is the current index in the iteration\n- *enumerable* is the enumerable object itself.\n\nIt should return a falsey value to include the item in the results.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as \"this\" on the context. This is a good way\nto give your iterator function access to the current object.",
+          "itemtype": "method",
+          "name": "reject",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "A rejected array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 443,
+          "description": "Returns an array with just the items with the matched property. You\ncan pass an optional second argument with the target value. Otherwise\nthis will match any property that evaluates to `true`.",
+          "itemtype": "method",
+          "name": "filterBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against.",
+              "type": "*",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "filtered array",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 458,
+          "description": "Returns an array with the items that do not have truthy values for\nkey.  You can pass an optional second argument with the target value.  Otherwise\nthis will match any property that evaluates to false.",
+          "itemtype": "method",
+          "name": "rejectBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against.",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "rejected array",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 483,
+          "description": "Returns the first item in the array for which the callback returns true.\nThis method works similar to the `filter()` method defined in JavaScript 1.6\nexcept that it will stop working on the array once a match is found.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nIt should return the `true` to include the item in the results, `false`\notherwise.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.",
+          "itemtype": "method",
+          "name": "find",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "Found item or `undefined`.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 540,
+          "description": "Returns the first item with a property matching the passed value. You\ncan pass an optional second argument with the target value. Otherwise\nthis will match any property that evaluates to `true`.\n\nThis method works much like the more generic `find()` method.",
+          "itemtype": "method",
+          "name": "findBy",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against.",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "found item or `undefined`",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 557,
+          "description": "Returns `true` if the passed function returns true for every item in the\nenumeration. This corresponds with the `every()` method in JavaScript 1.6.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nIt should return the `true` or `false`.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.\n\nExample Usage:\n\n```javascript\nif (people.every(isEngineer)) {\n  Paychecks.addBigBonus();\n}\n```",
+          "itemtype": "method",
+          "name": "every",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 596,
+          "description": "Returns `true` if the passed property resolves to the value of the second\nargument for all items in the enumerable. This method is often simpler/faster\nthan using a callback.",
+          "itemtype": "method",
+          "name": "isEvery",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against. Defaults to `true`",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 612,
+          "description": "Returns `true` if the passed function returns true for any item in the\nenumeration. This corresponds with the `some()` method in JavaScript 1.6.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(item, index, enumerable);\n```\n\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nIt should return the `true` to include the item in the results, `false`\notherwise.\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context. This is a good way\nto give your iterator function access to the current object.\n\nUsage Example:\n\n```javascript\nif (people.any(isManager)) {\n  Paychecks.addBiggerBonus();\n}\n```",
+          "itemtype": "method",
+          "name": "any",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target",
+              "description": "The target object to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "`true` if the passed function returns `true` for any item",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 670,
+          "description": "Returns `true` if the passed property resolves to the value of the second\nargument for any item in the enumerable. This method is often simpler/faster\nthan using a callback.",
+          "itemtype": "method",
+          "name": "isAny",
+          "params": [
+            {
+              "name": "key",
+              "description": "the property to test",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "optional value to test against. Defaults to `true`",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 686,
+          "description": "This will combine the values of the enumerator into a single value. It\nis a useful way to collect a summary value from an enumeration. This\ncorresponds to the `reduce()` method defined in JavaScript 1.8.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(previousValue, item, index, enumerable);\n```\n\n- `previousValue` is the value returned by the last call to the iterator.\n- `item` is the current item in the iteration.\n- `index` is the current index in the iteration.\n- `enumerable` is the enumerable object itself.\n\nReturn the new cumulative value.\n\nIn addition to the callback you can also pass an `initialValue`. An error\nwill be raised if you do not pass an initial value and the enumerator is\nempty.\n\nNote that unlike the other methods, this method does not allow you to\npass a target object to set as this for the callback. It's part of the\nspec. Sorry.",
+          "itemtype": "method",
+          "name": "reduce",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "initialValue",
+              "description": "Initial value for the reduce",
+              "type": "Object"
+            },
+            {
+              "name": "reducerProperty",
+              "description": "internal use only.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The reduced value.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 734,
+          "description": "Invokes the named method on every object in the receiver that\nimplements it. This method corresponds to the implementation in\nPrototype 1.6.",
+          "itemtype": "method",
+          "name": "invoke",
+          "params": [
+            {
+              "name": "methodName",
+              "description": "the name of the method",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "optional arguments to pass as well.",
+              "type": "Object..."
+            }
+          ],
+          "return": {
+            "description": "return values from calling invoke.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 759,
+          "description": "Simply converts the enumerable into a genuine array. The order is not\nguaranteed. Corresponds to the method implemented by Prototype.",
+          "itemtype": "method",
+          "name": "toArray",
+          "return": {
+            "description": "the enumerable as an array.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 777,
+          "description": "Returns a copy of the array with all `null` and `undefined` elements removed.\n\n```javascript\nvar arr = ['a', null, 'c', undefined];\narr.compact();  // ['a', 'c']\n```",
+          "itemtype": "method",
+          "name": "compact",
+          "return": {
+            "description": "the array without null and undefined elements.",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 795,
+          "description": "Returns a new enumerable that excludes the passed value. The default\nimplementation returns an array regardless of the receiver type unless\nthe receiver does not contain the value.\n\n```javascript\nvar arr = ['a', 'b', 'a', 'c'];\narr.without('a');  // ['b', 'c']\n```",
+          "itemtype": "method",
+          "name": "without",
+          "params": [
+            {
+              "name": "value",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Enumerable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 826,
+          "description": "Returns a new enumerable that contains only unique values. The default\nimplementation returns an array regardless of the receiver type.\n\n```javascript\nvar arr = ['a', 'a', 'b', 'b'];\narr.uniq();  // ['a', 'b']\n```\n\nThis only works on primitive data types, e.g. Strings, Numbers, etc.",
+          "itemtype": "method",
+          "name": "uniq",
+          "return": {
+            "description": "",
+            "type": "Ember.Enumerable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 874,
+          "description": "Registers an enumerable observer. Must implement `Ember.EnumerableObserver`\nmixin.",
+          "itemtype": "method",
+          "name": "addEnumerableObserver",
+          "params": [
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "opts",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 903,
+          "description": "Removes a registered enumerable observer.",
+          "itemtype": "method",
+          "name": "removeEnumerableObserver",
+          "params": [
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "opts",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 944,
+          "description": "Invoke this method just before the contents of your enumerable will\nchange. You can either omit the parameters completely or pass the objects\nto be removed or added if available or just a count.",
+          "itemtype": "method",
+          "name": "enumerableContentWillChange",
+          "params": [
+            {
+              "name": "removing",
+              "description": "An enumerable of the objects to\n  be removed or the number of items to be removed.",
+              "type": "Ember.Enumerable|Number"
+            },
+            {
+              "name": "adding",
+              "description": "An enumerable of the objects to be\n  added or the number of items to be added.",
+              "type": "Ember.Enumerable|Number"
+            }
+          ],
+          "chainable": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 997,
+          "description": "Invoke this method when the contents of your enumerable has changed.\nThis will notify any observers watching for content changes. If you are\nimplementing an ordered enumerable (such as an array), also pass the\nstart and end values where the content changed so that it can be used to\nnotify range observers.",
+          "itemtype": "method",
+          "name": "enumerableContentDidChange",
+          "params": [
+            {
+              "name": "removing",
+              "description": "An enumerable of the objects to\n  be removed or the number of items to be removed.",
+              "type": "Ember.Enumerable|Number"
+            },
+            {
+              "name": "adding",
+              "description": "An enumerable of the objects to\n  be added or the number of items to be added.",
+              "type": "Ember.Enumerable|Number"
+            }
+          ],
+          "chainable": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 1052,
+          "description": "Converts the enumerable into an array and sorts by the keys\nspecified in the argument.\n\nYou may provide multiple arguments to sort by multiple properties.",
+          "itemtype": "method",
+          "name": "sortBy",
+          "params": [
+            {
+              "name": "property",
+              "description": "name(s) to sort on",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The sorted array.",
+            "type": "Array"
+          },
+          "since": "1.2.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 108,
+          "description": "__Required.__ You must implement this method to apply this mixin.\n\nYour array must support the `length` property. Your replace methods should\nset this property whenever it changes.",
+          "itemtype": "property",
+          "name": "length",
+          "type": "Number",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 175,
+          "description": "This is the handler for the special array content property. If you get\nthis property, it will return this. If you set this property to a new\narray, it will replace the current content.\n\nThis property overrides the default property defined in `Ember.Enumerable`.",
+          "itemtype": "property",
+          "name": "[]",
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 394,
+          "description": "Becomes true whenever the array currently has observers watching changes\non the array.",
+          "itemtype": "property",
+          "name": "hasArrayObservers",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/array.js",
+          "line": 528,
+          "description": "Returns a special object that can be used to observe individual properties\non the array. Just get an equivalent property on this object and it will\nreturn an enumerable that maps automatically to the named key on the\nmember objects.\n\n`@each` should only be used in a non-terminal context. Example:\n\n```javascript\nmyMethod: computed('posts.@each.author', function(){\n  ...\n});\n```\n\nIf you merely want to watch for the array being changed, like an object being\nreplaced, added or removed, use `[]` instead of `@each`.\n\n```javascript\nmyMethod: computed('posts.[]', function(){\n  ...\n});\n```",
+          "itemtype": "property",
+          "name": "@each",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Array"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 136,
+          "description": "Helper method returns the first object from a collection. This is usually\nused by bindings and other parts of the framework to extract a single\nobject if the enumerable contains only one item.\n\nIf you override this method, you should implement it so that it will\nalways return the same value each time it is called. If your enumerable\ncontains only one object, this method should always return that object.\nIf your enumerable is empty, this method should return `undefined`.\n\n```javascript\nvar arr = ['a', 'b', 'c'];\narr.get('firstObject');  // 'a'\n\nvar arr = [];\narr.get('firstObject');  // undefined\n```",
+          "itemtype": "property",
+          "name": "firstObject",
+          "return": {
+            "description": "the object or undefined",
+            "type": "Object"
+          },
+          "readonly": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 173,
+          "description": "Helper method returns the last object from a collection. If your enumerable\ncontains only one object, this method should always return that object.\nIf your enumerable is empty, this method should return `undefined`.\n\n```javascript\nvar arr = ['a', 'b', 'c'];\narr.get('lastObject');  // 'c'\n\nvar arr = [];\narr.get('lastObject');  // undefined\n```",
+          "itemtype": "property",
+          "name": "lastObject",
+          "return": {
+            "description": "the last object or undefined",
+            "type": "Object"
+          },
+          "readonly": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 853,
+          "description": "This property will trigger anytime the enumerable's content changes.\nYou can observe this property to be notified of changes to the enumerable's\ncontent.\n\nFor plain enumerables, this property is read only. `Array` overrides\nthis method.",
+          "itemtype": "property",
+          "name": "[]",
+          "type": "Array",
+          "return": {
+            "description": "this"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 931,
+          "description": "Becomes true whenever the array currently has observers watching changes\non the array.",
+          "itemtype": "property",
+          "name": "hasEnumerableObservers",
+          "type": "Boolean",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 136,
+          "description": "Helper method returns the first object from a collection. This is usually\nused by bindings and other parts of the framework to extract a single\nobject if the enumerable contains only one item.\n\nIf you override this method, you should implement it so that it will\nalways return the same value each time it is called. If your enumerable\ncontains only one object, this method should always return that object.\nIf your enumerable is empty, this method should return `undefined`.\n\n```javascript\nvar arr = ['a', 'b', 'c'];\narr.get('firstObject');  // 'a'\n\nvar arr = [];\narr.get('firstObject');  // undefined\n```",
+          "itemtype": "property",
+          "name": "firstObject",
+          "return": {
+            "description": "the object or undefined",
+            "type": "Object"
+          },
+          "readonly": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 173,
+          "description": "Helper method returns the last object from a collection. If your enumerable\ncontains only one object, this method should always return that object.\nIf your enumerable is empty, this method should return `undefined`.\n\n```javascript\nvar arr = ['a', 'b', 'c'];\narr.get('lastObject');  // 'c'\n\nvar arr = [];\narr.get('lastObject');  // undefined\n```",
+          "itemtype": "property",
+          "name": "lastObject",
+          "return": {
+            "description": "the last object or undefined",
+            "type": "Object"
+          },
+          "readonly": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 853,
+          "description": "This property will trigger anytime the enumerable's content changes.\nYou can observe this property to be notified of changes to the enumerable's\ncontent.\n\nFor plain enumerables, this property is read only. `Array` overrides\nthis method.",
+          "itemtype": "property",
+          "name": "[]",
+          "type": "Array",
+          "return": {
+            "description": "this"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/enumerable.js",
+          "line": 931,
+          "description": "Becomes true whenever the array currently has observers watching changes\non the array.",
+          "itemtype": "property",
+          "name": "hasEnumerableObservers",
+          "type": "Boolean",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.NativeArray",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Enumerable"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.5.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.5.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

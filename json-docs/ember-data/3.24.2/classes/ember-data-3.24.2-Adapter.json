@@ -1,0 +1,524 @@
+{
+  "data": {
+    "id": "ember-data-3.24.2-Adapter",
+    "type": "class",
+    "attributes": {
+      "name": "Adapter",
+      "shortname": "Adapter",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/adapter",
+      "namespace": "",
+      "file": "../adapter/addon/index.js",
+      "line": 3,
+      "methods": [
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 82,
+          "description": "The `findRecord()` method is invoked when the store is asked for a record that\nhas not previously been loaded. In response to `findRecord()` being called, you\nshould query your persistence layer for a record with the given ID. The `findRecord`\nmethod should return a promise that will resolve to a JavaScript object that will be\nnormalized by the serializer.\n\nHere is an example of the `findRecord` implementation:\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  findRecord(store, type, id, snapshot) {\n    return new RSVP.Promise(function(resolve, reject) {\n      $.getJSON(`/${type.modelName}/${id}`).then(function(data) {\n        resolve(data);\n      }, function(jqXHR) {\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "findRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 117,
+          "description": "The `findAll()` method is used to retrieve all records for a given type.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  findAll(store, type) {\n    return new RSVP.Promise(function(resolve, reject) {\n      $.getJSON(`/${type.modelName}`).then(function(data) {\n        resolve(data);\n      }, function(jqXHR) {\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "findAll",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "neverSet",
+              "description": "a value is never provided to this argument",
+              "type": "Undefined"
+            },
+            {
+              "name": "snapshotRecordArray",
+              "description": "",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 148,
+          "description": "This method is called when you call `query` on the store.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  query(store, type, query) {\n    return new RSVP.Promise(function(resolve, reject) {\n      $.getJSON(`/${type.modelName}`, query).then(function(data) {\n        resolve(data);\n      }, function(jqXHR) {\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "query",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "recordArray",
+              "description": "",
+              "type": "AdapterPopulatedRecordArray"
+            },
+            {
+              "name": "adapterOptions",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 180,
+          "description": "The `queryRecord()` method is invoked when the store is asked for a single\nrecord through a query object.\n\nIn response to `queryRecord()` being called, you should always fetch fresh\ndata. Once found, you can asynchronously call the store's `push()` method\nto push the record into the store.\n\nHere is an example `queryRecord` implementation:\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter, { BuildURLMixin } from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter.extend(BuildURLMixin) {\n  queryRecord(store, type, query) {\n    return new RSVP.Promise(function(resolve, reject) {\n      $.getJSON(`/${type.modelName}`, query).then(function(data) {\n        resolve(data);\n      }, function(jqXHR) {\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "queryRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Subclass of Model"
+            },
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "adapterOptions",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 218,
+          "description": "If the globally unique IDs for your records should be generated on the client,\nimplement the `generateIdForRecord()` method. This method will be invoked\neach time you create a new record, and the value returned from it will be\nassigned to the record's `primaryKey`.\n\nMost traditional REST-like HTTP APIs will not use this method. Instead, the ID\nof the record will be set by the server, and your adapter will update the store\nwith the new ID when it calls `didCreateRecord()`. Only implement this method if\nyou intend to generate record IDs on the client-side.\n\nThe `generateIdForRecord()` method will be invoked with the requesting store as\nthe first parameter and the newly created record as the second parameter:\n\n```javascript\nimport Adapter from '@ember-data/adapter';\nimport { v4 } from 'uuid';\n\nexport default class ApplicationAdapter extends Adapter {\n  generateIdForRecord(store, type, inputProperties) {\n    return v4();\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "generateIdForRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "the Model class of the record",
+              "type": "Model"
+            },
+            {
+              "name": "inputProperties",
+              "description": "a hash of properties to set on the\n  newly created record.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "id",
+            "type": "(String|Number)"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 251,
+          "description": "Proxies to the serializer's `serialize` method.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\n\nexport default class ApplicationAdapter extends Adapter {\n  createRecord(store, type, snapshot) {\n    let data = this.serialize(snapshot, { includeId: true });\n    let url = `/${type.modelName}`;\n\n    // ...\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "serialized snapshot",
+            "type": "Object"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 278,
+          "description": "Implement this method in a subclass to handle the creation of\nnew records.\n\nSerializes the record and sends it to the server.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport { run } from '@ember/runloop';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  createRecord(store, type, snapshot) {\n    let data = this.serialize(snapshot, { includeId: true });\n\n    return new RSVP.Promise(function (resolve, reject) {\n      $.ajax({\n        type: 'POST',\n        url: `/${type.modelName}`,\n        dataType: 'json',\n        data: data\n      }).then(function (data) {\n        run(null, resolve, data);\n      }, function (jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        run(null, reject, jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "createRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "the Model class of the record",
+              "type": "Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 320,
+          "description": "Implement this method in a subclass to handle the updating of\na record.\n\nSerializes the record update and sends it to the server.\n\nThe updateRecord method is expected to return a promise that will\nresolve with the serialized record. This allows the backend to\ninform the Ember Data store the current state of this record after\nthe update. If it is not possible to return a serialized record\nthe updateRecord promise can also resolve with `undefined` and the\nEmber Data store will assume all of the updates were successfully\napplied on the backend.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport { run } from '@ember/runloop';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  updateRecord(store, type, snapshot) {\n    let data = this.serialize(snapshot, { includeId: true });\n    let id = snapshot.id;\n\n    return new RSVP.Promise(function(resolve, reject) {\n      $.ajax({\n        type: 'PUT',\n        url: `/${type.modelName}/${id}`,\n        dataType: 'json',\n        data: data\n      }).then(function(data) {\n        run(null, resolve, data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        run(null, reject, jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "updateRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "the Model class of the record",
+              "type": "Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 371,
+          "description": "Implement this method in a subclass to handle the deletion of\na record.\n\nSends a delete request for the record to the server.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport { run } from '@ember/runloop';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  deleteRecord(store, type, snapshot) {\n    let data = this.serialize(snapshot, { includeId: true });\n    let id = snapshot.id;\n\n    return new RSVP.Promise(function(resolve, reject) {\n      $.ajax({\n        type: 'DELETE',\n        url: `/${type.modelName}/${id}`,\n        dataType: 'json',\n        data: data\n      }).then(function(data) {\n        run(null, resolve, data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        run(null, reject, jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "deleteRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "the Model class of the record",
+              "type": "Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 425,
+          "description": "The store will call `findMany` instead of multiple `findRecord`\nrequests to find multiple records at once if coalesceFindRequests\nis true.\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport { run } from '@ember/runloop';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  findMany(store, type, ids, snapshots) {\n    return new RSVP.Promise(function(resolve, reject) {\n      $.ajax({\n        type: 'GET',\n        url: `/${type.modelName}/`,\n        dataType: 'json',\n        data: { filter: { id: ids.join(',') } }\n      }).then(function(data) {\n        run(null, resolve, data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        run(null, reject, jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "findMany",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "the Model class of the records",
+              "type": "Model"
+            },
+            {
+              "name": "ids",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 463,
+          "description": "Organize records into groups, each of which is to be passed to separate\ncalls to `findMany`.\n\nFor example, if your API has nested URLs that depend on the parent, you will\nwant to group records by their parent.\n\nThe default implementation returns the records as a single group.",
+          "itemtype": "method",
+          "name": "groupRecordsForFindMany",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "an array of arrays of records, each of which is to be\n                  loaded separately by `findMany`.",
+            "type": "Array"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 482,
+          "description": "This method is used by the store to determine if the store should\nreload a record from the adapter when a record is requested by\n`store.findRecord`.\n\nIf this method returns `true`, the store will re-fetch a record from\nthe adapter. If this method returns `false`, the store will resolve\nimmediately using the cached record.\n\nFor example, if you are building an events ticketing system, in which users\ncan only reserve tickets for 20 minutes at a time, and want to ensure that\nin each route you have data that is no more than 20 minutes old you could\nwrite:\n\n```javascript\nshouldReloadRecord(store, ticketSnapshot) {\n  let lastAccessedAt = ticketSnapshot.attr('lastAccessedAt');\n  let timeDiff = moment().diff(lastAccessedAt, 'minutes');\n\n  if (timeDiff > 20) {\n    return true;\n  } else {\n    return false;\n  }\n}\n```\n\nThis method would ensure that whenever you do `store.findRecord('ticket',\nid)` you will always get a ticket that is no more than 20 minutes old. In\ncase the cached version is more than 20 minutes old, `findRecord` will not\nresolve until you fetched the latest version.\n\nBy default this hook returns `false`, as most UIs should not block user\ninteractions while waiting on data update.\n\nNote that, with default settings, `shouldBackgroundReloadRecord` will always\nre-fetch the records in the background even if `shouldReloadRecord` returns\n`false`. You can override `shouldBackgroundReloadRecord` if this does not\nsuit your use case.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "shouldReloadRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 532,
+          "description": "This method is used by the store to determine if the store should\nreload all records from the adapter when records are requested by\n`store.findAll`.\n\nIf this method returns `true`, the store will re-fetch all records from\nthe adapter. If this method returns `false`, the store will resolve\nimmediately using the cached records.\n\nFor example, if you are building an events ticketing system, in which users\ncan only reserve tickets for 20 minutes at a time, and want to ensure that\nin each route you have data that is no more than 20 minutes old you could\nwrite:\n\n```javascript\nshouldReloadAll(store, snapshotArray) {\n  let snapshots = snapshotArray.snapshots();\n\n  return snapshots.any((ticketSnapshot) => {\n    let lastAccessedAt = ticketSnapshot.attr('lastAccessedAt');\n    let timeDiff = moment().diff(lastAccessedAt, 'minutes');\n\n    if (timeDiff > 20) {\n      return true;\n    } else {\n      return false;\n    }\n  });\n}\n```\n\nThis method would ensure that whenever you do `store.findAll('ticket')` you\nwill always get a list of tickets that are no more than 20 minutes old. In\ncase a cached version is more than 20 minutes old, `findAll` will not\nresolve until you fetched the latest versions.\n\nBy default, this method returns `true` if the passed `snapshotRecordArray`\nis empty (meaning that there are no records locally available yet),\notherwise, it returns `false`.\n\nNote that, with default settings, `shouldBackgroundReloadAll` will always\nre-fetch all the records in the background even if `shouldReloadAll` returns\n`false`. You can override `shouldBackgroundReloadAll` if this does not suit\nyour use case.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "shouldReloadAll",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshotRecordArray",
+              "description": "",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 587,
+          "description": "This method is used by the store to determine if the store should\nreload a record after the `store.findRecord` method resolves a\ncached record.\n\nThis method is *only* checked by the store when the store is\nreturning a cached record.\n\nIf this method returns `true` the store will re-fetch a record from\nthe adapter.\n\nFor example, if you do not want to fetch complex data over a mobile\nconnection, or if the network is down, you can implement\n`shouldBackgroundReloadRecord` as follows:\n\n```javascript\nshouldBackgroundReloadRecord(store, snapshot) {\n  let { downlink, effectiveType } = navigator.connection;\n\n  return downlink > 0 && effectiveType === '4g';\n}\n```\n\nBy default, this hook returns `true` so the data for the record is updated\nin the background.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "shouldBackgroundReloadRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 623,
+          "description": "This method is used by the store to determine if the store should\nreload a record array after the `store.findAll` method resolves\nwith a cached record array.\n\nThis method is *only* checked by the store when the store is\nreturning a cached record array.\n\nIf this method returns `true` the store will re-fetch all records\nfrom the adapter.\n\nFor example, if you do not want to fetch complex data over a mobile\nconnection, or if the network is down, you can implement\n`shouldBackgroundReloadAll` as follows:\n\n```javascript\nshouldBackgroundReloadAll(store, snapshotArray) {\n  let { downlink, effectiveType } = navigator.connection;\n\n  return downlink > 0 && effectiveType === '4g';\n}\n```\n\nBy default this method returns `true`, indicating that a background reload\nshould always be triggered.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "shouldBackgroundReloadAll",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshotRecordArray",
+              "description": "",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 59,
+          "description": "If you would like your adapter to use a custom serializer you can\nset the `defaultSerializer` property to be the name of the custom\nserializer.\n\nNote the `defaultSerializer` serializer has a lower priority than\na model specific serializer (i.e. `PostSerializer`) or the\n`application` serializer.\n\n```js {data-filename=app/adapters/django.js}\nimport Adapter from '@ember-data/adapter';\n\nexport default Adapter.extend({\n  defaultSerializer: 'django'\n});\n```",
+          "deprecated": true,
+          "itemtype": "property",
+          "name": "defaultSerializer",
+          "type": "{String}",
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/index.js",
+          "line": 414,
+          "description": "By default the store will try to coalesce all `fetchRecord` calls within the same runloop\ninto as few requests as possible by calling groupRecordsForFindMany and passing it into a findMany call.\nYou can opt out of this behaviour by either not implementing the findMany hook or by setting\ncoalesceFindRequests to false.",
+          "itemtype": "property",
+          "name": "coalesceFindRequests",
+          "type": "{boolean}",
+          "class": "Adapter",
+          "module": "@ember-data/adapter"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-3.24.2-RESTAdapter"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.24.2-@ember-data/adapter",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.24.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

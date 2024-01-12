@@ -1,0 +1,45 @@
+{
+  "data": {
+    "id": "ember-data-2.3.3-ContainerInstanceCache",
+    "type": "class",
+    "attributes": {
+      "name": "ContainerInstanceCache",
+      "shortname": "ContainerInstanceCache",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "",
+      "file": "addon/-private/system/store/container-instance-cache.js",
+      "line": 4,
+      "description": "The `ContainerInstanceCache` serves as a lazy cache for looking up\ninstances of serializers and adapters. It has some additional logic for\nfinding the 'fallback' adapter or serializer.\n\nThe 'fallback' adapter or serializer is an adapter or serializer that is looked up\nwhen the preferred lookup fails. For example, say you try to look up `adapter:post`,\nbut there is no entry (app/adapters/post.js in EmberCLI) for `adapter:post` in the registry.\n\nThe `fallbacks` array passed will then be used; the first entry in the fallbacks array\nthat exists in the container will then be cached for `adapter:post`. So, the next time you\nlook up `adapter:post`, you'll get the `adapter:application` instance (or whatever the fallback\nwas if `adapter:application` doesn't exist).",
+      "access": "private",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.3.3-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.3.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

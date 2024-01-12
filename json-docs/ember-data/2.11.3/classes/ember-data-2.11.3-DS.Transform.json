@@ -1,0 +1,107 @@
+{
+  "data": {
+    "id": "ember-data-2.11.3-DS.Transform",
+    "type": "class",
+    "attributes": {
+      "name": "DS.Transform",
+      "shortname": "DS.Transform",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/transform.js",
+      "line": 3,
+      "description": "The `DS.Transform` class is used to serialize and deserialize model\nattributes when they are saved or loaded from an\nadapter. Subclassing `DS.Transform` is useful for creating custom\nattributes. All subclasses of `DS.Transform` must implement a\n`serialize` and a `deserialize` method.\n\nExample\n\n```js {data-filename=app/transforms/temperature.js}\nimport DS from 'ember-data';\n\n// Converts centigrade in the JSON to fahrenheit in the app\nexport default DS.Transform.extend({\n  deserialize: function(serialized, options) {\n    return (serialized *  1.8) + 32;\n  },\n  serialize: function(deserialized, options) {\n    return (deserialized - 32) / 1.8;\n  }\n});\n```\n\nThe options passed into the `DS.attr` function when the attribute is\ndeclared on the model is also available in the transform.\n\n```js {data-filename=app/models/post.js}\nexport default DS.Model.extend({\n  title: DS.attr('string'),\n  markdown: DS.attr('markdown', {\n    markdown: {\n      gfm: false,\n      sanitize: true\n    }\n  })\n});\n```\n\n```js {data-filename=app/transforms/markdown.js}\nexport default DS.Transform.extend({\n  serialize: function (deserialized, options) {\n    return deserialized.raw;\n  },\n\n  deserialize: function (serialized, options) {\n    var markdownOptions = options.markdown || {};\n\n    return marked(serialized, markdownOptions);\n  }\n});\n```\n\nUsage\n\n```js {data-filename=app/models/requirement.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  name: DS.attr('string'),\n  temperature: DS.attr('temperature')\n});\n```",
+      "methods": [
+        {
+          "file": "addon/transform.js",
+          "line": 70,
+          "description": "When given a deserialized value from a record attribute this\nmethod must return the serialized value.\n\nExample\n\n```javascript\nserialize: function(deserialized, options) {\n  return Ember.isEmpty(deserialized) ? null : Number(deserialized);\n}\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "deserialized",
+              "description": "The deserialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `DS.attr`"
+            }
+          ],
+          "return": {
+            "description": "The serialized value"
+          },
+          "class": "DS.Transform",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/transform.js",
+          "line": 89,
+          "description": "When given a serialize value from a JSON object this method must\nreturn the deserialized value for the record attribute.\n\nExample\n\n```javascript\ndeserialize: function(serialized, options) {\n  return empty(serialized) ? null : Number(serialized);\n}\n```",
+          "itemtype": "method",
+          "name": "deserialize",
+          "params": [
+            {
+              "name": "serialized",
+              "description": "The serialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `DS.attr`"
+            }
+          ],
+          "return": {
+            "description": "The deserialized value"
+          },
+          "class": "DS.Transform",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-2.11.3-DS.BooleanTransform"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-2.11.3-DS.DateTransform"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-2.11.3-DS.NumberTransform"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-2.11.3-DS.StringTransform"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.11.3-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.11.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "data": {
+    "id": "ember-data-3.27.1-@ember-data/store",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/store",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember-data/store": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "../store/addon/-private/system/snapshot.ts",
+      "line": 53,
+      "description": "The store service contains all of the data for records loaded from the server.\nIt is also responsible for creating instances of `Model` that wrap\nthe individual data for a record, so that they can be bound to in your\nHandlebars templates.\n\nBy default, applications will have a single `Store` service that is\nautomatically created.\n\nThe store can be customized by extending the service in the following manner:\n\n```js {data-filename=app/services/store.js}\nimport Store from '@ember-data/store';\n\nexport default class MyStore extends Store {}\n```\n\nYou can retrieve models from the store in several ways. To retrieve a record\nfor a specific id, use the `Store`'s `findRecord()` method:\n\n```javascript\nstore.findRecord('person', 123).then(function (person) {\n});\n```\n\nBy default, the store will talk to your backend using a standard\nREST mechanism. You can customize how the store talks to your\nbackend by specifying a custom adapter:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default Adapter.extend({\n});\n```\n\nYou can learn more about writing a custom adapter by reading the `Adapter`\ndocumentation.\n\n### Store createRecord() vs. push() vs. pushPayload()\n\nThe store provides multiple ways to create new record objects. They have\nsome subtle differences in their use which are detailed below:\n\n[createRecord](../classes/Store/methods/createRecord?anchor=createRecord) is used for creating new\nrecords on the client side. This will return a new record in the\n`created.uncommitted` state. In order to persist this record to the\nbackend, you will need to call `record.save()`.\n\n[push](../classes/Store/methods/push?anchor=push) is used to notify Ember Data's store of new or\nupdated records that exist in the backend. This will return a record\nin the `loaded.saved` state. The primary use-case for `store#push` is\nto notify Ember Data about record updates (full or partial) that happen\noutside of the normal adapter methods (for example\n[SSE](http://dev.w3.org/html5/eventsource/) or [Web\nSockets](http://www.w3.org/TR/2009/WD-websockets-20091222/)).\n\n[pushPayload](../classes/Store/methods/pushPayload?anchor=pushPayload) is a convenience wrapper for\n`store#push` that will deserialize payloads if the\nSerializer implements a `pushPayload` method.\n\nNote: When creating a new record using any of the above methods\nEmber Data will update `RecordArray`s such as those returned by\n`store#peekAll()` or `store#findAll()`. This means any\ndata bindings or computed properties that depend on the RecordArray\nwill automatically be synced to include the new or updated record\nvalues.",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "ManyArray",
+        "Errors",
+        "RootState",
+        "AdapterPopulatedRecordArray",
+        "RecordArray",
+        "BelongsToReference",
+        "HasManyReference",
+        "RecordReference",
+        "Reference",
+        "Store",
+        "PromiseArray",
+        "PromiseObject"
+      ],
+      "privateclasses": [
+        "IdentityMap",
+        "InternalModelMap",
+        "RecordArrayManager",
+        "SnapshotRecordArray",
+        "Snapshot"
+      ],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "3.27.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.27.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

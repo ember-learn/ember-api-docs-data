@@ -1,0 +1,128 @@
+{
+  "data": {
+    "id": "ember-1.8.1-Ember.Mixin",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Mixin",
+      "shortname": "Ember.Mixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-metal",
+      "namespace": "Ember",
+      "file": "../packages/ember-metal/lib/mixin.js",
+      "line": 431,
+      "description": "The `Ember.Mixin` class allows you to create mixins, whose properties can be\nadded to other classes. For instance,\n\n```javascript\nApp.Editable = Ember.Mixin.create({\n  edit: function() {\n    console.log('starting to edit');\n    this.set('isEditing', true);\n  },\n  isEditing: false\n});\n\n// Mix mixins into classes by passing them as the first arguments to\n// .extend.\nApp.CommentView = Ember.View.extend(App.Editable, {\n  template: Ember.Handlebars.compile('{{#if view.isEditing}}...{{else}}...{{/if}}')\n});\n\ncommentView = App.CommentView.create();\ncommentView.edit(); // outputs 'starting to edit'\n```\n\nNote that Mixins are created with `Ember.Mixin.create`, not\n`Ember.Mixin.extend`.\n\nNote that mixins extend a constructor's prototype so arrays and object literals\ndefined as properties will be shared amongst objects that implement the mixin.\nIf you want to define a property in a mixin that is not shared, you can define\nit either as a computed property or have it be created on initialization of the object.\n\n```javascript\n//filters array will be shared amongst any object implementing mixin\nApp.Filterable = Ember.Mixin.create({\n  filters: Ember.A()\n});\n\n//filters will be a separate  array for every object implementing the mixin\nApp.Filterable = Ember.Mixin.create({\n  filters: Ember.computed(function(){return Ember.A();})\n});\n\n//filters will be created as a separate array during the object's initialization\nApp.Filterable = Ember.Mixin.create({\n  init: function() {\n    this._super();\n    this.set(\"filters\", Ember.A());\n  }\n});\n```",
+      "methods": [
+        {
+          "file": "../packages/ember-metal/lib/mixin.js",
+          "line": 505,
+          "itemtype": "method",
+          "name": "create",
+          "static": 1,
+          "params": [
+            {
+              "name": "arguments",
+              "description": "",
+              "multiple": true
+            }
+          ],
+          "class": "Ember.Mixin",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-metal/lib/mixin.js",
+          "line": 519,
+          "itemtype": "method",
+          "name": "reopen",
+          "params": [
+            {
+              "name": "arguments",
+              "description": "",
+              "multiple": true
+            }
+          ],
+          "class": "Ember.Mixin",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-metal/lib/mixin.js",
+          "line": 556,
+          "itemtype": "method",
+          "name": "apply",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "applied object"
+          },
+          "class": "Ember.Mixin",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-metal/lib/mixin.js",
+          "line": 584,
+          "itemtype": "method",
+          "name": "detect",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Ember.Mixin",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-1.8.1-Ember.TextSupport"
+          },
+          {
+            "type": "class",
+            "id": "ember-1.8.1-Ember.TargetActionSupport"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.8.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.8.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

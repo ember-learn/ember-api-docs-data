@@ -1,0 +1,391 @@
+{
+  "data": {
+    "id": "ember-1.0.0-Container",
+    "type": "class",
+    "attributes": {
+      "name": "Container",
+      "shortname": "Container",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "file": "packages/container/lib/main.js",
+      "line": 123,
+      "description": "A lightweight container that helps to assemble and decouple components.",
+      "methods": [
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 211,
+          "description": "Returns a new child of the current container. These children are configured\nto correctly inherit from the current container.",
+          "itemtype": "method",
+          "name": "child",
+          "return": {
+            "description": "",
+            "type": "Container"
+          },
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 224,
+          "description": "Sets a key-value pair on the current container. If a parent container,\nhas the same key, once set on a child, the parent and child will diverge\nas expected.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "object",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Any"
+            }
+          ],
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 238,
+          "description": "Registers a factory for later injection.\n\nExample:\n\n```javascript\nvar container = new Container();\n\ncontainer.register('model:user', Person, {singleton: false });\ncontainer.register('fruit:favorite', Orange);\ncontainer.register('communication:main', Email, {singleton: false});\n```",
+          "itemtype": "method",
+          "name": "register",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "factory",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 275,
+          "description": "Unregister a fullName\n\n```javascript\nvar container = new Container();\ncontainer.register('model:user', User);\n\ncontainer.lookup('model:user') instanceof User //=> true\n\ncontainer.unregister('model:user')\ncontainer.lookup('model:user') === undefined //=> true\n```",
+          "itemtype": "method",
+          "name": "unregister",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 300,
+          "description": "Given a fullName return the corresponding factory.\n\nBy default `resolve` will retrieve the factory from\nits container's registry.\n\n```javascript\nvar container = new Container();\ncontainer.register('api:twitter', Twitter);\n\ncontainer.resolve('api:twitter') // => Twitter\n```\n\nOptionally the container can be provided with a custom resolver.\nIf provided, `resolve` will first provide the custom resolver\nthe oppertunity to resolve the fullName, otherwise it will fallback\nto the registry.\n\n```javascript\nvar container = new Container();\ncontainer.resolver = function(fullName) {\n  // lookup via the module system of choice\n};\n\n// the twitter factory is added to the module system\ncontainer.resolve('api:twitter') // => Twitter\n```",
+          "itemtype": "method",
+          "name": "resolve",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "fullName's factory",
+            "type": "Function"
+          },
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 336,
+          "description": "A hook that can be used to describe how the resolver will\nattempt to find the factory.\n\nFor example, the default Ember `.describe` returns the full\nclass name (including namespace) where Ember's resolver expects\nto find the `fullName`.",
+          "itemtype": "method",
+          "name": "describe",
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 350,
+          "description": "A hook to enable custom fullName normalization behaviour",
+          "itemtype": "method",
+          "name": "normalize",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "normalized fullName",
+            "type": "String"
+          },
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 361,
+          "itemtype": "method",
+          "name": "makeToString",
+          "params": [
+            {
+              "name": "factory",
+              "description": "",
+              "type": "Any"
+            },
+            {
+              "name": "fullNae",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "toString function",
+            "type": "Function"
+          },
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 372,
+          "description": "Given a fullName return a corresponding instance.\n\nThe default behaviour is for lookup to return a singleton instance.\nThe singleton is scoped to the container, allowing multiple containers\nto all have their own locally scoped singletons.\n\n```javascript\nvar container = new Container();\ncontainer.register('api:twitter', Twitter);\n\nvar twitter = container.lookup('api:twitter');\n\ntwitter instanceof Twitter; // => true\n\n// by default the container will return singletons\ntwitter2 = container.lookup('api:twitter');\ntwitter instanceof Twitter; // => true\n\ntwitter === twitter2; //=> true\n```\n\nIf singletons are not wanted an optional flag can be provided at lookup.\n\n```javascript\nvar container = new Container();\ncontainer.register('api:twitter', Twitter);\n\nvar twitter = container.lookup('api:twitter', { singleton: false });\nvar twitter2 = container.lookup('api:twitter', { singleton: false });\n\ntwitter === twitter2; //=> false\n```",
+          "itemtype": "method",
+          "name": "lookup",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 431,
+          "description": "Given a fullName return the corresponding factory.",
+          "itemtype": "method",
+          "name": "lookupFactory",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 442,
+          "description": "Given a fullName check if the container is aware of its factory\nor singleton instance.",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 458,
+          "description": "Allow registering options for all factories of a type.\n\n```javascript\nvar container = new Container();\n\n// if all of type `connection` must not be singletons\ncontainer.optionsForType('connection', { singleton: false });\n\ncontainer.register('connection:twitter', TwitterConnection);\ncontainer.register('connection:facebook', FacebookConnection);\n\nvar twitter = container.lookup('connection:twitter');\nvar twitter2 = container.lookup('connection:twitter');\n\ntwitter === twitter2; // => false\n\nvar facebook = container.lookup('connection:facebook');\nvar facebook2 = container.lookup('connection:facebook');\n\nfacebook === facebook2; // => false\n```",
+          "itemtype": "method",
+          "name": "optionsForType",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 491,
+          "itemtype": "method",
+          "name": "options",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 693,
+          "description": "A depth first traversal, destroying the container, its descendant containers and all\ntheir managed objects.",
+          "itemtype": "method",
+          "name": "destroy",
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 716,
+          "itemtype": "method",
+          "name": "reset",
+          "class": "Container"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 149,
+          "itemtype": "property",
+          "name": "parent",
+          "type": "Container",
+          "default": "null",
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 156,
+          "itemtype": "property",
+          "name": "children",
+          "type": "Array",
+          "default": "[]",
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 163,
+          "itemtype": "property",
+          "name": "resolver",
+          "type": "function",
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 169,
+          "itemtype": "property",
+          "name": "registry",
+          "type": "InheritingDict",
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 175,
+          "itemtype": "property",
+          "name": "cache",
+          "type": "InheritingDict",
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 181,
+          "itemtype": "property",
+          "name": "typeInjections",
+          "type": "InheritingDict",
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 187,
+          "itemtype": "property",
+          "name": "injections",
+          "type": "Object",
+          "default": "{}",
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 194,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_options",
+          "type": "InheritingDict",
+          "default": "null",
+          "class": "Container"
+        },
+        {
+          "file": "packages/container/lib/main.js",
+          "line": 203,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_typeOptions",
+          "type": "InheritingDict",
+          "class": "Container"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.0.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.0.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

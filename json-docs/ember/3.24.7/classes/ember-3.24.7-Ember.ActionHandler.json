@@ -1,0 +1,88 @@
+{
+  "data": {
+    "id": "ember-3.24.7-Ember.ActionHandler",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ActionHandler",
+      "shortname": "Ember.ActionHandler",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.ControllerMixin",
+        "Ember.CoreView"
+      ],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "packages/@ember/-internals/runtime/lib/mixins/action_handler.js",
+      "line": 8,
+      "description": "`Ember.ActionHandler` is available on some familiar classes including\n`Route`, `Component`, and `Controller`.\n(Internally the mixin is used by `Ember.CoreView`, `Ember.ControllerMixin`,\nand `Route` and available to the above classes through\ninheritance.)",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/action_handler.js",
+          "line": 167,
+          "description": "Triggers a named action on the `ActionHandler`. Any parameters\nsupplied after the `actionName` string will be passed as arguments\nto the action target function.\n\nIf the `ActionHandler` has its `target` property set, actions may\nbubble to the `target`. Bubbling happens when an `actionName` can\nnot be found in the `ActionHandler`'s `actions` hash or if the\naction target function returns `true`.\n\nExample\n\n```js {data-filename=app/routes/welcome.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    playTheme() {\n      this.send('playMusic', 'theme.mp3');\n    },\n    playMusic(track) {\n      // ...\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "actionName",
+              "description": "The action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ActionHandler",
+          "module": "ember",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/action_handler.js",
+          "line": 22,
+          "description": "The collection of functions, keyed by name, available on this\n`ActionHandler` as action targets.\n\nThese functions will be invoked when a matching `{{action}}` is triggered\nfrom within a template and the application's current route is this route.\n\nActions can also be invoked from other parts of your application\nvia `ActionHandler#send`.\n\nThe `actions` hash will inherit action handlers from\nthe `actions` hash defined on extended parent classes\nor mixins rather than just replace the entire hash, e.g.:\n\n```js {data-filename=app/mixins/can-display-banner.js}\nimport Mixin from '@ember/mixin';\n\nexport default Mixin.create({\n  actions: {\n    displayBanner(msg) {\n      // ...\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/welcome.js}\nimport Route from '@ember/routing/route';\nimport CanDisplayBanner from '../mixins/can-display-banner';\n\nexport default Route.extend(CanDisplayBanner, {\n  actions: {\n    playMusic() {\n      // ...\n    }\n  }\n});\n\n// `WelcomeRoute`, when active, will be able to respond\n// to both actions, since the actions hash is merged rather\n// then replaced when extending mixins / parent classes.\nthis.send('displayBanner');\nthis.send('playMusic');\n```\n\nWithin a Controller, Route or Component's action handler,\nthe value of the `this` context is the Controller, Route or\nComponent object:\n\n```js {data-filename=app/routes/song.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    myAction() {\n      this.controllerFor(\"song\");\n      this.transitionTo(\"other.route\");\n      ...\n    }\n  }\n});\n```\n\nIt is also possible to call `this._super(...arguments)` from within an\naction handler if it overrides a handler defined on a parent\nclass or mixin:\n\nTake for example the following routes:\n\n```js {data-filename=app/mixins/debug-route.js}\nimport Mixin from '@ember/mixin';\n\nexport default Mixin.create({\n  actions: {\n    debugRouteInformation() {\n      console.debug(\"It's a-me, console.debug!\");\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/annoying-debug.js}\nimport Route from '@ember/routing/route';\nimport DebugRoute from '../mixins/debug-route';\n\nexport default Route.extend(DebugRoute, {\n  actions: {\n    debugRouteInformation() {\n      // also call the debugRouteInformation of mixed in DebugRoute\n      this._super(...arguments);\n\n      // show additional annoyance\n      window.alert(...);\n    }\n  }\n});\n```\n\n## Bubbling\n\nBy default, an action will stop bubbling once a handler defined\non the `actions` hash handles it. To continue bubbling the action,\nyou must return `true` from the handler:\n\n```js {data-filename=app/router.js}\nRouter.map(function() {\n  this.route(\"album\", function() {\n    this.route(\"song\");\n  });\n});\n```\n\n```js {data-filename=app/routes/album.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    startPlaying: function() {\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/album-song.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    startPlaying() {\n      // ...\n\n      if (actionShouldAlsoBeTriggeredOnParentRoute) {\n        return true;\n      }\n    }\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "actions",
+          "type": "Object",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ActionHandler",
+          "module": "ember",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.24.7-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.24.7",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

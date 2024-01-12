@@ -1,0 +1,269 @@
+{
+  "data": {
+    "id": "ember-1.11.4-Ember.String",
+    "type": "namespace",
+    "attributes": {
+      "name": "Ember.String",
+      "shortname": "Ember.String",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-runtime",
+      "namespace": "Ember",
+      "file": "packages/ember-runtime/lib/system/string.js",
+      "line": 125,
+      "description": "Defines string helper methods including string formatting and localization.\nUnless `Ember.EXTEND_PROTOTYPES.String` is `false` these methods will also be\nadded to the `String.prototype` as well.",
+      "static": 1,
+      "methods": [
+        {
+          "file": "packages/ember-htmlbars/lib/utils/string.js",
+          "line": 13,
+          "description": "Mark a string as safe for unescaped output with Handlebars. If you\nreturn HTML from a Handlebars helper, use this function to\nensure Handlebars does not escape the HTML.\n\n```javascript\nEmber.String.htmlSafe('<div>someString</div>')\n```",
+          "itemtype": "method",
+          "name": "htmlSafe",
+          "static": 1,
+          "return": {
+            "description": "a string that will not be html escaped by Handlebars",
+            "type": "Handlebars.SafeString"
+          },
+          "class": "Ember.String",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/string.js",
+          "line": 135,
+          "description": "Apply formatting options to the string. This will look for occurrences\nof \"%@\" in your string and substitute them with the arguments you pass into\nthis method. If you want to control the specific order of replacement,\nyou can add a number after the key as well to indicate which argument\nyou want to insert.\n\nOrdered insertions are most useful when building loc strings where values\nyou need to insert may appear in different orders.\n\n```javascript\n\"Hello %@ %@\".fmt('John', 'Doe');     // \"Hello John Doe\"\n\"Hello %@2, %@1\".fmt('John', 'Doe');  // \"Hello Doe, John\"\n```",
+          "itemtype": "method",
+          "name": "fmt",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to format",
+              "type": "String"
+            },
+            {
+              "name": "formats",
+              "description": "An array of parameters to interpolate into string.",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "formatted string",
+            "type": "String"
+          },
+          "class": "Ember.String",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/string.js",
+          "line": 157,
+          "description": "Formats the passed string, but first looks up the string in the localized\nstrings hash. This is a convenient way to localize text. See\n`Ember.String.fmt()` for more information on formatting.\n\nNote that it is traditional but not required to prefix localized string\nkeys with an underscore or other character so you can easily identify\nlocalized strings.\n\n```javascript\nEmber.STRINGS = {\n  '_Hello World': 'Bonjour le monde',\n  '_Hello %@ %@': 'Bonjour %@ %@'\n};\n\nEmber.String.loc(\"_Hello World\");  // 'Bonjour le monde';\nEmber.String.loc(\"_Hello %@ %@\", [\"John\", \"Smith\"]);  // \"Bonjour John Smith\";\n```",
+          "itemtype": "method",
+          "name": "loc",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to format",
+              "type": "String"
+            },
+            {
+              "name": "formats",
+              "description": "Optional array of parameters to interpolate into string.",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "formatted string",
+            "type": "String"
+          },
+          "class": "Ember.String",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/string.js",
+          "line": 183,
+          "description": "Splits a string into separate units separated by spaces, eliminating any\nempty strings in the process. This is a convenience method for split that\nis mostly useful when applied to the `String.prototype`.\n\n```javascript\nEmber.String.w(\"alpha beta gamma\").forEach(function(key) {\n  console.log(key);\n});\n\n// > alpha\n// > beta\n// > gamma\n```",
+          "itemtype": "method",
+          "name": "w",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to split",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "array containing the split strings",
+            "type": "Array"
+          },
+          "class": "Ember.String",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/string.js",
+          "line": 204,
+          "description": "Converts a camelized string into all lower case separated by underscores.\n\n```javascript\n'innerHTML'.decamelize();           // 'inner_html'\n'action_name'.decamelize();        // 'action_name'\n'css-class-name'.decamelize();     // 'css-class-name'\n'my favorite items'.decamelize();  // 'my favorite items'\n```",
+          "itemtype": "method",
+          "name": "decamelize",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to decamelize.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the decamelized string.",
+            "type": "String"
+          },
+          "class": "Ember.String",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/string.js",
+          "line": 220,
+          "description": "Replaces underscores, spaces, or camelCase with dashes.\n\n```javascript\n'innerHTML'.dasherize();          // 'inner-html'\n'action_name'.dasherize();        // 'action-name'\n'css-class-name'.dasherize();     // 'css-class-name'\n'my favorite items'.dasherize();  // 'my-favorite-items'\n```",
+          "itemtype": "method",
+          "name": "dasherize",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to dasherize.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the dasherized string.",
+            "type": "String"
+          },
+          "class": "Ember.String",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/string.js",
+          "line": 236,
+          "description": "Returns the lowerCamelCase form of a string.\n\n```javascript\n'innerHTML'.camelize();          // 'innerHTML'\n'action_name'.camelize();        // 'actionName'\n'css-class-name'.camelize();     // 'cssClassName'\n'my favorite items'.camelize();  // 'myFavoriteItems'\n'My Favorite Items'.camelize();  // 'myFavoriteItems'\n```",
+          "itemtype": "method",
+          "name": "camelize",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to camelize.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the camelized string.",
+            "type": "String"
+          },
+          "class": "Ember.String",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/string.js",
+          "line": 253,
+          "description": "Returns the UpperCamelCase form of a string.\n\n```javascript\n'innerHTML'.classify();          // 'InnerHTML'\n'action_name'.classify();        // 'ActionName'\n'css-class-name'.classify();     // 'CssClassName'\n'my favorite items'.classify();  // 'MyFavoriteItems'\n```",
+          "itemtype": "method",
+          "name": "classify",
+          "params": [
+            {
+              "name": "str",
+              "description": "the string to classify",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the classified string",
+            "type": "String"
+          },
+          "class": "Ember.String",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/string.js",
+          "line": 269,
+          "description": "More general than decamelize. Returns the lower\\_case\\_and\\_underscored\nform of a string.\n\n```javascript\n'innerHTML'.underscore();          // 'inner_html'\n'action_name'.underscore();        // 'action_name'\n'css-class-name'.underscore();     // 'css_class_name'\n'my favorite items'.underscore();  // 'my_favorite_items'\n```",
+          "itemtype": "method",
+          "name": "underscore",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to underscore.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the underscored string.",
+            "type": "String"
+          },
+          "class": "Ember.String",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/string.js",
+          "line": 286,
+          "description": "Returns the Capitalized form of a string\n\n```javascript\n'innerHTML'.capitalize()         // 'InnerHTML'\n'action_name'.capitalize()       // 'Action_name'\n'css-class-name'.capitalize()    // 'Css-class-name'\n'my favorite items'.capitalize() // 'My favorite items'\n```",
+          "itemtype": "method",
+          "name": "capitalize",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to capitalize.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The capitalized string.",
+            "type": "String"
+          },
+          "class": "Ember.String",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.11.4-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.11.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

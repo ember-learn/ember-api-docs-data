@@ -14,7 +14,7 @@
       "namespace": "DS",
       "file": "addon/-private/system/many-array.js",
       "line": 14,
-      "description": "<html><head></head><body><p>A <code>ManyArray</code> is a <code>MutableArray</code> that represents the contents of a has-many\nrelationship.</p>\n<p>The <code>ManyArray</code> is instantiated lazily the first time the relationship is\nrequested.</p>\n<h3 id=\"inverses\">Inverses</h3>\n<p>Often, the relationships in Ember Data applications will have\nan inverse. For example, imagine the following models are\ndefined:</p>\n<div class=\"highlight app/models/post.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>import DS from &apos;ember-data&apos;;\n\nexport default <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span><span class=\"module\"><span class=\"identifier\">Model</span>.</span></span>extend({\n  comments: <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span></span>has<span class=\"constructor\">Many(&apos;<span class=\"params\">comment</span>&apos;)</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight app/models/comment.js\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/models/comment.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>import DS from &apos;ember-data&apos;;\n\nexport default <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span><span class=\"module\"><span class=\"identifier\">Model</span>.</span></span>extend({\n  post: <span class=\"module-access\"><span class=\"module\"><span class=\"identifier\">DS</span>.</span></span>belongs<span class=\"constructor\">To(&apos;<span class=\"params\">post</span>&apos;)</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>If you created a new instance of <code>App.Post</code> and added\na <code>App.Comment</code> record to its <code>comments</code> has-many\nrelationship, you would expect the comment&apos;s <code>post</code>\nproperty to be set to the post that contained\nthe has-many.</p>\n<p>We call the record to which a relationship belongs the\nrelationship&apos;s <em>owner</em>.</p>\n</body></html>",
+      "description": "A `ManyArray` is a `MutableArray` that represents the contents of a has-many\nrelationship.\n\nThe `ManyArray` is instantiated lazily the first time the relationship is\nrequested.\n\n### Inverses\n\nOften, the relationships in Ember Data applications will have\nan inverse. For example, imagine the following models are\ndefined:\n\n```js {data-filename=app/models/post.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  comments: DS.hasMany('comment')\n});\n```\n\n```js {data-filename=app/models/comment.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  post: DS.belongsTo('post')\n});\n```\n\nIf you created a new instance of `App.Post` and added\na `App.Comment` record to its `comments` has-many\nrelationship, you would expect the comment's `post`\nproperty to be set to the post that contained\nthe has-many.\n\nWe call the record to which a relationship belongs the\nrelationship's _owner_.",
       "extends": "Ember.Object",
       "uses": [
         "Ember.Evented",
@@ -24,7 +24,7 @@
         {
           "file": "addon/-private/system/many-array.js",
           "line": 216,
-          "description": "<html><head></head><body><p>Reloads all of the records in the manyArray. If the manyArray\nholds a relationship that was originally fetched using a links url\nEmber Data will revisit the original links url to repopulate the\nrelationship.</p>\n<p>If the manyArray holds the result of a <code>store.query()</code> reload will\nre-run the original query.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>var <span class=\"keyword\">user</span> = store.peekRecord(<span class=\"string\">&apos;user&apos;</span>, <span class=\"number\">1</span>)\n<span class=\"keyword\">user</span>.<span class=\"keyword\">login</span>().<span class=\"keyword\">then</span>(<span class=\"keyword\">function</span>() {\n  <span class=\"keyword\">user</span>.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;permissions&apos;</span>).<span class=\"keyword\">then</span>(<span class=\"keyword\">function</span>(permissions) {\n    <span class=\"keyword\">return</span> permissions.reload();\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Reloads all of the records in the manyArray. If the manyArray\nholds a relationship that was originally fetched using a links url\nEmber Data will revisit the original links url to repopulate the\nrelationship.\n\nIf the manyArray holds the result of a `store.query()` reload will\nre-run the original query.\n\nExample\n\n```javascript\nvar user = store.peekRecord('user', 1)\nuser.login().then(function() {\n  user.get('permissions').then(function(permissions) {\n    return permissions.reload();\n  });\n});\n```",
           "itemtype": "method",
           "name": "reload",
           "access": "public",
@@ -36,7 +36,7 @@
         {
           "file": "addon/-private/system/many-array.js",
           "line": 243,
-          "description": "<html><head></head><body><p>Saves all of the records in the <code>ManyArray</code>.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre>store.findRecord(<span class=\"string\">&apos;inbox&apos;</span>, <span class=\"number\">1</span>).<span class=\"keyword\">then</span>(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(inbox)</span></span> {\n  inbox.get(<span class=\"string\">&apos;messages&apos;</span>).<span class=\"keyword\">then</span>(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(messages)</span></span> {\n    messages.forEach(<span class=\"function\"><span class=\"keyword\">function</span><span class=\"params\">(message)</span></span> {\n      message.set(<span class=\"string\">&apos;isRead&apos;</span>, <span class=\"literal\">true</span>);\n    });\n    messages.save()\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Saves all of the records in the `ManyArray`.\n\nExample\n\n```javascript\nstore.findRecord('inbox', 1).then(function(inbox) {\n  inbox.get('messages').then(function(messages) {\n    messages.forEach(function(message) {\n      message.set('isRead', true);\n    });\n    messages.save()\n  });\n});\n```",
           "itemtype": "method",
           "name": "save",
           "return": {
@@ -50,7 +50,7 @@
         {
           "file": "addon/-private/system/many-array.js",
           "line": 271,
-          "description": "<html><head></head><body><p>Create a child record within the owner</p>\n</body></html>",
+          "description": "Create a child record within the owner",
           "itemtype": "method",
           "name": "createRecord",
           "access": "private",
@@ -76,7 +76,7 @@
         {
           "file": "addon/-private/system/many-array.js",
           "line": 61,
-          "description": "<html><head></head><body><p>The loading state of this array</p>\n</body></html>",
+          "description": "The loading state of this array",
           "itemtype": "property",
           "name": "isLoaded",
           "type": "Boolean",
@@ -87,7 +87,7 @@
         {
           "file": "addon/-private/system/many-array.js",
           "line": 69,
-          "description": "<html><head></head><body><p>Used for async <code>hasMany</code> arrays\nto keep track of when they will resolve.</p>\n</body></html>",
+          "description": "Used for async `hasMany` arrays\nto keep track of when they will resolve.",
           "itemtype": "property",
           "name": "promise",
           "type": "Ember.RSVP.Promise",
@@ -100,7 +100,7 @@
         {
           "file": "addon/-private/system/many-array.js",
           "line": 78,
-          "description": "<html><head></head><body><p>Metadata associated with the request for async hasMany relationships.</p>\n<p>Example</p>\n<p>Given that the server returns the following JSON payload when fetching a\nhasMany relationship:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre>{\n  <span class=\"string\">&quot;comments&quot;</span>: [{\n    <span class=\"string\">&quot;id&quot;</span>: <span class=\"number\">1</span>,\n    <span class=\"string\">&quot;comment&quot;</span>: <span class=\"string\">&quot;This is the first comment&quot;</span>,\n  }, {\n// ...\n  }],\n\n  <span class=\"string\">&quot;meta&quot;</span>: {\n    <span class=\"string\">&quot;page&quot;</span>: <span class=\"number\">1</span>,\n    <span class=\"string\">&quot;total&quot;</span>: <span class=\"number\">5</span>\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>You can then access the metadata via the <code>meta</code> property:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>post.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;comments&apos;</span>).then(<span class=\"function\"><span class=\"keyword\">function</span></span>(comments) {\n  <span class=\"keyword\">var</span> meta = comments.<span class=\"keyword\">get</span>(<span class=\"string\">&apos;meta&apos;</span>);\n\n<span class=\"comment\">// meta.page =&gt; 1</span>\n<span class=\"comment\">// meta.total =&gt; 5</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Metadata associated with the request for async hasMany relationships.\n\nExample\n\nGiven that the server returns the following JSON payload when fetching a\nhasMany relationship:\n\n```js\n{\n  \"comments\": [{\n    \"id\": 1,\n    \"comment\": \"This is the first comment\",\n  }, {\n// ...\n  }],\n\n  \"meta\": {\n    \"page\": 1,\n    \"total\": 5\n  }\n}\n```\n\nYou can then access the metadata via the `meta` property:\n\n```js\npost.get('comments').then(function(comments) {\n  var meta = comments.get('meta');\n\n// meta.page => 1\n// meta.total => 5\n});\n```",
           "itemtype": "property",
           "name": "meta",
           "type": "Object",
@@ -113,7 +113,7 @@
         {
           "file": "addon/-private/system/many-array.js",
           "line": 118,
-          "description": "<html><head></head><body><p><code>true</code> if the relationship is polymorphic, <code>false</code> otherwise.</p>\n</body></html>",
+          "description": "`true` if the relationship is polymorphic, `false` otherwise.",
           "itemtype": "property",
           "name": "isPolymorphic",
           "type": "Boolean",
@@ -126,7 +126,7 @@
         {
           "file": "addon/-private/system/many-array.js",
           "line": 126,
-          "description": "<html><head></head><body><p>The relationship which manages this array.</p>\n</body></html>",
+          "description": "The relationship which manages this array.",
           "itemtype": "property",
           "name": "relationship",
           "type": "ManyRelationship",

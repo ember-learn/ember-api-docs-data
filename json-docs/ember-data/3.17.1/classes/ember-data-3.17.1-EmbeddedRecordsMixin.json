@@ -1,0 +1,196 @@
+{
+  "data": {
+    "id": "ember-data-3.17.1-EmbeddedRecordsMixin",
+    "type": "class",
+    "attributes": {
+      "name": "EmbeddedRecordsMixin",
+      "shortname": "EmbeddedRecordsMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/serializer",
+      "namespace": "",
+      "file": "../serializer/addon/-private/embedded-records-mixin.js",
+      "line": 12,
+      "methods": [
+        {
+          "file": "../serializer/addon/-private/embedded-records-mixin.js",
+          "line": 104,
+          "description": "Normalize the record and recursively normalize/extract all the embedded records\nwhile pushing them into the store as they are encountered\n\nA payload with an attr configured for embedded records needs to be extracted:\n\n```js\n{\n  \"post\": {\n    \"id\": \"1\"\n    \"title\": \"Rails is omakase\",\n    \"comments\": [{\n      \"id\": \"1\",\n      \"body\": \"Rails is unagi\"\n    }, {\n      \"id\": \"2\",\n      \"body\": \"Omakase O_o\"\n    }]\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "normalize",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "hash",
+              "description": "to be normalized",
+              "type": "Object"
+            },
+            {
+              "name": "prop",
+              "description": "the hash has been referenced by",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the normalized hash",
+            "type": "Object"
+          },
+          "class": "EmbeddedRecordsMixin",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../serializer/addon/-private/embedded-records-mixin.js",
+          "line": 147,
+          "description": "Serialize `belongsTo` relationship when it is configured as an embedded object.\n\nThis example of an author model belongs to a post model:\n\n```js\nimport Model, { attr, belongsTo } from '@ember-data/model';\n\nPost = Model.extend({\n  title:    attr('string'),\n  body:     attr('string'),\n  author:   belongsTo('author')\n});\n\nAuthor = Model.extend({\n  name:     attr('string'),\n  post:     belongsTo('post')\n});\n```\n\nUse a custom (type) serializer for the post model to configure embedded author\n\n```js {data-filename=app/serializers/post.js}\nimport RESTSerializer, { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';\n\nexport default RESTSerializer.extend(EmbeddedRecordsMixin, {\n  attrs: {\n    author: { embedded: 'always' }\n  }\n})\n```\n\nA payload with an attribute configured for embedded records can serialize\nthe records together under the root attribute's payload:\n\n```js\n{\n  \"post\": {\n    \"id\": \"1\"\n    \"title\": \"Rails is omakase\",\n    \"author\": {\n      \"id\": \"2\"\n      \"name\": \"dhh\"\n    }\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "serializeBelongsTo",
+          "params": [
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            },
+            {
+              "name": "json",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "relationship",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "EmbeddedRecordsMixin",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../serializer/addon/-private/embedded-records-mixin.js",
+          "line": 248,
+          "description": "Serializes `hasMany` relationships when it is configured as embedded objects.\n\nThis example of a post model has many comments:\n\n```js\nimport Model, { attr, belongsTo, hasMany } from '@ember-data/model';\n\nPost = Model.extend({\n  title:    attr('string'),\n  body:     attr('string'),\n  comments: hasMany('comment')\n});\n\nComment = Model.extend({\n  body:     attr('string'),\n  post:     belongsTo('post')\n});\n```\n\nUse a custom (type) serializer for the post model to configure embedded comments\n\n```js {data-filename=app/serializers/post.js}\nimport RESTSerializer, { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';\n\nexport default RESTSerializer.extend(EmbeddedRecordsMixin, {\n  attrs: {\n    comments: { embedded: 'always' }\n  }\n})\n```\n\nA payload with an attribute configured for embedded records can serialize\nthe records together under the root attribute's payload:\n\n```js\n{\n  \"post\": {\n    \"id\": \"1\"\n    \"title\": \"Rails is omakase\",\n    \"body\": \"I want this for my ORM, I want that for my template language...\"\n    \"comments\": [{\n      \"id\": \"1\",\n      \"body\": \"Rails is unagi\"\n    }, {\n      \"id\": \"2\",\n      \"body\": \"Omakase O_o\"\n    }]\n  }\n}\n```\n\nThe attrs options object can use more specific instruction for extracting and\nserializing. When serializing, an option to embed `ids`, `ids-and-types` or `records` can be set.\nWhen extracting the only option is `records`.\n\nSo `{ embedded: 'always' }` is shorthand for:\n`{ serialize: 'records', deserialize: 'records' }`\n\nTo embed the `ids` for a related object (using a hasMany relationship):\n\n```js {data-filename=app/serializers/post.js}\nimport RESTSerializer, { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';\n\nexport default RESTSerializer.extend(EmbeddedRecordsMixin, {\n  attrs: {\n    comments: { serialize: 'ids', deserialize: 'records' }\n  }\n})\n```\n\n```js\n{\n  \"post\": {\n    \"id\": \"1\"\n    \"title\": \"Rails is omakase\",\n    \"body\": \"I want this for my ORM, I want that for my template language...\"\n    \"comments\": [\"1\", \"2\"]\n  }\n}\n```\n\nTo embed the relationship as a collection of objects with `id` and `type` keys, set\n`ids-and-types` for the related object.\n\nThis is particularly useful for polymorphic relationships where records don't share\nthe same table and the `id` is not enough information.\n\nFor example having a user that has many pets:\n\n```js\nUser = Model.extend({\n  name: attr('string'),\n  pets: hasMany('pet', { polymorphic: true })\n});\n\nPet = Model.extend({\n  name: attr('string'),\n});\n\nCat = Pet.extend({\n  // ...\n});\n\nParrot = Pet.extend({\n  // ...\n});\n```\n\n```js {data-filename=app/serializers/user.js}\nimport RESTSerializer, { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';\n\nexport default RESTSerializer.extend(EmbeddedRecordsMixin, {\n  attrs: {\n    pets: { serialize: 'ids-and-types', deserialize: 'records' }\n  }\n});\n```\n\n```js\n{\n  \"user\": {\n    \"id\": \"1\"\n    \"name\": \"Bertin Osborne\",\n    \"pets\": [\n      { \"id\": \"1\", \"type\": \"Cat\" },\n      { \"id\": \"1\", \"type\": \"Parrot\"}\n    ]\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "serializeHasMany",
+          "params": [
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            },
+            {
+              "name": "json",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "relationship",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "EmbeddedRecordsMixin",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../serializer/addon/-private/embedded-records-mixin.js",
+          "line": 462,
+          "description": "When serializing an embedded record, modify the property (in the `JSON` payload)\nthat refers to the parent record (foreign key for the relationship).\n\nSerializing a `belongsTo` relationship removes the property that refers to the\nparent record\n\nSerializing a `hasMany` relationship does not remove the property that refers to\nthe parent record.",
+          "itemtype": "method",
+          "name": "removeEmbeddedForeignKey",
+          "params": [
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            },
+            {
+              "name": "embeddedSnapshot",
+              "description": "",
+              "type": "Snapshot"
+            },
+            {
+              "name": "relationship",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "json",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "EmbeddedRecordsMixin",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../serializer/addon/-private/embedded-records-mixin.js",
+          "line": 539,
+          "itemtype": "method",
+          "name": "_extractEmbeddedRecords",
+          "access": "private",
+          "tagname": "",
+          "class": "EmbeddedRecordsMixin",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../serializer/addon/-private/embedded-records-mixin.js",
+          "line": 557,
+          "itemtype": "method",
+          "name": "_extractEmbeddedHasMany",
+          "access": "private",
+          "tagname": "",
+          "class": "EmbeddedRecordsMixin",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../serializer/addon/-private/embedded-records-mixin.js",
+          "line": 586,
+          "itemtype": "method",
+          "name": "_extractEmbeddedBelongsTo",
+          "access": "private",
+          "tagname": "",
+          "class": "EmbeddedRecordsMixin",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../serializer/addon/-private/embedded-records-mixin.js",
+          "line": 609,
+          "itemtype": "method",
+          "name": "_normalizeEmbeddedRelationship",
+          "access": "private",
+          "tagname": "",
+          "class": "EmbeddedRecordsMixin",
+          "module": "@ember-data/serializer"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.17.1-@ember-data/serializer",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.17.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

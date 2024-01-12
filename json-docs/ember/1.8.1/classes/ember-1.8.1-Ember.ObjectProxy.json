@@ -1,0 +1,52 @@
+{
+  "data": {
+    "id": "ember-1.8.1-Ember.ObjectProxy",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ObjectProxy",
+      "shortname": "Ember.ObjectProxy",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "../packages/ember-runtime/lib/system/object_proxy.js",
+      "line": 4,
+      "description": "`Ember.ObjectProxy` forwards all properties not defined by the proxy itself\nto a proxied `content` object.\n\n```javascript\nobject = Ember.Object.create({\n  name: 'Foo'\n});\n\nproxy = Ember.ObjectProxy.create({\n  content: object\n});\n\n// Access and change existing properties\nproxy.get('name')          // 'Foo'\nproxy.set('name', 'Bar');\nobject.get('name')         // 'Bar'\n\n// Create new 'description' property on `object`\nproxy.set('description', 'Foo is a whizboo baz');\nobject.get('description')  // 'Foo is a whizboo baz'\n```\n\nWhile `content` is unset, setting a property to be delegated will throw an\nError.\n\n```javascript\nproxy = Ember.ObjectProxy.create({\n  content: null,\n  flag: null\n});\nproxy.set('flag', true);\nproxy.get('flag');         // true\nproxy.get('foo');          // undefined\nproxy.set('foo', 'data');  // throws Error\n```\n\nDelegated properties can be bound to and will change when content is updated.\n\nComputed properties on the proxy itself can depend on delegated properties.\n\n```javascript\nProxyWithComputedProperty = Ember.ObjectProxy.extend({\n  fullName: function () {\n    var firstName = this.get('firstName'),\n        lastName = this.get('lastName');\n    if (firstName && lastName) {\n      return firstName + ' ' + lastName;\n    }\n    return firstName || lastName;\n  }.property('firstName', 'lastName')\n});\n\nproxy = ProxyWithComputedProperty.create();\n\nproxy.get('fullName');  // undefined\nproxy.set('content', {\n  firstName: 'Tom', lastName: 'Dale'\n}); // triggers property change for fullName on proxy\n\nproxy.get('fullName');  // 'Tom Dale'\n```",
+      "extends": "Ember._ProxyMixin",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember._ProxyMixin",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-1.8.1-Ember.ObjectController"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.8.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.8.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

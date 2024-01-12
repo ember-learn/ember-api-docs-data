@@ -1,0 +1,90 @@
+{
+  "data": {
+    "id": "ember-2.7.3-Ember.ApplicationInstance",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ApplicationInstance",
+      "shortname": "Ember.ApplicationInstance",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-application",
+      "namespace": "",
+      "file": "packages/ember-application/lib/system/application-instance.js",
+      "line": 20,
+      "description": "The `ApplicationInstance` encapsulates all of the stateful aspects of a\nrunning `Application`.\n\nAt a high-level, we break application boot into two distinct phases:\n\n* Definition time, where all of the classes, templates, and other\n  dependencies are loaded (typically in the browser).\n* Run time, where we begin executing the application once everything\n  has loaded.\n\nDefinition time can be expensive and only needs to happen once since it is\nan idempotent operation. For example, between test runs and FastBoot\nrequests, the application stays the same. It is only the state that we want\nto reset.\n\nThat state is what the `ApplicationInstance` manages: it is responsible for\ncreating the container that contains all application state, and disposing of\nit once the particular test run or FastBoot request has finished.",
+      "access": "public",
+      "tagname": "",
+      "extends": "Ember.EngineInstance",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-application/lib/system/application-instance.js",
+          "line": 46,
+          "description": "The `Application` for which this is an instance.",
+          "itemtype": "property",
+          "name": "application",
+          "type": "Ember.Application",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ApplicationInstance",
+          "module": "ember",
+          "submodule": "ember-application"
+        },
+        {
+          "file": "packages/ember-application/lib/system/application-instance.js",
+          "line": 54,
+          "description": "The DOM events for which the event dispatcher should listen.\n\nBy default, the application's `Ember.EventDispatcher` listens\nfor a set of standard DOM events, such as `mousedown` and\n`keyup`, and delegates them to your application's `Ember.View`\ninstances.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "customEvents",
+          "type": "Object",
+          "class": "Ember.ApplicationInstance",
+          "module": "ember",
+          "submodule": "ember-application"
+        },
+        {
+          "file": "packages/ember-application/lib/system/application-instance.js",
+          "line": 67,
+          "description": "The root DOM element of the Application as an element or a\n[jQuery-compatible selector\nstring](http://api.jquery.com/category/selectors/).",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "rootElement",
+          "type": "String|DOMElement",
+          "class": "Ember.ApplicationInstance",
+          "module": "ember",
+          "submodule": "ember-application"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.EngineInstance",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.7.3-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.7.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

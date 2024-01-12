@@ -1,0 +1,43 @@
+{
+  "data": {
+    "id": "ember-data-3.4.4-DS.NotFoundError",
+    "type": "class",
+    "attributes": {
+      "name": "DS.NotFoundError",
+      "shortname": "DS.NotFoundError",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/adapters/errors.js",
+      "line": 265,
+      "description": "A `DS.NotFoundError` equates to a HTTP `404 Not Found` response status.\nIt is used by an adapter to signal that a request to the external API\nwas rejected because the resource could not be found on the API.\n\nAn example use case would be to detect if the user has entered a route\nfor a specific model that does not exist. For example:\n\n```js {data-filename=app/routes/post.js}\nimport Route from '@ember/routing/route';\nimport DS from 'ember-data';\n\nconst { NotFoundError } = DS;\n\nexport default Route.extend({\n  model(params) {\n    return this.get('store').findRecord('post', params.post_id);\n  },\n\n  actions: {\n    error(error, transition) {\n      if (error instanceof NotFoundError) {\n        // redirect to a list of all posts instead\n        this.transitionTo('posts');\n      } else {\n        // otherwise let the error bubble\n        return true;\n      }\n    }\n  }\n});\n```",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.4.4-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.4.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

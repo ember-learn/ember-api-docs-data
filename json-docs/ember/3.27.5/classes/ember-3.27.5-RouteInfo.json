@@ -1,0 +1,171 @@
+{
+  "data": {
+    "id": "ember-3.27.5-RouteInfo",
+    "type": "class",
+    "attributes": {
+      "name": "RouteInfo",
+      "shortname": "RouteInfo",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "",
+      "file": "packages/@ember/-internals/routing/lib/system/route-info.ts",
+      "line": 118,
+      "description": "A RouteInfo is an object that contains metadata\nabout a specific route within a Transition. It is\nread-only and internally immutable. It is also not\nobservable, because a Transition instance is never\nchanged after creation.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/route-info.ts",
+          "line": 192,
+          "description": "Allows you to traverse through the linked list\nof `RouteInfo`s from the topmost to leafmost.\nReturns the first `RouteInfo` in the linked list\nfor which the callback returns true.\n\n  This method is similar to the `find()` method\n  defined in ECMAScript 2015.\n\n  The callback method you provide should have the\n  following signature (all parameters are optional):\n\n  ```javascript\n  function(item, index, array);\n  ```\n\n  - `item` is the current item in the iteration.\n  - `index` is the current index in the iteration.\n  - `array` is the array itself.\n\n  It should return the `true` to include the item in\n  the results, `false` otherwise.\n\n  Note that in addition to a callback, you can also\n  pass an optional target object that will be set as\n  `this` on the context.",
+          "itemtype": "method",
+          "name": "find",
+          "params": [
+            {
+              "name": "callback",
+              "description": "the callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "target*",
+              "description": "optional target to use",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "Found item or undefined",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RouteInfo",
+          "module": "ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/route-info.ts",
+          "line": 129,
+          "description": "The dot-separated, fully-qualified name of the\nroute, like \"people.index\".",
+          "itemtype": "property",
+          "name": "name",
+          "type": "String",
+          "access": "public",
+          "tagname": "",
+          "class": "RouteInfo",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/route-info.ts",
+          "line": 136,
+          "description": "The final segment of the fully-qualified name of\nthe route, like \"index\"",
+          "itemtype": "property",
+          "name": "localName",
+          "type": "String",
+          "access": "public",
+          "tagname": "",
+          "class": "RouteInfo",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/route-info.ts",
+          "line": 143,
+          "description": "The values of the route's parameters. These are the\nsame params that are received as arguments to the\nroute's `model` hook. Contains only the parameters\nvalid for this route, if any (params for parent or\nchild routes are not merged).",
+          "itemtype": "property",
+          "name": "params",
+          "type": "Object",
+          "access": "public",
+          "tagname": "",
+          "class": "RouteInfo",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/route-info.ts",
+          "line": 153,
+          "description": "The ordered list of the names of the params\nrequired for this route. It will contain the same\nstrings as Object.keys(params), but here the order\nis significant. This allows users to correctly pass\nparams into routes programmatically.",
+          "itemtype": "property",
+          "name": "paramNames",
+          "type": "Array",
+          "access": "public",
+          "tagname": "",
+          "class": "RouteInfo",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/route-info.ts",
+          "line": 163,
+          "description": "The values of any queryParams on this route.",
+          "itemtype": "property",
+          "name": "queryParams",
+          "type": "Object",
+          "access": "public",
+          "tagname": "",
+          "class": "RouteInfo",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/route-info.ts",
+          "line": 169,
+          "description": "Will contain the result `Route#buildRouteInfoMetadata`\nfor the corresponding Route.",
+          "itemtype": "property",
+          "name": "metadata",
+          "type": "Any",
+          "access": "public",
+          "tagname": "",
+          "class": "RouteInfo",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/route-info.ts",
+          "line": 176,
+          "description": "A reference to the parent route's `RouteInfo`.\nThis can be used to traverse upward to the topmost\n`RouteInfo`.",
+          "itemtype": "property",
+          "name": "parent",
+          "type": "RouteInfo|null",
+          "access": "public",
+          "tagname": "",
+          "class": "RouteInfo",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/route-info.ts",
+          "line": 184,
+          "description": "A reference to the child route's `RouteInfo`.\nThis can be used to traverse downward to the\nleafmost `RouteInfo`.",
+          "itemtype": "property",
+          "name": "child",
+          "type": "RouteInfo|null",
+          "access": "public",
+          "tagname": "",
+          "class": "RouteInfo",
+          "module": "ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.27.5-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.27.5",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

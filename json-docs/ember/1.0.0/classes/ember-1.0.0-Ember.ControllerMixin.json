@@ -1,0 +1,159 @@
+{
+  "data": {
+    "id": "ember-1.0.0-Ember.ControllerMixin",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ControllerMixin",
+      "shortname": "Ember.ControllerMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.ArrayController",
+        "Ember.Controller",
+        "Ember.ObjectController"
+      ],
+      "module": "ember",
+      "submodule": "ember-views",
+      "namespace": "Ember",
+      "file": "packages/ember-views/lib/system/controller.js",
+      "line": 11,
+      "description": "Additional methods for the ControllerMixin",
+      "methods": [
+        {
+          "file": "packages/ember-routing/lib/ext/controller.js",
+          "line": 9,
+          "description": "Transition the application into another route. The route may\nbe either a single route or route path:\n\n```javascript\n  aController.transitionToRoute('blogPosts');\n  aController.transitionToRoute('blogPosts.recentEntries');\n```\n\nOptionally supply a model for the route in question. The model\nwill be serialized into the URL using the `serialize` hook of\nthe route:\n\n```javascript\n  aController.transitionToRoute('blogPost', aPost);\n```",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the",
+              "type": "...Object"
+            }
+          ],
+          "itemtype": "method",
+          "name": "transitionToRoute",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/ext/controller.js",
+          "line": 38,
+          "deprecated": true,
+          "itemtype": "method",
+          "name": "transitionTo",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/ext/controller.js",
+          "line": 48,
+          "description": "Alernative to `transitionToRoute`.  Transition the application into another route. The route may\nbe either a single route or route path:\n\n```javascript\n  aController.replaceRoute('blogPosts');\n  aController.replaceRoute('blogPosts.recentEntries');\n```\n\nOptionally supply a model for the route in question. The model\nwill be serialized into the URL using the `serialize` hook of\nthe route:\n\n```javascript\n  aController.replaceRoute('blogPost', aPost);\n```",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the",
+              "type": "...Object"
+            }
+          ],
+          "itemtype": "method",
+          "name": "replaceRoute",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/ext/controller.js",
+          "line": 77,
+          "deprecated": true,
+          "itemtype": "method",
+          "name": "replaceWith",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-application/lib/ext/controller.js",
+          "line": 31,
+          "description": "An array of other controller objects available inside\ninstances of this controller via the `controllers`\nproperty:\n\nFor example, when you define a controller:\n\n```javascript\nApp.CommentsController = Ember.ArrayController.extend({\n  needs: ['post']\n});\n```\n\nThe application's single instance of these other\ncontrollers are accessible by name through the\n`controllers` property:\n\n```javascript\nthis.get('controllers.post'); // instance of App.PostController\n```\n\nThis is only available for singleton controllers.",
+          "itemtype": "property",
+          "name": "needs",
+          "type": "Array",
+          "default": "[]",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-application/lib/ext/controller.js",
+          "line": 78,
+          "description": "Stores the instances of other controllers available from within\nthis controller. Any controller listed by name in the `needs`\nproperty will be accessible by name through this property.\n\n```javascript\nApp.CommentsController = Ember.ArrayController.extend({\n  needs: ['post'],\n  postTitle: function(){\n    var currentPost = this.get('controllers.post'); // instance of App.PostController\n    return currentPost.get('title');\n  }.property('controllers.post.title')\n});\n```",
+          "see": [
+            "{Ember.ControllerMixin#needs}"
+          ],
+          "itemtype": "property",
+          "name": "controllers",
+          "type": "Object",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/controllers/controller.js",
+          "line": 23,
+          "description": "The object to which actions from the view should be sent.\n\nFor example, when a Handlebars template uses the `{{action}}` helper,\nit will attempt to send the action to the view's controller's `target`.\n\nBy default, a controller's `target` is set to the router after it is\ninstantiated by `Ember.Application#initialize`.",
+          "itemtype": "property",
+          "name": "target",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.0.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.0.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

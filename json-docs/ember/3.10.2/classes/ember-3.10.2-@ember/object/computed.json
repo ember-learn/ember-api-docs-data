@@ -1,0 +1,904 @@
+{
+  "data": {
+    "id": "ember-3.10.2-@ember/object/computed",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/object/computed",
+      "shortname": "@ember/object/computed",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/object",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/metal/lib/expand_properties.ts",
+          "line": 9,
+          "description": "Expands `pattern`, invoking `callback` for each expansion.\n\nThe only pattern supported is brace-expansion, anything else will be passed\nonce to `callback` directly.\n\nExample\n\n```js\nimport { expandProperties } from '@ember/object/computed';\n\nfunction echo(arg){ console.log(arg); }\n\nexpandProperties('foo.bar', echo);              //=> 'foo.bar'\nexpandProperties('{foo,bar}', echo);            //=> 'foo', 'bar'\nexpandProperties('foo.{bar,baz}', echo);        //=> 'foo.bar', 'foo.baz'\nexpandProperties('{foo,bar}.baz', echo);        //=> 'foo.baz', 'bar.baz'\nexpandProperties('foo.{bar,baz}.[]', echo)      //=> 'foo.bar.[]', 'foo.baz.[]'\nexpandProperties('{foo,bar}.{spam,eggs}', echo) //=> 'foo.spam', 'foo.eggs', 'bar.spam', 'bar.eggs'\nexpandProperties('{foo}.bar.{baz}')             //=> 'foo.bar.baz'\n```",
+          "itemtype": "method",
+          "name": "expandProperties",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "pattern",
+              "description": "The property pattern to expand.",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "The callback to invoke.  It is invoked once per\nexpansion, and is passed the expansion.",
+              "type": "Function"
+            }
+          ],
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 63,
+          "since": "1.6.0",
+          "description": "A computed property macro that returns true if the value of the dependent\nproperty is null, an empty string, empty array, or empty function.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { empty } from '@ember/object/computed';\n\nclass ToDoList {\n  constructor(todos) {\n    set(this, 'todos', todos);\n  }\n\n  @empty('todos') isDone;\n}\n\nlet todoList = new ToDoList(\n  ['Unit Test', 'Documentation', 'Release']\n);\n\ntodoList.isDone; // false\nset(todoList, 'todos', []);\ntodoList.isDone; // true\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { empty } from '@ember/object/computed';\n\nlet ToDoList = EmberObject.extend({\n  isDone: empty('todos')\n});\n\nlet todoList = ToDoList.create({\n  todos: ['Unit Test', 'Documentation', 'Release']\n});\n\ntodoList.isDone; // false\nset(todoList, 'todos', []);\ntodoList.isDone; // true\n```\n",
+          "itemtype": "method",
+          "name": "empty",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if the value\nof the dependent property is null, an empty string, empty array, or empty\nfunction and false if the underlying value is not empty.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 131,
+          "itemtype": "method",
+          "description": "A computed property that returns true if the value of the dependent property\nis NOT null, an empty string, empty array, or empty function.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { notEmpty } from '@ember/object/computed';\n\nclass Hamster {\n  constructor(backpack) {\n    set(this, 'backpack', backpack);\n  }\n\n  @notEmpty('backpack') hasStuff\n}\n\nlet hamster = new Hamster(\n  ['Food', 'Sleeping Bag', 'Tent']\n);\n\nhamster.hasStuff; // true\nset(hamster, 'backpack', []);\nhamster.hasStuff; // false\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { notEmpty } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  hasStuff: notEmpty('backpack')\n});\n\nlet hamster = Hamster.create({\n  backpack: ['Food', 'Sleeping Bag', 'Tent']\n});\n\nhamster.hasStuff; // true\nset(hamster, 'backpack', []);\nhamster.hasStuff; // false\n```\n",
+          "name": "notEmpty",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if original\nvalue for property is not empty.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 196,
+          "itemtype": "method",
+          "description": "A computed property that returns true if the value of the dependent property\nis null or undefined. This avoids errors from JSLint complaining about use of\n==, which can be technically confusing.\n\n```javascript\nimport { set } from '@ember/object';\nimport { none } from '@ember/object/computed';\n\nclass Hamster {\n  @none('food') isHungry;\n}\n\nlet hamster = new Hamster();\n\nhamster.isHungry; // true\n\nset(hamster, 'food', 'Banana');\nhamster.isHungry; // false\n\nset(hamster, 'food', null);\nhamster.isHungry; // true\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { none } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  isHungry: none('food')\n});\n\nlet hamster = Hamster.create();\n\nhamster.isHungry; // true\n\nset(hamster, 'food', 'Banana');\nhamster.isHungry; // false\n\nset(hamster, 'food', null);\nhamster.isHungry; // true\n```\n",
+          "name": "none",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if original\nvalue for property is null or undefined.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 260,
+          "itemtype": "method",
+          "description": "A computed property that returns the inverse boolean value of the original\nvalue for the dependent property.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { not } from '@ember/object/computed';\n\nclass User {\n  loggedIn = false;\n  @not('loggedIn') isAnonymous;\n}\n\nlet user = new User();\n\nuser.isAnonymous; // true\nset(user, 'loggedIn', true);\nuser.isAnonymous; // false\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { not } from '@ember/object/computed';\n\nlet User = EmberObject.extend({\n  loggedIn: false,\n\n  isAnonymous: not('loggedIn')\n});\n\nlet user = User.create();\n\nuser.isAnonymous; // true\nset(user, 'loggedIn', true);\nuser.isAnonymous; // false\n```\n",
+          "name": "not",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns inverse of the\noriginal value for property",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 321,
+          "itemtype": "method",
+          "description": "A computed property that converts the provided dependent property into a\nboolean value.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { bool } from '@ember/object/computed';\n\n\nclass Hamster {\n  @bool('numBananas') hasBananas\n}\n\nlet hamster = new Hamster();\n\nhamster.hasBananas; // false\n\nset(hamster, 'numBananas', 0);\nhamster.hasBananas; // false\n\nset(hamster, 'numBananas', 1);\nhamster.hasBananas; // true\n\nset(hamster, 'numBananas', null);\nhamster.hasBananas; // false\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { bool } from '@ember/object/computed';\n\n\nlet Hamster = EmberObject.extend({\n  hasBananas: bool('numBananas')\n});\n\nlet hamster = Hamster.create();\n\nhamster.hasBananas; // false\n\nset(hamster, 'numBananas', 0);\nhamster.hasBananas; // false\n\nset(hamster, 'numBananas', 1);\nhamster.hasBananas; // true\n\nset(hamster, 'numBananas', null);\nhamster.hasBananas; // false\n```\n",
+          "name": "bool",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which converts to boolean the\noriginal value for property",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 394,
+          "itemtype": "method",
+          "description": "A computed property which matches the original value for the dependent\nproperty against a given RegExp, returning `true` if the value matches the\nRegExp and `false` if it does not.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { match } from '@ember/object/computed';\n\nclass User {\n  @match('email', /^.+@.+\\..+$/) hasValidEmail;\n}\n\nlet user = new User();\n\nuser.hasValidEmail; // false\n\nset(user, 'email', '');\nuser.hasValidEmail; // false\n\nset(user, 'email', 'ember_hamster@example.com');\nuser.hasValidEmail; // true\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { match } from '@ember/object/computed';\n\nlet User = EmberObject.extend({\n  hasValidEmail: match('email', /^.+@.+\\..+$/)\n});\n\nlet user = User.create();\n\nuser.hasValidEmail; // false\n\nset(user, 'email', '');\nuser.hasValidEmail; // false\n\nset(user, 'email', 'ember_hamster@example.com');\nuser.hasValidEmail; // true\n```\n",
+          "name": "match",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "regexp",
+              "description": "",
+              "type": "RegExp"
+            }
+          ],
+          "return": {
+            "description": "computed property which match the original value\nfor property against a given RegExp",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 462,
+          "itemtype": "method",
+          "description": "A computed property that returns true if the provided dependent property is\nequal to the given value.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { equal } from '@ember/object/computed';\n\nclass Hamster {\n  @equal('percentCarrotsEaten', 100) satisfied;\n}\n\nlet hamster = new Hamster();\n\nhamster.satisfied; // false\n\nset(hamster, 'percentCarrotsEaten', 100);\nhamster.satisfied; // true\n\nset(hamster, 'percentCarrotsEaten', 50);\nhamster.satisfied; // false\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { equal } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  satisfied: equal('percentCarrotsEaten', 100)\n});\n\nlet hamster = Hamster.create();\n\nhamster.satisfied; // false\n\nset(hamster, 'percentCarrotsEaten', 100);\nhamster.satisfied; // true\n\nset(hamster, 'percentCarrotsEaten', 50);\nhamster.satisfied; // false\n```\n",
+          "name": "equal",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "String|Number|Object"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if the\noriginal value for property is equal to the given value.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 528,
+          "itemtype": "method",
+          "description": "A computed property that returns true if the provided dependent property is\ngreater than the provided value.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { gt } from '@ember/object/computed';\n\nclass Hamster {\n  @gt('numBananas', 10) hasTooManyBananas;\n}\n\nlet hamster = new Hamster();\n\nhamster.hasTooManyBananas; // false\n\nset(hamster, 'numBananas', 3);\nhamster.hasTooManyBananas; // false\n\nset(hamster, 'numBananas', 11);\nhamster.hasTooManyBananas; // true\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { gt } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  hasTooManyBananas: gt('numBananas', 10)\n});\n\nlet hamster = Hamster.create();\n\nhamster.hasTooManyBananas; // false\n\nset(hamster, 'numBananas', 3);\nhamster.hasTooManyBananas; // false\n\nset(hamster, 'numBananas', 11);\nhamster.hasTooManyBananas; // true\n```\n",
+          "name": "gt",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if the\noriginal value for property is greater than given value.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 594,
+          "itemtype": "method",
+          "description": "A computed property that returns true if the provided dependent property is\ngreater than or equal to the provided value.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { gte } from '@ember/object/computed';\n\nclass Hamster {\n  @gte('numBananas', 10) hasTooManyBananas;\n}\n\nlet hamster = new Hamster();\n\nhamster.hasTooManyBananas; // false\n\nset(hamster, 'numBananas', 3);\nhamster.hasTooManyBananas; // false\n\nset(hamster, 'numBananas', 10);\nhamster.hasTooManyBananas; // true\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { gte } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  hasTooManyBananas: gte('numBananas', 10)\n});\n\nlet hamster = Hamster.create();\n\nhamster.hasTooManyBananas; // false\n\nset(hamster, 'numBananas', 3);\nhamster.hasTooManyBananas; // false\n\nset(hamster, 'numBananas', 10);\nhamster.hasTooManyBananas; // true\n```\n",
+          "name": "gte",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if the\noriginal value for property is greater or equal then given value.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 660,
+          "itemtype": "method",
+          "description": "A computed property that returns true if the provided dependent property is\nless than the provided value.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { lt } from '@ember/object/computed';\n\nclass Hamster {\n  @lt('numBananas', 3) needsMoreBananas;\n}\n\nlet hamster = new Hamster();\n\nhamster.needsMoreBananas; // true\n\nset(hamster, 'numBananas', 3);\nhamster.needsMoreBananas; // false\n\nset(hamster, 'numBananas', 2);\nhamster.needsMoreBananas; // true\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { lt } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  needsMoreBananas: lt('numBananas', 3)\n});\n\nlet hamster = Hamster.create();\n\nhamster.needsMoreBananas; // true\n\nset(hamster, 'numBananas', 3);\nhamster.needsMoreBananas; // false\n\nset(hamster, 'numBananas', 2);\nhamster.needsMoreBananas; // true\n```\n",
+          "name": "lt",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if the\noriginal value for property is less then given value.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 726,
+          "itemtype": "method",
+          "description": "A computed property that returns true if the provided dependent property is\nless than or equal to the provided value.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { lte } from '@ember/object/computed';\n\nclass Hamster {\n  @lte('numBananas', 3) needsMoreBananas;\n}\n\nlet hamster = new Hamster();\n\nhamster.needsMoreBananas; // true\n\nset(hamster, 'numBananas', 5);\nhamster.needsMoreBananas; // false\n\nset(hamster, 'numBananas', 3);\nhamster.needsMoreBananas; // true\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { lte } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  needsMoreBananas: lte('numBananas', 3)\n});\n\nlet hamster = Hamster.create();\n\nhamster.needsMoreBananas; // true\n\nset(hamster, 'numBananas', 5);\nhamster.needsMoreBananas; // false\n\nset(hamster, 'numBananas', 3);\nhamster.needsMoreBananas; // true\n```\n",
+          "name": "lte",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if the\noriginal value for property is less or equal than given value.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 792,
+          "itemtype": "method",
+          "description": "A computed property that performs a logical `and` on the original values for\nthe provided dependent properties.\n\nYou may pass in more than two properties and even use property brace\nexpansion.  The computed property will return the first falsy value or last\ntruthy value just like JavaScript's `&&` operator.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { and } from '@ember/object/computed';\n\nclass Hamster {\n  @and('hasWalkingStick', 'hasBackpack') readyForHike;\n}\n\nlet tomster = new Hamster();\n\ntomster.readyForCamp; // false\n\nset(tomster, 'hasTent', true);\ntomster.readyForCamp; // false\n\nset(tomster, 'hasBackpack', true);\ntomster.readyForCamp; // true\n\nset(tomster, 'hasBackpack', 'Yes');\ntomster.readyForCamp; // 'Yes'\n\nset(tomster, 'hasWalkingStick', null);\ntomster.readyForHike; // null\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { and } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  readyForCamp: and('hasTent', 'hasBackpack'),\n  readyForHike: and('hasWalkingStick', 'hasBackpack')\n});\n\nlet tomster = Hamster.create();\n\ntomster.readyForCamp; // false\n\nset(tomster, 'hasTent', true);\ntomster.readyForCamp; // false\n\nset(tomster, 'hasBackpack', true);\ntomster.readyForCamp; // true\n\nset(tomster, 'hasBackpack', 'Yes');\ntomster.readyForCamp; // 'Yes'\n\nset(tomster, 'hasWalkingStick', null);\ntomster.readyForHike; // null\n```\n",
+          "name": "and",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computed property which performs a logical `and` on\nthe values of all the original values for properties.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 866,
+          "itemtype": "method",
+          "description": "A computed property which performs a logical `or` on the original values for\nthe provided dependent properties.\n\nYou may pass in more than two properties and even use property brace\nexpansion.  The computed property will return the first truthy value or last\nfalsy value just like JavaScript's `||` operator.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { or } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  @or('hasSunscreen', 'hasUmbrella') readyForBeach;\n});\n\nlet tomster = new Hamster();\n\ntomster.readyForRain; // undefined\n\nset(tomster, 'hasUmbrella', true);\ntomster.readyForRain; // true\n\nset(tomster, 'hasJacket', 'Yes');\ntomster.readyForRain; // 'Yes'\n\nset(tomster, 'hasSunscreen', 'Check');\ntomster.readyForBeach; // 'Check'\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { or } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  readyForRain: or('hasJacket', 'hasUmbrella'),\n  readyForBeach: or('hasSunscreen', 'hasUmbrella')\n});\n\nlet tomster = Hamster.create();\n\ntomster.readyForRain; // undefined\n\nset(tomster, 'hasUmbrella', true);\ntomster.readyForRain; // true\n\nset(tomster, 'hasJacket', 'Yes');\ntomster.readyForRain; // 'Yes'\n\nset(tomster, 'hasSunscreen', 'Check');\ntomster.readyForBeach; // 'Check'\n```\n",
+          "name": "or",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computed property which performs a logical `or` on\nthe values of all the original values for properties.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 934,
+          "itemtype": "method",
+          "description": "Creates a new property that is an alias for another property on an object.\nCalls to `get` or `set` this property behave as though they were called on the\noriginal property.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { alias } from '@ember/object/computed';\n\nclass Person {\n  name = 'Alex Matchneer';\n  @alias('name') nomen;\n}\n\nlet alex = new Person();\n\nalex.nomen; // 'Alex Matchneer'\nalex.name;  // 'Alex Matchneer'\n\nset(alex, 'nomen', '@machty');\nalex.name;  // '@machty'\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { alias } from '@ember/object/computed';\n\nlet Person = EmberObject.extend({\n  name: 'Alex Matchneer',\n\n  nomen: alias('name')\n});\n\nlet alex = Person.create();\n\nalex.nomen; // 'Alex Matchneer'\nalex.name;  // 'Alex Matchneer'\n\nset(alex, 'nomen', '@machty');\nalex.name;  // '@machty'\n```\n",
+          "name": "alias",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which creates an alias to the\noriginal value for property.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 990,
+          "itemtype": "method",
+          "description": "Where `computed.alias` aliases `get` and `set`, and allows for bidirectional\ndata flow, `computed.oneWay` only provides an aliased `get`. The `set` will\nnot mutate the upstream property, rather causes the current property to become\nthe value set. This causes the downstream property to permanently diverge from\nthe upstream property.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { oneWay }from '@ember/object/computed';\n\nclass User {\n  constructor(firstName, lastName) {\n    set(this, 'firstName', firstName);\n    set(this, 'lastName', lastName);\n  }\n\n  @oneWay('firstName') nickName;\n}\n\nlet teddy = new User('Teddy', 'Zeenny');\n\nteddy.nickName; // 'Teddy'\n\nset(teddy, 'nickName', 'TeddyBear');\nteddy.firstName; // 'Teddy'\nteddy.nickName; // 'TeddyBear'\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { oneWay } from '@ember/object/computed';\n\nlet User = EmberObject.extend({\n  firstName: null,\n  lastName: null,\n\n  nickName: oneWay('firstName')\n});\n\nlet teddy = User.create({\n  firstName: 'Teddy',\n  lastName: 'Zeenny'\n});\n\nteddy.nickName; // 'Teddy'\n\nset(teddy, 'nickName', 'TeddyBear'); // 'TeddyBear'\nteddy.firstName; // 'Teddy'\nteddy.nickName; // 'TeddyBear'\n```\n",
+          "name": "oneWay",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which creates a one way computed\nproperty to the original value for property.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 1063,
+          "description": "This is a more semantically meaningful alias of `computed.oneWay`, whose name\nis somewhat ambiguous as to which direction the data flows.",
+          "itemtype": "method",
+          "name": "reads",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which creates a one way computed\n  property to the original value for property.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 1076,
+          "itemtype": "method",
+          "description": "Where `computed.oneWay` provides oneWay bindings, `computed.readOnly` provides\na readOnly one way binding. Very often when using `computed.oneWay` one does\nnot also want changes to propagate back up, as they will replace the value.\n\nThis prevents the reverse flow, and also throws an exception when it occurs.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { readOnly } from '@ember/object/computed';\n\nclass User {\n  constructor(firstName, lastName) {\n    set(this, 'firstName', firstName);\n    set(this, 'lastName', lastName);\n  }\n\n  @readOnly('firstName') nickName;\n});\n\nlet teddy = new User('Teddy', 'Zeenny');\n\nteddy.nickName; // 'Teddy'\n\nset(teddy, 'nickName', 'TeddyBear'); // throws Exception\n// throw new EmberError('Cannot Set: nickName on: <User:ember27288>' );`\n\nteddy.firstName; // 'Teddy'\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { readOnly } from '@ember/object/computed';\n\nlet User = EmberObject.extend({\n  firstName: null,\n  lastName: null,\n\n  nickName: readOnly('firstName')\n});\n\nlet teddy = User.create({\n  firstName: 'Teddy',\n  lastName:  'Zeenny'\n});\n\nteddy.nickName; // 'Teddy'\n\nset(teddy, 'nickName', 'TeddyBear'); // throws Exception\n// throw new EmberError('Cannot Set: nickName on: <User:ember27288>' );`\n\nteddy.firstName; // 'Teddy'\n```\n",
+          "name": "readOnly",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which creates a one way computed\nproperty to the original value for property.",
+            "type": "ComputedProperty"
+          },
+          "since": "1.5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/computed_macros.js",
+          "line": 1152,
+          "itemtype": "method",
+          "description": "Creates a new property that is an alias for another property on an object.\nCalls to `get` or `set` this property behave as though they were called on the\noriginal property, but also print a deprecation warning.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { deprecatingAlias } from '@ember/object/computed';\n\nclass Hamster {\n  @deprecatingAlias('cavendishCount', {\n    id: 'hamster.deprecate-banana',\n    until: '3.0.0'\n  })\n  bananaCount;\n}\n\nlet hamster = new Hamster();\n\nset(hamster, 'bananaCount', 5); // Prints a deprecation warning.\nhamster.cavendishCount; // 5\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { deprecatingAlias } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  bananaCount: deprecatingAlias('cavendishCount', {\n    id: 'hamster.deprecate-banana',\n    until: '3.0.0'\n  })\n});\n\nlet hamster = Hamster.create();\n\nset(hamster, 'bananaCount', 5); // Prints a deprecation warning.\nhamster.cavendishCount; // 5\n```\n",
+          "name": "deprecatingAlias",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "Options for `deprecate`.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "computed property which creates an alias with a\ndeprecation to the original value for property.",
+            "type": "ComputedProperty"
+          },
+          "since": "1.7.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 63,
+          "itemtype": "method",
+          "description": "A computed property that returns the sum of the values in the dependent array.\n\nExample:\n\n```javascript\nimport { sum } from '@ember/object/computed';\n\nclass Invoice {\n  lineItems = [1.00, 2.50, 9.99];\n  @sum('lineItems') total;\n}\n\nlet invoice = new Invoice();\n\ninvoice.total; // 13.49\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject from '@ember/object';\nimport { sum } from '@ember/object/computed';\n\nlet Invoice = EmberObject.extend({\n  lineItems: [1.00, 2.50, 9.99],\n\n  total: sum('lineItems')\n})\n\nlet invoice = Invoice.create();\n\ninvoice.total; // 13.49\n```\n",
+          "name": "sum",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computes the sum of all values in the\ndependentKey's array",
+            "type": "ComputedProperty"
+          },
+          "since": "1.4.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 117,
+          "itemtype": "method",
+          "description": "A computed property that calculates the maximum value in the dependent array.\nThis will return `-Infinity` when the dependent array is empty.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { mapBy, max } from '@ember/object/computed';\n\nclass Person {\n  children = [];\n  @mapBy('children', 'age') childAges;\n  @max('childAges') maxChildAge;\n}\n\nlet lordByron = new Person();\n\nlordByron.maxChildAge; // -Infinity\n\nset(lordByron, 'children', [\n  {\n    name: 'Augusta Ada Byron',\n    age: 7\n  }\n]);\nlordByron.maxChildAge; // 7\n\nset(lordByron, 'children', [\n  ...lordByron.children,\n  {\n    name: 'Allegra Byron',\n    age: 5\n  }, {\n    name: 'Elizabeth Medora Leigh',\n    age: 8\n  }\n]);\nlordByron.maxChildAge; // 8\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { mapBy, max } from '@ember/object/computed';\n\nlet Person = EmberObject.extend({\n  childAges: mapBy('children', 'age'),\n  maxChildAge: max('childAges')\n});\n\nlet lordByron = Person.create({ children: [] });\n\nlordByron.maxChildAge; // -Infinity\n\nset(lordByron, 'children', [\n  {\n    name: 'Augusta Ada Byron',\n    age: 7\n  }\n]);\nlordByron.maxChildAge; // 7\n\nset(lordByron, 'children', [\n  ...lordByron.children,\n  {\n    name: 'Allegra Byron',\n    age: 5\n  }, {\n    name: 'Elizabeth Medora Leigh',\n    age: 8\n  }\n]);\nlordByron.maxChildAge; // 8\n```\n\nIf the types of the arguments are not numbers, they will be converted to\nnumbers and the type of the return value will always be `Number`. For example,\nthe max of a list of Date objects will be the highest timestamp as a `Number`.\nThis behavior is consistent with `Math.max`.\n",
+          "name": "max",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computes the largest value in the dependentKey's\narray",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 217,
+          "itemtype": "method",
+          "description": "A computed property that calculates the minimum value in the dependent array.\nThis will return `Infinity` when the dependent array is empty.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { mapBy, min } from '@ember/object/computed';\n\nclass Person {\n  children = [];\n  @mapBy('children', 'age') childAges;\n  @min('childAges') minChildAge;\n}\n\nlet lordByron = Person.create({ children: [] });\n\nlordByron.minChildAge; // Infinity\n\nset(lordByron, 'children', [\n  {\n    name: 'Augusta Ada Byron',\n    age: 7\n  }\n]);\nlordByron.minChildAge; // 7\n\nset(lordByron, 'children', [\n  ...lordByron.children,\n  {\n    name: 'Allegra Byron',\n    age: 5\n  }, {\n    name: 'Elizabeth Medora Leigh',\n    age: 8\n  }\n]);\nlordByron.minChildAge; // 5\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { mapBy, min } from '@ember/object/computed';\n\nlet Person = EmberObject.extend({\n  childAges: mapBy('children', 'age'),\n  minChildAge: min('childAges')\n});\n\nlet lordByron = Person.create({ children: [] });\n\nlordByron.minChildAge; // Infinity\n\nset(lordByron, 'children', [\n  {\n    name: 'Augusta Ada Byron',\n    age: 7\n  }\n]);\nlordByron.minChildAge; // 7\n\nset(lordByron, 'children', [\n  ...lordByron.children,\n  {\n    name: 'Allegra Byron',\n    age: 5\n  }, {\n    name: 'Elizabeth Medora Leigh',\n    age: 8\n  }\n]);\nlordByron.minChildAge; // 5\n```\n\nIf the types of the arguments are not numbers, they will be converted to\nnumbers and the type of the return value will always be `Number`. For example,\nthe min of a list of Date objects will be the lowest timestamp as a `Number`.\nThis behavior is consistent with `Math.min`.\n",
+          "name": "min",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computes the smallest value in the dependentKey's array",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 316,
+          "itemtype": "method",
+          "description": "Returns an array mapped via the callback\n\nThe callback method you provide should have the following signature:\n- `item` is the current item in the iteration.\n- `index` is the integer index of the current item in the iteration.\n\n```javascript\nfunction mapCallback(item, index);\n```\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { map } from '@ember/object/computed';\n\nclass Hamster {\n  constructor(chores) {\n    set(this, 'chores', chores);\n  }\n\n  @map('chores', ['shouldUpperCase'], function(chore, index) {\n    if (this.shouldUpperCase) {\n      return `${chore.toUpperCase()}!`;\n    } else {\n      return `${chore}!`;\n    }\n  })\n  excitingChores;\n}\n\nlet hamster = new Hamster(['clean', 'write more unit tests']);\n\nhamster.excitingChores; // ['clean!', 'write more unit tests!']\n\nset(hamster, 'shouldUpperCase', true);\nhamster.excitingChores; // ['CLEAN!', 'WRITE MORE UNIT TESTS!']\n```\n",
+          "name": "map",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "additionalDependentKeys",
+              "description": "optional array of additional\ndependent keys",
+              "type": "Array",
+              "optional": true
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "an array mapped via the callback",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 436,
+          "itemtype": "method",
+          "description": "Returns an array mapped to the specified key.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { mapBy } from '@ember/object/computed';\n\nclass Person {\n  children = [];\n  @mapBy('children', 'age') childAges;\n}\n\nlet lordByron = new Person();\n\nlordByron.childAges; // []\n\nset(lordByron, 'children', [\n  {\n    name: 'Augusta Ada Byron',\n    age: 7\n  }\n]);\nlordByron.childAges; // [7]\n\nset(lordByron, 'children', [\n  ...lordByron.children,\n  {\n    name: 'Allegra Byron',\n    age: 5\n  }, {\n    name: 'Elizabeth Medora Leigh',\n    age: 8\n  }\n]);\nlordByron.childAges; // [7, 5, 8]\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { mapBy } from '@ember/object/computed';\n\nlet Person = EmberObject.extend({\n  childAges: mapBy('children', 'age')\n});\n\nlet lordByron = Person.create({ children: [] });\n\nlordByron.childAges; // []\n\nset(lordByron, 'children', [\n  {\n    name: 'Augusta Ada Byron',\n    age: 7\n  }\n]);\nlordByron.childAges; // [7]\n\nset(lordByron, 'children', [\n  ...lordByron.children,\n  {\n    name: 'Allegra Byron',\n    age: 5\n  }, {\n    name: 'Elizabeth Medora Leigh',\n    age: 8\n  }\n]);\nlordByron.childAges; // [7, 5, 8]\n```\n",
+          "name": "mapBy",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "propertyKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "an array mapped to the specified key",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 538,
+          "itemtype": "method",
+          "description": "Filters the array by the callback.\n\nThe callback method you provide should have the following signature:\n- `item` is the current item in the iteration.\n- `index` is the integer index of the current item in the iteration.\n- `array` is the dependant array itself.\n\n```javascript\nfunction filterCallback(item, index, array);\n```\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { filter } from '@ember/object/computed';\n\nclass Hamster {\n  constructor(chores) {\n    set(this, 'chores', chores);\n  }\n\n  @filter('chores', ['doneKey'], function(chore, index, array) {\n    return !chore[this.doneKey];\n  })\n  remainingChores;\n}\n\nlet hamster = new Hamster([\n  { name: 'cook', finished: true },\n  { name: 'clean', finished: true },\n  { name: 'write more unit tests', finished: false }\n]);\n\nhamster.remainingChores; // [{name: 'write more unit tests', finished: false}]\n```\n",
+          "name": "filter",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "additionalDependentKeys",
+              "description": "optional array of additional dependent keys",
+              "type": "Array",
+              "optional": true
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "the filtered array",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 692,
+          "itemtype": "method",
+          "description": "Filters the array by the property and value.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { filterBy } from '@ember/object/computed';\n\nclass Hamster {\n  constructor(chores) {\n    set(this, 'chores', chores);\n  }\n\n  @filterBy('chores', 'done', false) remainingChores;\n}\n\nlet hamster = new Hamster([\n  { name: 'cook', done: true },\n  { name: 'clean', done: true },\n  { name: 'write more unit tests', done: false }\n]);\n\nhamster.remainingChores; // [{ name: 'write more unit tests', done: false }]\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject from '@ember/object';\nimport { filterBy } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  remainingChores: filterBy('chores', 'done', false)\n});\n\nlet hamster = Hamster.create({\n  chores: [\n    { name: 'cook', done: true },\n    { name: 'clean', done: true },\n    { name: 'write more unit tests', done: false }\n  ]\n});\n\nhamster.remainingChores; // [{ name: 'write more unit tests', done: false }]\n```\n",
+          "name": "filterBy",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "propertyKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "the filtered array",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 769,
+          "itemtype": "method",
+          "description": "A computed property which returns a new array with all the unique elements\nfrom one or more dependent arrays.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { uniq } from '@ember/object/computed';\n\nclass Hamster {\n  constructor(fruits) {\n    set(this, 'fruits', fruits);\n  }\n\n  @uniq('fruits') uniqueFruits;\n}\n\nlet hamster = new Hamster([\n  'banana',\n  'grape',\n  'kale',\n  'banana'\n]);\n\nhamster.uniqueFruits; // ['banana', 'grape', 'kale']\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject from '@ember/object';\nimport { uniq } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  uniqueFruits: uniq('fruits')\n});\n\nlet hamster = Hamster.create({\n  fruits: [\n    'banana',\n    'grape',\n    'kale',\n    'banana'\n  ]\n});\n\nhamster.uniqueFruits; // ['banana', 'grape', 'kale']\n```\n",
+          "name": "uniq",
+          "static": 1,
+          "params": [
+            {
+              "name": "propertyKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computes a new array with all the\nunique elements from the dependent array",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 857,
+          "itemtype": "method",
+          "description": "A computed property which returns a new array with all the unique elements\nfrom an array, with uniqueness determined by specific key.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { uniqBy } from '@ember/object/computed';\n\nclass Hamster {\n  constructor(fruits) {\n    set(this, 'fruits', fruits);\n  }\n\n  @uniqBy('fruits', 'id') uniqueFruits;\n}\n\nlet hamster = new Hamster([\n  { id: 1, 'banana' },\n  { id: 2, 'grape' },\n  { id: 3, 'peach' },\n  { id: 1, 'banana' }\n]);\n\nhamster.uniqueFruits; // [ { id: 1, 'banana' }, { id: 2, 'grape' }, { id: 3, 'peach' }]\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject from '@ember/object';\nimport { uniqBy } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  uniqueFruits: uniqBy('fruits', 'id')\n});\n\nlet hamster = Hamster.create({\n  fruits: [\n    { id: 1, 'banana' },\n    { id: 2, 'grape' },\n    { id: 3, 'peach' },\n    { id: 1, 'banana' }\n  ]\n});\n\nhamster.uniqueFruits; // [ { id: 1, 'banana' }, { id: 2, 'grape' }, { id: 3, 'peach' }]\n```\n",
+          "name": "uniqBy",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "propertyKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computes a new array with all the\nunique elements from the dependent array",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 933,
+          "itemtype": "method",
+          "description": "A computed property which returns a new array with all the unique elements\nfrom one or more dependent arrays.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { union } from '@ember/object/computed';\n\nclass Hamster {\n  constructor(fruits, vegetables) {\n    set(this, 'fruits', fruits);\n    set(this, 'vegetables', vegetables);\n  }\n\n  @union('fruits', 'vegetables') ediblePlants;\n});\n\nlet hamster = new, Hamster(\n  [\n    'banana',\n    'grape',\n    'kale',\n    'banana',\n    'tomato'\n  ],\n  [\n    'tomato',\n    'carrot',\n    'lettuce'\n  ]\n);\n\nhamster.uniqueFruits; // ['banana', 'grape', 'kale', 'tomato', 'carrot', 'lettuce']\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject from '@ember/object';\nimport { union } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  uniqueFruits: union('fruits', 'vegetables')\n});\n\nlet hamster = Hamster.create({\n  fruits: [\n    'banana',\n    'grape',\n    'kale',\n    'banana',\n    'tomato'\n  ],\n  vegetables: [\n    'tomato',\n    'carrot',\n    'lettuce'\n  ]\n});\n\nhamster.uniqueFruits; // ['banana', 'grape', 'kale', 'tomato', 'carrot', 'lettuce']\n```\n",
+          "name": "union",
+          "static": 1,
+          "params": [
+            {
+              "name": "propertyKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computes a new array with all the unique elements\nfrom one or more dependent arrays.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 1008,
+          "itemtype": "method",
+          "description": "A computed property which returns a new array with all the elements\ntwo or more dependent arrays have in common.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { intersect } from '@ember/object/computed';\n\nclass FriendGroups {\n  constructor(adaFriends, charlesFriends) {\n    set(this, 'adaFriends', adaFriends);\n    set(this, 'charlesFriends', charlesFriends);\n  }\n\n  @intersect('adaFriends', 'charlesFriends') friendsInCommon;\n}\n\nlet groups = new FriendGroups(\n  ['Charles Babbage', 'John Hobhouse', 'William King', 'Mary Somerville'],\n  ['William King', 'Mary Somerville', 'Ada Lovelace', 'George Peacock']\n);\n\ngroups.friendsInCommon; // ['William King', 'Mary Somerville']\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject from '@ember/object';\nimport { intersect } from '@ember/object/computed';\n\nlet FriendGroups = EmberObject.extend({\n  friendsInCommon: intersect('adaFriends', 'charlesFriends')\n});\n\nlet groups = FriendGroups.create({\n  adaFriends: ['Charles Babbage', 'John Hobhouse', 'William King', 'Mary Somerville'],\n  charlesFriends: ['William King', 'Mary Somerville', 'Ada Lovelace', 'George Peacock']\n});\n\ngroups.friendsInCommon; // ['William King', 'Mary Somerville']\n```\n",
+          "name": "intersect",
+          "static": 1,
+          "params": [
+            {
+              "name": "propertyKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computes a new array with all the duplicated\nelements from the dependent arrays",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 1100,
+          "itemtype": "method",
+          "description": "A computed property which returns a new array with all the properties from the\nfirst dependent array that are not in the second dependent array.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { setDiff } from '@ember/object/computed';\n\nclass Hamster {\n  constructor(likes, fruits) {\n    set(this, 'likes', likes);\n    set(this, 'fruits', fruits);\n  }\n\n  @setDiff('likes', 'fruits') wants;\n}\n\nlet hamster = new Hamster(\n  [\n    'banana',\n    'grape',\n    'kale'\n  ],\n  [\n    'grape',\n    'kale',\n  ]\n);\n\nhamster.wants; // ['banana']\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject from '@ember/object';\nimport { setDiff } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  wants: setDiff('likes', 'fruits')\n});\n\nlet hamster = Hamster.create({\n  likes: [\n    'banana',\n    'grape',\n    'kale'\n  ],\n  fruits: [\n    'grape',\n    'kale',\n  ]\n});\n\nhamster.wants; // ['banana']\n```\n",
+          "name": "setDiff",
+          "static": 1,
+          "params": [
+            {
+              "name": "setAProperty",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "setBProperty",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computes a new array with all the items from the\nfirst dependent array that are not in the second dependent array",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 1195,
+          "itemtype": "method",
+          "description": "A computed property that returns the array of values for the provided\ndependent properties.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { collect } from '@ember/object/computed';\n\nclass Hamster {\n  @collect('hat', 'shirt') clothes;\n}\n\nlet hamster = new Hamster();\n\nhamster.clothes; // [null, null]\n\nset(hamster, 'hat', 'Camp Hat');\nset(hamster, 'shirt', 'Camp Shirt');\nhamster.clothes; // ['Camp Hat', 'Camp Shirt']\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { set } from '@ember/object';\nimport { collect } from '@ember/object/computed';\n\nlet Hamster = EmberObject.extend({\n  clothes: collect('hat', 'shirt')\n});\n\nlet hamster = Hamster.create();\n\nhamster.clothes; // [null, null]\n\nset(hamster, 'hat', 'Camp Hat');\nset(hamster, 'shirt', 'Camp Shirt');\nhamster.clothes; // ['Camp Hat', 'Camp Shirt']\n```\n",
+          "name": "collect",
+          "static": 1,
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computed property which maps values of all passed\nin properties to an array.",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/object/lib/computed/reduce_computed_macros.js",
+          "line": 1265,
+          "itemtype": "method",
+          "description": "A computed property which returns a new array with all the properties from the\nfirst dependent array sorted based on a property or sort function. The sort\nmacro can be used in two different ways:\n\n1. By providing a sort callback function\n2. By providing an array of keys to sort the array\n\nIn the first form, the callback method you provide should have the following\nsignature:\n\n```javascript\nfunction sortCallback(itemA, itemB);\n```\n\n- `itemA` the first item to compare.\n- `itemB` the second item to compare.\n\nThis function should return negative number (e.g. `-1`) when `itemA` should\ncome before `itemB`. It should return positive number (e.g. `1`) when `itemA`\nshould come after `itemB`. If the `itemA` and `itemB` are equal this function\nshould return `0`.\n\nTherefore, if this function is comparing some numeric values, simple `itemA -\nitemB` or `itemA.get( 'foo' ) - itemB.get( 'foo' )` can be used instead of\nseries of `if`.\n\nExample:\n\n```javascript\nimport { set } from '@ember/object';\nimport { sort } from '@ember/object/computed';\n\nclass ToDoList {\n  constructor(todos) {\n    set(this, 'todos', todos);\n  }\n\n  // using a custom sort function\n  @sort('todos', 'todosSortingDesc') sortedTodosDesc;\n}\n\nlet todoList = new ToDoList([\n  { name: 'Unit Test', priority: 2 },\n  { name: 'Documentation', priority: 3 },\n  { name: 'Release', priority: 1 }\n]);\n\ntodoList.sortedTodos; // [{ name:'Documentation', priority:3 }, { name:'Release', priority:1 }, { name:'Unit Test', priority:2 }]\ntodoList.sortedTodosDesc; // [{ name:'Unit Test', priority:2 }, { name:'Release', priority:1 }, { name:'Documentation', priority:3 }]\n```\n",
+          "name": "sort",
+          "static": 1,
+          "params": [
+            {
+              "name": "itemsKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "additionalDependentKeys",
+              "description": "optional array of additional\ndependent keys",
+              "type": "Array",
+              "optional": true
+            },
+            {
+              "name": "sortDefinition",
+              "description": "a dependent key to an array of sort\nproperties (add `:desc` to the arrays sort properties to sort descending) or a\nfunction to use when sorting",
+              "type": "String or Function"
+            }
+          ],
+          "return": {
+            "description": "computes a new sorted array based on the sort\nproperty array or callback function",
+            "type": "ComputedProperty"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/computed",
+          "module": "@ember/object"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.10.2-@ember/object",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.10.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

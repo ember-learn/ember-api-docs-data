@@ -1,0 +1,51 @@
+{
+  "data": {
+    "id": "ember-2.15.3-ember-routing",
+    "type": "module",
+    "attributes": {
+      "name": "ember-routing",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "Ember.ControllerMixin": 1,
+        "Ember": 1,
+        "Ember.Route": 1
+      },
+      "is_submodule": 1,
+      "namespaces": {
+        "Ember": 1
+      },
+      "namespace": "",
+      "file": "packages/ember-routing/lib/system/router.js",
+      "line": 54,
+      "description": "Ember.Location returns an instance of the correct implementation of\nthe `location` API.\n\n## Implementations\n\nYou can pass an implementation name (`hash`, `history`, `none`, `auto`) to force a\nparticular implementation to be used in your application.\n\nSee [Ember.Location.HashLocation](/api/classes/Ember.Location.HashLocation).\nSee [Ember.Location.HistoryLocation](/api/classes/Ember.Location.HistoryLocation).\nSee [Ember.Location.NoneLocation](/api/classes/Ember.Location.NoneLocation).\nSee [Ember.Location.AutoLocation](/api/classes/Ember.Location.AutoLocation).\n\n\n## Location API\n\nEach location implementation must provide the following methods:\n\n* implementation: returns the string name used to reference the implementation.\n* getURL: returns the current URL.\n* setURL(path): sets the current URL.\n* replaceURL(path): replace the current URL (optional).\n* onUpdateURL(callback): triggers the callback when the URL changes.\n* formatURL(url): formats `url` to be placed into `href` attribute.\n* detect() (optional): instructs the location to do any feature detection\n    necessary. If the location needs to redirect to a different URL, it\n    can cancel routing by setting the `cancelRouterSetup` property on itself\n    to `false`.\n\nCalling setURL or replaceURL will not trigger onUpdateURL callbacks.\n\n## Custom implementation\n\nEmber scans `app/locations/*` for extending the Location API.\n\nExample:\n\n```javascript\nimport Ember from 'ember';\n\nconst { HistoryLocation } = Ember;\n\nexport default class MyHistory {\n  implementation: 'my-custom-history',\n  constructor() {\n    this._history = HistoryLocation.create(...arguments);\n  }\n  create() {\n    return new this(...arguments);\n  }\n  pushState(path) {\n     this._history.pushState(path);\n  }\n}\n```",
+      "parent": "ember",
+      "publicclasses": [
+        "Ember.HashLocation",
+        "Ember.HistoryLocation",
+        "Ember.NoneLocation",
+        "RouterService",
+        "Ember.Route",
+        "Ember.Router"
+      ],
+      "privateclasses": [
+        "Ember.ControllerMixin",
+        "RoutingService"
+      ],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "2.15.3"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.15.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "data": {
+    "id": "ember-1.12.2-Ember.ClassNamesSupport",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ClassNamesSupport",
+      "shortname": "Ember.ClassNamesSupport",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.View"
+      ],
+      "module": "ember",
+      "submodule": "ember-views",
+      "namespace": "Ember",
+      "file": "packages/ember-views/lib/mixins/class_names_support.js",
+      "line": 24,
+      "methods": [
+        {
+          "file": "packages/ember-views/lib/mixins/class_names_support.js",
+          "line": 95,
+          "description": "Iterates over the view's `classNameBindings` array, inserts the value\nof the specified property into the `classNames` array, then creates an\nobserver to update the view's element if the bound property ever changes\nin the future.",
+          "itemtype": "method",
+          "name": "_applyClassNameBindings",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ClassNamesSupport",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-views/lib/mixins/class_names_support.js",
+          "line": 41,
+          "description": "Standard CSS class names to apply to the view's outer element. This\nproperty automatically inherits any class names defined by the view's\nsuperclasses as well.",
+          "itemtype": "property",
+          "name": "classNames",
+          "type": "Array",
+          "default": "['ember-view']",
+          "class": "Ember.ClassNamesSupport",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/mixins/class_names_support.js",
+          "line": 52,
+          "description": "A list of properties of the view to apply as class names. If the property\nis a string value, the value of that string will be applied as a class\nname.\n\n```javascript\n// Applies the 'high' class to the view element\nEmber.View.extend({\n  classNameBindings: ['priority']\n  priority: 'high'\n});\n```\n\nIf the value of the property is a Boolean, the name of that property is\nadded as a dasherized class name.\n\n```javascript\n// Applies the 'is-urgent' class to the view element\nEmber.View.extend({\n  classNameBindings: ['isUrgent']\n  isUrgent: true\n});\n```\n\nIf you would prefer to use a custom value instead of the dasherized\nproperty name, you can pass a binding like this:\n\n```javascript\n// Applies the 'urgent' class to the view element\nEmber.View.extend({\n  classNameBindings: ['isUrgent:urgent']\n  isUrgent: true\n});\n```\n\nThis list of properties is inherited from the view's superclasses as well.",
+          "itemtype": "property",
+          "name": "classNameBindings",
+          "type": "Array",
+          "default": "[]",
+          "class": "Ember.ClassNamesSupport",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.12.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.12.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
