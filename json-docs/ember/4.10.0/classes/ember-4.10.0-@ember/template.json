@@ -1,0 +1,100 @@
+{
+  "data": {
+    "id": "ember-4.10.0-@ember/template",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/template",
+      "shortname": "@ember/template",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/template",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/managers.ts",
+          "line": 9,
+          "description": "Associate a class with a component manager (an object that is responsible for\ncoordinating the lifecycle events that occurs when invoking, rendering and\nre-rendering a component).",
+          "itemtype": "method",
+          "name": "setComponentManager",
+          "params": [
+            {
+              "name": "factory",
+              "description": "a function to create the owner for an object",
+              "type": "Function"
+            },
+            {
+              "name": "obj",
+              "description": "the object to associate with the componetn manager",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the same object passed in",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/template",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+          "line": 61,
+          "description": "Use this method to indicate that a string should be rendered as HTML\nwhen the string is used in a template. To say this another way,\nstrings marked with `htmlSafe` will not be HTML escaped.\n\nA word of warning -   The `htmlSafe` method does not make the string safe;\nit only tells the framework to treat the string as if it is safe to render\nas HTML. If a string contains user inputs or other untrusted\ndata, you must sanitize the string before using the `htmlSafe` method.\nOtherwise your code is vulnerable to\n[Cross-Site Scripting](https://owasp.org/www-community/attacks/DOM_Based_XSS).\nThere are many open source sanitization libraries to choose from,\nboth for front end and server-side sanitization.\n\n```javascript\nimport { htmlSafe } from '@ember/template';\n\nconst someTrustedOrSanitizedString = \"<div>Hello!</div>\"\n\nhtmlSafe(someTrustedorSanitizedString)\n```",
+          "itemtype": "method",
+          "name": "htmlSafe",
+          "static": 1,
+          "return": {
+            "description": "A string that will not be HTML escaped by Handlebars.",
+            "type": "SafeString"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/template",
+          "module": "@ember/template"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+          "line": 98,
+          "description": "Detects if a string was decorated using `htmlSafe`.\n\n```javascript\nimport { htmlSafe, isHTMLSafe } from '@ember/template';\n\nvar plainString = 'plain string',\n    safeString = htmlSafe('<div>someValue</div>');\n\nisHTMLSafe(plainString); // false\nisHTMLSafe(safeString);  // true\n```",
+          "itemtype": "method",
+          "name": "isHTMLSafe",
+          "static": 1,
+          "return": {
+            "description": "`true` if the string was decorated with `htmlSafe`, `false` otherwise.",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/template",
+          "module": "@ember/template"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-4.10.0-@ember/template",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-4.10.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

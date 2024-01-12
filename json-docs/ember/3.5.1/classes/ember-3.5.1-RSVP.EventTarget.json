@@ -1,0 +1,125 @@
+{
+  "data": {
+    "id": "ember-3.5.1-RSVP.EventTarget",
+    "type": "class",
+    "attributes": {
+      "name": "RSVP.EventTarget",
+      "shortname": "RSVP.EventTarget",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/application",
+      "file": "node_modules/rsvp/lib/rsvp/events.js",
+      "line": 12,
+      "methods": [
+        {
+          "file": "node_modules/rsvp/lib/rsvp/events.js",
+          "line": 17,
+          "description": "`RSVP.EventTarget.mixin` extends an object with EventTarget methods. For\nExample:\n\n```javascript\nlet object = {};\n\nRSVP.EventTarget.mixin(object);\n\nobject.on('finished', function(event) {\n  // handle event\n});\n\nobject.trigger('finished', { detail: value });\n```\n\n`EventTarget.mixin` also works with prototypes:\n\n```javascript\nlet Person = function() {};\nRSVP.EventTarget.mixin(Person.prototype);\n\nlet yehuda = new Person();\nlet tom = new Person();\n\nyehuda.on('poke', function(event) {\n  console.log('Yehuda says OW');\n});\n\ntom.on('poke', function(event) {\n  console.log('Tom says OW');\n});\n\nyehuda.trigger('poke');\ntom.trigger('poke');\n```",
+          "itemtype": "method",
+          "name": "mixin",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "object",
+              "description": "object to extend with EventTarget methods",
+              "type": "Object"
+            }
+          ],
+          "class": "RSVP.EventTarget"
+        },
+        {
+          "file": "node_modules/rsvp/lib/rsvp/events.js",
+          "line": 67,
+          "description": "Registers a callback to be executed when `eventName` is triggered\n\n```javascript\nobject.on('event', function(eventInfo){\n  // handle the event\n});\n\nobject.trigger('event');\n```",
+          "itemtype": "method",
+          "name": "on",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "eventName",
+              "description": "name of the event to listen for",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "function to be called when the event is triggered.",
+              "type": "Function"
+            }
+          ],
+          "class": "RSVP.EventTarget"
+        },
+        {
+          "file": "node_modules/rsvp/lib/rsvp/events.js",
+          "line": 101,
+          "description": "You can use `off` to stop firing a particular callback for an event:\n\n```javascript\nfunction doStuff() { // do stuff! }\nobject.on('stuff', doStuff);\n\nobject.trigger('stuff'); // doStuff will be called\n\n// Unregister ONLY the doStuff callback\nobject.off('stuff', doStuff);\nobject.trigger('stuff'); // doStuff will NOT be called\n```\n\nIf you don't pass a `callback` argument to `off`, ALL callbacks for the\nevent will not be executed when the event fires. For example:\n\n```javascript\nlet callback1 = function(){};\nlet callback2 = function(){};\n\nobject.on('stuff', callback1);\nobject.on('stuff', callback2);\n\nobject.trigger('stuff'); // callback1 and callback2 will be executed.\n\nobject.off('stuff');\nobject.trigger('stuff'); // callback1 and callback2 will not be executed!\n```",
+          "itemtype": "method",
+          "name": "off",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "eventName",
+              "description": "event to stop listening to",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "optional argument. If given, only the function\ngiven will be removed from the event's callback queue. If no `callback`\nargument is given, all callbacks will be removed from the event's callback\nqueue.",
+              "type": "Function"
+            }
+          ],
+          "class": "RSVP.EventTarget"
+        },
+        {
+          "file": "node_modules/rsvp/lib/rsvp/events.js",
+          "line": 156,
+          "description": "Use `trigger` to fire custom events. For example:\n\n```javascript\nobject.on('foo', function(){\n  console.log('foo event happened!');\n});\nobject.trigger('foo');\n// 'foo event happened!' logged to the console\n```\n\nYou can also pass a value as a second argument to `trigger` that will be\npassed as an argument to all event listeners for the event:\n\n```javascript\nobject.on('foo', function(value){\n  console.log(value.name);\n});\n\nobject.trigger('foo', { name: 'bar' });\n// 'bar' logged to the console\n```",
+          "itemtype": "method",
+          "name": "trigger",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "eventName",
+              "description": "name of the event to be triggered",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "optional value to be passed to any event handlers for\nthe given `eventName`",
+              "type": "*"
+            }
+          ],
+          "class": "RSVP.EventTarget"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.5.1-@ember/application",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.5.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

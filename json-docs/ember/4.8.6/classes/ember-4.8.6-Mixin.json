@@ -1,0 +1,75 @@
+{
+  "data": {
+    "id": "ember-4.8.6-Mixin",
+    "type": "class",
+    "attributes": {
+      "name": "Mixin",
+      "shortname": "Mixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/object",
+      "namespace": "",
+      "file": "packages/@ember/object/mixin.ts",
+      "line": 446,
+      "description": "The `Mixin` class allows you to create mixins, whose properties can be\nadded to other classes. For instance,\n\n```javascript\nimport Mixin from '@ember/object/mixin';\n\nconst EditableMixin = Mixin.create({\n  edit() {\n    console.log('starting to edit');\n    this.set('isEditing', true);\n  },\n  isEditing: false\n});\n```\n\n```javascript\nimport EmberObject from '@ember/object';\nimport EditableMixin from '../mixins/editable';\n\n// Mix mixins into classes by passing them as the first arguments to\n// `.extend.`\nconst Comment = EmberObject.extend(EditableMixin, {\n  post: null\n});\n\nlet comment = Comment.create({\n  post: somePost\n});\n\ncomment.edit(); // outputs 'starting to edit'\n```\n\nNote that Mixins are created with `Mixin.create`, not\n`Mixin.extend`.\n\nNote that mixins extend a constructor's prototype so arrays and object literals\ndefined as properties will be shared amongst objects that implement the mixin.\nIf you want to define a property in a mixin that is not shared, you can define\nit either as a computed property or have it be created on initialization of the object.\n\n```javascript\n// filters array will be shared amongst any object implementing mixin\nimport Mixin from '@ember/object/mixin';\nimport { A } from '@ember/array';\n\nconst FilterableMixin = Mixin.create({\n  filters: A()\n});\n```\n\n```javascript\nimport Mixin from '@ember/object/mixin';\nimport { A } from '@ember/array';\nimport { computed } from '@ember/object';\n\n// filters will be a separate array for every object implementing the mixin\nconst FilterableMixin = Mixin.create({\n  filters: computed(function() {\n    return A();\n  })\n});\n```\n\n```javascript\nimport Mixin from '@ember/object/mixin';\nimport { A } from '@ember/array';\n\n// filters will be created as a separate array during the object's initialization\nconst Filterable = Mixin.create({\n  filters: null,\n\n  init() {\n    this._super(...arguments);\n    this.set(\"filters\", A());\n  }\n});\n```",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/object/mixin.ts",
+          "line": 432,
+          "itemtype": "method",
+          "name": "mixin",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "mixins",
+              "description": "",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "obj"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Mixin",
+          "module": "@ember/object"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-4.8.6-Ember.TargetActionSupport"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-4.8.6-@ember/object",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-4.8.6",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

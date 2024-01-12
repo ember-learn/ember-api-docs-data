@@ -1,0 +1,143 @@
+{
+  "data": {
+    "id": "ember-3.5.1-Ember.EventDispatcher",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.EventDispatcher",
+      "shortname": "Ember.EventDispatcher",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "packages/ember-views/lib/system/event_dispatcher.js",
+      "line": 23,
+      "description": "`Ember.EventDispatcher` handles delegating browser events to their\ncorresponding `Ember.Views.` For example, when you click on a view,\n`Ember.EventDispatcher` ensures that that view's `mouseDown` method gets\ncalled.",
+      "access": "private",
+      "tagname": "",
+      "extends": "Ember.Object",
+      "methods": [
+        {
+          "file": "packages/ember-views/lib/system/event_dispatcher.js",
+          "line": 130,
+          "description": "Sets up event listeners for standard browser events.\n\nThis will be called after the browser sends a `DOMContentReady` event. By\ndefault, it will set up all of the listeners on the document body. If you\nwould like to register the listeners on a different element, set the event\ndispatcher's `root` property.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "setup",
+          "params": [
+            {
+              "name": "addedEvents",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.EventDispatcher",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/event_dispatcher.js",
+          "line": 226,
+          "description": "Registers an event listener on the rootElement. If the given event is\ntriggered, the provided event handler will be triggered on the target view.\n\nIf the target view does not implement the event handler, or if the handler\nreturns `false`, the parent view will be called. The event will continue to\nbubble to each successive parent view until it reaches the top.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "setupHandler",
+          "params": [
+            {
+              "name": "rootElement",
+              "description": "",
+              "type": "Element"
+            },
+            {
+              "name": "event",
+              "description": "the browser-originated event to listen to",
+              "type": "String"
+            },
+            {
+              "name": "eventName",
+              "description": "the name of the method to call on the view",
+              "type": "String"
+            },
+            {
+              "name": "viewRegistry",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.EventDispatcher",
+          "module": "ember",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-views/lib/system/action_manager.js",
+          "line": 7,
+          "description": "Global action id hash.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "registeredActions",
+          "type": "Object",
+          "class": "Ember.EventDispatcher",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/event_dispatcher.js",
+          "line": 35,
+          "description": "The set of events names (and associated handler function names) to be setup\nand dispatched by the `EventDispatcher`. Modifications to this list can be done\nat setup time, generally via the `Application.customEvents` hash.\n\nTo add new events to be listened to:\n\n```javascript\nimport Application from '@ember/application';\n\nlet App = Application.create({\n  customEvents: {\n    paste: 'paste'\n  }\n});\n```\n\nTo prevent default events from being listened to:\n\n```javascript\nimport Application from '@ember/application';\n\nlet App = Application.create({\n  customEvents: {\n    mouseenter: null,\n    mouseleave: null\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "events",
+          "type": "Object",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.EventDispatcher",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/event_dispatcher.js",
+          "line": 98,
+          "description": "The root DOM element to which event listeners should be attached. Event\nlisteners will be attached to the document unless this is overridden.\n\nCan be specified as a DOMElement or a selector string.\n\nThe default body is a string since this may be evaluated before document.body\nexists in the DOM.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "rootElement",
+          "type": "DOMElement",
+          "default": "'body'",
+          "class": "Ember.EventDispatcher",
+          "module": "ember",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Object",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.5.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.5.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

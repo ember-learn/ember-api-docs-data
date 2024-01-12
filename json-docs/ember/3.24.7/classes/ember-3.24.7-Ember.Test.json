@@ -1,0 +1,158 @@
+{
+  "data": {
+    "id": "ember-3.24.7-Ember.Test",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Test",
+      "shortname": "Ember.Test",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "packages/ember-testing/lib/test.js",
+      "line": 11,
+      "description": "This is a container for an assortment of testing related functionality:\n\n* Choose your default test adapter (for your framework of choice).\n* Register/Unregister additional test helpers.\n* Setup callbacks to be fired when the test helpers are injected into\n  your application.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/ember-testing/lib/test/on_inject_helpers.js",
+          "line": 3,
+          "description": "Used to register callbacks to be fired whenever `App.injectTestHelpers`\nis called.\n\nThe callback will receive the current application as an argument.\n\nExample:\n\n```javascript\nimport $ from 'jquery';\n\nEmber.Test.onInjectHelpers(function() {\n  $(document).ajaxSend(function() {\n    Test.pendingRequests++;\n  });\n\n  $(document).ajaxComplete(function() {\n    Test.pendingRequests--;\n  });\n});\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "onInjectHelpers",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The function to be called.",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember.Test",
+          "module": "@ember/test"
+        },
+        {
+          "file": "packages/ember-testing/lib/test/promise.js",
+          "line": 21,
+          "description": "This returns a thenable tailored for testing.  It catches failed\n`onSuccess` callbacks and invokes the `Ember.Test.adapter.exception`\ncallback in the last chained then.\n\nThis method should be returned by async helpers such as `wait`.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "promise",
+          "params": [
+            {
+              "name": "resolver",
+              "description": "The function used to resolve the promise.",
+              "type": "Function"
+            },
+            {
+              "name": "label",
+              "description": "An optional string for identifying the promise.",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.Test",
+          "module": "@ember/test"
+        },
+        {
+          "file": "packages/ember-testing/lib/test/promise.js",
+          "line": 39,
+          "description": "Replacement for `Ember.RSVP.resolve`\nThe only difference is this uses\nan instance of `Ember.Test.Promise`",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "resolve",
+          "params": [
+            {
+              "name": "The",
+              "description": "value to resolve",
+              "type": "Mixed"
+            }
+          ],
+          "since": "1.2.0",
+          "class": "Ember.Test",
+          "module": "@ember/test"
+        },
+        {
+          "file": "packages/ember-testing/lib/setup_for_testing.js",
+          "line": 14,
+          "description": "Sets Ember up for testing. This is useful to perform\nbasic setup steps in order to unit test.\n\nUse `App.setupForTesting` to perform integration tests (full\napplication testing).",
+          "itemtype": "method",
+          "name": "setupForTesting",
+          "since": "1.5.0",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Test",
+          "module": "@ember/test",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/support.js",
+          "line": 12,
+          "description": "This method creates a checkbox and triggers the click event to fire the\npassed in handler. It is used to correct for a bug in older versions\nof jQuery (e.g 1.8.3).",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "testCheckboxClick",
+          "class": "Ember.Test",
+          "module": "ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 24,
+          "description": "Hash containing all known test helpers.",
+          "itemtype": "property",
+          "name": "_helpers",
+          "access": "private",
+          "tagname": "",
+          "since": "1.7.0",
+          "class": "Ember.Test",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/test.js",
+          "line": 45,
+          "description": "Used to allow ember-testing to communicate with a specific testing\nframework.\n\nYou can manually set it before calling `App.setupForTesting()`.\n\nExample:\n\n```javascript\nEmber.Test.adapter = MyCustomAdapter.create()\n```\n\nIf you do not set it, ember-testing will default to `Ember.Test.QUnitAdapter`.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "adapter",
+          "type": "{Class} The adapter to be used.",
+          "default": "Ember.Test.QUnitAdapter",
+          "class": "Ember.Test",
+          "module": "ember",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.24.7-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.24.7",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

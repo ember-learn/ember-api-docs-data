@@ -1,0 +1,363 @@
+{
+  "data": {
+    "id": "ember-1.0.0-Ember.RenderBuffer",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.RenderBuffer",
+      "shortname": "Ember.RenderBuffer",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-views",
+      "namespace": "Ember",
+      "file": "packages/ember-views/lib/system/render_buffer.js",
+      "line": 65,
+      "description": "`Ember.RenderBuffer` gathers information regarding the a view and generates the\nfinal representation. `Ember.RenderBuffer` will generate HTML which can be pushed\nto the DOM.\n\n ```javascript\n var buffer = Ember.RenderBuffer('div');\n```",
+      "is_constructor": 1,
+      "params": [
+        {
+          "name": "tagName",
+          "description": "tag name (such as 'div' or 'p') used for the buffer",
+          "type": "String"
+        }
+      ],
+      "methods": [
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 203,
+          "description": "Adds a string of HTML to the `RenderBuffer`.",
+          "itemtype": "method",
+          "name": "push",
+          "params": [
+            {
+              "name": "string",
+              "description": "HTML to push into the buffer",
+              "type": "String"
+            }
+          ],
+          "chainable": 1,
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 215,
+          "description": "Adds a class to the buffer, which will be rendered to the class attribute.",
+          "itemtype": "method",
+          "name": "addClass",
+          "params": [
+            {
+              "name": "className",
+              "description": "Class name to add to the buffer",
+              "type": "String"
+            }
+          ],
+          "chainable": 1,
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 235,
+          "description": "Sets the elementID to be used for the element.",
+          "itemtype": "method",
+          "name": "id",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "chainable": 1,
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 250,
+          "description": "Adds an attribute which will be rendered to the element.",
+          "itemtype": "method",
+          "name": "attr",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the attribute",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to add to the attribute",
+              "type": "String"
+            }
+          ],
+          "chainable": 1,
+          "return": {
+            "description": "this or the current attribute value",
+            "type": "Ember.RenderBuffer|String"
+          },
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 271,
+          "description": "Remove an attribute from the list of attributes to render.",
+          "itemtype": "method",
+          "name": "removeAttr",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the attribute",
+              "type": "String"
+            }
+          ],
+          "chainable": 1,
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 285,
+          "description": "Adds an property which will be rendered to the element.",
+          "itemtype": "method",
+          "name": "prop",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the property",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to add to the property",
+              "type": "String"
+            }
+          ],
+          "chainable": 1,
+          "return": {
+            "description": "this or the current property value",
+            "type": "Ember.RenderBuffer|String"
+          },
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 306,
+          "description": "Remove an property from the list of properties to render.",
+          "itemtype": "method",
+          "name": "removeProp",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the property",
+              "type": "String"
+            }
+          ],
+          "chainable": 1,
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 320,
+          "description": "Adds a style to the style attribute which will be rendered to the element.",
+          "itemtype": "method",
+          "name": "style",
+          "params": [
+            {
+              "name": "name",
+              "description": "Name of the style",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "chainable": 1,
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 477,
+          "itemtype": "method",
+          "name": "element",
+          "return": {
+            "description": "The element corresponding to the generated HTML\n  of this buffer",
+            "type": "DOMElement"
+          },
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 492,
+          "description": "Generates the HTML content for this buffer.",
+          "itemtype": "method",
+          "name": "string",
+          "return": {
+            "description": "The generated HTML",
+            "type": "String"
+          },
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 89,
+          "description": "// The root view's element\n  _element: null,\n_hasElement: true,\n/**",
+          "access": "private",
+          "tagname": "An internal set used to de-dupe class names when `addClass()` is\n    used. After each call to `addClass()`, the `classes` property\n    will be updated.",
+          "itemtype": "property",
+          "name": "elementClasses",
+          "type": "Array",
+          "default": "[]",
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 109,
+          "description": "Array of class names which will be applied in the class attribute.\n\nYou can use `setClasses()` to set this property directly. If you\nuse `addClass()`, it will be maintained for you.",
+          "itemtype": "property",
+          "name": "classes",
+          "type": "Array",
+          "default": "[]",
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 121,
+          "description": "The id in of the element, to be applied in the id attribute.\n\nYou should not set this property yourself, rather, you should use\nthe `id()` method of `Ember.RenderBuffer`.",
+          "itemtype": "property",
+          "name": "elementId",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 133,
+          "description": "A hash keyed on the name of the attribute and whose value will be\napplied to that attribute. For example, if you wanted to apply a\n`data-view=\"Foo.bar\"` property to an element, you would set the\nelementAttributes hash to `{'data-view':'Foo.bar'}`.\n\nYou should not maintain this hash yourself, rather, you should use\nthe `attr()` method of `Ember.RenderBuffer`.",
+          "itemtype": "property",
+          "name": "elementAttributes",
+          "type": "Hash",
+          "default": "{}",
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 148,
+          "description": "A hash keyed on the name of the properties and whose value will be\napplied to that property. For example, if you wanted to apply a\n`checked=true` property to an element, you would set the\nelementProperties hash to `{'checked':true}`.\n\nYou should not maintain this hash yourself, rather, you should use\nthe `prop()` method of `Ember.RenderBuffer`.",
+          "itemtype": "property",
+          "name": "elementProperties",
+          "type": "Hash",
+          "default": "{}",
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 163,
+          "description": "The tagname of the element an instance of `Ember.RenderBuffer` represents.\n\nUsually, this gets set as the first parameter to `Ember.RenderBuffer`. For\nexample, if you wanted to create a `p` tag, then you would call\n\n```javascript\nEmber.RenderBuffer('p')\n```",
+          "itemtype": "property",
+          "name": "elementTag",
+          "type": "String",
+          "default": "null",
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 179,
+          "description": "A hash keyed on the name of the style attribute and whose value will\nbe applied to that attribute. For example, if you wanted to apply a\n`background-color:black;` style to an element, you would set the\nelementStyle hash to `{'background-color':'black'}`.\n\nYou should not maintain this hash yourself, rather, you should use\nthe `style()` method of `Ember.RenderBuffer`.",
+          "itemtype": "property",
+          "name": "elementStyle",
+          "type": "Hash",
+          "default": "{}",
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/system/render_buffer.js",
+          "line": 194,
+          "description": "Nested `RenderBuffers` will set this to their parent `RenderBuffer`\ninstance.",
+          "itemtype": "property",
+          "name": "parentBuffer",
+          "type": "Ember._RenderBuffer",
+          "class": "Ember.RenderBuffer",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.0.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.0.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

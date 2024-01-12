@@ -14,7 +14,7 @@
       "namespace": "",
       "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
       "line": 7,
-      "description": "<html><head></head><body><p>A wrapper around a string that has been marked as safe (&quot;trusted&quot;). <strong>When\nrendered in HTML, Ember will not perform any escaping.</strong></p>\n<p>Note:</p>\n<ol>\n<li><p>This does not <em>make</em> the string safe; it means that some code in your\napplication has <em>marked</em> it as safe using the <code>htmlSafe()</code> function.</p>\n</li>\n<li><p>The only public API for getting a <code>SafeString</code> is calling <code>htmlSafe()</code>. It\nis <em>not</em> user-constructible.</p>\n</li>\n</ol>\n<p>If a string contains user inputs or other untrusted data, you must sanitize\nthe string before using the <code>htmlSafe</code> method. Otherwise your code is\nvulnerable to <a href=\"https://owasp.org/www-community/attacks/DOM_Based_XSS\">Cross-Site Scripting</a>. There are many open source\nsanitization libraries to choose from, both for front end and server-side\nsanitization.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"section\">import</span> { <span class=\"attribute\">htmlSafe</span> } from <span class=\"string\">&apos;<span class=\"variable\">@ember</span>/template&apos;</span>;\n\n<span class=\"attribute\">let</span> someTrustedOrSanitizedString = <span class=\"string\">&quot;&lt;div&gt;Hello!&lt;/div&gt;&quot;</span>\n\nhtmlSafe(someTrustedorSanitizedString);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "description": "A wrapper around a string that has been marked as safe (\"trusted\"). **When\nrendered in HTML, Ember will not perform any escaping.**\n\nNote:\n\n1. This does not *make* the string safe; it means that some code in your\n   application has *marked* it as safe using the `htmlSafe()` function.\n\n2. The only public API for getting a `SafeString` is calling `htmlSafe()`. It\n   is *not* user-constructible.\n\nIf a string contains user inputs or other untrusted data, you must sanitize\nthe string before using the `htmlSafe` method. Otherwise your code is\nvulnerable to [Cross-Site Scripting][xss]. There are many open source\nsanitization libraries to choose from, both for front end and server-side\nsanitization.\n\n[xss]: https://owasp.org/www-community/attacks/DOM_Based_XSS\n\n```javascript\nimport { htmlSafe } from '@ember/template';\n\nlet someTrustedOrSanitizedString = \"<div>Hello!</div>\"\n\nhtmlSafe(someTrustedorSanitizedString);\n```",
       "since": "4.12.0",
       "access": "public",
       "tagname": "",
@@ -22,7 +22,7 @@
         {
           "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
           "line": 47,
-          "description": "<html><head></head><body><p>Get the string back to use as a string.</p>\n</body></html>",
+          "description": "Get the string back to use as a string.",
           "access": "public",
           "tagname": "",
           "itemtype": "method",
@@ -37,7 +37,7 @@
         {
           "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
           "line": 58,
-          "description": "<html><head></head><body><p>Get the wrapped string as HTML to use without escaping.</p>\n</body></html>",
+          "description": "Get the wrapped string as HTML to use without escaping.",
           "access": "public",
           "tagname": "",
           "itemtype": "method",

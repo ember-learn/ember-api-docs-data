@@ -1,0 +1,238 @@
+{
+  "data": {
+    "id": "ember-2.12.2-Ember.Map",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Map",
+      "shortname": "Ember.Map",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-metal",
+      "namespace": "Ember",
+      "file": "packages/ember-metal/lib/map.js",
+      "line": 221,
+      "description": "A Map stores values indexed by keys. Unlike JavaScript's\ndefault Objects, the keys of a Map can be any JavaScript\nobject.\n\nInternally, a Map has two data structures:\n\n1. `keys`: an OrderedSet of all of the existing keys\n2. `values`: a JavaScript Object indexed by the `Ember.guidFor(key)`\n\nWhen a key/value pair is added for the first time, we\nadd the key to the `keys` OrderedSet, and create or\nreplace an entry in `values`. When an entry is deleted,\nwe delete its entry in `keys` and `values`.",
+      "access": "private",
+      "tagname": "",
+      "is_constructor": 1,
+      "methods": [
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 252,
+          "itemtype": "method",
+          "name": "create",
+          "static": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Map",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 276,
+          "description": "Retrieve the value associated with a given key.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "the value associated with the key, or `undefined`",
+            "type": "*"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Map",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 293,
+          "description": "Adds a value to the map. If a value for the given key has already been\nprovided, the new value will replace the old value.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Map"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Map",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 320,
+          "description": "Removes a value from the map for an associated key.",
+          "since": "1.8.0",
+          "itemtype": "method",
+          "name": "delete",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "true if an item was removed, false otherwise",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Map",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 346,
+          "description": "Check whether a key is present.",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "true if the item was present, false otherwise",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Map",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 358,
+          "description": "Iterate over all the keys and values. Calls the function once\nfor each key, passing in value, key, and the map being iterated over,\nin that order.\n\nThe keys are guaranteed to be iterated over in insertion order.",
+          "itemtype": "method",
+          "name": "forEach",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "self",
+              "description": "if passed, the `this` value inside the\n  callback. By default, `this` is the map.",
+              "type": "*"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Map",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 391,
+          "itemtype": "method",
+          "name": "clear",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Map",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 401,
+          "itemtype": "method",
+          "name": "copy",
+          "return": {
+            "description": "",
+            "type": "Ember.Map"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Map",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 265,
+          "description": "This property will change as the number of objects in the map changes.",
+          "since": "1.8.0",
+          "itemtype": "property",
+          "name": "size",
+          "type": "number",
+          "default": "0",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Map",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-2.12.2-Ember.MapWithDefault"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.12.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.12.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

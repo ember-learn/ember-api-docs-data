@@ -1,0 +1,59 @@
+{
+  "data": {
+    "id": "ember-2.2.2-ember-views",
+    "type": "module",
+    "attributes": {
+      "name": "ember-views",
+      "submodules": {},
+      "fors": {
+        "Ember": 1
+      },
+      "is_submodule": 1,
+      "namespaces": {
+        "Ember": 1
+      },
+      "namespace": "",
+      "file": "packages/ember-views/lib/views/view.js",
+      "line": 52,
+      "description": "An `Ember.Component` is a view that is completely\nisolated. Properties accessed in its templates go\nto the view object and actions are targeted at\nthe view object. There is no access to the\nsurrounding context or outer controller; all\ncontextual information must be passed in.\n\nThe easiest way to create an `Ember.Component` is via\na template. If you name a template\n`components/my-foo`, you will be able to use\n`{{my-foo}}` in other templates, which will make\nan instance of the isolated component.\n\n```handlebars\n{{app-profile person=currentUser}}\n```\n\n```handlebars\n<!-- app-profile template -->\n<h1>{{person.title}}</h1>\n<img src={{person.avatar}}>\n<p class='signature'>{{person.signature}}</p>\n```\n\nYou can use `yield` inside a template to\ninclude the **contents** of any block attached to\nthe component. The block will be executed in the\ncontext of the surrounding context or outer controller:\n\n```handlebars\n{{#app-profile person=currentUser}}\n  <p>Admin mode</p>\n  {{! Executed in the controller's context. }}\n{{/app-profile}}\n```\n\n```handlebars\n<!-- app-profile template -->\n<h1>{{person.title}}</h1>\n{{! Executed in the components context. }}\n{{yield}} {{! block contents }}\n```\n\nIf you want to customize the component, in order to\nhandle events or actions, you implement a subclass\nof `Ember.Component` named after the name of the\ncomponent. Note that `Component` needs to be appended to the name of\nyour subclass like `AppProfileComponent`.\n\nFor example, you could implement the action\n`hello` for the `app-profile` component:\n\n```javascript\nApp.AppProfileComponent = Ember.Component.extend({\n  actions: {\n    hello: function(name) {\n      console.log(\"Hello\", name);\n    }\n  }\n});\n```\n\nAnd then use it in the component's template:\n\n```handlebars\n<!-- app-profile template -->\n\n<h1>{{person.title}}</h1>\n{{yield}} <!-- block contents -->\n\n<button {{action 'hello' person.name}}>\n  Say Hello to {{person.name}}\n</button>\n```\n\nComponents must have a `-` in their name to avoid\nconflicts with built-in controls that wrap HTML\nelements. This is consistent with the same\nrequirement in web components.",
+      "parent": "ember",
+      "publicclasses": [
+        "Ember.Component",
+        "Ember.InstrumentationSupport",
+        "Ember.VisibilitySupport",
+        "Ember.Checkbox",
+        "Ember.TextArea",
+        "Ember.TextField"
+      ],
+      "privateclasses": [
+        "Ember._Metamorph",
+        "Ember._MetamorphView",
+        "Ember.AriaRoleSupport",
+        "Ember.ClassNamesSupport",
+        "Ember.EmptyViewSupport",
+        "Ember.LegacyViewSupport",
+        "Ember.TemplateRenderingSupport",
+        "Ember.TextSupport",
+        "Ember.EventDispatcher",
+        "Ember.CollectionView",
+        "Ember.ContainerView",
+        "Ember.Select",
+        "Ember.View"
+      ],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "2.2.2"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.2.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -18,14 +18,14 @@
       "namespace": "",
       "file": "packages/@ember/object/evented.ts",
       "line": 10,
-      "description": "<html><head></head><body><p>This mixin allows for Ember objects to subscribe to and emit events.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/utils/person.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">EmberObject</span> <span class=\"keyword\">from</span> <span class=\"string\">'@ember/object'</span>;\n<span class=\"keyword\">import</span> <span class=\"title class_\">Evented</span> <span class=\"keyword\">from</span> <span class=\"string\">'@ember/object/evented'</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">EmberObject</span>.<span class=\"title function_\">extend</span>(<span class=\"title class_\">Evented</span>, {\n  <span class=\"title function_\">greet</span>(<span class=\"params\"></span>) {\n    <span class=\"comment\">// ...</span>\n    <span class=\"variable language_\">this</span>.<span class=\"title function_\">trigger</span>(<span class=\"string\">'greet'</span>);\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">var</span> person = Person.create();\n\nperson.on(<span class=\"string\">'greet'</span>, <span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n  <span class=\"built_in\">console</span>.<span class=\"built_in\">log</span>(<span class=\"string\">'Our person has greeted'</span>);\n});\n\nperson.greet();\n\n<span class=\"comment\">// outputs: 'Our person has greeted'</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>You can also chain multiple event subscriptions:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>person.on(<span class=\"string\">'greet'</span>, <span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n  <span class=\"built_in\">console</span>.<span class=\"built_in\">log</span>(<span class=\"string\">'Our person has greeted'</span>);\n}).one(<span class=\"string\">'greet'</span>, <span class=\"keyword\">function</span>(<span class=\"params\"></span>) {\n  <span class=\"built_in\">console</span>.<span class=\"built_in\">log</span>(<span class=\"string\">'Offer one-time special'</span>);\n}).off(<span class=\"string\">'event'</span>, this, forgetThis);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "description": "This mixin allows for Ember objects to subscribe to and emit events.\n\n```js {data-filename=app/utils/person.js}\nimport EmberObject from '@ember/object';\nimport Evented from '@ember/object/evented';\n\nexport default EmberObject.extend(Evented, {\n  greet() {\n    // ...\n    this.trigger('greet');\n  }\n});\n```\n\n```javascript\nvar person = Person.create();\n\nperson.on('greet', function() {\n  console.log('Our person has greeted');\n});\n\nperson.greet();\n\n// outputs: 'Our person has greeted'\n```\n\nYou can also chain multiple event subscriptions:\n\n```javascript\nperson.on('greet', function() {\n  console.log('Our person has greeted');\n}).one('greet', function() {\n  console.log('Offer one-time special');\n}).off('event', this, forgetThis);\n```",
       "access": "public",
       "tagname": "",
       "methods": [
         {
           "file": "packages/@ember/object/evented.ts",
           "line": 51,
-          "description": "<html><head></head><body><p>Subscribes to a named event with given function.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>person.on(<span class=\"string\">'didLoad'</span>, <span class=\"keyword\">function</span><span class=\"params\">()</span> {\n  <span class=\"comment\">// fired once the person has loaded</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>An optional target can be passed in as the 2nd argument that will\nbe set as the \"this\" for the callback. This is a good way to give your\nfunction access to the object triggering the event. When the target\nparameter is used the callback method becomes the third argument.</p>\n</body></html>",
+          "description": "Subscribes to a named event with given function.\n\n```javascript\nperson.on('didLoad', function() {\n  // fired once the person has loaded\n});\n```\n\nAn optional target can be passed in as the 2nd argument that will\nbe set as the \"this\" for the callback. This is a good way to give your\nfunction access to the object triggering the event. When the target\nparameter is used the callback method becomes the third argument.",
           "itemtype": "method",
           "name": "on",
           "params": [
@@ -57,7 +57,7 @@
         {
           "file": "packages/@ember/object/evented.ts",
           "line": 78,
-          "description": "<html><head></head><body><p>Subscribes a function to a named event and then cancels the subscription\nafter the first time the event is triggered. It is good to use <code>one</code> when\nyou only care about the first time an event has taken place.</p>\n<p>This function takes an optional 2nd argument that will become the \"this\"\nvalue for the callback. When the target parameter is used the callback method\nbecomes the third argument.</p>\n</body></html>",
+          "description": "Subscribes a function to a named event and then cancels the subscription\nafter the first time the event is triggered. It is good to use ``one`` when\nyou only care about the first time an event has taken place.\n\nThis function takes an optional 2nd argument that will become the \"this\"\nvalue for the callback. When the target parameter is used the callback method\nbecomes the third argument.",
           "itemtype": "method",
           "name": "one",
           "params": [
@@ -89,7 +89,7 @@
         {
           "file": "packages/@ember/object/evented.ts",
           "line": 100,
-          "description": "<html><head></head><body><p>Triggers a named event for the object. Any additional arguments\nwill be passed as parameters to the functions that are subscribed to the\nevent.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>person.on(<span class=\"string\">'didEat'</span>, <span class=\"keyword\">function</span>(<span class=\"params\">food</span>) {\n  <span class=\"built_in\">console</span>.<span class=\"built_in\">log</span>(<span class=\"string\">'person ate some '</span> + food);\n});\n\nperson.trigger(<span class=\"string\">'didEat'</span>, <span class=\"string\">'broccoli'</span>);\n\n<span class=\"comment\">// outputs: person ate some broccoli</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Triggers a named event for the object. Any additional arguments\nwill be passed as parameters to the functions that are subscribed to the\nevent.\n\n```javascript\nperson.on('didEat', function(food) {\n  console.log('person ate some ' + food);\n});\n\nperson.trigger('didEat', 'broccoli');\n\n// outputs: person ate some broccoli\n```",
           "itemtype": "method",
           "name": "trigger",
           "params": [
@@ -112,7 +112,7 @@
         {
           "file": "packages/@ember/object/evented.ts",
           "line": 121,
-          "description": "<html><head></head><body><p>Cancels subscription for given name, target, and method.</p>\n</body></html>",
+          "description": "Cancels subscription for given name, target, and method.",
           "itemtype": "method",
           "name": "off",
           "params": [
@@ -143,7 +143,7 @@
         {
           "file": "packages/@ember/object/evented.ts",
           "line": 137,
-          "description": "<html><head></head><body><p>Checks to see if object has any subscriptions for named event.</p>\n</body></html>",
+          "description": "Checks to see if object has any subscriptions for named event.",
           "itemtype": "method",
           "name": "has",
           "params": [

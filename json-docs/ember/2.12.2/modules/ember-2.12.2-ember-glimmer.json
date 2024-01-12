@@ -1,0 +1,50 @@
+{
+  "data": {
+    "id": "ember-2.12.2-ember-glimmer",
+    "type": "module",
+    "attributes": {
+      "name": "ember-glimmer",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "Ember.Templates.helpers": 1,
+        "Ember.String": 1,
+        "Ember.HTMLBars": 1
+      },
+      "is_submodule": 1,
+      "namespaces": {
+        "Ember": 1
+      },
+      "namespace": "",
+      "file": "packages/ember-glimmer/lib/helper.js",
+      "line": 12,
+      "description": "[Glimmer](https://github.com/tildeio/glimmer) is a templating engine used by Ember.js that is compatible with a subset of the [Handlebars](http://handlebarsjs.com/) syntax.\n\n### Showing a property\n\nTemplates manage the flow of an application's UI, and display state (through\nthe DOM) to a user. For example, given a component with the property \"name\",\nthat component's template can use the name in several ways:\n\n```js {data-filename=app/components/person.js}\n  export default Ember.Component.extend({\n    name: 'Jill'\n  });\n```\n\n```handlebars {data-filename=app/components/person.hbs}\n{{name}}\n<div>{{name}}</div>\n<span data-name={{name}}></span>\n```\n\nAny time the \"name\" property on the component changes, the DOM will be\nupdated.\n\nProperties can be chained as well:\n\n```handlebars\n{{aUserModel.name}}\n<div>{{listOfUsers.firstObject.name}}</div>\n```\n\n### Using Ember helpers\n\nWhen content is passed in mustaches `{{}}`, Ember will first try to find a helper\nor component with that name. For example, the `if` helper:\n\n```handlebars\n{{if name \"I have a name\" \"I have no name\"}}\n<span data-has-name={{if name true}}></span>\n```\n\nThe returned value is placed where the `{{}}` is called. The above style is\ncalled \"inline\". A second style of helper usage is called \"block\". For example:\n\n```handlebars\n{{#if name}}\nI have a name\n{{else}}\nI have no name\n{{/if}}\n```\n\nThe block form of helpers allows you to control how the UI is created based\non the values of properties.\nA third form of helper is called \"nested\". For example here the concat\nhelper will add \" Doe\" to a displayed name if the person has no last name:\n\n```handlebars\n<span data-name={{concat firstName (\nif lastName (concat \" \" lastName) \"Doe\"\n)}}></span>\n```\n\nEmber's built-in helpers are described under the [Ember.Templates.helpers](/api/classes/Ember.Templates.helpers.html)\nnamespace. Documentation on creating custom helpers can be found under\n[Ember.Helper](/api/classes/Ember.Helper.html).\n\n### Invoking a Component\n\nEmber components represent state to the UI of an application. Further\nreading on components can be found under [Ember.Component](/api/classes/Ember.Component.html).",
+      "tag": "main",
+      "itemtype": "main",
+      "access": "public",
+      "tagname": "",
+      "parent": "ember",
+      "publicclasses": [
+        "Ember.LinkComponent",
+        "Ember.TextArea",
+        "Ember.Component",
+        "Ember.Helper"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "2.12.2"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.12.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

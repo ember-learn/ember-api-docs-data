@@ -1,0 +1,871 @@
+{
+  "data": {
+    "id": "ember-1.6.1-Ember.ControllerMixin",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ControllerMixin",
+      "shortname": "Ember.ControllerMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.ArrayController",
+        "Ember.Controller",
+        "Ember.ObjectController"
+      ],
+      "module": "ember",
+      "submodule": "ember-runtime",
+      "namespace": "Ember",
+      "file": "../packages_es6/ember-runtime/lib/controllers/controller.js",
+      "line": 13,
+      "description": "`Ember.ControllerMixin` provides a standard interface for all classes that\ncompose Ember's controller layer: `Ember.Controller`,\n`Ember.ArrayController`, and `Ember.ObjectController`.",
+      "uses": [
+        "Ember.ActionHandler"
+      ],
+      "methods": [
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 90,
+          "description": "Returns a new child of the current container. These children are configured\nto correctly inherit from the current container.",
+          "itemtype": "method",
+          "name": "child",
+          "return": {
+            "description": "",
+            "type": "Container"
+          },
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 103,
+          "description": "Sets a key-value pair on the current container. If a parent container,\nhas the same key, once set on a child, the parent and child will diverge\nas expected.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "object",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Any"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 117,
+          "description": "Registers a factory for later injection.\n\nExample:\n\n```javascript\nvar container = new Container();\n\ncontainer.register('model:user', Person, {singleton: false });\ncontainer.register('fruit:favorite', Orange);\ncontainer.register('communication:main', Email, {singleton: false});\n```",
+          "itemtype": "method",
+          "name": "register",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "factory",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 152,
+          "description": "Unregister a fullName\n\n```javascript\nvar container = new Container();\ncontainer.register('model:user', User);\n\ncontainer.lookup('model:user') instanceof User //=> true\n\ncontainer.unregister('model:user')\ncontainer.lookup('model:user') === undefined //=> true\n```",
+          "itemtype": "method",
+          "name": "unregister",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 180,
+          "description": "Given a fullName return the corresponding factory.\n\nBy default `resolve` will retrieve the factory from\nits container's registry.\n\n```javascript\nvar container = new Container();\ncontainer.register('api:twitter', Twitter);\n\ncontainer.resolve('api:twitter') // => Twitter\n```\n\nOptionally the container can be provided with a custom resolver.\nIf provided, `resolve` will first provide the custom resolver\nthe opportunity to resolve the fullName, otherwise it will fallback\nto the registry.\n\n```javascript\nvar container = new Container();\ncontainer.resolver = function(fullName) {\n  // lookup via the module system of choice\n};\n\n// the twitter factory is added to the module system\ncontainer.resolve('api:twitter') // => Twitter\n```",
+          "itemtype": "method",
+          "name": "resolve",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "fullName's factory",
+            "type": "Function"
+          },
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 227,
+          "description": "A hook that can be used to describe how the resolver will\nattempt to find the factory.\n\nFor example, the default Ember `.describe` returns the full\nclass name (including namespace) where Ember's resolver expects\nto find the `fullName`.",
+          "itemtype": "method",
+          "name": "describe",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "described fullName",
+            "type": "String"
+          },
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 243,
+          "description": "A hook to enable custom fullName normalization behaviour",
+          "itemtype": "method",
+          "name": "normalize",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "normalized fullName",
+            "type": "String"
+          },
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 254,
+          "itemtype": "method",
+          "name": "makeToString",
+          "params": [
+            {
+              "name": "factory",
+              "description": "",
+              "type": "Any"
+            },
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "toString function",
+            "type": "Function"
+          },
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 265,
+          "description": "Given a fullName return a corresponding instance.\n\nThe default behaviour is for lookup to return a singleton instance.\nThe singleton is scoped to the container, allowing multiple containers\nto all have their own locally scoped singletons.\n\n```javascript\nvar container = new Container();\ncontainer.register('api:twitter', Twitter);\n\nvar twitter = container.lookup('api:twitter');\n\ntwitter instanceof Twitter; // => true\n\n// by default the container will return singletons\nvar twitter2 = container.lookup('api:twitter');\ntwitter2 instanceof Twitter; // => true\n\ntwitter === twitter2; //=> true\n```\n\nIf singletons are not wanted an optional flag can be provided at lookup.\n\n```javascript\nvar container = new Container();\ncontainer.register('api:twitter', Twitter);\n\nvar twitter = container.lookup('api:twitter', { singleton: false });\nvar twitter2 = container.lookup('api:twitter', { singleton: false });\n\ntwitter === twitter2; //=> false\n```",
+          "itemtype": "method",
+          "name": "lookup",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 309,
+          "description": "Given a fullName return the corresponding factory.",
+          "itemtype": "method",
+          "name": "lookupFactory",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 321,
+          "description": "Given a fullName check if the container is aware of its factory\nor singleton instance.",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 334,
+          "description": "Allow registering options for all factories of a type.\n\n```javascript\nvar container = new Container();\n\n// if all of type `connection` must not be singletons\ncontainer.optionsForType('connection', { singleton: false });\n\ncontainer.register('connection:twitter', TwitterConnection);\ncontainer.register('connection:facebook', FacebookConnection);\n\nvar twitter = container.lookup('connection:twitter');\nvar twitter2 = container.lookup('connection:twitter');\n\ntwitter === twitter2; // => false\n\nvar facebook = container.lookup('connection:facebook');\nvar facebook2 = container.lookup('connection:facebook');\n\nfacebook === facebook2; // => false\n```",
+          "itemtype": "method",
+          "name": "optionsForType",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 367,
+          "itemtype": "method",
+          "name": "options",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 376,
+          "description": "Used only via `injection`.\n\nProvides a specialized form of injection, specifically enabling\nall objects of one type to be injected with a reference to another\nobject.\n\nFor example, provided each object of type `controller` needed a `router`.\none would do the following:\n\n```javascript\nvar container = new Container();\n\ncontainer.register('router:main', Router);\ncontainer.register('controller:user', UserController);\ncontainer.register('controller:post', PostController);\n\ncontainer.typeInjection('controller', 'router', 'router:main');\n\nvar user = container.lookup('controller:user');\nvar post = container.lookup('controller:post');\n\nuser.router instanceof Router; //=> true\npost.router instanceof Router; //=> true\n\n// both controllers share the same router\nuser.router === post.router; //=> true\n```",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "typeInjection",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "property",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 422,
+          "description": "Defines injection rules.\n\nThese rules are used to inject dependencies onto objects when they\nare instantiated.\n\nTwo forms of injections are possible:\n\n* Injecting one fullName on another fullName\n* Injecting one fullName on a type\n\nExample:\n\n```javascript\nvar container = new Container();\n\ncontainer.register('source:main', Source);\ncontainer.register('model:user', User);\ncontainer.register('model:post', Post);\n\n// injecting one fullName on another fullName\n// eg. each user model gets a post model\ncontainer.injection('model:user', 'post', 'model:post');\n\n// injecting one fullName on another type\ncontainer.injection('model', 'source', 'source:main');\n\nvar user = container.lookup('model:user');\nvar post = container.lookup('model:post');\n\nuser.source instanceof Source; //=> true\npost.source instanceof Source; //=> true\n\nuser.post instanceof Post; //=> true\n\n// and both models share the same source\nuser.source === post.source; //=> true\n```",
+          "itemtype": "method",
+          "name": "injection",
+          "params": [
+            {
+              "name": "factoryName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "property",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "injectionName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 483,
+          "description": "Used only via `factoryInjection`.\n\nProvides a specialized form of injection, specifically enabling\nall factory of one type to be injected with a reference to another\nobject.\n\nFor example, provided each factory of type `model` needed a `store`.\none would do the following:\n\n```javascript\nvar container = new Container();\n\ncontainer.register('store:main', SomeStore);\n\ncontainer.factoryTypeInjection('model', 'store', 'store:main');\n\nvar store = container.lookup('store:main');\nvar UserFactory = container.lookupFactory('model:user');\n\nUserFactory.store instanceof SomeStore; //=> true\n```",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "factoryTypeInjection",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "property",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 518,
+          "description": "Defines factory injection rules.\n\nSimilar to regular injection rules, but are run against factories, via\n`Container#lookupFactory`.\n\nThese rules are used to inject objects onto factories when they\nare looked up.\n\nTwo forms of injections are possible:\n\n  * Injecting one fullName on another fullName\n  * Injecting one fullName on a type\n\nExample:\n\n```javascript\nvar container = new Container();\n\ncontainer.register('store:main', Store);\ncontainer.register('store:secondary', OtherStore);\ncontainer.register('model:user', User);\ncontainer.register('model:post', Post);\n\n// injecting one fullName on another type\ncontainer.factoryInjection('model', 'store', 'store:main');\n\n// injecting one fullName on another fullName\ncontainer.factoryInjection('model:post', 'secondaryStore', 'store:secondary');\n\nvar UserFactory = container.lookupFactory('model:user');\nvar PostFactory = container.lookupFactory('model:post');\nvar store = container.lookup('store:main');\n\nUserFactory.store instanceof Store; //=> true\nUserFactory.secondaryStore instanceof OtherStore; //=> false\n\nPostFactory.store instanceof Store; //=> true\nPostFactory.secondaryStore instanceof OtherStore; //=> true\n\n// and both models share the same source instance\nUserFactory.store === PostFactory.store; //=> true\n```",
+          "itemtype": "method",
+          "name": "factoryInjection",
+          "params": [
+            {
+              "name": "factoryName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "property",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "injectionName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 584,
+          "description": "A depth first traversal, destroying the container, its descendant containers and all\ntheir managed objects.",
+          "itemtype": "method",
+          "name": "destroy",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 605,
+          "itemtype": "method",
+          "name": "reset",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/inheriting_dict.js",
+          "line": 26,
+          "description": "Retrieve the value given a key, if the value is present at the current\nlevel use it, otherwise walk up the parent hierarchy and try again. If\nno matching key is found, return undefined.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/inheriting_dict.js",
+          "line": 47,
+          "description": "Set the given value for the given key, at the current level.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Any"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/inheriting_dict.js",
+          "line": 58,
+          "description": "Delete the given key",
+          "itemtype": "method",
+          "name": "remove",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/inheriting_dict.js",
+          "line": 68,
+          "description": "Check for the existence of given a key, if the key is present at the current\nlevel return true, otherwise walk up the parent hierarchy and try again. If\nno matching key is found, return false.",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/inheriting_dict.js",
+          "line": 91,
+          "description": "Iterate and invoke a callback for each local key-value pair.",
+          "itemtype": "method",
+          "name": "eachLocal",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-application/lib/ext/controller.js",
+          "line": 141,
+          "itemtype": "method",
+          "name": "controllerFor",
+          "see": [
+            "{Ember.Route#controllerFor}"
+          ],
+          "deprecated": true,
+          "deprecationMessage": "Use `needs` instead",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-routing/lib/ext/controller.js",
+          "line": 16,
+          "description": "Transition the application into another route. The route may\nbe either a single route or route path:\n\n```javascript\naController.transitionToRoute('blogPosts');\naController.transitionToRoute('blogPosts.recentEntries');\n```\n\nOptionally supply a model for the route in question. The model\nwill be serialized into the URL using the `serialize` hook of\nthe route:\n\n```javascript\naController.transitionToRoute('blogPost', aPost);\n```\n\nIf a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the `model`\nhook of the route will be triggered:\n\n```javascript\naController.transitionToRoute('blogPost', 1);\n```\n\nMultiple models will be applied last to first recursively up the\nresource tree.\n\n```javascript\nApp.Router.map(function() {\n  this.resource('blogPost', {path:':blogPostId'}, function(){\n    this.resource('blogComment', {path: ':blogCommentId'});\n  });\n});\n\naController.transitionToRoute('blogComment', aPost, aComment);\naController.transitionToRoute('blogComment', 1, 13);\n```\n\nIt is also possible to pass a URL (a string that starts with a\n`/`). This is intended for testing and debugging purposes and\nshould rarely be used in production code.\n\n```javascript\naController.transitionToRoute('/');\naController.transitionToRoute('/blog/post/1/comment/13');\n```\n\nSee also [replaceRoute](/api/classes/Ember.ControllerMixin.html#method_replaceRoute).",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\nwhile transitioning to the route.",
+              "type": "...Object"
+            }
+          ],
+          "itemtype": "method",
+          "name": "transitionToRoute",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-routing/lib/ext/controller.js",
+          "line": 79,
+          "deprecated": true,
+          "itemtype": "method",
+          "name": "transitionTo",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-routing/lib/ext/controller.js",
+          "line": 89,
+          "description": "Transition into another route while replacing the current URL, if possible.\nThis will replace the current history entry instead of adding a new one.\nBeside that, it is identical to `transitionToRoute` in all other respects.\n\n```javascript\naController.replaceRoute('blogPosts');\naController.replaceRoute('blogPosts.recentEntries');\n```\n\nOptionally supply a model for the route in question. The model\nwill be serialized into the URL using the `serialize` hook of\nthe route:\n\n```javascript\naController.replaceRoute('blogPost', aPost);\n```\n\nIf a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the `model`\nhook of the route will be triggered:\n\n```javascript\naController.replaceRoute('blogPost', 1);\n```\n\nMultiple models will be applied last to first recursively up the\nresource tree.\n\n```javascript\nApp.Router.map(function() {\n  this.resource('blogPost', {path:':blogPostId'}, function(){\n    this.resource('blogComment', {path: ':blogCommentId'});\n  });\n});\n\naController.replaceRoute('blogComment', aPost, aComment);\naController.replaceRoute('blogComment', 1, 13);\n```\n\nIt is also possible to pass a URL (a string that starts with a\n`/`). This is intended for testing and debugging purposes and\nshould rarely be used in production code.\n\n```javascript\naController.replaceRoute('/');\naController.replaceRoute('/blog/post/1/comment/13');\n```",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\nwhile transitioning to the route.",
+              "type": "...Object"
+            }
+          ],
+          "itemtype": "method",
+          "name": "replaceRoute",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-routing/lib/ext/controller.js",
+          "line": 151,
+          "deprecated": true,
+          "itemtype": "method",
+          "name": "replaceWith",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-runtime/lib/mixins/action_handler.js",
+          "line": 148,
+          "description": "Moves `actions` to `_actions` at extend time. Note that this currently\nmodifies the mixin themselves, which is technically dubious but\nis practically of little consequence. This may change in the future.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "willMergeMixin",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "../packages_es6/ember-runtime/lib/mixins/action_handler.js",
+          "line": 177,
+          "description": "Triggers a named action on the `ActionHandler`. Any parameters\nsupplied after the `actionName` string will be passed as arguments\nto the action target function.\n\nIf the `ActionHandler` has its `target` property set, actions may\nbubble to the `target`. Bubbling happens when an `actionName` can\nnot be found in the `ActionHandler`'s `actions` hash or if the\naction target function returns `true`.\n\nExample\n\n```js\nApp.WelcomeRoute = Ember.Route.extend({\n  actions: {\n    playTheme: function() {\n       this.send('playMusic', 'theme.mp3');\n    },\n    playMusic: function(track) {\n      // ...\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "actionName",
+              "description": "The action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 28,
+          "itemtype": "property",
+          "name": "parent",
+          "type": "Container",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 35,
+          "itemtype": "property",
+          "name": "children",
+          "type": "Array",
+          "default": "[]",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 42,
+          "itemtype": "property",
+          "name": "resolver",
+          "type": "function",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 48,
+          "itemtype": "property",
+          "name": "registry",
+          "type": "InheritingDict",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 54,
+          "itemtype": "property",
+          "name": "cache",
+          "type": "InheritingDict",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 60,
+          "itemtype": "property",
+          "name": "typeInjections",
+          "type": "InheritingDict",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 66,
+          "itemtype": "property",
+          "name": "injections",
+          "type": "Object",
+          "default": "{}",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 73,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_options",
+          "type": "InheritingDict",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/container.js",
+          "line": 82,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_typeOptions",
+          "type": "InheritingDict",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/inheriting_dict.js",
+          "line": 9,
+          "itemtype": "property",
+          "name": "parent",
+          "type": "InheritingDict",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/container/lib/inheriting_dict.js",
+          "line": 17,
+          "description": "Object used to store the current nodes data.",
+          "itemtype": "property",
+          "name": "dict",
+          "type": "Object",
+          "default": "Object",
+          "class": "Ember.ControllerMixin",
+          "module": "RSVP",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-application/lib/ext/controller.js",
+          "line": 71,
+          "description": "An array of other controller objects available inside\ninstances of this controller via the `controllers`\nproperty:\n\nFor example, when you define a controller:\n\n```javascript\nApp.CommentsController = Ember.ArrayController.extend({\n  needs: ['post']\n});\n```\n\nThe application's single instance of these other\ncontrollers are accessible by name through the\n`controllers` property:\n\n```javascript\nthis.get('controllers.post'); // instance of App.PostController\n```\n\nGiven that you have a nested controller (nested resource):\n\n```javascript\nApp.CommentsNewController = Ember.ObjectController.extend({\n});\n```\n\nWhen you define a controller that requires access to a nested one:\n\n```javascript\nApp.IndexController = Ember.ObjectController.extend({\n  needs: ['commentsNew']\n});\n```\n\nYou will be able to get access to it:\n\n```javascript\nthis.get('controllers.commentsNew'); // instance of App.CommentsNewController\n```\n\nThis is only available for singleton controllers.",
+          "itemtype": "property",
+          "name": "needs",
+          "type": "Array",
+          "default": "[]",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-application/lib/ext/controller.js",
+          "line": 151,
+          "description": "Stores the instances of other controllers available from within\nthis controller. Any controller listed by name in the `needs`\nproperty will be accessible by name through this property.\n\n```javascript\nApp.CommentsController = Ember.ArrayController.extend({\n  needs: ['post'],\n  postTitle: function(){\n    var currentPost = this.get('controllers.post'); // instance of App.PostController\n    return currentPost.get('title');\n  }.property('controllers.post.title')\n});\n```",
+          "see": [
+            "{Ember.ControllerMixin#needs}"
+          ],
+          "itemtype": "property",
+          "name": "controllers",
+          "type": "Object",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-runtime/lib/controllers/controller.js",
+          "line": 26,
+          "description": "The object to which actions from the view should be sent.\n\nFor example, when a Handlebars template uses the `{{action}}` helper,\nit will attempt to send the action to the view's controller's `target`.\n\nBy default, the value of the target property is set to the router, and\nis injected when a controller is instantiated. This injection is defined\nin Ember.Application#buildContainer, and is applied as part of the\napplications initialization process. It can also be set after a controller\nhas been instantiated, for instance when using the render helper in a\ntemplate, or when a controller is used as an `itemController`. In most\ncases the `target` property will automatically be set to the logical\nconsumer of actions for the controller.",
+          "itemtype": "property",
+          "name": "target",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-runtime/lib/mixins/action_handler.js",
+          "line": 28,
+          "description": "The collection of functions, keyed by name, available on this\n`ActionHandler` as action targets.\n\nThese functions will be invoked when a matching `{{action}}` is triggered\nfrom within a template and the application's current route is this route.\n\nActions can also be invoked from other parts of your application\nvia `ActionHandler#send`.\n\nThe `actions` hash will inherit action handlers from\nthe `actions` hash defined on extended parent classes\nor mixins rather than just replace the entire hash, e.g.:\n\n```js\nApp.CanDisplayBanner = Ember.Mixin.create({\n  actions: {\n    displayBanner: function(msg) {\n      // ...\n    }\n  }\n});\n\nApp.WelcomeRoute = Ember.Route.extend(App.CanDisplayBanner, {\n  actions: {\n    playMusic: function() {\n      // ...\n    }\n  }\n});\n\n// `WelcomeRoute`, when active, will be able to respond\n// to both actions, since the actions hash is merged rather\n// then replaced when extending mixins / parent classes.\nthis.send('displayBanner');\nthis.send('playMusic');\n```\n\nWithin a Controller, Route, View or Component's action handler,\nthe value of the `this` context is the Controller, Route, View or\nComponent object:\n\n```js\nApp.SongRoute = Ember.Route.extend({\n  actions: {\n    myAction: function() {\n      this.controllerFor(\"song\");\n      this.transitionTo(\"other.route\");\n      ...\n    }\n  }\n});\n```\n\nIt is also possible to call `this._super()` from within an\naction handler if it overrides a handler defined on a parent\nclass or mixin:\n\nTake for example the following routes:\n\n```js\nApp.DebugRoute = Ember.Mixin.create({\n  actions: {\n    debugRouteInformation: function() {\n      console.debug(\"trololo\");\n    }\n  }\n});\n\nApp.AnnoyingDebugRoute = Ember.Route.extend(App.DebugRoute, {\n  actions: {\n    debugRouteInformation: function() {\n      // also call the debugRouteInformation of mixed in App.DebugRoute\n      this._super();\n\n      // show additional annoyance\n      window.alert(...);\n    }\n  }\n});\n```\n\n## Bubbling\n\nBy default, an action will stop bubbling once a handler defined\non the `actions` hash handles it. To continue bubbling the action,\nyou must return `true` from the handler:\n\n```js\nApp.Router.map(function() {\n  this.resource(\"album\", function() {\n    this.route(\"song\");\n  });\n});\n\nApp.AlbumRoute = Ember.Route.extend({\n  actions: {\n    startPlaying: function() {\n    }\n  }\n});\n\nApp.AlbumSongRoute = Ember.Route.extend({\n  actions: {\n    startPlaying: function() {\n      // ...\n\n      if (actionShouldAlsoBeTriggeredOnParentRoute) {\n        return true;\n      }\n    }\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "actions",
+          "type": "Hash",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.6.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.6.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
