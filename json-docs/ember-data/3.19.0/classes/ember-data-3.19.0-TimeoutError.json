@@ -1,0 +1,47 @@
+{
+  "data": {
+    "id": "ember-data-3.19.0-TimeoutError",
+    "type": "class",
+    "attributes": {
+      "name": "TimeoutError",
+      "shortname": "TimeoutError",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/adapter",
+      "namespace": "",
+      "file": "../adapter/addon/error.js",
+      "line": 183,
+      "description": "A `TimeoutError` is used by an adapter to signal that a request\nto the external API has timed out. I.e. no response was received from\nthe external API within an allowed time period.\n\nAn example use case would be to warn the user to check their internet\nconnection if an adapter operation has timed out:\n\n```js {data-filename=app/routes/application.js}\nimport Route from '@ember/routing/route';\nimport { TimeoutError } from '@ember-data/adapter/error';\nimport { action } from '@ember/object';\n\nexport default class ApplicationRoute extends Route {\n  @action\n  error(error, transition) {\n    if (error instanceof TimeoutError) {\n      // alert the user\n      alert('Are you still connected to the Internet?');\n      return;\n    }\n\n    // ...other error handling logic\n  }\n}\n```",
+      "extends": "AdapterError",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.19.0-AdapterError",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.19.0-@ember-data/adapter",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.19.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

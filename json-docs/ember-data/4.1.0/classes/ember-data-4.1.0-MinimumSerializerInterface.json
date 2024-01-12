@@ -1,0 +1,211 @@
+{
+  "data": {
+    "id": "ember-data-4.1.0-MinimumSerializerInterface",
+    "type": "class",
+    "attributes": {
+      "name": "MinimumSerializerInterface",
+      "shortname": "MinimumSerializerInterface",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/serializer",
+      "namespace": "",
+      "file": "../store/addon/-private/ts-interfaces/minimum-serializer-interface.ts",
+      "line": 15,
+      "description": "The following documentation describes the methods an application\nserializer should implement with descriptions around when an\napplication might expect these methods to be called.\n\nMethods that are not required are marked as **optional**.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-serializer-interface.ts",
+          "line": 26,
+          "description": "This method is responsible for normalizing the value resolved from the promise returned\nby an Adapter request into the format expected by the `Store`.\n\nThe output should be a [JSON:API Document](https://jsonapi.org/format/#document-structure)\nwith the following additional restrictions:\n\n- `type` should be formatted in the `singular` `dasherized` `lowercase` form\n- `members` (the property names of attributes and relationships) should be formatted\n   to match their definition in the corresponding `Model` definition. Typically this\n   will be `camelCase`.\n- [`lid`](https://github.com/emberjs/rfcs/blob/master/text/0403-ember-data-identifiers.md) is\n   a valid optional sibling to `id` and `type` in both [Resources](https://jsonapi.org/format/#document-resource-objects)\n   and [Resource Identifier Objects](https://jsonapi.org/format/#document-resource-identifier-objects)",
+          "itemtype": "method",
+          "name": "normalizeResponse",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "schema",
+              "description": "An object with methods for accessing information about\n the type, attributes and relationships of the primary type associated with the request.",
+              "type": "ModelSchema"
+            },
+            {
+              "name": "rawPayload",
+              "description": "The raw JSON response data returned from an API request.\n This correlates to the value the promise returned by the adapter method that performed\n the request resolved to.",
+              "type": "JSONObject"
+            },
+            {
+              "name": "id",
+              "description": "For a findRecord request, this is the id initially provided\n in the call to store.findRecord. Else this value is null.",
+              "type": "String|null"
+            },
+            {
+              "name": "requestType",
+              "description": "The\n type of request the Adapter had been asked to perform.",
+              "type": "'findRecord' | 'queryRecord' | 'findAll' | 'findBelongsTo' | 'findHasMany' | 'findMany' | 'query' | 'createRecord' | 'deleteRecord' | 'updateRecord'"
+            }
+          ],
+          "return": {
+            "description": "a document following the structure of a JSON:API Document.",
+            "type": "JsonApiDocument"
+          },
+          "class": "MinimumSerializerInterface",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-serializer-interface.ts",
+          "line": 74,
+          "description": "This method is responsible for serializing an individual record\nvia a [Snapshot](Snapshot) into the format expected by the API.\n\nThis method is called by `snapshot.serialize()`.\n\nWhen using `Model`, this method is called by `record.serialize()`.\n\nWhen using `JSONAPIAdapter` or `RESTAdapter` this method is called\nby `updateRecord` and `createRecord` if `Serializer.serializeIntoHash`\nis not implemented.",
+          "itemtype": "method",
+          "name": "serialize",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "snapshot",
+              "description": "A Snapshot for the record to serialize",
+              "type": "Snapshot"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "class": "MinimumSerializerInterface",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-serializer-interface.ts",
+          "line": 93,
+          "description": "This method is intended to normalize data into a [JSON:API Document](https://jsonapi.org/format/#document-structure)\nwith a data member containing a single [Resource](https://jsonapi.org/format/#document-resource-objects).\n\n- `type` should be formatted in the singular, dasherized and lowercase form\n- `members` (the property names of attributes and relationships) should be formatted\n   to match their definition in the corresponding `Model` definition. Typically this\n   will be `camelCase`.\n- [`lid`](https://github.com/emberjs/rfcs/blob/master/text/0403-ember-data-identifiers.md) is\n   a valid optional sibling to `id` and `type` in both [Resources](https://jsonapi.org/format/#document-resource-objects)\n   and [Resource Identifier Objects](https://jsonapi.org/format/#document-resource-identifier-objects)\n\nThis method is called by the `Store` when `store.normalize(modelName, payload)` is\ncalled. It is recommended to use `store.serializerFor(modelName).normalizeResponse`\nover `store.normalize`.\n\nThis method may be called when also using the `RESTSerializer`\nwhen `serializer.pushPayload` is called by `store.pushPayload`.\nHowever, it is recommended to use `store.push` over `store.pushPayload` after normalizing\nthe payload directly.\n\nExample:\n```js\nfunction pushPayload(store, modelName, rawPayload) {\n  const ModelClass = store.modelFor(modelName);\n  const serializer = store.serializerFor(modelName);\n  const jsonApiPayload = serializer.normalizeResponse(store, ModelClass, rawPayload, null, 'query');\n\n  return store.push(jsonApiPayload);\n}\n```\n\nThis method may be called when also using the `JSONAPISerializer`\nwhen normalizing included records. If mixing serializer usage in this way\nwe recommend implementing this method, but caution that it may lead\nto unexpected mixing of formats.\n\nThis method may also be called when normalizing embedded relationships when\nusing the `EmbeddedRecordsMixin`. If using this mixin in a serializer in\nyour application we recommend implementing this method, but caution that\nit may lead to unexpected mixing of formats.",
+          "itemtype": "method",
+          "name": "normalize [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "schema",
+              "description": "An object with methods for accessing information about\n the type, attributes and relationships of the primary type associated with the request.",
+              "type": "ModelSchema"
+            },
+            {
+              "name": "rawPayload",
+              "description": "Some raw JSON data to be normalized into a JSON:API Resource.",
+              "type": "JSONObject"
+            },
+            {
+              "name": "prop",
+              "description": "When called by the EmbeddedRecordsMixin this param will be the\n property at which the object provided as rawPayload was found.",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "A JSON:API Document\n containing a single JSON:API Resource\n as its primary data.",
+            "type": "SingleResourceDocument"
+          },
+          "class": "MinimumSerializerInterface",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-serializer-interface.ts",
+          "line": 149,
+          "description": "When using `JSONAPIAdapter` or `RESTAdapter` this method is called\nby `adapter.updateRecord` and `adapter.createRecord` if `serializer.serializeIntoHash`\nis implemented. If this method is not implemented, `serializer.serialize`\nwill be called in this case.\n\nYou can use this method to customize the root keys serialized into the payload.\nThe hash property should be modified by reference.\n\nFor instance, your API may expect resources to be keyed by underscored type in the payload:\n\n```js\n{\n  _user: {\n    type: 'user',\n    id: '1'\n  }\n}\n```\n\nWhich when using these adapters can be achieved by implementing this method similar\nto the following:\n\n```js\nserializeIntoHash(hash, ModelClass, snapshot, options) {\n  hash[`_${snapshot.modelName}`] = this.serialize(snapshot, options).data;\n}\n```",
+          "itemtype": "method",
+          "name": "serializeIntoHash [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "hash",
+              "description": "A top most object of the request payload onto\n which to append the serialized record"
+            },
+            {
+              "name": "schema",
+              "description": "An object with methods for accessing information about\n the type, attributes and relationships of the primary type associated with the request.",
+              "type": "ModelSchema"
+            },
+            {
+              "name": "snapshot",
+              "description": "A Snapshot for the record to serialize",
+              "type": "Snapshot"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "MinimumSerializerInterface",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../store/addon/-private/ts-interfaces/minimum-serializer-interface.ts",
+          "line": 191,
+          "description": "This method allows for normalization of data when `store.pushPayload` is called\nand should be implemented if you want to use that method.\n\nThe method is responsible for pushing new data to the store using `store.push`\nonce any necessary normalization has occurred, and no data in the store will be\nupdated unless it does so.\n\nThe normalized form pushed to the store should be a [JSON:API Document](https://jsonapi.org/format/#document-structure)\nwith the following additional restrictions:\n\n- `type` should be formatted in the singular, dasherized and lowercase form\n- `members` (the property names of attributes and relationships) should be formatted\n   to match their definition in the corresponding `Model` definition. Typically this\n   will be `camelCase`.\n- [`lid`](https://github.com/emberjs/rfcs/blob/master/text/0403-ember-data-identifiers.md) is\n   a valid optional sibling to `id` and `type` in both [Resources](https://jsonapi.org/format/#document-resource-objects)\n   and [Resource Identifier Objects](https://jsonapi.org/format/#document-resource-identifier-objects)\n\nIf you need better control over normalization or want access to the records being added or updated\nin the store, we recommended using `store.push` over `store.pushPayload` after normalizing\nthe payload directly. This can even take advantage of an existing serializer for the format\nthe data is in, for example:\n\n```js\nfunction pushPayload(store, modelName, rawPayload) {\n  const ModelClass = store.modelFor(modelName);\n  const serializer = store.serializerFor(modelName);\n  const jsonApiPayload = serializer.normalizeResponse(store, ModelClass, rawPayload, null, 'query');\n\n  return store.push(jsonApiPayload);\n}\n```",
+          "itemtype": "method",
+          "name": "pushPayload [OPTIONAL]",
+          "access": "public",
+          "tagname": "",
+          "optional": 1,
+          "params": [
+            {
+              "name": "store",
+              "description": "The store service that initiated the request being normalized",
+              "type": "Store"
+            },
+            {
+              "name": "rawPayload",
+              "description": "The raw JSON response data returned from an API request.\n This JSON should be in the API format expected by the serializer.",
+              "type": "JSONObject"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "MinimumSerializerInterface",
+          "module": "@ember-data/serializer"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.1.0-@ember-data/serializer",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.1.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

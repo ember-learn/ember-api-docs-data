@@ -1,0 +1,212 @@
+{
+  "data": {
+    "id": "ember-data-3.3.2-DS.RecordArray",
+    "type": "class",
+    "attributes": {
+      "name": "DS.RecordArray",
+      "shortname": "DS.RecordArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+      "line": 13,
+      "description": "A record array is an array that contains records of a certain modelName. The record\narray materializes records as needed when they are retrieved for the first\ntime. You should not create record arrays yourself. Instead, an instance of\n`DS.RecordArray` or its subclasses will be returned by your application's store\nin response to queries.",
+      "extends": "Ember.ArrayProxy",
+      "uses": [
+        "Ember.Evented"
+      ],
+      "methods": [
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+          "line": 101,
+          "description": "Retrieves an object from the content by index.",
+          "itemtype": "method",
+          "name": "objectAtContent",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "index",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "DS.Model"
+          },
+          "class": "DS.RecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+          "line": 114,
+          "description": "Used to get the latest version of all of the records in this array\nfrom the adapter.\n\nExample\n\n```javascript\nvar people = store.peekAll('person');\npeople.get('isUpdating'); // false\n\npeople.update().then(function() {\n  people.get('isUpdating'); // false\n});\n\npeople.get('isUpdating'); // true\n```",
+          "itemtype": "method",
+          "name": "update",
+          "class": "DS.RecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+          "line": 157,
+          "description": "Adds an internal model to the `RecordArray` without duplicates",
+          "itemtype": "method",
+          "name": "_pushInternalModels",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            }
+          ],
+          "class": "DS.RecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+          "line": 171,
+          "description": "Removes an internalModel to the `RecordArray`.",
+          "itemtype": "method",
+          "name": "removeInternalModel",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            }
+          ],
+          "class": "DS.RecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+          "line": 182,
+          "description": "Saves all of the records in the `RecordArray`.\n\nExample\n\n```javascript\nvar messages = store.peekAll('message');\nmessages.forEach(function(message) {\n  message.set('hasBeenSeen', true);\n});\nmessages.save();\n```",
+          "itemtype": "method",
+          "name": "save",
+          "return": {
+            "description": "promise",
+            "type": "DS.PromiseArray"
+          },
+          "class": "DS.RecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+          "line": 216,
+          "itemtype": "method",
+          "name": "_unregisterFromManager",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.RecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+          "line": 30,
+          "description": "The array of client ids backing the record array. When a\nrecord is requested from the record array, the record\nfor the client id at the same index is materialized, if\nnecessary, by the store.",
+          "itemtype": "property",
+          "name": "content",
+          "access": "private",
+          "tagname": "",
+          "type": "Ember.Array",
+          "class": "DS.RecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+          "line": 42,
+          "description": "The flag to signal a `RecordArray` is finished loading data.\n\nExample\n\n```javascript\nvar people = store.peekAll('person');\npeople.get('isLoaded'); // true\n```",
+          "itemtype": "property",
+          "name": "isLoaded",
+          "type": "Boolean",
+          "class": "DS.RecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+          "line": 56,
+          "description": "The flag to signal a `RecordArray` is currently loading data.\n\nExample\n\n```javascript\nvar people = store.peekAll('person');\npeople.get('isUpdating'); // false\npeople.update();\npeople.get('isUpdating'); // true\n```",
+          "itemtype": "property",
+          "name": "isUpdating",
+          "type": "Boolean",
+          "class": "DS.RecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+          "line": 73,
+          "description": "The store that created this record array.",
+          "itemtype": "property",
+          "name": "store",
+          "access": "private",
+          "tagname": "",
+          "type": "DS.Store",
+          "class": "DS.RecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/record-arrays/record-array.js",
+          "line": 88,
+          "description": "The modelClass represented by this record array.",
+          "itemtype": "property",
+          "name": "type",
+          "type": "DS.Model",
+          "class": "DS.RecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.ArrayProxy",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-3.3.2-DS.AdapterPopulatedRecordArray"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.3.2-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.3.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

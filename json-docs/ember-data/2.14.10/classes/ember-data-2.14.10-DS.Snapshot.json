@@ -1,0 +1,279 @@
+{
+  "data": {
+    "id": "ember-data-2.14.10-DS.Snapshot",
+    "type": "class",
+    "attributes": {
+      "name": "DS.Snapshot",
+      "shortname": "DS.Snapshot",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/system/snapshot.js",
+      "line": 11,
+      "access": "private",
+      "tagname": "",
+      "is_constructor": 1,
+      "params": [
+        {
+          "name": "internalModel",
+          "description": "The model to create a snapshot from",
+          "type": "DS.Model"
+        }
+      ],
+      "methods": [
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 92,
+          "description": "Returns the value of an attribute.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostSnapshot.attr('author'); // => 'Tomster'\npostSnapshot.attr('title'); // => 'Ember.js rocks'\n```\n\nNote: Values are loaded eagerly and cached when the snapshot is created.",
+          "itemtype": "method",
+          "name": "attr",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The attribute value or undefined",
+            "type": "Object"
+          },
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 116,
+          "description": "Returns all attributes and their corresponding values.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostSnapshot.attributes(); // => { author: 'Tomster', title: 'Ember.js rocks' }\n```",
+          "itemtype": "method",
+          "name": "attributes",
+          "return": {
+            "description": "All attributes of the current snapshot",
+            "type": "Object"
+          },
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 133,
+          "description": "Returns all changed attributes and their old and new values.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostModel.set('title', 'Ember.js rocks!');\npostSnapshot.changedAttributes(); // => { title: ['Ember.js rocks', 'Ember.js rocks!'] }\n```",
+          "itemtype": "method",
+          "name": "changedAttributes",
+          "return": {
+            "description": "All changed attributes of the current snapshot",
+            "type": "Object"
+          },
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 159,
+          "description": "Returns the current value of a belongsTo relationship.\n\n`belongsTo` takes an optional hash of options as a second parameter,\ncurrently supported options are:\n\n- `id`: set to `true` if you only want the ID of the related record to be\nreturned.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, title: 'Hello World' });\n// store.createRecord('comment', { body: 'Lorem ipsum', post: post });\ncommentSnapshot.belongsTo('post'); // => DS.Snapshot\ncommentSnapshot.belongsTo('post', { id: true }); // => '1'\n\n// store.push('comment', { id: 1, body: 'Lorem ipsum' });\ncommentSnapshot.belongsTo('post'); // => undefined\n```\n\nCalling `belongsTo` will return a new Snapshot as long as there's any known\ndata for the relationship available, such as an ID. If the relationship is\nknown but unset, `belongsTo` will return `null`. If the contents of the\nrelationship is unknown `belongsTo` will return `undefined`.\n\nNote: Relationships are loaded lazily and cached upon first access.",
+          "itemtype": "method",
+          "name": "belongsTo",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "A snapshot or ID of a known\nrelationship or null if the relationship is known but unset. undefined\nwill be returned if the contents of the relationship is unknown.",
+            "type": "(DS.Snapshot|String|null|undefined)"
+          },
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 236,
+          "description": "Returns the current value of a hasMany relationship.\n\n`hasMany` takes an optional hash of options as a second parameter,\ncurrently supported options are:\n\n- `ids`: set to `true` if you only want the IDs of the related records to be\nreturned.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, title: 'Hello World', comments: [2, 3] });\npostSnapshot.hasMany('comments'); // => [DS.Snapshot, DS.Snapshot]\npostSnapshot.hasMany('comments', { ids: true }); // => ['2', '3']\n\n// store.push('post', { id: 1, title: 'Hello World' });\npostSnapshot.hasMany('comments'); // => undefined\n```\n\nNote: Relationships are loaded lazily and cached upon first access.",
+          "itemtype": "method",
+          "name": "hasMany",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "An array of snapshots or IDs of a known\nrelationship or an empty array if the relationship is known but unset.\nundefined will be returned if the contents of the relationship is unknown.",
+            "type": "(Array|undefined)"
+          },
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 308,
+          "description": "Iterates through all the attributes of the model, calling the passed\nfunction on each attribute.\n\nExample\n\n```javascript\nsnapshot.eachAttribute(function(name, meta) {\n  // ...\n});\n```",
+          "itemtype": "method",
+          "name": "eachAttribute",
+          "params": [
+            {
+              "name": "callback",
+              "description": "the callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 328,
+          "description": "Iterates through all the relationships of the model, calling the passed\nfunction on each relationship.\n\nExample\n\n```javascript\nsnapshot.eachRelationship(function(name, relationship) {\n  // ...\n});\n```",
+          "itemtype": "method",
+          "name": "eachRelationship",
+          "params": [
+            {
+              "name": "callback",
+              "description": "the callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 348,
+          "description": "Serializes the snapshot using the serializer for the model.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  createRecord(store, type, snapshot) {\n    var data = snapshot.serialize({ includeId: true });\n    var url = `/${type.modelName}`;\n\n    return fetch(url, {\n      method: 'POST',\n      body: data,\n    }).then((response) => response.json())\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "an object whose values are primitive JSON values only",
+            "type": "Object"
+          },
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 29,
+          "description": "The underlying record for this snapshot. Can be used to access methods and\nproperties defined on the record.\n\nExample\n\n```javascript\nlet json = snapshot.record.toJSON();\n```",
+          "itemtype": "property",
+          "name": "record",
+          "type": "{DS.Model}",
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 45,
+          "description": "The id of the snapshot's underlying record\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostSnapshot.id; // => '1'\n```",
+          "itemtype": "property",
+          "name": "id",
+          "type": "{String}",
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 60,
+          "description": "A hash of adapter options",
+          "itemtype": "property",
+          "name": "adapterOptions",
+          "type": "{Object}",
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 68,
+          "description": "The name of the type of the underlying record for this snapshot, as a string.",
+          "itemtype": "property",
+          "name": "modelName",
+          "type": "{String}",
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/snapshot.js",
+          "line": 79,
+          "description": "The type of the underlying record for this snapshot, as a DS.Model.",
+          "itemtype": "property",
+          "name": "type",
+          "type": "{DS.Model}",
+          "class": "DS.Snapshot",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.14.10-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.14.10",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

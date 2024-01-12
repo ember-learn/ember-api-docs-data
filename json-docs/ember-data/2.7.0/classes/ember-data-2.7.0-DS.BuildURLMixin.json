@@ -1,0 +1,428 @@
+{
+  "data": {
+    "id": "ember-data-2.7.0-DS.BuildURLMixin",
+    "type": "class",
+    "attributes": {
+      "name": "DS.BuildURLMixin",
+      "shortname": "DS.BuildURLMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "DS.RESTAdapter"
+      ],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/adapters/build-url-mixin.js",
+      "line": 5,
+      "description": "WARNING: This interface is likely to change in order to accomodate https://github.com/emberjs/rfcs/pull/4\n## Using BuildURLMixin\nTo use url building, include the mixin when extending an adapter, and call `buildURL` where needed.\n  The default behaviour is designed for RESTAdapter.\n### Example\n```javascript\n  export default DS.Adapter.extend(BuildURLMixin, {\n    findRecord: function(store, type, id, snapshot) {\n      var url = this.buildURL(type.modelName, id, snapshot, 'findRecord');\n      return this.ajax(url, 'GET');\n    }\n  });\n  ```\n### Attributes\nThe `host` and `namespace` attributes will be used if defined, and are optional.",
+      "methods": [
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 33,
+          "description": "Builds a URL for a given type and optional ID.\n\nBy default, it pluralizes the type's name (for example, 'post'\nbecomes 'posts' and 'person' becomes 'people'). To override the\npluralization see [pathForType](#method_pathForType).\n\nIf an ID is specified, it adds the ID to the path generated\nfor the type, separated by a `/`.\n\nWhen called by RESTAdapter.findMany() the `id` and `snapshot` parameters\nwill be arrays of ids and snapshots.",
+          "itemtype": "method",
+          "name": "buildURL",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "single id or array of ids or query",
+              "type": "(String|Array|Object)"
+            },
+            {
+              "name": "snapshot",
+              "description": "single snapshot or array of snapshots",
+              "type": "(DS.Snapshot|Array)"
+            },
+            {
+              "name": "requestType",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "query",
+              "description": "object of query parameters to send for query requests.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 81,
+          "itemtype": "method",
+          "name": "_buildURL",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 110,
+          "itemtype": "method",
+          "name": "urlForFindRecord",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 121,
+          "itemtype": "method",
+          "name": "urlForFindAll",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 131,
+          "itemtype": "method",
+          "name": "urlForQuery",
+          "params": [
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 141,
+          "itemtype": "method",
+          "name": "urlForQueryRecord",
+          "params": [
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 151,
+          "itemtype": "method",
+          "name": "urlForFindMany",
+          "params": [
+            {
+              "name": "ids",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 162,
+          "itemtype": "method",
+          "name": "urlForFindHasMany",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 173,
+          "itemtype": "method",
+          "name": "urlForFindBelongsTo",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 184,
+          "itemtype": "method",
+          "name": "urlForCreateRecord",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 194,
+          "itemtype": "method",
+          "name": "urlForUpdateRecord",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 205,
+          "itemtype": "method",
+          "name": "urlForDeleteRecord",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 216,
+          "itemtype": "method",
+          "name": "urlPrefix",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "parentURL",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "urlPrefix",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 253,
+          "description": "Determines the pathname for a given type.\n\nBy default, it pluralizes the type's name (for example,\n'post' becomes 'posts' and 'person' becomes 'people').\n\n### Pathname customization\n\nFor example if you have an object LineItem with an\nendpoint of \"/line_items/\".\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.RESTAdapter.extend({\n  pathForType: function(modelName) {\n    var decamelized = Ember.String.decamelize(modelName);\n    return Ember.String.pluralize(decamelized);\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "pathForType",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "path",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.7.0-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.7.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

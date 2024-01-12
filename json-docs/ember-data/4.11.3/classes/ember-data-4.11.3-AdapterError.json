@@ -1,0 +1,78 @@
+{
+  "data": {
+    "id": "ember-data-4.11.3-AdapterError",
+    "type": "class",
+    "attributes": {
+      "name": "AdapterError",
+      "shortname": "AdapterError",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/adapter/error",
+      "namespace": "",
+      "file": "../packages/adapter/addon/error.js",
+      "line": 8,
+      "access": "public",
+      "description": "A `AdapterError` is used by an adapter to signal that an error occurred\nduring a request to an external API. It indicates a generic error, and\nsubclasses are used to indicate specific error states. The following\nsubclasses are provided:\n\n- `InvalidError`\n- `TimeoutError`\n- `AbortError`\n- `UnauthorizedError`\n- `ForbiddenError`\n- `NotFoundError`\n- `ConflictError`\n- `ServerError`\n\nTo create a custom error to signal a specific error state in communicating\nwith an external API, extend the `AdapterError`. For example, if the\nexternal API exclusively used HTTP `503 Service Unavailable` to indicate\nit was closed for maintenance:\n\n```js {data-filename=app/adapters/maintenance-error.js}\nimport AdapterError from '@ember-data/adapter/error';\n\nexport default AdapterError.extend({ message: \"Down for maintenance.\" });\n```\n\nThis error would then be returned by an adapter's `handleResponse` method:\n\n```js {data-filename=app/adapters/application.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\nimport MaintenanceError from './maintenance-error';\n\nexport default class ApplicationAdapter extends JSONAPIAdapter {\n  handleResponse(status) {\n    if (503 === status) {\n      return new MaintenanceError();\n    }\n\n    return super.handleResponse(...arguments);\n  }\n}\n```\n\nAnd can then be detected in an application and used to send the user to an\n`under-maintenance` route:\n\n```js {data-filename=app/routes/application.js}\nimport Route from '@ember/routing/route';\nimport MaintenanceError from '../adapters/maintenance-error';\n\nexport default class ApplicationRoute extends Route {\n  actions: {\n    error(error, transition) {\n      if (error instanceof MaintenanceError) {\n        this.transitionTo('under-maintenance');\n        return;\n      }\n\n      // ...other error handling logic\n    }\n  }\n}\n```\n  @mainName @ember-data/adapter/error\n  @tag main\n\n  @_maintrue\n",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-4.11.3-InvalidError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.11.3-TimeoutError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.11.3-AbortError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.11.3-UnauthorizedError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.11.3-ForbiddenError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.11.3-NotFoundError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.11.3-ConflictError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.11.3-ServerError"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.11.3-@ember-data/adapter/error",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.11.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

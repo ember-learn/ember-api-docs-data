@@ -1,0 +1,175 @@
+{
+  "data": {
+    "id": "ember-data-2.7.0-DS",
+    "type": "namespace",
+    "attributes": {
+      "name": "DS",
+      "shortname": "DS",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "",
+      "file": "addon/-private/core.js",
+      "line": 8,
+      "description": "All Ember Data methods and functions are defined inside of this namespace.",
+      "static": 1,
+      "methods": [
+        {
+          "file": "addon/-private/system/relationships/belongs-to.js",
+          "line": 5,
+          "description": "`DS.belongsTo` is used to define One-To-One and One-To-Many\nrelationships on a [DS.Model](/api/data/classes/DS.Model.html).\n\n\n`DS.belongsTo` takes an optional hash as a second parameter, currently\nsupported options are:\n\n- `async`: A boolean value used to explicitly declare this to be an async relationship.\n- `inverse`: A string used to identify the inverse property on a\n  related model in a One-To-Many relationship. See [Explicit Inverses](#toc_explicit-inverses)\n\n#### One-To-One\nTo declare a one-to-one relationship between two models, use\n`DS.belongsTo`:\n\n```js {data-filename=app/models/user.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  profile: DS.belongsTo('profile')\n});\n```\n\n```js {data-filename=app/models/profile.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  user: DS.belongsTo('user')\n});\n```\n\n#### One-To-Many\nTo declare a one-to-many relationship between two models, use\n`DS.belongsTo` in combination with `DS.hasMany`, like this:\n\n```js {data-filename=app/models/post.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  comments: DS.hasMany('comment')\n});\n```\n\n```js {data-filename=app/models/comment.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  post: DS.belongsTo('post')\n});\n```\n\nYou can avoid passing a string as the first parameter. In that case Ember Data\nwill infer the type from the key name.\n\n```js {data-filename=app/models/comment.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  post: DS.belongsTo()\n});\n```\n\nwill lookup for a Post type.",
+          "itemtype": "method",
+          "name": "belongsTo",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "(optional) type of the relationship",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "(optional) a hash of options",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "relationship",
+            "type": "Ember.computed"
+          },
+          "class": "DS",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/-private/system/relationships/has-many.js",
+          "line": 11,
+          "description": "`DS.hasMany` is used to define One-To-Many and Many-To-Many\nrelationships on a [DS.Model](/api/data/classes/DS.Model.html).\n\n`DS.hasMany` takes an optional hash as a second parameter, currently\nsupported options are:\n\n- `async`: A boolean value used to explicitly declare this to be an async relationship.\n- `inverse`: A string used to identify the inverse property on a related model.\n\n#### One-To-Many\nTo declare a one-to-many relationship between two models, use\n`DS.belongsTo` in combination with `DS.hasMany`, like this:\n\n```js {data-filename=app/models/post.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  comments: DS.hasMany('comment')\n});\n```\n\n```js {data-filename=app/models/comment.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  post: DS.belongsTo('post')\n});\n```\n\n#### Many-To-Many\nTo declare a many-to-many relationship between two models, use\n`DS.hasMany`:\n\n```js {data-filename=app/models/post.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  tags: DS.hasMany('tag')\n});\n```\n\n```js {data-filename=app/models/tag.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  posts: DS.hasMany('post')\n});\n```\n\nYou can avoid passing a string as the first parameter. In that case Ember Data\nwill infer the type from the singularized key name.\n\n```js {data-filename=app/models/post.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  tags: DS.hasMany()\n});\n```\n\nwill lookup for a Tag type.\n\n#### Explicit Inverses\n\nEmber Data will do its best to discover which relationships map to\none another. In the one-to-many code above, for example, Ember Data\ncan figure out that changing the `comments` relationship should update\nthe `post` relationship on the inverse because post is the only\nrelationship to that model.\n\nHowever, sometimes you may have multiple `belongsTo`/`hasManys` for the\nsame type. You can specify which property on the related model is\nthe inverse using `DS.hasMany`'s `inverse` option:\n\n```js {data-filename=app/models/comment.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  onePost: DS.belongsTo('post'),\n  twoPost: DS.belongsTo('post'),\n  redPost: DS.belongsTo('post'),\n  bluePost: DS.belongsTo('post')\n});\n```\n\n```js {data-filename=app/models/post.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  comments: DS.hasMany('comment', {\n    inverse: 'redPost'\n  })\n});\n```\n\nYou can also specify an inverse on a `belongsTo`, which works how\nyou'd expect.",
+          "itemtype": "method",
+          "name": "hasMany",
+          "params": [
+            {
+              "name": "type",
+              "description": "(optional) type of the relationship",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "(optional) a hash of options",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "relationship",
+            "type": "Ember.computed"
+          },
+          "class": "DS",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/-private/system/normalize-link.js",
+          "line": 1,
+          "description": "This method normalizes a link to an \"links object\". If the passed link is\nalready an object it's returned without any modifications.\n\nSee http://jsonapi.org/format/#document-links for more information.",
+          "itemtype": "method",
+          "name": "_normalizeLink",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "link",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object|null"
+          },
+          "class": "DS",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/-private/system/normalize-model-name.js",
+          "line": 3,
+          "description": "All modelNames are dasherized internally. Changing this function may\nrequire changes to other normalization hooks (such as typeForRoot).",
+          "itemtype": "method",
+          "name": "normalizeModelName",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "if the adapter can generate one, an ID",
+            "type": "String"
+          },
+          "class": "DS",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/attr.js",
+          "line": 38,
+          "description": "`DS.attr` defines an attribute on a [DS.Model](/api/data/classes/DS.Model.html).\nBy default, attributes are passed through as-is, however you can specify an\noptional type to have the value automatically transformed.\nEmber Data ships with four basic transform types: `string`, `number`,\n`boolean` and `date`. You can define your own transforms by subclassing\n[DS.Transform](/api/data/classes/DS.Transform.html).\n\nNote that you cannot use `attr` to define an attribute of `id`.\n\n`DS.attr` takes an optional hash as a second parameter, currently\nsupported options are:\n\n- `defaultValue`: Pass a string or a function to be called to set the attribute\n                  to a default value if none is supplied.\n\nExample\n\n```js {data-filename=app/models/user.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  username: DS.attr('string'),\n  email: DS.attr('string'),\n  verified: DS.attr('boolean', { defaultValue: false })\n});\n```\n\nDefault value can also be a function. This is useful it you want to return\na new object for each attribute.\n\n```js {data-filename=app/models/user.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  username: attr('string'),\n  email: attr('string'),\n  settings: attr({defaultValue: function() {\n    return {};\n  }})\n});\n```\n\nThe `options` hash is passed as second argument to a transforms'\n`serialize` and `deserialize` method. This allows to configure a\ntransformation and adapt the corresponding value, based on the config:\n\n```js {data-filename=app/models/post.js}\nexport default DS.Model.extend({\n  text: DS.attr('text', {\n    uppercase: true\n  })\n});\n```\n\n```js {data-filename=app/transforms/text.js}\nexport default DS.Transform.extend({\n  serialize: function(value, options) {\n    if (options.uppercase) {\n      return value.toUpperCase();\n    }\n\n    return value;\n  },\n\n  deserialize: function(value) {\n    return value;\n  }\n})\n```",
+          "itemtype": "method",
+          "name": "attr",
+          "params": [
+            {
+              "name": "type",
+              "description": "the attribute type",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "a hash of options",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Attribute"
+          },
+          "class": "DS",
+          "module": "ember-data"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "addon/-private/core.js",
+          "line": 15,
+          "itemtype": "property",
+          "name": "VERSION",
+          "type": "String",
+          "static": 1,
+          "class": "DS",
+          "module": "ember-data"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.7.0-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.7.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

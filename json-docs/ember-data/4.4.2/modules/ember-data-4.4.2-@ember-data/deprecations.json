@@ -1,0 +1,35 @@
+{
+  "data": {
+    "id": "ember-data-4.4.2-@ember-data/deprecations",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/deprecations",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../private-build-infra/addon/current-deprecations.ts",
+      "line": 1,
+      "description": "## Deprecations\n\nEmberData allows users to opt-in and remove code that exists to support deprecated\nbehaviors.\n\nIf your app has resolved all deprecations present in a given version,\nyou may specify that version as your \"compatibility\" version to remove\nthe code that supported the deprecated behavior from your app.\n\nFor instance, if a deprecation was introduced in 3.13, and the app specifies\n3.13 as its minimum version compatibility, any deprecations introduced before\nor during 3.13 would be stripped away.\n\nAn app can use a different version than what it specifies as it's compatibility\nversion. For instance, an App could be using `3.16` while specifying compatibility\nwith `3.12`. This would remove any deprecations that were present in or before `3.12`\nbut keep support for anything deprecated in or above `3.13`.\n\n### Configuring Compatibility\n\nTo configure your compatibility version, set the `compatWith` to the version you\nare compatible with on the `emberData` config in your `ember-cli-build.js` file.\n\n```js\nlet app = new EmberApp(defaults, {\n  emberData: {\n    compatWith: '3.12',\n  },\n});\n```\n\nThe complete list of which versions specific deprecations will be removed in\ncan be found [here](https://github.com/emberjs/data/tree/master/packages/private-build-infra/addon/current-deprecations.ts \"List of EmberData Deprecations\")",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "4.4.2"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.4.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

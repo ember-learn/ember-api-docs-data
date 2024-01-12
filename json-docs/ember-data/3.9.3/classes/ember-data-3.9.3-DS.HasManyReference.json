@@ -1,0 +1,149 @@
+{
+  "data": {
+    "id": "ember-data-3.9.3-DS.HasManyReference",
+    "type": "class",
+    "attributes": {
+      "name": "DS.HasManyReference",
+      "shortname": "DS.HasManyReference",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/system/references/has-many.js",
+      "line": 8,
+      "description": "A HasManyReference is a low-level API that allows users and addon\nauthor to perform meta-operations on a has-many relationship.",
+      "methods": [
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 31,
+          "description": "This returns a string that represents how the reference will be\nlooked up when it is loaded. If the relationship has a link it will\nuse the \"link\" otherwise it defaults to \"id\".\n\nExample\n\n```js {data-filename=app/models/post.js}\nexport default DS.Model.extend({\n  comments: DS.hasMany({ async: true })\n});\n```\n\n```javascript\nlet post = store.push({\n  data: {\n    type: 'post',\n    id: 1,\n    relationships: {\n      comments: {\n        data: [{ type: 'comment', id: 1 }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.hasMany('comments');\n\n// get the identifier of the reference\nif (commentsRef.remoteType() === \"ids\") {\n  let ids = commentsRef.ids();\n} else if (commentsRef.remoteType() === \"link\") {\n  let link = commentsRef.link();\n}\n```",
+          "itemtype": "method",
+          "name": "remoteType",
+          "return": {
+            "description": "The name of the remote type. This should either be `link` or `ids`",
+            "type": "String"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 79,
+          "description": "`ids()` returns an array of the record IDs in this relationship.\n\nExample\n\n```js {data-filename=app/models/post.js}\nexport default DS.Model.extend({\n  comments: DS.hasMany({ async: true })\n});\n```\n\n```javascript\nlet post = store.push({\n  data: {\n    type: 'post',\n    id: 1,\n    relationships: {\n      comments: {\n        data: [{ type: 'comment', id: 1 }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.hasMany('comments');\n\ncommentsRef.ids(); // ['1']\n```",
+          "itemtype": "method",
+          "name": "ids",
+          "return": {
+            "description": "The ids in this has-many relationship",
+            "type": "Array"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 122,
+          "description": "`push` can be used to update the data in the relationship and Ember\nData will treat the new data as the canonical value of this\nrelationship on the backend.\n\nExample\n\n```js {data-filename=app/models/post.js}\nexport default DS.Model.extend({\n  comments: DS.hasMany({ async: true })\n});\n```\n\n```\nlet post = store.push({\n  data: {\n    type: 'post',\n    id: 1,\n    relationships: {\n      comments: {\n        data: [{ type: 'comment', id: 1 }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.hasMany('comments');\n\ncommentsRef.ids(); // ['1']\n\ncommentsRef.push([\n[{ type: 'comment', id: 2 }],\n[{ type: 'comment', id: 3 }],\n])\n\ncommentsRef.ids(); // ['2', '3']\n```",
+          "itemtype": "method",
+          "name": "push",
+          "params": [
+            {
+              "name": "objectOrPromise",
+              "description": "a promise that resolves to a JSONAPI document object describing the new value of this relationship.",
+              "type": "Array|Promise"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "DS.ManyArray"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 211,
+          "description": "`value()` synchronously returns the current value of the has-many\nrelationship. Unlike `record.get('relationshipName')`, calling\n`value()` on a reference does not trigger a fetch if the async\nrelationship is not yet loaded. If the relationship is not loaded\nit will always return `null`.\n\nExample\n\n```js {data-filename=app/models/post.js}\nexport default DS.Model.extend({\n  comments: DS.hasMany({ async: true })\n});\n```\n\n```javascript\nlet post = store.push({\n  data: {\n    type: 'post',\n    id: 1,\n    relationships: {\n      comments: {\n        data: [{ type: 'comment', id: 1 }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.hasMany('comments');\n\npost.get('comments').then(function(comments) {\n  commentsRef.value() === comments\n})\n```",
+          "itemtype": "method",
+          "name": "value",
+          "return": {
+            "description": "",
+            "type": "DS.ManyArray"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 257,
+          "description": "Loads the relationship if it is not already loaded.  If the\nrelationship is already loaded this method does not trigger a new\nload. This causes a request to the specified\nrelationship link or reloads all items currently in the relationship.\n\nExample\n\n```js {data-filename=app/models/post.js}\nexport default DS.Model.extend({\n  comments: DS.hasMany({ async: true })\n});\n```\n\n```javascript\nlet post = store.push({\n  data: {\n    type: 'post',\n    id: 1,\n    relationships: {\n      comments: {\n        data: [{ type: 'comment', id: 1 }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.hasMany('comments');\n\ncommentsRef.load().then(function(comments) {\n  //...\n});\n```\n\nYou may also pass in an options object whose properties will be\nfed forward. This enables you to pass `adapterOptions` into the\nrequest given to the adapter via the reference.\n\nExample\n\n```javascript\ncommentsRef.load({ adapterOptions: { isPrivate: true } })\n  .then(function(comments) {\n    //...\n  });\n```\n\n```js {data-filename=app/adapters/comment.js}\nexport default ApplicationAdapter.extend({\n  findMany(store, type, id, snapshots) {\n    // In the adapter you will have access to adapterOptions.\n    let adapterOptions = snapshots[0].adapterOptions;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "load",
+          "params": [
+            {
+              "name": "options",
+              "description": "the options to pass in.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "a promise that resolves with the ManyArray in\nthis has-many relationship.",
+            "type": "Promise"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/has-many.js",
+          "line": 322,
+          "description": "Reloads this has-many relationship. This causes a request to the specified\nrelationship link or reloads all items currently in the relationship.\n\nExample\n\n```js {data-filename=app/models/post.js}\nexport default DS.Model.extend({\n  comments: DS.hasMany({ async: true })\n});\n```\n\n```javascript\nlet post = store.push({\n  data: {\n    type: 'post',\n    id: 1,\n    relationships: {\n      comments: {\n        data: [{ type: 'comment', id: 1 }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.hasMany('comments');\n\ncommentsRef.reload().then(function(comments) {\n  //...\n});\n```\n\nYou may also pass in an options object whose properties will be\nfed forward. This enables you to pass `adapterOptions` into the\nrequest given to the adapter via the reference. A full example\ncan be found in the `load` method.\n\nExample\n\n```javascript\ncommentsRef.reload({ adapterOptions: { isPrivate: true } })\n```",
+          "itemtype": "method",
+          "name": "reload",
+          "params": [
+            {
+              "name": "options",
+              "description": "the options to pass in.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "a promise that resolves with the ManyArray in this has-many relationship.",
+            "type": "Promise"
+          },
+          "class": "DS.HasManyReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.9.3-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.9.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

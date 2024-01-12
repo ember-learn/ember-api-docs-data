@@ -1,0 +1,50 @@
+{
+  "data": {
+    "id": "ember-data-3.9.3-DS.PromiseObject",
+    "type": "class",
+    "attributes": {
+      "name": "DS.PromiseObject",
+      "shortname": "DS.PromiseObject",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/system/promise-proxies.js",
+      "line": 42,
+      "description": "A `PromiseObject` is an object that acts like both an `EmberObject`\nand a promise. When the promise is resolved, then the resulting value\nwill be set to the `PromiseObject`'s `content` property. This makes\nit easy to create data bindings with the `PromiseObject` that will\nbe updated when the promise resolves.\n\nFor more information see the [Ember.PromiseProxyMixin\ndocumentation](/api/classes/Ember.PromiseProxyMixin.html).\n\nExample\n\n```javascript\nlet promiseObject = DS.PromiseObject.create({\n  promise: $.getJSON('/some/remote/data.json')\n});\n\npromiseObject.get('name'); // null\n\npromiseObject.then(function() {\n  promiseObject.get('name'); // 'Tomster'\n});\n```",
+      "extends": "Ember.ObjectProxy",
+      "uses": [
+        "Ember.PromiseProxyMixin"
+      ],
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.ObjectProxy",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.9.3-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.9.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

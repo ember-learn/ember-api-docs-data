@@ -1,0 +1,297 @@
+{
+  "data": {
+    "id": "ember-data-4.12.3-@ember-data/store",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/store",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember-data/store": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "../store/src/-private/store-service.ts",
+      "line": 92,
+      "description": "<p align=\"center\">\n  <img\n    class=\"project-logo\"\n    src=\"https://raw.githubusercontent.com/emberjs/data/4612c9354e4c54d53327ec2cf21955075ce21294/ember-data-logo-light.svg#gh-light-mode-only\"\n    alt=\"EmberData Store\"\n    width=\"240px\"\n    title=\"EmberData Store\"\n    />\n</p>\n\nThis package provides [*Ember***Data**](https://github.com/emberjs/data/)'s `Store` class.\n\nA [Store](https://api.emberjs.com/ember-data/release/classes/Store) coordinates interaction between your application, a [Cache](https://api.emberjs.com/ember-data/release/classes/%3CInterface%3E%20Cache),\nand sources of data (such as your API or a local persistence layer) accessed via a [RequestManager](https://github.com/emberjs/data/tree/main/packages/request).\n\nOptionally, a Store can be configured to hydrate the response data into rich presentation classes.\n\n## Installation\n\nIf you have installed `ember-data` then you already have this package installed.\nOtherwise you can install it using your javascript package manager of choice.\nFor instance with [pnpm](https://pnpm.io/)\n\n```\npnpm add @ember-data/store\n```\n\nAfter installing you will want to configure your first `Store`. Read more below\nfor how to create and configure stores for your application.\n\n\n## 🔨 Creating A Store\n\nTo use a `Store` we will need to do few things: add a [Cache](https://api.emberjs.com/ember-data/release/classes/%3CInterface%3E%20Cache)\nto store data **in-memory**, add a [Handler](https://api.emberjs.com/ember-data/release/classes/%3CInterface%3E%20Cache) to fetch data from a source,\nand implement `instantiateRecord` to tell the store how to display the data for individual resources.\n\n> **Note** If you are using the package `ember-data` then a JSON:API cache, RequestManager, LegacyNetworkHandler,\n> and `instantiateRecord` are configured for you by default.\n\n### Configuring A Cache\n\nTo start, let's install a [JSON:API](https://jsonapi.org/) cache. If your app uses `GraphQL` or `REST` other\ncaches may better fit your data. You can author your own cache by creating one that\nconforms to the [spec](https://api.emberjs.com/ember-data/release/classes/%3CInterface%3E%20Cache).\n\nThe package `@ember-data/json-api` provides a [JSON:API](https://jsonapi.org/) cache we can use.\nAfter installing it, we can configure the store to use this cache.\n\n```js\nimport Store from '@ember-data/store';\nimport Cache from '@ember-data/json-api';\n\nclass extends Store {\n  createCache(storeWrapper) {\n    return new Cache(storeWrapper);\n  }\n}\n```\n\nNow that we have a `cache` let's setup something to handle fetching\nand saving data via our API.\n\n> **Note** The `ember-data` package automatically includes and configures\n> the `@ember-data/json-api` cache for you.\n\n### Handling Requests\n\nWhen *Ember***Data** needs to fetch or save data it will pass that request to your application's `RequestManager` for fulfillment. How this fulfillment occurs (in-memory, device storage, via single or multiple API requests, etc.) is then up to the registered request handlers.\n\nTo start, let's install the `RequestManager` from `@ember-data/request` and the basic `Fetch` handler from ``@ember-data/request/fetch`.\n\n> **Note** If your app uses `GraphQL`, `REST` or different conventions for `JSON:API` than your cache expects, other handlers may better fit your data. You can author your own handler by creating one that conforms to the [handler interface](https://github.com/emberjs/data/tree/main/packages/request#handling-requests).\n\n```ts\nimport Store from '@ember-data/store';\nimport RequestManager from '@ember-data/request';\nimport Fetch from '@ember-data/request/fetch';\n\nexport default class extends Store {\n  constructor() {\n    super(...arguments);\n    this.requestManager = new RequestManager();\n    this.requestManager.use([Fetch]);\n  }\n}\n```\n\n**Using RequestManager as a Service**\n\nAlternatively if you have configured the `RequestManager` to be a service you may re-use it.\n\n*app/services/request.js*\n```ts\nimport RequestManager from '@ember-data/request';\nimport Fetch from '@ember-data/request/fetch';\n\nexport default class extends RequestManager {\n  constructor(createArgs) {\n    super(createArgs);\n    this.use([Fetch]);\n  }\n}\n```\n\n*app/services/store.js*\n```ts\nimport Store from '@ember-data/store';\nimport { service } from '@ember/service';\n\nexport default class extends Store {",
+      "service": "('request') requestManager\n}\n```\n\n\n### Presenting Data from the Cache\n\nNow that we have a source and a cach for our data, we need to configure how\nthe Store delivers that data back to our application. We do this via the hook\n[instantiateRecord](https://api.emberjs.com/ember-data/release/classes/Store/methods/instantiateRecord%20(hook)?anchor=instantiateRecord%20(hook)),\nwhich allows us to transform the data for a resource before handing it to the application.\n\nA naive way to present the data would be to return it as JSON. Typically instead\nthis hook will be used to add reactivity and make each unique resource a singleton,\nensuring that if the cache updates our presented data will reflect the new state.\n\nBelow is an example of using the hooks `instantiateRecord` and a `teardownRecord`\nto provide minimal read-only reactive state for simple resources.\n\n```ts\nimport Store, { recordIdentifierFor } from '@ember-data/store';\nimport { TrackedObject } from 'tracked-built-ins';\n\nclass extends Store {\n  instantiateRecord(identifier) {\n    const { cache, notifications } = this;\n\n    // create a TrackedObject with our attributes, id and type\n    const record = new TrackedObject(Object.assign({}, cache.peek(identifier)));\n    record.type = identifier.type;\n    record.id = identifier.id;\n\n    notifications.subscribe(identifier, (_, change) => {\n      if (change === 'attributes') {\n        Object.assign(record, cache.peek(identifier));\n      }\n    });\n\n    return record;\n  }\n}\n```\n\nBecause `instantiateRecord` is opaque to the nature of the record, an implementation\ncan be anything from a fairly simple object to a robust proxy that intelligently links\ntogether associated records through relationships.\n\nThis also enables creating a record that separates `edit` flows from `create` flows\nentirely. A record class might choose to implement a `checkout`method that gives access\nto an editable instance while the primary record continues to be read-only and reflect\nonly persisted (non-mutated) state.\n\nTypically you will choose an existing record implementation such as `@ember-data/model`\nfor your application.\n\nBecause of the boundaries around instantiation and the cache, record implementations\nshould be capable of interop both with each other and with any `Cache`. Due to this,\nif needed an application can utilize multiple record implementations and multiple cache\nimplementations either to support enhanced features for only a subset of records or to\nbe able to incrementally migrate from one record/cache to another record or cache.\n\n> **Note:** The `ember-data` package automatically includes the `@ember-data/model`\n> package and configures it for you.",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "CacheStoreWrapper",
+        "StableRecordIdentifier",
+        "SchemaService",
+        "Snapshot",
+        "ManyArray",
+        "IdentifierCache",
+        "RecordReference",
+        "CacheManager",
+        "NotificationManager",
+        "RequestStateService",
+        "PromiseArray",
+        "PromiseObject",
+        "RecordArray",
+        "Store"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@ember-data/store": [
+          {
+            "file": "../packages/store/src/-private/utils/normalize-model-name.ts",
+            "line": 7,
+            "description": "This method normalizes a modelName into the format Ember Data uses\ninternally by dasherizing it.",
+            "itemtype": "method",
+            "name": "normalizeModelName",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "deprecated": true,
+            "params": [
+              {
+                "name": "modelName",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "normalizedModelName",
+              "type": "String"
+            },
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          },
+          {
+            "file": "../packages/store/src/-private/caches/instance-cache.ts",
+            "line": 62,
+            "description": "Retrieves the unique referentially-stable [RecordIdentifier](/ember-data/release/classes/StableRecordIdentifier)\nassigned to the given record instance.\n```js\nimport { recordIdentifierFor } from \"@ember-data/store\";\n// ... gain access to a record, for instance with peekRecord or findRecord\nconst record = store.peekRecord(\"user\", \"1\");\n// get the identifier for the record (see docs for StableRecordIdentifier)\nconst identifier = recordIdentifierFor(record);\n// access the identifier's properties.\nconst { id, type, lid } = identifier;\n```",
+            "itemtype": "method",
+            "name": "recordIdentifierFor",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "record",
+                "description": "a record instance previously obstained from the store.",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "StableRecordIdentifier"
+            },
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          },
+          {
+            "file": "../ember-data-types/q/identifier.ts",
+            "line": 239,
+            "description": "Configure a callback for when the identifier cache is going to release an identifier.\n\nThis configuration MUST occur prior to the store instance being created.\n\n```js\nimport { setIdentifierForgetMethod } from '@ember-data/store';\n```\n\nTakes method which can expect to receive an existing `Identifier` that should be eliminated\nfrom any secondary lookup tables or caches that the user has populated for it.",
+            "itemtype": "method",
+            "name": "setIdentifierForgetMethod",
+            "params": [
+              {
+                "name": "method",
+                "description": ""
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          },
+          {
+            "file": "../ember-data-types/q/identifier.ts",
+            "line": 117,
+            "description": "Configures how unique identifier lid strings are generated by @ember-data/store.\n\nThis configuration MUST occur prior to the store instance being created.\n\nTakes a method which can expect to receive various data as its first argument\nand the name of a bucket as its second argument.\n\nCurrently there are two buckets, 'record' and 'document'.\n\n### Resource (`Record`) Identity\n\nIf the bucket is `record` the method must return a unique (to at-least\nthe given bucket) string identifier for the given data as a string to be\nused as the `lid` of an `Identifier` token.\n\nThis method will only be called by either `getOrCreateRecordIdentifier` or\n`createIdentifierForNewRecord` when an identifier for the supplied data\nis not already known via `lid` or `type + id` combo and one needs to be\ngenerated or retrieved from a proprietary cache.\n\n`data` will be the same data argument provided to `getOrCreateRecordIdentifier`\nand in the `createIdentifierForNewRecord` case will be an object with\nonly `type` as a key.\n\n```ts\nimport { setIdentifierGenerationMethod } from '@ember-data/store';\n\nexport function initialize(applicationInstance) {\n  // note how `count` here is now scoped to the application instance\n  // for our generation method by being inside the closure provided\n  // by the initialize function\n  let count = 0;\n\n  setIdentifierGenerationMethod((resource, bucket) => {\n    return resource.lid || `my-key-${count++}`;\n  });\n}\n\nexport default {\n  name: 'configure-ember-data-identifiers',\n  initialize\n};\n```\n\n### Document Identity\n\nIf the bucket is `document` the method will receive the associated\nimmutable `request` passed to `store.request` as its first argument\nand should return a unique string for the given request if the document\nshould be cached, and `null` if it should not be cached.\n\nNote, the request result will still be passed to the cache via `Cache.put`,\nbut caches should take this as a signal that the document should not itself\nbe cached, while its contents may still be used to update other cache state.\n\nThe presence of `cacheOptions.key` on the request will take precedence\nfor the document cache key, and this method will not be called if it is\npresent.\n\nThe default method implementation for this bucket is to return `null`\nfor all requests whose method is not `GET`, and to return the `url` for\nthose where it is.\n\nThis means that queries via `POST` MUST provide `cacheOptions.key` or\nimplement this hook.\n\n⚠️ Caution: Requests that do not have a `method` assigned are assumed to be `GET`",
+            "itemtype": "method",
+            "name": "setIdentifierGenerationMethod",
+            "params": [
+              {
+                "name": "method",
+                "description": ""
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          },
+          {
+            "file": "../ember-data-types/q/identifier.ts",
+            "line": 259,
+            "description": "Configure a callback for when the identifier cache is being torn down.\n\nThis configuration MUST occur prior to the store instance being created.\n\n```js\nimport { setIdentifierResetMethod } from '@ember-data/store';\n```\n\nTakes a method which can expect to be called when the parent application is destroyed.\n\nIf you have properly used a WeakMap to encapsulate the state of your customization\nto the application instance, you may not need to implement the `resetMethod`.",
+            "itemtype": "method",
+            "name": "setIdentifierResetMethod",
+            "params": [
+              {
+                "name": "method",
+                "description": ""
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          },
+          {
+            "file": "../ember-data-types/q/identifier.ts",
+            "line": 198,
+            "description": "Configure a callback for when the identifier cache encounters new resource\ndata for an existing resource.\n\nThis configuration MUST occur prior to the store instance being created.\n\n```js\nimport { setIdentifierUpdateMethod } from '@ember-data/store';\n```\n\nTakes a method which can expect to receive an existing `Identifier` alongside\nsome new data to consider as a second argument. This is an opportunity\nfor secondary lookup tables and caches associated with the identifier\nto be amended.\n\nThis method is called everytime `updateRecordIdentifier` is called and\n with the same arguments. It provides the opportunity to update secondary\n lookup tables for existing identifiers.\n\nIt will always be called after an identifier created with `createIdentifierForNewRecord`\n has been committed, or after an update to the `record` a `RecordIdentifier`\n is assigned to has been committed. Committed here meaning that the server\n has acknowledged the update (for instance after a call to `.save()`)\n\nIf `id` has not previously existed, it will be assigned to the `Identifier`\n prior to this `UpdateMethod` being called; however, calls to the parent method\n `updateRecordIdentifier` that attempt to change the `id` or calling update\n without providing an `id` when one is missing will throw an error.",
+            "itemtype": "method",
+            "name": "setIdentifierUpdateMethod",
+            "params": [
+              {
+                "name": "method",
+                "description": ""
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember-data/store": [
+          {
+            "file": "../packages/store/src/-private/utils/normalize-model-name.ts",
+            "line": 7,
+            "description": "This method normalizes a modelName into the format Ember Data uses\ninternally by dasherizing it.",
+            "itemtype": "method",
+            "name": "normalizeModelName",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "deprecated": true,
+            "params": [
+              {
+                "name": "modelName",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "normalizedModelName",
+              "type": "String"
+            },
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          },
+          {
+            "file": "../packages/store/src/-private/caches/instance-cache.ts",
+            "line": 62,
+            "description": "Retrieves the unique referentially-stable [RecordIdentifier](/ember-data/release/classes/StableRecordIdentifier)\nassigned to the given record instance.\n```js\nimport { recordIdentifierFor } from \"@ember-data/store\";\n// ... gain access to a record, for instance with peekRecord or findRecord\nconst record = store.peekRecord(\"user\", \"1\");\n// get the identifier for the record (see docs for StableRecordIdentifier)\nconst identifier = recordIdentifierFor(record);\n// access the identifier's properties.\nconst { id, type, lid } = identifier;\n```",
+            "itemtype": "method",
+            "name": "recordIdentifierFor",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "record",
+                "description": "a record instance previously obstained from the store.",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "StableRecordIdentifier"
+            },
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          },
+          {
+            "file": "../ember-data-types/q/identifier.ts",
+            "line": 239,
+            "description": "Configure a callback for when the identifier cache is going to release an identifier.\n\nThis configuration MUST occur prior to the store instance being created.\n\n```js\nimport { setIdentifierForgetMethod } from '@ember-data/store';\n```\n\nTakes method which can expect to receive an existing `Identifier` that should be eliminated\nfrom any secondary lookup tables or caches that the user has populated for it.",
+            "itemtype": "method",
+            "name": "setIdentifierForgetMethod",
+            "params": [
+              {
+                "name": "method",
+                "description": ""
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          },
+          {
+            "file": "../ember-data-types/q/identifier.ts",
+            "line": 117,
+            "description": "Configures how unique identifier lid strings are generated by @ember-data/store.\n\nThis configuration MUST occur prior to the store instance being created.\n\nTakes a method which can expect to receive various data as its first argument\nand the name of a bucket as its second argument.\n\nCurrently there are two buckets, 'record' and 'document'.\n\n### Resource (`Record`) Identity\n\nIf the bucket is `record` the method must return a unique (to at-least\nthe given bucket) string identifier for the given data as a string to be\nused as the `lid` of an `Identifier` token.\n\nThis method will only be called by either `getOrCreateRecordIdentifier` or\n`createIdentifierForNewRecord` when an identifier for the supplied data\nis not already known via `lid` or `type + id` combo and one needs to be\ngenerated or retrieved from a proprietary cache.\n\n`data` will be the same data argument provided to `getOrCreateRecordIdentifier`\nand in the `createIdentifierForNewRecord` case will be an object with\nonly `type` as a key.\n\n```ts\nimport { setIdentifierGenerationMethod } from '@ember-data/store';\n\nexport function initialize(applicationInstance) {\n  // note how `count` here is now scoped to the application instance\n  // for our generation method by being inside the closure provided\n  // by the initialize function\n  let count = 0;\n\n  setIdentifierGenerationMethod((resource, bucket) => {\n    return resource.lid || `my-key-${count++}`;\n  });\n}\n\nexport default {\n  name: 'configure-ember-data-identifiers',\n  initialize\n};\n```\n\n### Document Identity\n\nIf the bucket is `document` the method will receive the associated\nimmutable `request` passed to `store.request` as its first argument\nand should return a unique string for the given request if the document\nshould be cached, and `null` if it should not be cached.\n\nNote, the request result will still be passed to the cache via `Cache.put`,\nbut caches should take this as a signal that the document should not itself\nbe cached, while its contents may still be used to update other cache state.\n\nThe presence of `cacheOptions.key` on the request will take precedence\nfor the document cache key, and this method will not be called if it is\npresent.\n\nThe default method implementation for this bucket is to return `null`\nfor all requests whose method is not `GET`, and to return the `url` for\nthose where it is.\n\nThis means that queries via `POST` MUST provide `cacheOptions.key` or\nimplement this hook.\n\n⚠️ Caution: Requests that do not have a `method` assigned are assumed to be `GET`",
+            "itemtype": "method",
+            "name": "setIdentifierGenerationMethod",
+            "params": [
+              {
+                "name": "method",
+                "description": ""
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          },
+          {
+            "file": "../ember-data-types/q/identifier.ts",
+            "line": 259,
+            "description": "Configure a callback for when the identifier cache is being torn down.\n\nThis configuration MUST occur prior to the store instance being created.\n\n```js\nimport { setIdentifierResetMethod } from '@ember-data/store';\n```\n\nTakes a method which can expect to be called when the parent application is destroyed.\n\nIf you have properly used a WeakMap to encapsulate the state of your customization\nto the application instance, you may not need to implement the `resetMethod`.",
+            "itemtype": "method",
+            "name": "setIdentifierResetMethod",
+            "params": [
+              {
+                "name": "method",
+                "description": ""
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          },
+          {
+            "file": "../ember-data-types/q/identifier.ts",
+            "line": 198,
+            "description": "Configure a callback for when the identifier cache encounters new resource\ndata for an existing resource.\n\nThis configuration MUST occur prior to the store instance being created.\n\n```js\nimport { setIdentifierUpdateMethod } from '@ember-data/store';\n```\n\nTakes a method which can expect to receive an existing `Identifier` alongside\nsome new data to consider as a second argument. This is an opportunity\nfor secondary lookup tables and caches associated with the identifier\nto be amended.\n\nThis method is called everytime `updateRecordIdentifier` is called and\n with the same arguments. It provides the opportunity to update secondary\n lookup tables for existing identifiers.\n\nIt will always be called after an identifier created with `createIdentifierForNewRecord`\n has been committed, or after an update to the `record` a `RecordIdentifier`\n is assigned to has been committed. Committed here meaning that the server\n has acknowledged the update (for instance after a call to `.save()`)\n\nIf `id` has not previously existed, it will be assigned to the `Identifier`\n prior to this `UpdateMethod` being called; however, calls to the parent method\n `updateRecordIdentifier` that attempt to change the `id` or calling update\n without providing an `id` when one is missing will throw an error.",
+            "itemtype": "method",
+            "name": "setIdentifierUpdateMethod",
+            "params": [
+              {
+                "name": "method",
+                "description": ""
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "@ember-data/store",
+            "module": "@ember-data/store"
+          }
+        ]
+      },
+      "version": "4.12.3"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.12.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

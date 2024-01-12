@@ -1,0 +1,54 @@
+{
+  "data": {
+    "id": "ember-data-3.22.1-@ember-data/adapter",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/adapter",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../store/addon/-private/ts-interfaces/minimum-adapter-interface.ts",
+      "line": 149,
+      "description": "## Overview\n\nIn order to properly fetch and update data, EmberData\nneeds to understand how to connect to your API.\n\n`Adapters` accept various kinds of requests from the store\nand manage fulfillment of the request from your API.\n\n### Request Flow\n\nWhen the store decides it needs to issue a request it uses the\nfollowing flow to manage the request and process the data.\n\n- find the appropriate adapter\n- issue the request to the adapter\n- await the adapter's response\n  - if an error occurs reject with the error\n  - if no error\n    - if there is response data\n      - pass the response data to the appropriate serializer\n      - update the cache using the JSON:API formatted data from the serializer's response\n    - return the primary record(s) associated with the request\n\n### Request Errors\n\nWhen a request errors and your adapter does not have the ability to recover from the error,\nyou may either reject the promise returned by your adapter method with the error or simply\nthrow the error.\n\nIf the request was for a `createRecord` `updateRecord` or `deleteRecord` special rules\napply to how this error will affect the state of the store and additional properties on\nthe `Error` class may be used. See the documentation for these methods in the\n`MinimumAdapterInterface` for more information.\n\n### Implementing an Adapter\n\nThere are seven required adapter methods, one for each of\nthe primary request types that EmberData issues.\n\nThey are:\n\n- findRecord\n- findAll\n- queryRecord\n- query\n- createRecord\n- updateRecord\n- deleteRecord\n\nEach of these request types has a matching store method that triggers it\nand matching `requestType` that is passed to the serializer's\n`normalizeResponse` method.\n\nIf your app only reads data but never writes data, it is not necessary\nto implement the methods for create, update, and delete. This extends to\nall of the store's find methods with the exception of `findRecord` (`findAll`,\n`query`, `queryRecord`): if you do not use the store method in your app then\nyour Adapter does not need the method.\n\n```ts\nimport EmberObject from '@ember/object';\n\nasync function fetchData(url, options = {}) {\n  let response = await fetch(`./${modelName}s/${id}`, options);\n  return response.toJSON();\n}\n\nexport default class ApplicationAdapter extends EmberObject {\n  findRecord(_, { modelName }, id) {\n    return fetchData(`./${modelName}s/${id}`);\n  }\n}\n```\n\n### Adapter Resolution\n\n`store.adapterFor(name)` will lookup adapters defined in `app/adapters/` and\nreturn an instance.\n\n`adapterFor` first attempts to find an adapter with an exact match on `name`,\nthen falls back to checking for the presence of an adapter named `application`.\n\nIf no adapter is found, an error will be thrown.\n\n```ts\nstore.adapterFor('author');\n\n// lookup paths (in order) =>\n//   app/adapters/author.js\n//   app/adapters/application.js\n```\n\nMost requests in EmberData are made with respect to a particular `type` (or `modelName`)\n(e.g., \"get me the full collection of **books**\" or \"get me the **employee** whose id is 37\"). We\nrefer to this as the **primary** resource `type`.\n\n`adapterFor` is used by the store to find an adapter with a name matching that of the primary\nresource `type` for the request, which then falls back to the `application` adapter.\n\nIt is recommended that applications define only a single `application` adapter and serializer\nwhere possible, only implementing an adapter specific to the `type` when absolutely necessary.\n\nIf you need to support multiple API versions for the same type, the per-type strategy for\ndefining adapters might not be adequate.\n\nIf you have multiple APIs or multiple API versions and the single application adapter and per-type\nstrategy does not suite your needs, one strategy is to write an `application` adapter and serializer\nthat make use of `options` to specify the desired format when making a request, then forwards to the\nrequest to the desired adapter or serializer as needed.\n\n```js {data-filename=app/adapters/application.js}\nexport default class Adapter extends EmberObject {\n  findRecord(store, schema, id, snapshot) {\n    let { apiVersion } = snapshot.adapterOptions;\n    return this.adapterFor(`-api-${apiVersion}`).findRecord(store, schema, id, snapshot);\n  }\n}\n```\n\n### Using an Adapter\n\nAny adapter in `app/adapters/` can be looked up by `name` using `store.adapterFor(name)`.\n\n### Default Adapters\n\nApplications whose API's structure endpoint URLs *very close to* or *exactly* the **REST**\nor **JSON:API** convention, the `@ember-data/adapter` package contains implementations\nthese applications can extend.\n\nMany applications will find writing their own adapter to be allow greater flexibility,\ncustomization, and maintenance than attempting to override methods in these adapters.",
+      "extends": "EmberObject",
+      "itemtype": "main",
+      "access": "public",
+      "tagname": "",
+      "parent": null,
+      "publicclasses": [
+        "Ember.Inflector",
+        "BuildURLMixin",
+        "AdapterError",
+        "InvalidError",
+        "TimeoutError",
+        "AbortError",
+        "UnauthorizedError",
+        "ForbiddenError",
+        "NotFoundError",
+        "ConflictError",
+        "ServerError",
+        "Adapter",
+        "JSONAPIAdapter",
+        "RESTAdapter",
+        "MinimumAdapterInterface"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "3.22.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.22.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

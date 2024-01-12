@@ -1,0 +1,104 @@
+{
+  "data": {
+    "id": "ember-data-4.0.2-Reference",
+    "type": "class",
+    "attributes": {
+      "name": "Reference",
+      "shortname": "Reference",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/addon/-private/system/references/reference.ts",
+      "line": 38,
+      "description": "This is the baseClass for the different References\nlike RecordReference/HasManyReference/BelongsToReference",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../store/addon/-private/system/references/reference.ts",
+          "line": 59,
+          "description": "This returns a string that represents how the reference will be\nlooked up when it is loaded. If the relationship has a link it will\nuse the \"link\" otherwise it defaults to \"id\".\n\nExample\n\n```js {data-filename=app/models/post.js}\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  comments: hasMany({ async: true })\n});\n```\n\n```javascript\nlet post = store.push({\n  data: {\n    type: 'post',\n    id: 1,\n    relationships: {\n      comments: {\n        data: [{ type: 'comment', id: 1 }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.hasMany('comments');\n\n// get the identifier of the reference\nif (commentsRef.remoteType() === \"ids\") {\n  let ids = commentsRef.ids();\n} else if (commentsRef.remoteType() === \"link\") {\n  let link = commentsRef.link();\n}\n```",
+          "itemtype": "method",
+          "name": "remoteType",
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "The name of the remote type. This should either be \"link\" or \"ids\"",
+            "type": "String"
+          },
+          "class": "Reference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/reference.ts",
+          "line": 109,
+          "description": "The link Ember Data will use to fetch or reload this belongs-to\nrelationship. By default it uses only the \"related\" resource linkage.\n\nExample\n\n```javascript\n// models/blog.js\nimport Model, { belongsTo } from '@ember-data/model';\nexport default Model.extend({\n   user: belongsTo({ async: true })\n });\n\nlet blog = store.push({\n   data: {\n     type: 'blog',\n     id: 1,\n     relationships: {\n       user: {\n         links: {\n           related: '/articles/1/author'\n         }\n       }\n     }\n   }\n });\nlet userRef = blog.belongsTo('user');\n\n// get the identifier of the reference\nif (userRef.remoteType() === \"link\") {\n   let link = userRef.link();\n }\n```",
+          "itemtype": "method",
+          "name": "link",
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "The link Ember Data will use to fetch or reload this belongs-to relationship.",
+            "type": "String"
+          },
+          "class": "Reference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/reference.ts",
+          "line": 166,
+          "description": "The meta data for the belongs-to relationship.\n\nExample\n\n```javascript\n// models/blog.js\nimport Model, { belongsTo } from '@ember-data/model';\nexport default Model.extend({\n   user: belongsTo({ async: true })\n });\n\nlet blog = store.push({\n   data: {\n     type: 'blog',\n     id: 1,\n     relationships: {\n       user: {\n         links: {\n           related: {\n             href: '/articles/1/author'\n           },\n           meta: {\n             lastUpdated: 1458014400000\n           }\n         }\n       }\n     }\n   }\n });\n\nlet userRef = blog.belongsTo('user');\n\nuserRef.meta() // { lastUpdated: 1458014400000 }\n```",
+          "itemtype": "method",
+          "name": "meta",
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "The meta information for the belongs-to relationship.",
+            "type": "Object"
+          },
+          "class": "Reference",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-4.0.2-BelongsToReference"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.0.2-HasManyReference"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.0.2-RecordReference"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.0.2-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.0.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

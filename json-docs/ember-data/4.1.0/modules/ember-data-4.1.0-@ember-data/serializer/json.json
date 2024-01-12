@@ -1,0 +1,37 @@
+{
+  "data": {
+    "id": "ember-data-4.1.0-@ember-data/serializer/json",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/serializer/json",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../serializer/addon/json.js",
+      "line": 15,
+      "description": "Ember Data 2.0 Serializer:\n\nIn Ember Data a Serializer is used to serialize and deserialize\nrecords when they are transferred in and out of an external source.\nThis process involves normalizing property names, transforming\nattribute values and serializing relationships.\n\nBy default, Ember Data uses and recommends the `JSONAPISerializer`.\n\n`JSONSerializer` is useful for simpler or legacy backends that may\nnot support the http://jsonapi.org/ spec.\n\nFor example, given the following `User` model and JSON payload:\n\n```js {data-filename=app/models/user.js}\nimport Model, { attr, belongsTo, hasMany } from '@ember-data/model';\n\nexport default class UserModel extends Model {\n  @hasMany('user') friends;\n  @belongsTo('location') house;\n\n  @attr('string') name;\n}\n```\n\n```js\n{\n  id: 1,\n  name: 'Sebastian',\n  friends: [3, 4],\n  links: {\n    house: '/houses/lefkada'\n  }\n}\n```\n\n`JSONSerializer` will normalize the JSON payload to the JSON API format that the\nEmber Data store expects.\n\nYou can customize how JSONSerializer processes its payload by passing options in\nthe `attrs` hash or by subclassing the `JSONSerializer` and overriding hooks:\n\n  - To customize how a single record is normalized, use the `normalize` hook.\n  - To customize how `JSONSerializer` normalizes the whole server response, use the\n    `normalizeResponse` hook.\n  - To customize how `JSONSerializer` normalizes a specific response from the server,\n    use one of the many specific `normalizeResponse` hooks.\n  - To customize how `JSONSerializer` normalizes your id, attributes or relationships,\n    use the `extractId`, `extractAttributes` and `extractRelationships` hooks.\n\nThe `JSONSerializer` normalization process follows these steps:\n\n  1. `normalizeResponse`\n      - entry method to the serializer.\n  2. `normalizeCreateRecordResponse`\n      - a `normalizeResponse` for a specific operation is called.\n  3. `normalizeSingleResponse`|`normalizeArrayResponse`\n      - for methods like `createRecord` we expect a single record back, while for methods like `findAll` we expect multiple records back.\n  4. `normalize`\n      - `normalizeArrayResponse` iterates and calls `normalize` for each of its records while `normalizeSingle`\n        calls it once. This is the method you most likely want to subclass.\n  5. `extractId` | `extractAttributes` | `extractRelationships`\n      - `normalize` delegates to these methods to\n        turn the record payload into the JSON API format.",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "JSONSerializer"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "4.1.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.1.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

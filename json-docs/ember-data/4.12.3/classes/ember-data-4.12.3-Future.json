@@ -1,0 +1,108 @@
+{
+  "data": {
+    "id": "ember-data-4.12.3-Future",
+    "type": "class",
+    "attributes": {
+      "name": "Future",
+      "shortname": "Future",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/request",
+      "namespace": "",
+      "file": "../request/src/-private/types.ts",
+      "line": 63,
+      "description": "A Future is a Promise which resolves to a StructuredDocument\nwhile providing the ability to `abort` the underlying request,\n`getStream` the response before the outer promise resolves;",
+      "extends": "Promise",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/request/src/-private/types.ts",
+          "line": 73,
+          "description": "Cancel this request by firing the AbortController's signal.",
+          "itemtype": "method",
+          "name": "abort",
+          "params": [
+            {
+              "name": "reason",
+              "description": "optional reason for aborting the request",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "Future",
+          "module": "@ember-data/request"
+        },
+        {
+          "file": "../packages/request/src/-private/types.ts",
+          "line": 82,
+          "description": "Get the response stream, if any, once made available.",
+          "itemtype": "method",
+          "name": "getStream",
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "",
+            "type": "Promise<ReadableStream | null>"
+          },
+          "class": "Future",
+          "module": "@ember-data/request"
+        },
+        {
+          "file": "../packages/request/src/-private/types.ts",
+          "line": 91,
+          "description": "Run a callback when this request completes. Use sparingly,\nmostly useful for instrumentation and infrastructure.",
+          "itemtype": "method",
+          "name": "onFinalize",
+          "params": [
+            {
+              "name": "cb",
+              "description": "the callback to run"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "void"
+          },
+          "class": "Future",
+          "module": "@ember-data/request"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Promise",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.12.3-@ember-data/request",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.12.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

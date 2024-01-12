@@ -1,0 +1,154 @@
+{
+  "data": {
+    "id": "ember-data-3.2.2-DS.SnapshotRecordArray",
+    "type": "class",
+    "attributes": {
+      "name": "DS.SnapshotRecordArray",
+      "shortname": "DS.SnapshotRecordArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/-private/system/snapshot-record-array.js",
+      "line": 5,
+      "access": "private",
+      "tagname": "",
+      "is_constructor": 1,
+      "params": [
+        {
+          "name": "snapshots",
+          "description": "An array of snapshots",
+          "type": "Array"
+        },
+        {
+          "name": "meta",
+          "description": "",
+          "type": "Object"
+        }
+      ],
+      "methods": [
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/-private/system/snapshot-record-array.js",
+          "line": 129,
+          "description": "Get snapshots of the underlying record array\n\nExample\n\n```js {data-filename=app/adapters/post.js}\nimport DS from 'ember-data'\n\nexport default DS.JSONAPIAdapter.extend({\n  shouldReloadAll(store, snapshotArray) {\n    var snapshots = snapshotArray.snapshots();\n\n    return snapshots.any(function(ticketSnapshot) {\n      var timeDiff = moment().diff(ticketSnapshot.attr('lastAccessedAt'), 'minutes');\n      if (timeDiff > 20) {\n        return true;\n      } else {\n        return false;\n      }\n    });\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "snapshots",
+          "return": {
+            "description": "Array of snapshots",
+            "type": "Array"
+          },
+          "class": "DS.SnapshotRecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/-private/system/snapshot-record-array.js",
+          "line": 15,
+          "description": "An array of snapshots",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_snapshots",
+          "type": "{Array}",
+          "class": "DS.SnapshotRecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/-private/system/snapshot-record-array.js",
+          "line": 23,
+          "description": "An array of records",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_recordArray",
+          "type": "{Array}",
+          "class": "DS.SnapshotRecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/-private/system/snapshot-record-array.js",
+          "line": 31,
+          "description": "Number of records in the array\n\nExample\n\n```js {data-filename=app/adapters/post.js}\nimport DS from 'ember-data'\n\nexport default DS.JSONAPIAdapter.extend({\n  shouldReloadAll(store, snapshotRecordArray) {\n    return !snapshotRecordArray.length;\n  },\n});\n```",
+          "itemtype": "property",
+          "name": "length",
+          "type": "{Number}",
+          "class": "DS.SnapshotRecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/-private/system/snapshot-record-array.js",
+          "line": 53,
+          "description": "Meta objects for the record array.\n\nExample\n\n```js {data-filename=app/adapters/post.js}\nimport DS from 'ember-data'\n\nexport default DS.JSONAPIAdapter.extend({\n  shouldReloadAll(store, snapshotRecordArray) {\n    var lastRequestTime = snapshotRecordArray.meta.lastRequestTime;\n    var twentyMinutes = 20 * 60 * 1000;\n    return Date.now() > lastRequestTime + twentyMinutes;\n  },\n});\n```",
+          "itemtype": "property",
+          "name": "meta",
+          "type": "{Object}",
+          "class": "DS.SnapshotRecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/-private/system/snapshot-record-array.js",
+          "line": 75,
+          "description": "A hash of adapter options passed into the store method for this request.\n\nExample\n\n```js {data-filename=app/adapters/post.js}\nimport MyCustomAdapter from './custom-adapter';\n\nexport default MyCustomAdapter.extend({\n  findAll(store, type, sinceToken, snapshotRecordArray) {\n    if (snapshotRecordArray.adapterOptions.subscribe) {\n      // ...\n    }\n    // ...\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "adapterOptions",
+          "type": "{Object}",
+          "class": "DS.SnapshotRecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/-private/system/snapshot-record-array.js",
+          "line": 98,
+          "description": "The relationships to include for this request.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  findAll(store, type, snapshotRecordArray) {\n    var url = `/${type.modelName}?include=${encodeURIComponent(snapshotRecordArray.include)}`;\n\n    return fetch(url).then((response) => response.json())\n  }\n});",
+          "itemtype": "property",
+          "name": "include",
+          "type": "{String|Array}",
+          "class": "DS.SnapshotRecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/-private/system/snapshot-record-array.js",
+          "line": 120,
+          "description": "The type of the underlying records for the snapshots in the array, as a DS.Model",
+          "itemtype": "property",
+          "name": "type",
+          "type": "{DS.Model}",
+          "class": "DS.SnapshotRecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.2.2-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.2.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

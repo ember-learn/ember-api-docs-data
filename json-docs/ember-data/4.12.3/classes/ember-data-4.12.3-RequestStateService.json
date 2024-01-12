@@ -1,0 +1,113 @@
+{
+  "data": {
+    "id": "ember-data-4.12.3-RequestStateService",
+    "type": "class",
+    "attributes": {
+      "name": "RequestStateService",
+      "shortname": "RequestStateService",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/src/-private/network/request-cache.ts",
+      "line": 31,
+      "description": "The RequestStateService is used to track the state of requests\nfor fetching or updating known resource identifies that are inflight.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/store/src/-private/network/request-cache.ts",
+          "line": 159,
+          "description": "Subscribe to requests for a given resource identity.\n\nThe callback will receive the current state of the request.\n\n```ts\ninterface RequestState {\n  state: 'pending' | 'fulfilled' | 'rejected';\n  type: 'query' | 'mutation';\n  request: Request;\n  response?: { data: unknown };\n}\n```\n\nNote: It should be considered dangerous to use this API for more than simple\nstate derivation or debugging. The `request` and `response` properties are poorly\nspec'd and may change unexpectedly when shifting what Handlers are in use or how\nrequests are issued from the Store.\n\nWe expect to revisit this API in the near future as we continue to refine the\nRequestManager ergonomics, as a simpler but more powerful direct integration\nwith the RequestManager for these purposes is likely to be a better long-term\ndesign.",
+          "itemtype": "method",
+          "name": "subscribeForRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "(state: RequestState) => void"
+            }
+          ],
+          "class": "RequestStateService",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/store/src/-private/network/request-cache.ts",
+          "line": 195,
+          "description": "Retrieve all active requests for a given resource identity.",
+          "itemtype": "method",
+          "name": "getPendingRequestsForRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            }
+          ],
+          "return": {
+            "description": "an array of request states for any pending requests for the given identifier",
+            "type": "RequestState[]"
+          },
+          "class": "RequestStateService",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/store/src/-private/network/request-cache.ts",
+          "line": 210,
+          "description": "Retrieve the last completed request for a given resource identity.",
+          "itemtype": "method",
+          "name": "getLastRequestForRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            }
+          ],
+          "return": {
+            "description": "the state of the most recent request for the given identifier",
+            "type": "RequestState | null"
+          },
+          "class": "RequestStateService",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.12.3-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.12.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

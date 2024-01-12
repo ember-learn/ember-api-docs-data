@@ -1,0 +1,35 @@
+{
+  "data": {
+    "id": "ember-data-4.8.8-ember-data-overview",
+    "type": "module",
+    "attributes": {
+      "name": "ember-data-overview",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../packages/-ember-data/addon/index.js",
+      "line": 1,
+      "description": "# Overview\n\n`EmberData` is a lightweight reactive data library for javascript applications that provides composable primitives for ordering query/mutation/peek flows, managing network and cache, and reducing data for presentation that you can plug-and-play as desired for any api  structure and format.\n\nIt was designed for robustly managing data in applications built with [Ember](https://github.com/emberjs/ember.js/) and is agnostic to the underlying persistence mechanism, so it works just as well with [JSON:API](https://jsonapi.org/) or [GraphQL](https://graphql.org/) over `HTTPS` as it does with streaming `WebSockets` or local `IndexedDB` storage.\n\nIt provides many of the facilities you'd find in server-side `ORM`s like `ActiveRecord`, but is designed specifically for the unique environment of `JavaScript` in the browser.\n\nEmberData is organized into primitives that compose together via public APIs.\n\n- [@ember-data/store](/ember-data/release/modules/@ember-data%2Fstore) is the core and handles coordination\n- [@ember-data/record-data](/ember-data/release/modules/@ember-data%2Frecord-data) is a resource cache for JSON:API structured data. It integrates with the store via the hook `createRecordDataFor`\n- [@ember-data/model](/ember-data/release/modules/@ember-data%2Fmodel) is a presentation layer, it integrates with the store via the hooks `instantiateRecord` and `teardownRecord`.\n- [@ember-data/adapter](/ember-data/release/modules/@ember-data%2Fadapter) provides various network API integrations for APIS built over specific REST or JSON:API conventions.\n- [@ember-data/serializer](/ember-data/release/modules/@ember-data%2Fserializer) pairs with `@ember-data/adapter` to normalize and serialize data to and from an API format into the `JSON:API` format understood by `@ember-data/record-data`.\n- [@ember-data/debug](/ember-data/release/modules/@ember-data%2Fdebug) provides debugging support for the `ember-inspector`.\n- **ember-data** is a \"meta\" package which bundles all of these together for convenience\n\nThe packages interop with each other through well defined public API boundaries. The core\nof the library is the store provided by `@ember-data/store`, while each of the other libraries plugs into the store when installed. Because these packages interop via fully\npublic APIs, other libraries or applications may provide their own implementations. For instance, [ember-m3](https://github.com/hjdivad/ember-m3) is a commonly used presentation and cache implementation suitable for complex resource objects and graphs.\n\n## Configuration\n\n### Deprecation Stripping\n\nEmberData allows users to opt-in and remove code that exists to support deprecated behaviors.\n\nIf your app has resolved all deprecations present in a given version, you may specify that version as your \"compatibility\" version to remove the code that supported the deprecated behavior from your app.\n\n```ts\nlet app = new EmberApp(defaults, {\n emberData: {\n   compatWith: '4.8',\n },\n});\n```\n\n- [Full Documentation](https://api.emberjs.com/ember-data/release/modules/@ember-data%2Fdeprecations)\n\n### randomUUID polyfill\n\nEmberData uses `UUID V4` by default to generate identifiers for new data created on the client. Identifier generation is configurable, but we also for convenience will polyfill\nthe necessary feature if your browser support or deployment environment demands it. To\nactivate this polyfill:\n\n```ts\nlet app = new EmberApp(defaults, {\n '@embroider/macros': {\n   setConfig: {\n     '@ember-data/store': {\n       polyfillUUID: true\n     },\n   },\n },\n});\n```\n\n### removing inspector support in production\n\nIf you do not with to ship inspector support in your production application, you can specify\nthat all support for it should be stripped from the build.\n\n```ts\nlet app = new EmberApp(defaults, {\n emberData: {\n   includeDataAdapterInProduction: false\n }\n});\n```\n\n- [Full Documentation](https://api.emberjs.com/ember-data/release/modules/@ember-data%2Fdebug)\n\n### Debugging\n\nMany portions of the internals are helpfully instrumented with logging that can be activated\nat build time. This instrumentation is always removed from production builds or any builds\nthat has not explicitly activated it. To activate it set the appropriate flag to `true`.\n\n```ts\n let app = new EmberApp(defaults, {\n   emberData: {\n     debug: {\n         LOG_PAYLOADS: false, // data store received to update cache with\n         LOG_OPERATIONS: false, // updates to cache remote state\n         LOG_MUTATIONS: false, // updates to cache local state\n         LOG_NOTIFICATIONS: false,\n         LOG_REQUEST_STATUS: false,\n         LOG_IDENTIFIERS: false,\n         LOG_GRAPH: false,\n         LOG_INSTANCE_CACHE: false,\n     }\n   }\n });\n ```",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "4.8.8"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.8.8",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

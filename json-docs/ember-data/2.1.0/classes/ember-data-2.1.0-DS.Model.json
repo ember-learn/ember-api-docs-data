@@ -1,0 +1,880 @@
+{
+  "data": {
+    "id": "ember-data-2.1.0-DS.Model",
+    "type": "class",
+    "attributes": {
+      "name": "DS.Model",
+      "shortname": "DS.Model",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "packages/ember-data/lib/system/relationships/ext.js",
+      "line": 97,
+      "description": "The model class that all Ember Data records descend from.\n  This is the public API of Ember Data models. If you are using Ember Data\n  in your application, this is the class you should use.\n  If you are working on Ember Data internals, you most likely want to be dealing\n  with `InternalModel`",
+      "extends": "Ember.Object",
+      "uses": [
+        "Ember.Evented"
+      ],
+      "methods": [
+        {
+          "file": "packages/ember-data/lib/system/debug/debug-info.js",
+          "line": 5,
+          "description": "Provides info about the model for debugging purposes\nby grouping the properties into more semantic groups.\n\nMeant to be used by debugging tools such as the Chrome Ember Extension.\n\n- Groups all attributes in \"Attributes\" group.\n- Groups all belongsTo relationships in \"Belongs To\" group.\n- Groups all hasMany relationships in \"Has Many\" group.\n- Groups all flags in \"Flags\" group.\n- Flags relationship CPs as expensive properties.",
+          "itemtype": "method",
+          "name": "_debugInfo",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/attributes.js",
+          "line": 120,
+          "description": "Iterates through the attributes of the model, calling the passed function on each\nattribute.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(name, meta);\n```\n\n- `name` the name of the current property in the iteration\n- `meta` the meta object for the attribute property in the iteration\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context.\n\nExample\n\n```javascript\nimport DS from 'ember-data';\n\nvar Person = DS.Model.extend({\n  firstName: attr('string'),\n  lastName: attr('string'),\n  birthday: attr('date')\n});\n\nPerson.eachAttribute(function(name, meta) {\n  console.log(name, meta);\n});\n\n// prints:\n// firstName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"firstName\"}\n// lastName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"lastName\"}\n// birthday {type: \"date\", isAttribute: true, options: Object, parentType: function, name: \"birthday\"}\n   ```",
+          "itemtype": "method",
+          "name": "eachAttribute",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "static": 1,
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/attributes.js",
+          "line": 169,
+          "description": "Iterates through the transformedAttributes of the model, calling\nthe passed function on each attribute. Note the callback will not be\ncalled for any attributes that do not have an transformation type.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(name, type);\n```\n\n- `name` the name of the current property in the iteration\n- `type` a string containing the name of the type of transformed\n  applied to the attribute\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context.\n\nExample\n\n```javascript\nimport DS from 'ember-data';\n\nvar Person = DS.Model.extend({\n  firstName: attr(),\n  lastName: attr('string'),\n  birthday: attr('date')\n});\n\nPerson.eachTransformedAttribute(function(name, type) {\n  console.log(name, type);\n});\n\n// prints:\n// lastName string\n// birthday date\n   ```",
+          "itemtype": "method",
+          "name": "eachTransformedAttribute",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "static": 1,
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 377,
+          "description": "Create a JSON representation of the record, using the serialization\nstrategy of the store's adapter.\n\n   `serialize` takes an optional hash as a parameter, currently\nsupported options are:\n\n   - `includeId`: `true` if the record's ID should be included in the\n  JSON representation.",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "an object whose values are primitive JSON values only",
+            "type": "Object"
+          },
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 395,
+          "description": "Use [DS.JSONSerializer](DS.JSONSerializer.html) to\nget the JSON representation of a record.\n\n`toJSON` takes an optional hash as a parameter, currently\nsupported options are:\n\n- `includeId`: `true` if the record's ID should be included in the\n  JSON representation.",
+          "itemtype": "method",
+          "name": "toJSON",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "A JSON representation of the object.",
+            "type": "Object"
+          },
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 482,
+          "itemtype": "method",
+          "name": "send",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 492,
+          "itemtype": "method",
+          "name": "transitionTo",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 502,
+          "description": "Marks the record as deleted but does not save it. You must call\n`save` afterwards if you want to persist it. You might use this\nmethod if you want to allow the user to still `rollbackAttributes()`\nafter a delete it was made.\n\nExample\n\n```js {data-filename=app/routes/model/delete.js}\nimport Ember from 'ember';\n\nexport default Ember.Route.extend({\n  actions: {\n    softDelete: function() {\n      this.controller.get('model').deleteRecord();\n    },\n    confirm: function() {\n      this.controller.get('model').save();\n    },\n    undo: function() {\n      this.controller.get('model').rollbackAttributes();\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "deleteRecord",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 534,
+          "description": "Same as `deleteRecord`, but saves the record immediately.\n\nExample\n\n```js {data-filename=app/routes/model/delete.js}\nimport Ember from 'ember';\n\nexport default Ember.Route.extend({\n  actions: {\n    delete: function() {\n      var controller = this.controller;\n      controller.get('model').destroyRecord().then(function() {\n        controller.transitionToRoute('model.index');\n      });\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "destroyRecord",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "a promise that will be resolved when the adapter returns\nsuccessfully or rejected if the adapter returns with an error.",
+            "type": "Promise"
+          },
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 564,
+          "itemtype": "method",
+          "name": "unloadRecord",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 573,
+          "itemtype": "method",
+          "name": "_notifyProperties",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 587,
+          "description": "Returns an object, whose keys are changed properties, and value is\nan [oldProp, newProp] array.\n\nExample\n\n```js {data-filename=app/models/mascot.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  name: attr('string')\n});\n```\n\n```javascript\nvar mascot = store.createRecord('mascot');\nmascot.changedAttributes(); // {}\nmascot.set('name', 'Tomster');\nmascot.changedAttributes(); // {name: [undefined, 'Tomster']}\n```",
+          "itemtype": "method",
+          "name": "changedAttributes",
+          "return": {
+            "description": "an object, whose keys are changed properties,\n  and value is an [oldProp, newProp] array.",
+            "type": "Object"
+          },
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 631,
+          "itemtype": "method",
+          "name": "adapterDidDirty",
+          "access": "private",
+          "tagname": "adapterDidDirty: function() {\nthis.send('becomeDirty');\nthis.updateRecordArraysLater();\n  },",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 647,
+          "description": "If the model `isDirty` this function will discard any unsaved\nchanges. If the model `isNew` it will be removed from the store.\n\nExample\n\n```javascript\nrecord.get('name'); // 'Untitled Document'\nrecord.set('name', 'Doc 1');\nrecord.get('name'); // 'Doc 1'\nrecord.rollbackAttributes();\nrecord.get('name'); // 'Untitled Document'\n```",
+          "itemtype": "method",
+          "name": "rollbackAttributes",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 679,
+          "description": "Save the record and persist any changes to the record to an\nexternal source via the adapter.\n\nExample\n\n```javascript\nrecord.set('name', 'Tomster');\nrecord.save().then(function() {\n  // Success callback\n}, function() {\n  // Error callback\n});\n```",
+          "itemtype": "method",
+          "name": "save",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "a promise that will be resolved when the adapter returns\nsuccessfully or rejected if the adapter returns with an error.",
+            "type": "Promise"
+          },
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 704,
+          "description": "Reload the record from the adapter.\n\nThis will only work if the record has already finished loading\nand has not yet been modified (`isLoaded` but not `isDirty`,\nor `isSaving`).\n\nExample\n\n```js {data-filename=app/routes/model/view.js}\nimport Ember from 'ember';\n\nexport default Ember.Route.extend({\n  actions: {\n    reload: function() {\n      this.controller.get('model').reload().then(function(model) {\n        // do something with the reloaded model\n      });\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "reload",
+          "return": {
+            "description": "a promise that will be resolved with the record when the\nadapter returns successfully or rejected if the adapter returns\nwith an error.",
+            "type": "Promise"
+          },
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 739,
+          "description": "Override the default event firing from Ember.Evented to\nalso call methods with the given name.",
+          "itemtype": "method",
+          "name": "trigger",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 793,
+          "description": "Alias DS.Model's `create` method to `_create`. This allows us to create DS.Model\ninstances from within the store, but if end users accidentally call `create()`\n(instead of `createRecord()`), we can raise an error.",
+          "itemtype": "method",
+          "name": "_create",
+          "access": "private",
+          "tagname": "",
+          "static": 1,
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 804,
+          "description": "Override the class' `create()` method to raise an error. This\nprevents end users from inadvertently calling `create()` instead\nof `createRecord()`. The store is still able to create instances\nby calling the `_create()` method. To create an instance of a\n`DS.Model` use [store.createRecord](DS.Store.html#method_createRecord).",
+          "itemtype": "method",
+          "name": "create",
+          "access": "private",
+          "tagname": "",
+          "static": 1,
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/relationships/ext.js",
+          "line": 103,
+          "description": "This Ember.js hook allows an object to be notified when a property\nis defined.\n\nIn this case, we use it to be notified when an Ember Data user defines a\nbelongs-to relationship. In that case, we need to set up observers for\neach one, allowing us to track relationship changes and automatically\nreflect changes in the inverse has-many array.\n\nThis hook passes the class being set up, as well as the key and value\nbeing defined. So, for example, when the user does this:\n\n```javascript\nDS.Model.extend({\n  parent: DS.belongsTo('user')\n});\n```\n\nThis hook would be called with \"parent\" as the key and the computed\nproperty returned by `DS.belongsTo` as the value.",
+          "itemtype": "method",
+          "name": "didDefineProperty",
+          "params": [
+            {
+              "name": "proto",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Ember.ComputedProperty"
+            }
+          ],
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/relationships/ext.js",
+          "line": 162,
+          "description": "For a given relationship name, returns the model type of the relationship.\n\nFor example, if you define a model like this:\n\n```js {data-filename=app/models/post.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  comments: DS.hasMany('comment')\n});\n   ```\n\nCalling `App.Post.typeForRelationship('comments')` will return `App.Comment`.",
+          "itemtype": "method",
+          "name": "typeForRelationship",
+          "static": 1,
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the relationship",
+              "type": "String"
+            },
+            {
+              "name": "store",
+              "description": "an instance of DS.Store",
+              "type": "Store"
+            }
+          ],
+          "return": {
+            "description": "the type of the relationship, or undefined",
+            "type": "DS.Model"
+          },
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/relationships/ext.js",
+          "line": 192,
+          "description": "Find the relationship which is the inverse of the one asked for.\n\nFor example, if you define models like this:\n\n```js {data-filename=app/models/post.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  comments: DS.hasMany('message')\n});\n```\n\n```js {data-filename=app/models/message.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  owner: DS.belongsTo('post')\n});\n```\n\nApp.Post.inverseFor('comments') -> { type: App.Message, name: 'owner', kind: 'belongsTo' }\nApp.Message.inverseFor('owner') -> { type: App.Post, name: 'comments', kind: 'hasMany' }",
+          "itemtype": "method",
+          "name": "inverseFor",
+          "static": 1,
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the relationship",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the inverse relationship, or null",
+            "type": "Object"
+          },
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/relationships/ext.js",
+          "line": 544,
+          "description": "Given a callback, iterates over each of the relationships in the model,\ninvoking the callback with the name of each relationship and its relationship\ndescriptor.",
+          "itemtype": "method",
+          "name": "eachRelationship",
+          "static": 1,
+          "params": [
+            {
+              "name": "callback",
+              "description": "the callback to invoke",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Any"
+            }
+          ],
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/relationships/ext.js",
+          "line": 560,
+          "description": "Given a callback, iterates over each of the types related to a model,\ninvoking the callback with the related type's class. Each type will be\nreturned just once, regardless of how many different relationships it has\nwith a model.",
+          "itemtype": "method",
+          "name": "eachRelatedType",
+          "static": 1,
+          "params": [
+            {
+              "name": "callback",
+              "description": "the callback to invoke",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Any"
+            }
+          ],
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/relationships/ext.js",
+          "line": 600,
+          "description": "Given a callback, iterates over each of the relationships in the model,\ninvoking the callback with the name of each relationship and its relationship\ndescriptor.\n\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(name, descriptor);\n```\n\n- `name` the name of the current property in the iteration\n- `descriptor` the meta object that describes this relationship\n\nThe relationship descriptor argument is an object with the following properties.\n\n   - **key** <span class=\"type\">String</span> the name of this relationship on the Model\n   - **kind** <span class=\"type\">String</span> \"hasMany\" or \"belongsTo\"\n   - **options** <span class=\"type\">Object</span> the original options hash passed when the relationship was declared\n   - **parentType** <span class=\"type\">DS.Model</span> the type of the Model that owns this relationship\n   - **type** <span class=\"type\">DS.Model</span> the type of the related Model\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context.\n\nExample\n\n```js {data-filename=app/serializers/application.js}\nimport DS from 'ember-data';\n\nexport default DS.JSONSerializer.extend({\n  serialize: function(record, options) {\n    var json = {};\n\n    record.eachRelationship(function(name, descriptor) {\n      if (descriptor.kind === 'hasMany') {\n        var serializedHasManyName = name.toUpperCase() + '_IDS';\n        json[name.toUpperCase()] = record.get(name).mapBy('id');\n      }\n    });\n\n    return json;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "eachRelationship",
+          "params": [
+            {
+              "name": "callback",
+              "description": "the callback to invoke",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Any"
+            }
+          ],
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 417,
+          "description": "Fired when the record is ready to be interacted with,\nthat is either loaded from the server or created locally.",
+          "itemtype": "event",
+          "name": "ready",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 425,
+          "description": "Fired when the record is loaded from the server.",
+          "itemtype": "event",
+          "name": "didLoad",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 432,
+          "description": "Fired when the record is updated.",
+          "itemtype": "event",
+          "name": "didUpdate",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 439,
+          "description": "Fired when a new record is commited to the server.",
+          "itemtype": "event",
+          "name": "didCreate",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 446,
+          "description": "Fired when the record is deleted.",
+          "itemtype": "event",
+          "name": "didDelete",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 453,
+          "description": "Fired when the record becomes invalid.",
+          "itemtype": "event",
+          "name": "becameInvalid",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 460,
+          "description": "Fired when the record enters the error state.",
+          "itemtype": "event",
+          "name": "becameError",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 467,
+          "description": "Fired when the record is rolled back.",
+          "itemtype": "event",
+          "name": "rolledBack",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "properties": [
+        {
+          "file": "packages/ember-data/lib/system/model/attributes.js",
+          "line": 17,
+          "description": "A map whose keys are the attributes of the model (properties\ndescribed by DS.attr) and whose values are the meta object for the\nproperty.\n\nExample\n\n```js {data-filename=app/models/person.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  firstName: attr('string'),\n  lastName: attr('string'),\n  birthday: attr('date')\n});\n```\n\n```javascript\nimport Ember from 'ember';\nimport Person from 'app/models/person';\n\nvar attributes = Ember.get(Person, 'attributes')\n\nattributes.forEach(function(meta, name) {\n  console.log(name, meta);\n});\n\n// prints:\n// firstName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"firstName\"}\n// lastName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"lastName\"}\n// birthday {type: \"date\", isAttribute: true, options: Object, parentType: function, name: \"birthday\"}\n```",
+          "itemtype": "property",
+          "name": "attributes",
+          "static": 1,
+          "type": "{Ember.Map}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/attributes.js",
+          "line": 70,
+          "description": "A map whose keys are the attributes of the model (properties\ndescribed by DS.attr) and whose values are type of transformation\napplied to each attribute. This map does not include any\nattributes that do not have an transformation type.\n\nExample\n\n```js {data-filename=app/models/person.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  firstName: attr(),\n  lastName: attr('string'),\n  birthday: attr('date')\n});\n```\n\n```javascript\nimport Ember from 'ember';\nimport Person from 'app/models/person';\n\nvar transformedAttributes = Ember.get(Person, 'transformedAttributes')\n\ntransformedAttributes.forEach(function(field, type) {\n  console.log(field, type);\n});\n\n// prints:\n// lastName string\n// birthday date\n```",
+          "itemtype": "property",
+          "name": "transformedAttributes",
+          "static": 1,
+          "type": "{Ember.Map}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 49,
+          "description": "If this property is `true` the record is in the `empty`\nstate. Empty is the first state all records enter after they have\nbeen created. Most records created by the store will quickly\ntransition to the `loading` state if data needs to be fetched from\nthe server or the `created` state if the record is created on the\nclient. A record can also enter the empty state if the adapter is\nunable to locate the record.",
+          "itemtype": "property",
+          "name": "isEmpty",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 63,
+          "description": "If this property is `true` the record is in the `loading` state. A\nrecord enters this state when the store asks the adapter for its\ndata. It remains in this state until the adapter provides the\nrequested data.",
+          "itemtype": "property",
+          "name": "isLoading",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 74,
+          "description": "If this property is `true` the record is in the `loaded` state. A\nrecord enters this state when its data is populated. Most of a\nrecord's lifecycle is spent inside substates of the `loaded`\nstate.\n\nExample\n\n```javascript\nvar record = store.createRecord('model');\nrecord.get('isLoaded'); // true\n\nstore.find('model', 1).then(function(model) {\n  model.get('isLoaded'); // true\n});\n```",
+          "itemtype": "property",
+          "name": "isLoaded",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 96,
+          "description": "If this property is `true` the record is in the `dirty` state. The\nrecord has local changes that have not yet been saved by the\nadapter. This includes records that have been created (but not yet\nsaved) or deleted.\n\nExample\n\n```javascript\nvar record = store.createRecord('model');\nrecord.get('hasDirtyAttributes'); // true\n\nstore.find('model', 1).then(function(model) {\n  model.get('hasDirtyAttributes'); // false\n  model.set('foo', 'some value');\n  model.get('hasDirtyAttributes'); // true\n});\n```",
+          "itemtype": "property",
+          "name": "hasDirtyAttributes",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 122,
+          "description": "If this property is `true` the record is in the `saving` state. A\nrecord enters the saving state when `save` is called, but the\nadapter has not yet acknowledged that the changes have been\npersisted to the backend.\n\nExample\n\n```javascript\nvar record = store.createRecord('model');\nrecord.get('isSaving'); // false\nvar promise = record.save();\nrecord.get('isSaving'); // true\npromise.then(function() {\n  record.get('isSaving'); // false\n});\n```",
+          "itemtype": "property",
+          "name": "isSaving",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 145,
+          "description": "If this property is `true` the record is in the `deleted` state\nand has been marked for deletion. When `isDeleted` is true and\n`isDirty` is true, the record is deleted locally but the deletion\nwas not yet persisted. When `isSaving` is true, the change is\nin-flight. When both `isDirty` and `isSaving` are false, the\nchange has persisted.\n\nExample\n\n```javascript\nvar record = store.createRecord('model');\nrecord.get('isDeleted');    // false\nrecord.deleteRecord();\n\n// Locally deleted\nrecord.get('isDeleted');    // true\nrecord.get('isDirty');      // true\nrecord.get('isSaving');     // false\n\n// Persisting the deletion\nvar promise = record.save();\nrecord.get('isDeleted');    // true\nrecord.get('isSaving');     // true\n\n// Deletion Persisted\npromise.then(function() {\n  record.get('isDeleted');  // true\n  record.get('isSaving');   // false\n  record.get('isDirty');    // false\n});\n```",
+          "itemtype": "property",
+          "name": "isDeleted",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 183,
+          "description": "If this property is `true` the record is in the `new` state. A\nrecord will be in the `new` state when it has been created on the\nclient and the adapter has not yet report that it was successfully\nsaved.\n\nExample\n\n```javascript\nvar record = store.createRecord('model');\nrecord.get('isNew'); // true\n\nrecord.save().then(function(model) {\n  model.get('isNew'); // false\n});\n```",
+          "itemtype": "property",
+          "name": "isNew",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 205,
+          "description": "If this property is `true` the record is in the `valid` state.\n\nA record will be in the `valid` state when the adapter did not report any\nserver-side validation failures.",
+          "itemtype": "property",
+          "name": "isValid",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 216,
+          "description": "If the record is in the dirty state this property will report what\nkind of change has caused it to move into the dirty\nstate. Possible values are:\n\n- `created` The record has been created by the client and not yet saved to the adapter.\n- `updated` The record has been updated by the client and not yet saved to the adapter.\n- `deleted` The record has been deleted by the client and not yet saved to the adapter.\n\nExample\n\n```javascript\nvar record = store.createRecord('model');\nrecord.get('dirtyType'); // 'created'\n```",
+          "itemtype": "property",
+          "name": "dirtyType",
+          "type": "{String}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 238,
+          "description": "If `true` the adapter reported that it was unable to save local\nchanges to the backend for any reason other than a server-side\nvalidation error.\n\nExample\n\n```javascript\nrecord.get('isError'); // false\nrecord.set('foo', 'valid value');\nrecord.save().then(null, function() {\n  record.get('isError'); // true\n});\n```",
+          "itemtype": "property",
+          "name": "isError",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 259,
+          "description": "If `true` the store is attempting to reload the record form the adapter.\n\nExample\n\n```javascript\nrecord.get('isReloading'); // false\nrecord.reload();\nrecord.get('isReloading'); // true\n```",
+          "itemtype": "property",
+          "name": "isReloading",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 276,
+          "description": "All ember models have an id property. This is an identifier\nmanaged by an external source. These are always coerced to be\nstrings before being used internally. Note when declaring the\nattributes for a model it is an error to declare an id\nattribute.\n\n```javascript\nvar record = store.createRecord('model');\nrecord.get('id'); // null\n\nstore.find('model', 1).then(function(model) {\n  model.get('id'); // '1'\n});\n```",
+          "itemtype": "property",
+          "name": "id",
+          "type": "{String}",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 297,
+          "itemtype": "property",
+          "name": "currentState",
+          "access": "private",
+          "tagname": "",
+          "type": "{Object}",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 303,
+          "description": "When the record is in the `invalid` state this object will contain\nany errors returned by the adapter. When present the errors hash\ncontains keys corresponding to the invalid property names\nand values which are arrays of Javascript objects with two keys:\n\n- `message` A string containing the error message from the backend\n- `attribute` The name of the property associated with this error message\n\n```javascript\nrecord.get('errors.length'); // 0\nrecord.set('foo', 'invalid value');\nrecord.save().catch(function() {\n  record.get('errors').get('foo');\n  // [{message: 'foo should be a number.', attribute: 'foo'}]\n});\n```\n\nThe `errors` property us useful for displaying error messages to\nthe user.\n\n```handlebars\n<label>Username: {{input value=username}} </label>\n{{#each model.errors.username as |error|}}\n  <div class=\"error\">\n    {{error.message}}\n  </div>\n{{/each}}\n<label>Email: {{input value=email}} </label>\n{{#each model.errors.email as |error|}}\n  <div class=\"error\">\n    {{error.message}}\n  </div>\n{{/each}}\n```\n\n\nYou can also access the special `messages` property on the error\nobject to get an array of all the error strings.\n\n```handlebars\n{{#each model.errors.messages as |message|}}\n  <div class=\"error\">\n    {{message}}\n  </div>\n{{/each}}\n```",
+          "itemtype": "property",
+          "name": "errors",
+          "type": "{DS.Errors}",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 368,
+          "description": "This property holds the `DS.AdapterError` object with which\nlast adapter operation was rejected.",
+          "itemtype": "property",
+          "name": "adapterError",
+          "type": "{DS.AdapterError}",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 474,
+          "itemtype": "property",
+          "name": "data",
+          "access": "private",
+          "tagname": "",
+          "type": "{Object}",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/model.js",
+          "line": 819,
+          "description": "Represents the model's class name as a string. This can be used to look up the model through\nDS.Store's modelFor method.\n\n`modelName` is generated for you by Ember Data. It will be a lowercased, dasherized string.\nFor example:\n\n```javascript\nstore.modelFor('post').modelName; // 'post'\nstore.modelFor('blog-post').modelName; // 'blog-post'\n```\n\nThe most common place you'll want to access `modelName` is in your serializer's `payloadKeyFromModelName` method. For example, to change payload\nkeys to underscore (instead of dasherized), you might use the following code:\n\n```javascript\nexport default var PostSerializer = DS.RESTSerializer.extend({\n  payloadKeyFromModelName: function(modelName) {\n    return Ember.String.underscore(modelName);\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "modelName",
+          "type": "String",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/relationships/ext.js",
+          "line": 326,
+          "description": "The model's relationships as a map, keyed on the type of the\nrelationship. The value of each entry is an array containing a descriptor\nfor each relationship with that type, describing the name of the relationship\nas well as the type.\n\nFor example, given the following model definition:\n\n```js {data-filename=app/models/blog.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  users: DS.hasMany('user'),\n  owner: DS.belongsTo('user'),\n  posts: DS.hasMany('post')\n});\n```\n\nThis computed property would return a map describing these\nrelationships, like this:\n\n```javascript\nimport Ember from 'ember';\nimport Blog from 'app/models/blog';\n\nvar relationships = Ember.get(Blog, 'relationships');\nrelationships.get(App.User);\n//=> [ { name: 'users', kind: 'hasMany' },\n//     { name: 'owner', kind: 'belongsTo' } ]\nrelationships.get(App.Post);\n//=> [ { name: 'posts', kind: 'hasMany' } ]\n```",
+          "itemtype": "property",
+          "name": "relationships",
+          "static": 1,
+          "type": "Ember.Map",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/relationships/ext.js",
+          "line": 367,
+          "description": "A hash containing lists of the model's relationships, grouped\nby the relationship kind. For example, given a model with this\ndefinition:\n\n```js {data-filename=app/models/blog.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  users: DS.hasMany('user'),\n  owner: DS.belongsTo('user'),\n\n  posts: DS.hasMany('post')\n});\n```\n\nThis property would contain the following:\n\n```javascript\nimport Ember from 'ember';\nimport Blog from 'app/models/blog';\n\nvar relationshipNames = Ember.get(Blog, 'relationshipNames');\nrelationshipNames.hasMany;\n//=> ['users', 'posts']\nrelationshipNames.belongsTo;\n//=> ['owner']\n```",
+          "itemtype": "property",
+          "name": "relationshipNames",
+          "static": 1,
+          "type": "Object",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/relationships/ext.js",
+          "line": 416,
+          "description": "An array of types directly related to a model. Each type will be\nincluded once, regardless of the number of relationships it has with\nthe model.\n\nFor example, given a model with this definition:\n\n```js {data-filename=app/models/blog.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  users: DS.hasMany('user'),\n  owner: DS.belongsTo('user'),\n\n  posts: DS.hasMany('post')\n});\n```\n\nThis property would contain the following:\n\n```javascript\nimport Ember from 'ember';\nimport Blog from 'app/models/blog';\n\nvar relatedTypes = Ember.get(Blog, 'relatedTypes');\n//=> [ App.User, App.Post ]\n```",
+          "itemtype": "property",
+          "name": "relatedTypes",
+          "static": 1,
+          "type": "Ember.Array",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/relationships/ext.js",
+          "line": 451,
+          "description": "A map whose keys are the relationships of a model and whose values are\nrelationship descriptors.\n\nFor example, given a model with this\ndefinition:\n\n```js {data-filename=app/models/blog.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  users: DS.hasMany('user'),\n  owner: DS.belongsTo('user'),\n\n  posts: DS.hasMany('post')\n});\n```\n\nThis property would contain the following:\n\n```javascript\nimport Ember from 'ember';\nimport Blog from 'app/models/blog';\n\nvar relationshipsByName = Ember.get(Blog, 'relationshipsByName');\nrelationshipsByName.get('users');\n//=> { key: 'users', kind: 'hasMany', type: App.User }\nrelationshipsByName.get('owner');\n//=> { key: 'owner', kind: 'belongsTo', type: App.User }\n```",
+          "itemtype": "property",
+          "name": "relationshipsByName",
+          "static": 1,
+          "type": "Ember.Map",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/relationships/ext.js",
+          "line": 489,
+          "description": "A map whose keys are the fields of the model and whose values are strings\ndescribing the kind of the field. A model's fields are the union of all of its\nattributes and relationships.\n\nFor example:\n\n```js {data-filename=app/models/blog.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  users: DS.hasMany('user'),\n  owner: DS.belongsTo('user'),\n\n  posts: DS.hasMany('post'),\n\n  title: DS.attr('string')\n});\n```\n\n```js\nimport Ember from 'ember';\nimport Blog from 'app/models/blog';\n\nvar fields = Ember.get(Blog, 'fields');\nfields.forEach(function(kind, field) {\n  console.log(field, kind);\n});\n\n// prints:\n// users, hasMany\n// owner, belongsTo\n// posts, hasMany\n// title, attribute\n```",
+          "itemtype": "property",
+          "name": "fields",
+          "static": 1,
+          "type": "Ember.Map",
+          "readonly": "",
+          "class": "DS.Model",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Object",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.1.0-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.1.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
