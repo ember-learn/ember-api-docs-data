@@ -1,0 +1,273 @@
+{
+  "data": {
+    "id": "ember-5.7.0-Engine",
+    "type": "class",
+    "attributes": {
+      "name": "Engine",
+      "shortname": "Engine",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/engine",
+      "namespace": "",
+      "file": "packages/@ember/engine/index.ts",
+      "line": 40,
+      "description": "<html><head></head><body><p>The <code>Engine</code> class contains core functionality for both applications and\nengines.</p>\n<p>Each engine manages a registry that's used for dependency injection and\nexposed through <code>RegistryProxy</code>.</p>\n<p>Engines also manage initializers and instance initializers.</p>\n<p>Engines can spawn <code>EngineInstance</code> instances via <code>buildInstance()</code>.</p>\n</body></html>",
+      "extends": "Ember.Namespace",
+      "uses": [
+        "RegistryProxyMixin"
+      ],
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 62,
+          "description": "<html><head></head><body><p>The goal of initializers should be to register dependencies and injections.\nThis phase runs once. Because these initializers may load code, they are\nallowed to defer application readiness and advance it. If you need to access\nthe container or store you should use an InstanceInitializer that will be run\nafter all initializers and therefore after all code is loaded and the app is\nready.</p>\n<p>Initializer receives an object which has the following attributes:\n<code>name</code>, <code>before</code>, <code>after</code>, <code>initialize</code>. The only required attribute is\n<code>initialize</code>, all others are optional.</p>\n<ul>\n<li><code>name</code> allows you to specify under which name the initializer is registered.\nThis must be a unique name, as trying to register two initializers with the\nsame name will result in an error.</li>\n</ul>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">initializer.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">'Running namedInitializer!'</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">'named-initializer'</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><code>before</code> and <code>after</code> are used to ensure that this initializer is ran prior\nor after the one identified by the value. This value can be a single string\nor an array of strings, referencing the <code>name</code> of other initializers.</li>\n</ul>\n<p>An example of ordering initializers, we create an initializer named <code>first</code>:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/initializer/first.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">'First initializer!'</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">'first'</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight bash\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// DE<span class=\"doctag\">BUG:</span> First initializer!</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>We add another initializer named <code>second</code>, specifying that it should run\nafter the initializer named <code>first</code>:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/initializer/second.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">'Second initializer!'</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">'second'</span>,\n  after: <span class=\"string\">'first'</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// DE<span class=\"doctag\">BUG:</span> First initializer!</span>\n<span class=\"comment\">// DE<span class=\"doctag\">BUG:</span> Second initializer!</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Afterwards we add a further initializer named <code>pre</code>, this time specifying\nthat it should run before the initializer named <code>first</code>:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/initializer/pre.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">'Pre initializer!'</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">'pre'</span>,\n  before: <span class=\"string\">'first'</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight bash\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// DE<span class=\"doctag\">BUG:</span> Pre initializer!</span>\n<span class=\"comment\">// DE<span class=\"doctag\">BUG:</span> First initializer!</span>\n<span class=\"comment\">// DE<span class=\"doctag\">BUG:</span> Second initializer!</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Finally we add an initializer named <code>post</code>, specifying it should run after\nboth the <code>first</code> and the <code>second</code> initializers:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/initializer/post.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">'Post initializer!'</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">'post'</span>,\n  after: [<span class=\"string\">'first'</span>, <span class=\"string\">'second'</span>],\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight bash\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// DE<span class=\"doctag\">BUG:</span> Pre initializer!</span>\n<span class=\"comment\">// DE<span class=\"doctag\">BUG:</span> First initializer!</span>\n<span class=\"comment\">// DE<span class=\"doctag\">BUG:</span> Second initializer!</span>\n<span class=\"comment\">// DE<span class=\"doctag\">BUG:</span> Post initializer!</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><code>initialize</code> is a callback function that receives one argument,\n<code>application</code>, on which you can operate.</li>\n</ul>\n<p>Example of using <code>application</code> to register an adapter:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">adapter.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">ApiAdapter</span> <span class=\"keyword\">from</span> <span class=\"string\">'../utils/api-adapter'</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">function</span> <span class=\"title function_\">initialize</span>(<span class=\"params\">application</span>) {\n  application.<span class=\"title function_\">register</span>(<span class=\"string\">'api-adapter:main'</span>, <span class=\"title class_\">ApiAdapter</span>);\n}\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> {\n  <span class=\"attr\">name</span>: <span class=\"string\">'post'</span>,\n  <span class=\"attr\">after</span>: [<span class=\"string\">'first'</span>, <span class=\"string\">'second'</span>],\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "initializer",
+          "params": [
+            {
+              "name": "initializer",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 209,
+          "description": "<html><head></head><body><p>Instance initializers run after all initializers have run. Because\ninstance initializers run after the app is fully set up. We have access\nto the store, container, and other items. However, these initializers run\nafter code has loaded and are not allowed to defer readiness.</p>\n<p>Instance initializer receives an object which has the following attributes:\n<code>name</code>, <code>before</code>, <code>after</code>, <code>initialize</code>. The only required attribute is\n<code>initialize</code>, all others are optional.</p>\n<ul>\n<li><code>name</code> allows you to specify under which name the instanceInitializer is\nregistered. This must be a unique name, as trying to register two\ninstanceInitializer with the same name will result in an error.</li>\n</ul>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">initializer.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"built_in\">export</span> function initialize() {\n  <span class=\"built_in\">debug</span>(<span class=\"string\">'Running named-instance-initializer!'</span>);\n}\n\n<span class=\"built_in\">export</span><span class=\"built_in\"> default </span>{\n  name: <span class=\"string\">'named-instance-initializer'</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<ul>\n<li><p><code>before</code> and <code>after</code> are used to ensure that this initializer is ran prior\nor after the one identified by the value. This value can be a single string\nor an array of strings, referencing the <code>name</code> of other initializers.</p>\n</li>\n<li><p>See Application.initializer for discussion on the usage of before\nand after.</p>\n</li>\n</ul>\n<p>Example instanceInitializer to preload data into the store.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">data.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">export</span> <span class=\"keyword\">function</span> <span class=\"title function_\">initialize</span>(<span class=\"params\">application</span>) {\n    <span class=\"keyword\">var</span> userConfig, userConfigEncoded, store;\n    <span class=\"comment\">// We have a HTML escaped JSON representation of the user's basic</span>\n    <span class=\"comment\">// configuration generated server side and stored in the DOM of the main</span>\n    <span class=\"comment\">// index.html file. This allows the app to have access to a set of data</span>\n    <span class=\"comment\">// without making any additional remote calls. Good for basic data that is</span>\n    <span class=\"comment\">// needed for immediate rendering of the page. Keep in mind, this data,</span>\n    <span class=\"comment\">// like all local models and data can be manipulated by the user, so it</span>\n    <span class=\"comment\">// should not be relied upon for security or authorization.</span>\n\n    <span class=\"comment\">// Grab the encoded data from the meta tag</span>\n    userConfigEncoded = <span class=\"variable language_\">document</span>.<span class=\"title function_\">querySelector</span>(<span class=\"string\">'head meta[name=app-user-config]'</span>).<span class=\"title function_\">attr</span>(<span class=\"string\">'content'</span>);\n\n    <span class=\"comment\">// Unescape the text, then parse the resulting JSON into a real object</span>\n    userConfig = <span class=\"title class_\">JSON</span>.<span class=\"title function_\">parse</span>(<span class=\"built_in\">unescape</span>(userConfigEncoded));\n\n    <span class=\"comment\">// Lookup the store</span>\n    store = application.<span class=\"title function_\">lookup</span>(<span class=\"string\">'service:store'</span>);\n\n    <span class=\"comment\">// Push the encoded JSON into the store</span>\n    store.<span class=\"title function_\">pushPayload</span>(userConfig);\n}\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> {\n  <span class=\"attr\">name</span>: <span class=\"string\">'named-instance-initializer'</span>,\n  initialize\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "instanceInitializer",
+          "params": [
+            {
+              "name": "instanceInitializer",
+              "description": ""
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 285,
+          "description": "<html><head></head><body><p>This creates a registry with the default Ember naming conventions.</p>\n<p>It also configures the registry:</p>\n<ul>\n<li>registered views are created every time they are looked up (they are\nnot singletons)</li>\n<li>registered templates are not factories; the registered value is\nreturned directly.</li>\n<li>the router receives the application as its <code>namespace</code> property</li>\n<li>all controllers receive the router as their <code>target</code> and <code>controllers</code>\nproperties</li>\n<li>all controllers receive the application as their <code>namespace</code> property</li>\n<li>the application view receives the application controller as its\n<code>controller</code> property</li>\n<li>the application view receives the application template as its\n<code>defaultTemplate</code> property</li>\n</ul>\n</body></html>",
+          "itemtype": "method",
+          "name": "buildRegistry",
+          "static": 1,
+          "params": [
+            {
+              "name": "namespace",
+              "description": "the application for which to\n  build the registry",
+              "type": "Application"
+            }
+          ],
+          "return": {
+            "description": "the built registry",
+            "type": "Ember.Registry"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 346,
+          "description": "<html><head></head><body><p>Ensure that initializers are run once, and only once, per engine.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "ensureInitializers",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 359,
+          "description": "<html><head></head><body><p>Create an EngineInstance for this engine.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "buildInstance",
+          "return": {
+            "description": "the engine instance",
+            "type": "EngineInstance"
+          },
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 371,
+          "description": "<html><head></head><body><p>Build and configure the registry for the current engine.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "buildRegistry",
+          "return": {
+            "description": "the configured registry",
+            "type": "Ember.Registry"
+          },
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 384,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "initializer",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 392,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "instanceInitializer",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 400,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "runInitializers",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 414,
+          "access": "private",
+          "tagname": "",
+          "since": "1.12.0",
+          "itemtype": "method",
+          "name": "runInstanceInitializers",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 448,
+          "description": "<html><head></head><body><p>This function defines the default lookup rules for container lookups:</p>\n<ul>\n<li>templates are looked up on <code>Ember.TEMPLATES</code></li>\n<li>other names are looked up on the application after classifying the name.\nFor example, <code>controller:post</code> looks up <code>App.PostController</code> by default.</li>\n<li>if the default lookup fails, look for registered classes on the container</li>\n</ul>\n<p>This allows the application to register default injections in the container\nthat could be overridden by the normal naming convention.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "resolverFor",
+          "params": [
+            {
+              "name": "namespace",
+              "description": "the namespace to look for classes",
+              "type": "Ember.Enginer"
+            }
+          ],
+          "return": {
+            "description": "the resolved value for a given lookup",
+            "type": "*"
+          },
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 107,
+          "description": "<html><head></head><body><p>Registers a factory that can be used for dependency injection (with\n<code>inject</code>) or for service lookup. Each factory is registered with\na full name including two parts: <code>type:name</code>.</p>\n<p>A simple example:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">'@ember/application'</span>;\n<span class=\"keyword\">import</span> EmberObject <span class=\"keyword\">from</span> <span class=\"string\">'@ember/object'</span>;\n\n<span class=\"keyword\">let</span> App = Application.create();\n\nApp.Orange = EmberObject.extend();\nApp.register(<span class=\"string\">'fruit:favorite'</span>, App.Orange);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Ember will resolve factories from the <code>App</code> namespace automatically.\nFor example <code>App.CarsController</code> will be discovered and returned if\nan application requests <code>controller:cars</code>.</p>\n<p>An example of registering a controller with a non-standard name:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">'@ember/application'</span>;\n<span class=\"keyword\">import</span> Controller <span class=\"keyword\">from</span> <span class=\"string\">'@ember/controller'</span>;\n\n<span class=\"keyword\">let</span> App = Application.create();\n<span class=\"keyword\">let</span> Session = Controller.extend();\n\nApp.register(<span class=\"string\">'controller:session'</span>, Session);\n\n<span class=\"comment\">// The Session controller can now be treated like a normal controller,</span>\n<span class=\"comment\">// despite its non-standard name.</span>\nApp.ApplicationController = Controller.extend({\n  needs: [<span class=\"string\">'session'</span>]\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Registered factories are <strong>instantiated</strong> by having <code>create</code>\ncalled on them. Additionally they are <strong>singletons</strong>, each time\nthey are looked up they return the same instance.</p>\n<p>Some examples modifying that default behavior:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">'@ember/application'</span>;\n<span class=\"keyword\">import</span> EmberObject <span class=\"keyword\">from</span> <span class=\"string\">'@ember/object'</span>;\n\nlet App = Application.<span class=\"keyword\">create</span>();\n\nApp.Person = EmberObject.extend();\nApp.Orange = EmberObject.extend();\nApp.Email = EmberObject.extend();\nApp.<span class=\"keyword\">session</span> = EmberObject.<span class=\"keyword\">create</span>();\n\nApp.register(<span class=\"string\">'model:user'</span>, App.Person, { singleton: <span class=\"keyword\">false</span> });\nApp.register(<span class=\"string\">'fruit:favorite'</span>, App.Orange);\nApp.register(<span class=\"string\">'communication:main'</span>, App.Email, { singleton: <span class=\"keyword\">false</span> });\nApp.register(<span class=\"string\">'session'</span>, App.<span class=\"keyword\">session</span>, { instantiate: <span class=\"keyword\">false</span> });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "register",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "type:name (e.g., 'model:user')",
+              "type": "String"
+            },
+            {
+              "name": "factory",
+              "description": "(e.g., App.Person)",
+              "type": "Factory|object"
+            },
+            {
+              "name": "options",
+              "description": "(optional) disable instantiation or singleton usage",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Engine",
+          "module": "@ember/owner",
+          "inherited": true,
+          "inheritedFrom": "BasicRegistry"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 325,
+          "description": "<html><head></head><body><p>Set this to provide an alternate class to <code>DefaultResolver</code></p>\n</body></html>",
+          "itemtype": "property",
+          "name": "resolver",
+          "access": "public",
+          "tagname": "",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 338,
+          "description": "<html><head></head><body><p>A private flag indicating whether an engine's initializers have run yet.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_initializersRan",
+          "class": "Engine",
+          "module": "@ember/engine"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Namespace",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-5.7.0-Application"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.7.0-@ember/engine",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.7.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
