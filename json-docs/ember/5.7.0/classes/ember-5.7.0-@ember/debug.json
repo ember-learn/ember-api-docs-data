@@ -1,0 +1,341 @@
+{
+  "data": {
+    "id": "ember-5.7.0-@ember/debug",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/debug",
+      "shortname": "@ember/debug",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/debug",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/metal/lib/computed.ts",
+          "line": 919,
+          "description": "<html><head></head><body><p>Allows checking if a given property on an object is a computed property. For the most part,\nthis doesn't matter (you would normally just access the property directly and use its value),\nbut for some tooling specific scenarios (e.g. the ember-inspector) it is important to\ndifferentiate if a property is a computed property or a \"normal\" property.</p>\n<p>This will work on either a class's prototype or an instance itself.</p>\n</body></html>",
+          "static": 1,
+          "itemtype": "method",
+          "name": "isComputed",
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/debug",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/debug/lib/capture-render-tree.ts",
+          "line": 9,
+          "description": "<html><head></head><body><p>Ember Inspector calls this function to capture the current render tree.</p>\n<p>In production mode, this requires turning on <code>ENV._DEBUG_RENDER_TREE</code>\nbefore loading Ember.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "captureRenderTree",
+          "params": [
+            {
+              "name": "app",
+              "description": "An `ApplicationInstance`.",
+              "type": "ApplicationInstance"
+            }
+          ],
+          "since": "3.14.0",
+          "class": "@ember/debug",
+          "module": "@ember/debug"
+        },
+        {
+          "file": "packages/@ember/debug/lib/deprecate.ts",
+          "line": 39,
+          "description": "<html><head></head><body><p>Allows for runtime registration of handler functions that override the default deprecation behavior.\nDeprecations are invoked by calls to <a href=\"/ember/release/classes/@ember%2Fdebug/methods/deprecate?anchor=deprecate\">@ember/debug/deprecate</a>.\nThe following example demonstrates its usage by registering a handler that throws an error if the\nmessage contains the word \"should\", otherwise defers to the default handler.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { registerDeprecationHandler } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"title function_\">registerDeprecationHandler</span>(<span class=\"function\">(<span class=\"params\">message, options, next</span>) =&gt;</span> {\n  <span class=\"keyword\">if</span> (message.<span class=\"title function_\">indexOf</span>(<span class=\"string\">'should'</span>) !== -<span class=\"number\">1</span>) {\n    <span class=\"keyword\">throw</span> <span class=\"keyword\">new</span> <span class=\"title class_\">Error</span>(<span class=\"string\">`Deprecation message with should: <span class=\"subst\">${message}</span>`</span>);\n  } <span class=\"keyword\">else</span> {\n    <span class=\"comment\">// defer to whatever handler was registered before this one</span>\n    <span class=\"title function_\">next</span>(message, options);\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The handler function takes the following arguments:</p>\n<ul>\n  <li> <code>message</code> - The message received from the deprecation call.</li>\n  <li> <code>options</code> - An object passed in with the deprecation call containing additional information including:</li>\n    <ul>\n      <li> <code>id</code> - An id of the deprecation in the form of <code>package-name.specific-deprecation</code>.</li>\n      <li> <code>until</code> - The Ember version number the feature and deprecation will be removed in.</li>\n    </ul>\n  <li> <code>next</code> - A function that calls into the previously registered handler.</li>\n</ul></body></html>",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "registerDeprecationHandler",
+          "params": [
+            {
+              "name": "handler",
+              "description": "A function to handle deprecation calls.",
+              "type": "Function"
+            }
+          ],
+          "since": "2.1.0",
+          "class": "@ember/debug",
+          "module": "@ember/debug"
+        },
+        {
+          "file": "packages/@ember/debug/lib/deprecate.ts",
+          "line": 185,
+          "description": "<html><head></head><body><p>Display a deprecation warning with the provided message and a stack trace\n(Chrome and Firefox only).</p>\n<p>Ember itself leverages <a href=\"https://semver.org\">Semantic Versioning</a> to aid\nprojects in keeping up with changes to the framework. Before any\nfunctionality or API is removed, it first flows linearly through a\ndeprecation staging process. The staging process currently contains two\nstages: available and enabled.</p>\n<p>Deprecations are initially released into the 'available' stage.\nDeprecations will stay in this stage until the replacement API has been\nmarked as a recommended practice via the RFC process and the addon\necosystem has generally adopted the change.</p>\n<p>Once a deprecation meets the above criteria, it will move into the\n'enabled' stage where it will remain until the functionality or API is\neventually removed.</p>\n<p>For application and addon developers, \"available\" deprecations are not\nurgent and \"enabled\" deprecations require action.</p>\n<ul>\n<li>In a production build, this method is defined as an empty function (NOP).\nUses of this method in Ember itself are stripped from the ember.prod.js build.</li>\n</ul>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n</pre></td>\n              <td class=\"code\"><pre>import { deprecate } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"title function_ invoke__\">deprecate</span>(\n  <span class=\"string\">'Use of `assign` has been deprecated. Please use `Object.assign` or the spread operator instead.'</span>,\n  <span class=\"literal\">false</span>,\n  {\n    <span class=\"attr\">id</span>: <span class=\"string\">'ember-polyfills.deprecate-assign'</span>,\n    <span class=\"attr\">until</span>: <span class=\"string\">'5.0.0'</span>,\n    <span class=\"attr\">url</span>: <span class=\"string\">'https://deprecations.emberjs.com/v4.x/#toc_ember-polyfills-deprecate-assign'</span>,\n    <span class=\"attr\">for</span>: <span class=\"string\">'ember-source'</span>,\n    <span class=\"attr\">since</span>: {\n      <span class=\"attr\">available</span>: <span class=\"string\">'4.0.0'</span>,\n      <span class=\"attr\">enabled</span>: <span class=\"string\">'4.0.0'</span>,\n    },\n  }\n);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "deprecate",
+          "params": [
+            {
+              "name": "message",
+              "description": "A description of the deprecation.",
+              "type": "String"
+            },
+            {
+              "name": "test",
+              "description": "A boolean. If falsy, the deprecation will be displayed.",
+              "type": "Boolean"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "props": [
+                {
+                  "name": "id",
+                  "description": "A unique id for this deprecation. The id can be\n  used by Ember debugging tools to change the behavior (raise, log or silence)\n  for that specific deprecation. The id should be namespaced by dots, e.g.\n  \"view.helper.select\".",
+                  "type": "String"
+                },
+                {
+                  "name": "until",
+                  "description": "The version of Ember when this deprecation\n  warning will be removed.",
+                  "type": "String"
+                },
+                {
+                  "name": "for",
+                  "description": "A namespace for the deprecation, usually the package name",
+                  "type": "String"
+                },
+                {
+                  "name": "since",
+                  "description": "Describes when the deprecation became available and enabled.",
+                  "type": "Object"
+                },
+                {
+                  "name": "url",
+                  "description": "An optional url to the transition guide on the\n      emberjs.com website.",
+                  "type": "String",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "since": "1.0.0",
+          "class": "@ember/debug",
+          "module": "@ember/debug"
+        },
+        {
+          "file": "packages/@ember/debug/lib/inspect.ts",
+          "line": 14,
+          "description": "<html><head></head><body><p>Convenience method to inspect an object. This method will attempt to\nconvert the object into a useful string description.</p>\n<p>It is a pretty simple implementation. If you want something more robust,\nuse something like JSDump: <a href=\"https://github.com/NV/jsDump\">https://github.com/NV/jsDump</a></p>\n</body></html>",
+          "itemtype": "method",
+          "name": "inspect",
+          "static": 1,
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object you want to inspect.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "A description of the object",
+            "type": "String"
+          },
+          "since": "1.4.0",
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/debug",
+          "module": "@ember/debug"
+        },
+        {
+          "file": "packages/@ember/debug/lib/warn.ts",
+          "line": 29,
+          "description": "<html><head></head><body><p>Allows for runtime registration of handler functions that override the default warning behavior.\nWarnings are invoked by calls made to <a href=\"/ember/release/classes/@ember%2Fdebug/methods/warn?anchor=warn\">@ember/debug/warn</a>.\nThe following example demonstrates its usage by registering a handler that does nothing overriding Ember's\ndefault warning behavior.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { registerWarnHandler } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"regexp\">//</span> next <span class=\"keyword\">is</span> <span class=\"keyword\">not</span> called, so <span class=\"literal\">no</span> warnings get the <span class=\"keyword\">default</span> behavior\nregisterWarnHandler(<span class=\"function\"><span class=\"params\">()</span> =&gt;</span> {});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The handler function takes the following arguments:</p>\n<ul>\n  <li> <code>message</code> - The message received from the warn call. </li>\n  <li> <code>options</code> - An object passed in with the warn call containing additional information including:</li>\n    <ul>\n      <li> <code>id</code> - An id of the warning in the form of <code>package-name.specific-warning</code>.</li>\n    </ul>\n  <li> <code>next</code> - A function that calls into the previously registered handler.</li>\n</ul></body></html>",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "registerWarnHandler",
+          "params": [
+            {
+              "name": "handler",
+              "description": "A function to handle warnings.",
+              "type": "Function"
+            }
+          ],
+          "since": "2.1.0",
+          "class": "@ember/debug",
+          "module": "@ember/debug"
+        },
+        {
+          "file": "packages/@ember/debug/lib/warn.ts",
+          "line": 76,
+          "description": "<html><head></head><body><p>Display a warning with the provided message.</p>\n<ul>\n<li>In a production build, this method is defined as an empty function (NOP).\nUses of this method in Ember itself are stripped from the ember.prod.js build.</li>\n</ul>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { warn } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n<span class=\"keyword\">import</span> tomsterCount <span class=\"keyword\">from</span> <span class=\"string\">'./tomster-counter'</span>; <span class=\"comment\">// a module in my project</span>\n\n<span class=\"comment\">// Log a warning if we have more than 3 tomsters</span>\nwarn(<span class=\"string\">'Too many tomsters!'</span>, tomsterCount &lt;= <span class=\"number\">3</span>, {\n  id: <span class=\"string\">'ember-debug.too-many-tomsters'</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "warn",
+          "static": 1,
+          "params": [
+            {
+              "name": "message",
+              "description": "A warning to display.",
+              "type": "String"
+            },
+            {
+              "name": "test",
+              "description": "An optional boolean. If falsy, the warning\n  will be displayed. If `test` is an object, the `test` parameter can\n  be used as the `options` parameter and the warning is displayed.",
+              "type": "Boolean|Object"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "props": [
+                {
+                  "name": "id",
+                  "description": "The `id` can be used by Ember debugging tools\n  to change the behavior (raise, log, or silence) for that specific warning.\n  The `id` should be namespaced by dots, e.g. \"ember-debug.feature-flag-with-features-stripped\"",
+                  "type": "String"
+                }
+              ]
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "since": "1.0.0",
+          "class": "@ember/debug",
+          "module": "@ember/debug"
+        },
+        {
+          "file": "packages/@ember/debug/index.ts",
+          "line": 142,
+          "description": "<html><head></head><body><p>Verify that a certain expectation is met, or throw a exception otherwise.</p>\n<p>This is useful for communicating assumptions in the code to other human\nreaders as well as catching bugs that accidentally violates these\nexpectations.</p>\n<p>Assertions are removed from production builds, so they can be freely added\nfor documentation and debugging purposes without worries of incuring any\nperformance penalty. However, because of that, they should not be used for\nchecks that could reasonably fail during normal usage. Furthermore, care\nshould be taken to avoid accidentally relying on side-effects produced from\nevaluating the condition itself, since the code will not run in production.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">assert</span> } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"comment\">// Test for truthiness</span>\n<span class=\"built_in\">assert</span>(<span class=\"string\">'Must pass a string'</span>, <span class=\"built_in\">typeof</span> <span class=\"built_in\">str</span> === <span class=\"string\">'string'</span>);\n\n<span class=\"comment\">// Fail unconditionally</span>\n<span class=\"built_in\">assert</span>(<span class=\"string\">'This code path should never be run'</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "assert",
+          "static": 1,
+          "params": [
+            {
+              "name": "description",
+              "description": "Describes the expectation. This will become the\n  text of the Error thrown if the assertion fails.",
+              "type": "String"
+            },
+            {
+              "name": "condition",
+              "description": "Must be truthy for the assertion to pass. If\n  falsy, an exception will be thrown.",
+              "type": "Any"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "since": "1.0.0",
+          "class": "@ember/debug",
+          "module": "@ember/debug"
+        },
+        {
+          "file": "packages/@ember/debug/index.ts",
+          "line": 187,
+          "description": "<html><head></head><body><p>Display a debug notice.</p>\n<p>Calls to this function are not invoked in production builds.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>import { <span class=\"built_in\">debug</span> } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"built_in\">debug</span>(<span class=\"string\">'I\\'</span>m a <span class=\"built_in\">debug</span> notice!<span class=\"string\">');</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "debug",
+          "static": 1,
+          "params": [
+            {
+              "name": "message",
+              "description": "A debug message to display.",
+              "type": "String"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/debug",
+          "module": "@ember/debug"
+        },
+        {
+          "file": "packages/@ember/debug/index.ts",
+          "line": 208,
+          "description": "<html><head></head><body><p>Display an info notice.</p>\n<p>Calls to this function are removed from production builds, so they can be\nfreely added for documentation and debugging purposes without worries of\nincuring any performance penalty.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "info",
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/debug",
+          "module": "@ember/debug"
+        },
+        {
+          "file": "packages/@ember/debug/index.ts",
+          "line": 227,
+          "description": "<html><head></head><body><p>Alias an old, deprecated method with its new counterpart.</p>\n<p>Display a deprecation warning with the provided message and a stack trace\n(Chrome and Firefox only) when the assigned method is called.</p>\n<p>Calls to this function are removed from production builds, so they can be\nfreely added for documentation and debugging purposes without worries of\nincuring any performance penalty.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { deprecateFunc } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\nEmber.oldMethod = deprecateFunc(<span class=\"string\">'Please use the new, updated method'</span>, <span class=\"keyword\">options</span>, Ember.newMethod);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "deprecateFunc",
+          "static": 1,
+          "params": [
+            {
+              "name": "message",
+              "description": "A description of the deprecation.",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "The options object for `deprecate`.",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "func",
+              "description": "The new function called to replace its deprecated counterpart.",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "A new function that wraps the original function with a deprecation warning",
+            "type": "Function"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/debug",
+          "module": "@ember/debug"
+        },
+        {
+          "file": "packages/@ember/debug/index.ts",
+          "line": 272,
+          "description": "<html><head></head><body><p>Run a function meant for debugging.</p>\n<p>Calls to this function are removed from production builds, so they can be\nfreely added for documentation and debugging purposes without worries of\nincuring any performance penalty.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Component</span> <span class=\"keyword\">from</span> <span class=\"string\">'@ember/component'</span>;\n<span class=\"keyword\">import</span> { runInDebug } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/debug'</span>;\n\n<span class=\"title function_\">runInDebug</span>(<span class=\"function\">() =&gt;</span> {\n  <span class=\"title class_\">Component</span>.<span class=\"title function_\">reopen</span>({\n    <span class=\"title function_\">didInsertElement</span>(<span class=\"params\"></span>) {\n      <span class=\"variable language_\">console</span>.<span class=\"title function_\">log</span>(<span class=\"string\">\"I'm happy\"</span>);\n    }\n  });\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "runInDebug",
+          "static": 1,
+          "params": [
+            {
+              "name": "func",
+              "description": "The function to be executed.",
+              "type": "Function"
+            }
+          ],
+          "since": "1.5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/debug",
+          "module": "@ember/debug"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.7.0-@ember/debug",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.7.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
