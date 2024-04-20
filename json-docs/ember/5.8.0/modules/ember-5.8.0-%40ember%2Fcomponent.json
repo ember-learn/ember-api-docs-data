@@ -1,0 +1,285 @@
+{
+  "data": {
+    "id": "ember-5.8.0-@ember/component",
+    "type": "module",
+    "attributes": {
+      "name": "@ember/component",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "Ember.Templates.helpers": 1,
+        "@ember/component": 1,
+        "Ember.Templates.components": 1,
+        "@ember/component/helper": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "packages/@ember/-internals/glimmer/lib/helper.ts",
+      "line": 53,
+      "description": "<html><head></head><body><p><a href=\"https://github.com/tildeio/glimmer\">Glimmer</a> is a templating engine used by Ember.js that is compatible with a subset of the <a href=\"http://handlebarsjs.com/\">Handlebars</a> syntax.</p>\n<h3 id=\"showing-a-property\">Showing a property</h3>\n<p>Templates manage the flow of an application's UI, and display state (through\nthe DOM) to a user. For example, given a component with the property \"name\",\nthat component's template can use the name in several ways:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">profile.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Component <span class=\"keyword\">from</span> <span class=\"string\">'@ember/component'</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> Component.extend({\n  name: <span class=\"string\">'Jill'</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight handlebars\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">profile.hbs</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"template-variable\">{{<span class=\"name\">this.name</span>}}</span><span class=\"language-xml\">\n<span class=\"tag\">&lt;<span class=\"name\">div</span>&gt;</span></span><span class=\"template-variable\">{{<span class=\"name\">this.name</span>}}</span><span class=\"language-xml\"><span class=\"tag\">&lt;/<span class=\"name\">div</span>&gt;</span>\n<span class=\"tag\">&lt;<span class=\"name\">span</span> <span class=\"attr\">data-name</span>=</span></span><span class=\"template-variable\">{{<span class=\"name\">this.name</span>}}</span><span class=\"language-xml\"><span class=\"tag\">&gt;</span><span class=\"tag\">&lt;/<span class=\"name\">span</span>&gt;</span></span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Any time the \"name\" property on the component changes, the DOM will be\nupdated.</p>\n<p>Properties can be chained as well:</p>\n<div class=\"highlight handlebars\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"template-variable\">{{@<span class=\"name\">aUserModel.name</span>}}</span><span class=\"language-xml\">\n<span class=\"tag\">&lt;<span class=\"name\">div</span>&gt;</span></span><span class=\"template-variable\">{{@<span class=\"name\">listOfUsers.firstObject.name</span>}}</span><span class=\"language-xml\"><span class=\"tag\">&lt;/<span class=\"name\">div</span>&gt;</span></span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h3 id=\"using-ember-helpers\">Using Ember helpers</h3>\n<p>When content is passed in mustaches <code>{{}}</code>, Ember will first try to find a helper\nor component with that name. For example, the <code>if</code> helper:</p>\n<div class=\"highlight handlebars\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">profile.hbs</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"template-variable\">{{<span class=\"name\"><span class=\"built_in\">if</span></span> this.name <span class=\"string\">\"I have a name\"</span> <span class=\"string\">\"I have no name\"</span>}}</span><span class=\"language-xml\">\n<span class=\"tag\">&lt;<span class=\"name\">span</span> <span class=\"attr\">data-has-name</span>=</span></span><span class=\"template-variable\">{{<span class=\"name\"><span class=\"built_in\">if</span></span> this.name <span class=\"literal\">true</span>}}</span><span class=\"language-xml\"><span class=\"tag\">&gt;</span><span class=\"tag\">&lt;/<span class=\"name\">span</span>&gt;</span></span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The returned value is placed where the <code>{{}}</code> is called. The above style is\ncalled \"inline\". A second style of helper usage is called \"block\". For example:</p>\n<div class=\"highlight handlebars\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"template-tag\">{{#<span class=\"name\"><span class=\"built_in\">if</span></span> this.name}}</span><span class=\"language-xml\">\n  I have a name\n</span><span class=\"template-tag\">{{<span class=\"keyword\">else</span>}}</span><span class=\"language-xml\">\n  I have no name\n</span><span class=\"template-tag\">{{/<span class=\"name\"><span class=\"built_in\">if</span></span>}}</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The block form of helpers allows you to control how the UI is created based\non the values of properties.\nA third form of helper is called \"nested\". For example here the concat\nhelper will add \" Doe\" to a displayed name if the person has no last name:</p>\n<div class=\"highlight handlebars\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"language-xml\"><span class=\"tag\">&lt;<span class=\"name\">span</span> <span class=\"attr\">data-name</span>=</span></span><span class=\"template-variable\">{{<span class=\"name\"><span class=\"built_in\">concat</span></span> this.firstName (\n  <span class=\"name\"><span class=\"built_in\">if</span></span> this.lastName (<span class=\"name\"><span class=\"built_in\">concat</span></span> <span class=\"string\">\" \"</span> this.lastName) <span class=\"string\">\"Doe\"</span>\n)}}</span><span class=\"language-xml\"><span class=\"tag\">&gt;</span><span class=\"tag\">&lt;/<span class=\"name\">span</span>&gt;</span></span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Ember's built-in helpers are described under the <a href=\"/ember/release/classes/Ember.Templates.helpers\">Ember.Templates.helpers</a>\nnamespace. Documentation on creating custom helpers can be found under\n<a href=\"/ember/release/functions/@ember%2Fcomponent%2Fhelper/helper\">helper</a> (or\nunder <a href=\"/ember/release/classes/Helper\">Helper</a> if a helper requires access to\ndependency injection).</p>\n<h3 id=\"invoking-a-component\">Invoking a Component</h3>\n<p>Ember components represent state to the UI of an application. Further\nreading on components can be found under <a href=\"/ember/release/classes/Component\">Component</a>.</p>\n</body></html>",
+      "itemtype": "main",
+      "access": "public",
+      "tagname": "",
+      "parent": null,
+      "publicclasses": [
+        "Component",
+        "Helper"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@ember/component": [
+          {
+            "file": "packages/@ember/component/index.ts",
+            "line": 109,
+            "description": "Tells Glimmer what capabilities a Component Manager will have\n\n```js\nimport { capabilities } from '@ember/component';\n\nexport class MyComponentManager {\n  capabilities = capabilities('3.13', {\n    // capabilities listed here\n  })\n}\n```\n\n\nFor a full list of capabilities, their defaults, and how they are used, see [@glimmer/manager](https://github.com/glimmerjs/glimmer-vm/blob/4f1bef0d9a8a3c3ebd934c5b6e09de4c5f6e4468/packages/%40glimmer/manager/lib/public/component.ts#L26)",
+            "itemtype": "method",
+            "name": "capabilities",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "managerApiVersion",
+                "description": "",
+                "type": "'3.13'"
+              },
+              {
+                "name": "options",
+                "description": "",
+                "type": "Parameters<import('@ember/-internals/glimmer').componentCapabilities>[1]"
+              }
+            ],
+            "class": "@ember/component",
+            "module": "@ember/component"
+          },
+          {
+            "file": "packages/@ember/component/index.ts",
+            "line": 40,
+            "description": "Returns the TemplateFactory associated with a component",
+            "itemtype": "method",
+            "name": "getComponentTemplate",
+            "static": 1,
+            "access": "public",
+            "tagname": "```js\nimport Component from '---AT-PLACEHOLDER---glimmer/component';\nimport { hbs } from 'ember-cli-htmlbars';\nimport { getComponentTemplate } from '---AT-PLACEHOLDER---ember/component';\n\nexport default class Demo extends Component {\n  // ...\n}\n\nlet theTemplateFactory = getTemplateFactory(Demo)\n```",
+            "params": [
+              {
+                "name": "componentDefinition",
+                "description": "",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "TemplateFactory"
+            },
+            "class": "@ember/component",
+            "module": "@ember/component"
+          },
+          {
+            "file": "packages/@ember/component/index.ts",
+            "line": 64,
+            "description": "Tell the VM how manage a type of object / class when encountered\nvia component-invocation.\n\nA Component Manager, must implement this interface:\n- static create()\n- createComponent()\n- updateComponent()\n- destroyComponent()\n- getContext()",
+            "itemtype": "method",
+            "name": "setComponentManager",
+            "static": 1,
+            "access": "public",
+            "tagname": "After a component manager is registered via `setComponentManager`,\n\n```js\nimport { StateNode } from 'xstate';\nimport ComponentManager from './-private/statechart-manager';\n\nsetComponentManager((owner) => ComponentManager.create(owner), StateNode.prototype);\n```\n\nInstances of the class can be used as component.\nNo need to extend from `@glimmer/component`.\n\n```js\n// app/components/my-component.js\nimport { createMachine } from 'xstate';\n\nexport default createMachine({ ... });\n```\n```hbs\n{{!-- app/templates/application.hbs}}\n<MyComponent />\n```",
+            "params": [
+              {
+                "name": "managerFactory",
+                "description": "",
+                "type": "(owner: Owner) => import('@glimmer/interfaces').ComponentManager"
+              },
+              {
+                "name": "object",
+                "description": "that will be managed by the return value of `managerFactory`",
+                "type": "Object"
+              }
+            ],
+            "class": "@ember/component",
+            "module": "@ember/component"
+          },
+          {
+            "file": "packages/@ember/component/index.ts",
+            "line": 14,
+            "description": "Assigns a TemplateFactory to a component class.",
+            "itemtype": "method",
+            "name": "setComponentTemplate",
+            "static": 1,
+            "access": "public",
+            "tagname": "```js\nimport Component from '---AT-PLACEHOLDER---glimmer/component';\nimport { hbs } from 'ember-cli-htmlbars';\nimport { setComponentTemplate } from '---AT-PLACEHOLDER---ember/component';\n\nexport default class Demo extends Component {\n  // ...\n}\n\nsetComponentTemplate(hbs`\n <div>my template</div>\n`, Demo);\n```",
+            "params": [
+              {
+                "name": "templateFactory",
+                "description": "",
+                "type": "TemplateFactory"
+              },
+              {
+                "name": "componentDefinition",
+                "description": "",
+                "type": "Object"
+              }
+            ],
+            "class": "@ember/component",
+            "module": "@ember/component"
+          }
+        ],
+        "@ember/component/helper": [
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/helper.ts",
+            "line": 333,
+            "description": "In many cases it is not necessary to use the full `Helper` class.\nThe `helper` method create pure-function helpers without instances.\nFor example:\n\n```app/helpers/format-currency.js\nimport { helper } from '@ember/component/helper';\n\nexport default helper(function([cents], {currency}) {\n  return `${currency}${cents * 0.01}`;\n});\n```",
+            "static": 1,
+            "params": [
+              {
+                "name": "helper",
+                "description": "The helper function",
+                "type": "Function"
+              }
+            ],
+            "itemtype": "method",
+            "name": "helper",
+            "access": "public",
+            "tagname": "",
+            "since": "1.13.0",
+            "class": "@ember/component/helper",
+            "module": "@ember/component"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember/component": [
+          {
+            "file": "packages/@ember/component/index.ts",
+            "line": 109,
+            "description": "Tells Glimmer what capabilities a Component Manager will have\n\n```js\nimport { capabilities } from '@ember/component';\n\nexport class MyComponentManager {\n  capabilities = capabilities('3.13', {\n    // capabilities listed here\n  })\n}\n```\n\n\nFor a full list of capabilities, their defaults, and how they are used, see [@glimmer/manager](https://github.com/glimmerjs/glimmer-vm/blob/4f1bef0d9a8a3c3ebd934c5b6e09de4c5f6e4468/packages/%40glimmer/manager/lib/public/component.ts#L26)",
+            "itemtype": "method",
+            "name": "capabilities",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "managerApiVersion",
+                "description": "",
+                "type": "'3.13'"
+              },
+              {
+                "name": "options",
+                "description": "",
+                "type": "Parameters<import('@ember/-internals/glimmer').componentCapabilities>[1]"
+              }
+            ],
+            "class": "@ember/component",
+            "module": "@ember/component"
+          },
+          {
+            "file": "packages/@ember/component/index.ts",
+            "line": 40,
+            "description": "Returns the TemplateFactory associated with a component",
+            "itemtype": "method",
+            "name": "getComponentTemplate",
+            "static": 1,
+            "access": "public",
+            "tagname": "```js\nimport Component from '---AT-PLACEHOLDER---glimmer/component';\nimport { hbs } from 'ember-cli-htmlbars';\nimport { getComponentTemplate } from '---AT-PLACEHOLDER---ember/component';\n\nexport default class Demo extends Component {\n  // ...\n}\n\nlet theTemplateFactory = getTemplateFactory(Demo)\n```",
+            "params": [
+              {
+                "name": "componentDefinition",
+                "description": "",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "TemplateFactory"
+            },
+            "class": "@ember/component",
+            "module": "@ember/component"
+          },
+          {
+            "file": "packages/@ember/component/index.ts",
+            "line": 64,
+            "description": "Tell the VM how manage a type of object / class when encountered\nvia component-invocation.\n\nA Component Manager, must implement this interface:\n- static create()\n- createComponent()\n- updateComponent()\n- destroyComponent()\n- getContext()",
+            "itemtype": "method",
+            "name": "setComponentManager",
+            "static": 1,
+            "access": "public",
+            "tagname": "After a component manager is registered via `setComponentManager`,\n\n```js\nimport { StateNode } from 'xstate';\nimport ComponentManager from './-private/statechart-manager';\n\nsetComponentManager((owner) => ComponentManager.create(owner), StateNode.prototype);\n```\n\nInstances of the class can be used as component.\nNo need to extend from `@glimmer/component`.\n\n```js\n// app/components/my-component.js\nimport { createMachine } from 'xstate';\n\nexport default createMachine({ ... });\n```\n```hbs\n{{!-- app/templates/application.hbs}}\n<MyComponent />\n```",
+            "params": [
+              {
+                "name": "managerFactory",
+                "description": "",
+                "type": "(owner: Owner) => import('@glimmer/interfaces').ComponentManager"
+              },
+              {
+                "name": "object",
+                "description": "that will be managed by the return value of `managerFactory`",
+                "type": "Object"
+              }
+            ],
+            "class": "@ember/component",
+            "module": "@ember/component"
+          },
+          {
+            "file": "packages/@ember/component/index.ts",
+            "line": 14,
+            "description": "Assigns a TemplateFactory to a component class.",
+            "itemtype": "method",
+            "name": "setComponentTemplate",
+            "static": 1,
+            "access": "public",
+            "tagname": "```js\nimport Component from '---AT-PLACEHOLDER---glimmer/component';\nimport { hbs } from 'ember-cli-htmlbars';\nimport { setComponentTemplate } from '---AT-PLACEHOLDER---ember/component';\n\nexport default class Demo extends Component {\n  // ...\n}\n\nsetComponentTemplate(hbs`\n <div>my template</div>\n`, Demo);\n```",
+            "params": [
+              {
+                "name": "templateFactory",
+                "description": "",
+                "type": "TemplateFactory"
+              },
+              {
+                "name": "componentDefinition",
+                "description": "",
+                "type": "Object"
+              }
+            ],
+            "class": "@ember/component",
+            "module": "@ember/component"
+          }
+        ],
+        "@ember/component/helper": [
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/helper.ts",
+            "line": 333,
+            "description": "In many cases it is not necessary to use the full `Helper` class.\nThe `helper` method create pure-function helpers without instances.\nFor example:\n\n```app/helpers/format-currency.js\nimport { helper } from '@ember/component/helper';\n\nexport default helper(function([cents], {currency}) {\n  return `${currency}${cents * 0.01}`;\n});\n```",
+            "static": 1,
+            "params": [
+              {
+                "name": "helper",
+                "description": "The helper function",
+                "type": "Function"
+              }
+            ],
+            "itemtype": "method",
+            "name": "helper",
+            "access": "public",
+            "tagname": "",
+            "since": "1.13.0",
+            "class": "@ember/component/helper",
+            "module": "@ember/component"
+          }
+        ]
+      },
+      "version": "5.8.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.8.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
