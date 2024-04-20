@@ -1,0 +1,117 @@
+{
+  "data": {
+    "id": "ember-5.8.0-@ember/application",
+    "type": "module",
+    "attributes": {
+      "name": "@ember/application",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember/application": 1
+      },
+      "namespaces": {
+        "ApplicationInstance": 1
+      },
+      "tag": "module",
+      "file": "packages/@ember/application/instance.ts",
+      "line": 316,
+      "parent": null,
+      "publicclasses": [
+        "Application",
+        "ApplicationInstance",
+        "ApplicationInstance.BootOptions"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {
+        "Application": [
+          {
+            "file": "packages/@ember/application/index.ts",
+            "line": 196,
+            "description": "This creates a registry with the default Ember naming conventions.\n\nIt also configures the registry:\n\n* registered views are created every time they are looked up (they are\n  not singletons)\n* registered templates are not factories; the registered value is\n  returned directly.\n* the router receives the application as its `namespace` property\n* all controllers receive the router as their `target` and `controllers`\n  properties\n* all controllers receive the application as their `namespace` property\n* the application view receives the application controller as its\n  `controller` property\n* the application view receives the application template as its\n  `defaultTemplate` property",
+            "itemtype": "method",
+            "name": "buildRegistry",
+            "static": 1,
+            "params": [
+              {
+                "name": "namespace",
+                "description": "the application for which to\n  build the registry",
+                "type": "Application"
+              }
+            ],
+            "return": {
+              "description": "the built registry",
+              "type": "Ember.Registry"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "@ember/application"
+          }
+        ],
+        "@ember/application": [
+          {
+            "file": "packages/@ember/application/lib/lazy_load.ts",
+            "line": 14,
+            "description": "Detects when a specific package of Ember (e.g. 'Application')\nhas fully loaded and is available for extension.\n\nThe provided `callback` will be called with the `name` passed\nresolved from a string into the object:\n\n``` javascript\nimport { onLoad } from '@ember/application';\n\nonLoad('Ember.Application' function(hbars) {\n  hbars.registerHelper(...);\n});\n```",
+            "itemtype": "method",
+            "name": "onLoad",
+            "static": 1,
+            "params": [
+              {
+                "name": "name",
+                "description": "name of hook",
+                "type": "String"
+              },
+              {
+                "name": "callback",
+                "description": "callback to be called",
+                "type": "Function"
+              }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "@ember/application",
+            "module": "@ember/application"
+          },
+          {
+            "file": "packages/@ember/application/lib/lazy_load.ts",
+            "line": 47,
+            "description": "Called when an Ember.js package (e.g Application) has finished\nloading. Triggers any callbacks registered for this event.",
+            "itemtype": "method",
+            "name": "runLoadHooks",
+            "static": 1,
+            "params": [
+              {
+                "name": "name",
+                "description": "name of hook",
+                "type": "String"
+              },
+              {
+                "name": "object",
+                "description": "object to pass to callbacks",
+                "type": "Object"
+              }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "@ember/application",
+            "module": "@ember/application"
+          }
+        ]
+      },
+      "version": "5.8.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.8.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
