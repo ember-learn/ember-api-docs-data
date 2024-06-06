@@ -1,0 +1,164 @@
+{
+  "data": {
+    "id": "ember-5.9.0-@ember/component",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/component",
+      "shortname": "@ember/component",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/component",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/components/input.ts",
+          "line": 55,
+          "description": "<html><head></head><body><p>An opaque interface which can be imported and used in strict-mode\ntemplates to call <input>.</p>\n<p>See <a href=\"/ember/release/classes/Ember.Templates.components/methods/Input?anchor=Input\">Ember.Templates.components.Input</a>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "Input",
+          "see": [
+            "{Ember.Templates.components.Input}"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/components/textarea.ts",
+          "line": 132,
+          "description": "<html><head></head><body><p>An opaque interface which can be imported and used in strict-mode\ntemplates to call <textarea>.&lt;/p&gt;\n&lt;p&gt;See &lt;a href=\"/ember/release/classes/Ember.Templates.components/methods/Textarea?anchor=Textarea\"&gt;Ember.Templates.components.Textarea&lt;/a&gt;.&lt;/p&gt;\n</textarea></p></body></html>",
+          "itemtype": "method",
+          "name": "Textarea",
+          "see": [
+            "{Ember.Templates.components.Textarea}"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/component/index.ts",
+          "line": 14,
+          "description": "<html><head></head><body><p>Assigns a TemplateFactory to a component class.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "setComponentTemplate",
+          "static": 1,
+          "access": "public",
+          "tagname": "```js\nimport Component from '---AT-PLACEHOLDER---glimmer/component';\nimport { hbs } from 'ember-cli-htmlbars';\nimport { setComponentTemplate } from '---AT-PLACEHOLDER---ember/component';\n\nexport default class Demo extends Component {\n  // ...\n}\n\nsetComponentTemplate(hbs`\n <div>my template</div>\n`, Demo);\n```",
+          "params": [
+            {
+              "name": "templateFactory",
+              "description": "",
+              "type": "TemplateFactory"
+            },
+            {
+              "name": "componentDefinition",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "@ember/component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/component/index.ts",
+          "line": 40,
+          "description": "<html><head></head><body><p>Returns the TemplateFactory associated with a component</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "getComponentTemplate",
+          "static": 1,
+          "access": "public",
+          "tagname": "```js\nimport Component from '---AT-PLACEHOLDER---glimmer/component';\nimport { hbs } from 'ember-cli-htmlbars';\nimport { getComponentTemplate } from '---AT-PLACEHOLDER---ember/component';\n\nexport default class Demo extends Component {\n  // ...\n}\n\nlet theTemplateFactory = getTemplateFactory(Demo)\n```",
+          "params": [
+            {
+              "name": "componentDefinition",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "TemplateFactory"
+          },
+          "class": "@ember/component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/component/index.ts",
+          "line": 64,
+          "description": "<html><head></head><body><p>Tell the VM how manage a type of object / class when encountered\nvia component-invocation.</p>\n<p>A Component Manager, must implement this interface:</p>\n<ul>\n<li>static create()</li>\n<li>createComponent()</li>\n<li>updateComponent()</li>\n<li>destroyComponent()</li>\n<li>getContext()</li>\n</ul>\n</body></html>",
+          "itemtype": "method",
+          "name": "setComponentManager",
+          "static": 1,
+          "access": "public",
+          "tagname": "After a component manager is registered via `setComponentManager`,\n\n```js\nimport { StateNode } from 'xstate';\nimport ComponentManager from './-private/statechart-manager';\n\nsetComponentManager((owner) => ComponentManager.create(owner), StateNode.prototype);\n```\n\nInstances of the class can be used as component.\nNo need to extend from `@glimmer/component`.\n\n```js\n// app/components/my-component.js\nimport { createMachine } from 'xstate';\n\nexport default createMachine({ ... });\n```\n```hbs\n{{!-- app/templates/application.hbs}}\n<MyComponent />\n```",
+          "params": [
+            {
+              "name": "managerFactory",
+              "description": "",
+              "type": "(owner: Owner) => import('@glimmer/interfaces').ComponentManager"
+            },
+            {
+              "name": "object",
+              "description": "that will be managed by the return value of `managerFactory`",
+              "type": "Object"
+            }
+          ],
+          "class": "@ember/component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/component/index.ts",
+          "line": 109,
+          "description": "<html><head></head><body><p>Tells Glimmer what capabilities a Component Manager will have</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { capabilities } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/component'</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">class</span> MyComponentManager {\n  capabilities = capabilities(<span class=\"string\">'3.13'</span>, {\n    <span class=\"comment\">// capabilities listed here</span>\n  })\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>For a full list of capabilities, their defaults, and how they are used, see <a href=\"https://github.com/glimmerjs/glimmer-vm/blob/4f1bef0d9a8a3c3ebd934c5b6e09de4c5f6e4468/packages/%40glimmer/manager/lib/public/component.ts#L26\">@glimmer/manager</a></p>\n</body></html>",
+          "itemtype": "method",
+          "name": "capabilities",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "managerApiVersion",
+              "description": "",
+              "type": "'3.13'"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Parameters<import('@ember/-internals/glimmer').componentCapabilities>[1]"
+            }
+          ],
+          "class": "@ember/component",
+          "module": "@ember/component"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.9.0-@ember/component",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.9.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
