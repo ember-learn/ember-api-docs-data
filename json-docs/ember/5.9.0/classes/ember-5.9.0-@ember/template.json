@@ -1,0 +1,107 @@
+{
+  "data": {
+    "id": "ember-5.9.0-@ember/template",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/template",
+      "shortname": "@ember/template",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/template",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/managers.ts",
+          "line": 9,
+          "description": "<html><head></head><body><p>Associate a class with a component manager (an object that is responsible for\ncoordinating the lifecycle events that occurs when invoking, rendering and\nre-rendering a component).</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "setComponentManager",
+          "params": [
+            {
+              "name": "factory",
+              "description": "a function to create the owner for an object",
+              "type": "Function"
+            },
+            {
+              "name": "obj",
+              "description": "the object to associate with the componetn manager",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the same object passed in",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/template",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+          "line": 121,
+          "description": "<html><head></head><body><p>Use this method to indicate that a string should be rendered as HTML\nwhen the string is used in a template. To say this another way,\nstrings marked with <code>htmlSafe</code> will not be HTML escaped.</p>\n<p>A word of warning -   The <code>htmlSafe</code> method does not make the string safe;\nit only tells the framework to treat the string as if it is safe to render\nas HTML. If a string contains user inputs or other untrusted\ndata, you must sanitize the string before using the <code>htmlSafe</code> method.\nOtherwise your code is vulnerable to\n<a href=\"https://owasp.org/www-community/attacks/DOM_Based_XSS\">Cross-Site Scripting</a>.\nThere are many open source sanitization libraries to choose from,\nboth for front end and server-side sanitization.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { htmlSafe } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/template'</span>;\n\n<span class=\"keyword\">const</span> someTrustedOrSanitizedString = <span class=\"string\">\"&lt;div&gt;Hello!&lt;/div&gt;\"</span>\n\n<span class=\"title function_\">htmlSafe</span>(someTrustedorSanitizedString)</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "htmlSafe",
+          "params": [
+            {
+              "name": "str",
+              "description": "The string to treat as trusted.",
+              "type": "String"
+            }
+          ],
+          "static": 1,
+          "return": {
+            "description": "A string that will not be HTML escaped by Handlebars.",
+            "type": "SafeString"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/template",
+          "module": "@ember/template"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+          "line": 159,
+          "description": "<html><head></head><body><p>Detects if a string was decorated using <code>htmlSafe</code>.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { htmlSafe, isHTMLSafe } <span class=\"keyword\">from</span> '@ember/<span class=\"keyword\">template</span>';\n\n<span class=\"keyword\">let</span> plainString = 'plain <span class=\"type\">string</span>';\n<span class=\"keyword\">let</span> safeString = htmlSafe('&lt;<span class=\"keyword\">div</span>&gt;someValue&lt;/<span class=\"keyword\">div</span>&gt;');\n\nisHTMLSafe(plainString); // <span class=\"literal\">false</span>\nisHTMLSafe(safeString);  // <span class=\"literal\">true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isHTMLSafe",
+          "static": 1,
+          "return": {
+            "description": "`true` if the string was decorated with `htmlSafe`, `false` otherwise.",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/template",
+          "module": "@ember/template"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.9.0-@ember/template",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.9.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
