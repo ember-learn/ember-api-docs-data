@@ -8302,7 +8302,7 @@
             "line": 12,
             "description": "Expands `pattern`, invoking `callback` for each expansion.\n\nThe only pattern supported is brace-expansion, anything else will be passed\nonce to `callback` directly. Brace expansion can only appear at the end of a\npattern, for example as the last item in a chain.\n\nExample\n```js\nfunction echo(arg){ console.log(arg); }\n\nEmber.expandProperties('foo.bar', echo);        //=> 'foo.bar'\nEmber.expandProperties('{foo,bar}', echo);      //=> 'foo', 'bar'\nEmber.expandProperties('foo.{bar,baz}', echo);  //=> 'foo.bar', 'foo.baz'\nEmber.expandProperties('{foo,bar}.baz', echo);  //=> '{foo,bar}.baz'\n```",
             "itemtype": "method",
-            "name": "",
+            "name": "expandProperties",
             "access": "private",
             "tagname": "",
             "params": [
@@ -10788,7 +10788,7 @@
             "access": "private",
             "tagname": "",
             "itemtype": "property",
-            "name": "",
+            "name": "resolvedParams",
             "return": {
                 "description": "",
                 "type": "Array"
@@ -10805,7 +10805,7 @@
             "access": "private",
             "tagname": "",
             "itemtype": "property",
-            "name": "",
+            "name": "routeArgs",
             "return": {
                 "description": "An array with the route name and any dynamic segments",
                 "type": "Array"
