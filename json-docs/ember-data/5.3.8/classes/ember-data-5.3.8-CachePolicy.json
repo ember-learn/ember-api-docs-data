@@ -1,0 +1,183 @@
+{
+  "data": {
+    "id": "ember-data-5.3.8-CachePolicy",
+    "type": "class",
+    "attributes": {
+      "name": "CachePolicy",
+      "shortname": "CachePolicy",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/request-utils",
+      "namespace": "",
+      "file": "../request-utils/src/index.ts",
+      "line": 649,
+      "description": "<html><head></head><body><p>A basic CachePolicy that can be added to the Store service.</p>\n<p>Determines staleness based on time since the request was last received from the API\nusing the <code>date</code> header.</p>\n<p>Invalidates any request for which <code>cacheOptions.types</code> was provided when a createRecord\nrequest for that type is successful.</p>\n<p>For this to work, the <code>createRecord</code> request must include the <code>cacheOptions.types</code> array\nwith the types that should be invalidated, or its request should specify the identifiers\nof the records that are being created via <code>records</code>. Providing both is valid.</p>\n<blockquote>\n<p>[!NOTE]\nonly requests that had specified <code>cacheOptions.types</code> and occurred prior to the\ncreateRecord request will be invalidated. This means that a given request should always\nspecify the types that would invalidate it to opt into this behavior. Abstracting this\nbehavior via builders is recommended to ensure consistency.</p>\n</blockquote>\n<p>This allows the Store's CacheHandler to determine if a request is expired and\nshould be refetched upon next request.</p>\n<p>The <code>Fetch</code> handler provided by <code>@ember-data/request/fetch</code> will automatically\nadd the <code>date</code> header to responses if it is not present.</p>\n<blockquote>\n<p>[!NOTE]\nDate headers do not have millisecond precision, so expiration times should\ngenerally be larger than 1000ms.</p>\n</blockquote>\n<p>Usage:</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { <span class=\"type\">CachePolicy</span> } from '<span class=\"meta\">@ember</span>-data/request-utils';\n<span class=\"keyword\">import</span> <span class=\"type\">DataStore</span> from '<span class=\"meta\">@ember</span>-data/store';\n\n<span class=\"comment\">// ...</span>\n\n<span class=\"keyword\">export</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Store</span> <span class=\"keyword\">extends</span> <span class=\"title\">DataStore</span> </span>{\n  constructor(args) {\n    <span class=\"keyword\">super</span>(args);\n    <span class=\"keyword\">this</span>.lifetimes = <span class=\"keyword\">new</span> <span class=\"type\">CachePolicy</span>({ apiCacheSoftExpires: <span class=\"number\">30</span>_000, apiCacheHardExpires: <span class=\"number\">60</span>_000 });\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/request-utils/src/index.ts",
+          "line": 734,
+          "description": "<html><head></head><body><p>Invalidate a request by its identifier for a given store instance.</p>\n<p>While the store argument may seem redundant, the CachePolicy\nis designed to be shared across multiple stores / forks\nof the store.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">store</span>.lifetimes.invalidateRequest(<span class=\"keyword\">store</span><span class=\"punctuation\">,</span> identifier)<span class=\"comment\">;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "invalidateRequest",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableDocumentIdentifier"
+            },
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            }
+          ],
+          "class": "CachePolicy",
+          "module": "@ember-data/request-utils"
+        },
+        {
+          "file": "../packages/request-utils/src/index.ts",
+          "line": 754,
+          "description": "<html><head></head><body><p>Invalidate all requests associated to a specific type\nfor a given store instance.</p>\n<p>While the store argument may seem redundant, the CachePolicy\nis designed to be shared across multiple stores / forks\nof the store.</p>\n<p>This invalidation is done automatically when using this service\nfor both the CacheHandler and the LegacyNetworkHandler.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">store</span>.lifetimes.invalidateRequestsForType(<span class=\"keyword\">store</span><span class=\"punctuation\">,</span> 'person')<span class=\"comment\">;</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "invalidateRequestsForType",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            }
+          ],
+          "class": "CachePolicy",
+          "module": "@ember-data/request-utils"
+        },
+        {
+          "file": "../packages/request-utils/src/index.ts",
+          "line": 784,
+          "description": "<html><head></head><body><p>Invoked when a request has been fulfilled from the configured request handlers.\nThis is invoked by the CacheHandler for both foreground and background requests\nonce the cache has been updated.</p>\n<p>Note, this is invoked by the CacheHandler regardless of whether\nthe request has a cache-key.</p>\n<p>This method should not be invoked directly by consumers.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "didRequest",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "request",
+              "description": "",
+              "type": "ImmutableRequestInfo"
+            },
+            {
+              "name": "response",
+              "description": "",
+              "type": "ImmutableResponse"
+            },
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableDocumentIdentifier | null"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "CachePolicy",
+          "module": "@ember-data/request-utils"
+        },
+        {
+          "file": "../packages/request-utils/src/index.ts",
+          "line": 839,
+          "description": "<html><head></head><body><p>Invoked to determine if the request may be fulfilled from cache\nif possible.</p>\n<p>Note, this is only invoked by the CacheHandler if the request has\na cache-key.</p>\n<p>If no cache entry is found or the entry is hard expired,\nthe request will be fulfilled from the configured request handlers\nand the cache will be updated before returning the response.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isHardExpired",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableDocumentIdentifier"
+            },
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            }
+          ],
+          "return": {
+            "description": "true if the request is considered hard expired",
+            "type": "Boolean"
+          },
+          "class": "CachePolicy",
+          "module": "@ember-data/request-utils"
+        },
+        {
+          "file": "../packages/request-utils/src/index.ts",
+          "line": 867,
+          "description": "<html><head></head><body><p>Invoked if <code>isHardExpired</code> is false to determine if the request\nshould be update behind the scenes if cache data is already available.</p>\n<p>Note, this is only invoked by the CacheHandler if the request has\na cache-key.</p>\n<p>If true, the request will be fulfilled from cache while a backgrounded\nrequest is made to update the cache via the configured request handlers.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isSoftExpired",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableDocumentIdentifier"
+            },
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            }
+          ],
+          "return": {
+            "description": "true if the request is considered soft expired",
+            "type": "Boolean"
+          },
+          "class": "CachePolicy",
+          "module": "@ember-data/request-utils"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.3.8-@ember-data/request-utils",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.3.8",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "data": {
+    "id": "ember-data-5.3.8-@ember-data/legacy-compat/builders",
+    "type": "class",
+    "attributes": {
+      "name": "@ember-data/legacy-compat/builders",
+      "shortname": "@ember-data/legacy-compat/builders",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/legacy-compat/builders",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "../packages/legacy-compat/src/builders/find-all.ts",
+          "line": 24,
+          "description": "<html><head></head><body><p>This function builds a request config to perform a <code>findAll</code> request for the given type.\nWhen passed to <code>store.request</code>, this config will result in the same behavior as a <code>store.findAll</code> request.\nAdditionally, it takes the same options as <code>store.findAll</code>.</p>\n<p>All <code>@ember-data/legacy-compat</code> builders exist to enable you to migrate your codebase to using the correct syntax for <code>store.request</code> while temporarily preserving legacy behaviors.\nThis is useful for quickly upgrading an entire app to a unified syntax while a longer incremental migration is made to shift off of adapters and serializers.\nTo that end, these builders are deprecated and will be removed in a future version of Ember Data.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "findAll",
+          "deprecated": true,
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "type",
+              "description": "the name of the resource",
+              "type": "String"
+            },
+            {
+              "name": "query",
+              "description": "a query to be used by the adapter",
+              "type": "Object"
+            },
+            {
+              "name": "options",
+              "description": "optional, may include `adapterOptions` hash which will be passed to adapter.findAll",
+              "type": "FindAllBuilderOptions",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "request config",
+            "type": "FindAllRequestInput"
+          },
+          "class": "@ember-data/legacy-compat/builders",
+          "module": "@ember-data/legacy-compat/builders"
+        },
+        {
+          "file": "../packages/legacy-compat/src/builders/find-record.ts",
+          "line": 26,
+          "description": "<html><head></head><body><p>This function builds a request config to find the record for a given identifier or type and id combination.\nWhen passed to <code>store.request</code>, this config will result in the same behavior as a <code>store.findRecord</code> request.\nAdditionally, it takes the same options as <code>store.findRecord</code>, with the exception of <code>preload</code> (which is unsupported).</p>\n<p><strong>Example 1</strong></p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { findRecord } <span class=\"keyword\">from</span> <span class=\"string\">'@ember-data/legacy-compat/builders'</span>;\n<span class=\"keyword\">const</span> { <span class=\"attr\">content</span>: post } = <span class=\"keyword\">await</span> store.<span class=\"property\">request</span>&lt;<span class=\"title class_\">Post</span>&gt;(findRecord&lt;<span class=\"title class_\">Post</span>&gt;(<span class=\"string\">'post'</span>, <span class=\"string\">'1'</span>));</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p><strong>Example 2</strong></p>\n<p><code>findRecord</code> can be called with a single identifier argument instead of the combination\nof <code>type</code> (modelName) and <code>id</code> as separate arguments. You may recognize this combo as\nthe typical pairing from <a href=\"https://jsonapi.org/format/#document-resource-object-identification\">JSON:API</a></p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { findRecord } <span class=\"keyword\">from</span> <span class=\"string\">'@ember-data/legacy-compat/builders'</span>;\nconst { content: post } = <span class=\"keyword\">await</span> store.request&lt;Post&gt;(findRecord&lt;Post&gt;({ <span class=\"built_in\">type</span>: <span class=\"string\">'post'</span>, <span class=\"built_in\">id</span> }));</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>All <code>@ember-data/legacy-compat</code> builders exist to enable you to migrate your codebase to using the correct syntax for <code>store.request</code> while temporarily preserving legacy behaviors.\nThis is useful for quickly upgrading an entire app to a unified syntax while a longer incremental migration is made to shift off of adapters and serializers.\nTo that end, these builders are deprecated and will be removed in a future version of Ember Data.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "findRecord",
+          "deprecated": true,
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "resource",
+              "description": "- either a string representing the name of the resource or a ResourceIdentifier object containing both the type (a string) and the id (a string) for the record or an lid (a string) of an existing record",
+              "type": "String|object"
+            },
+            {
+              "name": "id",
+              "description": "- optional object with options for the request only if the first param is a ResourceIdentifier, else the string id of the record to be retrieved",
+              "type": "String|number|object"
+            },
+            {
+              "name": "options",
+              "description": "- if the first param is a string this will be the optional options for the request. See examples for available options.",
+              "type": "FindRecordBuilderOptions",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "request config",
+            "type": "FindRecordRequestInput"
+          },
+          "class": "@ember-data/legacy-compat/builders",
+          "module": "@ember-data/legacy-compat/builders"
+        },
+        {
+          "file": "../packages/legacy-compat/src/builders/query.ts",
+          "line": 25,
+          "description": "<html><head></head><body><p>This function builds a request config for a given type and query object.\nWhen passed to <code>store.request</code>, this config will result in the same behavior as a <code>store.query</code> request.\nAdditionally, it takes the same options as <code>store.query</code>.</p>\n<p>All <code>@ember-data/legacy-compat</code> builders exist to enable you to migrate your codebase to using the correct syntax for <code>store.request</code> while temporarily preserving legacy behaviors.\nThis is useful for quickly upgrading an entire app to a unified syntax while a longer incremental migration is made to shift off of adapters and serializers.\nTo that end, these builders are deprecated and will be removed in a future version of Ember Data.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "query",
+          "deprecated": true,
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "type",
+              "description": "the name of the resource",
+              "type": "String"
+            },
+            {
+              "name": "query",
+              "description": "a query to be used by the adapter",
+              "type": "Object"
+            },
+            {
+              "name": "options",
+              "description": "optional, may include `adapterOptions` hash which will be passed to adapter.query",
+              "type": "QueryBuilderOptions",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "request config",
+            "type": "QueryRequestInput"
+          },
+          "class": "@ember-data/legacy-compat/builders",
+          "module": "@ember-data/legacy-compat/builders"
+        },
+        {
+          "file": "../packages/legacy-compat/src/builders/query.ts",
+          "line": 87,
+          "description": "<html><head></head><body><p>This function builds a request config for a given type and query object.\nWhen passed to <code>store.request</code>, this config will result in the same behavior as a <code>store.queryRecord</code> request.\nAdditionally, it takes the same options as <code>store.queryRecord</code>.</p>\n<p>All <code>@ember-data/legacy-compat</code> builders exist to enable you to migrate your codebase to using the correct syntax for <code>store.request</code> while temporarily preserving legacy behaviors.\nThis is useful for quickly upgrading an entire app to a unified syntax while a longer incremental migration is made to shift off of adapters and serializers.\nTo that end, these builders are deprecated and will be removed in a future version of Ember Data.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "queryRecord",
+          "deprecated": true,
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "type",
+              "description": "the name of the resource",
+              "type": "String"
+            },
+            {
+              "name": "query",
+              "description": "a query to be used by the adapter",
+              "type": "Object"
+            },
+            {
+              "name": "options",
+              "description": "optional, may include `adapterOptions` hash which will be passed to adapter.query",
+              "type": "QueryBuilderOptions",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "request config",
+            "type": "QueryRecordRequestInput"
+          },
+          "class": "@ember-data/legacy-compat/builders",
+          "module": "@ember-data/legacy-compat/builders"
+        },
+        {
+          "file": "../packages/legacy-compat/src/builders/save-record.ts",
+          "line": 34,
+          "description": "<html><head></head><body><p>This function builds a request config for saving the given record (e.g. creating, updating, or deleting the record).\nWhen passed to <code>store.request</code>, this config will result in the same behavior as a legacy <code>store.saveRecord</code> request.\nAdditionally, it takes the same options as <code>store.saveRecord</code>.</p>\n<p>All <code>@ember-data/legacy-compat</code> builders exist to enable you to migrate your codebase to using the correct syntax for <code>store.request</code> while temporarily preserving legacy behaviors.\nThis is useful for quickly upgrading an entire app to a unified syntax while a longer incremental migration is made to shift off of adapters and serializers.\nTo that end, these builders are deprecated and will be removed in a future version of Ember Data.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "saveRecord",
+          "deprecated": true,
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "record",
+              "description": "a record to save",
+              "type": "Object"
+            },
+            {
+              "name": "options",
+              "description": "optional, may include `adapterOptions` hash which will be passed to adapter.saveRecord",
+              "type": "SaveRecordBuilderOptions"
+            }
+          ],
+          "return": {
+            "description": "request config",
+            "type": "SaveRecordRequestInput"
+          },
+          "class": "@ember-data/legacy-compat/builders",
+          "module": "@ember-data/legacy-compat/builders"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.3.8-@ember-data/legacy-compat/builders",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.3.8",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

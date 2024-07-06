@@ -1,0 +1,37 @@
+{
+  "data": {
+    "id": "ember-data-5.3.8-@warp-drive/build-config/deprecations",
+    "type": "module",
+    "attributes": {
+      "name": "@warp-drive/build-config/deprecations",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../build-config/src/deprecation-versions.ts",
+      "line": 81,
+      "description": "<html><head></head><body><h2 id=\"deprecations\">Deprecations</h2>\n<p>EmberData allows users to opt-in and remove code that exists to support deprecated\nbehaviors.</p>\n<p>If your app has resolved all deprecations present in a given version,\nyou may specify that version as your \"compatibility\" version to remove\nthe code that supported the deprecated behavior from your app.</p>\n<p>For instance, if a deprecation was introduced in 3.13, and the app specifies\n3.13 as its minimum version compatibility, any deprecations introduced before\nor during 3.13 would be stripped away.</p>\n<p>An app can use a different version than what it specifies as it's compatibility\nversion. For instance, an App could be using <code>3.16</code> while specifying compatibility\nwith <code>3.12</code>. This would remove any deprecations that were present in or before <code>3.12</code>\nbut keep support for anything deprecated in or above <code>3.13</code>.</p>\n<h3 id=\"configuring-compatibility\">Configuring Compatibility</h3>\n<p>To configure your compatibility version, set the <code>compatWith</code> to the version you\nare compatible with on the <code>emberData</code> config in your <code>ember-cli-build.js</code> file.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">const</span> { setConfig } = <span class=\"keyword\">await</span> <span class=\"keyword\">import</span>(<span class=\"string\">'@warp-drive/build-config'</span>);\n\n<span class=\"keyword\">let</span> app = <span class=\"keyword\">new</span> <span class=\"title class_\">EmberApp</span>(defaults, {});\n\n<span class=\"title function_\">setConfig</span>(app, __dirname, { <span class=\"attr\">compatWith</span>: <span class=\"string\">'3.12'</span> });</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Alternatively, individual deprecations can be resolved (and thus have its support stripped)\nvia one of the flag names listed below. For instance, given a flag named <code>DEPRECATE_FOO_BEHAVIOR</code>.</p>\n<p>This capability is interopable with <code>compatWith</code>. You may set <code>compatWith</code> and then selectively resolve\nadditional deprecations, or set compatWith and selectively un-resolve specific deprecations.</p>\n<p>Note: EmberData does not test against permutations of deprecations being stripped, our tests run against\n\"all deprecated code included\" and \"all deprecated code removed\". Unspecified behavior may sometimes occur\nwhen removing code for only some deprecations associated to a version number.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre>const { setConfig } = await <span class=\"keyword\">import</span>(<span class=\"string\">'@warp-drive/build-config'</span>);\n\n<span class=\"keyword\">let</span> app = new EmberApp(defaults, {});\n\nsetConfig(app, __dirname, {\n  deprecations: {\n    DEPRECATE_FOO_BEHAVIOR:<span class=\"built_in\"> false</span> // set <span class=\"keyword\">to</span><span class=\"built_in\"> false</span> <span class=\"keyword\">to</span> <span class=\"keyword\">strip</span> this code\n    DEPRECATE_BAR_BEHAVIOR:<span class=\"built_in\"> true</span> // force <span class=\"keyword\">to</span><span class=\"built_in\"> true</span> <span class=\"keyword\">to</span><span class=\"built_in\"> not</span> <span class=\"keyword\">strip</span> this code\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The complete list of which versions specific deprecations will be removed in\ncan be found <a href=\"https://github.com/emberjs/data/blob/main/packages/build-config/src/virtual/deprecation-versions.ts\" title=\"List of EmberData Deprecations\">here</a></p>\n</body></html>",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "CurrentDeprecations"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "5.3.8"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.3.8",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
