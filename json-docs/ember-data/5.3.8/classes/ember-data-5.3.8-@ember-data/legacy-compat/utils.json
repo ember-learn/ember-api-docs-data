@@ -1,0 +1,197 @@
+{
+  "data": {
+    "id": "ember-data-5.3.8-@ember-data/legacy-compat/utils",
+    "type": "class",
+    "attributes": {
+      "name": "@ember-data/legacy-compat/utils",
+      "shortname": "@ember-data/legacy-compat/utils",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/legacy-compat/utils",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 35,
+          "description": "<html><head></head><body><p>Configure a function to be called when an id or type\nchanges during normalization. This is useful for instrumenting\nto discover places where usage in the app is not consistent.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "configureMismatchReporter",
+          "params": [
+            {
+              "name": "method",
+              "description": "a function which takes a mismatch-type ('formatted-id' | 'formatted-type'), actual, and expected value"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 50,
+          "description": "<html><head></head><body><p>Configure a function to be called when an id or type\nfails validation. This is useful for instrumenting\nto discover places where usage in the app is not consistent.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "configureAssertFn",
+          "params": [
+            {
+              "name": "method",
+              "description": "a function which takes a message and a condition"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 65,
+          "description": "<html><head></head><body><p>Configure a function to be called to normalize\na resource type string. Used by both formattedType\nand isEquivType to ensure consistent normalization\nduring comparison.</p>\n<p>If validation fails or the type turns out be unnormalized\nthe configured mismatch reporter and assert functions will\nbe called.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "configureTypeNormalization",
+          "params": [
+            {
+              "name": "method",
+              "description": "a function which takes a string and returns a string"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 87,
+          "description": "<html><head></head><body><p>Converts a potentially unnormalized type into the format expected\nby our EmberData Cache. Currently this is singular-dasherized.</p>\n<p>you should not rely on this function to give you an exact format\nfor display purposes. Formatting for display should be handled\ndifferently if the exact format matters.</p>\n<p>Asserts invalid types (undefined, null, '') in dev.</p>\n<p><strong>Usage</strong></p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre>import formattedType from <span class=\"string\">'soxhub-client/helpers/formatted-type'</span>;\n\nformattedType(<span class=\"string\">'post'</span>); <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'post'</span>\nformattedType(<span class=\"string\">'posts'</span>); <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'post'</span>\nformattedType(<span class=\"string\">'Posts'</span>); <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'post'</span>\nformattedType(<span class=\"string\">'post-comment'</span>); <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'post-comment'</span>\nformattedType(<span class=\"string\">'post-comments'</span>); <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'post-comment'</span>\nformattedType(<span class=\"string\">'post_comment'</span>); <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'post-comment'</span>\nformattedType(<span class=\"string\">'postComment'</span>); <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'post-comment'</span>\nformattedType(<span class=\"string\">'PostComment'</span>); <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'post-comment'</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "formattedType",
+          "params": [
+            {
+              "name": "type",
+              "description": "the potentially un-normalized type",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the normalized type",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 138,
+          "description": "<html><head></head><body><p>Format an id to the format expected by the EmberData Cache.\nCurrently this means that id should be <code>string | null</code>.</p>\n<p>Asserts invalid IDs (undefined, '', 0, '0') in dev.</p>\n<p><strong>Usage</strong></p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> formattedId <span class=\"keyword\">from</span> <span class=\"string\">'client/utils/formatted-id'</span>;\n\n<span class=\"title function_\">formattedId</span>(<span class=\"string\">'1'</span>); <span class=\"comment\">// =&gt; '1'</span>\n<span class=\"title function_\">formattedId</span>(<span class=\"number\">1</span>); <span class=\"comment\">// =&gt; '1'</span>\n<span class=\"title function_\">formattedId</span>(<span class=\"literal\">null</span>); <span class=\"comment\">// =&gt; null</span>\n    <span class=\"string\">``</span><span class=\"string\">`</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "formattedId",
+          "params": [
+            {
+              "name": "id",
+              "description": "the potentially un-normalized id",
+              "type": "String | number | null"
+            }
+          ],
+          "return": {
+            "description": "the normalized id",
+            "type": "String | null"
+          },
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 191,
+          "description": "<html><head></head><body><p>Compares two types for strict equality, converting them to\nthe format expected by the EmberData Cache to ensure\ndifferences in format are accounted for in the comparison.</p>\n<p>Asserts when expected or actual are invalid types in dev.\nExpected may never be null.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre>isEquivType(<span class=\"string\">'posts'</span>, <span class=\"string\">'post'</span>); <span class=\"regexp\">//</span> <span class=\"literal\">true</span>\nisEquivType(<span class=\"string\">'post'</span>, <span class=\"string\">'post'</span>); <span class=\"regexp\">//</span> <span class=\"literal\">true</span>\nisEquivType(<span class=\"string\">'posts'</span>, <span class=\"string\">'posts'</span>); <span class=\"regexp\">//</span> <span class=\"literal\">true</span>\nisEquivType(<span class=\"string\">'post-comment'</span>, <span class=\"string\">'postComment'</span>); <span class=\"regexp\">//</span> <span class=\"literal\">true</span>\nisEquivType(<span class=\"string\">'post-comment'</span>, <span class=\"string\">'PostComment'</span>); <span class=\"regexp\">//</span> <span class=\"literal\">true</span>\nisEquivType(<span class=\"string\">'post-comment'</span>, <span class=\"string\">'post_comment'</span>); <span class=\"regexp\">//</span> <span class=\"literal\">true</span>\nisEquivType(<span class=\"string\">'post-comment'</span>, <span class=\"string\">'post-comment'</span>); <span class=\"regexp\">//</span> <span class=\"literal\">true</span>\nisEquivType(<span class=\"string\">'post-comment'</span>, <span class=\"string\">'post'</span>); <span class=\"regexp\">//</span> <span class=\"literal\">false</span>\nisEquivType(<span class=\"string\">'posts'</span>, null); <span class=\"regexp\">//</span> <span class=\"literal\">false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isEquivType",
+          "params": [
+            {
+              "name": "expected",
+              "description": "a potentially unnormalized type to match against",
+              "type": "String"
+            },
+            {
+              "name": "actual",
+              "description": "a potentially unnormalized type to match against",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "true if the types are equivalent",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 233,
+          "description": "<html><head></head><body><p>Compares two IDs for strict equality, converting them to\nthe format expected by the EmberData Cache to ensure\ndifferences in format are accounted for in the comparison.</p>\n<p>Asserts when expected or actual are invalid IDs in dev.\nExpected may never be null.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>isEquivId(<span class=\"string\">'1'</span>, <span class=\"number\">1</span>); <span class=\"regexp\">//</span> <span class=\"literal\">true</span>\nisEquivId(<span class=\"string\">'2'</span>, <span class=\"string\">'2'</span>); <span class=\"regexp\">//</span> <span class=\"literal\">true</span>\nisEquivId(<span class=\"number\">3</span>, <span class=\"string\">'3'</span>); <span class=\"regexp\">//</span> <span class=\"literal\">true</span>\nisEquivId(<span class=\"number\">4</span>, <span class=\"string\">'3'</span>); <span class=\"regexp\">//</span> <span class=\"literal\">false</span>\nisEquivId(<span class=\"number\">1</span>, null); <span class=\"regexp\">//</span> <span class=\"literal\">false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "isEquivId",
+          "params": [
+            {
+              "name": "expected",
+              "description": "a potentially un-normalized id to match against",
+              "type": "String | number"
+            },
+            {
+              "name": "actual",
+              "description": "a potentially un-normalized id to match against",
+              "type": "String | number"
+            }
+          ],
+          "return": {
+            "description": "true if the ids are equivalent",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.3.8-@ember-data/legacy-compat/utils",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.3.8",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

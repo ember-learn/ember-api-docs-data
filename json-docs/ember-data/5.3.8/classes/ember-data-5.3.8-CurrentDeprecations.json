@@ -1,0 +1,176 @@
+{
+  "data": {
+    "id": "ember-data-5.3.8-CurrentDeprecations",
+    "type": "class",
+    "attributes": {
+      "name": "CurrentDeprecations",
+      "shortname": "CurrentDeprecations",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/build-config/deprecations",
+      "namespace": "",
+      "file": "../build-config/src/deprecation-versions.ts",
+      "line": 81,
+      "description": "<html><head></head><body><p>The following list represents deprecations currently active.</p>\n<p>Some deprecation flags guard multiple deprecation IDs. All\nassociated IDs are listed.</p>\n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/build-config/src/deprecation-versions.ts",
+          "line": 91,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-non-strict-types</strong></p>\n<p>Currently, EmberData expects that the <code>type</code> property associated with\na resource follows several conventions.</p>\n<ul>\n<li>The <code>type</code> property must be a non-empty string</li>\n<li>The <code>type</code> property must be singular</li>\n<li>The <code>type</code> property must be dasherized</li>\n</ul>\n<p>We are deprecating support for types that do not match this pattern\nin order to unlock future improvements in which we can support <code>type</code>\nbeing any string of your choosing.</p>\n<p>The goal is that in the future, you will be able to use any string\nso long as it matches what your configured cache, identifier generation,\nand schemas expect.</p>\n<p>E.G. It will matter not that your string is in a specific format like\nsingular, dasherized, etc. so long as everywhere you refer to the type\nyou use the same string.</p>\n<p>If using @ember-data/model, there will always be a restriction that the\n<code>type</code> must match the path on disk where the model is defined.</p>\n<p>e.g. <code>app/models/foo/bar-bem.js</code> must have a type of <code>foo/bar-bem</code></p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_NON_STRICT_TYPES",
+          "since": "5.3",
+          "until": "6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@warp-drive/build-config/deprecations"
+        },
+        {
+          "file": "../packages/build-config/src/deprecation-versions.ts",
+          "line": 125,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-non-strict-id</strong></p>\n<p>Currently, EmberData expects that the <code>id</code> property associated with\na resource is a string.</p>\n<p>However, for legacy support in many locations we would accept a number\nwhich would then immediately be coerced into a string.</p>\n<p>We are deprecating this legacy support for numeric IDs.</p>\n<p>The goal is that in the future, you will be able to use any ID format\nso long as everywhere you refer to the ID you use the same format.</p>\n<p>However, for identifiers we will always use string IDs and so any\ncustom identifier configuration should provide a string ID.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_NON_STRICT_ID",
+          "since": "5.3",
+          "until": "6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@warp-drive/build-config/deprecations"
+        },
+        {
+          "file": "../packages/build-config/src/deprecation-versions.ts",
+          "line": 149,
+          "description": "<html><head></head><body><p><strong>id: <none yet=\"\" assigned=\"\"></none></strong></p>\n<p>This is a planned deprecation which will trigger when observer or computed\nchains are used to watch for changes on any EmberData LiveArray, CollectionRecordArray,\nManyArray or PromiseManyArray.</p>\n<p>Support for these chains is currently guarded by the deprecation flag\nlisted here, enabling removal of the behavior if desired.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_COMPUTED_CHAINS",
+          "since": "5.0",
+          "until": "6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@warp-drive/build-config/deprecations"
+        },
+        {
+          "file": "../packages/build-config/src/deprecation-versions.ts",
+          "line": 166,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-legacy-imports</strong></p>\n<p>Deprecates when importing from <code>ember-data/*</code> instead of <code>@ember-data/*</code>\nin order to prepare for the eventual removal of the legacy <code>ember-data/*</code></p>\n<p>All imports from <code>ember-data/*</code> should be updated to <code>@ember-data/*</code>\nexcept for <code>ember-data/store</code>. When you are using <code>ember-data</code> (as opposed to\ninstalling the indivudal packages) you should import from <code>ember-data/store</code>\ninstead of <code>@ember-data/store</code> in order to receive the appropriate configuration\nof defaults.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_LEGACY_IMPORTS",
+          "since": "5.3",
+          "until": "6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@warp-drive/build-config/deprecations"
+        },
+        {
+          "file": "../packages/build-config/src/deprecation-versions.ts",
+          "line": 185,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-non-unique-collection-payloads</strong></p>\n<p>Deprecates when the data for a hasMany relationship contains\nduplicate identifiers.</p>\n<p>Previously, relationships would silently de-dupe the data\nwhen received, but this behavior is being removed in favor\nof erroring if the same related record is included multiple\ntimes.</p>\n<p>For instance, in JSON:API the below relationship data would\nbe considered invalid:</p>\n<div class=\"highlight json\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre><span class=\"punctuation\">{</span>\n <span class=\"attr\">\"data\"</span><span class=\"punctuation\">:</span> <span class=\"punctuation\">{</span>\n  <span class=\"attr\">\"type\"</span><span class=\"punctuation\">:</span> <span class=\"string\">\"article\"</span><span class=\"punctuation\">,</span>\n   <span class=\"attr\">\"id\"</span><span class=\"punctuation\">:</span> <span class=\"string\">\"1\"</span><span class=\"punctuation\">,</span>\n   <span class=\"attr\">\"relationships\"</span><span class=\"punctuation\">:</span> <span class=\"punctuation\">{</span>\n     <span class=\"attr\">\"comments\"</span><span class=\"punctuation\">:</span> <span class=\"punctuation\">{</span>\n       <span class=\"attr\">\"data\"</span><span class=\"punctuation\">:</span> <span class=\"punctuation\">[</span>\n         <span class=\"punctuation\">{</span> <span class=\"attr\">\"type\"</span><span class=\"punctuation\">:</span> <span class=\"string\">\"comment\"</span><span class=\"punctuation\">,</span> <span class=\"attr\">\"id\"</span><span class=\"punctuation\">:</span> <span class=\"string\">\"1\"</span> <span class=\"punctuation\">}</span><span class=\"punctuation\">,</span>\n         <span class=\"punctuation\">{</span> <span class=\"attr\">\"type\"</span><span class=\"punctuation\">:</span> <span class=\"string\">\"comment\"</span><span class=\"punctuation\">,</span> <span class=\"attr\">\"id\"</span><span class=\"punctuation\">:</span> <span class=\"string\">\"2\"</span> <span class=\"punctuation\">}</span><span class=\"punctuation\">,</span>\n         <span class=\"punctuation\">{</span> <span class=\"attr\">\"type\"</span><span class=\"punctuation\">:</span> <span class=\"string\">\"comment\"</span><span class=\"punctuation\">,</span> <span class=\"attr\">\"id\"</span><span class=\"punctuation\">:</span> <span class=\"string\">\"1\"</span> <span class=\"punctuation\">}</span> <span class=\"comment\">// duplicate</span>\n       <span class=\"punctuation\">]</span>\n    <span class=\"punctuation\">}</span>\n <span class=\"punctuation\">}</span>\n<span class=\"punctuation\">}</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>To resolve this deprecation, either update your server to\nnot include duplicate data, or implement normalization logic\nin either a request handler or serializer which removes\nduplicate data from relationship payloads.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_NON_UNIQUE_PAYLOADS",
+          "since": "5.3",
+          "until": "6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@warp-drive/build-config/deprecations"
+        },
+        {
+          "file": "../packages/build-config/src/deprecation-versions.ts",
+          "line": 228,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-relationship-remote-update-clearing-local-state</strong></p>\n<p>Deprecates when a relationship is updated remotely and the local state\nis cleared of all changes except for \"new\" records.</p>\n<p>Instead, any records not present in the new payload will be considered\n\"removed\" while any records present in the new payload will be considered \"added\".</p>\n<p>This allows us to \"commit\" local additions and removals, preserving any additions\nor removals that are not yet reflected in the remote state.</p>\n<p>For instance, given the following initial state:</p>\n<p>remote: A, B, C\nlocal: add D, E\n       remove B, C\n=&gt; A, D, E</p>\n<p>If after an update, the remote state is now A, B, D, F then the new state will be</p>\n<p>remote: A, B, D, F\nlocal: add E\n       remove B\n=&gt; A, D, E, F</p>\n<p>Under the old behavior the updated local state would instead have been\n=&gt; A, B, D, F</p>\n<p>Similarly, if a belongsTo remote State was A while its local state was B,\nthen under the old behavior if the remote state changed to C, the local state\nwould be updated to C. Under the new behavior, the local state would remain B.</p>\n<p>If the remote state was A while its local state was <code>null</code>, then under the old\nbehavior if the remote state changed to C, the local state would be updated to C.\nUnder the new behavior, the local state would remain <code>null</code>.</p>\n<p>Thus the new correct mental model is that the state of the relationship at any point\nin time is whatever the most recent remote state is, plus any local additions or removals\nyou have made that have not yet been reflected by the remote state.</p>\n<blockquote>\n<p>Note: The old behavior extended to modifying the inverse of a relationship. So if\nyou had local state not reflected in the new remote state, inverses would be notified\nand their state reverted as well when \"resetting\" the relationship.\nUnder the new behavior, since the local state is preserved the inverses will also\nnot be reverted.</p>\n</blockquote>\n<h3 id=\"resolving-this-deprecation\">Resolving this deprecation</h3>\n<p>Resolving this deprecation can be done individually for each relationship\nor globally for all relationships.</p>\n<p>To resolve it globally, set the <code>DEPRECATE_RELATIONSHIP_REMOTE_UPDATE_CLEARING_LOCAL_STATE</code>\nto <code>false</code> in ember-cli-build.js</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">const</span> { setConfig } = <span class=\"keyword\">await</span> <span class=\"keyword\">import</span>(<span class=\"string\">'@warp-drive/build-config'</span>);\n\n<span class=\"keyword\">let</span> app = <span class=\"keyword\">new</span> <span class=\"title class_\">EmberApp</span>(defaults, {});\n\n<span class=\"title function_\">setConfig</span>(app, __dirname, {\n  <span class=\"attr\">deprecations</span>: {\n    <span class=\"comment\">// set to false to strip the deprecated code (thereby opting into the new behavior)</span>\n    <span class=\"attr\">DEPRECATE_RELATIONSHIP_REMOTE_UPDATE_CLEARING_LOCAL_STATE</span>: <span class=\"literal\">false</span>\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>To resolve this deprecation on an individual relationship, adjust the <code>options</code> passed to\nthe relationship. For relationships with inverses, both sides MUST be migrated to the new\nbehavior at the same time.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">Person</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n <span class=\"meta\">@hasMany</span>('person', {\n   async: <span class=\"literal\">false</span>,\n   inverse: <span class=\"literal\">null</span>,\n   resetOnRemoteUpdate: <span class=\"literal\">false</span>\n }) children;\n\n <span class=\"meta\">@belongsTo</span>('person', {\n   async: <span class=\"literal\">false</span>,\n   inverse: <span class=\"literal\">null</span>,\n   resetOnRemoteUpdate: <span class=\"literal\">false</span>\n }) parent;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<blockquote>\n<p>Note: false is the only valid value here, all other values (including missing)\nwill be treated as true, where <code>true</code> is the legacy behavior that is now deprecated.</p>\n</blockquote>\n<p>Once you have migrated all relationships, you can remove the the resetOnRemoteUpdate\noption and set the deprecation flag to false in ember-cli-build.</p>\n<h3 id=\"what-if-i-dont-want-the-new-behavior\">What if I don't want the new behavior?</h3>\n<p>EmberData's philosophy is to not make assumptions about your application. Where possible\nwe seek out \"100%\" solutions – solutions that work for all use cases - and where that is\nnot possible we default to \"90%\" solutions – solutions that work for the vast majority of use\ncases. In the case of \"90%\" solutions we look for primitives that allow you to resolve the\n10% case in your application. If no such primitives exist, we provide an escape hatch that\nensures you can build the behavior you need without adopting the cost of the default solution.</p>\n<p>In this case, the old behavior was a \"40%\" solution. The inability for an application developer\nto determine what changes were made locally, and thus what changes should be preserved, made\nit impossible to build certain features easily, or in some cases at all. The proliferation of\nfeature requests, bug reports (from folks surprised by the prior behavior) and addon attempts\nin this space are all evidence of this.</p>\n<p>We believe the new behavior is a \"90%\" solution. It works for the vast majority of use cases,\noften without noticeable changes to existing application behavior, and provides primitives that\nallow you to build the behavior you need for the remaining 10%.</p>\n<p>The great news is that this behavior defaults to trusting your API similar to the old behavior.\nIf your API is correct, you will not need to make any changes to your application to adopt\nthe new behavior.</p>\n<p>This means the 10% cases are those where you can't trust your API to provide the correct\ninformation. In these cases, because you now have cheap access to a diff of the relationship\nstate, there are a few options that weren't available before:</p>\n<ul>\n<li>you can adjust returned API payloads to contain the expected changes that it doesn't include</li>\n<li>you can modify local state by adding or removing records on the HasMany record array to remove\nany local changes that were not returned by the API.</li>\n<li>you can use <code>&lt;Cache&gt;.mutate(mutation)</code> to directly modify the local cache state of the relationship\nto match the expected state.</li>\n</ul>\n<p>What this version (5.3) does not yet provide is a way to directly modify the cache's remote state\nfor the relationship via public APIs other than via the broader action of upserting a response via\n<code>&lt;Cache&gt;.put(document)</code>. However, such an API was sketched in the Cache 2.1 RFC\n<code>&lt;Cache&gt;.patch(operation)</code> and is likely to be added in a future 5.x release of EmberData.</p>\n<p>This version (5.3) also does not yet provide a way to directly modify the graph (a general purpose\nsubset of cache behaviors specific to relationships) via public APIs. However, during the\n5.x release series we will be working on finalizing the Graph API and making it public.</p>\n<p>If none of these options work for you, you can always opt-out more broadly by implementing\na custom Cache with the relationship behaviors you need.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_RELATIONSHIP_REMOTE_UPDATE_CLEARING_LOCAL_STATE",
+          "since": "5.3",
+          "until": "6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@warp-drive/build-config/deprecations"
+        },
+        {
+          "file": "../packages/build-config/src/deprecation-versions.ts",
+          "line": 375,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-many-array-duplicates</strong></p>\n<p>When the flag is <code>true</code> (default), adding duplicate records to a <code>ManyArray</code>\nis deprecated in non-production environments. In production environments,\nduplicate records added to a <code>ManyArray</code> will be deduped and no error will\nbe thrown.</p>\n<p>When the flag is <code>false</code>, an error will be thrown when duplicates are added.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_MANY_ARRAY_DUPLICATES",
+          "since": "5.3",
+          "until": "6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@warp-drive/build-config/deprecations"
+        },
+        {
+          "file": "../packages/build-config/src/deprecation-versions.ts",
+          "line": 392,
+          "description": "<html><head></head><body><p><strong>id: ember-data:deprecate-store-extends-ember-object</strong></p>\n<p>When the flag is <code>true</code> (default), the Store class will extend from <code>@ember/object</code>.\nWhen the flag is <code>false</code> or <code>ember-source</code> is not present, the Store will not extend\nfrom EmberObject.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_STORE_EXTENDS_EMBER_OBJECT",
+          "since": "5.4",
+          "until": "6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@warp-drive/build-config/deprecations"
+        },
+        {
+          "file": "../packages/build-config/src/deprecation-versions.ts",
+          "line": 406,
+          "description": "<html><head></head><body><p><strong>id: ember-data:schema-service-updates</strong></p>\n<p>When the flag is <code>true</code> (default), the legacy schema\nservice features will be enabled on the store and\nthe service, and deprecations will be thrown when\nthey are used.</p>\n<p>Deprecated features include:</p>\n<ul>\n<li><code>Store.registerSchema</code> method is deprecated in favor of the <code>Store.createSchemaService</code> hook</li>\n<li><code>Store.registerSchemaDefinitionService</code> method is deprecated in favor of the <code>Store.createSchemaService</code> hook</li>\n<li><code>Store.getSchemaDefinitionService</code> method is deprecated in favor of <code>Store.schema</code> property</li>\n<li><code>SchemaService.doesTypeExist</code> method is deprecated in favor of the <code>SchemaService.hasResource</code> method</li>\n<li><code>SchemaService.attributesDefinitionFor</code> method is deprecated in favor of the <code>SchemaService.fields</code> method</li>\n<li><code>SchemaService.relationshipsDefinitionFor</code> method is deprecated in favor of the <code>SchemaService.fields</code> method</li>\n</ul>\n</body></html>",
+          "itemtype": "property",
+          "name": "ENABLE_LEGACY_SCHEMA_SERVICE",
+          "since": "5.4",
+          "until": "6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@warp-drive/build-config/deprecations"
+        },
+        {
+          "file": "../packages/build-config/src/deprecation-versions.ts",
+          "line": 430,
+          "description": "<html><head></head><body><p><strong>id: warp-drive.ember-inflector</strong></p>\n<p>Deprecates the use of ember-inflector for pluralization and singularization in favor\nof the <code>@ember-data/request-utils</code> package.</p>\n<p>This deprecation can be resolved by removing usage of ember-inflector or by using\nboth ember-inflector and @ember-data/request-utils in parallel and updating your\nEmberData/WarpDrive build config to mark the deprecation as resolved\nin ember-cli-build</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"title function_ invoke__\">setConfig</span>(app, __dirname, { <span class=\"attr\">deprecations</span>: { <span class=\"attr\">DEPRECATE_EMBER_INFLECTOR</span>: <span class=\"literal\">false</span> }});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "property",
+          "name": "DEPRECATE_EMBER_INFLECTOR",
+          "since": "5.3",
+          "until": "6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "CurrentDeprecations",
+          "module": "@warp-drive/build-config/deprecations"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.3.8-@warp-drive/build-config/deprecations",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.3.8",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
