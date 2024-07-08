@@ -1,0 +1,92 @@
+{
+  "data": {
+    "id": "ember-data-3.11.5-ServerError",
+    "type": "class",
+    "attributes": {
+      "name": "ServerError",
+      "shortname": "ServerError",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/adapter",
+      "namespace": "",
+      "file": "../adapter/addon/error.js",
+      "line": 328,
+      "description": "A `ServerError` equates to a HTTP `500 Internal Server Error` response\nstatus. It is used by the adapter to indicate that a request has failed\nbecause of an error in the external API.",
+      "extends": "AdapterError",
+      "methods": [
+        {
+          "file": "../adapter/addon/error.js",
+          "line": 341,
+          "description": "Convert an hash of errors into an array with errors in JSON-API format.\n\n```javascript\nimport { errorsHashToArray } from '@ember-data/adapter/error';\n\nlet errors = {\n  base: 'Invalid attributes on saving this record',\n  name: 'Must be present',\n  age: ['Must be present', 'Must be a number']\n};\n\nlet errorsArray = errorsHashToArray(errors);\n// [\n//   {\n//     title: \"Invalid Document\",\n//     detail: \"Invalid attributes on saving this record\",\n//     source: { pointer: \"/data\" }\n//   },\n//   {\n//     title: \"Invalid Attribute\",\n//     detail: \"Must be present\",\n//     source: { pointer: \"/data/attributes/name\" }\n//   },\n//   {\n//     title: \"Invalid Attribute\",\n//     detail: \"Must be present\",\n//     source: { pointer: \"/data/attributes/age\" }\n//   },\n//   {\n//     title: \"Invalid Attribute\",\n//     detail: \"Must be a number\",\n//     source: { pointer: \"/data/attributes/age\" }\n//   }\n// ]\n```",
+          "itemtype": "method",
+          "name": "errorsHashToArray",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "errors",
+              "description": "hash with errors as properties",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "array of errors in JSON-API format",
+            "type": "Array"
+          },
+          "class": "ServerError",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/error.js",
+          "line": 410,
+          "description": "Convert an array of errors in JSON-API format into an object.\n\n```javascript\nimport { errorsArrayToHash } from '@ember-data/adapter/error';\n\nlet errorsArray = [\n  {\n    title: 'Invalid Attribute',\n    detail: 'Must be present',\n    source: { pointer: '/data/attributes/name' }\n  },\n  {\n    title: 'Invalid Attribute',\n    detail: 'Must be present',\n    source: { pointer: '/data/attributes/age' }\n  },\n  {\n    title: 'Invalid Attribute',\n    detail: 'Must be a number',\n    source: { pointer: '/data/attributes/age' }\n  }\n];\n\nlet errors = errorsArrayToHash(errorsArray);\n// {\n//   \"name\": [\"Must be present\"],\n//   \"age\":  [\"Must be present\", \"must be a number\"]\n// }\n```",
+          "itemtype": "method",
+          "name": "errorsArrayToHash",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "errors",
+              "description": "array of errors in JSON-API format",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "ServerError",
+          "module": "@ember-data/adapter"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.11.5-AdapterError",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.11.5-@ember-data/adapter",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.11.5",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

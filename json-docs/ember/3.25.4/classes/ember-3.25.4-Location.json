@@ -1,0 +1,70 @@
+{
+  "data": {
+    "id": "ember-3.25.4-Location",
+    "type": "class",
+    "attributes": {
+      "name": "Location",
+      "shortname": "Location",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/routing",
+      "namespace": "",
+      "file": "packages/@ember/-internals/routing/lib/location/api.ts",
+      "line": 20,
+      "description": "Location returns an instance of the correct implementation of\nthe `location` API.\n\n## Implementations\n\nYou can pass an implementation name (`hash`, `history`, `none`, `auto`) to force a\nparticular implementation to be used in your application.\n\nSee [HashLocation](/ember/release/classes/HashLocation).\nSee [HistoryLocation](/ember/release/classes/HistoryLocation).\nSee [NoneLocation](/ember/release/classes/NoneLocation).\nSee [AutoLocation](/ember/release/classes/AutoLocation).\n\n## Location API\n\nEach location implementation must provide the following methods:\n\n* implementation: returns the string name used to reference the implementation.\n* getURL: returns the current URL.\n* setURL(path): sets the current URL.\n* replaceURL(path): replace the current URL (optional).\n* onUpdateURL(callback): triggers the callback when the URL changes.\n* formatURL(url): formats `url` to be placed into `href` attribute.\n* detect() (optional): instructs the location to do any feature detection\n    necessary. If the location needs to redirect to a different URL, it\n    can cancel routing by setting the `cancelRouterSetup` property on itself\n    to `false`.\n\nCalling setURL or replaceURL will not trigger onUpdateURL callbacks.\n\n## Custom implementation\n\nEmber scans `app/locations/*` for extending the Location API.\n\nExample:\n\n```javascript\nimport HistoryLocation from '@ember/routing/history-location';\n\nexport default class MyHistory {\n  implementation: 'my-custom-history',\n  constructor() {\n    this._history = HistoryLocation.create(...arguments);\n  }\n  create() {\n    return new this(...arguments);\n  }\n  pushState(path) {\n     this._history.pushState(path);\n  }\n}\n```",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/location/api.ts",
+          "line": 78,
+          "description": "This is deprecated in favor of using the container to lookup the location\nimplementation as desired.\n\nFor example:\n\n```javascript\n// Given a location registered as follows:\ncontainer.register('location:history-test', HistoryTestLocation);\n\n// You could create a new instance via:\ncontainer.lookup('location:history-test');\n```",
+          "itemtype": "method",
+          "name": "create",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "an instance of an implementation of the `location` API",
+            "type": "Object"
+          },
+          "deprecated": true,
+          "deprecationMessage": "Use the container to lookup the location implementation that you\n need.",
+          "access": "private",
+          "tagname": "",
+          "class": "Location",
+          "module": "@ember/routing"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.25.4-@ember/routing",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.25.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "data": {
+    "id": "ember-data-3.27.1-RecordArray",
+    "type": "class",
+    "attributes": {
+      "name": "RecordArray",
+      "shortname": "RecordArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/addon/-private/system/record-arrays/record-array.js",
+      "line": 21,
+      "description": "A record array is an array that contains records of a certain modelName. The record\narray materializes records as needed when they are retrieved for the first\ntime. You should not create record arrays yourself. Instead, an instance of\n`RecordArray` or its subclasses will be returned by your application's store\nin response to queries.",
+      "extends": "ArrayProxy",
+      "uses": [
+        "Ember.Evented"
+      ],
+      "methods": [
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 114,
+          "description": "Retrieves an object from the content by index.",
+          "itemtype": "method",
+          "name": "objectAtContent",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "index",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "Model"
+          },
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 127,
+          "description": "Used to get the latest version of all of the records in this array\nfrom the adapter.\n\nExample\n\n```javascript\nlet people = store.peekAll('person');\npeople.get('isUpdating'); // false\n\npeople.update().then(function() {\n  people.get('isUpdating'); // false\n});\n\npeople.get('isUpdating'); // true\n```",
+          "itemtype": "method",
+          "name": "update",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 174,
+          "description": "Saves all of the records in the `RecordArray`.\n\nExample\n\n```javascript\nlet messages = store.peekAll('message');\nmessages.forEach(function(message) {\n  message.set('hasBeenSeen', true);\n});\nmessages.save();\n```",
+          "itemtype": "method",
+          "name": "save",
+          "return": {
+            "description": "promise",
+            "type": "PromiseArray"
+          },
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 201,
+          "itemtype": "method",
+          "name": "_unregisterFromManager",
+          "access": "private",
+          "tagname": "",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 233,
+          "itemtype": "method",
+          "name": "_dissociateFromOwnRecords",
+          "internal": "",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 247,
+          "description": "Adds identifiers to the `RecordArray` without duplicates",
+          "itemtype": "method",
+          "name": "_pushIdentifiers",
+          "internal": "",
+          "params": [
+            {
+              "name": "identifiers",
+              "description": "",
+              "type": "StableRecordIdentifier[]"
+            }
+          ],
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 258,
+          "description": "Removes identifiers from the `RecordArray`.",
+          "itemtype": "method",
+          "name": "_removeIdentifiers",
+          "internal": "",
+          "params": [
+            {
+              "name": "identifiers",
+              "description": "",
+              "type": "StableRecordIdentifier[]"
+            }
+          ],
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 269,
+          "itemtype": "method",
+          "name": "_takeSnapshot",
+          "internal": "",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 41,
+          "description": "The array of client ids backing the record array. When a\nrecord is requested from the record array, the record\nfor the client id at the same index is materialized, if\nnecessary, by the store.",
+          "itemtype": "property",
+          "name": "content",
+          "access": "private",
+          "tagname": "",
+          "type": "Ember.Array",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 53,
+          "description": "The flag to signal a `RecordArray` is finished loading data.\n\nExample\n\n```javascript\nlet people = store.peekAll('person');\npeople.get('isLoaded'); // true\n```",
+          "itemtype": "property",
+          "name": "isLoaded",
+          "type": "Boolean",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 67,
+          "description": "The flag to signal a `RecordArray` is currently loading data.\n\nExample\n\n```javascript\nlet people = store.peekAll('person');\npeople.get('isUpdating'); // false\npeople.update();\npeople.get('isUpdating'); // true\n```",
+          "itemtype": "property",
+          "name": "isUpdating",
+          "type": "Boolean",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 84,
+          "description": "The store that created this record array.",
+          "itemtype": "property",
+          "name": "store",
+          "access": "private",
+          "tagname": "",
+          "type": "Store",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 101,
+          "description": "The modelClass represented by this record array.",
+          "itemtype": "property",
+          "name": "type",
+          "type": "Model",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ArrayProxy",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-3.27.1-AdapterPopulatedRecordArray"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.27.1-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.27.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

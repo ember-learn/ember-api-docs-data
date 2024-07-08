@@ -1,0 +1,206 @@
+{
+  "data": {
+    "id": "ember-3.4.8-Map",
+    "type": "class",
+    "attributes": {
+      "name": "Map",
+      "shortname": "Map",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/map",
+      "namespace": "",
+      "file": "packages/@ember/map/index.js",
+      "line": 33,
+      "description": "A Map stores values indexed by keys. Unlike JavaScript's\ndefault Objects, the keys of a Map can be any JavaScript\nobject.\n\nInternally, a Map has two data structures:\n\n1. `keys`: an OrderedSet of all of the existing keys\n2. `values`: a JavaScript Object indexed by the `guidFor(key)`\n\nWhen a key/value pair is added for the first time, we\nadd the key to the `keys` OrderedSet, and create or\nreplace an entry in `values`. When an entry is deleted,\nwe delete its entry in `keys` and `values`.",
+      "access": "private",
+      "tagname": "",
+      "is_constructor": 1,
+      "deprecated": true,
+      "deprecationMessage": "use native `Map` instead.",
+      "methods": [
+        {
+          "file": "packages/@ember/map/index.js",
+          "line": 65,
+          "itemtype": "method",
+          "name": "create",
+          "static": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Map",
+          "module": "@ember/map"
+        },
+        {
+          "file": "packages/@ember/map/index.js",
+          "line": 75,
+          "description": "Retrieve the value associated with a given key.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "the value associated with the key, or `undefined`",
+            "type": "*"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Map",
+          "module": "@ember/map"
+        },
+        {
+          "file": "packages/@ember/map/index.js",
+          "line": 94,
+          "description": "Adds a value to the map. If a value for the given key has already been\nprovided, the new value will replace the old value.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Map"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Map",
+          "module": "@ember/map"
+        },
+        {
+          "file": "packages/@ember/map/index.js",
+          "line": 121,
+          "description": "Removes a value from the map for an associated key.",
+          "since": "1.8.0",
+          "itemtype": "method",
+          "name": "delete",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "true if an item was removed, false otherwise",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Map",
+          "module": "@ember/map"
+        },
+        {
+          "file": "packages/@ember/map/index.js",
+          "line": 149,
+          "description": "Check whether a key is present.",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "true if the item was present, false otherwise",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Map",
+          "module": "@ember/map"
+        },
+        {
+          "file": "packages/@ember/map/index.js",
+          "line": 161,
+          "description": "Iterate over all the keys and values. Calls the function once\nfor each key, passing in value, key, and the map being iterated over,\nin that order.\n\nThe keys are guaranteed to be iterated over in insertion order.",
+          "itemtype": "method",
+          "name": "forEach",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "self",
+              "description": "if passed, the `this` value inside the\n  callback. By default, `this` is the map.",
+              "type": "*"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Map",
+          "module": "@ember/map"
+        },
+        {
+          "file": "packages/@ember/map/index.js",
+          "line": 197,
+          "itemtype": "method",
+          "name": "clear",
+          "access": "private",
+          "tagname": "",
+          "class": "Map",
+          "module": "@ember/map"
+        },
+        {
+          "file": "packages/@ember/map/index.js",
+          "line": 207,
+          "itemtype": "method",
+          "name": "copy",
+          "return": {
+            "description": "",
+            "type": "Map"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Map",
+          "module": "@ember/map"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-3.4.8-MapWithDefault"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.4.8-@ember/map",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.4.8",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

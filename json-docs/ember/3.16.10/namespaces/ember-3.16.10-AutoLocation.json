@@ -1,0 +1,129 @@
+{
+  "data": {
+    "id": "ember-3.16.10-AutoLocation",
+    "type": "namespace",
+    "attributes": {
+      "name": "AutoLocation",
+      "shortname": "AutoLocation",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/routing",
+      "namespace": "",
+      "file": "packages/@ember/-internals/routing/lib/location/auto_location.ts",
+      "line": 22,
+      "description": "AutoLocation will select the best location option based off browser\nsupport with the priority order: history, hash, none.\n\nClean pushState paths accessed by hashchange-only browsers will be redirected\nto the hash-equivalent and vice versa so future transitions are consistent.\n\nKeep in mind that since some of your users will use `HistoryLocation`, your\nserver must serve the Ember app at all the routes you define.\n\nBrowsers that support the `history` API will use `HistoryLocation`, those that\ndo not, but still support the `hashchange` event will use `HashLocation`, and\nin the rare case neither is supported will use `NoneLocation`.\n\nExample:\n\n```js {data-filename=app/router.js}\nRouter.map(function() {\n  this.route('posts', function() {\n    this.route('new');\n  });\n});\n\nRouter.reopen({\n  location: 'auto'\n});\n```\n\nThis will result in a posts.new url of `/posts/new` for modern browsers that\nsupport the `history` api or `/#/posts/new` for older ones, like Internet\nExplorer 9 and below.\n\nWhen a user visits a link to your application, they will be automatically\nupgraded or downgraded to the appropriate `Location` class, with the URL\ntransformed accordingly, if needed.\n\nKeep in mind that since some of your users will use `HistoryLocation`, your\nserver must serve the Ember app at all the routes you define.",
+      "static": 1,
+      "access": "protected",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/location/auto_location.ts",
+          "line": 317,
+          "access": "private",
+          "tagname": "Returns the current path as it should appear for HashLocation supported\nbrowsers. This may very well differ from the real current path.",
+          "itemtype": "method",
+          "name": "_getHashPath",
+          "class": "AutoLocation",
+          "module": "@ember/routing"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/location/auto_location.ts",
+          "line": 119,
+          "access": "private",
+          "tagname": "Will be pre-pended to path upon state change.",
+          "since": "1.5.1",
+          "itemtype": "property",
+          "name": "rootURL",
+          "default": "'/'",
+          "class": "AutoLocation",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/location/auto_location.ts",
+          "line": 136,
+          "access": "private",
+          "tagname": "The browser's `location` object. This is typically equivalent to\n`window.location`, but may be overridden for testing.",
+          "itemtype": "property",
+          "name": "location",
+          "default": "environment.location",
+          "class": "AutoLocation",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/location/auto_location.ts",
+          "line": 147,
+          "access": "private",
+          "tagname": "The browser's `history` object. This is typically equivalent to\n`window.history`, but may be overridden for testing.",
+          "since": "1.5.1",
+          "itemtype": "property",
+          "name": "history",
+          "default": "environment.history",
+          "class": "AutoLocation",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/location/auto_location.ts",
+          "line": 159,
+          "access": "private",
+          "tagname": "The user agent's global variable. In browsers, this will be `window`.",
+          "since": "1.11",
+          "itemtype": "property",
+          "name": "global",
+          "default": "window",
+          "class": "AutoLocation",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/location/auto_location.ts",
+          "line": 170,
+          "access": "private",
+          "tagname": "The browser's `userAgent`. This is typically equivalent to\n`navigator.userAgent`, but may be overridden for testing.",
+          "since": "1.5.1",
+          "itemtype": "property",
+          "name": "userAgent",
+          "default": "environment.history",
+          "class": "AutoLocation",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/location/auto_location.ts",
+          "line": 182,
+          "access": "private",
+          "tagname": "This property is used by the router to know whether to cancel the routing\nsetup process, which is needed while we redirect the browser.",
+          "since": "1.5.1",
+          "itemtype": "property",
+          "name": "cancelRouterSetup",
+          "default": "false",
+          "class": "AutoLocation",
+          "module": "@ember/routing"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.16.10-@ember/routing",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.16.10",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

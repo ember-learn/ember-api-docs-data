@@ -1,0 +1,42 @@
+{
+  "data": {
+    "id": "ember-2.1.2-ember-templates",
+    "type": "module",
+    "attributes": {
+      "name": "ember-templates",
+      "submodules": {},
+      "fors": {
+        "Ember.Templates.helpers": 1
+      },
+      "is_submodule": 1,
+      "namespaces": {},
+      "namespace": "",
+      "file": "packages/ember-htmlbars/lib/helper.js",
+      "line": 8,
+      "access": "public",
+      "tagname": "",
+      "description": "Ember templates are executed by [HTMLBars](https://github.com/tildeio/htmlbars),\nan HTML-friendly version of [Handlebars](http://handlebarsjs.com/). Any valid Handlebars syntax is valid in an Ember template.\n\n### Showing a property\n\nTemplates manage the flow of an application's UI, and display state (through\nthe DOM) to a user. For example, given a component with the property \"name\",\nthat component's template can use the name in several ways:\n\n```javascript\n// app/components/person.js\nexport default Ember.Component.extend({\n  name: 'Jill'\n});\n```\n\n```handlebars\n{{! app/components/person.hbs }}\n{{name}}\n<div>{{name}}</div>\n<span data-name={{name}}></span>\n```\n\nAny time the \"name\" property on the component changes, the DOM will be\nupdated.\n\nProperties can be chained as well:\n\n```handlebars\n{{aUserModel.name}}\n<div>{{listOfUsers.firstObject.name}}</div>\n```\n\n### Using Ember helpers\n\nWhen content is passed in mustaches `{{}}`, Ember will first try to find a helper\nor component with that name. For example, the `if` helper:\n\n```handlebars\n{{if name \"I have a name\" \"I have no name\"}}\n<span data-has-name={{if name true}}></span>\n```\n\nThe returned value is placed where the `{{}}` is called. The above style is\ncalled \"inline\". A second style of helper usage is called \"block\". For example:\n\n```handlebars\n{{#if name}}\n  I have a name\n{{else}}\n  I have no name\n{{/if}}\n```\n\nThe block form of helpers allows you to control how the UI is created based\non the values of properties.\n\nA third form of helper is called \"nested\". For example here the concat\nhelper will add \" Doe\" to a displayed name if the person has no last name:\n\n```handlebars\n<span data-name={{concat firstName (\n if lastName (concat \" \" lastName) \"Doe\"\n)}}></span>\n```\n\nEmber's built-in helpers are described under the [Ember.Templates.helpers](/api/classes/Ember.Templates.helpers.html)\nnamespace. Documentation on creating custom helpers can be found under\n[Ember.Helper](/api/classes/Ember.Helper.html).\n\n### Invoking a Component\n\nEmber components represent state to the UI of an application. Further\nreading on components can be found under [Ember.Component](/api/classes/Ember.Component.html).",
+      "tag": "main",
+      "itemtype": "main",
+      "parent": "ember",
+      "publicclasses": [
+        "Ember.Helper"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "2.1.2"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.1.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

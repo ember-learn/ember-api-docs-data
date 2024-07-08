@@ -14,14 +14,14 @@
       "namespace": "",
       "file": "../store/src/-types/q/schema-service.ts",
       "line": 25,
-      "description": "<html><head></head><body><p>The SchemaService provides the ability to query for information about the structure\nof any resource type.</p>\n<p>Applications can provide any implementation of the SchemaService they please so long\nas it conforms to this interface.</p>\n<p>The design of the service means that schema information could be lazily populated,\nderived-on-demand, or progressively enhanced during the course of an application's runtime.\nThe primary requirement is merely that any information the service needs to correctly\nrespond to an inquest is available by the time it is asked.</p>\n<p>The <code>@ember-data/model</code> package provides an implementation of this service which\nmakes use of your model classes as the source of information to respond to queries\nabout resource schema. While this is useful, this may not be ideal for your application.\nFor instance, Schema information could be sideloaded or pre-flighted for API calls,\nresulting in no need to bundle and ship potentially large and expensive JSON\nor large Javascript based Models to pull information from.</p>\n<p>To register a custom schema implementation, implement the store's <code>createSchemaService</code>\nhook to return an instance of your service.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Store</span> from '<span class=\"meta\">@ember</span>-data/store';\n<span class=\"keyword\">import</span> <span class=\"type\">CustomSchemas</span> from './custom-schemas';\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Store</span> </span>{\n  createSchemaService() {\n    <span class=\"keyword\">return</span> <span class=\"keyword\">new</span> <span class=\"type\">CustomSchemas</span>();\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>At runtime, both the <code>Store</code> and the <code>CacheCapabilitiesManager</code> provide\naccess to this service via the <code>schema</code> property.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Component</span> </span>{\n <span class=\"meta\">@service</span> store;\n\n get fields() {\n   <span class=\"keyword\">return</span> <span class=\"keyword\">this</span>.store\n     .schema\n     .fields(<span class=\"keyword\">this</span>.args.dataType);\n }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "description": "The SchemaService provides the ability to query for information about the structure\nof any resource type.\n\nApplications can provide any implementation of the SchemaService they please so long\nas it conforms to this interface.\n\nThe design of the service means that schema information could be lazily populated,\nderived-on-demand, or progressively enhanced during the course of an application's runtime.\nThe primary requirement is merely that any information the service needs to correctly\nrespond to an inquest is available by the time it is asked.\n\nThe `@ember-data/model` package provides an implementation of this service which\nmakes use of your model classes as the source of information to respond to queries\nabout resource schema. While this is useful, this may not be ideal for your application.\nFor instance, Schema information could be sideloaded or pre-flighted for API calls,\nresulting in no need to bundle and ship potentially large and expensive JSON\nor large Javascript based Models to pull information from.\n\nTo register a custom schema implementation, implement the store's `createSchemaService`\nhook to return an instance of your service.\n\n```ts\nimport Store from '@ember-data/store';\nimport CustomSchemas from './custom-schemas';\n\nexport default class extends Store {\n  createSchemaService() {\n    return new CustomSchemas();\n  }\n}\n```\n\nAt runtime, both the `Store` and the `CacheCapabilitiesManager` provide\naccess to this service via the `schema` property.\n\n```ts\nexport default class extends Component {\n @service store;\n\n get fields() {\n   return this.store\n     .schema\n     .fields(this.args.dataType);\n }\n}\n```",
       "access": "public",
       "tagname": "",
       "methods": [
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 77,
-          "description": "<html><head></head><body><p>DEPRECATED - use <code>hasResource</code> instead</p>\n<p>Queries whether the SchemaService recognizes <code>type</code> as a resource type</p>\n</body></html>",
+          "description": "DEPRECATED - use `hasResource` instead\n\nQueries whether the SchemaService recognizes `type` as a resource type",
           "itemtype": "method",
           "name": "doesTypeExist",
           "access": "public",
@@ -44,7 +44,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 90,
-          "description": "<html><head></head><body><p>Queries whether the SchemaService recognizes <code>type</code> as a resource type</p>\n</body></html>",
+          "description": "Queries whether the SchemaService recognizes `type` as a resource type",
           "itemtype": "method",
           "name": "hasResource",
           "access": "public",
@@ -66,7 +66,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 100,
-          "description": "<html><head></head><body><p>Queries whether the SchemaService recognizes <code>type</code> as a resource trait</p>\n</body></html>",
+          "description": "Queries whether the SchemaService recognizes `type` as a resource trait",
           "itemtype": "method",
           "name": "hasTrait",
           "access": "public",
@@ -88,7 +88,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 110,
-          "description": "<html><head></head><body><p>Queries whether the given resource has the given trait</p>\n</body></html>",
+          "description": "Queries whether the given resource has the given trait",
           "itemtype": "method",
           "name": "resourceHasTrait",
           "access": "public",
@@ -115,7 +115,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 121,
-          "description": "<html><head></head><body><p>Queries for the fields of a given resource type or resource identity.</p>\n<p>Should error if the resource type is not recognized.</p>\n</body></html>",
+          "description": "Queries for the fields of a given resource type or resource identity.\n\nShould error if the resource type is not recognized.",
           "itemtype": "method",
           "name": "fields",
           "access": "public",
@@ -137,7 +137,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 133,
-          "description": "<html><head></head><body><p>Returns the transformation registered with the name provided\nby <code>field.type</code>. Validates that the field is a valid transformable.</p>\n</body></html>",
+          "description": "Returns the transformation registered with the name provided\nby `field.type`. Validates that the field is a valid transformable.",
           "itemtype": "method",
           "name": "transformation",
           "access": "public",
@@ -159,7 +159,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 144,
-          "description": "<html><head></head><body><p>Returns the hash function registered with the name provided\nby <code>field.type</code>. Validates that the field is a valid HashField.</p>\n</body></html>",
+          "description": "Returns the hash function registered with the name provided\nby `field.type`. Validates that the field is a valid HashField.",
           "itemtype": "method",
           "name": "hashFn",
           "access": "public",
@@ -181,7 +181,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 155,
-          "description": "<html><head></head><body><p>Returns the derivation registered with the name provided\nby <code>field.type</code>. Validates that the field is a valid DerivedField.</p>\n</body></html>",
+          "description": "Returns the derivation registered with the name provided\nby `field.type`. Validates that the field is a valid DerivedField.",
           "itemtype": "method",
           "name": "derivation",
           "access": "public",
@@ -203,7 +203,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 166,
-          "description": "<html><head></head><body><p>Returns the schema for the provided resource type.</p>\n</body></html>",
+          "description": "Returns the schema for the provided resource type.",
           "itemtype": "method",
           "name": "resource",
           "access": "public",
@@ -225,7 +225,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 176,
-          "description": "<html><head></head><body><p>Enables registration of multiple ResourceSchemas at once.</p>\n<p>This can be useful for either pre-loading schema information\nor for registering schema information delivered by API calls\nor other sources just-in-time.</p>\n</body></html>",
+          "description": "Enables registration of multiple ResourceSchemas at once.\n\nThis can be useful for either pre-loading schema information\nor for registering schema information delivered by API calls\nor other sources just-in-time.",
           "itemtype": "method",
           "name": "registerResources",
           "access": "public",
@@ -242,7 +242,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 189,
-          "description": "<html><head></head><body><p>Enables registration of a single ResourceSchema.</p>\n<p>This can be useful for either pre-loading schema information\nor for registering schema information delivered by API calls\nor other sources just-in-time.</p>\n</body></html>",
+          "description": "Enables registration of a single ResourceSchema.\n\nThis can be useful for either pre-loading schema information\nor for registering schema information delivered by API calls\nor other sources just-in-time.",
           "itemtype": "method",
           "name": "registerResource",
           "access": "public",
@@ -260,7 +260,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 202,
-          "description": "<html><head></head><body><p>Enables registration of a transformation.</p>\n<p>The transformation can later be retrieved by the name\nattached to it's <code>[Type]</code> property.</p>\n</body></html>",
+          "description": "Enables registration of a transformation.\n\nThe transformation can later be retrieved by the name\nattached to it's `[Type]` property.",
           "itemtype": "method",
           "name": "registerTransformations",
           "access": "public",
@@ -278,7 +278,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 214,
-          "description": "<html><head></head><body><p>Enables registration of a derivation.</p>\n<p>The derivation can later be retrieved by the name\nattached to it's <code>[Type]</code> property.</p>\n</body></html>",
+          "description": "Enables registration of a derivation.\n\nThe derivation can later be retrieved by the name\nattached to it's `[Type]` property.",
           "itemtype": "method",
           "name": "registerDerivations",
           "access": "public",
@@ -296,7 +296,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 226,
-          "description": "<html><head></head><body><p>Enables registration of a hashing function</p>\n<p>The hashing function can later be retrieved by the name\nattached to it's <code>[Type]</code> property.</p>\n</body></html>",
+          "description": "Enables registration of a hashing function\n\nThe hashing function can later be retrieved by the name\nattached to it's `[Type]` property.",
           "itemtype": "method",
           "name": "registerHashFn",
           "access": "public",
@@ -314,7 +314,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 238,
-          "description": "<html><head></head><body><p>DEPRECATED - use <code>fields</code> instead</p>\n<p>Returns definitions for all properties of the specified resource\nthat are considered \"attributes\". Generally these are properties\nthat are not related to book-keeping state on the client and do\nnot represent a linkage to another resource.</p>\n<p>The return value should be a dictionary of key:value pairs\nwhere the <code>key</code> is the attribute or property's name and <code>value</code>\nis an object with at least the property <code>name</code> which should also\nmatch <code>key</code>.</p>\n<p>Optionally, this object may also specify <code>type</code>, which should\nbe a string reference to a <code>transform</code>, and <code>options</code> which\nshould be dictionary in which any key:value pairs are permissable.</p>\n<p>For instance, when using <code>@ember-data/model</code>, the following attribute\ndefinition:</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@attr</span>('string', { defaultValue: 'hello' }) greeting;\n  <span class=\"meta\">@attr</span>('date') birthday;\n  <span class=\"meta\">@attr</span> firstName;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Would be returned as:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>{\n  greeting: { name: <span class=\"string\">'greeting'</span>, type: <span class=\"string\">'string'</span>, options: { defaultValue: <span class=\"string\">'hello'</span> } },\n  birthday: { name: <span class=\"string\">'birthday'</span>, type: <span class=\"string\">'date'</span> },\n  firstName: { name: <span class=\"string\">'firstName'</span> }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "DEPRECATED - use `fields` instead\n\nReturns definitions for all properties of the specified resource\nthat are considered \"attributes\". Generally these are properties\nthat are not related to book-keeping state on the client and do\nnot represent a linkage to another resource.\n\nThe return value should be a dictionary of key:value pairs\nwhere the `key` is the attribute or property's name and `value`\nis an object with at least the property `name` which should also\nmatch `key`.\n\nOptionally, this object may also specify `type`, which should\nbe a string reference to a `transform`, and `options` which\nshould be dictionary in which any key:value pairs are permissable.\n\nFor instance, when using `@ember-data/model`, the following attribute\ndefinition:\n\n```ts\nclass extends Model {\n  @attr('string', { defaultValue: 'hello' }) greeting;\n  @attr('date') birthday;\n  @attr firstName;\n}\n```\n\nWould be returned as:\n\n```js\n{\n  greeting: { name: 'greeting', type: 'string', options: { defaultValue: 'hello' } },\n  birthday: { name: 'birthday', type: 'date' },\n  firstName: { name: 'firstName' }\n}\n```",
           "itemtype": "method",
           "name": "attributesDefinitionFor",
           "access": "public",
@@ -337,7 +337,7 @@
         {
           "file": "../packages/store/src/-types/q/schema-service.ts",
           "line": 284,
-          "description": "<html><head></head><body><p>DEPRECATED - use <code>fields</code> instead</p>\n<p>Returns definitions for all properties of the specified resource\nthat are considered \"relationships\". Generally these are properties\nthat represent a linkage to another resource.</p>\n<p>The return value should be a dictionary of key:value pairs\nwhere the <code>key</code> is the relationship or property's name and <code>value</code>\nis an object with at least the following properties:</p>\n<ul>\n<li><p><code>name</code> which should also match the <code>key</code> used in the dictionary.</p>\n</li>\n<li><p><code>kind</code> which should be either <code>belongsTo</code> or <code>hasMany</code></p>\n</li>\n<li><p><code>type</code> which should be the related resource's string \"type\"</p>\n</li>\n<li><p><code>options</code> which should be a dictionary allowing any key but with\n at least the below keys present.</p>\n</li>\n<li><p><code>options.async</code> a boolean representing whether data for this relationship is\n   typically loaded on-demand.</p>\n</li>\n<li><p><code>options.inverse</code> a string or null representing the field name / key of the\ncorresponding relationship on the inverse resource.</p>\n</li>\n</ul>\n<p>Additionally the following options properties are optional. See <a href=\"https://rfcs.emberjs.com/id/0793-polymporphic-relations-without-inheritance\">Polymorphic Relationships</a></p>\n<ul>\n<li><code>options.polymorphic</code> a boolean representing whether multiple resource types\n can be used to satisfy this relationship.</li>\n<li><code>options.as</code> a string representing the abstract type that the concrete side of\n a relationship must specify when fulfilling a polymorphic inverse.</li>\n</ul>\n<p>For example, the following Model using @ember-data/model would generate this relationships\ndefinition by default:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">class</span> <span class=\"title\">User</span> <span class=\"keyword\">extends</span> <span class=\"title\">Model</span> </span>{\n  <span class=\"meta\">@belongsTo</span>('user', { async: <span class=\"literal\">false</span>, inverse: <span class=\"literal\">null</span> }) bestFriend;\n  <span class=\"meta\">@hasMany</span>('user', { async: <span class=\"literal\">true</span>, inverse: 'friends' }) friends;\n  <span class=\"meta\">@hasMany</span>('pet', { async: <span class=\"literal\">false</span>, polymorphic: <span class=\"literal\">true</span>, inverse: 'owner' }) pets;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Which would be returned as</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n</pre></td>\n              <td class=\"code\"><pre>{\n  <span class=\"attr\">bestFriend:</span> {\n    <span class=\"attr\">name:</span> <span class=\"string\">'bestFriend'</span>,\n    <span class=\"attr\">kind:</span> <span class=\"string\">'belongsTo'</span>,\n    <span class=\"attr\">type:</span> <span class=\"string\">'user'</span>,\n    <span class=\"attr\">options:</span> {\n      <span class=\"attr\">async:</span> <span class=\"literal\">false</span>,\n      <span class=\"attr\">inverse:</span> <span class=\"literal\">null</span>\n    }\n  },\n  <span class=\"attr\">friends:</span> {\n    <span class=\"attr\">name:</span> <span class=\"string\">'friends'</span>,\n    <span class=\"attr\">kind:</span> <span class=\"string\">'hasMany'</span>,\n    <span class=\"attr\">type:</span> <span class=\"string\">'user'</span>,\n    <span class=\"attr\">options:</span> {\n      <span class=\"attr\">async:</span> <span class=\"literal\">true</span>,\n      <span class=\"attr\">inverse:</span> <span class=\"string\">'friends'</span>\n    }\n  },\n  <span class=\"attr\">pets:</span> {\n    <span class=\"attr\">name:</span> <span class=\"string\">'pets'</span>,\n    <span class=\"attr\">kind:</span> <span class=\"string\">'hasMany'</span>,\n    <span class=\"attr\">type:</span> <span class=\"string\">'pet'</span>,\n    <span class=\"attr\">options:</span> {\n      <span class=\"attr\">async:</span> <span class=\"literal\">false</span>,\n      <span class=\"attr\">polymorphic:</span> <span class=\"literal\">true</span>,\n      <span class=\"attr\">inverse:</span> <span class=\"string\">'owner'</span>\n    }\n  },\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "DEPRECATED - use `fields` instead\n\nReturns definitions for all properties of the specified resource\nthat are considered \"relationships\". Generally these are properties\nthat represent a linkage to another resource.\n\nThe return value should be a dictionary of key:value pairs\nwhere the `key` is the relationship or property's name and `value`\nis an object with at least the following properties:\n\n- `name` which should also match the `key` used in the dictionary.\n- `kind` which should be either `belongsTo` or `hasMany`\n- `type` which should be the related resource's string \"type\"\n- `options` which should be a dictionary allowing any key but with\n   at least the below keys present.\n\n- `options.async` a boolean representing whether data for this relationship is\n     typically loaded on-demand.\n- `options.inverse` a string or null representing the field name / key of the\n      corresponding relationship on the inverse resource.\n\nAdditionally the following options properties are optional. See [Polymorphic Relationships](https://rfcs.emberjs.com/id/0793-polymporphic-relations-without-inheritance)\n\n- `options.polymorphic` a boolean representing whether multiple resource types\n   can be used to satisfy this relationship.\n- `options.as` a string representing the abstract type that the concrete side of\n   a relationship must specify when fulfilling a polymorphic inverse.\n\nFor example, the following Model using @ember-data/model would generate this relationships\ndefinition by default:\n\n```js\nclass User extends Model {\n  @belongsTo('user', { async: false, inverse: null }) bestFriend;\n  @hasMany('user', { async: true, inverse: 'friends' }) friends;\n  @hasMany('pet', { async: false, polymorphic: true, inverse: 'owner' }) pets;\n}\n```\n\nWhich would be returned as\n\n```js\n{\n  bestFriend: {\n    name: 'bestFriend',\n    kind: 'belongsTo',\n    type: 'user',\n    options: {\n      async: false,\n      inverse: null\n    }\n  },\n  friends: {\n    name: 'friends',\n    kind: 'hasMany',\n    type: 'user',\n    options: {\n      async: true,\n      inverse: 'friends'\n    }\n  },\n  pets: {\n    name: 'pets',\n    kind: 'hasMany',\n    type: 'pet',\n    options: {\n      async: false,\n      polymorphic: true,\n      inverse: 'owner'\n    }\n  },\n}\n```",
           "itemtype": "method",
           "name": "relationshipsDefinitionFor",
           "access": "public",

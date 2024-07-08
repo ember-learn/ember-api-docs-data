@@ -1,0 +1,276 @@
+{
+  "data": {
+    "id": "ember-data-3.27.1-InspectorDataAdapter",
+    "type": "class",
+    "attributes": {
+      "name": "InspectorDataAdapter",
+      "shortname": "InspectorDataAdapter",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/debug",
+      "namespace": "",
+      "file": "../debug/addon/index.js",
+      "line": 37,
+      "description": "Implements `@ember/debug/data-adapter` with for EmberData\nintegration with the ember-inspector.",
+      "extends": "DataAdapter",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../debug/addon/index.js",
+          "line": 48,
+          "description": "Specifies how records can be filtered based on the state of the record\nRecords returned will need to have a `filterValues`\nproperty with a key for every name in the returned array",
+          "itemtype": "method",
+          "name": "getFilters",
+          "access": "private",
+          "tagname": "",
+          "return": {
+            "description": "List of objects defining filters\n The object should have a `name` and `desc` property",
+            "type": "Array"
+          },
+          "class": "InspectorDataAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../debug/addon/index.js",
+          "line": 70,
+          "description": "Fetch the model types and observe them for changes.\nMaintains the list of model types without needing the Model package for detection.",
+          "itemtype": "method",
+          "name": "watchModelTypes",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "typesAdded",
+              "description": "Callback to call to add types.\nTakes an array of objects containing wrapped types (returned from `wrapModelType`).",
+              "type": "Function"
+            },
+            {
+              "name": "typesUpdated",
+              "description": "Callback to call when a type has changed.\nTakes an array of objects containing wrapped types.",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "Method to call to remove all observers",
+            "type": "Function"
+          },
+          "class": "InspectorDataAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../debug/addon/index.js",
+          "line": 136,
+          "description": "Creates a human readable string used for column headers",
+          "itemtype": "method",
+          "name": "columnNameToDesc",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "name",
+              "description": "The attribute name",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Human readable string based on the attribute name",
+            "type": "String"
+          },
+          "class": "InspectorDataAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../debug/addon/index.js",
+          "line": 152,
+          "description": "Get the columns for a given model type",
+          "itemtype": "method",
+          "name": "columnsForType",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "Model"
+            }
+          ],
+          "return": {
+            "description": "An array of columns of the following format:\n name: {String} The name of the column\n desc: {String} Humanized description (what would show in a table column name)",
+            "type": "Array"
+          },
+          "class": "InspectorDataAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../debug/addon/index.js",
+          "line": 181,
+          "description": "Fetches all loaded records for a given type",
+          "itemtype": "method",
+          "name": "getRecords",
+          "internal": "",
+          "params": [
+            {
+              "name": "modelClass",
+              "description": "of the record",
+              "type": "Model"
+            },
+            {
+              "name": "modelName",
+              "description": "of the record",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "An array of Model records\n This array will be observed for changes,\n so it should update when new records are added/removed",
+            "type": "Array"
+          },
+          "class": "InspectorDataAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../debug/addon/index.js",
+          "line": 207,
+          "description": "Gets the values for each column\nThis is the attribute values for a given record",
+          "itemtype": "method",
+          "name": "getRecordColumnValues",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "record",
+              "description": "to get values from",
+              "type": "Model"
+            }
+          ],
+          "return": {
+            "description": "Keys should match column names defined by the model type",
+            "type": "Object"
+          },
+          "class": "InspectorDataAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../debug/addon/index.js",
+          "line": 229,
+          "description": "Returns keywords to match when searching records",
+          "itemtype": "method",
+          "name": "getRecordKeywords",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "Model"
+            }
+          ],
+          "return": {
+            "description": "Relevant keywords for search based on the record's attribute values",
+            "type": "Array"
+          },
+          "class": "InspectorDataAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../debug/addon/index.js",
+          "line": 245,
+          "description": "Returns the values of filters defined by `getFilters`\nThese reflect the state of the record",
+          "itemtype": "method",
+          "name": "getRecordFilterValues",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "Model"
+            }
+          ],
+          "return": {
+            "description": "The record state filter values",
+            "type": "Object"
+          },
+          "class": "InspectorDataAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../debug/addon/index.js",
+          "line": 262,
+          "description": "Returns a color that represents the record's state\nPossible colors: black, blue, green",
+          "itemtype": "method",
+          "name": "getRecordColor",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "Model"
+            }
+          ],
+          "return": {
+            "description": "The record color",
+            "type": "String"
+          },
+          "class": "InspectorDataAdapter",
+          "module": "@ember-data/debug"
+        },
+        {
+          "file": "../debug/addon/index.js",
+          "line": 281,
+          "description": "Observes all relevant properties and re-sends the wrapped record\nwhen a change occurs",
+          "itemtype": "method",
+          "name": "observeRecord",
+          "internal": "",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "recordUpdated",
+              "description": "Callback used to notify changes",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "The function to call to remove all observers",
+            "type": "Function"
+          },
+          "class": "InspectorDataAdapter",
+          "module": "@ember-data/debug"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "DataAdapter",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.27.1-@ember-data/debug",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.27.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

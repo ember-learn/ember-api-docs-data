@@ -1,0 +1,70 @@
+{
+  "data": {
+    "id": "ember-3.21.3-@ember/object/evented",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/object/evented",
+      "shortname": "@ember/object/evented",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/object",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/metal/lib/events.ts",
+          "line": 178,
+          "description": "Define a property as a function that should be executed when\na specified event or events are triggered.\n\n``` javascript\nimport EmberObject from '@ember/object';\nimport { on } from '@ember/object/evented';\nimport { sendEvent } from '@ember/object/events';\n\nlet Job = EmberObject.extend({\n  logCompleted: on('completed', function() {\n    console.log('Job completed!');\n  })\n});\n\nlet job = Job.create();\n\nsendEvent(job, 'completed'); // Logs 'Job completed!'\n ```",
+          "itemtype": "method",
+          "name": "on",
+          "static": 1,
+          "params": [
+            {
+              "name": "eventNames",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            },
+            {
+              "name": "func",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "the listener function, passed as last argument to on(...)",
+            "type": "Function"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/object/evented",
+          "module": "@ember/object"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.21.3-@ember/object",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.21.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

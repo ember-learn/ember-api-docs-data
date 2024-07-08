@@ -1,0 +1,173 @@
+{
+  "data": {
+    "id": "ember-3.21.3-Ember.EmberENV",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.EmberENV",
+      "shortname": "EmberENV",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "packages/@ember/-internals/environment/lib/env.ts",
+      "line": 5,
+      "description": "The hash of environment variables used to control various configuration\nsettings. To specify your own or override default settings, add the\ndesired properties to a global hash named `EmberENV` (or `ENV` for\nbackwards compatibility with earlier versions of Ember). The `EmberENV`\nhash must be created before loading Ember.",
+      "type": "Object",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 19,
+          "description": "Determines whether Ember should add to `Array`, `Function`, and `String`\nnative object prototypes, a few extra methods in order to provide a more\nfriendly API.\n\nWe generally recommend leaving this option set to true however, if you need\nto turn it off, you can add the configuration property\n`EXTEND_PROTOTYPES` to `EmberENV` and set it to `false`.\n\nNote, when disabled (the default configuration for Ember Addons), you will\ninstead have to access all methods and functions from the Ember\nnamespace.",
+          "itemtype": "property",
+          "name": "EXTEND_PROTOTYPES",
+          "type": "Boolean",
+          "default": "true",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.EmberENV",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 44,
+          "description": "The `LOG_STACKTRACE_ON_DEPRECATION` property, when true, tells Ember to log\na full stack trace during deprecation warnings.",
+          "itemtype": "property",
+          "name": "LOG_STACKTRACE_ON_DEPRECATION",
+          "type": "Boolean",
+          "default": "true",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.EmberENV",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 56,
+          "description": "The `LOG_VERSION` property, when true, tells Ember to log versions of all\ndependent libraries in use.",
+          "itemtype": "property",
+          "name": "LOG_VERSION",
+          "type": "Boolean",
+          "default": "true",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.EmberENV",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 72,
+          "description": "Whether to insert a `<div class=\"ember-view\" />` wrapper around the\napplication template. See RFC #280.\n\nThis is not intended to be set directly, as the implementation may change in\nthe future. Use `@ember/optional-features` instead.",
+          "itemtype": "property",
+          "name": "_APPLICATION_TEMPLATE_WRAPPER",
+          "type": "Boolean",
+          "default": "true",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.EmberENV",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 87,
+          "description": "Whether to use Glimmer Component semantics (as opposed to the classic \"Curly\"\ncomponents semantics) for template-only components. See RFC #278.\n\nThis is not intended to be set directly, as the implementation may change in\nthe future. Use `@ember/optional-features` instead.",
+          "itemtype": "property",
+          "name": "_TEMPLATE_ONLY_GLIMMER_COMPONENTS",
+          "type": "Boolean",
+          "default": "false",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.EmberENV",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 102,
+          "description": "Whether to perform extra bookkeeping needed to make the `captureRenderTree`\nAPI work.\n\nThis has to be set before the ember JavaScript code is evaluated. This is\nusually done by setting `window.EmberENV = { _DEBUG_RENDER_TREE: true };`\nbefore the \"vendor\" `<script>` tag in `index.html`.\n\nSetting the flag after Ember is already loaded will not work correctly. It\nmay appear to work somewhat, but fundamentally broken.\n\nThis is not intended to be set directly. Ember Inspector will enable the\nflag on behalf of the user as needed.\n\nThis flag is always on in development mode.\n\nThe flag is off by default in production mode, due to the cost associated\nwith the the bookkeeping work.\n\nThe expected flow is that Ember Inspector will ask the user to refresh the\npage after enabling the feature. It could also offer a feature where the\nuser add some domains to the \"always on\" list. In either case, Ember\nInspector will inject the code on the page to set the flag if needed.",
+          "itemtype": "property",
+          "name": "_DEBUG_RENDER_TREE",
+          "type": "Boolean",
+          "default": "false",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.EmberENV",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 134,
+          "description": "Whether the app is using jQuery. See RFC #294.\n\nThis is not intended to be set directly, as the implementation may change in\nthe future. Use `@ember/optional-features` instead.",
+          "itemtype": "property",
+          "name": "_JQUERY_INTEGRATION",
+          "type": "Boolean",
+          "default": "true",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.EmberENV",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 148,
+          "description": "Whether the app defaults to using async observers.\n\nThis is not intended to be set directly, as the implementation may change in\nthe future. Use `@ember/optional-features` instead.",
+          "itemtype": "property",
+          "name": "_DEFAULT_ASYNC_OBSERVERS",
+          "type": "Boolean",
+          "default": "false",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.EmberENV",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 162,
+          "description": "Controls the maximum number of scheduled rerenders without \"settling\". In general,\napplications should not need to modify this environment variable, but please\nopen an issue so that we can determine if a better default value is needed.",
+          "itemtype": "property",
+          "name": "_RERENDER_LOOP_LIMIT",
+          "type": "number",
+          "default": "1000",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.EmberENV",
+          "module": "ember",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.21.3-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.21.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "data": {
+    "id": "ember-4.12.3-@ember/helper",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/helper",
+      "shortname": "@ember/helper",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/array.ts",
+          "line": 5,
+          "description": "Use the `{{array}}` helper to create an array to pass as an option to your\ncomponents.\n\n```handlebars\n<MyComponent @people={{array\n  'Tom Dale'\n  'Yehuda Katz'\n  this.myOtherPerson}}\n/>\n```\n or\n```handlebars\n{{my-component people=(array\n  'Tom Dale'\n  'Yehuda Katz'\n  this.myOtherPerson)\n}}\n```\n\nWould result in an object such as:\n\n```js\n['Tom Dale', 'Yehuda Katz', this.get('myOtherPerson')]\n```\n\nWhere the 3rd item in the array is bound to updates of the `myOtherPerson` property.",
+          "itemtype": "method",
+          "name": "array",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "Array",
+            "type": "Array"
+          },
+          "since": "3.8.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/helper",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/concat.ts",
+          "line": 5,
+          "description": "Concatenates the given arguments into a string.\n\nExample:\n\n```handlebars\n{{some-component name=(concat firstName \" \" lastName)}}\n\n{{! would pass name=\"<first name value> <last name value>\" to the component}}\n```\n\nor for angle bracket invocation, you actually don't need concat at all.\n\n```handlebars\n<SomeComponent @name=\"{{firstName}} {{lastName}}\" />\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "concat",
+          "since": "1.13.0",
+          "class": "@ember/helper",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/fn.ts",
+          "line": 5,
+          "description": "The `fn` helper allows you to ensure a function that you are passing off\nto another component, helper, or modifier has access to arguments that are\navailable in the template.\n\nFor example, if you have an `each` helper looping over a number of items, you\nmay need to pass a function that expects to receive the item as an argument\nto a component invoked within the loop. Here's how you could use the `fn`\nhelper to pass both the function and its arguments together:\n\n  ```handlebars {data-filename=app/templates/components/items-listing.hbs}\n{{#each @items as |item|}}\n  <DisplayItem @item=item @select={{fn this.handleSelected item}} />\n{{/each}}\n```\n\n```js {data-filename=app/components/items-list.js}\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\n\nexport default class ItemsList extends Component {\n  @action\n  handleSelected(item) {\n    // ...snip...\n  }\n}\n```\n\nIn this case the `display-item` component will receive a normal function\nthat it can invoke. When it invokes the function, the `handleSelected`\nfunction will receive the `item` and any arguments passed, thanks to the\n`fn` helper.\n\nLet's take look at what that means in a couple circumstances:\n\n- When invoked as `this.args.select()` the `handleSelected` function will\n  receive the `item` from the loop as its first and only argument.\n- When invoked as `this.args.select('foo')` the `handleSelected` function\n  will receive the `item` from the loop as its first argument and the\n  string `'foo'` as its second argument.\n\nIn the example above, we used `@action` to ensure that `handleSelected` is\nproperly bound to the `items-list`, but let's explore what happens if we\nleft out `@action`:\n\n```js {data-filename=app/components/items-list.js}\nimport Component from '@glimmer/component';\n\nexport default class ItemsList extends Component {\n  handleSelected(item) {\n    // ...snip...\n  }\n}\n```\n\nIn this example, when `handleSelected` is invoked inside the `display-item`\ncomponent, it will **not** have access to the component instance. In other\nwords, it will have no `this` context, so please make sure your functions\nare bound (via `@action` or other means) before passing into `fn`!\n\nSee also [partial application](https://en.wikipedia.org/wiki/Partial_application).",
+          "itemtype": "method",
+          "name": "fn",
+          "access": "public",
+          "tagname": "",
+          "since": "3.11.0",
+          "class": "@ember/helper",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/get.ts",
+          "line": 5,
+          "description": "Dynamically look up a property on an object or an element in an array.\nThe second argument to `{{get}}` should have a string or number value,\nalthough it can be bound.\n\nFor example, these two usages are equivalent:\n\n```js {data-filename=app/components/developer-detail.js}\nimport Component from '@glimmer/component';\nimport { tracked } from '@glimmer/tracking';\n\nexport default class extends Component {\n  @tracked developer = {\n    name: \"Sandi Metz\",\n    language: \"Ruby\"\n  }\n}\n```\n\n```handlebars\n{{this.developer.name}}\n{{get this.developer \"name\"}}\n```\n\nIf there were several facts about a person, the `{{get}}` helper can dynamically\npick one:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<DeveloperDetail @factName=\"language\" />\n```\n\n```handlebars\n{{get this.developer @factName}}\n```\n\nFor a more complex example, this template would allow the user to switch\nbetween showing the user's name and preferred coding language with a click:\n\n```js {data-filename=app/components/developer-detail.js}\nimport Component from '@glimmer/component';\nimport { tracked } from '@glimmer/tracking';\n\nexport default class extends Component {\n  @tracked developer = {\n    name: \"Sandi Metz\",\n    language: \"Ruby\"\n  }\n\n  @tracked currentFact = 'name'\n\n  @action\n  showFact(fact) {\n    this.currentFact = fact;\n  }\n}\n```\n\n```js {data-filename=app/components/developer-detail.js}\n{{get this.developer this.currentFact}}\n\n<button {{on 'click' (fn this.showFact \"name\")}}>Show name</button>\n<button {{on 'click' (fn this.showFact \"language\")}}>Show language</button>\n```\n\nThe `{{get}}` helper can also respect mutable values itself. For example:\n\n```js {data-filename=app/components/developer-detail.js}\n<Input @value={{mut (get this.person this.currentFact)}} />\n\n<button {{on 'click' (fn this.showFact \"name\")}}>Show name</button>\n<button {{on 'click' (fn this.showFact \"language\")}}>Show language</button>\n```\n\nWould allow the user to swap what fact is being displayed, and also edit\nthat fact via a two-way mutable binding.\n\nThe `{{get}}` helper can also be used for array element access via index.\nThis would display the value of the first element in the array `this.names`:\n\n```handlebars\n{{get this.names 0}}\n```\n\nArray element access also works with a dynamic second argument:\n\n```handlebars\n{{get this.names @index}}\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "get",
+          "since": "2.1.0",
+          "class": "@ember/helper",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/hash.ts",
+          "line": 5,
+          "description": "Use the `{{hash}}` helper to create a hash to pass as an option to your\ncomponents. This is specially useful for contextual components where you can\njust yield a hash:\n\n```handlebars\n{{yield (hash\n   name='Sarah'\n   title=office\n)}}\n```\n\nWould result in an object such as:\n\n```js\n{ name: 'Sarah', title: this.get('office') }\n```\n\nWhere the `title` is bound to updates of the `office` property.\n\nNote that the hash is an empty object with no prototype chain, therefore\ncommon methods like `toString` are not available in the resulting hash.\nIf you need to use such a method, you can use the `call` or `apply`\napproach:\n\n```js\nfunction toString(obj) {\n  return Object.prototype.toString.apply(obj);\n}\n```",
+          "itemtype": "method",
+          "name": "hash",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Hash",
+            "type": "Object"
+          },
+          "since": "2.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/helper",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 5,
+          "description": "`capabilities` returns a capabilities configuration which can be used to modify\nthe behavior of the manager. Manager capabilities _must_ be provided using the\n`capabilities` function, as the underlying implementation can change over time.\n\nThe first argument to capabilities is a version string, which is the version of\nEmber that the capabilities were defined in. Ember can add new versions at any\ntime, and these may have entirely different behaviors, but it will not remove\nold versions until the next major version.\n\n```js\ncapabilities('3.23');\n```\n\nThe second argument is an object of capabilities and boolean values indicating\nwhether they are enabled or disabled.\n\n```js\ncapabilities('3.23', {\n  hasValue: true,\n  hasDestructor: true,\n});\n```\n\nIf no value is specified, then the default value will be used.\n\n### `3.23` capabilities\n\n#### `hasDestroyable`\n\n- Default value: false\n\nDetermines if the helper has a destroyable to include in the destructor\nhierarchy. If enabled, the `getDestroyable` hook will be called, and its result\nwill be associated with the destroyable parent block.\n\n#### `hasValue`\n\n- Default value: false\n\nDetermines if the helper has a value which can be used externally. The helper's\n`getValue` hook will be run whenever the value of the helper is accessed if this\ncapability is enabled.",
+          "itemtype": "method",
+          "name": "capabilities",
+          "static": 1,
+          "params": [
+            {
+              "name": "managerApiVersion",
+              "description": "The version of capabilities that are being used",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "The capabilities values"
+            }
+          ],
+          "return": {
+            "description": "The capabilities object instance",
+            "type": "Capabilities"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/helper",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 58,
+          "description": "Sets the helper manager for an object or function.\n\n```js\nsetHelperManager((owner) => new ClassHelperManager(owner), Helper)\n```\n\nWhen a value is used as a helper in a template, the helper manager is looked up\non the object by walking up its prototype chain and finding the first helper\nmanager. This manager then receives the value and can create and manage an\ninstance of a helper from it. This provides a layer of indirection that allows\nusers to design high-level helper APIs, without Ember needing to worry about the\ndetails. High-level APIs can be experimented with and iterated on while the\ncore of Ember helpers remains stable, and new APIs can be introduced gradually\nover time to existing code bases.\n\n`setHelperManager` receives two arguments:\n\n1. A factory function, which receives the `owner` and returns an instance of a\n  helper manager.\n2. A helper definition, which is the object or function to associate the factory function with.\n\nThe first time the object is looked up, the factory function will be called to\ncreate the helper manager. It will be cached, and in subsequent lookups the\ncached helper manager will be used instead.\n\nOnly one helper manager is guaranteed to exist per `owner` and per usage of\n`setHelperManager`, so many helpers will end up using the same instance of the\nhelper manager. As such, you should only store state that is related to the\nmanager itself. If you want to store state specific to a particular helper\ndefinition, you should assign a unique helper manager to that helper. In\ngeneral, most managers should either be stateless, or only have the `owner` they\nwere created with as state.\n\nHelper managers must fulfill the following interface (This example uses\n[TypeScript interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html)\nfor precision, you do not need to write helper managers using TypeScript):\n\n```ts\ninterface HelperManager<HelperStateBucket> {\n  capabilities: HelperCapabilities;\n\n  createHelper(definition: HelperDefinition, args: TemplateArgs): HelperStateBucket;\n\n  getValue?(bucket: HelperStateBucket): unknown;\n\n  runEffect?(bucket: HelperStateBucket): void;\n\n  getDestroyable?(bucket: HelperStateBucket): object;\n}\n```\n\nThe capabilities property _must_ be provided using the `capabilities()` function\nimported from the same module as `setHelperManager`:\n\n```js\nimport { capabilities } from '@ember/helper';\n\nclass MyHelperManager {\n  capabilities = capabilities('3.21.0', { hasValue: true });\n\n  // ...snip...\n}\n```\n\nBelow is a description of each of the methods on the interface and their\nfunctions.\n\n#### `createHelper`\n\n`createHelper` is a required hook on the HelperManager interface. The hook is\npassed the definition of the helper that is currently being created, and is\nexpected to return a _state bucket_. This state bucket is what represents the\ncurrent state of the helper, and will be passed to the other lifecycle hooks at\nappropriate times. It is not necessarily related to the definition of the\nhelper itself - for instance, you could return an object _containing_ an\ninstance of the helper:\n\n```js\nclass MyManager {\n  createHelper(Definition, args) {\n    return {\n      instance: new Definition(args);\n    };\n  }\n}\n```\n\nThis allows the manager to store metadata that it doesn't want to expose to the\nuser.\n\nThis hook is _not_ autotracked - changes to tracked values used within this hook\nwill _not_ result in a call to any of the other lifecycle hooks. This is because\nit is unclear what should happen if it invalidates, and rather than make a\ndecision at this point, the initial API is aiming to allow as much expressivity\nas possible. This could change in the future with changes to capabilities and\ntheir behaviors.\n\nIf users do want to autotrack some values used during construction, they can\neither create the instance of the helper in `runEffect` or `getValue`, or they\ncan use the `cache` API to autotrack the `createHelper` hook themselves. This\nprovides maximum flexibility and expressiveness to manager authors.\n\nThis hook has the following timing semantics:\n\n**Always**\n- called as discovered during DOM construction\n- called in definition order in the template\n\n#### `getValue`\n\n`getValue` is an optional hook that should return the value of the helper. This\nis the value that is returned from the helper and passed into the template.\n\nThis hook is called when the value is requested from the helper (e.g. when the\ntemplate is rendering and the helper value is needed). The hook is autotracked,\nand will rerun whenever any tracked values used inside of it are updated.\nOtherwise it does not rerun.\n\n> Note: This means that arguments which are not _consumed_ within the hook will\n> not trigger updates.\n\nThis hook is only called for helpers with the `hasValue` capability enabled.\nThis hook has the following timing semantics:\n\n**Always**\n- called the first time the helper value is requested\n- called after autotracked state has changed\n\n**Never**\n- called if the `hasValue` capability is disabled\n\n#### `runEffect`\n\n`runEffect` is an optional hook that should run the effect that the helper is\napplying, setting it up or updating it.\n\nThis hook is scheduled to be called some time after render and prior to paint.\nThere is not a guaranteed, 1-to-1 relationship between a render pass and this\nhook firing. For instance, multiple render passes could occur, and the hook may\nonly trigger once. It may also never trigger if it was dirtied in one render\npass and then destroyed in the next.\n\nThe hook is autotracked, and will rerun whenever any tracked values used inside\nof it are updated. Otherwise it does not rerun.\n\nThe hook is also run during a time period where state mutations are _disabled_\nin Ember. Any tracked state mutation will throw an error during this time,\nincluding changes to tracked properties, changes made using `Ember.set`, updates\nto computed properties, etc. This is meant to prevent infinite rerenders and\nother antipatterns.\n\nThis hook is only called for helpers with the `hasScheduledEffect` capability\nenabled. This hook is also not called in SSR currently, though this could be\nadded as a capability in the future. It has the following timing semantics:\n\n**Always**\n- called after the helper was first created, if the helper has not been\n  destroyed since creation\n- called after autotracked state has changed, if the helper has not been\n  destroyed during render\n\n**Never**\n- called if the `hasScheduledEffect` capability is disabled\n- called in SSR\n\n#### `getDestroyable`\n\n`getDestroyable` is an optional hook that users can use to register a\ndestroyable object for the helper. This destroyable will be registered to the\ncontaining block or template parent, and will be destroyed when it is destroyed.\nSee the [Destroyables RFC](https://github.com/emberjs/rfcs/blob/master/text/0580-destroyables.md)\nfor more details.\n\n`getDestroyable` is only called if the `hasDestroyable` capability is enabled.\n\nThis hook has the following timing semantics:\n\n**Always**\n- called immediately after the `createHelper` hook is called\n\n**Never**\n- called if the `hasDestroyable` capability is disabled",
+          "itemtype": "method",
+          "name": "setHelperManager",
+          "static": 1,
+          "params": [
+            {
+              "name": "factory",
+              "description": "A factory function which receives an optional owner, and returns a helper manager",
+              "type": "Function"
+            },
+            {
+              "name": "definition",
+              "description": "The definition to associate the manager factory with",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The definition passed into setHelperManager",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/helper",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 251,
+          "description": "The `invokeHelper` function can be used to create a helper instance in\nJavaScript.\n\nTo access a helper's value you have to use `getValue` from\n`@glimmer/tracking/primitives/cache`.\n\n```js\n// app/components/data-loader.js\nimport Component from '@glimmer/component';\nimport { getValue } from '@glimmer/tracking/primitives/cache';\nimport Helper from '@ember/component/helper';\nimport { invokeHelper } from '@ember/helper';\n\nclass PlusOne extends Helper {\n  compute([number]) {\n    return number + 1;\n  }\n}\n\nexport default class PlusOneComponent extends Component {\n  plusOne = invokeHelper(this, PlusOne, () => {\n    return {\n      positional: [this.args.number],\n    };\n  });\n\n  get value() {\n    return getValue(this.plusOne);\n  }\n}\n```\n```handlebars\n{{this.value}}\n```\n\nIt receives three arguments:\n\n* `context`: The parent context of the helper. When the parent is torn down and\n  removed, the helper will be as well.\n* `definition`: The definition of the helper.\n* `computeArgs`: An optional function that produces the arguments to the helper.\n  The function receives the parent context as an argument, and must return an\n  object with a `positional` property that is an array and/or a `named`\n  property that is an object.\n\nAnd it returns a Cache instance that contains the most recent value of the\nhelper. You can access the helper using `getValue()` like any other cache. The\ncache is also destroyable, and using the `destroy()` function on it will cause\nthe helper to be torn down.\n\nNote that using `getValue()` on helpers that have scheduled effects will not\ntrigger the effect early. Effects will continue to run at their scheduled time.",
+          "itemtype": "method",
+          "name": "invokeHelper",
+          "static": 1,
+          "params": [
+            {
+              "name": "context",
+              "description": "The parent context of the helper",
+              "type": "Object"
+            },
+            {
+              "name": "definition",
+              "description": "The helper definition",
+              "type": "Object"
+            },
+            {
+              "name": "computeArgs",
+              "description": "An optional function that produces args",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": ""
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/helper",
+          "module": "@ember/helper"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-4.12.3-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-4.12.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "data": {
+    "id": "ember-1.1.2-Ember.PromiseProxyMixin",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.PromiseProxyMixin",
+      "shortname": "Ember.PromiseProxyMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-runtime",
+      "namespace": "",
+      "file": "../packages/ember-runtime/lib/mixins/promise_proxy.js",
+      "line": 24,
+      "description": "A low level mixin making ObjectProxy, ObjectController or ArrayController's promise aware.\n\n```javascript\nvar ObjectPromiseController = Ember.ObjectController.extend(Ember.PromiseProxyMixin);\n\nvar controller = ObjectPromiseController.create({\n  promise: $.getJSON('/some/remote/data.json')\n});\n\ncontroller.then(function(json){\n   // the json\n}, function(reason) {\n   // the reason why you have no json\n});\n```\n\nthe controller has bindable attributes which\ntrack the promises life cycle\n\n```javascript\ncontroller.get('isPending')   //=> true\ncontroller.get('isSettled')  //=> false\ncontroller.get('isRejected')  //=> false\ncontroller.get('isFulfilled') //=> false\n```\n\nWhen the the $.getJSON completes, and the promise is fulfilled\nwith json, the life cycle attributes will update accordingly.\n\n```javascript\ncontroller.get('isPending')   //=> false\ncontroller.get('isSettled')   //=> true\ncontroller.get('isRejected')  //=> false\ncontroller.get('isFulfilled') //=> true\n```\n\nAs the controller is an ObjectController, and the json now its content,\nall the json properties will be available directly from the controller.\n\n```javascript\n// Assuming the following json:\n{\n  firstName: 'Stefan',\n  lastName: 'Penner'\n}\n\n// both properties will accessible on the controller\ncontroller.get('firstName') //=> 'Stefan'\ncontroller.get('lastName')  //=> 'Penner'\n```\n\nIf the controller is backing a template, the attributes are \nbindable from within that template\n\n```handlebars\n{{#if isPending}}\n  loading...\n{{else}}\n  firstName: {{firstName}}\n  lastName: {{lastName}}\n{{/if}}\n```",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.1.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.1.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

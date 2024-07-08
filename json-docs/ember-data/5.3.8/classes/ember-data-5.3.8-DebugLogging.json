@@ -14,7 +14,7 @@
       "namespace": "",
       "file": "../build-config/src/debugging.ts",
       "line": 11,
-      "description": "<html><head></head><body><p>Many portions of the internals are helpfully instrumented with logging that can be activated\nat build time. This instrumentation is always removed from production builds or any builds\nthat has not explicitly activated it. To activate it set the appropriate flag to <code>true</code>.</p>\n<div class=\"highlight typescript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n</pre></td>\n              <td class=\"code\"><pre>  <span class=\"string\">let</span> <span class=\"string\">app</span> <span class=\"string\">=</span> <span class=\"string\">new</span> <span class=\"string\">EmberApp(defaults,</span> {\n    <span class=\"attr\">emberData:</span> {\n      <span class=\"attr\">debug:</span> {\n          <span class=\"attr\">LOG_PAYLOADS:</span> <span class=\"literal\">false</span>, <span class=\"string\">//</span> <span class=\"string\">data</span> <span class=\"string\">store</span> <span class=\"string\">received</span> <span class=\"string\">to</span> <span class=\"string\">update</span> <span class=\"string\">cache</span> <span class=\"string\">with</span>\n          <span class=\"attr\">LOG_OPERATIONS:</span> <span class=\"literal\">false</span>, <span class=\"string\">//</span> <span class=\"string\">updates</span> <span class=\"string\">to</span> <span class=\"string\">cache</span> <span class=\"string\">remote</span> <span class=\"string\">state</span>\n          <span class=\"attr\">LOG_MUTATIONS:</span> <span class=\"literal\">false</span>, <span class=\"string\">//</span> <span class=\"string\">updates</span> <span class=\"string\">to</span> <span class=\"string\">cache</span> <span class=\"string\">local</span> <span class=\"string\">state</span>\n          <span class=\"attr\">LOG_NOTIFICATIONS:</span> <span class=\"literal\">false</span>,\n          <span class=\"attr\">LOG_REQUESTS:</span> <span class=\"literal\">false</span>,\n          <span class=\"attr\">LOG_REQUEST_STATUS:</span> <span class=\"literal\">false</span>,\n          <span class=\"attr\">LOG_IDENTIFIERS:</span> <span class=\"literal\">false</span>,\n          <span class=\"attr\">LOG_GRAPH:</span> <span class=\"literal\">false</span>,\n          <span class=\"attr\">LOG_INSTANCE_CACHE:</span> <span class=\"literal\">false</span>,\n      }\n    }\n  }<span class=\"string\">);</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "description": "Many portions of the internals are helpfully instrumented with logging that can be activated\nat build time. This instrumentation is always removed from production builds or any builds\nthat has not explicitly activated it. To activate it set the appropriate flag to `true`.\n\n```ts\n  let app = new EmberApp(defaults, {\n    emberData: {\n      debug: {\n          LOG_PAYLOADS: false, // data store received to update cache with\n          LOG_OPERATIONS: false, // updates to cache remote state\n          LOG_MUTATIONS: false, // updates to cache local state\n          LOG_NOTIFICATIONS: false,\n          LOG_REQUESTS: false,\n          LOG_REQUEST_STATUS: false,\n          LOG_IDENTIFIERS: false,\n          LOG_GRAPH: false,\n          LOG_INSTANCE_CACHE: false,\n      }\n    }\n  });\n  ```",
       "access": "public",
       "tagname": "",
       "methods": [],
@@ -23,7 +23,7 @@
         {
           "file": "../packages/build-config/src/debugging.ts",
           "line": 38,
-          "description": "<html><head></head><body><p>log payloads received by the store\nvia <code>push</code> or returned from a delete/update/create\noperation.</p>\n</body></html>",
+          "description": "log payloads received by the store\nvia `push` or returned from a delete/update/create\noperation.",
           "itemtype": "property",
           "name": "LOG_PAYLOADS",
           "type": "Boolean",
@@ -35,7 +35,7 @@
         {
           "file": "../packages/build-config/src/debugging.ts",
           "line": 47,
-          "description": "<html><head></head><body><p>log remote-state updates to the cache</p>\n</body></html>",
+          "description": "log remote-state updates to the cache",
           "itemtype": "property",
           "name": "LOG_OPERATIONS",
           "type": "Boolean",
@@ -47,7 +47,7 @@
         {
           "file": "../packages/build-config/src/debugging.ts",
           "line": 54,
-          "description": "<html><head></head><body><p>log local-state updates to the cache</p>\n</body></html>",
+          "description": "log local-state updates to the cache",
           "itemtype": "property",
           "name": "LOG_MUTATIONS",
           "type": "Boolean",
@@ -59,7 +59,7 @@
         {
           "file": "../packages/build-config/src/debugging.ts",
           "line": 61,
-          "description": "<html><head></head><body><p>log notifications received by the NotificationManager</p>\n</body></html>",
+          "description": "log notifications received by the NotificationManager",
           "itemtype": "property",
           "name": "LOG_NOTIFICATIONS",
           "type": "Boolean",
@@ -71,7 +71,7 @@
         {
           "file": "../packages/build-config/src/debugging.ts",
           "line": 68,
-          "description": "<html><head></head><body><p>log requests issued by the RequestManager</p>\n</body></html>",
+          "description": "log requests issued by the RequestManager",
           "itemtype": "property",
           "name": "LOG_REQUESTS",
           "type": "Boolean",
@@ -83,7 +83,7 @@
         {
           "file": "../packages/build-config/src/debugging.ts",
           "line": 75,
-          "description": "<html><head></head><body><p>log updates to requests the store has issued to\nthe network (adapter) to fulfill.</p>\n</body></html>",
+          "description": "log updates to requests the store has issued to\nthe network (adapter) to fulfill.",
           "itemtype": "property",
           "name": "LOG_REQUEST_STATUS",
           "type": "Boolean",
@@ -95,7 +95,7 @@
         {
           "file": "../packages/build-config/src/debugging.ts",
           "line": 83,
-          "description": "<html><head></head><body><p>log peek, generation and updates to\nRecord Identifiers.</p>\n</body></html>",
+          "description": "log peek, generation and updates to\nRecord Identifiers.",
           "itemtype": "property",
           "name": "LOG_IDENTIFIERS",
           "type": "Boolean",
@@ -107,7 +107,7 @@
         {
           "file": "../packages/build-config/src/debugging.ts",
           "line": 91,
-          "description": "<html><head></head><body><p>log updates received by the graph (relationship pointer storage)</p>\n</body></html>",
+          "description": "log updates received by the graph (relationship pointer storage)",
           "itemtype": "property",
           "name": "LOG_GRAPH",
           "type": "Boolean",
@@ -119,7 +119,7 @@
         {
           "file": "../packages/build-config/src/debugging.ts",
           "line": 98,
-          "description": "<html><head></head><body><p>log creation/removal of RecordData and Record\ninstances.</p>\n</body></html>",
+          "description": "log creation/removal of RecordData and Record\ninstances.",
           "itemtype": "property",
           "name": "LOG_INSTANCE_CACHE",
           "type": "Boolean",

@@ -1,0 +1,107 @@
+{
+  "data": {
+    "id": "ember-data-3.3.2-RelationshipPayloadsManager",
+    "type": "class",
+    "attributes": {
+      "name": "RelationshipPayloadsManager",
+      "shortname": "RelationshipPayloadsManager",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "",
+      "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/relationships/relationship-payloads-manager.js",
+      "line": 6,
+      "description": "Manages relationship payloads for a given store, for uninitialized\nrelationships.  Acts as a single source of truth (of payloads) for both sides\nof an uninitialized relationship so they can agree on the most up-to-date\npayload received without needing too much eager processing when those payloads\nare pushed into the store.\n\nThis minimizes the work spent on relationships that are never initialized.\n\nOnce relationships are initialized, their state is managed in a relationship\nstate object (eg BelongsToRelationship or ManyRelationship).",
+      "example": [
+        "\n\n  let relationshipPayloadsManager = new RelationshipPayloadsManager(store);\n\n  const User = DS.Model.extend({\n    hobbies: DS.hasMany('hobby')\n  });\n\n  const Hobby = DS.Model.extend({\n    user: DS.belongsTo('user')\n  });\n\n  let userPayload = {\n    data: {\n      id: 1,\n      type: 'user',\n      relationships: {\n        hobbies: {\n          data: [{\n            id: 2,\n            type: 'hobby'\n          }]\n        }\n      }\n    },\n  };\n  relationshipPayloadsManager.push('user', 1, userPayload.data.relationships);\n\n  relationshipPayloadsManager.get('hobby', 2, 'user') === {\n    {\n      data: {\n        id: 1,\n        type: 'user'\n      }\n    }\n  }"
+      ],
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/relationships/relationship-payloads-manager.js",
+          "line": 67,
+          "description": "Find the payload for the given relationship of the given model.\n\nReturns the payload for the given relationship, whether raw or computed from\nthe payload of the inverse relationship.",
+          "example": [
+            "\n\n  relationshipPayloadsManager.get('hobby', 2, 'user') === {\n    {\n      data: {\n        id: 1,\n        type: 'user'\n      }\n    }\n  }"
+          ],
+          "itemtype": "method",
+          "name": "get",
+          "class": "RelationshipPayloadsManager",
+          "module": "ember-data"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/relationships/relationship-payloads-manager.js",
+          "line": 91,
+          "description": "Push a model's relationships payload into this cache.",
+          "example": [
+            "\n\n  let userPayload = {\n    data: {\n      id: 1,\n      type: 'user',\n      relationships: {\n        hobbies: {\n          data: [{\n            id: 2,\n            type: 'hobby'\n          }]\n        }\n      }\n    },\n  };\n  relationshipPayloadsManager.push('user', 1, userPayload.data.relationships);"
+          ],
+          "itemtype": "method",
+          "name": "push",
+          "class": "RelationshipPayloadsManager",
+          "module": "ember-data"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/relationships/relationship-payloads-manager.js",
+          "line": 125,
+          "description": "Unload a model's relationships payload.",
+          "itemtype": "method",
+          "name": "unload",
+          "class": "RelationshipPayloadsManager",
+          "module": "ember-data"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/relationships/relationship-payloads-manager.js",
+          "line": 141,
+          "description": "Find the RelationshipPayloads object for the given relationship.  The same\nRelationshipPayloads object is returned for either side of a relationship.",
+          "example": [
+            "\n\n  const User = DS.Model.extend({\n    hobbies: DS.hasMany('hobby')\n  });\n\n  const Hobby = DS.Model.extend({\n    user: DS.belongsTo('user')\n  });\n\n  relationshipPayloads.get('user', 'hobbies') === relationshipPayloads.get('hobby', 'user');\n\nThe signature has a somewhat large arity to avoid extra work, such as\n  a)  string manipulation & allocation with `modelName` and\n     `relationshipName`\n  b)  repeatedly getting `relationshipsByName` via `Ember.get`"
+          ],
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_getRelationshipPayloads",
+          "class": "RelationshipPayloadsManager",
+          "module": "ember-data"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/system/relationships/relationship-payloads-manager.js",
+          "line": 293,
+          "description": "Create the `RelationshipsPayload` for the relationship `modelName`, `relationshipName`, and its inverse.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_initializeRelationshipPayloads",
+          "class": "RelationshipPayloadsManager",
+          "module": "ember-data"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.3.2-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.3.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

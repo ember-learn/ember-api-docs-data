@@ -1,0 +1,98 @@
+{
+  "data": {
+    "id": "ember-data-3.2.2-DS.DateTransform",
+    "type": "class",
+    "attributes": {
+      "name": "DS.DateTransform",
+      "shortname": "DS.DateTransform",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/transforms/date.js",
+      "line": 3,
+      "description": "The `DS.DateTransform` class is used to serialize and deserialize\ndate attributes on Ember Data record objects. This transform is used\nwhen `date` is passed as the type parameter to the\n[DS.attr](../../data#method_attr) function. It uses the [`ISO 8601`](https://en.wikipedia.org/wiki/ISO_8601)\nstandard.\n\n```js {data-filename=app/models/score.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n   value: DS.attr('number'),\n   player: DS.belongsTo('player'),\n   date: DS.attr('date')\n });\n```",
+      "extends": "DS.Transform",
+      "methods": [
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/transforms/transform.js",
+          "line": 71,
+          "description": "When given a deserialized value from a record attribute this\nmethod must return the serialized value.\n\nExample\n\n```javascript\nimport { isEmpty } from '@ember/utils';\n\nserialize(deserialized, options) {\n  return isEmpty(deserialized) ? null : Number(deserialized);\n}\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "deserialized",
+              "description": "The deserialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `DS.attr`"
+            }
+          ],
+          "return": {
+            "description": "The serialized value"
+          },
+          "class": "DS.DateTransform",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.Transform"
+        },
+        {
+          "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-XQ0At7QH.tmp/0/transforms/transform.js",
+          "line": 92,
+          "description": "When given a serialize value from a JSON object this method must\nreturn the deserialized value for the record attribute.\n\nExample\n\n```javascript\ndeserialize(serialized, options) {\n  return empty(serialized) ? null : Number(serialized);\n}\n```",
+          "itemtype": "method",
+          "name": "deserialize",
+          "params": [
+            {
+              "name": "serialized",
+              "description": "The serialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `DS.attr`"
+            }
+          ],
+          "return": {
+            "description": "The deserialized value"
+          },
+          "class": "DS.DateTransform",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.Transform"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.2.2-DS.Transform",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.2.2-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.2.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

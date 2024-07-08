@@ -1,0 +1,88 @@
+{
+  "data": {
+    "id": "ember-2.8.3-Ember.streams.Dependency",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.streams.Dependency",
+      "shortname": "Ember.streams.Dependency",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-metal",
+      "namespace": "Ember.streams",
+      "file": "packages/ember-htmlbars/lib/streams/dependency.js",
+      "line": 14,
+      "access": "private",
+      "tagname": "",
+      "is_constructor": 1,
+      "methods": [
+        {
+          "file": "packages/ember-htmlbars/lib/streams/class_name_binding.js",
+          "line": 7,
+          "description": "Parse a path and return an object which holds the parsed properties.\n\nFor example a path like \"content.isEnabled:enabled:disabled\" will return the\nfollowing object:\n\n```javascript\n{\n  path: \"content.isEnabled\",\n  className: \"enabled\",\n  falsyClassName: \"disabled\",\n  classNames: \":enabled:disabled\"\n}\n```",
+          "itemtype": "method",
+          "name": "parsePropertyPath",
+          "static": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.streams.Dependency",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/streams/class_name_binding.js",
+          "line": 53,
+          "description": "Get the class name for a given value, based on the path, optional\n`className` and optional `falsyClassName`.\n\n- if a `className` or `falsyClassName` has been specified:\n  - if the value is truthy and `className` has been specified,\n    `className` is returned\n  - if the value is falsy and `falsyClassName` has been specified,\n    `falsyClassName` is returned\n  - otherwise `null` is returned\n- if the value is `true`, the dasherized last part of the supplied path\n  is returned\n- if the value is not `false`, `undefined` or `null`, the `value`\n  is returned\n- if none of the above rules apply, `null` is returned",
+          "itemtype": "method",
+          "name": "classStringForValue",
+          "params": [
+            {
+              "name": "path",
+              "description": ""
+            },
+            {
+              "name": "val",
+              "description": ""
+            },
+            {
+              "name": "className",
+              "description": ""
+            },
+            {
+              "name": "falsyClassName",
+              "description": ""
+            }
+          ],
+          "static": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.streams.Dependency",
+          "module": "ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.8.3-ember-metal",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.8.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

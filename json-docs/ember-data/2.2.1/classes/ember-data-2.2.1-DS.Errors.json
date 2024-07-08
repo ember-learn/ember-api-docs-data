@@ -1,0 +1,251 @@
+{
+  "data": {
+    "id": "ember-data-2.2.1-DS.Errors",
+    "type": "class",
+    "attributes": {
+      "name": "DS.Errors",
+      "shortname": "DS.Errors",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "packages/ember-data/lib/system/model/errors.js",
+      "line": 12,
+      "description": "Holds validation errors for a given record organized by attribute names.\n\nEvery DS.Model has an `errors` property that is an instance of\n`DS.Errors`. This can be used to display validation error\nmessages returned from the server when a `record.save()` rejects.\nThis works automatically with `DS.ActiveModelAdapter`, but you\ncan implement [ajaxError](/api/data/classes/DS.RESTAdapter.html#method_ajaxError)\nin other adapters as well.\n\nFor Example, if you had an `User` model that looked like this:\n\n```js {data-filename=app/models/user.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  username: attr('string'),\n  email: attr('string')\n});\n```\nAnd you attempted to save a record that did not validate on the backend.\n\n```javascript\nvar user = store.createRecord('user', {\n  username: 'tomster',\n  email: 'invalidEmail'\n});\nuser.save();\n```\n\nYour backend data store might return a response that looks like\nthis. This response will be used to populate the error object.\n\n```javascript\n{\n  \"errors\": {\n    \"username\": [\"This username is already taken!\"],\n    \"email\": [\"Doesn't look like a valid email.\"]\n  }\n}\n```\n\nErrors can be displayed to the user by accessing their property name\nto get an array of all the error objects for that property. Each\nerror object is a JavaScript object with two keys:\n\n- `message` A string containing the error message from the backend\n- `attribute` The name of the property associated with this error message\n\n```handlebars\n<label>Username: {{input value=username}} </label>\n{{#each model.errors.username as |error|}}\n  <div class=\"error\">\n    {{error.message}}\n  </div>\n{{/each}}\n\n<label>Email: {{input value=email}} </label>\n{{#each model.errors.email as |error|}}\n  <div class=\"error\">\n    {{error.message}}\n  </div>\n{{/each}}\n```\n\nYou can also access the special `messages` property on the error\nobject to get an array of all the error strings.\n\n```handlebars\n{{#each model.errors.messages as |message|}}\n  <div class=\"error\">\n    {{message}}\n  </div>\n{{/each}}\n```",
+      "extends": "Ember.Object",
+      "uses": [
+        "Ember.Evented",
+        "Ember.Enumerable"
+      ],
+      "methods": [
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 95,
+          "description": "Register with target handler",
+          "itemtype": "method",
+          "name": "registerHandlers",
+          "params": [
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "becameInvalid",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "becameValid",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 121,
+          "description": "Returns errors for a given attribute\n\n```javascript\nvar user = store.createRecord('user', {\n  username: 'tomster',\n  email: 'invalidEmail'\n});\nuser.save().catch(function(){\n  user.get('errors').errorsFor('email'); // returns:\n  // [{attribute: \"email\", message: \"Doesn't look like a valid email.\"}]\n});\n```",
+          "itemtype": "method",
+          "name": "errorsFor",
+          "params": [
+            {
+              "name": "attribute",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 169,
+          "itemtype": "method",
+          "name": "unknownProperty",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 194,
+          "description": "Adds error messages to a given attribute and sends\n`becameInvalid` event to the record.\n\nExample:\n\n```javascript\nif (!user.get('username') {\n  user.get('errors').add('username', 'This field is required');\n}\n```",
+          "itemtype": "method",
+          "name": "add",
+          "params": [
+            {
+              "name": "attribute",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "messages",
+              "description": "",
+              "type": "(Array|String)"
+            }
+          ],
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 224,
+          "itemtype": "method",
+          "name": "_findOrCreateMessages",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 239,
+          "description": "Removes all error messages from the given attribute and sends\n`becameValid` event to the record if there no more errors left.\n\nExample:\n\n```js {data-filename=app/models/user.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  email: DS.attr('string'),\n  twoFactorAuth: DS.attr('boolean'),\n  phone: DS.attr('string')\n});\n```\n\n```js {data-filename=app/routes/user/edit.js}\nimport Ember from 'ember';\n\nexport default Ember.Route.extend({\n  actions: {\n    save: function(user) {\n       if (!user.get('twoFactorAuth')) {\n         user.get('errors').remove('phone');\n       }\n       user.save();\n     }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "remove",
+          "params": [
+            {
+              "name": "attribute",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 287,
+          "description": "Removes all error messages and sends `becameValid` event\nto the record.\n\nExample:\n\n```js {data-filename=app/routes/user/edit.js}\nimport Ember from 'ember';\n\nexport default Ember.Route.extend({\n  actions: {\n    retrySave: function(user) {\n       user.get('errors').clear();\n       user.save();\n     }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "clear",
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 328,
+          "description": "Checks if there is error messages for the given attribute.\n\n```js {data-filename=app/routes/user/edit.js}\nimport Ember from 'ember';\n\nexport default Ember.Route.extend({\n  actions: {\n    save: function(user) {\n       if (user.get('errors').has('email')) {\n         return alert('Please update your email before attempting to save.');\n       }\n       user.save();\n     }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "attribute",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "true if there some errors on given attribute",
+            "type": "Boolean"
+          },
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 108,
+          "itemtype": "property",
+          "name": "errorsByAttributeName",
+          "type": "{Ember.MapWithDefault}",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 143,
+          "description": "An array containing all of the error messages for this\nrecord. This is useful for displaying all errors to the user.\n\n```handlebars\n{{#each model.errors.messages as |message|}}\n  <div class=\"error\">\n    {{message}}\n  </div>\n{{/each}}\n```",
+          "itemtype": "property",
+          "name": "messages",
+          "type": "{Array}",
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 160,
+          "itemtype": "property",
+          "name": "content",
+          "type": "{Array}",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 179,
+          "description": "Total number of errors.",
+          "itemtype": "property",
+          "name": "length",
+          "type": "{Number}",
+          "readonly": "",
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/model/errors.js",
+          "line": 187,
+          "itemtype": "property",
+          "name": "isEmpty",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "DS.Errors",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Object",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.2.1-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.2.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

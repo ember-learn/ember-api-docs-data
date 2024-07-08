@@ -1,0 +1,1800 @@
+{
+  "data": {
+    "id": "ember-data-4.10.0-RESTAdapter",
+    "type": "class",
+    "attributes": {
+      "name": "RESTAdapter",
+      "shortname": "RESTAdapter",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/adapter/rest",
+      "namespace": "",
+      "file": "../packages/adapter/addon/rest.ts",
+      "line": 72,
+      "access": "public",
+      "description": "The REST adapter allows your store to communicate with an HTTP server by\ntransmitting JSON via XHR. Most Ember.js apps that consume a JSON API\nshould use the REST adapter.\n\nThis adapter is designed around the idea that the JSON exchanged with\nthe server should be conventional.\n\n## Success and failure\n\nThe REST adapter will consider a success any response with a status code\nof the 2xx family (\"Success\"), as well as 304 (\"Not Modified\"). Any other\nstatus code will be considered a failure.\n\nOn success, the request promise will be resolved with the full response\npayload.\n\nFailed responses with status code 422 (\"Unprocessable Entity\") will be\nconsidered \"invalid\". The response will be discarded, except for the\n`errors` key. The request promise will be rejected with a `InvalidError`.\nThis error object will encapsulate the saved `errors` value.\n\nAny other status codes will be treated as an \"adapter error\". The request\npromise will be rejected, similarly to the \"invalid\" case, but with\nan instance of `AdapterError` instead.\n\n## JSON Structure\n\nThe REST adapter expects the JSON returned from your server to follow\nthese conventions.\n\n### Object Root\n\nThe JSON payload should be an object that contains the record inside a\nroot property. For example, in response to a `GET` request for\n`/posts/1`, the JSON should look like this:\n\n```js\n{\n  \"posts\": {\n    \"id\": 1,\n    \"title\": \"I'm Running to Reform the W3C's Tag\",\n    \"author\": \"Yehuda Katz\"\n  }\n}\n```\n\nSimilarly, in response to a `GET` request for `/posts`, the JSON should\nlook like this:\n\n```js\n{\n  \"posts\": [\n    {\n      \"id\": 1,\n      \"title\": \"I'm Running to Reform the W3C's Tag\",\n      \"author\": \"Yehuda Katz\"\n    },\n    {\n      \"id\": 2,\n      \"title\": \"Rails is omakase\",\n      \"author\": \"D2H\"\n    }\n  ]\n}\n```\n\nNote that the object root can be pluralized for both a single-object response\nand an array response: the REST adapter is not strict on this. Further, if the\nHTTP server responds to a `GET` request to `/posts/1` (e.g. the response to a\n`findRecord` query) with more than one object in the array, Ember Data will\nonly display the object with the matching ID.\n\n### Conventional Names\n\nAttribute names in your JSON payload should be the camelCased versions of\nthe attributes in your Ember.js models.\n\nFor example, if you have a `Person` model:\n\n```js {data-filename=app/models/person.js}\nimport Model, { attr } from '@ember-data/model';\n\nexport default Model.extend({\n  firstName: attr('string'),\n  lastName: attr('string'),\n  occupation: attr('string')\n});\n```\n\nThe JSON returned should look like this:\n\n```js\n{\n  \"people\": {\n    \"id\": 5,\n    \"firstName\": \"Zaphod\",\n    \"lastName\": \"Beeblebrox\",\n    \"occupation\": \"President\"\n  }\n}\n```\n\n#### Relationships\n\nRelationships are usually represented by ids to the record in the\nrelationship. The related records can then be sideloaded in the\nresponse under a key for the type.\n\n```js\n{\n  \"posts\": {\n    \"id\": 5,\n    \"title\": \"I'm Running to Reform the W3C's Tag\",\n    \"author\": \"Yehuda Katz\",\n    \"comments\": [1, 2]\n  },\n  \"comments\": [{\n    \"id\": 1,\n    \"author\": \"User 1\",\n    \"message\": \"First!\",\n  }, {\n    \"id\": 2,\n    \"author\": \"User 2\",\n    \"message\": \"Good Luck!\",\n  }]\n}\n```\n\nIf the records in the relationship are not known when the response\nis serialized it's also possible to represent the relationship as a\nURL using the `links` key in the response. Ember Data will fetch\nthis URL to resolve the relationship when it is accessed for the\nfirst time.\n\n```js\n{\n  \"posts\": {\n    \"id\": 5,\n    \"title\": \"I'm Running to Reform the W3C's Tag\",\n    \"author\": \"Yehuda Katz\",\n    \"links\": {\n      \"comments\": \"/posts/5/comments\"\n    }\n  }\n}\n```\n\n### Errors\n\nIf a response is considered a failure, the JSON payload is expected to include\na top-level key `errors`, detailing any specific issues. For example:\n\n```js\n{\n  \"errors\": {\n    \"msg\": \"Something went wrong\"\n  }\n}\n```\n\nThis adapter does not make any assumptions as to the format of the `errors`\nobject. It will simply be passed along as is, wrapped in an instance\nof `InvalidError` or `AdapterError`. The serializer can interpret it\nafterwards.\n\n## Customization\n\n### Endpoint path customization\n\nEndpoint paths can be prefixed with a `namespace` by setting the namespace\nproperty on the adapter:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  namespace = 'api/1';\n}\n```\nRequests for the `Person` model would now target `/api/1/people/1`.\n\n### Host customization\n\nAn adapter can target other hosts by setting the `host` property.\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  host = 'https://api.example.com';\n}\n```\n\n### Headers customization\n\nSome APIs require HTTP headers, e.g. to provide an API key. Arbitrary\nheaders can be set as key/value pairs on the `RESTAdapter`'s `headers`\nobject and Ember Data will send them along with each ajax request.\n\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\nimport { computed } from '@ember/object';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  headers: computed(function() {\n    return {\n      'API_KEY': 'secret key',\n      'ANOTHER_HEADER': 'Some header value'\n    };\n  }\n}\n```\n\n`headers` can also be used as a computed property to support dynamic\nheaders. In the example below, the `session` object has been\ninjected into an adapter by Ember's container.\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\nimport { computed } from '@ember/object';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  headers: computed('session.authToken', function() {\n    return {\n      'API_KEY': this.session.authToken,\n      'ANOTHER_HEADER': 'Some header value'\n    };\n  })\n}\n```\n\nIn some cases, your dynamic headers may require data from some\nobject outside of Ember's observer system (for example\n`document.cookie`). You can use the\n[volatile](/api/classes/Ember.ComputedProperty.html?anchor=volatile)\nfunction to set the property into a non-cached mode causing the headers to\nbe recomputed with every request.\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\nimport { computed } from '@ember/object';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  headers: computed(function() {\n    return {\n      'API_KEY': document.cookie.match(/apiKey\\=([^;]*)/)['1'],\n      'ANOTHER_HEADER': 'Some header value'\n    };\n  }).volatile()\n}\n```\n  @mainName @ember-data/adapter/rest\n  @tag main\n\n  @_maintrue\n",
+      "tagname": "",
+      "is_constructor": 1,
+      "extends": "Adapter",
+      "uses": [
+        "BuildURLMixin"
+      ],
+      "methods": [
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 365,
+          "description": "By default, the RESTAdapter will send the query params sorted alphabetically to the\nserver.\n\nFor example:\n\n```js\nstore.query('posts', { sort: 'price', category: 'pets' });\n```\n\nwill generate a requests like this `/posts?category=pets&sort=price`, even if the\nparameters were specified in a different order.\n\nThat way the generated URL will be deterministic and that simplifies caching mechanisms\nin the backend.\n\nSetting `sortQueryParams` to a falsey value will respect the original order.\n\nIn case you want to sort the query parameters with a different criteria, set\n`sortQueryParams` to your custom sort function.\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  sortQueryParams(params) {\n    let sortedKeys = Object.keys(params).sort().reverse();\n    let len = sortedKeys.length, newParams = {};\n\n    for (let i = 0; i < len; i++) {\n      newParams[sortedKeys[i]] = params[sortedKeys[i]];\n    }\n\n    return newParams;\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "sortQueryParams",
+          "params": [
+            {
+              "name": "obj",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 547,
+          "description": "Called by the store in order to fetch the JSON for a given\ntype and ID.\n\nThe `findRecord` method makes an Ajax request to a URL computed by\n`buildURL`, and returns a promise for the resulting payload.\n\nThis method performs an HTTP `GET` request with the id provided as part of the query string.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "findRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 572,
+          "description": "Called by the store in order to fetch a JSON array for all\nof the records for a given type.\n\nThe `findAll` method makes an Ajax (HTTP GET) request to a URL computed by `buildURL`, and returns a\npromise for the resulting payload.",
+          "itemtype": "method",
+          "name": "findAll",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "neverSet",
+              "description": "a value is never provided to this argument",
+              "type": "Undefined"
+            },
+            {
+              "name": "snapshotRecordArray",
+              "description": "",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 603,
+          "description": "Called by the store in order to fetch a JSON array for\nthe records that match a particular query.\n\nThe `query` method makes an Ajax (HTTP GET) request to a URL\ncomputed by `buildURL`, and returns a promise for the resulting\npayload.\n\nThe `query` argument is a simple JavaScript object that will be passed directly\nto the server as parameters.",
+          "itemtype": "method",
+          "name": "query",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "recordArray",
+              "description": "",
+              "type": "Collection"
+            },
+            {
+              "name": "adapterOptions",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 633,
+          "description": "Called by the store in order to fetch a JSON object for\nthe record that matches a particular query.\n\nThe `queryRecord` method makes an Ajax (HTTP GET) request to a URL\ncomputed by `buildURL`, and returns a promise for the resulting\npayload.\n\nThe `query` argument is a simple JavaScript object that will be passed directly\nto the server as parameters.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "queryRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "adapterOptions",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 668,
+          "description": "Called by the store in order to fetch several records together if `coalesceFindRequests` is true\n\nFor example, if the original payload looks like:\n\n```js\n{\n  \"id\": 1,\n  \"title\": \"Rails is omakase\",\n  \"comments\": [ 1, 2, 3 ]\n}\n```\n\nThe IDs will be passed as a URL-encoded Array of IDs, in this form:\n\n```\nids[]=1&ids[]=2&ids[]=3\n```\n\nMany servers, such as Rails and PHP, will automatically convert this URL-encoded array\ninto an Array for you on the server-side. If you want to encode the\nIDs, differently, just override this (one-line) method.\n\nThe `findMany` method makes an Ajax (HTTP GET) request to a URL computed by `buildURL`, and returns a\npromise for the resulting payload.",
+          "itemtype": "method",
+          "name": "findMany",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "ids",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 707,
+          "description": "Called by the store in order to fetch a JSON array for\nthe unloaded records in a has-many relationship that were originally\nspecified as a URL (inside of `links`).\n\nFor example, if your original payload looks like this:\n\n```js\n{\n  \"post\": {\n    \"id\": 1,\n    \"title\": \"Rails is omakase\",\n    \"links\": { \"comments\": \"/posts/1/comments\" }\n  }\n}\n```\n\nThis method will be called with the parent record and `/posts/1/comments`.\n\nThe `findHasMany` method will make an Ajax (HTTP GET) request to the originally specified URL.\n\nThe format of your `links` value will influence the final request URL via the `urlPrefix` method:\n\n* Links beginning with `//`, `http://`, `https://`, will be used as is, with no further manipulation.\n\n* Links beginning with a single `/` will have the current adapter's `host` value prepended to it.\n\n* Links with no beginning `/` will have a parentURL prepended to it, via the current adapter's `buildURL`.",
+          "itemtype": "method",
+          "name": "findHasMany",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            },
+            {
+              "name": "url",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "relationship",
+              "description": "meta object describing the relationship",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 757,
+          "description": "Called by the store in order to fetch the JSON for the unloaded record in a\nbelongs-to relationship that was originally specified as a URL (inside of\n`links`).\n\nFor example, if your original payload looks like this:\n\n```js\n{\n  \"person\": {\n    \"id\": 1,\n    \"name\": \"Tom Dale\",\n    \"links\": { \"group\": \"/people/1/group\" }\n  }\n}\n```\n\nThis method will be called with the parent record and `/people/1/group`.\n\nThe `findBelongsTo` method will make an Ajax (HTTP GET) request to the originally specified URL.\n\nThe format of your `links` value will influence the final request URL via the `urlPrefix` method:\n\n* Links beginning with `//`, `http://`, `https://`, will be used as is, with no further manipulation.\n\n* Links beginning with a single `/` will have the current adapter's `host` value prepended to it.\n\n* Links with no beginning `/` will have a parentURL prepended to it, via the current adapter's `buildURL`.",
+          "itemtype": "method",
+          "name": "findBelongsTo",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            },
+            {
+              "name": "url",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "relationship",
+              "description": "meta object describing the relationship",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 806,
+          "description": "Called by the store when a newly created record is\nsaved via the `save` method on a model record instance.\n\nThe `createRecord` method serializes the record and makes an Ajax (HTTP POST) request\nto a URL computed by `buildURL`.\n\nSee `serialize` for information on how to customize the serialized form\nof a record.",
+          "itemtype": "method",
+          "name": "createRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 831,
+          "description": "Called by the store when an existing record is saved\nvia the `save` method on a model record instance.\n\nThe `updateRecord` method serializes the record and makes an Ajax (HTTP PUT) request\nto a URL computed by `buildURL`.\n\nSee `serialize` for information on how to customize the serialized form\nof a record.",
+          "itemtype": "method",
+          "name": "updateRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "schema",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 858,
+          "description": "Called by the store when a record is deleted.\n\nThe `deleteRecord` method  makes an Ajax (HTTP DELETE) request to a URL computed by `buildURL`.",
+          "itemtype": "method",
+          "name": "deleteRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 908,
+          "description": "Organize records into groups, each of which is to be passed to separate\ncalls to `findMany`.\n\nThis implementation groups together records that have the same base URL but\ndiffering ids. For example `/comments/1` and `/comments/2` will be grouped together\nbecause we know findMany can coalesce them together as `/comments?ids[]=1&ids[]=2`\n\nIt also supports urls where ids are passed as a query param, such as `/comments?id=1`\nbut not those where there is more than 1 query param such as `/comments?id=2&name=David`\nCurrently only the query param of `id` is supported. If you need to support others, please\noverride this or the `_stripIDFromURL` method.\n\nIt does not group records that have differing base urls, such as for example: `/posts/1/comments/2`\nand `/posts/2/comments/3`",
+          "itemtype": "method",
+          "name": "groupRecordsForFindMany",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "an array of arrays of records, each of which is to be\n                  loaded separately by `findMany`.",
+            "type": "Array"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 977,
+          "description": "Takes an ajax response, and returns the json payload or an error.\n\nBy default this hook just returns the json payload passed to it.\nYou might want to override it in two cases:\n\n1. Your API might return useful results in the response headers.\nResponse headers are passed in as the second argument.\n\n2. Your API might return errors as successful responses with status code\n200 and an Errors text or object. You can return a `InvalidError` or a\n`AdapterError` (or a sub class) from this hook and it will automatically\nreject the promise and put your record into the invalid or error state.\n\nReturning a `InvalidError` from this method will cause the\nrecord to transition into the `invalid` state and make the\n`errors` object available on the record. When returning an\n`InvalidError` the store will attempt to normalize the error data\nreturned from the server using the serializer's `extractErrors`\nmethod.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "handleResponse",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "status",
+              "description": "",
+              "type": "Number"
+            },
+            {
+              "name": "headers",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "payload",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "requestData",
+              "description": "- the original request information",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "response",
+            "type": "Object | AdapterError"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 1040,
+          "description": "Default `handleResponse` implementation uses this hook to decide if the\nresponse is a success.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "isSuccess",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "status",
+              "description": "",
+              "type": "Number"
+            },
+            {
+              "name": "headers",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "payload",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 1056,
+          "description": "Default `handleResponse` implementation uses this hook to decide if the\nresponse is an invalid error.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "isInvalid",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "status",
+              "description": "",
+              "type": "Number"
+            },
+            {
+              "name": "headers",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "payload",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 1072,
+          "description": "Takes a URL, an HTTP method and a hash of data, and makes an\nHTTP request.\n\nWhen the server responds with a payload, Ember Data will call into `extractSingle`\nor `extractArray` (depending on whether the original query was for one record or\nmany records).\n\nBy default, `ajax` method has the following behavior:\n\n* It sets the response `dataType` to `\"json\"`\n* If the HTTP method is not `\"GET\"`, it sets the `Content-Type` to be\n  `application/json; charset=utf-8`\n* If the HTTP method is not `\"GET\"`, it stringifies the data passed in. The\n  data is the serialized record in the case of a save.\n* Registers success and failure handlers.",
+          "itemtype": "method",
+          "name": "ajax",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "url",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "type",
+              "description": "The request type GET, POST, PUT, DELETE etc.",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 1133,
+          "itemtype": "method",
+          "name": "_ajaxRequest",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "options",
+              "description": "jQuery ajax options to be used for the ajax request",
+              "type": "Object"
+            }
+          ],
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 1163,
+          "itemtype": "method",
+          "name": "ajaxOptions",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "url",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "type",
+              "description": "The request type GET, POST, PUT, DELETE etc.",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 1238,
+          "itemtype": "method",
+          "name": "parseErrorResponse",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "responseText",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 1256,
+          "itemtype": "method",
+          "name": "normalizeErrorResponse",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "status",
+              "description": "",
+              "type": "Number"
+            },
+            {
+              "name": "headers",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "payload",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "errors payload",
+            "type": "Array"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 1278,
+          "description": "Generates a detailed (\"friendly\") error message, with plenty\nof information for debugging (good luck!)",
+          "itemtype": "method",
+          "name": "generatedDetailedMessage",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "status",
+              "description": "",
+              "type": "Number"
+            },
+            {
+              "name": "headers",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "payload",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "requestData",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "detailed error message",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 1310,
+          "description": "Used by `findAll` and `findRecord` to build the query's `data` hash\nsupplied to the ajax method.",
+          "itemtype": "method",
+          "name": "buildQuery",
+          "since": "2.5.0",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 211,
+          "description": "The `findRecord()` method is invoked when the store is asked for a record that\nhas not previously been loaded. In response to `findRecord()` being called, you\nshould query your persistence layer for a record with the given ID. The `findRecord`\nmethod should return a promise that will resolve to a JavaScript object that will be\nnormalized by the serializer.\n\nHere is an example of the `findRecord` implementation:\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  findRecord(store, type, id, snapshot) {\n    return new RSVP.Promise(function(resolve, reject) {\n      $.getJSON(`/${type.modelName}/${id}`).then(function(data) {\n        resolve(data);\n      }, function(jqXHR) {\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "findRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 254,
+          "description": "The `findAll()` method is used to retrieve all records for a given type.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  findAll(store, type) {\n    return new RSVP.Promise(function(resolve, reject) {\n      $.getJSON(`/${type.modelName}`).then(function(data) {\n        resolve(data);\n      }, function(jqXHR) {\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "findAll",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "neverSet",
+              "description": "a value is never provided to this argument",
+              "type": "Undefined"
+            },
+            {
+              "name": "snapshotRecordArray",
+              "description": "",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 298,
+          "description": "This method is called when you call `query` on the store.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  query(store, type, query) {\n    return new RSVP.Promise(function(resolve, reject) {\n      $.getJSON(`/${type.modelName}`, query).then(function(data) {\n        resolve(data);\n      }, function(jqXHR) {\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "query",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "recordArray",
+              "description": "",
+              "type": "Collection"
+            },
+            {
+              "name": "adapterOptions",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 338,
+          "description": "The `queryRecord()` method is invoked when the store is asked for a single\nrecord through a query object.\n\nIn response to `queryRecord()` being called, you should always fetch fresh\ndata. Once found, you can asynchronously call the store's `push()` method\nto push the record into the store.\n\nHere is an example `queryRecord` implementation:\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter, { BuildURLMixin } from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter.extend(BuildURLMixin) {\n  queryRecord(store, type, query) {\n    return new RSVP.Promise(function(resolve, reject) {\n      $.getJSON(`/${type.modelName}`, query).then(function(data) {\n        resolve(data);\n      }, function(jqXHR) {\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "queryRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "Subclass of Model"
+            },
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "adapterOptions",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 384,
+          "description": "If the globally unique IDs for your records should be generated on the client,\nimplement the `generateIdForRecord()` method. This method will be invoked\neach time you create a new record, and the value returned from it will be\nassigned to the record's `primaryKey`.\n\nMost traditional REST-like HTTP APIs will not use this method. Instead, the ID\nof the record will be set by the server, and your adapter will update the store\nwith the new ID when it calls `didCreateRecord()`. Only implement this method if\nyou intend to generate record IDs on the client-side.\n\nThe `generateIdForRecord()` method will be invoked with the requesting store as\nthe first parameter and the newly created record as the second parameter:\n\n```javascript\nimport Adapter from '@ember-data/adapter';\nimport { v4 } from 'uuid';\n\nexport default class ApplicationAdapter extends Adapter {\n  generateIdForRecord(store, type, inputProperties) {\n    return v4();\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "generateIdForRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "the Model class of the record",
+              "type": "Model"
+            },
+            {
+              "name": "inputProperties",
+              "description": "a hash of properties to set on the\n  newly created record.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "id",
+            "type": "(String|Number)"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 418,
+          "description": "Proxies to the serializer's `serialize` method.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\n\nexport default class ApplicationAdapter extends Adapter {\n  createRecord(store, type, snapshot) {\n    let data = this.serialize(snapshot, { includeId: true });\n    let url = `/${type.modelName}`;\n\n    // ...\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "serialized snapshot",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 446,
+          "description": "Implement this method in a subclass to handle the creation of\nnew records.\n\nSerializes the record and sends it to the server.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  createRecord(store, type, snapshot) {\n    let data = this.serialize(snapshot, { includeId: true });\n\n    return new RSVP.Promise(function (resolve, reject) {\n      $.ajax({\n        type: 'POST',\n        url: `/${type.modelName}`,\n        dataType: 'json',\n        data: data\n      }).then(function (data) {\n        resolve(data);\n      }, function (jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "createRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "the Model class of the record",
+              "type": "Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 495,
+          "description": "Implement this method in a subclass to handle the updating of\na record.\n\nSerializes the record update and sends it to the server.\n\nThe updateRecord method is expected to return a promise that will\nresolve with the serialized record. This allows the backend to\ninform the Ember Data store the current state of this record after\nthe update. If it is not possible to return a serialized record\nthe updateRecord promise can also resolve with `undefined` and the\nEmber Data store will assume all of the updates were successfully\napplied on the backend.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  updateRecord(store, type, snapshot) {\n    let data = this.serialize(snapshot, { includeId: true });\n    let id = snapshot.id;\n\n    return new RSVP.Promise(function(resolve, reject) {\n      $.ajax({\n        type: 'PUT',\n        url: `/${type.modelName}/${id}`,\n        dataType: 'json',\n        data: data\n      }).then(function(data) {\n        resolve(data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "updateRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "the Model class of the record",
+              "type": "Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 553,
+          "description": "Implement this method in a subclass to handle the deletion of\na record.\n\nSends a delete request for the record to the server.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  deleteRecord(store, type, snapshot) {\n    let data = this.serialize(snapshot, { includeId: true });\n    let id = snapshot.id;\n\n    return new RSVP.Promise(function(resolve, reject) {\n      $.ajax({\n        type: 'DELETE',\n        url: `/${type.modelName}/${id}`,\n        dataType: 'json',\n        data: data\n      }).then(function(data) {\n        resolve(data)\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "deleteRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "the Model class of the record",
+              "type": "Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 625,
+          "description": "The store will call `findMany` instead of multiple `findRecord`\nrequests to find multiple records at once if coalesceFindRequests\nis true.\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\nimport RSVP from 'RSVP';\nimport $ from 'jquery';\n\nexport default class ApplicationAdapter extends Adapter {\n  findMany(store, type, ids, snapshots) {\n    return new RSVP.Promise(function(resolve, reject) {\n      $.ajax({\n        type: 'GET',\n        url: `/${type.modelName}/`,\n        dataType: 'json',\n        data: { filter: { id: ids.join(',') } }\n      }).then(function(data) {\n        resolve(data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        reject(jqXHR);\n      });\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "findMany",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "type",
+              "description": "the Model class of the records",
+              "type": "Model"
+            },
+            {
+              "name": "ids",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 663,
+          "description": "Organize records into groups, each of which is to be passed to separate\ncalls to `findMany`.\n\nFor example, if your API has nested URLs that depend on the parent, you will\nwant to group records by their parent.\n\nThe default implementation returns the records as a single group.",
+          "itemtype": "method",
+          "name": "groupRecordsForFindMany",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "an array of arrays of records, each of which is to be\n                  loaded separately by `findMany`.",
+            "type": "Array"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 683,
+          "description": "This method is used by the store to determine if the store should\nreload a record from the adapter when a record is requested by\n`store.findRecord`.\n\nIf this method returns `true`, the store will re-fetch a record from\nthe adapter. If this method returns `false`, the store will resolve\nimmediately using the cached record.\n\nFor example, if you are building an events ticketing system, in which users\ncan only reserve tickets for 20 minutes at a time, and want to ensure that\nin each route you have data that is no more than 20 minutes old you could\nwrite:\n\n```javascript\nshouldReloadRecord(store, ticketSnapshot) {\n  let lastAccessedAt = ticketSnapshot.attr('lastAccessedAt');\n  let timeDiff = moment().diff(lastAccessedAt, 'minutes');\n\n  if (timeDiff > 20) {\n    return true;\n  } else {\n    return false;\n  }\n}\n```\n\nThis method would ensure that whenever you do `store.findRecord('ticket',\nid)` you will always get a ticket that is no more than 20 minutes old. In\ncase the cached version is more than 20 minutes old, `findRecord` will not\nresolve until you fetched the latest version.\n\nBy default this hook returns `false`, as most UIs should not block user\ninteractions while waiting on data update.\n\nNote that, with default settings, `shouldBackgroundReloadRecord` will always\nre-fetch the records in the background even if `shouldReloadRecord` returns\n`false`. You can override `shouldBackgroundReloadRecord` if this does not\nsuit your use case.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "shouldReloadRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 734,
+          "description": "This method is used by the store to determine if the store should\nreload all records from the adapter when records are requested by\n`store.findAll`.\n\nIf this method returns `true`, the store will re-fetch all records from\nthe adapter. If this method returns `false`, the store will resolve\nimmediately using the cached records.\n\nFor example, if you are building an events ticketing system, in which users\ncan only reserve tickets for 20 minutes at a time, and want to ensure that\nin each route you have data that is no more than 20 minutes old you could\nwrite:\n\n```javascript\nshouldReloadAll(store, snapshotArray) {\n  let snapshots = snapshotArray.snapshots();\n\n  return snapshots.any((ticketSnapshot) => {\n    let lastAccessedAt = ticketSnapshot.attr('lastAccessedAt');\n    let timeDiff = moment().diff(lastAccessedAt, 'minutes');\n\n    if (timeDiff > 20) {\n      return true;\n    } else {\n      return false;\n    }\n  });\n}\n```\n\nThis method would ensure that whenever you do `store.findAll('ticket')` you\nwill always get a list of tickets that are no more than 20 minutes old. In\ncase a cached version is more than 20 minutes old, `findAll` will not\nresolve until you fetched the latest versions.\n\nBy default, this method returns `true` if the passed `snapshotRecordArray`\nis empty (meaning that there are no records locally available yet),\notherwise, it returns `false`.\n\nNote that, with default settings, `shouldBackgroundReloadAll` will always\nre-fetch all the records in the background even if `shouldReloadAll` returns\n`false`. You can override `shouldBackgroundReloadAll` if this does not suit\nyour use case.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "shouldReloadAll",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshotRecordArray",
+              "description": "",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 790,
+          "description": "This method is used by the store to determine if the store should\nreload a record after the `store.findRecord` method resolves a\ncached record.\n\nThis method is *only* checked by the store when the store is\nreturning a cached record.\n\nIf this method returns `true` the store will re-fetch a record from\nthe adapter.\n\nFor example, if you do not want to fetch complex data over a mobile\nconnection, or if the network is down, you can implement\n`shouldBackgroundReloadRecord` as follows:\n\n```javascript\nshouldBackgroundReloadRecord(store, snapshot) {\n  let { downlink, effectiveType } = navigator.connection;\n\n  return downlink > 0 && effectiveType === '4g';\n}\n```\n\nBy default, this hook returns `true` so the data for the record is updated\nin the background.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "shouldBackgroundReloadRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 827,
+          "description": "This method is used by the store to determine if the store should\nreload a record array after the `store.findAll` method resolves\nwith a cached record array.\n\nThis method is *only* checked by the store when the store is\nreturning a cached record array.\n\nIf this method returns `true` the store will re-fetch all records\nfrom the adapter.\n\nFor example, if you do not want to fetch complex data over a mobile\nconnection, or if the network is down, you can implement\n`shouldBackgroundReloadAll` as follows:\n\n```javascript\nshouldBackgroundReloadAll(store, snapshotArray) {\n  let { downlink, effectiveType } = navigator.connection;\n\n  return downlink > 0 && effectiveType === '4g';\n}\n```\n\nBy default this method returns `true`, indicating that a background reload\nshould always be triggered.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "shouldBackgroundReloadAll",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "snapshotRecordArray",
+              "description": "",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 147,
+          "description": "Builds a URL for a given type and optional ID.\n\nBy default, it pluralizes the type's name (for example, 'post'\nbecomes 'posts' and 'person' becomes 'people'). To override the\npluralization see [pathForType](./pathForType?anchor=pathForType).\n\nIf an ID is specified, it adds the ID to the path generated\nfor the type, separated by a `/`.\n\nWhen called by `RESTAdapter.findMany()` the `id` and `snapshot` parameters\nwill be arrays of ids and snapshots.",
+          "itemtype": "method",
+          "name": "buildURL",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "single id or array of ids or query",
+              "type": "(String|Array|Object)"
+            },
+            {
+              "name": "snapshot",
+              "description": "single snapshot or array of snapshots",
+              "type": "(Snapshot|SnapshotRecordArray)"
+            },
+            {
+              "name": "requestType",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "query",
+              "description": "object of query parameters to send for query requests.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 296,
+          "itemtype": "method",
+          "name": "_buildURL",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 331,
+          "description": "Builds a URL for a `store.findRecord(type, id)` call.\n\nExample:\n\n```js {data-filename=app/adapters/user.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default class ApplicationAdapter extends JSONAPIAdapter {\n  urlForFindRecord(id, modelName, snapshot) {\n    let baseUrl = this.buildURL(modelName, id, snapshot);\n    return `${baseUrl}/users/${snapshot.adapterOptions.user_id}/playlists/${id}`;\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "urlForFindRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 359,
+          "description": "Builds a URL for a `store.findAll(type)` call.\n\nExample:\n\n```js {data-filename=app/adapters/comment.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default class ApplicationAdapter extends JSONAPIAdapter {\n  urlForFindAll(modelName, snapshot) {\n    let baseUrl = this.buildURL(modelName);\n    return `${baseUrl}/data/comments.json`;\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "urlForFindAll",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 385,
+          "description": "Builds a URL for a `store.query(type, query)` call.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  host = 'https://api.github.com';\n  urlForQuery (query, modelName) {\n    switch(modelName) {\n      case 'repo':\n        return `https://api.github.com/orgs/${query.orgId}/repos`;\n      default:\n        return super.urlForQuery(...arguments);\n    }\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "urlForQuery",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 416,
+          "description": "Builds a URL for a `store.queryRecord(type, query)` call.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  urlForQueryRecord({ slug }, modelName) {\n    let baseUrl = this.buildURL();\n    return `${baseUrl}/${encodeURIComponent(slug)}`;\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "urlForQueryRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 442,
+          "description": "Builds a URL for coalescing multiple `store.findRecord(type, id)`\nrecords into 1 request when the adapter's `coalesceFindRequests`\nproperty is `true`.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  urlForFindMany(ids, modelName) {\n    let baseUrl = this.buildURL();\n    return `${baseUrl}/coalesce`;\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "urlForFindMany",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "ids",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 471,
+          "description": "Builds a URL for fetching an async `hasMany` relationship when a URL\nis not provided by the server.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default class ApplicationAdapter extends JSONAPIAdapter {\n  urlForFindHasMany(id, modelName, snapshot) {\n    let baseUrl = this.buildURL(modelName, id);\n    return `${baseUrl}/relationships`;\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "urlForFindHasMany",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 499,
+          "description": "Builds a URL for fetching an async `belongsTo` relationship when a url\nis not provided by the server.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default class ApplicationAdapter extends JSONAPIAdapter {\n  urlForFindBelongsTo(id, modelName, snapshot) {\n    let baseUrl = this.buildURL(modelName, id);\n    return `${baseUrl}/relationships`;\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "urlForFindBelongsTo",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 527,
+          "description": "Builds a URL for a `record.save()` call when the record was created\nlocally using `store.createRecord()`.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  urlForCreateRecord(modelName, snapshot) {\n    return super.urlForCreateRecord(...arguments) + '/new';\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "urlForCreateRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 553,
+          "description": "Builds a URL for a `record.save()` call when the record has been updated locally.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  urlForUpdateRecord(id, modelName, snapshot) {\n    return `/${id}/feed?access_token=${snapshot.adapterOptions.token}`;\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "urlForUpdateRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 579,
+          "description": "Builds a URL for a `record.save()` call when the record has been deleted locally.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  urlForDeleteRecord(id, modelName, snapshot) {\n    return super.urlForDeleteRecord(...arguments) + '/destroy';\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "urlForDeleteRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 605,
+          "itemtype": "method",
+          "name": "urlPrefix",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "parentURL",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "urlPrefix",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        },
+        {
+          "file": "../packages/adapter/addon/-private/build-url-mixin.ts",
+          "line": 645,
+          "description": "Determines the pathname for a given type.\n\nBy default, it pluralizes the type's name (for example,\n'post' becomes 'posts' and 'person' becomes 'people').\n\n### Pathname customization\n\nFor example, if you have an object `LineItem` with an\nendpoint of `/line_items/`.\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\nimport { decamelize, pluralize } from '<app-name>/utils/string-utils';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  pathForType(modelName) {\n    var decamelized = decamelize(modelName);\n    return pluralize(decamelized);\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "pathForType",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "path",
+            "type": "String"
+          },
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "BuildURLMixin"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 338,
+          "description": "This property allows ajax to still be used instead when `false`.",
+          "itemtype": "property",
+          "name": "useFetch",
+          "type": "{Boolean}",
+          "default": "true",
+          "access": "public",
+          "tagname": "",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 423,
+          "description": "By default the RESTAdapter will send each find request coming from a `store.find`\nor from accessing a relationship separately to the server. If your server supports passing\nids as a query string, you can set coalesceFindRequests to true to coalesce all find requests\nwithin a single runloop.\n\nFor example, if you have an initial payload of:\n\n```javascript\n{\n  post: {\n    id: 1,\n    comments: [1, 2]\n  }\n}\n```\n\nBy default calling `post.comments` will trigger the following requests(assuming the\ncomments haven't been loaded before):\n\n```\nGET /comments/1\nGET /comments/2\n```\n\nIf you set coalesceFindRequests to `true` it will instead trigger the following request:\n\n```\nGET /comments?ids[]=1&ids[]=2\n```\n\nSetting coalesceFindRequests to `true` also works for `store.find` requests and `belongsTo`\nrelationships accessed within the same runloop. If you set `coalesceFindRequests: true`\n\n```javascript\nstore.findRecord('comment', 1);\nstore.findRecord('comment', 2);\n```\n\nwill also send a request to: `GET /comments?ids[]=1&ids[]=2`\n\nNote: Requests coalescing rely on URL building strategy. So if you override `buildURL` in your app\n`groupRecordsForFindMany` more likely should be overridden as well in order for coalescing to work.",
+          "itemtype": "property",
+          "name": "coalesceFindRequests",
+          "access": "public",
+          "tagname": "",
+          "type": "{boolean}",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 483,
+          "description": "Endpoint paths can be prefixed with a `namespace` by setting the namespace\nproperty on the adapter:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  namespace = 'api/1';\n}\n```\n\nRequests for the `Post` model would now target `/api/1/post/`.",
+          "itemtype": "property",
+          "name": "namespace",
+          "access": "public",
+          "tagname": "",
+          "type": "{String}",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 502,
+          "description": "An adapter can target other hosts by setting the `host` property.\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  host = 'https://api.example.com';\n}\n```\n\nRequests for the `Post` model would now target `https://api.example.com/post/`.",
+          "itemtype": "property",
+          "name": "host",
+          "access": "public",
+          "tagname": "",
+          "type": "{String}",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/rest.ts",
+          "line": 520,
+          "description": "Some APIs require HTTP headers, e.g. to provide an API\nkey. Arbitrary headers can be set as key/value pairs on the\n`RESTAdapter`'s `headers` object and Ember Data will send them\nalong with each ajax request. For dynamic headers see [headers\ncustomization](/ember-data/release/classes/RESTAdapter).\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\nimport { computed } from '@ember/object';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  headers: computed(function() {\n    return {\n      'API_KEY': 'secret key',\n      'ANOTHER_HEADER': 'Some header value'\n    };\n  })\n}\n```",
+          "itemtype": "property",
+          "name": "headers",
+          "access": "public",
+          "tagname": "",
+          "type": "{Object}",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter/rest"
+        },
+        {
+          "file": "../packages/adapter/addon/index.ts",
+          "line": 603,
+          "description": "By default the store will try to coalesce all `findRecord` calls within the same runloop\ninto as few requests as possible by calling groupRecordsForFindMany and passing it into a findMany call.\nYou can opt out of this behaviour by either not implementing the findMany hook or by setting\ncoalesceFindRequests to false.",
+          "itemtype": "property",
+          "name": "coalesceFindRequests",
+          "access": "public",
+          "tagname": "",
+          "type": "{boolean}",
+          "class": "RESTAdapter",
+          "module": "@ember-data/adapter",
+          "inherited": true,
+          "inheritedFrom": "Adapter"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-4.10.0-Adapter",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-4.10.0-JSONAPIAdapter"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.10.0-@ember-data/adapter/rest",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.10.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

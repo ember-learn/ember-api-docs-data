@@ -1,0 +1,145 @@
+{
+  "data": {
+    "id": "ember-1.11.4-Ember.HTMLBars",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.HTMLBars",
+      "shortname": "Ember.HTMLBars",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-htmlbars",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/ember-htmlbars/lib/system/lookup-helper.js",
+          "line": 15,
+          "description": "Used to lookup/resolve handlebars helpers. The lookup order is:\n\n* Look for a registered helper\n* If a dash exists in the name:\n  * Look for a helper registed in the container\n  * Use Ember.ComponentLookup to find an Ember.Component that resolves\n    to the given name",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "resolveHelper",
+          "params": [
+            {
+              "name": "container",
+              "description": "",
+              "type": "Container"
+            },
+            {
+              "name": "name",
+              "description": "the name of the helper to lookup",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Handlebars Helper"
+          },
+          "class": "Ember.HTMLBars",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/system/make-view-helper.js",
+          "line": 9,
+          "description": "Returns a helper function that renders the provided ViewClass.\n\nUsed internally by Ember.Handlebars.helper and other methods\ninvolving helper/component registration.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "makeViewHelper",
+          "params": [
+            {
+              "name": "ViewClass",
+              "description": "view class constructor",
+              "type": "Function"
+            }
+          ],
+          "since": "1.2.0",
+          "class": "Ember.HTMLBars",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/system/make_bound_helper.js",
+          "line": 18,
+          "description": "Create a bound helper. Accepts a function that receives the ordered and hash parameters\nfrom the template. If a bound property was provided in the template it will be resolved to its\nvalue and any changes to the bound property cause the helper function to be re-run with the updated\nvalues.\n\n* `params` - An array of resolved ordered parameters.\n* `hash` - An object containing the hash parameters.\n\nFor example:\n\n* With an unquoted ordered parameter:\n\n  ```javascript\n  {{x-capitalize foo}}\n  ```\n\n  Assuming `foo` was set to `\"bar\"`, the bound helper would receive `[\"bar\"]` as its first argument, and\n  an empty hash as its second.\n\n* With a quoted ordered parameter:\n\n  ```javascript\n  {{x-capitalize \"foo\"}}\n  ```\n\n  The bound helper would receive `[\"foo\"]` as its first argument, and an empty hash as its second.\n\n* With an unquoted hash parameter:\n\n  ```javascript\n  {{x-repeat \"foo\" count=repeatCount}}\n  ```\n\n  Assuming that `repeatCount` resolved to 2, the bound helper would receive `[\"foo\"]` as its first argument,\n  and { count: 2 } as its second.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "makeBoundHelper",
+          "params": [
+            {
+              "name": "function",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "since": "1.10.0",
+          "class": "Ember.HTMLBars",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/helpers.js",
+          "line": 21,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_registerHelper",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "helperFunc",
+              "description": "the helper function to add",
+              "type": "Object|Function"
+            }
+          ],
+          "class": "Ember.HTMLBars",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-htmlbars/lib/helpers.js",
+          "line": 8,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "helpers",
+          "class": "Ember.HTMLBars",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.11.4-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.11.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "data": {
+    "id": "ember-2.7.3-Ember.Instrumentation",
+    "type": "namespace",
+    "attributes": {
+      "name": "Ember.Instrumentation",
+      "shortname": "Ember.Instrumentation",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "Ember.Instrumentation",
+      "file": "packages/ember-metal/lib/instrumentation.js",
+      "line": 4,
+      "description": "The purpose of the Ember Instrumentation module is\nto provide efficient, general-purpose instrumentation\nfor Ember.\n\nSubscribe to a listener by using `Ember.subscribe`:\n\n```javascript\nEmber.subscribe(\"render\", {\n  before: function(name, timestamp, payload) {\n\n  },\n\n  after: function(name, timestamp, payload) {\n\n  }\n});\n```\n\nIf you return a value from the `before` callback, that same\nvalue will be passed as a fourth parameter to the `after`\ncallback.\n\nInstrument a block of code by using `Ember.instrument`:\n\n```javascript\nEmber.instrument(\"render.handlebars\", payload, function() {\n  // rendering logic\n}, binding);\n```\n\nEvent names passed to `Ember.instrument` are namespaced\nby periods, from more general to more specific. Subscribers\ncan listen for events by whatever level of granularity they\nare interested in.\n\nIn the above example, the event is `render.handlebars`,\nand the subscriber listened for all events beginning with\n`render`. It would receive callbacks for events named\n`render`, `render.handlebars`, `render.container`, or\neven `render.handlebars.layout`.",
+      "static": 1,
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/ember-metal/lib/instrumentation.js",
+          "line": 78,
+          "description": "Notifies event's subscribers, calls `before` and `after` hooks.",
+          "itemtype": "method",
+          "name": "instrument",
+          "params": [
+            {
+              "name": "name",
+              "description": "Namespaced event name.",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "_payload",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "callback",
+              "description": "Function that you're instrumenting.",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "Context that instrument function is called with.",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Instrumentation",
+          "module": "ember",
+          "namespace": "Ember.Instrumentation"
+        },
+        {
+          "file": "packages/ember-metal/lib/instrumentation.js",
+          "line": 177,
+          "description": "Subscribes to a particular event or instrumented block of code.",
+          "itemtype": "method",
+          "name": "subscribe",
+          "params": [
+            {
+              "name": "pattern",
+              "description": "Namespaced event name.",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "object",
+              "description": "Before and After hooks.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Subscriber"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Instrumentation",
+          "module": "ember",
+          "namespace": "Ember.Instrumentation"
+        },
+        {
+          "file": "packages/ember-metal/lib/instrumentation.js",
+          "line": 218,
+          "description": "Unsubscribes from a particular event or instrumented block of code.",
+          "itemtype": "method",
+          "name": "unsubscribe",
+          "params": [
+            {
+              "name": "subscriber",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Instrumentation",
+          "module": "ember",
+          "namespace": "Ember.Instrumentation"
+        },
+        {
+          "file": "packages/ember-metal/lib/instrumentation.js",
+          "line": 240,
+          "description": "Resets `Ember.Instrumentation` by flushing list of subscribers.",
+          "itemtype": "method",
+          "name": "reset",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Instrumentation",
+          "module": "ember",
+          "namespace": "Ember.Instrumentation"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.7.3-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.7.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

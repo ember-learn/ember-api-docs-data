@@ -1,0 +1,86 @@
+{
+  "data": {
+    "id": "ember-1.10.1-Ember.Copyable",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Copyable",
+      "shortname": "Ember.Copyable",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.NativeArray",
+        "Ember.Set"
+      ],
+      "module": "ember",
+      "submodule": "ember-runtime",
+      "namespace": "Ember",
+      "file": "packages/ember-runtime/lib/mixins/copyable.js",
+      "line": 15,
+      "description": "Implements some standard methods for copying an object. Add this mixin to\nany object you create that can create a copy of itself. This mixin is\nadded automatically to the built-in array.\n\nYou should generally implement the `copy()` method to return a copy of the\nreceiver.\n\nNote that `frozenCopy()` will only work if you also implement\n`Ember.Freezable`.",
+      "since": "Ember 0.9",
+      "methods": [
+        {
+          "file": "packages/ember-runtime/lib/mixins/copyable.js",
+          "line": 31,
+          "description": "Override to return a copy of the receiver. Default implementation raises\nan exception.",
+          "itemtype": "method",
+          "name": "copy",
+          "params": [
+            {
+              "name": "deep",
+              "description": "if `true`, a deep copy of the object should be made",
+              "type": "Boolean"
+            }
+          ],
+          "return": {
+            "description": "copy of receiver",
+            "type": "Object"
+          },
+          "class": "Ember.Copyable",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/copyable.js",
+          "line": 41,
+          "description": "If the object implements `Ember.Freezable`, then this will return a new\ncopy if the object is not frozen and the receiver if the object is frozen.\n\nRaises an exception if you try to call this method on a object that does\nnot support freezing.\n\nYou should use this method whenever you want a copy of a freezable object\nsince a freezable object can simply return itself without actually\nconsuming more memory.",
+          "itemtype": "method",
+          "name": "frozenCopy",
+          "return": {
+            "description": "copy of receiver or receiver",
+            "type": "Object"
+          },
+          "class": "Ember.Copyable",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.10.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.10.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

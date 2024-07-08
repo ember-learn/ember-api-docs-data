@@ -1,0 +1,232 @@
+{
+  "data": {
+    "id": "ember-data-4.9.1-PromiseManyArray",
+    "type": "class",
+    "attributes": {
+      "name": "PromiseManyArray",
+      "shortname": "PromiseManyArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/model",
+      "namespace": "",
+      "file": "../packages/model/addon/-private/promise-many-array.ts",
+      "line": 30,
+      "description": "This class is returned as the result of accessing an async hasMany relationship\non an instance of a Model extending from `@ember-data/model`.\n\nA PromiseManyArray is an iterable proxy that allows templates to consume related\nManyArrays and update once their contents are no longer pending.\n\nIn your JS code you should resolve the promise first.\n\n```js\nconst comments = await post.comments;\n```",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 114,
+          "description": "Iterate the proxied content. Called by the glimmer iterator in #each\nWe do not guarantee that forEach will always be available. This\nmay eventually be made to use Symbol.Iterator once glimmer supports it.",
+          "itemtype": "method",
+          "name": "forEach",
+          "params": [
+            {
+              "name": "cb",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": ""
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 130,
+          "description": "Reload the relationship",
+          "itemtype": "method",
+          "name": "reload",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "options",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": ""
+          },
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 174,
+          "description": "chain this promise",
+          "itemtype": "method",
+          "name": "then",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "success",
+              "description": ""
+            },
+            {
+              "name": "fail",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "Promise"
+          },
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 187,
+          "description": "catch errors thrown by this promise",
+          "itemtype": "method",
+          "name": "catch",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "callback",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "Promise"
+          },
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 198,
+          "description": "run cleanup after this promise completes",
+          "itemtype": "method",
+          "name": "finally",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "callback",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "Promise"
+          },
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 88,
+          "description": "Retrieve the length of the content",
+          "itemtype": "property",
+          "name": "length",
+          "access": "public",
+          "tagname": "",
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 145,
+          "description": "Whether the loading promise is still pending",
+          "itemtype": "property",
+          "name": "isPending",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 152,
+          "description": "Whether the loading promise rejected",
+          "itemtype": "property",
+          "name": "isRejected",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 159,
+          "description": "Whether the loading promise succeeded",
+          "itemtype": "property",
+          "name": "isFulfilled",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 166,
+          "description": "Whether the loading promise completed (resolved or rejected)",
+          "itemtype": "property",
+          "name": "isSettled",
+          "type": "Boolean",
+          "access": "public",
+          "tagname": "",
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 221,
+          "description": "Retrieve the links for this relationship",
+          "itemtype": "property",
+          "name": "links",
+          "access": "public",
+          "tagname": "",
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/addon/-private/promise-many-array.ts",
+          "line": 231,
+          "description": "Retrieve the meta for this relationship",
+          "itemtype": "property",
+          "name": "meta",
+          "access": "public",
+          "tagname": "",
+          "class": "PromiseManyArray",
+          "module": "@ember-data/model"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.9.1-@ember-data/model",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.9.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

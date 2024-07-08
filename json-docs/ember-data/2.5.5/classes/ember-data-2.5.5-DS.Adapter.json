@@ -1,0 +1,531 @@
+{
+  "data": {
+    "id": "ember-data-2.5.5-DS.Adapter",
+    "type": "class",
+    "attributes": {
+      "name": "DS.Adapter",
+      "shortname": "DS.Adapter",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/adapter.js",
+      "line": 8,
+      "description": "An adapter is an object that receives requests from a store and\ntranslates them into the appropriate action to take against your\npersistence layer. The persistence layer is usually an HTTP API, but\nmay be anything, such as the browser's local storage. Typically the\nadapter is not invoked directly instead its functionality is accessed\nthrough the `store`.\n\n### Creating an Adapter\n\nCreate a new subclass of `DS.Adapter` in the `app/adapters` folder:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  // ...your code here\n});\n```\n\nModel-specific adapters can be created by putting your adapter\nclass in an `app/adapters/` + `model-name` + `.js` file of the application.\n\n```js {data-filename=app/adapters/post.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  // ...Post-specific adapter code goes here\n});\n```\n\n`DS.Adapter` is an abstract base class that you should override in your\napplication to customize it for your backend. The minimum set of methods\nthat you should implement is:\n\n  * `findRecord()`\n  * `createRecord()`\n  * `updateRecord()`\n  * `deleteRecord()`\n  * `findAll()`\n  * `query()`\n\nTo improve the network performance of your application, you can optimize\nyour adapter by overriding these lower-level methods:\n\n  * `findMany()`\n\n\nFor an example implementation, see `DS.RESTAdapter`, the\nincluded REST adapter.",
+      "extends": "Ember.Object",
+      "methods": [
+        {
+          "file": "addon/adapter.js",
+          "line": 88,
+          "description": "The `findRecord()` method is invoked when the store is asked for a record that\nhas not previously been loaded. In response to `findRecord()` being called, you\nshould query your persistence layer for a record with the given ID. Once\nfound, you can asynchronously call the store's `push()` method to push\nthe record into the store.\n\nHere is an example `findRecord` implementation:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  findRecord: function(store, type, id, snapshot) {\n    var url = [type.modelName, id].join('/');\n\n    return new Ember.RSVP.Promise(function(resolve, reject) {\n      Ember.$.getJSON(url).then(function(data) {\n        Ember.run(null, resolve, data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        Ember.run(null, reject, jqXHR);\n      });\n    });\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "findRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 125,
+          "description": "The `findAll()` method is used to retrieve all records for a given type.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  findAll: function(store, type, sinceToken) {\n    var url = type;\n    var query = { since: sinceToken };\n    return new Ember.RSVP.Promise(function(resolve, reject) {\n      Ember.$.getJSON(url, query).then(function(data) {\n        Ember.run(null, resolve, data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        Ember.run(null, reject, jqXHR);\n      });\n    });\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "findAll",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "sinceToken",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshotRecordArray",
+              "description": "",
+              "type": "DS.SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 158,
+          "description": "This method is called when you call `query` on the store.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  query: function(store, type, query) {\n    var url = type;\n    return new Ember.RSVP.Promise(function(resolve, reject) {\n      Ember.$.getJSON(url, query).then(function(data) {\n        Ember.run(null, resolve, data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        Ember.run(null, reject, jqXHR);\n      });\n    });\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "query",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "recordArray",
+              "description": "",
+              "type": "DS.AdapterPopulatedRecordArray"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 190,
+          "description": "The `queryRecord()` method is invoked when the store is asked for a single\nrecord through a query object.\n\nIn response to `queryRecord()` being called, you should always fetch fresh\ndata. Once found, you can asynchronously call the store's `push()` method\nto push the record into the store.\n\nHere is an example `queryRecord` implementation:\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\nimport Ember from 'ember';\n\nexport default DS.Adapter.extend(DS.BuildURLMixin, {\n  queryRecord: function(store, type, query) {\n    var urlForQueryRecord = this.buildURL(type.modelName, null, null, 'queryRecord', query);\n\n    return new Ember.RSVP.Promise(function(resolve, reject) {\n      Ember.$.getJSON(urlForQueryRecord, query).then(function(data) {\n        Ember.run(null, resolve, data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        Ember.run(null, reject, jqXHR);\n      });\n    });\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "queryRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "type",
+              "description": "",
+              "type": "subclass of DS.Model"
+            },
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 230,
+          "description": "If the globally unique IDs for your records should be generated on the client,\nimplement the `generateIdForRecord()` method. This method will be invoked\neach time you create a new record, and the value returned from it will be\nassigned to the record's `primaryKey`.\n\nMost traditional REST-like HTTP APIs will not use this method. Instead, the ID\nof the record will be set by the server, and your adapter will update the store\nwith the new ID when it calls `didCreateRecord()`. Only implement this method if\nyou intend to generate record IDs on the client-side.\n\nThe `generateIdForRecord()` method will be invoked with the requesting store as\nthe first parameter and the newly created record as the second parameter:\n\n```javascript\ngenerateIdForRecord: function(store, inputProperties) {\n  var uuid = App.generateUUIDWithStatisticallyLowOddsOfCollision();\n  return uuid;\n}\n```",
+          "itemtype": "method",
+          "name": "generateIdForRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "type",
+              "description": "the DS.Model class of the record",
+              "type": "DS.Model"
+            },
+            {
+              "name": "inputProperties",
+              "description": "a hash of properties to set on the\n  newly created record.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "id",
+            "type": "(String|Number)"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 260,
+          "description": "Proxies to the serializer's `serialize` method.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  createRecord: function(store, type, snapshot) {\n    var data = this.serialize(snapshot, { includeId: true });\n    var url = type;\n\n    // ...\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "serialized snapshot",
+            "type": "Object"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 287,
+          "description": "Implement this method in a subclass to handle the creation of\nnew records.\n\nSerializes the record and sends it to the server.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  createRecord: function(store, type, snapshot) {\n    var data = this.serialize(snapshot, { includeId: true });\n    var url = type;\n\n    return new Ember.RSVP.Promise(function(resolve, reject) {\n      Ember.$.ajax({\n        type: 'POST',\n        url: url,\n        dataType: 'json',\n        data: data\n      }).then(function(data) {\n        Ember.run(null, resolve, data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        Ember.run(null, reject, jqXHR);\n      });\n    });\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "createRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "type",
+              "description": "the DS.Model class of the record",
+              "type": "DS.Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 328,
+          "description": "Implement this method in a subclass to handle the updating of\na record.\n\nSerializes the record update and sends it to the server.\n\nThe updateRecord method is expected to return a promise that will\nresolve with the serialized record. This allows the backend to\ninform the Ember Data store the current state of this record after\nthe update. If it is not possible to return a serialized record\nthe updateRecord promise can also resolve with `undefined` and the\nEmber Data store will assume all of the updates were successfully\napplied on the backend.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  updateRecord: function(store, type, snapshot) {\n    var data = this.serialize(snapshot, { includeId: true });\n    var id = snapshot.id;\n    var url = [type, id].join('/');\n\n    return new Ember.RSVP.Promise(function(resolve, reject) {\n      Ember.$.ajax({\n        type: 'PUT',\n        url: url,\n        dataType: 'json',\n        data: data\n      }).then(function(data) {\n        Ember.run(null, resolve, data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        Ember.run(null, reject, jqXHR);\n      });\n    });\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "updateRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "type",
+              "description": "the DS.Model class of the record",
+              "type": "DS.Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 378,
+          "description": "Implement this method in a subclass to handle the deletion of\na record.\n\nSends a delete request for the record to the server.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  deleteRecord: function(store, type, snapshot) {\n    var data = this.serialize(snapshot, { includeId: true });\n    var id = snapshot.id;\n    var url = [type, id].join('/');\n\n    return new Ember.RSVP.Promise(function(resolve, reject) {\n      Ember.$.ajax({\n        type: 'DELETE',\n        url: url,\n        dataType: 'json',\n        data: data\n      }).then(function(data) {\n        Ember.run(null, resolve, data);\n      }, function(jqXHR) {\n        jqXHR.then = null; // tame jQuery's ill mannered promises\n        Ember.run(null, reject, jqXHR);\n      });\n    });\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "deleteRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "type",
+              "description": "the DS.Model class of the record",
+              "type": "DS.Model"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 431,
+          "description": "Find multiple records at once if coalesceFindRequests is true.",
+          "itemtype": "method",
+          "name": "findMany",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "type",
+              "description": "the DS.Model class of the records",
+              "type": "DS.Model"
+            },
+            {
+              "name": "ids",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 443,
+          "description": "Organize records into groups, each of which is to be passed to separate\ncalls to `findMany`.\n\nFor example, if your api has nested URLs that depend on the parent, you will\nwant to group records by their parent.\n\nThe default implementation returns the records as a single group.",
+          "itemtype": "method",
+          "name": "groupRecordsForFindMany",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "an array of arrays of records, each of which is to be\n                  loaded separately by `findMany`.",
+            "type": "Array"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 463,
+          "description": "This method is used by the store to determine if the store should\nreload a record from the adapter when a record is requested by\n`store.findRecord`.\n\nIf this method returns true, the store will re-fetch a record from\nthe adapter. If this method returns false, the store will resolve\nimmediately using the cached record.",
+          "itemtype": "method",
+          "name": "shouldReloadRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 481,
+          "description": "This method is used by the store to determine if the store should\nreload all records from the adapter when records are requested by\n`store.findAll`.\n\nIf this method returns true, the store will re-fetch all records from\nthe adapter. If this method returns false, the store will resolve\nimmediately using the cached record.",
+          "itemtype": "method",
+          "name": "shouldReloadAll",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "snapshotRecordArray",
+              "description": "",
+              "type": "DS.SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 499,
+          "description": "This method is used by the store to determine if the store should\nreload a record after the `store.findRecord` method resolves a\ncached record.\n\nThis method is *only* checked by the store when the store is\nreturning a cached record.\n\nIf this method returns true the store will re-fetch a record from\nthe adapter.",
+          "itemtype": "method",
+          "name": "shouldBackgroundReloadRecord",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 519,
+          "description": "This method is used by the store to determine if the store should\nreload a record array after the `store.findAll` method resolves\nwith a cached record array.\n\nThis method is *only* checked by the store when the store is\nreturning a cached record array.\n\nIf this method returns true the store will re-fetch all records\nfrom the adapter.",
+          "itemtype": "method",
+          "name": "shouldBackgroundReloadAll",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "snapshotRecordArray",
+              "description": "",
+              "type": "DS.SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "addon/adapter.js",
+          "line": 66,
+          "description": "If you would like your adapter to use a custom serializer you can\nset the `defaultSerializer` property to be the name of the custom\nserializer.\n\nNote the `defaultSerializer` serializer has a lower priority than\na model specific serializer (i.e. `PostSerializer`) or the\n`application` serializer.\n\n```js {data-filename=app/adapters/django.js}\nimport DS from 'ember-data';\n\nexport default DS.Adapter.extend({\n  defaultSerializer: 'django'\n});\n```",
+          "itemtype": "property",
+          "name": "defaultSerializer",
+          "type": "{String}",
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/adapter.js",
+          "line": 420,
+          "description": "By default the store will try to coalesce all `fetchRecord` calls within the same runloop\ninto as few requests as possible by calling groupRecordsForFindMany and passing it into a findMany call.\nYou can opt out of this behaviour by either not implementing the findMany hook or by setting\ncoalesceFindRequests to false.",
+          "itemtype": "property",
+          "name": "coalesceFindRequests",
+          "type": "{boolean}",
+          "class": "DS.Adapter",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Object",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-2.5.5-DS.RESTAdapter"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.5.5-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.5.5",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

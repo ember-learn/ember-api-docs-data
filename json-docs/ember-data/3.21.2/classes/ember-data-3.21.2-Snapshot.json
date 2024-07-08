@@ -1,0 +1,266 @@
+{
+  "data": {
+    "id": "ember-data-3.21.2-Snapshot",
+    "type": "class",
+    "attributes": {
+      "name": "Snapshot",
+      "shortname": "Snapshot",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/addon/-private/system/snapshot.ts",
+      "line": 53,
+      "access": "private",
+      "tagname": "",
+      "is_constructor": 1,
+      "params": [
+        {
+          "name": "internalModel",
+          "description": "The model to create a snapshot from",
+          "type": "Model"
+        }
+      ],
+      "methods": [
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 191,
+          "description": "Returns the value of an attribute.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostSnapshot.attr('author'); // => 'Tomster'\npostSnapshot.attr('title'); // => 'Ember.js rocks'\n```\n\nNote: Values are loaded eagerly and cached when the snapshot is created.",
+          "itemtype": "method",
+          "name": "attr",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The attribute value or undefined",
+            "type": "Object"
+          },
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 215,
+          "description": "Returns all attributes and their corresponding values.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostSnapshot.attributes(); // => { author: 'Tomster', title: 'Ember.js rocks' }\n```",
+          "itemtype": "method",
+          "name": "attributes",
+          "return": {
+            "description": "All attributes of the current snapshot",
+            "type": "Object"
+          },
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 232,
+          "description": "Returns all changed attributes and their old and new values.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostModel.set('title', 'Ember.js rocks!');\npostSnapshot.changedAttributes(); // => { title: ['Ember.js rocks', 'Ember.js rocks!'] }\n```",
+          "itemtype": "method",
+          "name": "changedAttributes",
+          "return": {
+            "description": "All changed attributes of the current snapshot",
+            "type": "Object"
+          },
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 262,
+          "description": "Returns the current value of a belongsTo relationship.\n\n`belongsTo` takes an optional hash of options as a second parameter,\ncurrently supported options are:\n\n- `id`: set to `true` if you only want the ID of the related record to be\nreturned.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, title: 'Hello World' });\n// store.createRecord('comment', { body: 'Lorem ipsum', post: post });\ncommentSnapshot.belongsTo('post'); // => Snapshot\ncommentSnapshot.belongsTo('post', { id: true }); // => '1'\n\n// store.push('comment', { id: 1, body: 'Lorem ipsum' });\ncommentSnapshot.belongsTo('post'); // => undefined\n```\n\nCalling `belongsTo` will return a new Snapshot as long as there's any known\ndata for the relationship available, such as an ID. If the relationship is\nknown but unset, `belongsTo` will return `null`. If the contents of the\nrelationship is unknown `belongsTo` will return `undefined`.\n\nNote: Relationships are loaded lazily and cached upon first access.",
+          "itemtype": "method",
+          "name": "belongsTo",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "A snapshot or ID of a known\nrelationship or null if the relationship is known but unset. undefined\nwill be returned if the contents of the relationship is unknown.",
+            "type": "(Snapshot|String|null|undefined)"
+          },
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 350,
+          "description": "Returns the current value of a hasMany relationship.\n\n`hasMany` takes an optional hash of options as a second parameter,\ncurrently supported options are:\n\n- `ids`: set to `true` if you only want the IDs of the related records to be\nreturned.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, title: 'Hello World', comments: [2, 3] });\npostSnapshot.hasMany('comments'); // => [Snapshot, Snapshot]\npostSnapshot.hasMany('comments', { ids: true }); // => ['2', '3']\n\n// store.push('post', { id: 1, title: 'Hello World' });\npostSnapshot.hasMany('comments'); // => undefined\n```\n\nNote: Relationships are loaded lazily and cached upon first access.",
+          "itemtype": "method",
+          "name": "hasMany",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "An array of snapshots or IDs of a known\nrelationship or an empty array if the relationship is known but unset.\nundefined will be returned if the contents of the relationship is unknown.",
+            "type": "(Array|undefined)"
+          },
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 434,
+          "description": "Iterates through all the attributes of the model, calling the passed\nfunction on each attribute.\n\nExample\n\n```javascript\nsnapshot.eachAttribute(function(name, meta) {\n  // ...\n});\n```",
+          "itemtype": "method",
+          "name": "eachAttribute",
+          "params": [
+            {
+              "name": "callback",
+              "description": "the callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 462,
+          "description": "Iterates through all the relationships of the model, calling the passed\nfunction on each relationship.\n\nExample\n\n```javascript\nsnapshot.eachRelationship(function(name, relationship) {\n  // ...\n});\n```",
+          "itemtype": "method",
+          "name": "eachRelationship",
+          "params": [
+            {
+              "name": "callback",
+              "description": "the callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 490,
+          "description": "Serializes the snapshot using the serializer for the model.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\n\nexport default Adapter.extend({\n  createRecord(store, type, snapshot) {\n    var data = snapshot.serialize({ includeId: true });\n    var url = `/${type.modelName}`;\n\n    return fetch(url, {\n      method: 'POST',\n      body: data,\n    }).then((response) => response.json())\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "an object whose values are primitive JSON values only",
+            "type": "Object"
+          },
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 92,
+          "description": "The id of the snapshot's underlying record\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostSnapshot.id; // => '1'\n```",
+          "itemtype": "property",
+          "name": "id",
+          "type": "{String}",
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 107,
+          "description": "A hash of adapter options",
+          "itemtype": "property",
+          "name": "adapterOptions",
+          "type": "{Object}",
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 115,
+          "description": "The name of the type of the underlying record for this snapshot, as a string.",
+          "itemtype": "property",
+          "name": "modelName",
+          "type": "{String}",
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 127,
+          "description": "The underlying record for this snapshot. Can be used to access methods and\nproperties defined on the record.\n\nExample\n\n```javascript\nlet json = snapshot.record.toJSON();\n```",
+          "itemtype": "property",
+          "name": "record",
+          "type": "{Model}",
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot.ts",
+          "line": 174,
+          "description": "The type of the underlying record for this snapshot, as a Model.",
+          "itemtype": "property",
+          "name": "type",
+          "type": "{Model}",
+          "class": "Snapshot",
+          "module": "@ember-data/store"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.21.2-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.21.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

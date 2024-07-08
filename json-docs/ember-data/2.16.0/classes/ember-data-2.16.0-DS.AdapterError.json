@@ -1,0 +1,43 @@
+{
+  "data": {
+    "id": "ember-data-2.16.0-DS.AdapterError",
+    "type": "class",
+    "attributes": {
+      "name": "DS.AdapterError",
+      "shortname": "DS.AdapterError",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/adapters/errors.js",
+      "line": 10,
+      "description": "A `DS.AdapterError` is used by an adapter to signal that an error occurred\nduring a request to an external API. It indicates a generic error, and\nsubclasses are used to indicate specific error states. The following\nsubclasses are provided:\n\n- `DS.InvalidError`\n- `DS.TimeoutError`\n- `DS.AbortError`\n- `DS.UnauthorizedError`\n- `DS.ForbiddenError`\n- `DS.NotFoundError`\n- `DS.ConflictError`\n- `DS.ServerError`\n\nTo create a custom error to signal a specific error state in communicating\nwith an external API, extend the `DS.AdapterError`. For example if the\nexternal API exclusively used HTTP `503 Service Unavailable` to indicate\nit was closed for maintenance:\n\n```js {data-filename=app/adapters/maintenance-error.js}\nimport DS from 'ember-data';\n\nexport default DS.AdapterError.extend({ message: \"Down for maintenance.\" });\n```\n\nThis error would then be returned by an adapter's `handleResponse` method:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\nimport MaintenanceError from './maintenance-error';\n\nexport default DS.JSONAPIAdapter.extend({\n  handleResponse(status) {\n    if (503 === status) {\n      return new MaintenanceError();\n    }\n\n    return this._super(...arguments);\n  }\n});\n```\n\nAnd can then be detected in an application and used to send the user to an\n`under-maintenance` route:\n\n```js {data-filename=app/routes/application.js}\nimport Ember from 'ember';\nimport MaintenanceError from '../adapters/maintenance-error';\n\nexport default Ember.Route.extend({\n  actions: {\n    error(error, transition) {\n      if (error instanceof MaintenanceError) {\n        this.transitionTo('under-maintenance');\n        return;\n      }\n\n      // ...other error handling logic\n    }\n  }\n});\n```",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.16.0-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.16.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

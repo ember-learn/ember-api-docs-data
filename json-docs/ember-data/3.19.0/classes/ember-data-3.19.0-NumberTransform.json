@@ -1,0 +1,96 @@
+{
+  "data": {
+    "id": "ember-data-3.19.0-NumberTransform",
+    "type": "class",
+    "attributes": {
+      "name": "NumberTransform",
+      "shortname": "NumberTransform",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/serializer",
+      "namespace": "",
+      "file": "../serializer/addon/-private/transforms/number.js",
+      "line": 11,
+      "description": "The `NumberTransform` class is used to serialize and deserialize\nnumeric attributes on Ember Data record objects. This transform is\nused when `number` is passed as the type parameter to the\n[attr](/ember-data/release/functions/@ember-data%2Fmodel/attr) function.\n\nUsage\n\n```js {data-filename=app/models/score.js}\nimport Model, { attr, belongsTo } from '@ember-data/model';\n\nexport default Model.extend({\n  value: attr('number'),\n  player: belongsTo('player'),\n  date: attr('date')\n});\n```",
+      "extends": "Transform",
+      "methods": [
+        {
+          "file": "../serializer/addon/-private/transforms/transform.js",
+          "line": 78,
+          "description": "When given a deserialized value from a record attribute this\nmethod must return the serialized value.\n\nExample\n\n```javascript\nimport { isEmpty } from '@ember/utils';\n\nserialize(deserialized, options) {\n  return isEmpty(deserialized) ? null : Number(deserialized);\n}\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "deserialized",
+              "description": "The deserialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `attr`"
+            }
+          ],
+          "return": {
+            "description": "The serialized value"
+          },
+          "class": "NumberTransform",
+          "module": "@ember-data/serializer",
+          "inherited": true,
+          "inheritedFrom": "Transform"
+        },
+        {
+          "file": "../serializer/addon/-private/transforms/transform.js",
+          "line": 99,
+          "description": "When given a serialized value from a JSON object this method must\nreturn the deserialized value for the record attribute.\n\nExample\n\n```javascript\ndeserialize(serialized, options) {\n  return empty(serialized) ? null : Number(serialized);\n}\n```",
+          "itemtype": "method",
+          "name": "deserialize",
+          "params": [
+            {
+              "name": "serialized",
+              "description": "The serialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `attr`"
+            }
+          ],
+          "return": {
+            "description": "The deserialized value"
+          },
+          "class": "NumberTransform",
+          "module": "@ember-data/serializer",
+          "inherited": true,
+          "inheritedFrom": "Transform"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.19.0-Transform",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.19.0-@ember-data/serializer",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.19.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

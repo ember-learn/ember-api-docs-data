@@ -1,0 +1,35 @@
+{
+  "data": {
+    "id": "ember-data-4.9.1-@ember-data/canary-features",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/canary-features",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../packages/canary-features/addon/default-features.ts",
+      "line": 1,
+      "description": "## Canary Features\n\nEmberData allows users to test features that are implemented but not yet\navailable even in canary.\n\nTypically these features represent work that might introduce a new concept,\nnew API, change an API, or risk an unintended change in behavior to consuming\napplications.\n\nSuch features have their implementations guarded by a \"feature flag\", and the\nflag is only activated once the core-data team is prepared to ship the work\nin a canary release.\n\n### Installing Canary\n\nTo test a feature you MUST be using a canary build. Canary builds are published\nto `npm` and can be installed using a precise tag (such as `ember-data@3.16.0-alpha.1`)\nor by installing the latest dist-tag published to the `canary` channel.\n\n*Using `npm` to install the latest canary*\n\n```cli\nnpm install --save-dev ember-data@canary\n```\n\n*Using `yarn` to install the latest canary*\n\n```cli\npnpm add ember-data@canary\n```\n\n### Activating a Canary Feature\n\nOnce you have installed canary, feature-flags can be activated at build-time by an environment\nvariable or at runtime using `window.EmberDataENV`.\n\nThe \"off\" branch of feature-flagged code is always stripped from production builds, so you\nMUST use the build-time environment variable to activate a flag if testing production.\n\nThe list of available feature-flags is located [here](https://github.com/emberjs/data/tree/master/packages/canary-features/addon/default-features.ts \"List of EmberData FeatureFlags\")\n\n#### Runtime Configuration\n\nTo configure feature-flags at runtime you will want to configure `window.EmberDataENV = {}` appropriately.\nYou should add this global property in your app prior to your application booting. At the top of\nyour `app.js` file is a convenient location, as is within ` index.html` as a script running prior\nto loading any other scripts.\n\n*Example activating a single feature flags*\n\n```js\nwindow.EmberDataENV = {\n  FEATURES: {\n    RECORD_DATA_ERRORS: true,\n  }\n}\n```\n\n*Example activating multiple feature flags*\n\n```js\nwindow.EmberDataENV = {\n  FEATURES: {\n    RECORD_DATA_ERRORS: true,\n    RECORD_DATA_STATE: true,\n  }\n}\n```\n\n*Example activating all feature flags*\n\n```js\nwindow.EmberDataENV = {\n  ENABLE_OPTIONAL_FEATURES: true\n}\n```\n\n#### Build Time Configuration\n\n*Example activating a single feature flags*\n\n```js\nEMBER_DATA_FEATURE_OVERRIDE=SAMPLE_FEATURE_FLAG ember build\n```\n\n*Example activating multiple feature flags*\n\n```js\nEMBER_DATA_FEATURE_OVERRIDE=SAMPLE_FEATURE_FLAG,CUSTOM_MODEL_CLASS ember build\n```\n\n*Example activating all feature flags*\n\n```js\nEMBER_DATA_FEATURE_OVERRIDE=ENABLE_ALL_OPTIONAL ember build\n```\n\n### Preparing an Addon to use a Canary Feature\n\nFor most addons and most features simple version detection should be\nenough. Using the provided version compatibility helpers from\n[ember-compatibility-helpers](https://github.com/pzuraq/ember-compatibility-helpers)\nthe following can be done:\n\n```js\nif (gte('@ember-data/store', '3.12.0')) {\n\n} else {\n\n}\n```\n\nFor addons needing more advanced detection [babel-plugin-debug-macros](https://github.com/ember-cli/babel-plugin-debug-macros)\ncan be leveraged to provide code-stripping based on feature presence. For example in your addon's `index.js`:\n\n```js\nfunction debugMacros(features) {\n  let plugins = [\n    [\n      require.resolve('babel-plugin-debug-macros'),\n      {\n        flags: [\n          {\n            source: '<addon-name>/feature-flags',\n            flags: features,\n          },\n        ],\n      },\n      '<addon-name>/canary-features-stripping',\n    ],\n  ];\n\n  return plugins;\n}\n\nmodule.exports = {\n  name: '<addon-name>',\n\n  init() {\n    this._super.init.apply(this, arguments);\n\n    let features;\n    try {\n      features = this.project.require('@ember-data/private-build-infra/src/features')();\n    } catch (e) {\n      features = { CUSTOM_MODEL_CLASS: false };\n    }\n\n    this.options = this.options || {};\n    this.options.babel = this.options.babel || {};\n    // this ensures that the same `@ember-data/canary-features` processing that the various\n    // ember-data addons do is done for this addon\n    this.options.babel.plugins = [...debugMacros(features)];\n  }\n}\n```",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "4.9.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.9.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

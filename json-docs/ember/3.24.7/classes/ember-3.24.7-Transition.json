@@ -1,0 +1,307 @@
+{
+  "data": {
+    "id": "ember-3.24.7-Transition",
+    "type": "class",
+    "attributes": {
+      "name": "Transition",
+      "shortname": "Transition",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/routing",
+      "namespace": "",
+      "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+      "line": 1,
+      "description": "A Transition is a thennable (a promise-like object) that represents\nan attempt to transition to another route. It can be aborted, either\nexplicitly via `abort` or by attempting another transition while a\nprevious one is still underway. An aborted transition can also\nbe `retry()`d later.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 37,
+          "description": "A standard promise hook that resolves if the transition\nsucceeds and rejects if it fails/redirects/aborts.\n\nForwards to the internal `promise` property which you can\nuse in situations where you want to pass around a thennable,\nbut not the Transition itself.",
+          "itemtype": "method",
+          "name": "then",
+          "params": [
+            {
+              "name": "onFulfilled",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "onRejected",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "label",
+              "description": "optional string for labeling the promise.\nUseful for tooling.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 54,
+          "description": "Forwards to the internal `promise` property which you can\n  use in situations where you want to pass around a thennable,\n  but not the Transition itself.",
+          "itemtype": "method",
+          "name": "catch",
+          "params": [
+            {
+              "name": "onRejection",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "label",
+              "description": "optional string for labeling the promise.\n  Useful for tooling.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 68,
+          "description": "Forwards to the internal `promise` property which you can\n  use in situations where you want to pass around a thennable,\n  but not the Transition itself.",
+          "itemtype": "method",
+          "name": "finally",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "label",
+              "description": "optional string for labeling the promise.\n  Useful for tooling.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 82,
+          "description": "Aborts the Transition. Note you can also implicitly abort a transition\nby initiating another transition while a previous one is underway.",
+          "itemtype": "method",
+          "name": "abort",
+          "return": {
+            "description": "this transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 91,
+          "description": "Retries a previously-aborted transition (making sure to abort the\n  transition if it's still active). Returns a new transition that\n  represents the new attempt to transition.",
+          "itemtype": "method",
+          "name": "retry",
+          "return": {
+            "description": "new transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 102,
+          "description": "Sets the URL-changing method to be employed at the end of a\n  successful transition. By default, a new Transition will just\n  use `updateURL`, but passing 'replace' to this method will\n  cause the URL to update using 'replaceWith' instead. Omitting\n  a parameter will disable the URL change, allowing for transitions\n  that don't update the URL at completion (this is also used for\n  handleURL, since the URL has already changed before the\n  transition took place).",
+          "itemtype": "method",
+          "name": "method",
+          "params": [
+            {
+              "name": "method",
+              "description": "the type of URL-changing method to use\n    at the end of a transition. Accepted values are 'replace',\n    falsy values, or any other non-falsy value (which is\n    interpreted as an updateURL transition).",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "this transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 123,
+          "description": "Fires an event on the current list of resolved/resolving\n  handlers within this transition. Useful for firing events\n  on route hierarchies that haven't fully been entered yet.\nNote: This method is also aliased as `send`",
+          "itemtype": "method",
+          "name": "trigger",
+          "params": [
+            {
+              "name": "ignoreFailure",
+              "description": "a boolean specifying whether unhandled events throw an error",
+              "type": "Boolean",
+              "optional": true,
+              "optdefault": "false"
+            },
+            {
+              "name": "name",
+              "description": "the name of the event to fire",
+              "type": "String"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 157,
+          "description": "Transitions are aborted and their promises rejected\nwhen redirects occur; this method returns a promise\nthat will follow any redirects that occur and fulfill\nwith the value fulfilled by any redirecting transitions\nthat occur.",
+          "itemtype": "method",
+          "name": "followRedirects",
+          "return": {
+            "description": "a promise that fulfills with the same\n  value that the final redirecting transition fulfills with",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 170,
+          "description": "In non-production builds, this function will return the stack that this Transition was\ncreated within. In production builds, this function will not be present.",
+          "itemtype": "method",
+          "name": "debugCreationStack",
+          "return": {
+            "description": "string"
+          },
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 178,
+          "description": "In non-production builds, this function will return the stack that this Transition was\naborted within (or `undefined` if the Transition has not been aborted yet). In production\nbuilds, this function will not be present.",
+          "itemtype": "method",
+          "name": "debugAbortStack",
+          "return": {
+            "description": "string"
+          },
+          "class": "Transition",
+          "module": "@ember/routing"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 12,
+          "description": "The Transition's internal promise. Calling `.then` on this property\nis that same as calling `.then` on the Transition object itself, but\nthis property is exposed for when you want to pass around a\nTransition's promise, but not the Transition object itself, since\nTransition object can be externally `abort`ed, while the promise\ncannot.",
+          "itemtype": "property",
+          "name": "promise",
+          "type": "{Object}",
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 25,
+          "description": "Custom state can be stored on a Transition's `data` object.\nThis can be useful for decorating a Transition within an earlier\nhook and shared with a later hook. Properties set on `data` will\nbe copied to new transitions generated by calling `retry` on this\ntransition.",
+          "itemtype": "property",
+          "name": "data",
+          "type": "{Object}",
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 137,
+          "description": "This property is a `RouteInfo` object that represents\nwhere the router is transitioning to. It's important\nto note that a `RouteInfo` is a linked list and this\nproperty represents the leafmost route.",
+          "itemtype": "property",
+          "name": "to",
+          "type": "Null|RouteInfo|RouteInfoWithAttributes",
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 146,
+          "description": "This property is a `RouteInfo` object that represents\nwhere transition originated from. It's important\nto note that a `RouteInfo` is a linked list and this\nproperty represents the head node of the list.\nIn the case of an initial render, `from` will be set to\n`null`.",
+          "itemtype": "property",
+          "name": "from",
+          "type": "Null|RouteInfoWithAttributes",
+          "access": "public",
+          "tagname": "",
+          "class": "Transition",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/routing/lib/system/transition.ts",
+          "line": 187,
+          "description": "In non-production builds, this property references the Transition that _this_ Transition\nwas derived from or `undefined` if this transition did not derive from another. In\nproduction builds, this property will not be present.",
+          "itemtype": "property",
+          "name": "debugPreviousTransition",
+          "type": "{Transition | undefined}",
+          "class": "Transition",
+          "module": "@ember/routing"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.24.7-@ember/routing",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.24.7",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

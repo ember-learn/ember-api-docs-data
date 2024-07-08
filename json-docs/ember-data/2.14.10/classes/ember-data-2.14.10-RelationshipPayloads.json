@@ -1,0 +1,137 @@
+{
+  "data": {
+    "id": "ember-data-2.14.10-RelationshipPayloads",
+    "type": "class",
+    "attributes": {
+      "name": "RelationshipPayloads",
+      "shortname": "RelationshipPayloads",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "",
+      "file": "addon/-private/system/relationships/relationship-payloads.js",
+      "line": 3,
+      "description": "Manages the payloads for both sides of a single relationship, across all model\ninstances.\n\nFor example, with\n\n  const User = DS.Model.extend({\n    hobbies: DS.hasMany('hobby')\n  });\n\n  const Hobby = DS.Model.extend({\n    user: DS.belongsTo('user')\n  });\n\n  let relationshipPayloads = new RelationshipPayloads('user', 'hobbies', 'hobby', 'user');\n\n  let userPayload = {\n    data: {\n      id: 1,\n      type: 'user',\n      relationships: {\n        hobbies: {\n          data: [{\n            id: 2,\n            type: 'hobby',\n          }]\n        }\n      }\n    }\n  };\n\n  // here we expect the payload of the individual relationship\n  relationshipPayloads.push('user', 1, 'hobbies', userPayload.data.relationships.hobbies);\n\n  relationshipPayloads.get('user', 1, 'hobbies');\n  relationshipPayloads.get('hobby', 2, 'user');",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "addon/-private/system/relationships/relationship-payloads.js",
+          "line": 81,
+          "description": "Get the payload for the relationship of an individual record.\n\nThis might return the raw payload as pushed into the store, or one computed\nfrom the payload of the inverse relationship.",
+          "itemtype": "method",
+          "name": "get",
+          "class": "RelationshipPayloads",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/-private/system/relationships/relationship-payloads.js",
+          "line": 100,
+          "description": "Push a relationship payload for an individual record.\n\nThis will make the payload available later for both this relationship and its inverse.",
+          "itemtype": "method",
+          "name": "push",
+          "class": "RelationshipPayloads",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/-private/system/relationships/relationship-payloads.js",
+          "line": 111,
+          "description": "Unload the relationship payload for an individual record.\n\nThis does not unload the inverse relationship payload.",
+          "itemtype": "method",
+          "name": "unload",
+          "class": "RelationshipPayloads",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/-private/system/relationships/relationship-payloads.js",
+          "line": 129,
+          "return": {
+            "description": "true iff `modelName` and `relationshipName` refer to the\nleft hand side of this relationship, as opposed to the right hand side.",
+            "type": "Boolean"
+          },
+          "itemtype": "method",
+          "name": "_isLHS",
+          "class": "RelationshipPayloads",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/-private/system/relationships/relationship-payloads.js",
+          "line": 139,
+          "return": {
+            "description": "true iff `modelName` and `relationshipName` refer to the\nright hand side of this relationship, as opposed to the left hand side.",
+            "type": "Boolean"
+          },
+          "itemtype": "method",
+          "name": "_isRHS",
+          "class": "RelationshipPayloads",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/-private/system/relationships/relationship-payloads.js",
+          "line": 229,
+          "description": "Populate the inverse relationship for `relationshipData`.\n\nIf `relationshipData` is an array (eg because the relationship is hasMany)\nthis means populate each inverse, otherwise populate only the single\ninverse.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_populateInverse",
+          "class": "RelationshipPayloads",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/-private/system/relationships/relationship-payloads.js",
+          "line": 257,
+          "description": "Actually add `inversePayload` to `inverseIdToPayloads`.  This is part of\n`_populateInverse` after we've normalized the case of `relationshipData`\nbeing either an array or a pojo.\n\nWe still have to handle the case that the *inverse* relationship payload may\nbe an array or pojo.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_addToInverse",
+          "class": "RelationshipPayloads",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/-private/system/relationships/relationship-payloads.js",
+          "line": 307,
+          "description": "Remove the relationship in `previousPayload` from its inverse(s), because\nthis relationship payload has just been updated (eg because the same\nrelationship had multiple payloads pushed before the relationship was\ninitialized).",
+          "itemtype": "method",
+          "name": "_removeInverse",
+          "class": "RelationshipPayloads",
+          "module": "ember-data"
+        },
+        {
+          "file": "addon/-private/system/relationships/relationship-payloads.js",
+          "line": 337,
+          "description": "Remove `id` from its inverse record with id `inverseId`.  If the inverse\nrelationship is a belongsTo, this means just setting it to null, if the\ninverse relationship is a hasMany, then remove that id from its array of ids.",
+          "itemtype": "method",
+          "name": "_removeFromInverse",
+          "class": "RelationshipPayloads",
+          "module": "ember-data"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.14.10-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.14.10",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

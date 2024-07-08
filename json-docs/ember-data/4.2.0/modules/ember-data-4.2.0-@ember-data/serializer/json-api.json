@@ -1,0 +1,37 @@
+{
+  "data": {
+    "id": "ember-data-4.2.0-@ember-data/serializer/json-api",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/serializer/json-api",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../serializer/addon/json-api.js",
+      "line": 15,
+      "description": "Ember Data 2.0 Serializer:\n\nIn Ember Data a Serializer is used to serialize and deserialize\nrecords when they are transferred in and out of an external source.\nThis process involves normalizing property names, transforming\nattribute values and serializing relationships.\n\n`JSONAPISerializer` supports the http://jsonapi.org/ spec and is the\nserializer recommended by Ember Data.\n\nThis serializer normalizes a JSON API payload that looks like:\n\n```js {data-filename=app/models/player.js}\nimport Model, { attr, belongsTo } from '@ember-data/model';\n\nexport default class Player extends Model {\n  @attr('string') name;\n  @attr('string') skill;\n  @attr('number') gamesPlayed;\n  @belongsTo('club') club;\n}\n```\n\n```js {data-filename=app/models/club.js}\nimport Model, { attr, hasMany } from '@ember-data/model';\n\nexport default class Club extends Model {\n  @attr('string') name;\n  @attr('string') location;\n  @hasMany('player') players;\n}\n```\n\n```js\n  {\n    \"data\": [\n      {\n        \"attributes\": {\n          \"name\": \"Benfica\",\n          \"location\": \"Portugal\"\n        },\n        \"id\": \"1\",\n        \"relationships\": {\n          \"players\": {\n            \"data\": [\n              {\n                \"id\": \"3\",\n                \"type\": \"players\"\n              }\n            ]\n          }\n        },\n        \"type\": \"clubs\"\n      }\n    ],\n    \"included\": [\n      {\n        \"attributes\": {\n          \"name\": \"Eusebio Silva Ferreira\",\n          \"skill\": \"Rocket shot\",\n          \"games-played\": 431\n        },\n        \"id\": \"3\",\n        \"relationships\": {\n          \"club\": {\n            \"data\": {\n              \"id\": \"1\",\n              \"type\": \"clubs\"\n            }\n          }\n        },\n        \"type\": \"players\"\n      }\n    ]\n  }\n```\n\nto the format that the Ember Data store expects.\n\n### Customizing meta\n\nSince a JSON API Document can have meta defined in multiple locations you can\nuse the specific serializer hooks if you need to customize the meta.\n\nOne scenario would be to camelCase the meta keys of your payload. The example\nbelow shows how this could be done using `normalizeArrayResponse` and\n`extractRelationship`.\n\n```js {data-filename=app/serializers/application.js}\nimport JSONAPISerializer from '@ember-data/serializer/json-api';\n\nexport default class ApplicationSerializer extends JSONAPISerializer {\n  normalizeArrayResponse(store, primaryModelClass, payload, id, requestType) {\n    let normalizedDocument = super.normalizeArrayResponse(...arguments);\n\n    // Customize document meta\n    normalizedDocument.meta = camelCaseKeys(normalizedDocument.meta);\n\n    return normalizedDocument;\n  }\n\n  extractRelationship(relationshipHash) {\n    let normalizedRelationship = super.extractRelationship(...arguments);\n\n    // Customize relationship meta\n    normalizedRelationship.meta = camelCaseKeys(normalizedRelationship.meta);\n\n    return normalizedRelationship;\n  }\n}\n```",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "JSONAPISerializer"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "4.2.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.2.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

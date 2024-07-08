@@ -1,0 +1,192 @@
+{
+  "data": {
+    "id": "ember-1.3.2-Ember.TrackedArray",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.TrackedArray",
+      "shortname": "Ember.TrackedArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "../packages/ember-runtime/lib/system/tracked_array.js",
+      "line": 7,
+      "description": "An `Ember.TrackedArray` tracks array operations.  It's useful when you want to\nlazily compute the indexes of items in an array after they've been shifted by\nsubsequent operations.",
+      "params": [
+        {
+          "name": "items",
+          "description": "The array to be tracked.  This is used just to get\nthe initial items for the starting state of retain:n.",
+          "type": "Array",
+          "optional": true,
+          "optdefault": "["
+        }
+      ],
+      "methods": [
+        {
+          "file": "../packages/ember-runtime/lib/system/tracked_array.js",
+          "line": 35,
+          "description": "Track that `newItems` were added to the tracked array at `index`.",
+          "itemtype": "method",
+          "name": "addItems",
+          "params": [
+            {
+              "name": "index",
+              "description": ""
+            },
+            {
+              "name": "newItems",
+              "description": ""
+            }
+          ],
+          "class": "Ember.TrackedArray",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/tracked_array.js",
+          "line": 76,
+          "description": "Track that `count` items were removed at `index`.",
+          "itemtype": "method",
+          "name": "removeItems",
+          "params": [
+            {
+              "name": "index",
+              "description": ""
+            },
+            {
+              "name": "count",
+              "description": ""
+            }
+          ],
+          "class": "Ember.TrackedArray",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/tracked_array.js",
+          "line": 106,
+          "description": "Apply all operations, reducing them to retain:n, for `n`, the number of\nitems in the array.\n\n`callback` will be called for each operation and will be passed the following arguments:\n\n* {array} items The items for the given operation\n* {number} offset The computed offset of the items, ie the index in the\narray of the first item for this operation.\n* {string} operation The type of the operation.  One of\n`Ember.TrackedArray.{RETAIN, DELETE, INSERT}`",
+          "itemtype": "method",
+          "name": "apply",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember.TrackedArray",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/tracked_array.js",
+          "line": 137,
+          "description": "Return an `ArrayOperationMatch` for the operation that contains the item at `index`.",
+          "itemtype": "method",
+          "name": "_findArrayOperation",
+          "params": [
+            {
+              "name": "index",
+              "description": "the index of the item whose operation information\nshould be returned.",
+              "type": "Number"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TrackedArray",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/tracked_array.js",
+          "line": 295,
+          "description": "Internal data structure to represent an array operation.",
+          "itemtype": "method",
+          "name": "ArrayOperation",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "type",
+              "description": "The type of the operation.  One of\n`Ember.TrackedArray.{RETAIN, INSERT, DELETE}`",
+              "type": "String"
+            },
+            {
+              "name": "count",
+              "description": "The number of items in this operation.",
+              "type": "Number"
+            },
+            {
+              "name": "items",
+              "description": "The items of the operation, if included.  RETAIN and\nINSERT include their items, DELETE does not.",
+              "type": "Array"
+            }
+          ],
+          "class": "Ember.TrackedArray",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/system/tracked_array.js",
+          "line": 312,
+          "description": "Internal data structure used to include information when looking up operations\nby item index.",
+          "itemtype": "method",
+          "name": "ArrayOperationMatch",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "operation",
+              "description": "",
+              "type": "ArrayOperation"
+            },
+            {
+              "name": "index",
+              "description": "The index of `operation` in the array of operations.",
+              "type": "Number"
+            },
+            {
+              "name": "split",
+              "description": "Whether or not the item index searched for would\nrequire a split for a new operation type.",
+              "type": "Boolean"
+            },
+            {
+              "name": "rangeStart",
+              "description": "The index of the first item in the operation,\nwith respect to the tracked array.  The index of the last item can be computed\nfrom `rangeStart` and `operation.count`.",
+              "type": "Number"
+            }
+          ],
+          "class": "Ember.TrackedArray",
+          "module": "ember",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.3.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.3.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

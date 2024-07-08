@@ -1,0 +1,108 @@
+{
+  "data": {
+    "id": "ember-1.9.1-Ember.InjectedProperty",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.InjectedProperty",
+      "shortname": "Ember.InjectedProperty",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-metal",
+      "namespace": "Ember",
+      "file": "packages/ember-metal/lib/injected_property.js",
+      "line": 8,
+      "description": "Read-only property that returns the result of a container lookup.",
+      "extends": "Ember.Descriptor",
+      "is_constructor": 1,
+      "params": [
+        {
+          "name": "type",
+          "description": "The container type the property will lookup",
+          "type": "String"
+        },
+        {
+          "name": "name",
+          "description": "(optional) The name the property will lookup, defaults\n       to the property's name",
+          "type": "String"
+        }
+      ],
+      "methods": [
+        {
+          "file": "packages/ember-metal/lib/expand_properties.js",
+          "line": 12,
+          "description": "Expands `pattern`, invoking `callback` for each expansion.\n\nThe only pattern supported is brace-expansion, anything else will be passed\nonce to `callback` directly.\n\nExample\n\n```js\nfunction echo(arg){ console.log(arg); }\n\nEmber.expandProperties('foo.bar', echo);              //=> 'foo.bar'\nEmber.expandProperties('{foo,bar}', echo);            //=> 'foo', 'bar'\nEmber.expandProperties('foo.{bar,baz}', echo);        //=> 'foo.bar', 'foo.baz'\nEmber.expandProperties('{foo,bar}.baz', echo);        //=> '{foo,bar}.baz'\nEmber.expandProperties('foo.{bar,baz}.@each', echo)   //=> 'foo.bar.@each', 'foo.baz.@each'\nEmber.expandProperties('{foo,bar}.{spam,eggs}', echo) //=> 'foo.spam', 'foo.eggs', 'bar.spam', 'bar.eggs'\nEmber.expandProperties('{foo}.bar.{baz}')             //=> 'foo.bar.baz'\n```",
+          "itemtype": "method",
+          "name": "expandProperties",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "pattern",
+              "description": "The property pattern to expand.",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "The callback to invoke.  It is invoked once per\nexpansion, and is passed the expansion.",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember.InjectedProperty",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/get_properties.js",
+          "line": 4,
+          "description": "To get multiple properties at once, call `Ember.getProperties`\nwith an object followed by a list of strings or an array:\n\n```javascript\nEmber.getProperties(record, 'firstName', 'lastName', 'zipCode');\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```\n\nis equivalent to:\n\n```javascript\nEmber.getProperties(record, ['firstName', 'lastName', 'zipCode']);\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```",
+          "itemtype": "method",
+          "name": "getProperties",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "list",
+              "description": "of keys to get",
+              "type": "String...|Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Hash"
+          },
+          "class": "Ember.InjectedProperty",
+          "module": "ember-metal"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-1.9.1-Ember.Descriptor",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.9.1-ember-metal",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.9.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

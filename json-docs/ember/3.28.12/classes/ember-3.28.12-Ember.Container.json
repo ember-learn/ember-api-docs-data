@@ -1,0 +1,205 @@
+{
+  "data": {
+    "id": "ember-3.28.12-Ember.Container",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Container",
+      "shortname": "Container",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "packages/@ember/-internals/container/lib/container.ts",
+      "line": 62,
+      "description": "A container used to instantiate and cache objects.\n\nEvery `Container` must be associated with a `Registry`, which is referenced\nto determine the factory and options that should be used to instantiate\nobjects.\n\nThe public API for `Container` is still in flux and should not be considered\nstable.",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/container/lib/container.ts",
+          "line": 121,
+          "description": "Given a fullName return a corresponding instance.\n The default behavior is for lookup to return a singleton instance.\nThe singleton is scoped to the container, allowing multiple containers\nto all have their own locally scoped singletons.\n ```javascript\nlet registry = new Registry();\nlet container = registry.container();\n registry.register('api:twitter', Twitter);\n let twitter = container.lookup('api:twitter');\n twitter instanceof Twitter; // => true\n // by default the container will return singletons\nlet twitter2 = container.lookup('api:twitter');\ntwitter2 instanceof Twitter; // => true\n twitter === twitter2; //=> true\n```\n If singletons are not wanted, an optional flag can be provided at lookup.\n ```javascript\nlet registry = new Registry();\nlet container = registry.container();\n registry.register('api:twitter', Twitter);\n let twitter = container.lookup('api:twitter', { singleton: false });\nlet twitter2 = container.lookup('api:twitter', { singleton: false });\n twitter === twitter2; //=> false\n```",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "lookup",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "source",
+                  "description": "The fullname of the request source (used for local lookup)",
+                  "type": "String",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "Ember.Container",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/container/lib/container.ts",
+          "line": 161,
+          "description": "A depth first traversal, destroying the container, its descendant containers and all\ntheir managed objects.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "destroy",
+          "class": "Ember.Container",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/container/lib/container.ts",
+          "line": 178,
+          "description": "Clear either the entire cache or just the cache for a particular key.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "reset",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "optional key to reset; if missing, resets everything",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.Container",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/container/lib/container.ts",
+          "line": 195,
+          "description": "Returns an object that can be used to provide an owner to a\nmanually created instance.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "ownerInjection",
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "Ember.Container",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/container/lib/container.ts",
+          "line": 208,
+          "description": "Given a fullName, return the corresponding factory. The consumer of the factory\nis responsible for the destruction of any factory instances, as there is no\nway for the container to ensure instances are destroyed when it itself is\ndestroyed.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "factoryFor",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "source",
+                  "description": "The fullname of the request source (used for local lookup)",
+                  "type": "String",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "Ember.Container",
+          "module": "ember",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/container/lib/container.ts",
+          "line": 102,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "registry",
+          "type": "Registry",
+          "since": "1.11.0",
+          "class": "Ember.Container",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/container/lib/container.ts",
+          "line": 109,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "cache",
+          "type": "InheritingDict",
+          "class": "Ember.Container",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/container/lib/container.ts",
+          "line": 115,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "validationCache",
+          "type": "InheritingDict",
+          "class": "Ember.Container",
+          "module": "ember",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.28.12-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.28.12",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

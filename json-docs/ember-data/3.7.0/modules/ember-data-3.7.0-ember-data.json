@@ -1,0 +1,263 @@
+{
+  "data": {
+    "id": "ember-data-3.7.0-ember-data",
+    "type": "module",
+    "attributes": {
+      "name": "ember-data",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "DS.Model": 1,
+        "DS": 1,
+        "String": 1,
+        "DS.String": 1,
+        "Ember.HTMLBars.helpers": 1
+      },
+      "namespaces": {
+        "DS": 1,
+        "Ember": 1
+      },
+      "tag": "main",
+      "file": "node_modules/ember-inflector/addon/lib/system/inflector.js",
+      "line": 30,
+      "description": "Ember Data",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "DS.BuildURLMixin",
+        "DS.AdapterError",
+        "DS.InvalidError",
+        "DS.TimeoutError",
+        "DS.AbortError",
+        "DS.UnauthorizedError",
+        "DS.ForbiddenError",
+        "DS.NotFoundError",
+        "DS.ConflictError",
+        "DS.ServerError",
+        "DS.Errors",
+        "DS.Model",
+        "DS.RootState",
+        "DS.AdapterPopulatedRecordArray",
+        "DS.RecordArray",
+        "DS.BelongsToReference",
+        "DS.HasManyReference",
+        "DS.RecordReference",
+        "DS.ManyArray",
+        "DS.PromiseArray",
+        "DS.PromiseObject",
+        "DS.PromiseManyArray",
+        "DS.Store",
+        "DS.JSONAPIAdapter",
+        "DS.RESTAdapter",
+        "DS.EmbeddedRecordsMixin",
+        "DS.JSONAPISerializer",
+        "DS.JSONSerializer",
+        "DS.RESTSerializer",
+        "DS.BooleanTransform",
+        "DS.DateTransform",
+        "DS.NumberTransform",
+        "DS.StringTransform",
+        "DS.Transform",
+        "DS.Adapter",
+        "DS.Serializer",
+        "Ember.Inflector"
+      ],
+      "privateclasses": [
+        "IdentityMap",
+        "InternalModelMap",
+        "DS.RecordArrayManager",
+        "DS.SnapshotRecordArray",
+        "DS.Snapshot"
+      ],
+      "staticfunctions": {},
+      "allstaticfunctions": {
+        "DS.Model": [
+          {
+            "file": "addon/-private/system/model/model.js",
+            "line": 1249,
+            "description": "Create should only ever be called by the store. To create an instance of a\n`DS.Model` in a dirty state use `store.createRecord`.\n\n   To create instances of `DS.Model` in a clean state, use `store.push`",
+            "itemtype": "method",
+            "name": "create",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "DS.Model",
+            "module": "ember-data",
+            "namespace": "DS"
+          },
+          {
+            "file": "addon/-private/system/model/model.js",
+            "line": 1873,
+            "description": "Iterates through the attributes of the model, calling the passed function on each\nattribute.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(name, meta);\n```\n\n- `name` the name of the current property in the iteration\n- `meta` the meta object for the attribute property in the iteration\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context.\n\nExample\n\n```javascript\nimport DS from 'ember-data';\n\nlet Person = DS.Model.extend({\n   firstName: DS.attr('string'),\n   lastName: DS.attr('string'),\n   birthday: DS.attr('date')\n });\n\nPerson.eachAttribute(function(name, meta) {\n   console.log(name, meta);\n });\n\n// prints:\n// firstName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"firstName\"}\n// lastName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"lastName\"}\n// birthday {type: \"date\", isAttribute: true, options: Object, parentType: function, name: \"birthday\"}\n```",
+            "itemtype": "method",
+            "name": "eachAttribute",
+            "params": [
+              {
+                "name": "callback",
+                "description": "The callback to execute",
+                "type": "Function"
+              },
+              {
+                "name": "binding",
+                "description": "the value to which the callback's `this` should be bound",
+                "type": "Object",
+                "optional": true
+              }
+            ],
+            "static": 1,
+            "class": "DS.Model",
+            "module": "ember-data",
+            "namespace": "DS"
+          },
+          {
+            "file": "addon/-private/system/model/model.js",
+            "line": 1725,
+            "description": "Given a callback, iterates over each of the types related to a model,\ninvoking the callback with the related type's class. Each type will be\nreturned just once, regardless of how many different relationships it has\nwith a model.",
+            "itemtype": "method",
+            "name": "eachRelatedType",
+            "static": 1,
+            "params": [
+              {
+                "name": "callback",
+                "description": "the callback to invoke",
+                "type": "Function"
+              },
+              {
+                "name": "binding",
+                "description": "the value to which the callback's `this` should be bound",
+                "type": "Any"
+              }
+            ],
+            "class": "DS.Model",
+            "module": "ember-data",
+            "namespace": "DS"
+          },
+          {
+            "file": "addon/-private/system/model/model.js",
+            "line": 1709,
+            "description": "Given a callback, iterates over each of the relationships in the model,\ninvoking the callback with the name of each relationship and its relationship\ndescriptor.",
+            "itemtype": "method",
+            "name": "eachRelationship",
+            "static": 1,
+            "params": [
+              {
+                "name": "callback",
+                "description": "the callback to invoke",
+                "type": "Function"
+              },
+              {
+                "name": "binding",
+                "description": "the value to which the callback's `this` should be bound",
+                "type": "Any"
+              }
+            ],
+            "class": "DS.Model",
+            "module": "ember-data",
+            "namespace": "DS"
+          },
+          {
+            "file": "addon/-private/system/model/model.js",
+            "line": 1922,
+            "description": "Iterates through the transformedAttributes of the model, calling\nthe passed function on each attribute. Note the callback will not be\ncalled for any attributes that do not have an transformation type.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(name, type);\n```\n\n- `name` the name of the current property in the iteration\n- `type` a string containing the name of the type of transformed\napplied to the attribute\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context.\n\nExample\n\n```javascript\nimport DS from 'ember-data';\n\nlet Person = DS.Model.extend({\n   firstName: DS.attr(),\n   lastName: DS.attr('string'),\n   birthday: DS.attr('date')\n });\n\nPerson.eachTransformedAttribute(function(name, type) {\n   console.log(name, type);\n });\n\n// prints:\n// lastName string\n// birthday date\n```",
+            "itemtype": "method",
+            "name": "eachTransformedAttribute",
+            "params": [
+              {
+                "name": "callback",
+                "description": "The callback to execute",
+                "type": "Function"
+              },
+              {
+                "name": "binding",
+                "description": "the value to which the callback's `this` should be bound",
+                "type": "Object",
+                "optional": true
+              }
+            ],
+            "static": 1,
+            "class": "DS.Model",
+            "module": "ember-data",
+            "namespace": "DS"
+          },
+          {
+            "file": "addon/-private/system/model/model.js",
+            "line": 1338,
+            "description": "Find the relationship which is the inverse of the one asked for.\n\nFor example, if you define models like this:\n\n```app/models/post.js\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n   comments: DS.hasMany('message')\n });\n```\n\n```app/models/message.js\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n   owner: DS.belongsTo('post')\n });\n```\n\n``` js\nstore.modelFor('post').inverseFor('comments', store) // { type: App.Message, name: 'owner', kind: 'belongsTo' }\nstore.modelFor('message').inverseFor('owner', store) // { type: App.Post, name: 'comments', kind: 'hasMany' }\n```",
+            "itemtype": "method",
+            "name": "inverseFor",
+            "static": 1,
+            "params": [
+              {
+                "name": "name",
+                "description": "the name of the relationship",
+                "type": "String"
+              },
+              {
+                "name": "store",
+                "description": "",
+                "type": "DS.Store"
+              }
+            ],
+            "return": {
+              "description": "the inverse relationship, or null",
+              "type": "Object"
+            },
+            "class": "DS.Model",
+            "module": "ember-data",
+            "namespace": "DS"
+          },
+          {
+            "file": "addon/-private/system/model/model.js",
+            "line": 1972,
+            "description": "Returns the name of the model class.",
+            "itemtype": "method",
+            "name": "toString",
+            "static": 1,
+            "class": "DS.Model",
+            "module": "ember-data",
+            "namespace": "DS"
+          },
+          {
+            "file": "addon/-private/system/model/model.js",
+            "line": 1308,
+            "description": "For a given relationship name, returns the model type of the relationship.\n\nFor example, if you define a model like this:\n\n```app/models/post.js\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n   comments: DS.hasMany('comment')\n });\n```\n\nCalling `store.modelFor('post').typeForRelationship('comments', store)` will return `Comment`.",
+            "itemtype": "method",
+            "name": "typeForRelationship",
+            "static": 1,
+            "params": [
+              {
+                "name": "name",
+                "description": "the name of the relationship",
+                "type": "String"
+              },
+              {
+                "name": "store",
+                "description": "an instance of DS.Store",
+                "type": "Store"
+              }
+            ],
+            "return": {
+              "description": "the type of the relationship, or undefined",
+              "type": "DS.Model"
+            },
+            "class": "DS.Model",
+            "module": "ember-data",
+            "namespace": "DS"
+          }
+        ]
+      },
+      "version": "3.7.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.7.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

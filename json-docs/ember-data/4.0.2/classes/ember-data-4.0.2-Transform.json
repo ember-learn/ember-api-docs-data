@@ -1,0 +1,111 @@
+{
+  "data": {
+    "id": "ember-data-4.0.2-Transform",
+    "type": "class",
+    "attributes": {
+      "name": "Transform",
+      "shortname": "Transform",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/serializer",
+      "namespace": "",
+      "file": "../serializer/addon/-private/transforms/transform.js",
+      "line": 7,
+      "description": "The `Transform` class is used to serialize and deserialize model\nattributes when they are saved or loaded from an\nadapter. Subclassing `Transform` is useful for creating custom\nattributes. All subclasses of `Transform` must implement a\n`serialize` and a `deserialize` method.\n\nExample\n\n```js {data-filename=app/transforms/temperature.js}\nimport Transform from '@ember-data/serializer/transform';\n\n// Converts centigrade in the JSON to fahrenheit in the app\nexport default class TemperatureTransform extends Transform {\n  deserialize(serialized, options) {\n    return (serialized *  1.8) + 32;\n  }\n\n  serialize(deserialized, options) {\n    return (deserialized - 32) / 1.8;\n  }\n}\n```\n\nUsage\n\n```js {data-filename=app/models/requirement.js}\nimport Model, { attr } from '@ember-data/model';\n\nexport default class RequirementModel extends Model {\n  @attr('string') name;\n  @attr('temperature') temperature;\n}\n```\n\nThe options passed into the `attr` function when the attribute is\ndeclared on the model is also available in the transform.\n\n```js {data-filename=app/models/post.js}\nimport Model, { attr } from '@ember-data/model';\n\nexport default class PostModel extends Model {\n  @attr('string') title;\n  @attr('markdown', {\n    markdown: {\n      gfm: false,\n      sanitize: true\n    }\n  })\n  markdown;\n}\n```\n\n```js {data-filename=app/transforms/markdown.js}\nimport Transform from '@ember-data/serializer/transform';\n\nexport default class MarkdownTransform extends Transform {\n  serialize(deserialized, options) {\n    return deserialized.raw;\n  }\n\n  deserialize(serialized, options) {\n    let markdownOptions = options.markdown || {};\n\n    return marked(serialized, markdownOptions);\n  }\n}\n```",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../serializer/addon/-private/transforms/transform.js",
+          "line": 80,
+          "description": "When given a deserialized value from a record attribute this\nmethod must return the serialized value.\n\nExample\n\n```javascript\nimport { isEmpty } from '@ember/utils';\n\nserialize(deserialized, options) {\n  return isEmpty(deserialized) ? null : Number(deserialized);\n}\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "deserialized",
+              "description": "The deserialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `attr`"
+            }
+          ],
+          "return": {
+            "description": "The serialized value"
+          },
+          "class": "Transform",
+          "module": "@ember-data/serializer"
+        },
+        {
+          "file": "../serializer/addon/-private/transforms/transform.js",
+          "line": 102,
+          "description": "When given a serialized value from a JSON object this method must\nreturn the deserialized value for the record attribute.\n\nExample\n\n```javascript\ndeserialize(serialized, options) {\n  return empty(serialized) ? null : Number(serialized);\n}\n```",
+          "itemtype": "method",
+          "name": "deserialize",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "serialized",
+              "description": "The serialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `attr`"
+            }
+          ],
+          "return": {
+            "description": "The deserialized value"
+          },
+          "class": "Transform",
+          "module": "@ember-data/serializer"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-4.0.2-BooleanTransform"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.0.2-DateTransform"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.0.2-NumberTransform"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-4.0.2-StringTransform"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.0.2-@ember-data/serializer",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.0.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "data": {
+    "id": "ember-data-3.23.0-RecordReference",
+    "type": "class",
+    "attributes": {
+      "name": "RecordReference",
+      "shortname": "RecordReference",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/addon/-private/system/references/record.ts",
+      "line": 12,
+      "description": "A `RecordReference` is a low-level API that allows users and\naddon authors to perform meta-operations on a record.",
+      "extends": "Reference",
+      "methods": [
+        {
+          "file": "../store/addon/-private/system/references/record.ts",
+          "line": 28,
+          "description": "The `id` of the record that this reference refers to.\n\nTogether, the `type` and `id` properties form a composite key for\nthe identity map.\n\nExample\n\n```javascript\nlet userRef = store.getReference('user', 1);\n\nuserRef.id(); // '1'\n```",
+          "itemtype": "method",
+          "name": "id",
+          "return": {
+            "description": "The id of the record.",
+            "type": "String"
+          },
+          "class": "RecordReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/record.ts",
+          "line": 49,
+          "description": "How the reference will be looked up when it is loaded. Currently\nthis always returns `identity` to signify that a record will be\nloaded by its `type` and `id`.\n\nExample\n\n```javascript\nconst userRef = store.getReference('user', 1);\n\nuserRef.remoteType(); // 'identity'\n```",
+          "itemtype": "method",
+          "name": "remoteType",
+          "return": {
+            "description": "'identity'",
+            "type": "String"
+          },
+          "class": "RecordReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/record.ts",
+          "line": 69,
+          "description": "This API allows you to provide a reference with new data. The\nsimplest usage of this API is similar to `store.push`: you provide a\nnormalized hash of data and the object represented by the reference\nwill update.\n\nIf you pass a promise to `push`, Ember Data will not ask the adapter\nfor the data if another attempt to fetch it is made in the\ninterim. When the promise resolves, the underlying object is updated\nwith the new data, and the promise returned by *this function* is resolved\nwith that object.\n\nFor example, `recordReference.push(promise)` will be resolved with a\nrecord.\n\n Example\n\n ```javascript\n let userRef = store.getReference('user', 1);\n\n // provide data for reference\n userRef.push({\n   data: {\n     id: \"1\",\n     type: \"user\",\n     attributes: {\n       username: \"@user\"\n     }\n   }\n }).then(function(user) {\n   userRef.value() === user;\n });\n ```",
+          "itemtype": "method",
+          "name": "push",
+          "params": [
+            {
+              "name": "objectOrPromise",
+              "description": "a JSON:API ResourceDocument or a promise resolving to one"
+            }
+          ],
+          "return": {
+            "description": "a promise for the value (record or relationship)"
+          },
+          "class": "RecordReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/record.ts",
+          "line": 113,
+          "description": "If the entity referred to by the reference is already loaded, it is\npresent as `reference.value`. Otherwise the value returned by this function\nis `null`.\n\n Example\n\n ```javascript\n let userRef = store.getReference('user', 1);\n\n userRef.value(); // user\n ```",
+          "itemtype": "method",
+          "name": "value",
+          "return": {
+            "description": "the record for this RecordReference",
+            "type": "Model"
+          },
+          "class": "RecordReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/record.ts",
+          "line": 139,
+          "description": "Triggers a fetch for the backing entity based on its `remoteType`\n(see `remoteType` definitions per reference type).\n\nExample\n\n```javascript\nlet userRef = store.getReference('user', 1);\n\n// load user (via store.find)\nuserRef.load().then(...)\n```",
+          "itemtype": "method",
+          "name": "load",
+          "return": {
+            "description": "the record for this RecordReference",
+            "type": "Promise<record>"
+          },
+          "class": "RecordReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/record.ts",
+          "line": 162,
+          "description": "Reloads the record if it is already loaded. If the record is not\nloaded it will load the record via `store.findRecord`\n\nExample\n\n```javascript\nlet userRef = store.getReference('user', 1);\n\n// or trigger a reload\nuserRef.reload().then(...)\n```",
+          "itemtype": "method",
+          "name": "reload",
+          "return": {
+            "description": "the record for this RecordReference",
+            "type": "Promise<record>"
+          },
+          "class": "RecordReference",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/references/reference.ts",
+          "line": 51,
+          "description": "This returns a string that represents how the reference will be\nlooked up when it is loaded. If the relationship has a link it will\nuse the \"link\" otherwise it defaults to \"id\".\n\nExample\n\n```js {data-filename=app/models/post.js}\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default Model.extend({\n  comments: hasMany({ async: true })\n});\n```\n\n```javascript\nlet post = store.push({\n  data: {\n    type: 'post',\n    id: 1,\n    relationships: {\n      comments: {\n        data: [{ type: 'comment', id: 1 }]\n      }\n    }\n  }\n});\n\nlet commentsRef = post.hasMany('comments');\n\n// get the identifier of the reference\nif (commentsRef.remoteType() === \"ids\") {\n  let ids = commentsRef.ids();\n} else if (commentsRef.remoteType() === \"link\") {\n  let link = commentsRef.link();\n}\n```",
+          "itemtype": "method",
+          "name": "remoteType",
+          "return": {
+            "description": "The name of the remote type. This should either be \"link\" or \"ids\"",
+            "type": "String"
+          },
+          "class": "RecordReference",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "Reference"
+        },
+        {
+          "file": "../store/addon/-private/system/references/reference.ts",
+          "line": 100,
+          "description": "The link Ember Data will use to fetch or reload this belongs-to\nrelationship.\n\nExample\n\n```javascript\n// models/blog.js\nimport Model, { belongsTo } from '@ember-data/model';\nexport default Model.extend({\n   user: belongsTo({ async: true })\n });\n\nlet blog = store.push({\n   data: {\n     type: 'blog',\n     id: 1,\n     relationships: {\n       user: {\n         links: {\n           related: '/articles/1/author'\n         }\n       }\n     }\n   }\n });\nlet userRef = blog.belongsTo('user');\n\n// get the identifier of the reference\nif (userRef.remoteType() === \"link\") {\n   let link = userRef.link();\n }\n```",
+          "itemtype": "method",
+          "name": "link",
+          "return": {
+            "description": "The link Ember Data will use to fetch or reload this belongs-to relationship.",
+            "type": "String"
+          },
+          "class": "RecordReference",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "Reference"
+        },
+        {
+          "file": "../store/addon/-private/system/references/reference.ts",
+          "line": 150,
+          "description": "The meta data for the belongs-to relationship.\n\nExample\n\n```javascript\n// models/blog.js\nimport Model, { belongsTo } from '@ember-data/model';\nexport default Model.extend({\n   user: belongsTo({ async: true })\n });\n\nlet blog = store.push({\n   data: {\n     type: 'blog',\n     id: 1,\n     relationships: {\n       user: {\n         links: {\n           related: {\n             href: '/articles/1/author'\n           },\n           meta: {\n             lastUpdated: 1458014400000\n           }\n         }\n       }\n     }\n   }\n });\n\nlet userRef = blog.belongsTo('user');\n\nuserRef.meta() // { lastUpdated: 1458014400000 }\n```",
+          "itemtype": "method",
+          "name": "meta",
+          "return": {
+            "description": "The meta information for the belongs-to relationship.",
+            "type": "Object"
+          },
+          "class": "RecordReference",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "Reference"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.23.0-Reference",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.23.0-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.23.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

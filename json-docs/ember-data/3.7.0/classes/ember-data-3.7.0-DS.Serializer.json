@@ -1,0 +1,162 @@
+{
+  "data": {
+    "id": "ember-data-3.7.0-DS.Serializer",
+    "type": "class",
+    "attributes": {
+      "name": "DS.Serializer",
+      "shortname": "DS.Serializer",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/serializer.js",
+      "line": 7,
+      "description": "`DS.Serializer` is an abstract base class that you should override in your\napplication to customize it for your backend. The minimum set of methods\nthat you should implement is:\n\n  * `normalizeResponse()`\n  * `serialize()`\n\nAnd you can optionally override the following methods:\n\n  * `normalize()`\n\nFor an example implementation, see\n[DS.JSONSerializer](DS.JSONSerializer), the included JSON serializer.",
+      "extends": "Ember.Object",
+      "methods": [
+        {
+          "file": "addon/serializer.js",
+          "line": 50,
+          "description": "The `normalizeResponse` method is used to normalize a payload from the\nserver to a JSON-API Document.\n\nhttp://jsonapi.org/format/#document-structure\n\nExample:\n\n```js\nSerializer.extend({\n  normalizeResponse(store, primaryModelClass, payload, id, requestType) {\n    if (requestType === 'findRecord') {\n      return this.normalize(primaryModelClass, payload);\n    } else {\n      return payload.reduce(function(documentHash, item) {\n        let { data, included } = this.normalize(primaryModelClass, item);\n        documentHash.included.push(...included);\n        documentHash.data.push(data);\n        return documentHash;\n      }, { data: [], included: [] })\n    }\n  }\n});\n```",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "normalizeResponse",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "primaryModelClass",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "payload",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String|Number"
+            },
+            {
+              "name": "requestType",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "JSON-API Document",
+            "type": "Object"
+          },
+          "class": "DS.Serializer",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/serializer.js",
+          "line": 86,
+          "description": "The `serialize` method is used when a record is saved in order to convert\nthe record into the form that your external data source expects.\n\n`serialize` takes an optional `options` hash with a single option:\n\n- `includeId`: If this is `true`, `serialize` should include the ID\n  in the serialized object it builds.\n\nExample:\n\n```js\nSerializer.extend({\n  serialize(snapshot, options) {\n    var json = {\n      id: snapshot.id\n    };\n\n    snapshot.eachAttribute((key, attribute) => {\n      json[key] = snapshot.attr(key);\n    });\n\n    snapshot.eachRelationship((key, relationship) => {\n      if (relationship.kind === 'belongsTo') {\n        json[key] = snapshot.belongsTo(key, { id: true });\n      } else if (relationship.kind === 'hasMany') {\n        json[key] = snapshot.hasMany(key, { ids: true });\n      }\n    });\n\n    return json;\n  },\n});\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "DS.Serializer",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/serializer.js",
+          "line": 128,
+          "description": "The `normalize` method is used to convert a payload received from your\nexternal data source into the normalized form `store.push()` expects. You\nshould override this method, munge the hash and return the normalized\npayload.\n\nExample:\n\n```js\nSerializer.extend({\n  normalize(modelClass, resourceHash) {\n    var data = {\n      id:            resourceHash.id,\n      type:          modelClass.modelName,\n      attributes:    resourceHash\n    };\n    return { data: data };\n  }\n})\n```",
+          "itemtype": "method",
+          "name": "normalize",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "hash",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "DS.Serializer",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "addon/serializer.js",
+          "line": 28,
+          "description": "The `store` property is the application's `store` that contains\nall records. It can be used to look up serializers for other model\ntypes that may be nested inside the payload response.\n\nExample:\n\n```js\nSerializer.extend({\n  extractRelationship(relationshipModelName, relationshipHash) {\n    var modelClass = this.store.modelFor(relationshipModelName);\n    var relationshipSerializer = this.store.serializerFor(relationshipModelName);\n    return relationshipSerializer.normalize(modelClass, relationshipHash);\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "store",
+          "type": "{DS.Store}",
+          "access": "public",
+          "tagname": "",
+          "class": "DS.Serializer",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Object",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-3.7.0-DS.JSONSerializer"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.7.0-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.7.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

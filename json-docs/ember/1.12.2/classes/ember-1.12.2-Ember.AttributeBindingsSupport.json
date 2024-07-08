@@ -1,0 +1,106 @@
+{
+  "data": {
+    "id": "ember-1.12.2-Ember.AttributeBindingsSupport",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.AttributeBindingsSupport",
+      "shortname": "Ember.AttributeBindingsSupport",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.View"
+      ],
+      "module": "ember",
+      "submodule": "ember-views",
+      "namespace": "Ember",
+      "file": "packages/ember-views/lib/mixins/attribute_bindings_support.js",
+      "line": 14,
+      "methods": [
+        {
+          "file": "packages/ember-views/lib/mixins/attribute_bindings_support.js",
+          "line": 53,
+          "description": "Iterates through the view's attribute bindings, sets up observers for each,\nthen applies the current value of the attributes to the passed render buffer.",
+          "itemtype": "method",
+          "name": "_applyAttributeBindings",
+          "params": [
+            {
+              "name": "buffer",
+              "description": "",
+              "type": "Ember.RenderBuffer"
+            },
+            {
+              "name": "attributeBindings",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.AttributeBindingsSupport",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-views/lib/mixins/attribute_bindings_support.js",
+          "line": 100,
+          "description": "We're using setUnknownProperty as a hook to setup attributeBinding observers for\nproperties that aren't defined on a view at initialization time.\n\nNote: setUnknownProperty will only be called once for each property.",
+          "itemtype": "method",
+          "name": "setUnknownProperty",
+          "params": [
+            {
+              "name": "key",
+              "description": ""
+            },
+            {
+              "name": "value",
+              "description": ""
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.AttributeBindingsSupport",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-views/lib/mixins/attribute_bindings_support.js",
+          "line": 21,
+          "description": "A list of properties of the view to apply as attributes. If the property is\na string value, the value of that string will be applied as the attribute.\n\n```javascript\n// Applies the type attribute to the element\n// with the value \"button\", like <div type=\"button\">\nEmber.View.extend({\n  attributeBindings: ['type'],\n  type: 'button'\n});\n```\n\nIf the value of the property is a Boolean, the name of that property is\nadded as an attribute.\n\n```javascript\n// Renders something like <div enabled=\"enabled\">\nEmber.View.extend({\n  attributeBindings: ['enabled'],\n  enabled: true\n});\n```",
+          "itemtype": "property",
+          "name": "attributeBindings",
+          "class": "Ember.AttributeBindingsSupport",
+          "module": "ember",
+          "submodule": "ember-views",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.12.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.12.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

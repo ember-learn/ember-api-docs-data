@@ -1,0 +1,47 @@
+{
+  "data": {
+    "id": "ember-data-3.13.3-NotFoundError",
+    "type": "class",
+    "attributes": {
+      "name": "NotFoundError",
+      "shortname": "NotFoundError",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/adapter",
+      "namespace": "",
+      "file": "../adapter/addon/error.js",
+      "line": 271,
+      "description": "A `NotFoundError` equates to a HTTP `404 Not Found` response status.\nIt is used by an adapter to signal that a request to the external API\nwas rejected because the resource could not be found on the API.\n\nAn example use case would be to detect if the user has entered a route\nfor a specific model that does not exist. For example:\n\n```js {data-filename=app/routes/post.js}\nimport Route from '@ember/routing/route';\nimport { NotFoundError } from '@ember-data/adapter/error';\n\nexport default Route.extend({\n  model(params) {\n    return this.get('store').findRecord('post', params.post_id);\n  },\n\n  actions: {\n    error(error, transition) {\n      if (error instanceof NotFoundError) {\n        // redirect to a list of all posts instead\n        this.transitionTo('posts');\n      } else {\n        // otherwise let the error bubble\n        return true;\n      }\n    }\n  }\n});\n```",
+      "extends": "AdapterError",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.13.3-AdapterError",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.13.3-@ember-data/adapter",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.13.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

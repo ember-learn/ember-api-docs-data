@@ -1,0 +1,195 @@
+{
+  "data": {
+    "id": "ember-1.0.0-Ember.Map",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Map",
+      "shortname": "Ember.Map",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-metal",
+      "namespace": "Ember",
+      "file": "packages/ember-metal/lib/map.js",
+      "line": 176,
+      "description": "A Map stores values indexed by keys. Unlike JavaScript's\ndefault Objects, the keys of a Map can be any JavaScript\nobject.\n\nInternally, a Map has two data structures:\n\n1. `keys`: an OrderedSet of all of the existing keys\n2. `values`: a JavaScript Object indexed by the `Ember.guidFor(key)`\n\nWhen a key/value pair is added for the first time, we\nadd the key to the `keys` OrderedSet, and create or\nreplace an entry in `values`. When an entry is deleted,\nwe delete its entry in `keys` and `values`.",
+      "access": "private",
+      "tagname": "",
+      "is_constructor": 1,
+      "methods": [
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 201,
+          "itemtype": "method",
+          "name": "create",
+          "static": 1,
+          "class": "Ember.Map",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 220,
+          "description": "Retrieve the value associated with a given key.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "the value associated with the key, or `undefined`",
+            "type": "*"
+          },
+          "class": "Ember.Map",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 234,
+          "description": "Adds a value to the map. If a value for the given key has already been\nprovided, the new value will replace the old value.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "class": "Ember.Map",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 252,
+          "description": "Removes a value from the map for an associated key.",
+          "itemtype": "method",
+          "name": "remove",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "true if an item was removed, false otherwise",
+            "type": "Boolean"
+          },
+          "class": "Ember.Map",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 276,
+          "description": "Check whether a key is present.",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "true if the item was present, false otherwise",
+            "type": "Boolean"
+          },
+          "class": "Ember.Map",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 290,
+          "description": "Iterate over all the keys and values. Calls the function once\nfor each key, passing in the key and value, in that order.\n\nThe keys are guaranteed to be iterated over in insertion order.",
+          "itemtype": "method",
+          "name": "forEach",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "self",
+              "description": "if passed, the `this` value inside the\n  callback. By default, `this` is the map.",
+              "type": "*"
+            }
+          ],
+          "class": "Ember.Map",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 311,
+          "itemtype": "method",
+          "name": "copy",
+          "return": {
+            "description": "",
+            "type": "Ember.Map"
+          },
+          "class": "Ember.Map",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-metal/lib/map.js",
+          "line": 210,
+          "description": "This property will change as the number of objects in the map changes.",
+          "itemtype": "property",
+          "name": "length",
+          "type": "number",
+          "default": "0",
+          "class": "Ember.Map",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-1.0.0-Ember.MapWithDefault"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.0.0-ember-metal",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.0.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

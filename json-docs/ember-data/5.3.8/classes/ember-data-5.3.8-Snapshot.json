@@ -14,7 +14,7 @@
       "namespace": "",
       "file": "../legacy-compat/src/legacy-network-handler/snapshot.ts",
       "line": 23,
-      "description": "<html><head></head><body><p>Snapshot is not directly instantiable.\nInstances are provided to a consuming application's\nadapters and serializers for certain requests.</p>\n<p>Snapshots are only available when using <code>@ember-data/legacy-compat</code>\nfor legacy compatibility with adapters and serializers.</p>\n</body></html>",
+      "description": "Snapshot is not directly instantiable.\nInstances are provided to a consuming application's\nadapters and serializers for certain requests.\n\nSnapshots are only available when using `@ember-data/legacy-compat`\nfor legacy compatibility with adapters and serializers.",
       "access": "public",
       "tagname": "",
       "methods": [
@@ -46,7 +46,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 187,
-          "description": "<html><head></head><body><p>Returns the value of an attribute.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"regexp\">//</span> store.push(<span class=\"string\">'post'</span>, { id: <span class=\"number\">1</span>, author: <span class=\"string\">'Tomster'</span>, title: <span class=\"string\">'Ember.js rocks'</span> });\npostSnapshot.attr(<span class=\"string\">'author'</span>); <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'Tomster'</span>\npostSnapshot.attr(<span class=\"string\">'title'</span>); <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'Ember.js rocks'</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Note: Values are loaded eagerly and cached when the snapshot is created.</p>\n</body></html>",
+          "description": "Returns the value of an attribute.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostSnapshot.attr('author'); // => 'Tomster'\npostSnapshot.attr('title'); // => 'Ember.js rocks'\n```\n\nNote: Values are loaded eagerly and cached when the snapshot is created.",
           "itemtype": "method",
           "name": "attr",
           "params": [
@@ -68,7 +68,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 212,
-          "description": "<html><head></head><body><p>Returns all attributes and their corresponding values.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"regexp\">//</span> store.push(<span class=\"string\">'post'</span>, { id: <span class=\"number\">1</span>, author: <span class=\"string\">'Tomster'</span>, title: <span class=\"string\">'Ember.js rocks'</span> });\npostSnapshot.attributes(); <span class=\"regexp\">//</span> =&gt; { author: <span class=\"string\">'Tomster'</span>, title: <span class=\"string\">'Ember.js rocks'</span> }</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Returns all attributes and their corresponding values.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostSnapshot.attributes(); // => { author: 'Tomster', title: 'Ember.js rocks' }\n```",
           "itemtype": "method",
           "name": "attributes",
           "return": {
@@ -83,7 +83,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 230,
-          "description": "<html><head></head><body><p>Returns all changed attributes and their old and new values.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>// store.push(<span class=\"string\">'post'</span>, { id: 1, author: <span class=\"string\">'Tomster'</span>, <span class=\"keyword\">title</span>: <span class=\"string\">'Ember.js rocks'</span> });\npostModel.<span class=\"keyword\">set</span>(<span class=\"string\">'title'</span>, <span class=\"string\">'Ember.js rocks!'</span>);\npostSnapshot.changedAttributes(); // =&gt; { <span class=\"keyword\">title</span>: [<span class=\"string\">'Ember.js rocks'</span>, <span class=\"string\">'Ember.js rocks!'</span>] }</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Returns all changed attributes and their old and new values.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostModel.set('title', 'Ember.js rocks!');\npostSnapshot.changedAttributes(); // => { title: ['Ember.js rocks', 'Ember.js rocks!'] }\n```",
           "itemtype": "method",
           "name": "changedAttributes",
           "return": {
@@ -98,7 +98,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 261,
-          "description": "<html><head></head><body><p>Returns the current value of a belongsTo relationship.</p>\n<p><code>belongsTo</code> takes an optional hash of options as a second parameter,\ncurrently supported options are:</p>\n<ul>\n<li><code>id</code>: set to <code>true</code> if you only want the ID of the related record to be\nreturned.</li>\n</ul>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre><span class=\"regexp\">//</span> store.push(<span class=\"string\">'post'</span>, { id: <span class=\"number\">1</span>, title: <span class=\"string\">'Hello World'</span> });\n<span class=\"regexp\">//</span> store.createRecord(<span class=\"string\">'comment'</span>, { body: <span class=\"string\">'Lorem ipsum'</span>, post: post });\ncommentSnapshot.belongsTo(<span class=\"string\">'post'</span>); <span class=\"regexp\">//</span> =&gt; Snapshot\ncommentSnapshot.belongsTo(<span class=\"string\">'post'</span>, { id: true }); <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'1'</span>\n\n<span class=\"regexp\">//</span> store.push(<span class=\"string\">'comment'</span>, { id: <span class=\"number\">1</span>, body: <span class=\"string\">'Lorem ipsum'</span> });\ncommentSnapshot.belongsTo(<span class=\"string\">'post'</span>); <span class=\"regexp\">//</span> =&gt; undefined</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Calling <code>belongsTo</code> will return a new Snapshot as long as there's any known\ndata for the relationship available, such as an ID. If the relationship is\nknown but unset, <code>belongsTo</code> will return <code>null</code>. If the contents of the\nrelationship is unknown <code>belongsTo</code> will return <code>undefined</code>.</p>\n<p>Note: Relationships are loaded lazily and cached upon first access.</p>\n</body></html>",
+          "description": "Returns the current value of a belongsTo relationship.\n\n`belongsTo` takes an optional hash of options as a second parameter,\ncurrently supported options are:\n\n- `id`: set to `true` if you only want the ID of the related record to be\nreturned.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, title: 'Hello World' });\n// store.createRecord('comment', { body: 'Lorem ipsum', post: post });\ncommentSnapshot.belongsTo('post'); // => Snapshot\ncommentSnapshot.belongsTo('post', { id: true }); // => '1'\n\n// store.push('comment', { id: 1, body: 'Lorem ipsum' });\ncommentSnapshot.belongsTo('post'); // => undefined\n```\n\nCalling `belongsTo` will return a new Snapshot as long as there's any known\ndata for the relationship available, such as an ID. If the relationship is\nknown but unset, `belongsTo` will return `null`. If the contents of the\nrelationship is unknown `belongsTo` will return `undefined`.\n\nNote: Relationships are loaded lazily and cached upon first access.",
           "itemtype": "method",
           "name": "belongsTo",
           "params": [
@@ -126,7 +126,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 369,
-          "description": "<html><head></head><body><p>Returns the current value of a hasMany relationship.</p>\n<p><code>hasMany</code> takes an optional hash of options as a second parameter,\ncurrently supported options are:</p>\n<ul>\n<li><code>ids</code>: set to <code>true</code> if you only want the IDs of the related records to be\nreturned.</li>\n</ul>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"regexp\">//</span> store.push(<span class=\"string\">'post'</span>, { id: <span class=\"number\">1</span>, title: <span class=\"string\">'Hello World'</span>, comments: [<span class=\"number\">2</span>, <span class=\"number\">3</span>] });\npostSnapshot.hasMany(<span class=\"string\">'comments'</span>); <span class=\"regexp\">//</span> =&gt; [Snapshot, Snapshot]\npostSnapshot.hasMany(<span class=\"string\">'comments'</span>, { ids: true }); <span class=\"regexp\">//</span> =&gt; [<span class=\"string\">'2'</span>, <span class=\"string\">'3'</span>]\n\n<span class=\"regexp\">//</span> store.push(<span class=\"string\">'post'</span>, { id: <span class=\"number\">1</span>, title: <span class=\"string\">'Hello World'</span> });\npostSnapshot.hasMany(<span class=\"string\">'comments'</span>); <span class=\"regexp\">//</span> =&gt; undefined</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Note: Relationships are loaded lazily and cached upon first access.</p>\n</body></html>",
+          "description": "Returns the current value of a hasMany relationship.\n\n`hasMany` takes an optional hash of options as a second parameter,\ncurrently supported options are:\n\n- `ids`: set to `true` if you only want the IDs of the related records to be\nreturned.\n\nExample\n\n```javascript\n// store.push('post', { id: 1, title: 'Hello World', comments: [2, 3] });\npostSnapshot.hasMany('comments'); // => [Snapshot, Snapshot]\npostSnapshot.hasMany('comments', { ids: true }); // => ['2', '3']\n\n// store.push('post', { id: 1, title: 'Hello World' });\npostSnapshot.hasMany('comments'); // => undefined\n```\n\nNote: Relationships are loaded lazily and cached upon first access.",
           "itemtype": "method",
           "name": "hasMany",
           "params": [
@@ -154,7 +154,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 478,
-          "description": "<html><head></head><body><p>Iterates through all the attributes of the model, calling the passed\nfunction on each attribute.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"variable\">snapshot</span>.<span class=\"property\">eachAttribute</span>(<span class=\"title function_\">function</span>(<span class=\"params\">name</span>, <span class=\"params\">meta</span>) {\n  <span class=\"comment\">// ...</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Iterates through all the attributes of the model, calling the passed\nfunction on each attribute.\n\nExample\n\n```javascript\nsnapshot.eachAttribute(function(name, meta) {\n  // ...\n});\n```",
           "itemtype": "method",
           "name": "eachAttribute",
           "params": [
@@ -178,7 +178,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 504,
-          "description": "<html><head></head><body><p>Iterates through all the relationships of the model, calling the passed\nfunction on each relationship.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"variable\">snapshot</span>.<span class=\"property\">eachRelationship</span>(<span class=\"title function_\">function</span>(<span class=\"params\">name</span>, <span class=\"params\">relationship</span>) {\n  <span class=\"comment\">// ...</span>\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Iterates through all the relationships of the model, calling the passed\nfunction on each relationship.\n\nExample\n\n```javascript\nsnapshot.eachRelationship(function(name, relationship) {\n  // ...\n});\n```",
           "itemtype": "method",
           "name": "eachRelationship",
           "params": [
@@ -202,7 +202,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 530,
-          "description": "<html><head></head><body><p>Serializes the snapshot using the serializer for the model.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">app/adapters/application.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Adapter</span> <span class=\"keyword\">from</span> <span class=\"string\">'@ember-data/adapter'</span>;\n\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"title class_\">Adapter</span>.<span class=\"title function_\">extend</span>({\n  <span class=\"title function_\">createRecord</span>(<span class=\"params\">store, <span class=\"keyword\">type</span>, snapshot</span>) {\n    <span class=\"keyword\">let</span> data = snapshot.<span class=\"title function_\">serialize</span>({ <span class=\"attr\">includeId</span>: <span class=\"literal\">true</span> });\n    <span class=\"keyword\">let</span> url = <span class=\"string\">`/<span class=\"subst\">${<span class=\"keyword\">type</span>.modelName}</span>`</span>;\n\n    <span class=\"keyword\">return</span> <span class=\"title function_\">fetch</span>(url, {\n      <span class=\"attr\">method</span>: <span class=\"string\">'POST'</span>,\n      <span class=\"attr\">body</span>: data,\n    }).<span class=\"title function_\">then</span>(<span class=\"function\">(<span class=\"params\">response</span>) =&gt;</span> response.<span class=\"title function_\">json</span>())\n  }\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Serializes the snapshot using the serializer for the model.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\n\nexport default Adapter.extend({\n  createRecord(store, type, snapshot) {\n    let data = snapshot.serialize({ includeId: true });\n    let url = `/${type.modelName}`;\n\n    return fetch(url, {\n      method: 'POST',\n      body: data,\n    }).then((response) => response.json())\n  }\n});\n```",
           "itemtype": "method",
           "name": "serialize",
           "params": [
@@ -227,7 +227,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 73,
-          "description": "<html><head></head><body><p>The unique RecordIdentifier associated with this Snapshot.</p>\n</body></html>",
+          "description": "The unique RecordIdentifier associated with this Snapshot.",
           "itemtype": "property",
           "name": "identifier",
           "access": "public",
@@ -239,7 +239,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 93,
-          "description": "<html><head></head><body><p>The id of the snapshot's underlying record</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n</pre></td>\n              <td class=\"code\"><pre><span class=\"regexp\">//</span> store.push(<span class=\"string\">'post'</span>, { id: <span class=\"number\">1</span>, author: <span class=\"string\">'Tomster'</span>, title: <span class=\"string\">'Ember.js rocks'</span> });\npostSnapshot.id; <span class=\"regexp\">//</span> =&gt; <span class=\"string\">'1'</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "The id of the snapshot's underlying record\n\nExample\n\n```javascript\n// store.push('post', { id: 1, author: 'Tomster', title: 'Ember.js rocks' });\npostSnapshot.id; // => '1'\n```",
           "itemtype": "property",
           "name": "id",
           "type": "{String}",
@@ -251,7 +251,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 109,
-          "description": "<html><head></head><body><p>A hash of adapter options</p>\n</body></html>",
+          "description": "A hash of adapter options",
           "itemtype": "property",
           "name": "adapterOptions",
           "type": "{Object}",
@@ -263,7 +263,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 117,
-          "description": "<html><head></head><body><p>If <code>include</code> was passed to the options hash for the request, the value\nwould be available here.</p>\n</body></html>",
+          "description": "If `include` was passed to the options hash for the request, the value\nwould be available here.",
           "itemtype": "property",
           "name": "include",
           "type": "{String|Array}",
@@ -275,7 +275,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 127,
-          "description": "<html><head></head><body><p>The name of the type of the underlying record for this snapshot, as a string.</p>\n</body></html>",
+          "description": "The name of the type of the underlying record for this snapshot, as a string.",
           "itemtype": "property",
           "name": "modelName",
           "type": "{String}",
@@ -287,7 +287,7 @@
         {
           "file": "../packages/legacy-compat/src/legacy-network-handler/snapshot.ts",
           "line": 141,
-          "description": "<html><head></head><body><p>The underlying record for this snapshot. Can be used to access methods and\nproperties defined on the record.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>let <span class=\"type\">json</span> = <span class=\"keyword\">snapshot</span>.record.toJSON();</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "The underlying record for this snapshot. Can be used to access methods and\nproperties defined on the record.\n\nExample\n\n```javascript\nlet json = snapshot.record.toJSON();\n```",
           "itemtype": "property",
           "name": "record",
           "type": "{Model}",

@@ -1,0 +1,120 @@
+{
+  "data": {
+    "id": "ember-data-5.0.1-NotificationManager",
+    "type": "class",
+    "attributes": {
+      "name": "NotificationManager",
+      "shortname": "NotificationManager",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/src/-private/managers/notification-manager.ts",
+      "line": 70,
+      "description": "The NotificationManager provides the ability to subscribe to\nchanges to Cache state.\n\nThis Feature is what allows EmberData to create subscriptions that\nwork with any framework or change-notification system.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/store/src/-private/managers/notification-manager.ts",
+          "line": 101,
+          "description": "Subscribe to changes for a given resource identifier, resource addition/removal, or document addition/removal.\n\n```ts\nexport type CacheOperation = 'added' | 'removed' | 'updated' | 'state';\n\nexport interface NotificationCallback {\n  (identifier: StableRecordIdentifier, notificationType: 'attributes' | 'relationships', key?: string): void;\n  (identifier: StableRecordIdentifier, notificationType: 'errors' | 'meta' | 'identity' | 'state'): void;\n  (identifier: StableRecordIdentifier, notificationType: NotificationType, key?: string): void;\n}\nexport interface ResourceOperationCallback {\n  // resource updates\n  (identifier: StableRecordIdentifier, notificationType: CacheOperation): void;\n}\nexport interface DocumentOperationCallback {\n  // document updates\n  (identifier: StableDocumentIdentifier, notificationType: CacheOperation): void;\n}\n```",
+          "itemtype": "method",
+          "name": "subscribe",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableDocumentIdentifier | StableRecordIdentifier | 'resource' | 'document'"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "NotificationCallback | ResourceOperationCallback | DocumentOperationCallback"
+            }
+          ],
+          "return": {
+            "description": "an opaque token to be used with unsubscribe",
+            "type": "UnsubscribeToken"
+          },
+          "class": "NotificationManager",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/store/src/-private/managers/notification-manager.ts",
+          "line": 156,
+          "description": "remove a previous subscription",
+          "itemtype": "method",
+          "name": "unsubscribe",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "token",
+              "description": "",
+              "type": "UnsubscribeToken"
+            }
+          ],
+          "class": "NotificationManager",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/store/src/-private/managers/notification-manager.ts",
+          "line": 169,
+          "description": "Custom Caches and Application Code should not call this method directly.",
+          "itemtype": "method",
+          "name": "notify",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "value",
+              "description": ""
+            },
+            {
+              "name": "key",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "whether a notification was delivered to any subscribers",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "NotificationManager",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.0.1-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.0.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

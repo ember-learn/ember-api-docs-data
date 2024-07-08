@@ -1,0 +1,165 @@
+{
+  "data": {
+    "id": "ember-2.7.3-Ember.Test.Ember.Test",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Test.Ember.Test",
+      "shortname": "Ember.Test",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "Ember.Test",
+      "methods": [
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 58,
+          "description": "This hook defers the readiness of the application, so that you can start\nthe app when your tests are ready to run. It also sets the router's\nlocation to 'none', so that the window's location will not be modified\n(preventing both accidental leaking of state between tests and interference\nwith your testing framework).\n\nExample:\n\n```\nApp.setupForTesting();\n```",
+          "itemtype": "method",
+          "name": "setupForTesting",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Test.Ember.Test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 96,
+          "description": "This injects the test helpers into the `helperContainer` object. If an object is provided\nit will be used as the helperContainer. If `helperContainer` is not set it will default\nto `window`. If a function of the same name has already been defined it will be cached\n(so that it can be reset if the helper is removed with `unregisterHelper` or\n`removeTestHelpers`).\n\nAny callbacks registered with `onInjectHelpers` will be called once the\nhelpers have been injected.\n\nExample:\n```\nApp.injectTestHelpers();\n```",
+          "itemtype": "method",
+          "name": "injectTestHelpers",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Test.Ember.Test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 138,
+          "description": "This removes all helpers that have been registered, and resets and functions\nthat were overridden by the helpers.\n\nExample:\n\n```javascript\nApp.removeTestHelpers();\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "removeTestHelpers",
+          "class": "Ember.Test.Ember.Test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/test/helpers.js",
+          "line": 5,
+          "description": "`registerHelper` is used to register a test helper that will be injected\nwhen `App.injectTestHelpers` is called.\n\nThe helper method will always be called with the current Application as\nthe first parameter.\n\nFor example:\n\n```javascript\nEmber.Test.registerHelper('boot', function(app) {\n  Ember.run(app, app.advanceReadiness);\n});\n```\n\nThis helper can later be called without arguments because it will be\ncalled with `app` as the first parameter.\n\n```javascript\nApp = Ember.Application.create();\nApp.injectTestHelpers();\nboot();\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registerHelper",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the helper method to add.",
+              "type": "String"
+            },
+            {
+              "name": "helperMethod",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.Test.Ember.Test",
+          "module": "ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 16,
+          "description": "This property contains the testing helpers for the current application. These\nare created once you call `injectTestHelpers` on your `Ember.Application`\ninstance. The included helpers are also available on the `window` object by\ndefault, but can be used from this object on the individual application also.",
+          "itemtype": "property",
+          "name": "testHelpers",
+          "type": "{Object}",
+          "default": "{}",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Test.Ember.Test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 29,
+          "description": "This property will contain the original methods that were registered\non the `helperContainer` before `injectTestHelpers` is called.\n\nWhen `removeTestHelpers` is called, these methods are restored to the\n`helperContainer`.",
+          "itemtype": "property",
+          "name": "originalMethods",
+          "type": "{Object}",
+          "default": "{}",
+          "access": "private",
+          "tagname": "",
+          "since": "1.3.0",
+          "class": "Ember.Test.Ember.Test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 45,
+          "description": "This property indicates whether or not this application is currently in\ntesting mode. This is set when `setupForTesting` is called on the current\napplication.",
+          "itemtype": "property",
+          "name": "testing",
+          "type": "{Boolean}",
+          "default": "false",
+          "since": "1.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Test.Ember.Test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 84,
+          "description": "This will be used as the container to inject the test helpers into. By\ndefault the helpers are injected into `window`.",
+          "itemtype": "property",
+          "name": "helperContainer",
+          "type": "{Object} The object to be used for test helpers.",
+          "default": "window",
+          "since": "1.2.0",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Test.Ember.Test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.7.3-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.7.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

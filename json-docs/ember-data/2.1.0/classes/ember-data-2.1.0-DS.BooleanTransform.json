@@ -1,0 +1,90 @@
+{
+  "data": {
+    "id": "ember-data-2.1.0-DS.BooleanTransform",
+    "type": "class",
+    "attributes": {
+      "name": "DS.BooleanTransform",
+      "shortname": "DS.BooleanTransform",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "packages/ember-data/lib/transforms/boolean.js",
+      "line": 3,
+      "description": "The `DS.BooleanTransform` class is used to serialize and deserialize\nboolean attributes on Ember Data record objects. This transform is\nused when `boolean` is passed as the type parameter to the\n[DS.attr](../../data#method_attr) function.\n\nUsage\n\n```js {data-filename=app/models/user.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  isAdmin: DS.attr('boolean'),\n  name: DS.attr('string'),\n  email: DS.attr('string')\n});\n```",
+      "extends": "DS.Transform",
+      "methods": [
+        {
+          "file": "packages/ember-data/lib/transforms/base.js",
+          "line": 39,
+          "description": "When given a deserialized value from a record attribute this\nmethod must return the serialized value.\n\nExample\n\n```javascript\nserialize: function(deserialized) {\n  return Ember.isEmpty(deserialized) ? null : Number(deserialized);\n}\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "deserialized",
+              "description": "The deserialized value"
+            }
+          ],
+          "return": {
+            "description": "The serialized value"
+          },
+          "class": "DS.BooleanTransform",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.Transform"
+        },
+        {
+          "file": "packages/ember-data/lib/transforms/base.js",
+          "line": 57,
+          "description": "When given a serialize value from a JSON object this method must\nreturn the deserialized value for the record attribute.\n\nExample\n\n```javascript\ndeserialize: function(serialized) {\n  return empty(serialized) ? null : Number(serialized);\n}\n```",
+          "itemtype": "method",
+          "name": "deserialize",
+          "params": [
+            {
+              "name": "serialized",
+              "description": "The serialized value"
+            }
+          ],
+          "return": {
+            "description": "The deserialized value"
+          },
+          "class": "DS.BooleanTransform",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.Transform"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-2.1.0-DS.Transform",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.1.0-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.1.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

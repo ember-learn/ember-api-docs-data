@@ -1,0 +1,249 @@
+{
+  "data": {
+    "id": "ember-data-3.10.0-DS.AdapterPopulatedRecordArray",
+    "type": "class",
+    "attributes": {
+      "name": "DS.AdapterPopulatedRecordArray",
+      "shortname": "DS.AdapterPopulatedRecordArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/system/record-arrays/adapter-populated-record-array.js",
+      "line": 7,
+      "description": "Represents an ordered list of records whose order and membership is\ndetermined by the adapter. For example, a query sent to the adapter\nmay trigger a search on the server, whose results would be loaded\ninto an instance of the `AdapterPopulatedRecordArray`.\n\n---\n\nIf you want to update the array and get the latest records from the\nadapter, you can invoke [`update()`](#method_update):\n\nExample\n\n```javascript\n// GET /users?isAdmin=true\nstore.query('user', { isAdmin: true }).then(function(admins) {\n\n  admins.then(function() {\n    console.log(admins.get(\"length\")); // 42\n  });\n\n  // somewhere later in the app code, when new admins have been created\n  // in the meantime\n  //\n  // GET /users?isAdmin=true\n  admins.update().then(function() {\n    admins.get('isUpdating'); // false\n    console.log(admins.get(\"length\")); // 123\n  });\n\n  admins.get('isUpdating'); // true\n}\n```",
+      "extends": "DS.RecordArray",
+      "methods": [
+        {
+          "file": "addon/-private/system/record-arrays/adapter-populated-record-array.js",
+          "line": 66,
+          "itemtype": "method",
+          "name": "_setInternalModels",
+          "params": [
+            {
+              "name": "internalModels",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "payload",
+              "description": "normalized payload",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 105,
+          "description": "Retrieves an object from the content by index.",
+          "itemtype": "method",
+          "name": "objectAtContent",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "index",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "DS.Model"
+          },
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 118,
+          "description": "Used to get the latest version of all of the records in this array\nfrom the adapter.\n\nExample\n\n```javascript\nvar people = store.peekAll('person');\npeople.get('isUpdating'); // false\n\npeople.update().then(function() {\n  people.get('isUpdating'); // false\n});\n\npeople.get('isUpdating'); // true\n```",
+          "itemtype": "method",
+          "name": "update",
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 165,
+          "description": "Adds an internal model to the `RecordArray` without duplicates",
+          "itemtype": "method",
+          "name": "_pushInternalModels",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            }
+          ],
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 179,
+          "description": "Removes an internalModel to the `RecordArray`.",
+          "itemtype": "method",
+          "name": "removeInternalModel",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            }
+          ],
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 190,
+          "description": "Saves all of the records in the `RecordArray`.\n\nExample\n\n```javascript\nvar messages = store.peekAll('message');\nmessages.forEach(function(message) {\n  message.set('hasBeenSeen', true);\n});\nmessages.save();\n```",
+          "itemtype": "method",
+          "name": "save",
+          "return": {
+            "description": "promise",
+            "type": "DS.PromiseArray"
+          },
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 227,
+          "itemtype": "method",
+          "name": "_unregisterFromManager",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 30,
+          "description": "The array of client ids backing the record array. When a\nrecord is requested from the record array, the record\nfor the client id at the same index is materialized, if\nnecessary, by the store.",
+          "itemtype": "property",
+          "name": "content",
+          "access": "private",
+          "tagname": "",
+          "type": "Ember.Array",
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 42,
+          "description": "The flag to signal a `RecordArray` is finished loading data.\n\nExample\n\n```javascript\nvar people = store.peekAll('person');\npeople.get('isLoaded'); // true\n```",
+          "itemtype": "property",
+          "name": "isLoaded",
+          "type": "Boolean",
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 56,
+          "description": "The flag to signal a `RecordArray` is currently loading data.\n\nExample\n\n```javascript\nvar people = store.peekAll('person');\npeople.get('isUpdating'); // false\npeople.update();\npeople.get('isUpdating'); // true\n```",
+          "itemtype": "property",
+          "name": "isUpdating",
+          "type": "Boolean",
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 73,
+          "description": "The store that created this record array.",
+          "itemtype": "property",
+          "name": "store",
+          "access": "private",
+          "tagname": "",
+          "type": "DS.Store",
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 92,
+          "description": "The modelClass represented by this record array.",
+          "itemtype": "property",
+          "name": "type",
+          "type": "DS.Model",
+          "class": "DS.AdapterPopulatedRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.10.0-DS.RecordArray",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.10.0-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.10.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

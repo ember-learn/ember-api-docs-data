@@ -1,0 +1,1051 @@
+{
+  "data": {
+    "id": "ember-data-4.4.2-Store",
+    "type": "class",
+    "attributes": {
+      "name": "Store",
+      "shortname": "Store",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/addon/-private/system/core-store.ts",
+      "line": 99,
+      "description": "The store contains all of the data for records loaded from the server.\nIt is also responsible for creating instances of `Model` that wrap\nthe individual data for a record, so that they can be bound to in your\nHandlebars templates.\n\nDefine your application's store like this:\n\n```js {data-filename=app/services/store.js}\nimport Store from '@ember-data/store';\n\nexport default class MyStore extends Store {}\n```\n\nMost Ember.js applications will only have a single `Store` that is\nautomatically created by their `Ember.Application`.\n\nYou can retrieve models from the store in several ways. To retrieve a record\nfor a specific id, use `Store`'s `findRecord()` method:\n\n```javascript\nstore.findRecord('person', 123).then(function (person) {\n});\n```\n\nBy default, the store will talk to your backend using a standard\nREST mechanism. You can customize how the store talks to your\nbackend by specifying a custom adapter:\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\n\nexport default class ApplicationAdapter extends Adapter {\n}\n```\n\nYou can learn more about writing a custom adapter by reading the `Adapter`\ndocumentation.\n\n### Store createRecord() vs. push() vs. pushPayload()\n\nThe store provides multiple ways to create new record objects. They have\nsome subtle differences in their use which are detailed below:\n\n[createRecord](../methods/createRecord?anchor=createRecord) is used for creating new\nrecords on the client side. This will return a new record in the\n`created.uncommitted` state. In order to persist this record to the\nbackend, you will need to call `record.save()`.\n\n[push](../methods/push?anchor=push) is used to notify Ember Data's store of new or\nupdated records that exist in the backend. This will return a record\nin the `loaded.saved` state. The primary use-case for `store#push` is\nto notify Ember Data about record updates (full or partial) that happen\noutside of the normal adapter methods (for example\n[SSE](http://dev.w3.org/html5/eventsource/) or [Web\nSockets](http://www.w3.org/TR/2009/WD-websockets-20091222/)).\n\n[pushPayload](../methods/pushPayload?anchor=pushPayload) is a convenience wrapper for\n`store#push` that will deserialize payloads if the\nSerializer implements a `pushPayload` method.\n\nNote: When creating a new record using any of the above methods\nEmber Data will update `RecordArray`s such as those returned by\n`store#peekAll()` or `store#findAll()`. This means any\ndata bindings or computed properties that depend on the RecordArray\nwill automatically be synced to include the new or updated record\nvalues.",
+      "mainName": "@ember-data/store",
+      "tag": "main",
+      "_main": true,
+      "access": "public",
+      "tagname": "",
+      "extends": "Ember.Service",
+      "methods": [
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 249,
+          "itemtype": "method",
+          "name": "init",
+          "access": "private",
+          "tagname": "",
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 422,
+          "description": "Returns the schema for a particular `modelName`.\n\nWhen used with Model from @ember-data/model the return is the model class,\nbut this is not guaranteed.\n\nThe class of a model might be useful if you want to get a list of all the\nrelationship names of the model, see\n[`relationshipNames`](/ember-data/release/classes/Model?anchor=relationshipNames)\nfor example.",
+          "itemtype": "method",
+          "name": "modelFor",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Subclass of Model | ShimModelClass"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 447,
+          "description": "Returns whether a ModelClass exists for a given modelName\nThis exists for legacy support for the RESTSerializer,\nwhich due to how it must guess whether a key is a model\nmust query for whether a match exists.\n\nWe should investigate an RFC to make this public or removing\nthis requirement.",
+          "itemtype": "method",
+          "name": "_hasModelFor",
+          "access": "private",
+          "tagname": "",
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 473,
+          "description": "Create a new record in the current store. The properties passed\nto this method are set on the newly created record.\n\nTo create a new instance of a `Post`:\n\n```js\nstore.createRecord('post', {\n  title: 'Ember is awesome!'\n});\n```\n\nTo create a new instance of a `Post` that has a relationship with a `User` record:\n\n```js\nlet user = this.store.peekRecord('user', 1);\nstore.createRecord('post', {\n  title: 'Ember is awesome!',\n  user: user\n});\n```",
+          "itemtype": "method",
+          "name": "createRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "inputProperties",
+              "description": "a hash of properties to set on the\n  newly created record.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "Model"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 546,
+          "description": "If possible, this method asks the adapter to generate an ID for\na newly created record.",
+          "itemtype": "method",
+          "name": "_generateId",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "properties",
+              "description": "from the new record",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "if the adapter can generate one, an ID",
+            "type": "String"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 570,
+          "description": "For symmetry, a record can be deleted via the store.\n\nExample\n\n```javascript\nlet post = store.createRecord('post', {\n  title: 'Ember is awesome!'\n});\n\nstore.deleteRecord(post);\n```",
+          "itemtype": "method",
+          "name": "deleteRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "Model"
+            }
+          ],
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 602,
+          "description": "For symmetry, a record can be unloaded via the store.\nThis will cause the record to be destroyed and freed up for garbage collection.\n\nExample\n\n```javascript\nstore.findRecord('post', 1).then(function(post) {\n  store.unloadRecord(post);\n});\n```",
+          "itemtype": "method",
+          "name": "unloadRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "Model"
+            }
+          ],
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 635,
+          "itemtype": "method",
+          "name": "find",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String|Integer"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 675,
+          "description": "This method returns a record for a given identifier or type and id combination.\n\nThe `findRecord` method will always resolve its promise with the same\nobject for a given identifier or type and `id`.\n\nThe `findRecord` method will always return a **promise** that will be\nresolved with the record.\n\n**Example 1**\n\n```js {data-filename=app/routes/post.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostRoute extends Route {\n  model({ post_id }) {\n    return this.store.findRecord('post', post_id);\n  }\n}\n```\n\n**Example 2**\n\n`findRecord` can be called with a single identifier argument instead of the combination\nof `type` (modelName) and `id` as separate arguments. You may recognize this combo as\nthe typical pairing from [JSON:API](https://jsonapi.org/format/#document-resource-object-identification)\n\n```js {data-filename=app/routes/post.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostRoute extends Route {\n  model({ post_id: id }) {\n    return this.store.findRecord({ type: 'post', id });\n  }\n}\n```\n\n**Example 3**\n\nIf you have previously received an lid via an Identifier for this record, and the record\nhas already been assigned an id, you can find the record again using just the lid.\n\n```js {data-filename=app/routes/post.js}\nstore.findRecord({ lid });\n```\n\nIf the record is not yet available, the store will ask the adapter's `findRecord`\nmethod to retrieve and supply the necessary data. If the record is already present\nin the store, it depends on the reload behavior _when_ the returned promise\nresolves.\n\n### Preloading\n\nYou can optionally `preload` specific attributes and relationships that you know of\nby passing them via the passed `options`.\n\nFor example, if your Ember route looks like `/posts/1/comments/2` and your API route\nfor the comment also looks like `/posts/1/comments/2` if you want to fetch the comment\nwithout also fetching the post you can pass in the post to the `findRecord` call:\n\n```js {data-filename=app/routes/post-comments.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostRoute extends Route {\n  model({ post_id, comment_id: id }) {\n    return this.store.findRecord({ type: 'comment', id, { preload: { post: post_id }} });\n  }\n}\n```\n\nIn your adapter you can then access this id without triggering a network request via the\nsnapshot:\n\n```js {data-filename=app/adapters/application.js}\nimport EmberObject from '@ember/object';\n\nexport default class Adapter extends EmberObject {\n\n  findRecord(store, schema, id, snapshot) {\n    let type = schema.modelName;\n\n    if (type === 'comment')\n      let postId = snapshot.belongsTo('post', { id: true });\n\n      return fetch(`./posts/${postId}/comments/${id}`)\n        .then(response => response.json())\n    }\n  }\n}\n```\n\nThis could also be achieved by supplying the post id to the adapter via the adapterOptions\nproperty on the options hash.\n\n```js {data-filename=app/routes/post-comments.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostRoute extends Route {\n  model({ post_id, comment_id: id }) {\n    return this.store.findRecord({ type: 'comment', id, { adapterOptions: { post: post_id }} });\n  }\n}\n```\n\n```js {data-filename=app/adapters/application.js}\nimport EmberObject from '@ember/object';\n\nexport default class Adapter extends EmberObject {\n\n  findRecord(store, schema, id, snapshot) {\n    let type = schema.modelName;\n\n    if (type === 'comment')\n      let postId = snapshot.adapterOptions.post;\n\n      return fetch(`./posts/${postId}/comments/${id}`)\n        .then(response => response.json())\n    }\n  }\n}\n```\n\nIf you have access to the post model you can also pass the model itself to preload:\n\n```javascript\nlet post = await store.findRecord('post', 1);\nlet comment = await store.findRecord('comment', 2, { post: myPostModel });\n```\n\n### Reloading\n\nThe reload behavior is configured either via the passed `options` hash or\nthe result of the adapter's `shouldReloadRecord`.\n\nIf `{ reload: true }` is passed or `adapter.shouldReloadRecord` evaluates\nto `true`, then the returned promise resolves once the adapter returns\ndata, regardless if the requested record is already in the store:\n\n```js\nstore.push({\n  data: {\n    id: 1,\n    type: 'post',\n    revision: 1\n  }\n});\n\n// adapter#findRecord resolves with\n// [\n//   {\n//     id: 1,\n//     type: 'post',\n//     revision: 2\n//   }\n// ]\nstore.findRecord('post', 1, { reload: true }).then(function(post) {\n  post.get('revision'); // 2\n});\n```\n\nIf no reload is indicated via the above mentioned ways, then the promise\nimmediately resolves with the cached version in the store.\n\n### Background Reloading\n\nOptionally, if `adapter.shouldBackgroundReloadRecord` evaluates to `true`,\nthen a background reload is started, which updates the records' data, once\nit is available:\n\n```js\n// app/adapters/post.js\nimport ApplicationAdapter from \"./application\";\n\nexport default class PostAdapter extends ApplicationAdapter {\n  shouldReloadRecord(store, snapshot) {\n    return false;\n  },\n\n  shouldBackgroundReloadRecord(store, snapshot) {\n    return true;\n  }\n});\n\n// ...\n\nstore.push({\n  data: {\n    id: 1,\n    type: 'post',\n    revision: 1\n  }\n});\n\nlet blogPost = store.findRecord('post', 1).then(function(post) {\n  post.get('revision'); // 1\n});\n\n// later, once adapter#findRecord resolved with\n// [\n//   {\n//     id: 1,\n//     type: 'post',\n//     revision: 2\n//   }\n// ]\n\nblogPost.get('revision'); // 2\n```\n\nIf you would like to force or prevent background reloading, you can set a\nboolean value for `backgroundReload` in the options object for\n`findRecord`.\n\n```js {data-filename=app/routes/post/edit.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostEditRoute extends Route {\n  model(params) {\n    return this.store.findRecord('post', params.post_id, { backgroundReload: false });\n  }\n}\n```\n\nIf you pass an object on the `adapterOptions` property of the options\nargument it will be passed to your adapter via the snapshot\n\n```js {data-filename=app/routes/post/edit.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostEditRoute extends Route {\n  model(params) {\n    return this.store.findRecord('post', params.post_id, {\n      adapterOptions: { subscribe: false }\n    });\n  }\n}\n```\n\n```js {data-filename=app/adapters/post.js}\nimport MyCustomAdapter from './custom-adapter';\n\nexport default class PostAdapter extends MyCustomAdapter {\n  findRecord(store, type, id, snapshot) {\n    if (snapshot.adapterOptions.subscribe) {\n      // ...\n    }\n    // ...\n  }\n}\n```\n\nSee [peekRecord](../methods/peekRecord?anchor=peekRecord) to get the cached version of a record.\n\n### Retrieving Related Model Records\n\nIf you use an adapter such as Ember's default\n[`JSONAPIAdapter`](/ember-data/release/classes/JSONAPIAdapter)\nthat supports the [JSON API specification](http://jsonapi.org/) and if your server\nendpoint supports the use of an\n['include' query parameter](http://jsonapi.org/format/#fetching-includes),\nyou can use `findRecord()` or `findAll()` to automatically retrieve additional records related to\nthe one you request by supplying an `include` parameter in the `options` object.\n\nFor example, given a `post` model that has a `hasMany` relationship with a `comment`\nmodel, when we retrieve a specific post we can have the server also return that post's\ncomments in the same request:\n\n```js {data-filename=app/routes/post.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostRoute extends Route {\n  model(params) {\n    return this.store.findRecord('post', params.post_id, { include: 'comments' });\n  }\n}\n```\n\n```js {data-filename=app/adapters/application.js}\nimport EmberObject from '@ember/object';\n\nexport default class Adapter extends EmberObject {\n\n  findRecord(store, schema, id, snapshot) {\n    let type = schema.modelName;\n\n    if (type === 'post')\n      let includes = snapshot.adapterOptions.include;\n\n      return fetch(`./posts/${postId}?include=${includes}`)\n        .then(response => response.json())\n    }\n  }\n}\n```\n\nIn this case, the post's comments would then be available in your template as\n`model.comments`.\n\nMultiple relationships can be requested using an `include` parameter consisting of a\ncomma-separated list (without white-space) while nested relationships can be specified\nusing a dot-separated sequence of relationship names. So to request both the post's\ncomments and the authors of those comments the request would look like this:\n\n```js {data-filename=app/routes/post.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostRoute extends Route {\n  model(params) {\n    return this.store.findRecord('post', params.post_id, { include: 'comments,comments.author' });\n  }\n}\n```\n\n### Retrieving Specific Fields by Type\n\nIf your server endpoint supports the use of a ['fields' query parameter](https://jsonapi.org/format/#fetching-sparse-fieldsets),\nyou can use pass those fields through to your server.  At this point in time, this requires a few manual steps on your part.\n\n1. Implement `buildQuery` in your adapter.\n\n```js {data-filename=app/adapters/application.js}\nbuildQuery(snapshot) {\n  let query = super.buildQuery(...arguments);\n\n  let { fields } = snapshot.adapterOptions;\n\n  if (fields) {\n    query.fields = fields;\n  }\n\n  return query;\n}\n```\n\n2. Then pass through the applicable fields to your `findRecord` request.\n\nGiven a `post` model with attributes body, title, publishDate and meta, you can retrieve a filtered list of attributes.\n\n```js {data-filename=app/routes/post.js}\nimport Route from '@ember/routing/route';\nexport default Route.extend({\n  model(params) {\n    return this.store.findRecord('post', params.post_id, { adapterOptions: { fields: { post: 'body,title' } });\n  }\n});\n```\n\nMoreover, you can filter attributes on related models as well. If a `post` has a `belongsTo` relationship to a user,\njust include the relationship key and attributes.\n\n```js {data-filename=app/routes/post.js}\nimport Route from '@ember/routing/route';\nexport default Route.extend({\n  model(params) {\n    return this.store.findRecord('post', params.post_id, { adapterOptions: { fields: { post: 'body,title', user: 'name,email' } });\n  }\n});\n```",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "findRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "- either a string representing the modelName or a ResourceIdentifier object containing both the type (a string) and the id (a string) for the record or an lid (a string) of an existing record",
+              "type": "String|object"
+            },
+            {
+              "name": "id",
+              "description": "- optional object with options for the request only if the first param is a ResourceIdentifier, else the string id of the record to be retrieved",
+              "type": "(String|Integer|Object)"
+            },
+            {
+              "name": "options",
+              "description": "- if the first param is a string this will be the optional options for the request. See examples for available options.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1147,
+          "description": "This method makes a series of requests to the adapter's `find` method\nand returns a promise that resolves once they are all loaded.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "findByIds",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "ids",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1223,
+          "description": "Get the reference for the specified record.\n\nExample\n\n```javascript\nlet userRef = store.getReference('user', 1);\n\n// check if the user is loaded\nlet isLoaded = userRef.value() !== null;\n\n// get the record of the reference (null if not yet available)\nlet user = userRef.value();\n\n// get the identifier of the reference\nif (userRef.remoteType() === 'id') {\nlet id = userRef.id();\n}\n\n// load user (via store.find)\nuserRef.load().then(...)\n\n// or trigger a reload\nuserRef.reload().then(...)\n\n// provide data for reference\nuserRef.push({ id: 1, username: '@user' }).then(function(user) {\n  userRef.value() === user;\n});\n```",
+          "itemtype": "method",
+          "name": "getReference",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "resource",
+              "description": "- modelName (string) or Identifier (object)",
+              "type": "String|object"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String|Integer"
+            }
+          ],
+          "since": "2.5.0",
+          "return": {
+            "description": "",
+            "type": "RecordReference"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1286,
+          "description": "Get a record by a given type and ID without triggering a fetch.\n\nThis method will synchronously return the record if it is available in the store,\notherwise it will return `null`. A record is available if it has been fetched earlier, or\npushed manually into the store.\n\nSee [findRecord](../methods/findRecord?anchor=findRecord) if you would like to request this record from the backend.\n\n_Note: This is a synchronous method and does not return a promise._\n\n**Example 1**\n\n```js\nlet post = store.peekRecord('post', 1);\n\npost.id; // 1\n```\n\n`peekRecord` can be called with a single identifier argument instead of the combination\nof `type` (modelName) and `id` as separate arguments. You may recognize this combo as\nthe typical pairing from [JSON:API](https://jsonapi.org/format/#document-resource-object-identification)\n\n**Example 2**\n\n```js\nlet post = store.peekRecord({ type: 'post', id });\npost.id; // 1\n```\n\nIf you have previously received an lid from an Identifier for this record, you can lookup the record again using\njust the lid.\n\n**Example 3**\n\n```js\nlet post = store.peekRecord({ lid });\npost.id; // 1\n```",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "peekRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "- either a string representing the modelName or a ResourceIdentifier object containing both the type (a string) and the id (a string) for the record or an lid (a string) of an existing record",
+              "type": "String|object"
+            },
+            {
+              "name": "id",
+              "description": "- optional only if the first param is a ResourceIdentifier, else the string id of the record to be retrieved.",
+              "type": "String|Integer"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "Model|null"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1366,
+          "description": "This method is called by the record's `reload` method.\n\nThis method calls the adapter's `find` method, which returns a promise. When\n**that** promise resolves, `_reloadRecord` will resolve the promise returned\nby the record's `reload`.",
+          "itemtype": "method",
+          "name": "_reloadRecord",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "options",
+              "description": "optional to include adapterOptions"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1394,
+          "description": "This method returns true if a record for a given modelName and id is already\nloaded in the store. Use this function to know beforehand if a findRecord()\nwill result in a request or that it will be a cache hit.\n\nExample\n\n```javascript\nstore.hasRecordForId('post', 1); // false\nstore.findRecord('post', 1).then(function() {\n  store.hasRecordForId('post', 1); // true\n});\n```",
+          "itemtype": "method",
+          "name": "hasRecordForId",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "(String|Integer)"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1434,
+          "description": "Returns id record for a given type and ID. If one isn't already loaded,\nit builds a new record and leaves it in the `empty` state.",
+          "itemtype": "method",
+          "name": "recordForId",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "(String|Integer)"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "Model"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1459,
+          "itemtype": "method",
+          "name": "findMany",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModels",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1478,
+          "description": "If a relationship was originally populated by the adapter as a link\n(as opposed to a list of IDs), this method is called when the\nrelationship is fetched.\n\nThe link (which is usually a URL) is passed through unchanged, so the\nadapter can make whatever request it wants.\n\nThe usual use-case is for the server to register a URL as a link, and\nthen use that URL in the future to make a request for the relationship.",
+          "itemtype": "method",
+          "name": "findHasMany",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            },
+            {
+              "name": "link",
+              "description": "",
+              "type": "Any"
+            },
+            {
+              "name": "relationship",
+              "description": "",
+              "type": "(Relationship)"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1572,
+          "itemtype": "method",
+          "name": "findBelongsTo",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            },
+            {
+              "name": "link",
+              "description": "",
+              "type": "Any"
+            },
+            {
+              "name": "relationship",
+              "description": "",
+              "type": "Relationship"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1677,
+          "description": "This method delegates a query to the adapter. This is the one place where\nadapter-level semantics are exposed to the application.\n\nEach time this method is called a new request is made through the adapter.\n\nExposing queries this way seems preferable to creating an abstract query\nlanguage for all server-side queries, and then require all adapters to\nimplement them.\n\n---\n\nIf you do something like this:\n\n```javascript\nstore.query('person', { page: 1 });\n```\n\nThe request made to the server will look something like this:\n\n```\nGET \"/api/v1/person?page=1\"\n```\n\n---\n\nIf you do something like this:\n\n```javascript\nstore.query('person', { ids: [1, 2, 3] });\n```\n\nThe request made to the server will look something like this:\n\n```\nGET \"/api/v1/person?ids%5B%5D=1&ids%5B%5D=2&ids%5B%5D=3\"\ndecoded: \"/api/v1/person?ids[]=1&ids[]=2&ids[]=3\"\n```\n\nThis method returns a promise, which is resolved with an\n[`AdapterPopulatedRecordArray`](/ember-data/release/classes/AdapterPopulatedRecordArray)\nonce the server returns.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "query",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "query",
+              "description": "an opaque query to be used by the adapter",
+              "type": "Any"
+            },
+            {
+              "name": "options",
+              "description": "optional, may include `adapterOptions` hash which will be passed to adapter.query",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1768,
+          "description": "This method makes a request for one record, where the `id` is not known\nbeforehand (if the `id` is known, use [`findRecord`](../methods/findRecord?anchor=findRecord)\ninstead).\n\nThis method can be used when it is certain that the server will return a\nsingle object for the primary data.\n\nEach time this method is called a new request is made through the adapter.\n\nLet's assume our API provides an endpoint for the currently logged in user\nvia:\n\n```\n// GET /api/current_user\n{\n  user: {\n    id: 1234,\n    username: 'admin'\n  }\n}\n```\n\nSince the specific `id` of the `user` is not known beforehand, we can use\n`queryRecord` to get the user:\n\n```javascript\nstore.queryRecord('user', {}).then(function(user) {\n  let username = user.get('username');\n  console.log(`Currently logged in as ${username}`);\n});\n```\n\nThe request is made through the adapters' `queryRecord`:\n\n```js {data-filename=app/adapters/user.js}\nimport Adapter from '@ember-data/adapter';\nimport $ from 'jquery';\n\nexport default class UserAdapter extends Adapter {\n  queryRecord(modelName, query) {\n    return $.getJSON('/api/current_user');\n  }\n}\n```\n\nNote: the primary use case for `store.queryRecord` is when a single record\nis queried and the `id` is not known beforehand. In all other cases\n`store.query` and using the first item of the array is likely the preferred\nway:\n\n```\n// GET /users?username=unique\n{\n  data: [{\n    id: 1234,\n    type: 'user',\n    attributes: {\n      username: \"unique\"\n    }\n  }]\n}\n```\n\n```javascript\nstore.query('user', { username: 'unique' }).then(function(users) {\n  return users.get('firstObject');\n}).then(function(user) {\n  let id = user.get('id');\n});\n```\n\nThis method returns a promise, which resolves with the found record.\n\nIf the adapter returns no data for the primary data of the payload, then\n`queryRecord` resolves with `null`:\n\n```\n// GET /users?username=unique\n{\n  data: null\n}\n```\n\n```javascript\nstore.queryRecord('user', { username: 'unique' }).then(function(user) {\n  console.log(user); // null\n});\n```",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "queryRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "query",
+              "description": "an opaque query to be used by the adapter",
+              "type": "Any"
+            },
+            {
+              "name": "options",
+              "description": "optional, may include `adapterOptions` hash which will be passed to adapter.queryRecord",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise which resolves with the found record or `null`",
+            "type": "Promise"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 1904,
+          "description": "`findAll` asks the adapter's `findAll` method to find the records for the\ngiven type, and returns a promise which will resolve with all records of\nthis type present in the store, even if the adapter only returns a subset\nof them.\n\n```js {data-filename=app/routes/authors.js}\nimport Route from '@ember/routing/route';\n\nexport default class AuthorsRoute extends Route {\n  model(params) {\n    return this.store.findAll('author');\n  }\n}\n```\n\n_When_ the returned promise resolves depends on the reload behavior,\nconfigured via the passed `options` hash and the result of the adapter's\n`shouldReloadAll` method.\n\n### Reloading\n\nIf `{ reload: true }` is passed or `adapter.shouldReloadAll` evaluates to\n`true`, then the returned promise resolves once the adapter returns data,\nregardless if there are already records in the store:\n\n```js\nstore.push({\n  data: {\n    id: 'first',\n    type: 'author'\n  }\n});\n\n// adapter#findAll resolves with\n// [\n//   {\n//     id: 'second',\n//     type: 'author'\n//   }\n// ]\nstore.findAll('author', { reload: true }).then(function(authors) {\n  authors.getEach('id'); // ['first', 'second']\n});\n```\n\nIf no reload is indicated via the above mentioned ways, then the promise\nimmediately resolves with all the records currently loaded in the store.\n\n### Background Reloading\n\nOptionally, if `adapter.shouldBackgroundReloadAll` evaluates to `true`,\nthen a background reload is started. Once this resolves, the array with\nwhich the promise resolves, is updated automatically so it contains all the\nrecords in the store:\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\n\nexport default class ApplicationAdapter extends Adapter {\n  shouldReloadAll(store, snapshotsArray) {\n    return false;\n  },\n\n  shouldBackgroundReloadAll(store, snapshotsArray) {\n    return true;\n  }\n});\n\n// ...\n\nstore.push({\n  data: {\n    id: 'first',\n    type: 'author'\n  }\n});\n\nlet allAuthors;\nstore.findAll('author').then(function(authors) {\n  authors.getEach('id'); // ['first']\n\n  allAuthors = authors;\n});\n\n// later, once adapter#findAll resolved with\n// [\n//   {\n//     id: 'second',\n//     type: 'author'\n//   }\n// ]\n\nallAuthors.getEach('id'); // ['first', 'second']\n```\n\nIf you would like to force or prevent background reloading, you can set a\nboolean value for `backgroundReload` in the options object for\n`findAll`.\n\n```js {data-filename=app/routes/post/edit.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostEditRoute extends Route {\n  model() {\n    return this.store.findAll('post', { backgroundReload: false });\n  }\n}\n```\n\nIf you pass an object on the `adapterOptions` property of the options\nargument it will be passed to you adapter via the `snapshotRecordArray`\n\n```js {data-filename=app/routes/posts.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostsRoute extends Route {\n  model(params) {\n    return this.store.findAll('post', {\n      adapterOptions: { subscribe: false }\n    });\n  }\n}\n```\n\n```js {data-filename=app/adapters/post.js}\nimport MyCustomAdapter from './custom-adapter';\n\nexport default class UserAdapter extends MyCustomAdapter {\n  findAll(store, type, sinceToken, snapshotRecordArray) {\n    if (snapshotRecordArray.adapterOptions.subscribe) {\n      // ...\n    }\n    // ...\n  }\n}\n```\n\nSee [peekAll](../methods/peekAll?anchor=peekAll) to get an array of current records in the\nstore, without waiting until a reload is finished.\n\n### Retrieving Related Model Records\n\nIf you use an adapter such as Ember's default\n[`JSONAPIAdapter`](/ember-data/release/classes/JSONAPIAdapter)\nthat supports the [JSON API specification](http://jsonapi.org/) and if your server\nendpoint supports the use of an\n['include' query parameter](http://jsonapi.org/format/#fetching-includes),\nyou can use `findAll()` to automatically retrieve additional records related to\nthose requested by supplying an `include` parameter in the `options` object.\n\nFor example, given a `post` model that has a `hasMany` relationship with a `comment`\nmodel, when we retrieve all of the post records we can have the server also return\nall of the posts' comments in the same request:\n\n```js {data-filename=app/routes/posts.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostsRoute extends Route {\n  model() {\n    return this.store.findAll('post', { include: 'comments' });\n  }\n}\n```\nMultiple relationships can be requested using an `include` parameter consisting of a\ncomma-separated list (without white-space) while nested relationships can be specified\nusing a dot-separated sequence of relationship names. So to request both the posts'\ncomments and the authors of those comments the request would look like this:\n\n```js {data-filename=app/routes/posts.js}\nimport Route from '@ember/routing/route';\n\nexport default class PostsRoute extends Route {\n  model() {\n    return this.store.findAll('post', { include: 'comments,comments.author' });\n  }\n}\n```\n\nSee [query](../methods/query?anchor=query) to only get a subset of records from the server.",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "findAll",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2108,
+          "itemtype": "method",
+          "name": "_fetchAll",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "Model"
+            },
+            {
+              "name": "array",
+              "description": "",
+              "type": "RecordArray"
+            }
+          ],
+          "return": {
+            "description": "promise",
+            "type": "Promise"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2157,
+          "itemtype": "method",
+          "name": "_didUpdateAll",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2166,
+          "description": "This method returns a filtered array that contains all of the\nknown records for a given type in the store.\n\nNote that because it's just a filter, the result will contain any\nlocally created records of the type, however, it will not make a\nrequest to the backend to retrieve additional records. If you\nwould like to request all the records from the backend please use\n[store.findAll](../methods/findAll?anchor=findAll).\n\nAlso note that multiple calls to `peekAll` for a given type will always\nreturn the same `RecordArray`.\n\nExample\n\n```javascript\nlet localPosts = store.peekAll('post');\n```",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "peekAll",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RecordArray"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2204,
+          "description": "This method unloads all records in the store.\nIt schedules unloading to happen during the next run loop.\n\nOptionally you can pass a type which unload all records for a given type.\n\n```javascript\nstore.unloadAll();\nstore.unloadAll('post');\n```",
+          "itemtype": "method",
+          "name": "unloadAll",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2249,
+          "description": "This method is called by `record.save`, and gets passed a\nresolver for the promise that `record.save` returns.\n\nIt schedules saving to happen at the end of the run loop.",
+          "itemtype": "method",
+          "name": "scheduleSave",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            },
+            {
+              "name": "resolver",
+              "description": "",
+              "type": "Resolver"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2317,
+          "description": "This method is called at the end of the run loop, and\nflushes any records passed into `scheduleSave`",
+          "itemtype": "method",
+          "name": "flushPendingSave",
+          "access": "private",
+          "tagname": "",
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2329,
+          "description": "This method is called once the promise returned by an\nadapter's `createRecord`, `updateRecord` or `deleteRecord`\nis resolved.\n\nIf the data provides a server-generated ID, it will\nupdate the record and the store's indexes.",
+          "itemtype": "method",
+          "name": "didSaveRecord",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "the in-flight internal model",
+              "type": "InternalModel"
+            },
+            {
+              "name": "data",
+              "description": "optional data (see above)",
+              "type": "Object"
+            },
+            {
+              "name": "op",
+              "description": "the adapter operation that was committed",
+              "type": "String"
+            }
+          ],
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2370,
+          "description": "This method is called once the promise returned by an\nadapter's `createRecord`, `updateRecord` or `deleteRecord`\nis rejected with a `InvalidError`.",
+          "itemtype": "method",
+          "name": "recordWasInvalid",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            },
+            {
+              "name": "errors",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2387,
+          "description": "This method is called once the promise returned by an\nadapter's `createRecord`, `updateRecord` or `deleteRecord`\nis rejected (with anything other than a `InvalidError`).",
+          "itemtype": "method",
+          "name": "recordWasError",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            },
+            {
+              "name": "error",
+              "description": "",
+              "type": "Error"
+            }
+          ],
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2404,
+          "description": "Sets newly received ID from the adapter's `createRecord`, `updateRecord`\nor `deleteRecord`.",
+          "itemtype": "method",
+          "name": "setRecordId",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "newId",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "clientId",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2425,
+          "description": "This internal method is used by `push`.",
+          "itemtype": "method",
+          "name": "_load",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "data",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2468,
+          "description": "Push some data for a given type into the store.\n\nThis method expects normalized [JSON API](http://jsonapi.org/) document. This means you have to follow [JSON API specification](http://jsonapi.org/format/) with few minor adjustments:\n- record's `type` should always be in singular, dasherized form\n- members (properties) should be camelCased\n\n[Your primary data should be wrapped inside `data` property](http://jsonapi.org/format/#document-top-level):\n\n```js\nstore.push({\n  data: {\n    // primary data for single record of type `Person`\n    id: '1',\n    type: 'person',\n    attributes: {\n      firstName: 'Daniel',\n      lastName: 'Kmak'\n    }\n  }\n});\n```\n\n[Demo.](http://ember-twiddle.com/fb99f18cd3b4d3e2a4c7)\n\n`data` property can also hold an array (of records):\n\n```js\nstore.push({\n  data: [\n    // an array of records\n    {\n      id: '1',\n      type: 'person',\n      attributes: {\n        firstName: 'Daniel',\n        lastName: 'Kmak'\n      }\n    },\n    {\n      id: '2',\n      type: 'person',\n      attributes: {\n        firstName: 'Tom',\n        lastName: 'Dale'\n      }\n    }\n  ]\n});\n```\n\n[Demo.](http://ember-twiddle.com/69cdbeaa3702159dc355)\n\nThere are some typical properties for `JSONAPI` payload:\n* `id` - mandatory, unique record's key\n* `type` - mandatory string which matches `model`'s dasherized name in singular form\n* `attributes` - object which holds data for record attributes - `attr`'s declared in model\n* `relationships` - object which must contain any of the following properties under each relationships' respective key (example path is `relationships.achievements.data`):\n  - [`links`](http://jsonapi.org/format/#document-links)\n  - [`data`](http://jsonapi.org/format/#document-resource-object-linkage) - place for primary data\n  - [`meta`](http://jsonapi.org/format/#document-meta) - object which contains meta-information about relationship\n\nFor this model:\n\n```js {data-filename=app/models/person.js}\nimport Model, { attr, hasMany } from '@ember-data/model';\n\nexport default class PersonRoute extends Route {\n  @attr('string') firstName;\n  @attr('string') lastName;\n\n  @hasMany('person') children;\n}\n```\n\nTo represent the children as IDs:\n\n```js\n{\n  data: {\n    id: '1',\n    type: 'person',\n    attributes: {\n      firstName: 'Tom',\n      lastName: 'Dale'\n    },\n    relationships: {\n      children: {\n        data: [\n          {\n            id: '2',\n            type: 'person'\n          },\n          {\n            id: '3',\n            type: 'person'\n          },\n          {\n            id: '4',\n            type: 'person'\n          }\n        ]\n      }\n    }\n  }\n}\n```\n\n[Demo.](http://ember-twiddle.com/343e1735e034091f5bde)\n\nTo represent the children relationship as a URL:\n\n```js\n{\n  data: {\n    id: '1',\n    type: 'person',\n    attributes: {\n      firstName: 'Tom',\n      lastName: 'Dale'\n    },\n    relationships: {\n      children: {\n        links: {\n          related: '/people/1/children'\n        }\n      }\n    }\n  }\n}\n```\n\nIf you're streaming data or implementing an adapter, make sure\nthat you have converted the incoming data into this form. The\nstore's [normalize](../methods/normalize?anchor=normalize) method is a convenience\nhelper for converting a json payload into the form Ember Data\nexpects.\n\n```js\nstore.push(store.normalize('person', data));\n```\n\nThis method can be used both to push in brand new\nrecords, as well as to update existing records.",
+          "itemtype": "method",
+          "name": "push",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "data",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the record(s) that was created or\n  updated."
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2641,
+          "description": "Push some data in the form of a json-api document into the store,\nwithout creating materialized records.",
+          "itemtype": "method",
+          "name": "_push",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "jsonApiDoc",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "pushed InternalModel(s)",
+            "type": "InternalModel|Array<InternalModel>"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2740,
+          "description": "Push some raw data into the store.\n\nThis method can be used both to push in brand new\nrecords, as well as to update existing records. You\ncan push in more than one type of object at once.\nAll objects should be in the format expected by the\nserializer.\n\n```js {data-filename=app/serializers/application.js}\nimport RESTSerializer from '@ember-data/serializer/rest';\n\nexport default class ApplicationSerializer extends RESTSerializer;\n```\n\n```js\nlet pushData = {\n  posts: [\n    { id: 1, postTitle: \"Great post\", commentIds: [2] }\n  ],\n  comments: [\n    { id: 2, commentBody: \"Insightful comment\" }\n  ]\n}\n\nstore.pushPayload(pushData);\n```\n\nBy default, the data will be deserialized using a default\nserializer (the application serializer if it exists).\n\nAlternatively, `pushPayload` will accept a model type which\nwill determine which serializer will process the payload.\n\n```js {data-filename=app/serializers/application.js}\nimport RESTSerializer from '@ember-data/serializer/rest';\n\n export default class ApplicationSerializer extends RESTSerializer;\n```\n\n```js {data-filename=app/serializers/post.js}\nimport JSONSerializer from '@ember-data/serializer/json';\n\nexport default JSONSerializer;\n```\n\n```js\nstore.pushPayload(pushData); // Will use the application serializer\nstore.pushPayload('post', pushData); // Will use the post serializer\n```",
+          "itemtype": "method",
+          "name": "pushPayload",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "Optionally, a model type used to determine which serializer will be used",
+              "type": "String"
+            },
+            {
+              "name": "inputPayload",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2887,
+          "description": "Instantiation hook allowing applications or addons to configure the store\nto utilize a custom RecordData implementation.",
+          "itemtype": "method",
+          "name": "createRecordDataFor",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": ""
+            },
+            {
+              "name": "id",
+              "description": ""
+            },
+            {
+              "name": "clientId",
+              "description": ""
+            },
+            {
+              "name": "storeWrapper",
+              "description": ""
+            }
+          ],
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 2949,
+          "description": "`normalize` converts a json payload into the normalized form that\n[push](../methods/push?anchor=push) expects.\n\nExample\n\n```js\nsocket.on('message', function(message) {\n  let modelName = message.model;\n  let data = message.data;\n  store.push(store.normalize(modelName, data));\n});\n```",
+          "itemtype": "method",
+          "name": "normalize",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "The name of the model type for this payload",
+              "type": "String"
+            },
+            {
+              "name": "payload",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The normalized payload",
+            "type": "Object"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 3011,
+          "description": "Returns an instance of the adapter for a given type. For\nexample, `adapterFor('person')` will return an instance of\n`App.PersonAdapter`.\n\nIf no `App.PersonAdapter` is found, this method will look\nfor an `App.ApplicationAdapter` (the default adapter for\nyour entire application).\n\nIf no `App.ApplicationAdapter` is found, it will return\nthe value of the `defaultAdapter`.",
+          "itemtype": "method",
+          "name": "adapterFor",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Adapter"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 3082,
+          "description": "Returns an instance of the serializer for a given type. For\nexample, `serializerFor('person')` will return an instance of\n`App.PersonSerializer`.\n\nIf no `App.PersonSerializer` is found, this method will look\nfor an `App.ApplicationSerializer` (the default serializer for\nyour entire application).\n\nIf a serializer cannot be found on the adapter, it will fall back\nto an instance of `JSONSerializer`.",
+          "itemtype": "method",
+          "name": "serializerFor",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "the record to serialize",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Serializer"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 174,
+          "description": "EmberData specific backburner instance",
+          "itemtype": "property",
+          "name": "_backburner",
+          "access": "private",
+          "tagname": "",
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 209,
+          "description": "The default adapter to use to communicate to a backend server or\nother persistence layer. This will be overridden by an application\nadapter if present.\n\nIf you want to specify `app/adapters/custom.js` as a string, do:\n\n```js\nimport Store from '@ember-data/store';\n\nexport default Store.extend({\n  constructor() {\n    super(...arguments);\n    this.adapter = 'custom';\n  }\n}\n```",
+          "itemtype": "property",
+          "name": "adapter",
+          "access": "public",
+          "tagname": "",
+          "default": "'-json-api'",
+          "type": "{String}",
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 233,
+          "description": "This property returns the adapter, after resolving a possible\nstring key.\n\nIf the supplied `adapter` was a class, or a String property\npath resolved to a class, this property will instantiate the\nclass.\n\nThis property is cacheable, so the same instance of a specified\nadapter class should be used for the lifetime of the store.",
+          "itemtype": "property",
+          "name": "defaultAdapter",
+          "access": "private",
+          "tagname": "",
+          "return": {
+            "description": "Adapter"
+          },
+          "class": "Store",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/core-store.ts",
+          "line": 264,
+          "description": "Provides access to the IdentifierCache instance\nfor this store.\n\nThe IdentifierCache can be used to generate or\nretrieve a stable unique identifier for any resource.",
+          "itemtype": "property",
+          "name": "identifierCache",
+          "type": "IdentifierCache",
+          "access": "public",
+          "tagname": "",
+          "class": "Store",
+          "module": "@ember-data/store"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Service",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.4.2-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.4.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

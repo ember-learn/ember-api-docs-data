@@ -1,0 +1,437 @@
+{
+  "data": {
+    "id": "ember-data-3.17.1-BuildURLMixin",
+    "type": "class",
+    "attributes": {
+      "name": "BuildURLMixin",
+      "shortname": "BuildURLMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "RESTAdapter"
+      ],
+      "module": "@ember-data/adapter",
+      "namespace": "",
+      "file": "../adapter/addon/-private/build-url-mixin.js",
+      "line": 11,
+      "methods": [
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 37,
+          "description": "Builds a URL for a given type and optional ID.\n\nBy default, it pluralizes the type's name (for example, 'post'\nbecomes 'posts' and 'person' becomes 'people'). To override the\npluralization see [pathForType](BuildUrlMixin/methods/pathForType?anchor=pathForType).\n\nIf an ID is specified, it adds the ID to the path generated\nfor the type, separated by a `/`.\n\nWhen called by `RESTAdapter.findMany()` the `id` and `snapshot` parameters\nwill be arrays of ids and snapshots.",
+          "itemtype": "method",
+          "name": "buildURL",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "single id or array of ids or query",
+              "type": "(String|Array|Object)"
+            },
+            {
+              "name": "snapshot",
+              "description": "single snapshot or array of snapshots",
+              "type": "(Snapshot|SnapshotRecordArray)"
+            },
+            {
+              "name": "requestType",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "query",
+              "description": "object of query parameters to send for query requests.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 85,
+          "itemtype": "method",
+          "name": "_buildURL",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 120,
+          "description": "Builds a URL for a `store.findRecord(type, id)` call.\n\nExample:\n\n```js {data-filename=app/adapters/user.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default JSONAPIAdapter.extend({\n  urlForFindRecord(id, modelName, snapshot) {\n    let baseUrl = this.buildURL(modelName, id, snapshot);\n    return `${baseUrl}/users/${snapshot.adapterOptions.user_id}/playlists/${id}`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForFindRecord",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 147,
+          "description": "Builds a URL for a `store.findAll(type)` call.\n\nExample:\n\n```js {data-filename=app/adapters/comment.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default JSONAPIAdapter.extend({\n  urlForFindAll(modelName, snapshot) {\n    let baseUrl = this.buildURL(modelName);\n    return `${baseUrl}/data/comments.json`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForFindAll",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 172,
+          "description": "Builds a URL for a `store.query(type, query)` call.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default RESTAdapter.extend({\n  host: 'https://api.github.com',\n  urlForQuery (query, modelName) {\n    switch(modelName) {\n      case 'repo':\n        return `https://api.github.com/orgs/${query.orgId}/repos`;\n      default:\n        return this._super(...arguments);\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForQuery",
+          "params": [
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 202,
+          "description": "Builds a URL for a `store.queryRecord(type, query)` call.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default RESTAdapter.extend({\n  urlForQueryRecord({ slug }, modelName) {\n    let baseUrl = this.buildURL();\n    return `${baseUrl}/${encodeURIComponent(slug)}`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForQueryRecord",
+          "params": [
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 227,
+          "description": "Builds a URL for coalescing multiple `store.findRecord(type, id)`\nrecords into 1 request when the adapter's `coalesceFindRequests`\nproperty is `true`.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default RESTAdapter.extend({\n  urlForFindMany(ids, modelName) {\n    let baseUrl = this.buildURL();\n    return `${baseUrl}/coalesce`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForFindMany",
+          "params": [
+            {
+              "name": "ids",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 255,
+          "description": "Builds a URL for fetching an async `hasMany` relationship when a URL\nis not provided by the server.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default JSONAPIAdapter.extend({\n  urlForFindHasMany(id, modelName, snapshot) {\n    let baseUrl = this.buildURL(modelName, id);\n    return `${baseUrl}/relationships`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForFindHasMany",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 282,
+          "description": "Builds a URL for fetching an async `belongsTo` relationship when a url\nis not provided by the server.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default JSONAPIAdapter.extend({\n  urlForFindBelongsTo(id, modelName, snapshot) {\n    let baseUrl = this.buildURL(modelName, id);\n    return `${baseUrl}/relationships`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForFindBelongsTo",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 309,
+          "description": "Builds a URL for a `record.save()` call when the record was created\nlocally using `store.createRecord()`.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default RESTAdapter.extend({\n  urlForCreateRecord(modelName, snapshot) {\n    return this._super(...arguments) + '/new';\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForCreateRecord",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 334,
+          "description": "Builds a URL for a `record.save()` call when the record has been updated locally.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default RESTAdapter.extend({\n  urlForUpdateRecord(id, modelName, snapshot) {\n    return `/${id}/feed?access_token=${snapshot.adapterOptions.token}`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForUpdateRecord",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 359,
+          "description": "Builds a URL for a `record.save()` call when the record has been deleted locally.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default RESTAdapter.extend({\n  urlForDeleteRecord(id, modelName, snapshot) {\n    return this._super(...arguments) + '/destroy';\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForDeleteRecord",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 384,
+          "itemtype": "method",
+          "name": "urlPrefix",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "parentURL",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "urlPrefix",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        },
+        {
+          "file": "../adapter/addon/-private/build-url-mixin.js",
+          "line": 425,
+          "description": "Determines the pathname for a given type.\n\nBy default, it pluralizes the type's name (for example,\n'post' becomes 'posts' and 'person' becomes 'people').\n\n### Pathname customization\n\nFor example, if you have an object `LineItem` with an\nendpoint of `/line_items/`.\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\nimport { decamelize } from '@ember/string';\nimport { pluralize } from 'ember-inflector';\n\nexport default RESTAdapter.extend({\n  pathForType: function(modelName) {\n    var decamelized = decamelize(modelName);\n    return pluralize(decamelized);\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "pathForType",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "path",
+            "type": "String"
+          },
+          "class": "BuildURLMixin",
+          "module": "@ember-data/adapter"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.17.1-@ember-data/adapter",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.17.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

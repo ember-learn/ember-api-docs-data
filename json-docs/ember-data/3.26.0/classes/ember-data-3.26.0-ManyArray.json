@@ -1,0 +1,157 @@
+{
+  "data": {
+    "id": "ember-data-3.26.0-ManyArray",
+    "type": "class",
+    "attributes": {
+      "name": "ManyArray",
+      "shortname": "ManyArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../model/addon/-private/system/many-array.js",
+      "line": 14,
+      "description": "A `ManyArray` is a `MutableArray` that represents the contents of a has-many\nrelationship.\n\nThe `ManyArray` is instantiated lazily the first time the relationship is\nrequested.\n\n### Inverses\n\nOften, the relationships in Ember Data applications will have\nan inverse. For example, imagine the following models are\ndefined:\n\n```js {data-filename=app/models/post.js}\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class PostModel extends Model {\n  @hasMany('comment') comments;\n}\n```\n\n```js {data-filename=app/models/comment.js}\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default class CommentModel extends Model {\n  @belongsTo('post') post;\n}\n```\n\nIf you created a new instance of `Post` and added\na `Comment` record to its `comments` has-many\nrelationship, you would expect the comment's `post`\nproperty to be set to the post that contained\nthe has-many.\n\nWe call the record to which a relationship belongs-to the\nrelationship's _owner_.",
+      "extends": "EmberObject",
+      "uses": [
+        "DeprecatedEvented",
+        "Ember.MutableArray"
+      ],
+      "methods": [
+        {
+          "file": "../model/addon/-private/system/many-array.js",
+          "line": 260,
+          "description": "Reloads all of the records in the manyArray. If the manyArray\nholds a relationship that was originally fetched using a links url\nEmber Data will revisit the original links url to repopulate the\nrelationship.\n\nIf the manyArray holds the result of a `store.query()` reload will\nre-run the original query.\n\nExample\n\n```javascript\nvar user = store.peekRecord('user', 1)\nuser.login().then(function() {\n  user.get('permissions').then(function(permissions) {\n    return permissions.reload();\n  });\n});\n```",
+          "itemtype": "method",
+          "name": "reload",
+          "access": "public",
+          "tagname": "",
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../model/addon/-private/system/many-array.js",
+          "line": 288,
+          "description": "Saves all of the records in the `ManyArray`.\n\nExample\n\n```javascript\nstore.findRecord('inbox', 1).then(function(inbox) {\n  inbox.get('messages').then(function(messages) {\n    messages.forEach(function(message) {\n      message.set('isRead', true);\n    });\n    messages.save()\n  });\n});\n```",
+          "itemtype": "method",
+          "name": "save",
+          "return": {
+            "description": "promise",
+            "type": "PromiseArray"
+          },
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../model/addon/-private/system/many-array.js",
+          "line": 319,
+          "description": "Create a child record within the owner",
+          "itemtype": "method",
+          "name": "createRecord",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "hash",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "Model"
+          },
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../model/addon/-private/system/many-array.js",
+          "line": 64,
+          "description": "The loading state of this array",
+          "itemtype": "property",
+          "name": "isLoaded",
+          "type": "Boolean",
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../model/addon/-private/system/many-array.js",
+          "line": 74,
+          "description": "Used for async `hasMany` arrays\nto keep track of when they will resolve.",
+          "itemtype": "property",
+          "name": "promise",
+          "type": "Ember.RSVP.Promise",
+          "access": "private",
+          "tagname": "",
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../model/addon/-private/system/many-array.js",
+          "line": 83,
+          "description": "Metadata associated with the request for async hasMany relationships.\n\nExample\n\nGiven that the server returns the following JSON payload when fetching a\nhasMany relationship:\n\n```js\n{\n  \"comments\": [{\n    \"id\": 1,\n    \"comment\": \"This is the first comment\",\n  }, {\n// ...\n  }],\n\n  \"meta\": {\n    \"page\": 1,\n    \"total\": 5\n  }\n}\n```\n\nYou can then access the metadata via the `meta` property:\n\n```js\npost.get('comments').then(function(comments) {\n  var meta = comments.get('meta');\n\n// meta.page => 1\n// meta.total => 5\n});\n```",
+          "itemtype": "property",
+          "name": "meta",
+          "type": "Object",
+          "access": "public",
+          "tagname": "",
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../model/addon/-private/system/many-array.js",
+          "line": 124,
+          "description": "`true` if the relationship is polymorphic, `false` otherwise.",
+          "itemtype": "property",
+          "name": "isPolymorphic",
+          "type": "Boolean",
+          "access": "private",
+          "tagname": "",
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../model/addon/-private/system/many-array.js",
+          "line": 132,
+          "description": "The relationship which manages this array.",
+          "itemtype": "property",
+          "name": "relationship",
+          "type": "ManyRelationship",
+          "access": "private",
+          "tagname": "",
+          "class": "ManyArray",
+          "module": "@ember-data/store"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "EmberObject",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.26.0-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.26.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

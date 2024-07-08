@@ -1,0 +1,86 @@
+{
+  "data": {
+    "id": "ember-2.16.4-Function",
+    "type": "class",
+    "attributes": {
+      "name": "Function",
+      "shortname": "Function",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/ember-runtime/lib/ext/function.js",
+          "line": 16,
+          "description": "The `property` extension of Javascript's Function prototype is available\nwhen `EmberENV.EXTEND_PROTOTYPES` or `EmberENV.EXTEND_PROTOTYPES.Function` is\n`true`, which is the default.\n\nComputed properties allow you to treat a function like a property:\n\n```js {data-filename=app/utils/president.js}\nimport EmberObject from '@ember/object';\n\nexport default EmberObject.extend({\n  firstName: '',\n  lastName:  '',\n\n  fullName: function() {\n    return this.get('firstName') + ' ' + this.get('lastName');\n  }.property() // Call this flag to mark the function as a property\n});\n```\n\n```javascript\nlet president = President.create({\n  firstName: 'Barack',\n  lastName: 'Obama'\n});\n\npresident.get('fullName'); // 'Barack Obama'\n```\n\nTreating a function like a property is useful because they can work with\nbindings, just like any other property.\n\nMany computed properties have dependencies on other properties. For\nexample, in the above example, the `fullName` property depends on\n`firstName` and `lastName` to determine its value. You can tell Ember\nabout these dependencies like this:\n\n```js {data-filename=app/utils/president.js}\nimport EmberObject from '@ember/object';\n\nexport default EmberObject.extend({\n  firstName: '',\n  lastName:  '',\n\n  fullName: function() {\n    return this.get('firstName') + ' ' + this.get('lastName');\n\n    // Tell Ember.js that this computed property depends on firstName\n    // and lastName\n  }.property('firstName', 'lastName')\n});\n```\n\nMake sure you list these dependencies so Ember knows when to update\nbindings that connect to a computed property. Changing a dependency\nwill not immediately trigger an update of the computed property, but\nwill instead clear the cache so that it is updated when the next `get`\nis called on the property.\n\nSee [Ember.ComputedProperty](/api/classes/Ember.ComputedProperty.html), [Ember.computed](/api/classes/Ember.computed.html).",
+          "itemtype": "method",
+          "name": "property",
+          "access": "public",
+          "tagname": "",
+          "class": "Function",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/ext/function.js",
+          "line": 85,
+          "description": "The `observes` extension of Javascript's Function prototype is available\nwhen `EmberENV.EXTEND_PROTOTYPES` or `EmberENV.EXTEND_PROTOTYPES.Function` is\ntrue, which is the default.\n\nYou can observe property changes simply by adding the `observes`\ncall to the end of your method declarations in classes that you write.\nFor example:\n\n```javascript\nimport EmberObject from '@ember/object';\n\nEmberObject.extend({\n  valueObserver: function() {\n    // Executes whenever the \"value\" property changes\n  }.observes('value')\n});\n```\n\nIn the future this method may become asynchronous.\n\nSee `observer`.",
+          "itemtype": "method",
+          "name": "observes",
+          "access": "public",
+          "tagname": "",
+          "class": "Function",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/ext/function.js",
+          "line": 134,
+          "description": "The `observesImmediately` extension of Javascript's Function prototype is\navailable when `EmberENV.EXTEND_PROTOTYPES` or\n`EmberENV.EXTEND_PROTOTYPES.Function` is true, which is the default.\n\nYou can observe property changes simply by adding the `observesImmediately`\ncall to the end of your method declarations in classes that you write.\nFor example:\n\n```javascript\nimport EmberObject from '@ember/object';\n\nEmberObject.extend({\n  valueObserver: function() {\n    // Executes immediately after the \"value\" property changes\n  }.observesImmediately('value')\n});\n```\n\nIn the future, `observes` may become asynchronous. In this event,\n`observesImmediately` will maintain the synchronous behavior.\n\nSee `Ember.immediateObserver`.",
+          "itemtype": "method",
+          "name": "observesImmediately",
+          "deprecated": true,
+          "access": "private",
+          "tagname": "",
+          "class": "Function",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/ext/function.js",
+          "line": 169,
+          "description": "The `on` extension of Javascript's Function prototype is available\nwhen `EmberENV.EXTEND_PROTOTYPES` or `EmberENV.EXTEND_PROTOTYPES.Function` is\ntrue, which is the default.\n\nYou can listen for events simply by adding the `on` call to the end of\nyour method declarations in classes or mixins that you write. For example:\n\n```javascript\nimport Mixin from '@ember/mixin';\n\nMixin.create({\n  doSomethingWithElement: function() {\n    // Executes whenever the \"didInsertElement\" event fires\n  }.on('didInsertElement')\n});\n```\n\nSee `Ember.on`.",
+          "itemtype": "method",
+          "name": "on",
+          "access": "public",
+          "tagname": "",
+          "class": "Function",
+          "module": "ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.16.4-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.16.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

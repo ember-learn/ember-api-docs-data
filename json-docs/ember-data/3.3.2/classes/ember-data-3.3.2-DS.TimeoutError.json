@@ -1,0 +1,43 @@
+{
+  "data": {
+    "id": "ember-data-3.3.2-DS.TimeoutError",
+    "type": "class",
+    "attributes": {
+      "name": "DS.TimeoutError",
+      "shortname": "DS.TimeoutError",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "/home/travis/build/emberjs/data/tmp/broccoli_yuidoc-input_base_path-qtsYriO9.tmp/0/-private/adapters/errors.js",
+      "line": 171,
+      "description": "A `DS.TimeoutError` is used by an adapter to signal that a request\nto the external API has timed out. I.e. no response was received from\nthe external API within an allowed time period.\n\nAn example use case would be to warn the user to check their internet\nconnection if an adapter operation has timed out:\n\n```js {data-filename=app/routes/application.js}\nimport Route from '@ember/routing/route';\nimport DS from 'ember-data';\n\nconst { TimeoutError } = DS;\n\nexport default Route.extend({\n  actions: {\n    error(error, transition) {\n      if (error instanceof TimeoutError) {\n        // alert the user\n        alert('Are you still connected to the internet?');\n        return;\n      }\n\n      // ...other error handling logic\n    }\n  }\n});\n```",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.3.2-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.3.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

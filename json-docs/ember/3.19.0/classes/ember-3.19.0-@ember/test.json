@@ -1,0 +1,582 @@
+{
+  "data": {
+    "id": "ember-3.19.0-@ember/test",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/test",
+      "shortname": "@ember/test",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/test",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 51,
+          "description": "This hook defers the readiness of the application, so that you can start\nthe app when your tests are ready to run. It also sets the router's\nlocation to 'none', so that the window's location will not be modified\n(preventing both accidental leaking of state between tests and interference\nwith your testing framework). `setupForTesting` should only be called after\nsetting a custom `router` class (for example `App.Router = Router.extend(`).\n\nExample:\n\n```\nApp.setupForTesting();\n```",
+          "itemtype": "method",
+          "name": "setupForTesting",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 90,
+          "description": "This injects the test helpers into the `helperContainer` object. If an object is provided\nit will be used as the helperContainer. If `helperContainer` is not set it will default\nto `window`. If a function of the same name has already been defined it will be cached\n(so that it can be reset if the helper is removed with `unregisterHelper` or\n`removeTestHelpers`).\n\nAny callbacks registered with `onInjectHelpers` will be called once the\nhelpers have been injected.\n\nExample:\n```\nApp.injectTestHelpers();\n```",
+          "itemtype": "method",
+          "name": "injectTestHelpers",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 132,
+          "description": "This removes all helpers that have been registered, and resets and functions\nthat were overridden by the helpers.\n\nExample:\n\n```javascript\nApp.removeTestHelpers();\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "removeTestHelpers",
+          "class": "@ember/test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/click.js",
+          "line": 6,
+          "description": "Clicks an element and triggers any actions triggered by the element's `click`\nevent.\n\nExample:\n\n```javascript\nclick('.some-jQuery-selector').then(function() {\n  // assert something\n});\n```",
+          "itemtype": "method",
+          "name": "click",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery selector for finding element on the DOM",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "A DOM Element, Document, or jQuery to use as context",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise<undefined>"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/current_path.js",
+          "line": 6,
+          "description": "Returns the current path.\n\nExample:\n\n```javascript\nfunction validateURL() {\nequal(currentPath(), 'some.path.index', \"correct path was transitioned into.\");\n}\n\nclick('#some-link-id').then(validateURL);\n```",
+          "itemtype": "method",
+          "name": "currentPath",
+          "return": {
+            "description": "The currently active path.",
+            "type": "Object"
+          },
+          "since": "1.5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/current_route_name.js",
+          "line": 5,
+          "description": "Returns the currently active route name.\n\nExample:\n\n```javascript\nfunction validateRouteName() {\nequal(currentRouteName(), 'some.path', \"correct route was transitioned into.\");\n}\nvisit('/some/path').then(validateRouteName)\n```",
+          "itemtype": "method",
+          "name": "currentRouteName",
+          "return": {
+            "description": "The name of the currently active route.",
+            "type": "Object"
+          },
+          "since": "1.5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/current_url.js",
+          "line": 6,
+          "description": "Returns the current URL.\n\nExample:\n\n```javascript\nfunction validateURL() {\nequal(currentURL(), '/some/path', \"correct URL was transitioned into.\");\n}\n\nclick('#some-link-id').then(validateURL);\n```",
+          "itemtype": "method",
+          "name": "currentURL",
+          "return": {
+            "description": "The currently active URL.",
+            "type": "Object"
+          },
+          "since": "1.5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/fill_in.js",
+          "line": 7,
+          "description": "Fills in an input element with some text.\n\nExample:\n\n```javascript\nfillIn('#email', 'you@example.com').then(function() {\n  // assert something\n});\n```",
+          "itemtype": "method",
+          "name": "fillIn",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery selector finding an input element on the DOM\nto fill text with",
+              "type": "String"
+            },
+            {
+              "name": "text",
+              "description": "text to place inside the input element",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise<undefined>"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/find.js",
+          "line": 8,
+          "description": "Finds an element in the context of the app's container element. A simple alias\nfor `app.$(selector)`.\n\nExample:\n\n```javascript\nvar $el = find('.my-selector');\n```\n\nWith the `context` param:\n\n```javascript\nvar $el = find('.my-selector', '.parent-element-class');\n```",
+          "itemtype": "method",
+          "name": "find",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery selector for element lookup",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "(optional) jQuery selector that will limit the selector\n                          argument to find only within the context's children",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "DOM element representing the results of the query",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/find_with_assert.js",
+          "line": 4,
+          "description": "Like `find`, but throws an error if the element selector returns no results.\n\nExample:\n\n```javascript\nvar $el = findWithAssert('.doesnt-exist'); // throws error\n```\n\nWith the `context` param:\n\n```javascript\nvar $el = findWithAssert('.selector-id', '.parent-element-class'); // assert will pass\n```",
+          "itemtype": "method",
+          "name": "findWithAssert",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery selector string for finding an element within\nthe DOM",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "(optional) jQuery selector that will limit the\nselector argument to find only within the context's children",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "jQuery object representing the results of the query",
+            "type": "Object"
+          },
+          "throws": {
+            "description": "throws error if object returned has a length of 0",
+            "type": "Error"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/key_event.js",
+          "line": 4,
+          "description": "Simulates a key event, e.g. `keypress`, `keydown`, `keyup` with the desired keyCode\nExample:\n```javascript\nkeyEvent('.some-jQuery-selector', 'keypress', 13).then(function() {\n // assert something\n});\n```",
+          "itemtype": "method",
+          "name": "keyEvent",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery selector for finding element on the DOM",
+              "type": "String"
+            },
+            {
+              "name": "type",
+              "description": "the type of key event, e.g. `keypress`, `keydown`, `keyup`",
+              "type": "String"
+            },
+            {
+              "name": "keyCode",
+              "description": "the keyCode of the simulated key event",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise<undefined>"
+          },
+          "since": "1.5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/pause_test.js",
+          "line": 9,
+          "description": "Resumes a test paused by `pauseTest`.",
+          "itemtype": "method",
+          "name": "resumeTest",
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/pause_test.js",
+          "line": 22,
+          "description": "Pauses the current test - this is useful for debugging while testing or for test-driving.\nIt allows you to inspect the state of your application at any point.\nExample (The test will pause before clicking the button):\n\n```javascript\nvisit('/')\nreturn pauseTest();\nclick('.btn');\n```\n\nYou may want to turn off the timeout before pausing.\n\nqunit (timeout available to use as of 2.4.0):\n\n```\nvisit('/');\nassert.timeout(0);\nreturn pauseTest();\nclick('.btn');\n```\n\nmocha (timeout happens automatically as of ember-mocha v0.14.0):\n\n```\nvisit('/');\nthis.timeout(0);\nreturn pauseTest();\nclick('.btn');\n```",
+          "since": "1.9.0",
+          "itemtype": "method",
+          "name": "pauseTest",
+          "return": {
+            "description": "A promise that will never resolve",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/trigger_event.js",
+          "line": 5,
+          "description": "Triggers the given DOM event on the element identified by the provided selector.\nExample:\n```javascript\ntriggerEvent('#some-elem-id', 'blur');\n```\nThis is actually used internally by the `keyEvent` helper like so:\n```javascript\ntriggerEvent('#some-elem-id', 'keypress', { keyCode: 13 });\n```",
+          "itemtype": "method",
+          "name": "triggerEvent",
+          "params": [
+            {
+              "name": "selector",
+              "description": "jQuery selector for finding element on the DOM",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "jQuery selector that will limit the selector\n                         argument to find only within the context's children",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "type",
+              "description": "The event type to be triggered.",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "The options to be passed to jQuery.Event.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise<undefined>"
+          },
+          "since": "1.5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/visit.js",
+          "line": 3,
+          "description": "Loads a route, sets up any controllers, and renders any templates associated\nwith the route as though a real user had triggered the route change while\nusing your app.\n\nExample:\n\n```javascript\nvisit('posts/index').then(function() {\n  // assert something\n});\n```",
+          "itemtype": "method",
+          "name": "visit",
+          "params": [
+            {
+              "name": "url",
+              "description": "the name of the route",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise<undefined>"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/helpers/wait.js",
+          "line": 9,
+          "description": "Causes the run loop to process any pending events. This is used to ensure that\nany async operations from other helpers (or your assertions) have been processed.\n\nThis is most often used as the return value for the helper functions (see 'click',\n'fillIn','visit',etc). However, there is a method to register a test helper which\nutilizes this method without the need to actually call `wait()` in your helpers.\n\nThe `wait` helper is built into `registerAsyncHelper` by default. You will not need\nto `return app.testHelpers.wait();` - the wait behavior is provided for you.\n\nExample:\n\n```javascript\nimport { registerAsyncHelper } from '@ember/test';\n\nregisterAsyncHelper('loginUser', function(app, username, password) {\n  visit('secured/path/here')\n    .fillIn('#username', username)\n    .fillIn('#password', password)\n    .click('.submit');\n});\n```",
+          "itemtype": "method",
+          "name": "wait",
+          "params": [
+            {
+              "name": "value",
+              "description": "The value to be returned.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Promise that resolves to the passed value.",
+            "type": "RSVP.Promise<any>"
+          },
+          "access": "public",
+          "tagname": "",
+          "since": "1.0.0",
+          "class": "@ember/test",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-testing/lib/test/helpers.js",
+          "line": 8,
+          "description": "`registerHelper` is used to register a test helper that will be injected\nwhen `App.injectTestHelpers` is called.\n\nThe helper method will always be called with the current Application as\nthe first parameter.\n\nFor example:\n\n```javascript\nimport { registerHelper } from '@ember/test';\nimport { run } from '@ember/runloop';\n\nregisterHelper('boot', function(app) {\n  run(app, app.advanceReadiness);\n});\n```\n\nThis helper can later be called without arguments because it will be\ncalled with `app` as the first parameter.\n\n```javascript\nimport Application from '@ember/application';\n\nApp = Application.create();\nApp.injectTestHelpers();\nboot();\n```",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "registerHelper",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the helper method to add.",
+              "type": "String"
+            },
+            {
+              "name": "helperMethod",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "@ember/test",
+          "module": "@ember/test"
+        },
+        {
+          "file": "packages/ember-testing/lib/test/helpers.js",
+          "line": 52,
+          "description": "`registerAsyncHelper` is used to register an async test helper that will be injected\nwhen `App.injectTestHelpers` is called.\n\nThe helper method will always be called with the current Application as\nthe first parameter.\n\nFor example:\n\n```javascript\nimport { registerAsyncHelper } from '@ember/test';\nimport { run } from '@ember/runloop';\n\nregisterAsyncHelper('boot', function(app) {\n  run(app, app.advanceReadiness);\n});\n```\n\nThe advantage of an async helper is that it will not run\nuntil the last async helper has completed.  All async helpers\nafter it will wait for it complete before running.\n\n\nFor example:\n\n```javascript\nimport { registerAsyncHelper } from '@ember/test';\n\nregisterAsyncHelper('deletePost', function(app, postId) {\n  click('.delete-' + postId);\n});\n\n// ... in your test\nvisit('/post/2');\ndeletePost(2);\nvisit('/post/3');\ndeletePost(3);\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registerAsyncHelper",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the helper method to add.",
+              "type": "String"
+            },
+            {
+              "name": "helperMethod",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "since": "1.2.0",
+          "class": "@ember/test",
+          "module": "@ember/test"
+        },
+        {
+          "file": "packages/ember-testing/lib/test/helpers.js",
+          "line": 105,
+          "description": "Remove a previously added helper method.\n\nExample:\n\n```javascript\nimport { unregisterHelper } from '@ember/test';\n\nunregisterHelper('wait');\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "unregisterHelper",
+          "static": 1,
+          "params": [
+            {
+              "name": "name",
+              "description": "The helper to remove.",
+              "type": "String"
+            }
+          ],
+          "class": "@ember/test",
+          "module": "@ember/test"
+        },
+        {
+          "file": "packages/ember-testing/lib/test/waiters.js",
+          "line": 7,
+          "description": "This allows ember-testing to play nicely with other asynchronous\nevents, such as an application that is waiting for a CSS3\ntransition or an IndexDB transaction. The waiter runs periodically\nafter each async helper (i.e. `click`, `andThen`, `visit`, etc) has executed,\nuntil the returning result is truthy. After the waiters finish, the next async helper\nis executed and the process repeats.\n\nFor example:\n\n```javascript\nimport { registerWaiter } from '@ember/test';\n\nregisterWaiter(function() {\n  return myPendingTransactions() === 0;\n});\n```\nThe `context` argument allows you to optionally specify the `this`\nwith which your callback will be invoked.\n\nFor example:\n\n```javascript\nimport { registerWaiter } from '@ember/test';\n\nregisterWaiter(MyDB, MyDB.hasPendingTransactions);\n```",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "registerWaiter",
+          "params": [
+            {
+              "name": "context",
+              "description": "(optional)",
+              "type": "Object"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "since": "1.2.0",
+          "class": "@ember/test",
+          "module": "@ember/test"
+        },
+        {
+          "file": "packages/ember-testing/lib/test/waiters.js",
+          "line": 55,
+          "description": "`unregisterWaiter` is used to unregister a callback that was\nregistered with `registerWaiter`.",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "unregisterWaiter",
+          "params": [
+            {
+              "name": "context",
+              "description": "(optional)",
+              "type": "Object"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "since": "1.2.0",
+          "class": "@ember/test",
+          "module": "@ember/test"
+        },
+        {
+          "file": "packages/ember-testing/lib/test/waiters.js",
+          "line": 83,
+          "description": "Iterates through each registered test waiter, and invokes\nits callback. If any waiter returns false, this method will return\ntrue indicating that the waiters have not settled yet.\n\nThis is generally used internally from the acceptance/integration test\ninfrastructure.",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "checkWaiters",
+          "class": "@ember/test",
+          "module": "@ember/test"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 10,
+          "description": "This property contains the testing helpers for the current application. These\nare created once you call `injectTestHelpers` on your `Application`\ninstance. The included helpers are also available on the `window` object by\ndefault, but can be used from this object on the individual application also.",
+          "itemtype": "property",
+          "name": "testHelpers",
+          "type": "{Object}",
+          "default": "{}",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 23,
+          "description": "This property will contain the original methods that were registered\non the `helperContainer` before `injectTestHelpers` is called.\n\nWhen `removeTestHelpers` is called, these methods are restored to the\n`helperContainer`.",
+          "itemtype": "property",
+          "name": "originalMethods",
+          "type": "{Object}",
+          "default": "{}",
+          "access": "private",
+          "tagname": "",
+          "since": "1.3.0",
+          "class": "@ember/test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 38,
+          "description": "This property indicates whether or not this application is currently in\ntesting mode. This is set when `setupForTesting` is called on the current\napplication.",
+          "itemtype": "property",
+          "name": "testing",
+          "type": "{Boolean}",
+          "default": "false",
+          "since": "1.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        },
+        {
+          "file": "packages/ember-testing/lib/ext/application.js",
+          "line": 78,
+          "description": "This will be used as the container to inject the test helpers into. By\ndefault the helpers are injected into `window`.",
+          "itemtype": "property",
+          "name": "helperContainer",
+          "type": "{Object} The object to be used for test helpers.",
+          "default": "window",
+          "since": "1.2.0",
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/test",
+          "module": "ember",
+          "namespace": "Ember.Test"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.19.0-@ember/test",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.19.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
