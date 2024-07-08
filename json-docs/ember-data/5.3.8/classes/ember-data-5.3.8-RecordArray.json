@@ -14,14 +14,14 @@
       "namespace": "",
       "file": "../store/src/-private/record-arrays/identifier-array.ts",
       "line": 132,
-      "description": "<html><head></head><body><p>A record array is an array that contains records of a certain type (or modelName).\nThe record array materializes records as needed when they are retrieved for the first\ntime. You should not create record arrays yourself. Instead, an instance of\n<code>RecordArray</code> or its subclasses will be returned by your application's store\nin response to queries.</p>\n<p>This class should not be imported and instantiated by consuming applications.</p>\n</body></html>",
+      "description": "A record array is an array that contains records of a certain type (or modelName).\nThe record array materializes records as needed when they are retrieved for the first\ntime. You should not create record arrays yourself. Instead, an instance of\n`RecordArray` or its subclasses will be returned by your application's store\nin response to queries.\n\nThis class should not be imported and instantiated by consuming applications.",
       "access": "public",
       "tagname": "",
       "methods": [
         {
           "file": "../packages/store/src/-private/record-arrays/identifier-array.ts",
           "line": 446,
-          "description": "<html><head></head><body><p>Used to get the latest version of all of the records in this array\nfrom the adapter.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre>let people = store.peekAll(<span class=\"string\">'person'</span>);\npeople.isUpdating; <span class=\"regexp\">//</span> <span class=\"literal\">false</span>\n\npeople.update().<span class=\"keyword\">then</span>(function() {\n  people.isUpdating; <span class=\"regexp\">//</span> <span class=\"literal\">false</span>\n});\n\npeople.isUpdating; <span class=\"regexp\">//</span> <span class=\"literal\">true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Used to get the latest version of all of the records in this array\nfrom the adapter.\n\nExample\n\n```javascript\nlet people = store.peekAll('person');\npeople.isUpdating; // false\n\npeople.update().then(function() {\n  people.isUpdating; // false\n});\n\npeople.isUpdating; // true\n```",
           "itemtype": "method",
           "name": "update",
           "access": "public",
@@ -32,7 +32,7 @@
         {
           "file": "../packages/store/src/-private/record-arrays/identifier-array.ts",
           "line": 501,
-          "description": "<html><head></head><body><p>Saves all of the records in the <code>RecordArray</code>.</p>\n<p>Example</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>let messages = store.peekAll('<span class=\"keyword\">message</span>');\nmessages.<span class=\"keyword\">forEach</span>(<span class=\"keyword\">function</span>(<span class=\"keyword\">message</span>) {\n  <span class=\"keyword\">message</span>.hasBeenSeen = <span class=\"keyword\">true</span>;\n});\nmessages.save();</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Saves all of the records in the `RecordArray`.\n\nExample\n\n```javascript\nlet messages = store.peekAll('message');\nmessages.forEach(function(message) {\n  message.hasBeenSeen = true;\n});\nmessages.save();\n```",
           "itemtype": "method",
           "name": "save",
           "access": "public",
@@ -50,7 +50,7 @@
         {
           "file": "../packages/store/src/-private/record-arrays/identifier-array.ts",
           "line": 156,
-          "description": "<html><head></head><body><p>The flag to signal a <code>RecordArray</code> is currently loading data.\nExample</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre>let people = store.peekAll(<span class=\"string\">'person'</span>);\npeople.isUpdating; <span class=\"regexp\">//</span> <span class=\"literal\">false</span>\npeople.update();\npeople.isUpdating; <span class=\"regexp\">//</span> <span class=\"literal\">true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "The flag to signal a `RecordArray` is currently loading data.\nExample\n```javascript\nlet people = store.peekAll('person');\npeople.isUpdating; // false\npeople.update();\npeople.isUpdating; // true\n```",
           "itemtype": "property",
           "name": "isUpdating",
           "access": "public",
@@ -62,7 +62,7 @@
         {
           "file": "../packages/store/src/-private/record-arrays/identifier-array.ts",
           "line": 185,
-          "description": "<html><head></head><body><p>The store that created this record array.</p>\n</body></html>",
+          "description": "The store that created this record array.",
           "itemtype": "property",
           "name": "store",
           "access": "private",

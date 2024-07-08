@@ -1,0 +1,47 @@
+{
+  "data": {
+    "id": "ember-data-3.22.1-UnauthorizedError",
+    "type": "class",
+    "attributes": {
+      "name": "UnauthorizedError",
+      "shortname": "UnauthorizedError",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/adapter",
+      "namespace": "",
+      "file": "../adapter/addon/error.js",
+      "line": 228,
+      "description": "A `UnauthorizedError` equates to a HTTP `401 Unauthorized` response\nstatus. It is used by an adapter to signal that a request to the external\nAPI was rejected because authorization is required and has failed or has not\nyet been provided.\n\nAn example use case would be to redirect the user to a login route if a\nrequest is unauthorized:\n\n```js {data-filename=app/routes/application.js}\nimport Route from '@ember/routing/route';\nimport { UnauthorizedError } from '@ember-data/adapter/error';\nimport { action } from '@ember/object';\n\nexport default class ApplicationRoute extends Route {\n  @action\n  error(error, transition) {\n    if (error instanceof UnauthorizedError) {\n      // go to the login route\n      this.transitionTo('login');\n      return;\n    }\n\n    // ...other error handling logic\n  }\n}\n```",
+      "extends": "AdapterError",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.22.1-AdapterError",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.22.1-@ember-data/adapter",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.22.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

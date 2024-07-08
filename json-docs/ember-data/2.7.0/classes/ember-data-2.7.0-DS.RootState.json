@@ -1,0 +1,43 @@
+{
+  "data": {
+    "id": "ember-data-2.7.0-DS.RootState",
+    "type": "class",
+    "attributes": {
+      "name": "DS.RootState",
+      "shortname": "DS.RootState",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/system/model/states.js",
+      "line": 12,
+      "description": "### State\n\nEach record has a `currentState` property that explicitly tracks what\nstate a record is in at any given time. For instance, if a record is\nnewly created and has not yet been sent to the adapter to be saved,\nit would be in the `root.loaded.created.uncommitted` state.  If a\nrecord has had local modifications made to it that are in the\nprocess of being saved, the record would be in the\n`root.loaded.updated.inFlight` state. (This state paths will be\nexplained in more detail below.)\n\nEvents are sent by the record or its store to the record's\n`currentState` property. How the state reacts to these events is\ndependent on which state it is in. In some states, certain events\nwill be invalid and will cause an exception to be raised.\n\nStates are hierarchical and every state is a substate of the\n`RootState`. For example, a record can be in the\n`root.deleted.uncommitted` state, then transition into the\n`root.deleted.inFlight` state. If a child state does not implement\nan event handler, the state manager will attempt to invoke the event\non all parent states until the root state is reached. The state\nhierarchy of a record is described in terms of a path string. You\ncan determine a record's current state by getting the state's\n`stateName` property:\n\n```javascript\nrecord.get('currentState.stateName');\n//=> \"root.created.uncommitted\"\n ```\n\nThe hierarchy of valid states that ship with ember data looks like\nthis:\n\n```text\n* root\n  * deleted\n    * saved\n    * uncommitted\n    * inFlight\n  * empty\n  * loaded\n    * created\n      * uncommitted\n      * inFlight\n    * saved\n    * updated\n      * uncommitted\n      * inFlight\n  * loading\n```\n\nThe `DS.Model` states are themselves stateless. What that means is\nthat, the hierarchical states that each of *those* points to is a\nshared data structure. For performance reasons, instead of each\nrecord getting its own copy of the hierarchy of states, each record\npoints to this global, immutable shared instance. How does a state\nknow which record it should be acting on? We pass the record\ninstance into the state's event handlers as the first argument.\n\nThe record passed as the first parameter is where you should stash\nstate about the record if needed; you should never store data on the state\nobject itself.\n\n### Events and Flags\n\nA state may implement zero or more events and flags.\n\n#### Events\n\nEvents are named functions that are invoked when sent to a record. The\nrecord will first look for a method with the given name on the\ncurrent state. If no method is found, it will search the current\nstate's parent, and then its grandparent, and so on until reaching\nthe top of the hierarchy. If the root is reached without an event\nhandler being found, an exception will be raised. This can be very\nhelpful when debugging new features.\n\nHere's an example implementation of a state with a `myEvent` event handler:\n\n```javascript\naState: DS.State.create({\n  myEvent: function(manager, param) {\n    console.log(\"Received myEvent with\", param);\n  }\n})\n```\n\nTo trigger this event:\n\n```javascript\nrecord.send('myEvent', 'foo');\n//=> \"Received myEvent with foo\"\n```\n\nNote that an optional parameter can be sent to a record's `send()` method,\nwhich will be passed as the second parameter to the event handler.\n\nEvents should transition to a different state if appropriate. This can be\ndone by calling the record's `transitionTo()` method with a path to the\ndesired state. The state manager will attempt to resolve the state path\nrelative to the current state. If no state is found at that path, it will\nattempt to resolve it relative to the current state's parent, and then its\nparent, and so on until the root is reached. For example, imagine a hierarchy\nlike this:\n\n    * created\n      * uncommitted <-- currentState\n      * inFlight\n    * updated\n      * inFlight\n\nIf we are currently in the `uncommitted` state, calling\n`transitionTo('inFlight')` would transition to the `created.inFlight` state,\nwhile calling `transitionTo('updated.inFlight')` would transition to\nthe `updated.inFlight` state.\n\nRemember that *only events* should ever cause a state transition. You should\nnever call `transitionTo()` from outside a state's event handler. If you are\ntempted to do so, create a new event and send that to the state manager.\n\n#### Flags\n\nFlags are Boolean values that can be used to introspect a record's current\nstate in a more user-friendly way than examining its state path. For example,\ninstead of doing this:\n\n```javascript\nvar statePath = record.get('stateManager.currentPath');\nif (statePath === 'created.inFlight') {\n  doSomething();\n}\n```\n\nYou can say:\n\n```javascript\nif (record.get('isNew') && record.get('isSaving')) {\n  doSomething();\n}\n```\n\nIf your state does not set a value for a given flag, the value will\nbe inherited from its parent (or the first place in the state hierarchy\nwhere it is defined).\n\nThe current set of flags are defined below. If you want to add a new flag,\nin addition to the area below, you will also need to declare it in the\n`DS.Model` class.\n\n\n * [isEmpty](DS.Model.html#property_isEmpty)\n * [isLoading](DS.Model.html#property_isLoading)\n * [isLoaded](DS.Model.html#property_isLoaded)\n * [isDirty](DS.Model.html#property_isDirty)\n * [isSaving](DS.Model.html#property_isSaving)\n * [isDeleted](DS.Model.html#property_isDeleted)\n * [isNew](DS.Model.html#property_isNew)\n * [isValid](DS.Model.html#property_isValid)",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.7.0-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.7.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

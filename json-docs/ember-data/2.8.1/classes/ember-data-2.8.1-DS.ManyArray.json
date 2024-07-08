@@ -1,0 +1,193 @@
+{
+  "data": {
+    "id": "ember-data-2.8.1-DS.ManyArray",
+    "type": "class",
+    "attributes": {
+      "name": "DS.ManyArray",
+      "shortname": "DS.ManyArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/system/many-array.js",
+      "line": 12,
+      "description": "A `ManyArray` is a `MutableArray` that represents the contents of a has-many\nrelationship.\n\nThe `ManyArray` is instantiated lazily the first time the relationship is\nrequested.\n\n### Inverses\n\nOften, the relationships in Ember Data applications will have\nan inverse. For example, imagine the following models are\ndefined:\n\n```js {data-filename=app/models/post.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  comments: DS.hasMany('comment')\n});\n```\n\n```js {data-filename=app/models/comment.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  post: DS.belongsTo('post')\n});\n```\n\nIf you created a new instance of `App.Post` and added\na `App.Comment` record to its `comments` has-many\nrelationship, you would expect the comment's `post`\nproperty to be set to the post that contained\nthe has-many.\n\nWe call the record to which a relationship belongs the\nrelationship's _owner_.",
+      "extends": "Ember.Object",
+      "uses": [
+        "Ember.Evented",
+        "Ember.MutableArray"
+      ],
+      "methods": [
+        {
+          "file": "addon/-private/system/many-array.js",
+          "line": 215,
+          "itemtype": "method",
+          "name": "loadingRecordsCount",
+          "params": [
+            {
+              "name": "count",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "DS.ManyArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/many-array.js",
+          "line": 224,
+          "itemtype": "method",
+          "name": "loadedRecord",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.ManyArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/many-array.js",
+          "line": 236,
+          "itemtype": "method",
+          "name": "reload",
+          "access": "public",
+          "tagname": "",
+          "class": "DS.ManyArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/many-array.js",
+          "line": 244,
+          "description": "Saves all of the records in the `ManyArray`.\n\nExample\n\n```javascript\nstore.findRecord('inbox', 1).then(function(inbox) {\n  inbox.get('messages').then(function(messages) {\n    messages.forEach(function(message) {\n      message.set('isRead', true);\n    });\n    messages.save()\n  });\n});\n```",
+          "itemtype": "method",
+          "name": "save",
+          "return": {
+            "description": "promise",
+            "type": "DS.PromiseArray"
+          },
+          "class": "DS.ManyArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/many-array.js",
+          "line": 273,
+          "description": "Create a child record within the owner",
+          "itemtype": "method",
+          "name": "createRecord",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "hash",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "DS.Model"
+          },
+          "class": "DS.ManyArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "addon/-private/system/many-array.js",
+          "line": 101,
+          "description": "`true` if the relationship is polymorphic, `false` otherwise.",
+          "itemtype": "property",
+          "name": "isPolymorphic",
+          "type": "Boolean",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.ManyArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/many-array.js",
+          "line": 109,
+          "description": "The loading state of this array",
+          "itemtype": "property",
+          "name": "isLoaded",
+          "type": "Boolean",
+          "class": "DS.ManyArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/many-array.js",
+          "line": 116,
+          "description": "The relationship which manages this array.",
+          "itemtype": "property",
+          "name": "relationship",
+          "type": "ManyRelationship",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.ManyArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/many-array.js",
+          "line": 124,
+          "description": "Metadata associated with the request for async hasMany relationships.\n\nExample\n\nGiven that the server returns the following JSON payload when fetching a\nhasMany relationship:\n\n```js\n{\n  \"comments\": [{\n    \"id\": 1,\n    \"comment\": \"This is the first comment\",\n  }, {\n    // ...\n  }],\n\n  \"meta\": {\n    \"page\": 1,\n    \"total\": 5\n  }\n}\n```\n\nYou can then access the metadata via the `meta` property:\n\n```js\npost.get('comments').then(function(comments) {\n  var meta = comments.get('meta');\n\n  // meta.page => 1\n  // meta.total => 5\n});\n```",
+          "itemtype": "property",
+          "name": "meta",
+          "type": "Object",
+          "access": "public",
+          "tagname": "",
+          "class": "DS.ManyArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/many-array.js",
+          "line": 206,
+          "description": "Used for async `hasMany` arrays\nto keep track of when they will resolve.",
+          "itemtype": "property",
+          "name": "promise",
+          "type": "Ember.RSVP.Promise",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.ManyArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Object",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.8.1-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.8.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

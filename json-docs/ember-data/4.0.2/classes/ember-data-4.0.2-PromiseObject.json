@@ -1,0 +1,57 @@
+{
+  "data": {
+    "id": "ember-data-4.0.2-PromiseObject",
+    "type": "class",
+    "attributes": {
+      "name": "PromiseObject",
+      "shortname": "PromiseObject",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/addon/-private/system/promise-proxies.js",
+      "line": 47,
+      "description": "A `PromiseObject` is an object that acts like both an `EmberObject`\nand a promise. When the promise is resolved, then the resulting value\nwill be set to the `PromiseObject`'s `content` property. This makes\nit easy to create data bindings with the `PromiseObject` that will\nbe updated when the promise resolves.\n\nThis class should not be imported and instantiated directly.\n\nFor more information see the [Ember.PromiseProxyMixin\ndocumentation](/ember/release/classes/PromiseProxyMixin.html).\n\nExample\n\n```javascript\nlet promiseObject = PromiseObject.create({\n  promise: $.getJSON('/some/remote/data.json')\n});\n\npromiseObject.get('name'); // null\n\npromiseObject.then(function() {\n  promiseObject.get('name'); // 'Tomster'\n});\n```",
+      "access": "public",
+      "tagname": "",
+      "extends": "Ember.ObjectProxy",
+      "uses": [
+        "Ember.PromiseProxyMixin"
+      ],
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.ObjectProxy",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-4.0.2-PromiseBelongsTo"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.0.2-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.0.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "data": {
+    "id": "ember-data-3.5.2-DS.RecordReference",
+    "type": "class",
+    "attributes": {
+      "name": "DS.RecordReference",
+      "shortname": "DS.RecordReference",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/system/references/record.js",
+      "line": 4,
+      "description": "An RecordReference is a low-level API that allows users and\naddon author to perform meta-operations on a record.",
+      "methods": [
+        {
+          "file": "addon/-private/system/references/record.js",
+          "line": 18,
+          "description": "The `id` of the record that this reference refers to.\n\nTogether, the `type` and `id` properties form a composite key for\nthe identity map.\n\nExample\n\n```javascript\nlet userRef = store.getReference('user', 1);\n\nuserRef.id(); // '1'\n```",
+          "itemtype": "method",
+          "name": "id",
+          "return": {
+            "description": "The id of the record.",
+            "type": "String"
+          },
+          "class": "DS.RecordReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/record.js",
+          "line": 39,
+          "description": "How the reference will be looked up when it is loaded: Currently\nthis always return `identity` to signifying that a record will be\nloaded by the `type` and `id`.\n\nExample\n\n```javascript\nconst userRef = store.getReference('user', 1);\n\nuserRef.remoteType(); // 'identity'\n```",
+          "itemtype": "method",
+          "name": "remoteType",
+          "return": {
+            "description": "'identity'",
+            "type": "String"
+          },
+          "class": "DS.RecordReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/record.js",
+          "line": 59,
+          "description": "This API allows you to provide a reference with new data. The\nsimplest usage of this API is similar to `store.push`: you provide a\nnormalized hash of data and the object represented by the reference\nwill update.\n\nIf you pass a promise to `push`, Ember Data will not ask the adapter\nfor the data if another attempt to fetch it is made in the\ninterim. When the promise resolves, the underlying object is updated\nwith the new data, and the promise returned by *this function* is resolved\nwith that object.\n\nFor example, `recordReference.push(promise)` will be resolved with a\nrecord.\n\n Example\n\n ```javascript\n let userRef = store.getReference('user', 1);\n\n // provide data for reference\n userRef.push({ data: { id: 1, username: \"@user\" }}).then(function(user) {\n   userRef.value() === user;\n });\n ```",
+          "itemtype": "method",
+          "name": "push",
+          "params": [
+            {
+              "name": "objectOrPromise",
+              "description": "",
+              "type": "Promise|Object"
+            }
+          ],
+          "return": {
+            "description": "Promise<record> a promise for the value (record or relationship)"
+          },
+          "class": "DS.RecordReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/record.js",
+          "line": 95,
+          "description": "If the entity referred to by the reference is already loaded, it is\npresent as `reference.value`. Otherwise the value returned by this function\nis `null`.\n\n Example\n\n ```javascript\n let userRef = store.getReference('user', 1);\n\n userRef.value(); // user\n ```",
+          "itemtype": "method",
+          "name": "value",
+          "return": {
+            "description": "the record for this RecordReference",
+            "type": "DS.Model"
+          },
+          "class": "DS.RecordReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/record.js",
+          "line": 118,
+          "description": "Triggers a fetch for the backing entity based on its `remoteType`\n(see `remoteType` definitions per reference type).\n\nExample\n\n```javascript\nlet userRef = store.getReference('user', 1);\n\n// load user (via store.find)\nuserRef.load().then(...)\n```",
+          "itemtype": "method",
+          "name": "load",
+          "return": {
+            "description": "the record for this RecordReference",
+            "type": "Promise<record>"
+          },
+          "class": "DS.RecordReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/references/record.js",
+          "line": 138,
+          "description": "Reloads the record if it is already loaded. If the record is not\nloaded it will load the record via `store.findRecord`\n\nExample\n\n```javascript\nlet userRef = store.getReference('user', 1);\n\n// or trigger a reload\nuserRef.reload().then(...)\n```",
+          "itemtype": "method",
+          "name": "reload",
+          "return": {
+            "description": "the record for this RecordReference",
+            "type": "Promise<record>"
+          },
+          "class": "DS.RecordReference",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.5.2-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.5.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

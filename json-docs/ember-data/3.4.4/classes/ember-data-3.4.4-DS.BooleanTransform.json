@@ -1,0 +1,98 @@
+{
+  "data": {
+    "id": "ember-data-3.4.4-DS.BooleanTransform",
+    "type": "class",
+    "attributes": {
+      "name": "DS.BooleanTransform",
+      "shortname": "DS.BooleanTransform",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/transforms/boolean.js",
+      "line": 4,
+      "description": "The `DS.BooleanTransform` class is used to serialize and deserialize\nboolean attributes on Ember Data record objects. This transform is\nused when `boolean` is passed as the type parameter to the\n[DS.attr](../../data#method_attr) function.\n\nUsage\n\n```js {data-filename=app/models/user.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  isAdmin: DS.attr('boolean'),\n  name: DS.attr('string'),\n  email: DS.attr('string')\n});\n```\n\nBy default, the boolean transform only allows for values of `true` or\n`false`. You can opt into allowing `null` values for\nboolean attributes via `DS.attr('boolean', { allowNull: true })`\n\n```js {data-filename=app/models/user.js}\nimport DS from 'ember-data';\n\nexport default DS.Model.extend({\n  email: DS.attr('string'),\n  username: DS.attr('string'),\n  wantsWeeklyEmail: DS.attr('boolean', { allowNull: true })\n});\n```",
+      "extends": "DS.Transform",
+      "methods": [
+        {
+          "file": "addon/transforms/transform.js",
+          "line": 71,
+          "description": "When given a deserialized value from a record attribute this\nmethod must return the serialized value.\n\nExample\n\n```javascript\nimport { isEmpty } from '@ember/utils';\n\nserialize(deserialized, options) {\n  return isEmpty(deserialized) ? null : Number(deserialized);\n}\n```",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "deserialized",
+              "description": "The deserialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `DS.attr`"
+            }
+          ],
+          "return": {
+            "description": "The serialized value"
+          },
+          "class": "DS.BooleanTransform",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.Transform"
+        },
+        {
+          "file": "addon/transforms/transform.js",
+          "line": 92,
+          "description": "When given a serialized value from a JSON object this method must\nreturn the deserialized value for the record attribute.\n\nExample\n\n```javascript\ndeserialize(serialized, options) {\n  return empty(serialized) ? null : Number(serialized);\n}\n```",
+          "itemtype": "method",
+          "name": "deserialize",
+          "params": [
+            {
+              "name": "serialized",
+              "description": "The serialized value"
+            },
+            {
+              "name": "options",
+              "description": "hash of options passed to `DS.attr`"
+            }
+          ],
+          "return": {
+            "description": "The deserialized value"
+          },
+          "class": "DS.BooleanTransform",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.Transform"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-3.4.4-DS.Transform",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.4.4-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.4.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

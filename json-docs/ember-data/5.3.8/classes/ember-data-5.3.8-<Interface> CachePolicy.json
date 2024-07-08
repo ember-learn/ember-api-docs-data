@@ -14,14 +14,14 @@
       "namespace": "",
       "file": "../store/src/-private/cache-handler.ts",
       "line": 30,
-      "description": "<html><head></head><body><p>A service which an application may provide to the store via\nthe store's <code>lifetimes</code> property to configure the behavior\nof the CacheHandler.</p>\n<p>The default behavior for request lifetimes is to never expire\nunless manually refreshed via <code>cacheOptions.reload</code> or <code>cacheOptions.backgroundReload</code>.</p>\n<p>Implementing this service allows you to programatically define\nwhen a request should be considered expired.</p>\n</body></html>",
+      "description": "A service which an application may provide to the store via\nthe store's `lifetimes` property to configure the behavior\nof the CacheHandler.\n\nThe default behavior for request lifetimes is to never expire\nunless manually refreshed via `cacheOptions.reload` or `cacheOptions.backgroundReload`.\n\nImplementing this service allows you to programatically define\nwhen a request should be considered expired.",
       "access": "public",
       "tagname": "",
       "methods": [
         {
           "file": "../packages/store/src/-private/cache-handler.ts",
           "line": 45,
-          "description": "<html><head></head><body><p>Invoked to determine if the request may be fulfilled from cache\nif possible.</p>\n<p>Note, this is only invoked if the request has a cache-key.</p>\n<p>If no cache entry is found or the entry is hard expired,\nthe request will be fulfilled from the configured request handlers\nand the cache will be updated before returning the response.</p>\n</body></html>",
+          "description": "Invoked to determine if the request may be fulfilled from cache\nif possible.\n\nNote, this is only invoked if the request has a cache-key.\n\nIf no cache entry is found or the entry is hard expired,\nthe request will be fulfilled from the configured request handlers\nand the cache will be updated before returning the response.",
           "itemtype": "method",
           "name": "isHardExpired",
           "access": "public",
@@ -48,7 +48,7 @@
         {
           "file": "../packages/store/src/-private/cache-handler.ts",
           "line": 62,
-          "description": "<html><head></head><body><p>Invoked if <code>isHardExpired</code> is false to determine if the request\nshould be update behind the scenes if cache data is already available.</p>\n<p>Note, this is only invoked if the request has a cache-key.</p>\n<p>If true, the request will be fulfilled from cache while a backgrounded\nrequest is made to update the cache via the configured request handlers.</p>\n</body></html>",
+          "description": "Invoked if `isHardExpired` is false to determine if the request\nshould be update behind the scenes if cache data is already available.\n\nNote, this is only invoked if the request has a cache-key.\n\nIf true, the request will be fulfilled from cache while a backgrounded\nrequest is made to update the cache via the configured request handlers.",
           "itemtype": "method",
           "name": "isSoftExpired",
           "access": "public",
@@ -75,7 +75,7 @@
         {
           "file": "../packages/store/src/-private/cache-handler.ts",
           "line": 79,
-          "description": "<html><head></head><body><p>Invoked when a request will be sent to the configured request handlers.\nThis is invoked for both foreground and background requests.</p>\n<p>Note, this is invoked regardless of whether the request has a cache-key.</p>\n</body></html>",
+          "description": "Invoked when a request will be sent to the configured request handlers.\nThis is invoked for both foreground and background requests.\n\nNote, this is invoked regardless of whether the request has a cache-key.",
           "itemtype": "method",
           "name": "willRequest [Optional]",
           "access": "public",
@@ -107,7 +107,7 @@
         {
           "file": "../packages/store/src/-private/cache-handler.ts",
           "line": 94,
-          "description": "<html><head></head><body><p>Invoked when a request has been fulfilled from the configured request handlers.\nThis is invoked for both foreground and background requests once the cache has\nbeen updated.</p>\n<p>Note, this is invoked regardless of whether the request has a cache-key.</p>\n</body></html>",
+          "description": "Invoked when a request has been fulfilled from the configured request handlers.\nThis is invoked for both foreground and background requests once the cache has\nbeen updated.\n\nNote, this is invoked regardless of whether the request has a cache-key.",
           "itemtype": "method",
           "name": "didRequest [Optional]",
           "access": "public",

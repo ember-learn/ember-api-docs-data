@@ -1,0 +1,37 @@
+{
+  "data": {
+    "id": "ember-data-4.12.3-@ember-data/canary-features",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/canary-features",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../private-build-infra/virtual-packages/canary-features.js",
+      "line": 76,
+      "description": "## Canary Features\n\nEmberData allows users to test features that are implemented but not yet\navailable even in canary.\n\nTypically these features represent work that might introduce a new concept,\nnew API, change an API, or risk an unintended change in behavior to consuming\napplications.\n\nSuch features have their implementations guarded by a \"feature flag\", and the\nflag is only activated once the core-data team is prepared to ship the work\nin a canary release.\n\n### Installing Canary\n\nTo test a feature you MUST be using a canary build. Canary builds are published\nto `npm` and can be installed using a precise tag (such as `ember-data@3.16.0-alpha.1`)\nor by installing the latest dist-tag published to the `canary` channel using your javascript\npackage manager of choice. For instance with [pnpm](https://pnpm.io/)\n\n ```cli\n pnpm add ember-data@canary\n ```\n\n### Activating a Canary Feature\n\nOnce you have installed canary, feature-flags can be activated at build-time\n\nby setting an environment variable:\n\n```cli\n# Activate a single flag\nEMBER_DATA_FEATURE_OVERRIDE=SOME_FLAG ember build\n\n# Activate multiple flags by separating with commas\nEMBER_DATA_FEATURE_OVERRIDE=SOME_FLAG,OTHER_FLAG ember build\n\n# Activate all flags\nEMBER_DATA_FEATURE_OVERRIDE=ENABLE_ALL_OPTIONAL ember build\n```\n\nor by setting the appropriate flag in your `ember-cli-build` file:\n\n```ts\nlet app = new EmberApp(defaults, {\n  emberData: {\n    features: {\n      SAMPLE_FEATURE_FLAG: false // utliize existing behavior, strip code for the new feature\n      OTHER_FEATURE_FLAG: true // utilize this new feature, strip code for the older behavior\n    }\n  }\n})\n```\n\n**The \"off\" branch of feature-flagged code is always stripped from production builds.**\n\nThe list of available feature-flags is located [here](https://github.com/emberjs/data/tree/main/packages/private-build-infra/virtual-packages/canary-features.js \"List of EmberData FeatureFlags\")\n\n\n### Preparing a Project to use a Canary Feature\n\nFor most projects, simple version detection should be enough.\nUsing the provided version compatibility helpers from [embroider-macros](https://github.com/embroider-build/embroider/tree/main/packages/macros#readme)\nthe following can be done:\n\n```js\nif (macroCondition(dependencySatisfies('@ember-data/store', '5.0'))) {\n  // do thing\n}\n```",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "CanaryFeatureFlags"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "4.12.3"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.12.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

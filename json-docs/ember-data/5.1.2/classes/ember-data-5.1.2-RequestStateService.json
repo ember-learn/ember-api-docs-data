@@ -14,14 +14,14 @@
       "namespace": "",
       "file": "../store/src/-private/network/request-cache.ts",
       "line": 31,
-      "description": "<html><head></head><body><p>The RequestStateService is used to track the state of requests\nfor fetching or updating known resource identifies that are inflight.</p>\n</body></html>",
+      "description": "The RequestStateService is used to track the state of requests\nfor fetching or updating known resource identifies that are inflight.",
       "access": "public",
       "tagname": "",
       "methods": [
         {
           "file": "../packages/store/src/-private/network/request-cache.ts",
           "line": 159,
-          "description": "<html><head></head><body><p>Subscribe to requests for a given resource identity.</p>\n<p>The callback will receive the current state of the request.</p>\n<div class=\"highlight ts\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre><span class=\"class\"><span class=\"keyword\">interface</span> <span class=\"title\">RequestState</span> {</span>\n<span class=\"symbol\">  state:</span> <span class=\"string\">&apos;pending&apos;</span> | <span class=\"string\">&apos;fulfilled&apos;</span> | <span class=\"string\">&apos;rejected&apos;</span>;\n<span class=\"symbol\">  type:</span> <span class=\"string\">&apos;query&apos;</span> | <span class=\"string\">&apos;mutation&apos;</span>;\n<span class=\"symbol\">  request:</span> Request;\n  response?: { <span class=\"string\">data:</span> unknown };\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Note: It should be considered dangerous to use this API for more than simple\nstate derivation or debugging. The <code>request</code> and <code>response</code> properties are poorly\nspec&apos;d and may change unexpectedly when shifting what Handlers are in use or how\nrequests are issued from the Store.</p>\n<p>We expect to revisit this API in the near future as we continue to refine the\nRequestManager ergonomics, as a simpler but more powerful direct integration\nwith the RequestManager for these purposes is likely to be a better long-term\ndesign.</p>\n</body></html>",
+          "description": "Subscribe to requests for a given resource identity.\n\nThe callback will receive the current state of the request.\n\n```ts\ninterface RequestState {\n  state: 'pending' | 'fulfilled' | 'rejected';\n  type: 'query' | 'mutation';\n  request: Request;\n  response?: { data: unknown };\n}\n```\n\nNote: It should be considered dangerous to use this API for more than simple\nstate derivation or debugging. The `request` and `response` properties are poorly\nspec'd and may change unexpectedly when shifting what Handlers are in use or how\nrequests are issued from the Store.\n\nWe expect to revisit this API in the near future as we continue to refine the\nRequestManager ergonomics, as a simpler but more powerful direct integration\nwith the RequestManager for these purposes is likely to be a better long-term\ndesign.",
           "itemtype": "method",
           "name": "subscribeForRecord",
           "access": "public",
@@ -44,7 +44,7 @@
         {
           "file": "../packages/store/src/-private/network/request-cache.ts",
           "line": 195,
-          "description": "<html><head></head><body><p>Retrieve all active requests for a given resource identity.</p>\n</body></html>",
+          "description": "Retrieve all active requests for a given resource identity.",
           "itemtype": "method",
           "name": "getPendingRequestsForRecord",
           "access": "public",
@@ -66,7 +66,7 @@
         {
           "file": "../packages/store/src/-private/network/request-cache.ts",
           "line": 210,
-          "description": "<html><head></head><body><p>Retrieve the last completed request for a given resource identity.</p>\n</body></html>",
+          "description": "Retrieve the last completed request for a given resource identity.",
           "itemtype": "method",
           "name": "getLastRequestForRecord",
           "access": "public",

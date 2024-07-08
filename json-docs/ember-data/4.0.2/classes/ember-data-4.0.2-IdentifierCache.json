@@ -1,0 +1,182 @@
+{
+  "data": {
+    "id": "ember-data-4.0.2-IdentifierCache",
+    "type": "class",
+    "attributes": {
+      "name": "IdentifierCache",
+      "shortname": "IdentifierCache",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/addon/-private/identifiers/cache.ts",
+      "line": 104,
+      "description": "Each instance of {Store} receives a unique instance of a IdentifierCache.\n\nThis cache is responsible for assigning or retrieving the unique identify\nfor arbitrary resource data encountered by the store. Data representing\na unique resource or record should always be represented by the same\nidentifier.\n\nIt can be configured by consuming applications.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../store/addon/-private/identifiers/cache.ts",
+          "line": 142,
+          "description": "Internal hook to allow management of merge conflicts with identifiers.\n\nwe allow late binding of this private internal merge so that `internalModelFactory`\ncan insert itself here to handle elimination of duplicates",
+          "itemtype": "method",
+          "name": "__configureMerge",
+          "access": "private",
+          "tagname": "",
+          "class": "IdentifierCache",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/identifiers/cache.ts",
+          "line": 155,
+          "itemtype": "method",
+          "name": "_getRecordIdentifier",
+          "access": "private",
+          "tagname": "",
+          "class": "IdentifierCache",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/identifiers/cache.ts",
+          "line": 273,
+          "description": "allows us to peek without generating when needed\nuseful for the \"create\" case when we need to see if\nwe are accidentally overwritting something",
+          "itemtype": "method",
+          "name": "peekRecordIdentifier",
+          "params": [
+            {
+              "name": "resource",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "StableRecordIdentifier | undefined"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "IdentifierCache",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/identifiers/cache.ts",
+          "line": 287,
+          "description": "Returns the Identifier for the given Resource, creates one if it does not yet exist.\n\nSpecifically this means that we:\n\n- validate the `id` `type` and `lid` combo against known identifiers\n- return an object with an `lid` that is stable (repeated calls with the same\n  `id` + `type` or `lid` will return the same `lid` value)\n- this referential stability of the object itself is guaranteed",
+          "itemtype": "method",
+          "name": "getOrCreateRecordIdentifier",
+          "params": [
+            {
+              "name": "resource",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "StableRecordIdentifier"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "IdentifierCache",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/identifiers/cache.ts",
+          "line": 306,
+          "description": "Returns a new Identifier for the supplied data. Call this method to generate\nan identifier when a new resource is being created local to the client and\npotentially does not have an `id`.\n\nDelegates generation to the user supplied `GenerateMethod` if one has been provided\nwith the signature `generateMethod({ type }, 'record')`.",
+          "itemtype": "method",
+          "name": "createIdentifierForNewRecord",
+          "params": [
+            {
+              "name": "data",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "StableRecordIdentifier"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "IdentifierCache",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/identifiers/cache.ts",
+          "line": 341,
+          "description": "Provides the opportunity to update secondary lookup tables for existing identifiers\nCalled after an identifier created with `createIdentifierForNewRecord` has been\ncommitted.\n\nAssigned `id` to an `Identifier` if `id` has not previously existed; however,\nattempting to change the `id` or calling update without providing an `id` when\none is missing will throw an error.\n\n - sets `id` (if `id` was previously `null`)\n - `lid` and `type` MUST NOT be altered post creation\n\n If a merge occurs, it is possible the returned identifier does not match the originally\n provided identifier. In this case the abandoned identifier will go through the usual\n `forgetRecordIdentifier` codepaths.",
+          "itemtype": "method",
+          "name": "updateRecordIdentifier",
+          "params": [
+            {
+              "name": "identifierObject",
+              "description": ""
+            },
+            {
+              "name": "data",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "StableRecordIdentifier"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "IdentifierCache",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/identifiers/cache.ts",
+          "line": 402,
+          "itemtype": "method",
+          "name": "_mergeRecordIdentifiers",
+          "access": "private",
+          "tagname": "",
+          "class": "IdentifierCache",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/identifiers/cache.ts",
+          "line": 432,
+          "description": "Provides the opportunity to eliminate an identifier from secondary lookup tables\nas well as eliminates it from ember-data's own lookup tables and book keeping.\n\nUseful when a record has been deleted and the deletion has been persisted and\nwe do not care about the record anymore. Especially useful when an `id` of a\ndeleted record might be reused later for a new record.",
+          "itemtype": "method",
+          "name": "forgetRecordIdentifier",
+          "params": [
+            {
+              "name": "identifierObject",
+              "description": ""
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "IdentifierCache",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.0.2-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.0.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

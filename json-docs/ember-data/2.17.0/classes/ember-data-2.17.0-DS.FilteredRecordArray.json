@@ -1,0 +1,258 @@
+{
+  "data": {
+    "id": "ember-data-2.17.0-DS.FilteredRecordArray",
+    "type": "class",
+    "attributes": {
+      "name": "DS.FilteredRecordArray",
+      "shortname": "DS.FilteredRecordArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/system/record-arrays/filtered-record-array.js",
+      "line": 5,
+      "description": "Represents a list of records whose membership is determined by the\nstore. As records are created, loaded, or modified, the store\nevaluates them to determine if they should be part of the record\narray.",
+      "extends": "DS.RecordArray",
+      "methods": [
+        {
+          "file": "addon/-private/system/record-arrays/filtered-record-array.js",
+          "line": 22,
+          "description": "The filterFunction is a function used to test records from the store to\ndetermine if they should be part of the record array.\n\nExample\n\n```javascript\nvar allPeople = store.peekAll('person');\nallPeople.mapBy('name'); // [\"Tom Dale\", \"Yehuda Katz\", \"Trek Glowacki\"]\n\nvar people = store.filter('person', function(person) {\n  if (person.get('name').match(/Katz$/)) { return true; }\n});\npeople.mapBy('name'); // [\"Yehuda Katz\"]\n\nvar notKatzFilter = function(person) {\n  return !person.get('name').match(/Katz$/);\n};\npeople.set('filterFunction', notKatzFilter);\npeople.mapBy('name'); // [\"Tom Dale\", \"Trek Glowacki\"]\n```",
+          "itemtype": "method",
+          "name": "filterFunction",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "DS.Model"
+            }
+          ],
+          "return": {
+            "description": "`true` if the record should be in the array",
+            "type": "Boolean"
+          },
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/filtered-record-array.js",
+          "line": 53,
+          "itemtype": "method",
+          "name": "updateFilter",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 101,
+          "description": "Retrieves an object from the content by index.",
+          "itemtype": "method",
+          "name": "objectAtContent",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "index",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "DS.Model"
+          },
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 114,
+          "description": "Used to get the latest version of all of the records in this array\nfrom the adapter.\n\nExample\n\n```javascript\nvar people = store.peekAll('person');\npeople.get('isUpdating'); // false\n\npeople.update().then(function() {\n  people.get('isUpdating'); // false\n});\n\npeople.get('isUpdating'); // true\n```",
+          "itemtype": "method",
+          "name": "update",
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 157,
+          "description": "Adds an internal model to the `RecordArray` without duplicates",
+          "itemtype": "method",
+          "name": "_pushInternalModels",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            }
+          ],
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 171,
+          "description": "Removes an internalModel to the `RecordArray`.",
+          "itemtype": "method",
+          "name": "removeInternalModel",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "internalModel",
+              "description": "",
+              "type": "InternalModel"
+            }
+          ],
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 182,
+          "description": "Saves all of the records in the `RecordArray`.\n\nExample\n\n```javascript\nvar messages = store.peekAll('message');\nmessages.forEach(function(message) {\n  message.set('hasBeenSeen', true);\n});\nmessages.save();\n```",
+          "itemtype": "method",
+          "name": "save",
+          "return": {
+            "description": "promise",
+            "type": "DS.PromiseArray"
+          },
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 216,
+          "itemtype": "method",
+          "name": "_unregisterFromManager",
+          "access": "private",
+          "tagname": "",
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 30,
+          "description": "The array of client ids backing the record array. When a\nrecord is requested from the record array, the record\nfor the client id at the same index is materialized, if\nnecessary, by the store.",
+          "itemtype": "property",
+          "name": "content",
+          "access": "private",
+          "tagname": "",
+          "type": "Ember.Array",
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 42,
+          "description": "The flag to signal a `RecordArray` is finished loading data.\n\nExample\n\n```javascript\nvar people = store.peekAll('person');\npeople.get('isLoaded'); // true\n```",
+          "itemtype": "property",
+          "name": "isLoaded",
+          "type": "Boolean",
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 56,
+          "description": "The flag to signal a `RecordArray` is currently loading data.\n\nExample\n\n```javascript\nvar people = store.peekAll('person');\npeople.get('isUpdating'); // false\npeople.update();\npeople.get('isUpdating'); // true\n```",
+          "itemtype": "property",
+          "name": "isUpdating",
+          "type": "Boolean",
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 73,
+          "description": "The store that created this record array.",
+          "itemtype": "property",
+          "name": "store",
+          "access": "private",
+          "tagname": "",
+          "type": "DS.Store",
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        },
+        {
+          "file": "addon/-private/system/record-arrays/record-array.js",
+          "line": 88,
+          "description": "The modelClass represented by this record array.",
+          "itemtype": "property",
+          "name": "type",
+          "type": "DS.Model",
+          "class": "DS.FilteredRecordArray",
+          "module": "ember-data",
+          "namespace": "DS",
+          "inherited": true,
+          "inheritedFrom": "DS.RecordArray"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-2.17.0-DS.RecordArray",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.17.0-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.17.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

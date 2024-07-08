@@ -1,0 +1,209 @@
+{
+  "data": {
+    "id": "ember-data-4.3.0-AdapterPopulatedRecordArray",
+    "type": "class",
+    "attributes": {
+      "name": "AdapterPopulatedRecordArray",
+      "shortname": "AdapterPopulatedRecordArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/addon/-private/system/record-arrays/adapter-populated-record-array.js",
+      "line": 10,
+      "description": "Represents an ordered list of records whose order and membership is\ndetermined by the adapter. For example, a query sent to the adapter\nmay trigger a search on the server, whose results would be loaded\ninto an instance of the `AdapterPopulatedRecordArray`.\n\nThis class should not be imported and instantiated by consuming applications.\n\n---\n\nIf you want to update the array and get the latest records from the\nadapter, you can invoke [`update()`](AdapterPopulatedRecordArray/methods/update?anchor=update):\n\nExample\n\n```javascript\n// GET /users?isAdmin=true\nstore.query('user', { isAdmin: true }).then(function(admins) {\n\n  admins.then(function() {\n    console.log(admins.get(\"length\")); // 42\n  });\n\n  // somewhere later in the app code, when new admins have been created\n  // in the meantime\n  //\n  // GET /users?isAdmin=true\n  admins.update().then(function() {\n    admins.get('isUpdating'); // false\n    console.log(admins.get(\"length\")); // 123\n  });\n\n  admins.get('isUpdating'); // true\n}\n```",
+      "access": "public",
+      "tagname": "",
+      "extends": "RecordArray",
+      "methods": [
+        {
+          "file": "../store/addon/-private/system/record-arrays/adapter-populated-record-array.js",
+          "line": 86,
+          "itemtype": "method",
+          "name": "_setIdentifiers",
+          "params": [
+            {
+              "name": "identifiers",
+              "description": "",
+              "type": "StableRecordIdentifier[]"
+            },
+            {
+              "name": "payload",
+              "description": "normalized payload",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "AdapterPopulatedRecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 111,
+          "description": "Retrieves an object from the content by index.",
+          "itemtype": "method",
+          "name": "objectAtContent",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "index",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "record",
+            "type": "Model"
+          },
+          "class": "AdapterPopulatedRecordArray",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "RecordArray"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 124,
+          "description": "Used to get the latest version of all of the records in this array\nfrom the adapter.\n\nExample\n\n```javascript\nlet people = store.peekAll('person');\npeople.get('isUpdating'); // false\n\npeople.update().then(function() {\n  people.get('isUpdating'); // false\n});\n\npeople.get('isUpdating'); // true\n```",
+          "itemtype": "method",
+          "name": "update",
+          "access": "public",
+          "tagname": "",
+          "class": "AdapterPopulatedRecordArray",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "RecordArray"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 172,
+          "description": "Saves all of the records in the `RecordArray`.\n\nExample\n\n```javascript\nlet messages = store.peekAll('message');\nmessages.forEach(function(message) {\n  message.set('hasBeenSeen', true);\n});\nmessages.save();\n```",
+          "itemtype": "method",
+          "name": "save",
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "promise",
+            "type": "PromiseArray"
+          },
+          "class": "AdapterPopulatedRecordArray",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "RecordArray"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 223,
+          "itemtype": "method",
+          "name": "_createSnapshot",
+          "access": "private",
+          "tagname": "",
+          "class": "AdapterPopulatedRecordArray",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "RecordArray"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 35,
+          "description": "The array of client ids backing the record array. When a\nrecord is requested from the record array, the record\nfor the client id at the same index is materialized, if\nnecessary, by the store.",
+          "itemtype": "property",
+          "name": "content",
+          "access": "private",
+          "tagname": "",
+          "type": "Ember.Array",
+          "class": "AdapterPopulatedRecordArray",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "RecordArray"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 47,
+          "description": "The flag to signal a `RecordArray` is finished loading data.\n\nExample\n\n```javascript\nlet people = store.peekAll('person');\npeople.get('isLoaded'); // true\n```",
+          "itemtype": "property",
+          "name": "isLoaded",
+          "access": "public",
+          "tagname": "",
+          "type": "Boolean",
+          "class": "AdapterPopulatedRecordArray",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "RecordArray"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 62,
+          "description": "The flag to signal a `RecordArray` is currently loading data.\n\nExample\n\n```javascript\nlet people = store.peekAll('person');\npeople.get('isUpdating'); // false\npeople.update();\npeople.get('isUpdating'); // true\n```",
+          "itemtype": "property",
+          "name": "isUpdating",
+          "access": "public",
+          "tagname": "",
+          "type": "Boolean",
+          "class": "AdapterPopulatedRecordArray",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "RecordArray"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 80,
+          "description": "The store that created this record array.",
+          "itemtype": "property",
+          "name": "store",
+          "access": "private",
+          "tagname": "",
+          "type": "Store",
+          "class": "AdapterPopulatedRecordArray",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "RecordArray"
+        },
+        {
+          "file": "../store/addon/-private/system/record-arrays/record-array.js",
+          "line": 97,
+          "description": "The modelClass represented by this record array.",
+          "itemtype": "property",
+          "name": "type",
+          "access": "public",
+          "tagname": "",
+          "type": "{subclass of Model}",
+          "class": "AdapterPopulatedRecordArray",
+          "module": "@ember-data/store",
+          "inherited": true,
+          "inheritedFrom": "RecordArray"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-4.3.0-RecordArray",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.3.0-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

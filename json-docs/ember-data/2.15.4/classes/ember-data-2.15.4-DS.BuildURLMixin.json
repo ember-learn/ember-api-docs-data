@@ -1,0 +1,438 @@
+{
+  "data": {
+    "id": "ember-data-2.15.4-DS.BuildURLMixin",
+    "type": "class",
+    "attributes": {
+      "name": "DS.BuildURLMixin",
+      "shortname": "DS.BuildURLMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "DS.RESTAdapter"
+      ],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "addon/-private/adapters/build-url-mixin.js",
+      "line": 5,
+      "description": "WARNING: This interface is likely to change in order to accomodate https://github.com/emberjs/rfcs/pull/4\n## Using BuildURLMixin\nTo use url building, include the mixin when extending an adapter, and call `buildURL` where needed.\n  The default behaviour is designed for RESTAdapter.\n### Example\n```javascript\n  export default DS.Adapter.extend(BuildURLMixin, {\n    findRecord: function(store, type, id, snapshot) {\n      var url = this.buildURL(type.modelName, id, snapshot, 'findRecord');\n      return this.ajax(url, 'GET');\n    }\n  });\n  ```\n### Attributes\nThe `host` and `namespace` attributes will be used if defined, and are optional.",
+      "methods": [
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 33,
+          "description": "Builds a URL for a given type and optional ID.\n\nBy default, it pluralizes the type's name (for example, 'post'\nbecomes 'posts' and 'person' becomes 'people'). To override the\npluralization see [pathForType](#method_pathForType).\n\nIf an ID is specified, it adds the ID to the path generated\nfor the type, separated by a `/`.\n\nWhen called by RESTAdapter.findMany() the `id` and `snapshot` parameters\nwill be arrays of ids and snapshots.",
+          "itemtype": "method",
+          "name": "buildURL",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "single id or array of ids or query",
+              "type": "(String|Array|Object)"
+            },
+            {
+              "name": "snapshot",
+              "description": "single snapshot or array of snapshots",
+              "type": "(DS.Snapshot|Array)"
+            },
+            {
+              "name": "requestType",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "query",
+              "description": "object of query parameters to send for query requests.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 81,
+          "itemtype": "method",
+          "name": "_buildURL",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 110,
+          "description": "Builds a URL for a `store.findRecord(type, id)` call.\n\nExample:\n\n```js {data-filename=app/adapters/user.js}\nimport DS from 'ember-data';\n\nexport default DS.JSONAPIAdapter.extend({\n  urlForFindRecord(id, modelName, snapshot) {\n    let baseUrl = this.buildURL();\n    return `${baseUrl}/users/${snapshot.adapterOptions.user_id}/playlists/${id}`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForFindRecord",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 137,
+          "description": "Builds a URL for a `store.findAll(type)` call.\n\nExample:\n\n```js {data-filename=app/adapters/comment.js}\nimport DS from 'ember-data';\n\nexport default DS.JSONAPIAdapter.extend({\n  urlForFindAll(modelName, snapshot) {\n    return 'data/comments.json';\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForFindAll",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.SnapshotRecordArray"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 161,
+          "description": "Builds a URL for a `store.query(type, query)` call.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.RESTAdapter.extend({\n  host: 'https://api.github.com',\n  urlForQuery (query, modelName) {\n    switch(modelName) {\n      case 'repo':\n        return `https://api.github.com/orgs/${query.orgId}/repos`;\n      default:\n        return this._super(...arguments);\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForQuery",
+          "params": [
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 191,
+          "description": "Builds a URL for a `store.queryRecord(type, query)` call.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.RESTAdapter.extend({\n  urlForQueryRecord({ slug }, modelName) {\n    let baseUrl = this.buildURL();\n    return `${baseUrl}/${encodeURIComponent(slug)}`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForQueryRecord",
+          "params": [
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 216,
+          "description": "Builds a URL for coalesceing multiple `store.findRecord(type, id)`\nrecords into 1 request when the adapter's `coalesceFindRequests`\nproperty is true.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.RESTAdapter.extend({\n  urlForFindMany(ids, modelName) {\n    let baseUrl = this.buildURL();\n    return `${baseUrl}/coalesce`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForFindMany",
+          "params": [
+            {
+              "name": "ids",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshots",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 244,
+          "description": "Builds a URL for fetching a async hasMany relationship when a url\nis not provided by the server.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.JSONAPIAdapter.extend({\n  urlForFindHasMany(id, modelName, snapshot) {\n    let baseUrl = this.buildURL(id, modelName);\n    return `${baseUrl}/relationships`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForFindHasMany",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 271,
+          "description": "Builds a URL for fetching a async belongsTo relationship when a url\nis not provided by the server.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.JSONAPIAdapter.extend({\n  urlForFindBelongsTo(id, modelName, snapshot) {\n    let baseUrl = this.buildURL(id, modelName);\n    return `${baseUrl}/relationships`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForFindBelongsTo",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 298,
+          "description": "Builds a URL for a `record.save()` call when the record was created\nlocally using `store.createRecord()`.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.RESTAdapter.extend({\n  urlForCreateRecord(modelName, snapshot) {\n    return this._super(...arguments) + '/new';\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForCreateRecord",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 323,
+          "description": "Builds a URL for a `record.save()` call when the record has been update locally.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.RESTAdapter.extend({\n  urlForUpdateRecord(id, modelName, snapshot) {\n    return `/${id}/feed?access_token=${snapshot.adapterOptions.token}`;\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForUpdateRecord",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 348,
+          "description": "Builds a URL for a `record.save()` call when the record has been deleted locally.\n\nExample:\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.RESTAdapter.extend({\n  urlForDeleteRecord(id, modelName, snapshot) {\n    return this._super(...arguments) + '/destroy';\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "urlForDeleteRecord",
+          "params": [
+            {
+              "name": "id",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "snapshot",
+              "description": "",
+              "type": "DS.Snapshot"
+            }
+          ],
+          "return": {
+            "description": "url",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 373,
+          "itemtype": "method",
+          "name": "urlPrefix",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "parentURL",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "urlPrefix",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        },
+        {
+          "file": "addon/-private/adapters/build-url-mixin.js",
+          "line": 410,
+          "description": "Determines the pathname for a given type.\n\nBy default, it pluralizes the type's name (for example,\n'post' becomes 'posts' and 'person' becomes 'people').\n\n### Pathname customization\n\nFor example if you have an object LineItem with an\nendpoint of \"/line_items/\".\n\n```js {data-filename=app/adapters/application.js}\nimport DS from 'ember-data';\n\nexport default DS.RESTAdapter.extend({\n  pathForType: function(modelName) {\n    var decamelized = Ember.String.decamelize(modelName);\n    return Ember.String.pluralize(decamelized);\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "pathForType",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "path",
+            "type": "String"
+          },
+          "class": "DS.BuildURLMixin",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.15.4-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.15.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

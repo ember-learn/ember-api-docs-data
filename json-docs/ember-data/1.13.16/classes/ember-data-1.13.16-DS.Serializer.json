@@ -1,0 +1,161 @@
+{
+  "data": {
+    "id": "ember-data-1.13.16-DS.Serializer",
+    "type": "class",
+    "attributes": {
+      "name": "DS.Serializer",
+      "shortname": "DS.Serializer",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "packages/ember-data/lib/system/serializer.js",
+      "line": 5,
+      "description": "`DS.Serializer` is an abstract base class that you should override in your\napplication to customize it for your backend. The minimum set of methods\nthat you should implement is:\n\n  * `extract()`\n  * `serialize()`\n\nAnd you can optionally override the following methods:\n\n  * `normalize()`\n\nFor an example implementation, see\n[DS.JSONSerializer](DS.JSONSerializer.html), the included JSON serializer.",
+      "extends": "Ember.Object",
+      "methods": [
+        {
+          "file": "packages/ember-data/lib/system/serializer.js",
+          "line": 63,
+          "description": "The `extract` method is used to deserialize the payload received from your\ndata source into the form that Ember Data expects.",
+          "itemtype": "method",
+          "name": "extract",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "DS.Store"
+            },
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "payload",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "id",
+              "description": "",
+              "type": "(String|Number)"
+            },
+            {
+              "name": "requestType",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "DS.Serializer",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/serializer.js",
+          "line": 77,
+          "description": "The `serialize` method is used when a record is saved in order to convert\nthe record into the form that your external data source expects.\n\n`serialize` takes an optional `options` hash with a single option:\n\n- `includeId`: If this is `true`, `serialize` should include the ID\n  in the serialized object it builds.",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "record",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "DS.Serializer",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/serializer.js",
+          "line": 93,
+          "description": "The `normalize` method is used to convert a payload received from your\nexternal data source into the normalized form `store.push()` expects. You\nshould override this method, munge the hash and return the normalized\npayload.",
+          "itemtype": "method",
+          "name": "normalize",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "hash",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "DS.Serializer",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-data/lib/system/serializer.js",
+          "line": 52,
+          "description": "The `store` property is the application's `store` that contains all records.\nIt's injected as a service.\nIt can be used to push records from a non flat data structure server\nresponse.",
+          "itemtype": "property",
+          "name": "store",
+          "type": "{DS.Store}",
+          "access": "public",
+          "tagname": "",
+          "class": "DS.Serializer",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Object",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-1.13.16-DS.JSONSerializer"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-1.13.16-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-1.13.16",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

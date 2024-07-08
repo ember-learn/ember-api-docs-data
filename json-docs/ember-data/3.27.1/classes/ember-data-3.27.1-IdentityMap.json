@@ -1,0 +1,129 @@
+{
+  "data": {
+    "id": "ember-data-3.27.1-IdentityMap",
+    "type": "class",
+    "attributes": {
+      "name": "IdentityMap",
+      "shortname": "IdentityMap",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/addon/-private/system/identity-map.ts",
+      "line": 9,
+      "description": "`IdentityMap` is a custom storage map for records by modelName\nused by `Store`.",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../store/addon/-private/system/errors-utils.js",
+          "line": 12,
+          "description": "Convert an hash of errors into an array with errors in JSON-API format.\n ```javascript\nimport DS from 'ember-data';\n\n const { errorsHashToArray } = DS;\n \n let errors = {\n  base: 'Invalid attributes on saving this record',\n  name: 'Must be present',\n  age: ['Must be present', 'Must be a number']\n};\n let errorsArray = errorsHashToArray(errors);\n// [\n//   {\n//     title: \"Invalid Document\",\n//     detail: \"Invalid attributes on saving this record\",\n//     source: { pointer: \"/data\" }\n//   },\n//   {\n//     title: \"Invalid Attribute\",\n//     detail: \"Must be present\",\n//     source: { pointer: \"/data/attributes/name\" }\n//   },\n//   {\n//     title: \"Invalid Attribute\",\n//     detail: \"Must be present\",\n//     source: { pointer: \"/data/attributes/age\" }\n//   },\n//   {\n//     title: \"Invalid Attribute\",\n//     detail: \"Must be a number\",\n//     source: { pointer: \"/data/attributes/age\" }\n//   }\n// ]\n```",
+          "itemtype": "method",
+          "name": "errorsHashToArray",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "errors",
+              "description": "hash with errors as properties",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "array of errors in JSON-API format",
+            "type": "Array"
+          },
+          "class": "IdentityMap",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/errors-utils.js",
+          "line": 80,
+          "description": "Convert an array of errors in JSON-API format into an object.\n\n```javascript\nimport DS from 'ember-data';\n\nconst { errorsArrayToHash } = DS;\n\nlet errorsArray = [\n  {\n    title: 'Invalid Attribute',\n    detail: 'Must be present',\n    source: { pointer: '/data/attributes/name' }\n  },\n  {\n    title: 'Invalid Attribute',\n    detail: 'Must be present',\n    source: { pointer: '/data/attributes/age' }\n  },\n  {\n    title: 'Invalid Attribute',\n    detail: 'Must be a number',\n    source: { pointer: '/data/attributes/age' }\n  }\n];\n\nlet errors = errorsArrayToHash(errorsArray);\n// {\n//   \"name\": [\"Must be present\"],\n//   \"age\":  [\"Must be present\", \"must be a number\"]\n// }\n```",
+          "itemtype": "method",
+          "name": "errorsArrayToHash",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "errors",
+              "description": "array of errors in JSON-API format",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "IdentityMap",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/fetch-manager.ts",
+          "line": 159,
+          "description": "This method is called at the end of the run loop, and\nflushes any records passed into `scheduleSave`",
+          "itemtype": "method",
+          "name": "flushPendingSave",
+          "access": "private",
+          "tagname": "",
+          "class": "IdentityMap",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/identity-map.ts",
+          "line": 19,
+          "description": "Retrieves the `InternalModelMap` for a given modelName,\ncreating one if one did not already exist. This is\nsimilar to `getWithDefault` or `get` on a `MapWithDefault`",
+          "itemtype": "method",
+          "name": "retrieve",
+          "params": [
+            {
+              "name": "modelName",
+              "description": "a previously normalized modelName"
+            }
+          ],
+          "return": {
+            "description": "the InternalModelMap for the given modelName",
+            "type": "InternalModelMap"
+          },
+          "class": "IdentityMap",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/identity-map.ts",
+          "line": 38,
+          "description": "Clears the contents of all known `RecordMaps`, but does\nnot remove the InternalModelMap instances.",
+          "itemtype": "method",
+          "name": "clear",
+          "class": "IdentityMap",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-3.27.1-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-3.27.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

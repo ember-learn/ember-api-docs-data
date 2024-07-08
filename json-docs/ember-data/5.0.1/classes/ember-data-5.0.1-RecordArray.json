@@ -1,0 +1,97 @@
+{
+  "data": {
+    "id": "ember-data-5.0.1-RecordArray",
+    "type": "class",
+    "attributes": {
+      "name": "RecordArray",
+      "shortname": "RecordArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/src/-private/record-arrays/identifier-array.ts",
+      "line": 149,
+      "description": "A record array is an array that contains records of a certain type (or modelName).\nThe record array materializes records as needed when they are retrieved for the first\ntime. You should not create record arrays yourself. Instead, an instance of\n`RecordArray` or its subclasses will be returned by your application's store\nin response to queries.\n\nThis class should not be imported and instantiated by consuming applications.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/store/src/-private/record-arrays/identifier-array.ts",
+          "line": 432,
+          "description": "Used to get the latest version of all of the records in this array\nfrom the adapter.\n\nExample\n\n```javascript\nlet people = store.peekAll('person');\npeople.isUpdating; // false\n\npeople.update().then(function() {\n  people.isUpdating; // false\n});\n\npeople.isUpdating; // true\n```",
+          "itemtype": "method",
+          "name": "update",
+          "access": "public",
+          "tagname": "",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/store/src/-private/record-arrays/identifier-array.ts",
+          "line": 483,
+          "description": "Saves all of the records in the `RecordArray`.\n\nExample\n\n```javascript\nlet messages = store.peekAll('message');\nmessages.forEach(function(message) {\n  message.hasBeenSeen = true;\n});\nmessages.save();\n```",
+          "itemtype": "method",
+          "name": "save",
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "promise",
+            "type": "Promise<IdentifierArray>"
+          },
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/store/src/-private/record-arrays/identifier-array.ts",
+          "line": 166,
+          "description": "The flag to signal a `RecordArray` is currently loading data.\nExample\n```javascript\nlet people = store.peekAll('person');\npeople.isUpdating; // false\npeople.update();\npeople.isUpdating; // true\n```",
+          "itemtype": "property",
+          "name": "isUpdating",
+          "access": "public",
+          "tagname": "",
+          "type": "Boolean",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../packages/store/src/-private/record-arrays/identifier-array.ts",
+          "line": 195,
+          "description": "The store that created this record array.",
+          "itemtype": "property",
+          "name": "store",
+          "access": "private",
+          "tagname": "",
+          "type": "Store",
+          "class": "RecordArray",
+          "module": "@ember-data/store"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.0.1-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.0.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "data": {
+    "id": "ember-data-4.9.1-@ember-data/adapter/rest",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/adapter/rest",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember-data/adapter/rest": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "../packages/adapter/addon/rest.ts",
+      "line": 72,
+      "description": "The REST adapter allows your store to communicate with an HTTP server by\ntransmitting JSON via XHR. Most Ember.js apps that consume a JSON API\nshould use the REST adapter.\n\nThis adapter is designed around the idea that the JSON exchanged with\nthe server should be conventional.\n\n## Success and failure\n\nThe REST adapter will consider a success any response with a status code\nof the 2xx family (\"Success\"), as well as 304 (\"Not Modified\"). Any other\nstatus code will be considered a failure.\n\nOn success, the request promise will be resolved with the full response\npayload.\n\nFailed responses with status code 422 (\"Unprocessable Entity\") will be\nconsidered \"invalid\". The response will be discarded, except for the\n`errors` key. The request promise will be rejected with a `InvalidError`.\nThis error object will encapsulate the saved `errors` value.\n\nAny other status codes will be treated as an \"adapter error\". The request\npromise will be rejected, similarly to the \"invalid\" case, but with\nan instance of `AdapterError` instead.\n\n## JSON Structure\n\nThe REST adapter expects the JSON returned from your server to follow\nthese conventions.\n\n### Object Root\n\nThe JSON payload should be an object that contains the record inside a\nroot property. For example, in response to a `GET` request for\n`/posts/1`, the JSON should look like this:\n\n```js\n{\n  \"posts\": {\n    \"id\": 1,\n    \"title\": \"I'm Running to Reform the W3C's Tag\",\n    \"author\": \"Yehuda Katz\"\n  }\n}\n```\n\nSimilarly, in response to a `GET` request for `/posts`, the JSON should\nlook like this:\n\n```js\n{\n  \"posts\": [\n    {\n      \"id\": 1,\n      \"title\": \"I'm Running to Reform the W3C's Tag\",\n      \"author\": \"Yehuda Katz\"\n    },\n    {\n      \"id\": 2,\n      \"title\": \"Rails is omakase\",\n      \"author\": \"D2H\"\n    }\n  ]\n}\n```\n\nNote that the object root can be pluralized for both a single-object response\nand an array response: the REST adapter is not strict on this. Further, if the\nHTTP server responds to a `GET` request to `/posts/1` (e.g. the response to a\n`findRecord` query) with more than one object in the array, Ember Data will\nonly display the object with the matching ID.\n\n### Conventional Names\n\nAttribute names in your JSON payload should be the camelCased versions of\nthe attributes in your Ember.js models.\n\nFor example, if you have a `Person` model:\n\n```js {data-filename=app/models/person.js}\nimport Model, { attr } from '@ember-data/model';\n\nexport default Model.extend({\n  firstName: attr('string'),\n  lastName: attr('string'),\n  occupation: attr('string')\n});\n```\n\nThe JSON returned should look like this:\n\n```js\n{\n  \"people\": {\n    \"id\": 5,\n    \"firstName\": \"Zaphod\",\n    \"lastName\": \"Beeblebrox\",\n    \"occupation\": \"President\"\n  }\n}\n```\n\n#### Relationships\n\nRelationships are usually represented by ids to the record in the\nrelationship. The related records can then be sideloaded in the\nresponse under a key for the type.\n\n```js\n{\n  \"posts\": {\n    \"id\": 5,\n    \"title\": \"I'm Running to Reform the W3C's Tag\",\n    \"author\": \"Yehuda Katz\",\n    \"comments\": [1, 2]\n  },\n  \"comments\": [{\n    \"id\": 1,\n    \"author\": \"User 1\",\n    \"message\": \"First!\",\n  }, {\n    \"id\": 2,\n    \"author\": \"User 2\",\n    \"message\": \"Good Luck!\",\n  }]\n}\n```\n\nIf the records in the relationship are not known when the response\nis serialized it's also possible to represent the relationship as a\nURL using the `links` key in the response. Ember Data will fetch\nthis URL to resolve the relationship when it is accessed for the\nfirst time.\n\n```js\n{\n  \"posts\": {\n    \"id\": 5,\n    \"title\": \"I'm Running to Reform the W3C's Tag\",\n    \"author\": \"Yehuda Katz\",\n    \"links\": {\n      \"comments\": \"/posts/5/comments\"\n    }\n  }\n}\n```\n\n### Errors\n\nIf a response is considered a failure, the JSON payload is expected to include\na top-level key `errors`, detailing any specific issues. For example:\n\n```js\n{\n  \"errors\": {\n    \"msg\": \"Something went wrong\"\n  }\n}\n```\n\nThis adapter does not make any assumptions as to the format of the `errors`\nobject. It will simply be passed along as is, wrapped in an instance\nof `InvalidError` or `AdapterError`. The serializer can interpret it\nafterwards.\n\n## Customization\n\n### Endpoint path customization\n\nEndpoint paths can be prefixed with a `namespace` by setting the namespace\nproperty on the adapter:\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  namespace = 'api/1';\n}\n```\nRequests for the `Person` model would now target `/api/1/people/1`.\n\n### Host customization\n\nAn adapter can target other hosts by setting the `host` property.\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  host = 'https://api.example.com';\n}\n```\n\n### Headers customization\n\nSome APIs require HTTP headers, e.g. to provide an API key. Arbitrary\nheaders can be set as key/value pairs on the `RESTAdapter`'s `headers`\nobject and Ember Data will send them along with each ajax request.\n\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\nimport { computed } from '@ember/object';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  headers: computed(function() {\n    return {\n      'API_KEY': 'secret key',\n      'ANOTHER_HEADER': 'Some header value'\n    };\n  }\n}\n```\n\n`headers` can also be used as a computed property to support dynamic\nheaders. In the example below, the `session` object has been\ninjected into an adapter by Ember's container.\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\nimport { computed } from '@ember/object';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  headers: computed('session.authToken', function() {\n    return {\n      'API_KEY': this.session.authToken,\n      'ANOTHER_HEADER': 'Some header value'\n    };\n  })\n}\n```\n\nIn some cases, your dynamic headers may require data from some\nobject outside of Ember's observer system (for example\n`document.cookie`). You can use the\n[volatile](/api/classes/Ember.ComputedProperty.html?anchor=volatile)\nfunction to set the property into a non-cached mode causing the headers to\nbe recomputed with every request.\n\n```js {data-filename=app/adapters/application.js}\nimport RESTAdapter from '@ember-data/adapter/rest';\nimport { computed } from '@ember/object';\n\nexport default class ApplicationAdapter extends RESTAdapter {\n  headers: computed(function() {\n    return {\n      'API_KEY': document.cookie.match(/apiKey\\=([^;]*)/)['1'],\n      'ANOTHER_HEADER': 'Some header value'\n    };\n  }).volatile()\n}\n```",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "RESTAdapter"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "4.9.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.9.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

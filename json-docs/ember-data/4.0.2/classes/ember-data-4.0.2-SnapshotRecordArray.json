@@ -1,0 +1,186 @@
+{
+  "data": {
+    "id": "ember-data-4.0.2-SnapshotRecordArray",
+    "type": "class",
+    "attributes": {
+      "name": "SnapshotRecordArray",
+      "shortname": "SnapshotRecordArray",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/store",
+      "namespace": "",
+      "file": "../store/addon/-private/system/snapshot-record-array.ts",
+      "line": 9,
+      "description": "SnapshotRecordArray is not directly instantiable.\nInstances are provided to consuming application's\nadapters for certain requests.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../store/addon/-private/system/snapshot-record-array.ts",
+          "line": 27,
+          "description": "SnapshotRecordArray is not directly instantiable.\nInstances are provided to consuming application's\nadapters and serializers for certain requests.",
+          "itemtype": "method",
+          "name": "constructor",
+          "access": "private",
+          "tagname": "",
+          "is_constructor": 1,
+          "params": [
+            {
+              "name": "recordArray",
+              "description": "",
+              "type": "RecordArray"
+            },
+            {
+              "name": "meta",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "options",
+              "description": ""
+            }
+          ],
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot-record-array.ts",
+          "line": 169,
+          "description": "Get snapshots of the underlying record array\n\nExample\n\n```js {data-filename=app/adapters/post.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default class PostAdapter extends JSONAPIAdapter {\n  shouldReloadAll(store, snapshotArray) {\n    let snapshots = snapshotArray.snapshots();\n\n    return snapshots.any(function(ticketSnapshot) {\n      let timeDiff = moment().diff(ticketSnapshot.attr('lastAccessedAt'), 'minutes');\n      if (timeDiff > 20) {\n        return true;\n      } else {\n        return false;\n      }\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "snapshots",
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "Array of snapshots",
+            "type": "Array"
+          },
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/store"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../store/addon/-private/system/snapshot-record-array.ts",
+          "line": 40,
+          "description": "An array of snapshots",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_snapshots",
+          "type": "{Array}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot-record-array.ts",
+          "line": 48,
+          "description": "An array of records",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_recordArray",
+          "type": "{Array}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot-record-array.ts",
+          "line": 56,
+          "description": "Number of records in the array\n\nExample\n\n```js {data-filename=app/adapters/post.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default class PostAdapter extends JSONAPIAdapter {\n  shouldReloadAll(store, snapshotRecordArray) {\n    return !snapshotRecordArray.length;\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "length",
+          "access": "public",
+          "tagname": "",
+          "type": "{Number}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot-record-array.ts",
+          "line": 79,
+          "description": "Meta objects for the record array.\n\nExample\n\n```js {data-filename=app/adapters/post.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default class PostAdapter extends JSONAPIAdapter {\n  shouldReloadAll(store, snapshotRecordArray) {\n    let lastRequestTime = snapshotRecordArray.meta.lastRequestTime;\n    let twentyMinutes = 20 * 60 * 1000;\n    return Date.now() > lastRequestTime + twentyMinutes;\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "meta",
+          "access": "public",
+          "tagname": "",
+          "type": "{Object}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot-record-array.ts",
+          "line": 102,
+          "description": "A hash of adapter options passed into the store method for this request.\n\nExample\n\n```js {data-filename=app/adapters/post.js}\nimport MyCustomAdapter from './custom-adapter';\n\nexport default class PostAdapter extends MyCustomAdapter {\n  findAll(store, type, sinceToken, snapshotRecordArray) {\n    if (snapshotRecordArray.adapterOptions.subscribe) {\n      // ...\n    }\n    // ...\n  }\n}\n```",
+          "itemtype": "property",
+          "name": "adapterOptions",
+          "access": "public",
+          "tagname": "",
+          "type": "{Object}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot-record-array.ts",
+          "line": 126,
+          "description": "The relationships to include for this request.\n\nExample\n\n```js {data-filename=app/adapters/application.js}\nimport Adapter from '@ember-data/adapter';\n\nexport default class ApplicationAdapter extends Adapter {\n  findAll(store, type, snapshotRecordArray) {\n    let url = `/${type.modelName}?include=${encodeURIComponent(snapshotRecordArray.include)}`;\n\n    return fetch(url).then((response) => response.json())\n  }\n}\n```",
+          "itemtype": "property",
+          "name": "include",
+          "access": "public",
+          "tagname": "",
+          "type": "{String|Array}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot-record-array.ts",
+          "line": 150,
+          "description": "The type of the underlying records for the snapshots in the array, as a Model",
+          "itemtype": "property",
+          "name": "type",
+          "access": "public",
+          "tagname": "",
+          "type": "{Model}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/store"
+        },
+        {
+          "file": "../store/addon/-private/system/snapshot-record-array.ts",
+          "line": 159,
+          "description": "The modelName of the underlying records for the snapshots in the array, as a Model",
+          "itemtype": "property",
+          "name": "modelName",
+          "access": "public",
+          "tagname": "",
+          "type": "{Model}",
+          "class": "SnapshotRecordArray",
+          "module": "@ember-data/store"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.0.2-@ember-data/store",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.0.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

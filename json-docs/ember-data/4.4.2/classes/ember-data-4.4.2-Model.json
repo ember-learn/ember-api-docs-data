@@ -1,0 +1,791 @@
+{
+  "data": {
+    "id": "ember-data-4.4.2-Model",
+    "type": "class",
+    "attributes": {
+      "name": "Model",
+      "shortname": "Model",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/model",
+      "namespace": "",
+      "file": "../model/addon/-private/model.js",
+      "line": 91,
+      "description": "Base class from which Models can be define.\n\n```js\nimport Model, { attr } from '@ember-data/model';\n\nexport default class User extends Model {\n  @attr name;\n}\n```",
+      "access": "public",
+      "tagname": "",
+      "extends": "Ember.EmberObject",
+      "methods": [
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 569,
+          "description": "Create a JSON representation of the record, using the serialization\nstrategy of the store's adapter.\n\n   `serialize` takes an optional hash as a parameter, currently\nsupported options are:\n\n   - `includeId`: `true` if the record's ID should be included in the\n  JSON representation.",
+          "itemtype": "method",
+          "name": "serialize",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "an object whose values are primitive JSON values only",
+            "type": "Object"
+          },
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 604,
+          "description": "Marks the record as deleted but does not save it. You must call\n`save` afterwards if you want to persist it. You might use this\nmethod if you want to allow the user to still `rollbackAttributes()`\nafter a delete was made.\n\nExample\n\n```js {data-filename=app/controllers/model/delete.js}\nimport Controller from '@ember/controller';\nimport { action } from '@ember/object';\n\nexport default class ModelDeleteController extends Controller {\n  @action\n  softDelete() {\n    this.model.deleteRecord();\n  }\n\n  @action\n  confirm() {\n    this.model.save();\n  }\n\n  @action\n  undo() {\n    this.model.rollbackAttributes();\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "deleteRecord",
+          "access": "public",
+          "tagname": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 641,
+          "description": "Same as `deleteRecord`, but saves the record immediately.\n\nExample\n\n```js {data-filename=app/controllers/model/delete.js}\nimport Controller from '@ember/controller';\nimport { action } from '@ember/object';\n\nexport default class ModelDeleteController extends Controller {\n  @action\n  delete() {\n    this.model.destroyRecord().then(function() {\n      this.transitionToRoute('model.index');\n    });\n  }\n}\n```\n\nIf you pass an object on the `adapterOptions` property of the options\nargument it will be passed to your adapter via the snapshot\n\n```js\nrecord.destroyRecord({ adapterOptions: { subscribe: false } });\n```\n\n```js {data-filename=app/adapters/post.js}\nimport MyCustomAdapter from './custom-adapter';\n\nexport default class PostAdapter extends MyCustomAdapter {\n  deleteRecord(store, type, snapshot) {\n    if (snapshot.adapterOptions.subscribe) {\n      // ...\n    }\n    // ...\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "destroyRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "a promise that will be resolved when the adapter returns\nsuccessfully or rejected if the adapter returns with an error.",
+            "type": "Promise"
+          },
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 696,
+          "description": "Unloads the record from the store. This will not send a delete request\nto your server, it just unloads the record from memory.",
+          "itemtype": "method",
+          "name": "unloadRecord",
+          "access": "public",
+          "tagname": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 710,
+          "itemtype": "method",
+          "name": "_notifyProperties",
+          "access": "private",
+          "tagname": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 727,
+          "description": "Returns an object, whose keys are changed properties, and value is\nan [oldProp, newProp] array.\n\nThe array represents the diff of the canonical state with the local state\nof the model. Note: if the model is created locally, the canonical state is\nempty since the adapter hasn't acknowledged the attributes yet:\n\nExample\n\n```js {data-filename=app/models/mascot.js}\nimport Model, { attr } from '@ember-data/model';\n\nexport default class MascotModel extends Model {\n  @attr('string') name;\n  @attr('boolean', {\n    defaultValue: false\n  })\n  isAdmin;\n}\n```\n\n```javascript\nlet mascot = store.createRecord('mascot');\n\nmascot.changedAttributes(); // {}\n\nmascot.set('name', 'Tomster');\nmascot.changedAttributes(); // { name: [undefined, 'Tomster'] }\n\nmascot.set('isAdmin', true);\nmascot.changedAttributes(); // { isAdmin: [undefined, true], name: [undefined, 'Tomster'] }\n\nmascot.save().then(function() {\n  mascot.changedAttributes(); // {}\n\n  mascot.set('isAdmin', false);\n  mascot.changedAttributes(); // { isAdmin: [true, false] }\n});\n```",
+          "itemtype": "method",
+          "name": "changedAttributes",
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "an object, whose keys are changed properties,\n  and value is an [oldProp, newProp] array.",
+            "type": "Object"
+          },
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 777,
+          "description": "If the model `hasDirtyAttributes` this function will discard any unsaved\nchanges. If the model `isNew` it will be removed from the store.\n\nExample\n\n```javascript\nrecord.get('name'); // 'Untitled Document'\nrecord.set('name', 'Doc 1');\nrecord.get('name'); // 'Doc 1'\nrecord.rollbackAttributes();\nrecord.get('name'); // 'Untitled Document'\n```",
+          "since": "1.13.0",
+          "itemtype": "method",
+          "name": "rollbackAttributes",
+          "access": "public",
+          "tagname": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 800,
+          "itemtype": "method",
+          "name": "_createSnapshot",
+          "access": "private",
+          "tagname": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 815,
+          "description": "Save the record and persist any changes to the record to an\nexternal source via the adapter.\n\nExample\n\n```javascript\nrecord.set('name', 'Tomster');\nrecord.save().then(function() {\n  // Success callback\n}, function() {\n  // Error callback\n});\n```\n\n   If you pass an object using the `adapterOptions` property of the options\n   argument it will be passed to your adapter via the snapshot.\n\n```js\nrecord.save({ adapterOptions: { subscribe: false } });\n```\n\n```js {data-filename=app/adapters/post.js}\nimport MyCustomAdapter from './custom-adapter';\n\nexport default class PostAdapter extends MyCustomAdapter {\n  updateRecord(store, type, snapshot) {\n    if (snapshot.adapterOptions.subscribe) {\n      // ...\n    }\n    // ...\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "save",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "a promise that will be resolved when the adapter returns\nsuccessfully or rejected if the adapter returns with an error.",
+            "type": "Promise"
+          },
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 865,
+          "description": "Reload the record from the adapter.\n\nThis will only work if the record has already finished loading.\n\nExample\n\n```js {data-filename=app/controllers/model/view.js}\nimport Controller from '@ember/controller';\nimport { action } from '@ember/object';\n\nexport default class ViewController extends Controller {\n  @action\n  reload() {\n    this.model.reload().then(function(model) {\n    // do something with the reloaded model\n    });\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "reload",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "options",
+              "description": "optional, may include `adapterOptions` hash which will be passed to adapter request",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "a promise that will be resolved with the record when the\nadapter returns successfully or rejected if the adapter returns\nwith an error.",
+            "type": "Promise"
+          },
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 921,
+          "description": "Get the reference for the specified belongsTo relationship.\n\nExample\n\n```js {data-filename=app/models/blog.js}\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default class BlogModel extends Model {\n  @belongsTo({ async: true }) user;\n}\n```\n\n```javascript\nlet blog = store.push({\n  data: {\n    type: 'blog',\n    id: 1,\n    relationships: {\n      user: {\n        data: { type: 'user', id: 1 }\n      }\n    }\n  }\n});\nlet userRef = blog.belongsTo('user');\n\n// check if the user relationship is loaded\nlet isLoaded = userRef.value() !== null;\n\n// get the record of the reference (null if not yet available)\nlet user = userRef.value();\n\n// get the identifier of the reference\nif (userRef.remoteType() === \"id\") {\n  let id = userRef.id();\n} else if (userRef.remoteType() === \"link\") {\n  let link = userRef.link();\n}\n\n// load user (via store.findRecord or store.findBelongsTo)\nuserRef.load().then(...)\n\n// or trigger a reload\nuserRef.reload().then(...)\n\n// provide data for reference\nuserRef.push({\n  type: 'user',\n  id: 1,\n  attributes: {\n    username: \"@user\"\n  }\n}).then(function(user) {\n  userRef.value() === user;\n});\n```",
+          "itemtype": "method",
+          "name": "belongsTo",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "name",
+              "description": "of the relationship",
+              "type": "String"
+            }
+          ],
+          "since": "2.5.0",
+          "return": {
+            "description": "reference for this relationship",
+            "type": "BelongsToReference"
+          },
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 989,
+          "description": "Get the reference for the specified hasMany relationship.\n\nExample\n\n```js {data-filename=app/models/blog.js}\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class BlogModel extends Model {\n  @hasMany({ async: true }) comments;\n}\n\nlet blog = store.push({\n  data: {\n    type: 'blog',\n    id: 1,\n    relationships: {\n      comments: {\n        data: [\n          { type: 'comment', id: 1 },\n          { type: 'comment', id: 2 }\n        ]\n      }\n    }\n  }\n});\nlet commentsRef = blog.hasMany('comments');\n\n// check if the comments are loaded already\nlet isLoaded = commentsRef.value() !== null;\n\n// get the records of the reference (null if not yet available)\nlet comments = commentsRef.value();\n\n// get the identifier of the reference\nif (commentsRef.remoteType() === \"ids\") {\n  let ids = commentsRef.ids();\n} else if (commentsRef.remoteType() === \"link\") {\n  let link = commentsRef.link();\n}\n\n// load comments (via store.findMany or store.findHasMany)\ncommentsRef.load().then(...)\n\n// or trigger a reload\ncommentsRef.reload().then(...)\n\n// provide data for reference\ncommentsRef.push([{ type: 'comment', id: 1 }, { type: 'comment', id: 2 }]).then(function(comments) {\n  commentsRef.value() === comments;\n});\n```",
+          "itemtype": "method",
+          "name": "hasMany",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "name",
+              "description": "of the relationship",
+              "type": "String"
+            }
+          ],
+          "since": "2.5.0",
+          "return": {
+            "description": "reference for this relationship",
+            "type": "HasManyReference"
+          },
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1052,
+          "description": "Given a callback, iterates over each of the relationships in the model,\ninvoking the callback with the name of each relationship and its relationship\ndescriptor.\n\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(name, descriptor);\n```\n\n- `name` the name of the current property in the iteration\n- `descriptor` the meta object that describes this relationship\n\nThe relationship descriptor argument is an object with the following properties.\n\n- **key** <span class=\"type\">String</span> the name of this relationship on the Model\n- **kind** <span class=\"type\">String</span> \"hasMany\" or \"belongsTo\"\n- **options** <span class=\"type\">Object</span> the original options hash passed when the relationship was declared\n- **parentType** <span class=\"type\">Model</span> the type of the Model that owns this relationship\n- **type** <span class=\"type\">String</span> the type name of the related Model\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context.\n\nExample\n\n```js {data-filename=app/serializers/application.js}\nimport JSONSerializer from '@ember-data/serializer/json';\n\nexport default class ApplicationSerializer extends JSONSerializer {\n   serialize(record, options) {\n   let json = {};\n\n   record.eachRelationship(function(name, descriptor) {\n     if (descriptor.kind === 'hasMany') {\n       let serializedHasManyName = name.toUpperCase() + '_IDS';\n       json[serializedHasManyName] = record.get(name).mapBy('id');\n     }\n   });\n\n   return json;\n }\n  }\n```",
+          "itemtype": "method",
+          "name": "eachRelationship",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "callback",
+              "description": "the callback to invoke",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Any"
+            }
+          ],
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1123,
+          "description": "Create should only ever be called by the store. To create an instance of a\n`Model` in a dirty state use `store.createRecord`.\n\n   To create instances of `Model` in a clean state, use `store.push`",
+          "itemtype": "method",
+          "name": "create",
+          "access": "private",
+          "tagname": "",
+          "static": 1,
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1184,
+          "description": "For a given relationship name, returns the model type of the relationship.\n\nFor example, if you define a model like this:\n\n```js {data-filename=app/models/post.js}\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class PostModel extends Model {\n  @hasMany('comment') comments;\n}\n```\n\nCalling `store.modelFor('post').typeForRelationship('comments', store)` will return `Comment`.",
+          "itemtype": "method",
+          "name": "typeForRelationship",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the relationship",
+              "type": "String"
+            },
+            {
+              "name": "store",
+              "description": "an instance of Store",
+              "type": "Store"
+            }
+          ],
+          "return": {
+            "description": "the type of the relationship, or undefined",
+            "type": "Model"
+          },
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1216,
+          "description": "Find the relationship which is the inverse of the one asked for.\n\nFor example, if you define models like this:\n\n```js {data-filename=app/models/post.js}\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class PostModel extends Model {\n   @hasMany('message') comments;\n }\n```\n\n```js {data-filename=app/models/message.js}\nimport Model from '@ember-data/model';\nimport { belongsTo } from '@ember-decorators/data';\n\nexport default class MessageModel extends Model {\n   @belongsTo('post') owner;\n }\n```\n\n``` js\nstore.modelFor('post').inverseFor('comments', store) // { type: App.Message, name: 'owner', kind: 'belongsTo' }\nstore.modelFor('message').inverseFor('owner', store) // { type: App.Post, name: 'comments', kind: 'hasMany' }\n```",
+          "itemtype": "method",
+          "name": "inverseFor",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the relationship",
+              "type": "String"
+            },
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            }
+          ],
+          "return": {
+            "description": "the inverse relationship, or null",
+            "type": "Object"
+          },
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1656,
+          "description": "Given a callback, iterates over each of the relationships in the model,\ninvoking the callback with the name of each relationship and its relationship\ndescriptor.",
+          "itemtype": "method",
+          "name": "eachRelationship",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "callback",
+              "description": "the callback to invoke",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Any"
+            }
+          ],
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1673,
+          "description": "Given a callback, iterates over each of the types related to a model,\ninvoking the callback with the related type's class. Each type will be\nreturned just once, regardless of how many different relationships it has\nwith a model.",
+          "itemtype": "method",
+          "name": "eachRelatedType",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "callback",
+              "description": "the callback to invoke",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Any"
+            }
+          ],
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1826,
+          "description": "Iterates through the attributes of the model, calling the passed function on each\nattribute.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(name, meta);\n```\n\n- `name` the name of the current property in the iteration\n- `meta` the meta object for the attribute property in the iteration\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context.\n\nExample\n\n```javascript\nimport Model, { attr } from '@ember-data/model';\n\nclass PersonModel extends Model {\n   @attr('string') firstName;\n   @attr('string') lastName;\n   @attr('date') birthday;\n }\n\nPersonModel.eachAttribute(function(name, meta) {\n   console.log(name, meta);\n });\n\n// prints:\n// firstName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"firstName\"}\n// lastName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"lastName\"}\n// birthday {type: \"date\", isAttribute: true, options: Object, parentType: function, name: \"birthday\"}\n```",
+          "itemtype": "method",
+          "name": "eachAttribute",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "static": 1,
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1876,
+          "description": "Iterates through the transformedAttributes of the model, calling\nthe passed function on each attribute. Note the callback will not be\ncalled for any attributes that do not have an transformation type.\n\nThe callback method you provide should have the following signature (all\nparameters are optional):\n\n```javascript\nfunction(name, type);\n```\n\n- `name` the name of the current property in the iteration\n- `type` a string containing the name of the type of transformed\napplied to the attribute\n\nNote that in addition to a callback, you can also pass an optional target\nobject that will be set as `this` on the context.\n\nExample\n\n```javascript\nimport Model, { attr } from '@ember-data/model';\n\nlet Person = Model.extend({\n   firstName: attr(),\n   lastName: attr('string'),\n   birthday: attr('date')\n });\n\nPerson.eachTransformedAttribute(function(name, type) {\n   console.log(name, type);\n });\n\n// prints:\n// lastName string\n// birthday date\n```",
+          "itemtype": "method",
+          "name": "eachTransformedAttribute",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "callback",
+              "description": "The callback to execute",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "the value to which the callback's `this` should be bound",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "static": 1,
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1927,
+          "description": "Returns the name of the model class.",
+          "itemtype": "method",
+          "name": "toString",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1946,
+          "description": "Provides info about the model for debugging purposes\nby grouping the properties into more semantic groups.\n\nMeant to be used by debugging tools such as the Chrome Ember Extension.\n\n- Groups all attributes in \"Attributes\" group.\n- Groups all belongsTo relationships in \"Belongs To\" group.\n- Groups all hasMany relationships in \"Has Many\" group.\n- Groups all flags in \"Flags\" group.\n- Flags relationship CPs as expensive properties.",
+          "itemtype": "method",
+          "name": "_debugInfo",
+          "access": "private",
+          "tagname": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 124,
+          "description": "If this property is `true` the record is in the `empty`\nstate. Empty is the first state all records enter after they have\nbeen created. Most records created by the store will quickly\ntransition to the `loading` state if data needs to be fetched from\nthe server or the `created` state if the record is created on the\nclient. A record can also enter the empty state if the adapter is\nunable to locate the record.",
+          "itemtype": "property",
+          "name": "isEmpty",
+          "access": "public",
+          "tagname": "",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 143,
+          "description": "If this property is `true` the record is in the `loading` state. A\nrecord enters this state when the store asks the adapter for its\ndata. It remains in this state until the adapter provides the\nrequested data.",
+          "itemtype": "property",
+          "name": "isLoading",
+          "access": "public",
+          "tagname": "",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 159,
+          "description": "If this property is `true` the record is in the `loaded` state. A\nrecord enters this state when its data is populated. Most of a\nrecord's lifecycle is spent inside substates of the `loaded`\nstate.\n\nExample\n\n```javascript\nlet record = store.createRecord('model');\nrecord.get('isLoaded'); // true\n\nstore.findRecord('model', 1).then(function(model) {\n  model.get('isLoaded'); // true\n});\n```",
+          "itemtype": "property",
+          "name": "isLoaded",
+          "access": "public",
+          "tagname": "",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 186,
+          "description": "If this property is `true` the record is in the `dirty` state. The\nrecord has local changes that have not yet been saved by the\nadapter. This includes records that have been created (but not yet\nsaved) or deleted.\n\nExample\n\n```javascript\nlet record = store.createRecord('model');\nrecord.get('hasDirtyAttributes'); // true\n\nstore.findRecord('model', 1).then(function(model) {\n  model.get('hasDirtyAttributes'); // false\n  model.set('foo', 'some value');\n  model.get('hasDirtyAttributes'); // true\n});\n```",
+          "since": "1.13.0",
+          "itemtype": "property",
+          "name": "hasDirtyAttributes",
+          "access": "public",
+          "tagname": "",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 216,
+          "description": "If this property is `true` the record is in the `saving` state. A\nrecord enters the saving state when `save` is called, but the\nadapter has not yet acknowledged that the changes have been\npersisted to the backend.\n\nExample\n\n```javascript\nlet record = store.createRecord('model');\nrecord.get('isSaving'); // false\nlet promise = record.save();\nrecord.get('isSaving'); // true\npromise.then(function() {\n  record.get('isSaving'); // false\n});\n```",
+          "itemtype": "property",
+          "name": "isSaving",
+          "access": "public",
+          "tagname": "",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 244,
+          "description": "If this property is `true` the record is in the `deleted` state\nand has been marked for deletion. When `isDeleted` is true and\n`hasDirtyAttributes` is true, the record is deleted locally but the deletion\nwas not yet persisted. When `isSaving` is true, the change is\nin-flight. When both `hasDirtyAttributes` and `isSaving` are false, the\nchange has persisted.\n\nExample\n\n```javascript\nlet record = store.createRecord('model');\nrecord.get('isDeleted');    // false\nrecord.deleteRecord();\n\n// Locally deleted\nrecord.get('isDeleted');           // true\nrecord.get('hasDirtyAttributes');  // true\nrecord.get('isSaving');            // false\n\n// Persisting the deletion\nlet promise = record.save();\nrecord.get('isDeleted');    // true\nrecord.get('isSaving');     // true\n\n// Deletion Persisted\npromise.then(function() {\n  record.get('isDeleted');          // true\n  record.get('isSaving');           // false\n  record.get('hasDirtyAttributes'); // false\n});\n```",
+          "itemtype": "property",
+          "name": "isDeleted",
+          "access": "public",
+          "tagname": "",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 287,
+          "description": "If this property is `true` the record is in the `new` state. A\nrecord will be in the `new` state when it has been created on the\nclient and the adapter has not yet report that it was successfully\nsaved.\n\nExample\n\n```javascript\nlet record = store.createRecord('model');\nrecord.get('isNew'); // true\n\nrecord.save().then(function(model) {\n  model.get('isNew'); // false\n});\n```",
+          "itemtype": "property",
+          "name": "isNew",
+          "access": "public",
+          "tagname": "",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 314,
+          "description": "If this property is `true` the record is in the `valid` state.\n\nA record will be in the `valid` state when the adapter did not report any\nserver-side validation failures.",
+          "itemtype": "property",
+          "name": "isValid",
+          "access": "public",
+          "tagname": "",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 330,
+          "description": "If the record is in the dirty state this property will report what\nkind of change has caused it to move into the dirty\nstate. Possible values are:\n\n- `created` The record has been created by the client and not yet saved to the adapter.\n- `updated` The record has been updated by the client and not yet saved to the adapter.\n- `deleted` The record has been deleted by the client and not yet saved to the adapter.\n\nExample\n\n```javascript\nlet record = store.createRecord('model');\nrecord.get('dirtyType'); // 'created'\n```",
+          "itemtype": "property",
+          "name": "dirtyType",
+          "access": "public",
+          "tagname": "",
+          "type": "{String}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 356,
+          "description": "If `true` the adapter reported that it was unable to save local\nchanges to the backend for any reason other than a server-side\nvalidation error.\n\nExample\n\n```javascript\nrecord.get('isError'); // false\nrecord.set('foo', 'valid value');\nrecord.save().then(null, function() {\n  record.get('isError'); // true\n});\n```",
+          "itemtype": "property",
+          "name": "isError",
+          "access": "public",
+          "tagname": "",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 386,
+          "description": "If `true` the store is attempting to reload the record from the adapter.\n\nExample\n\n```javascript\nrecord.get('isReloading'); // false\nrecord.reload();\nrecord.get('isReloading'); // true\n```",
+          "itemtype": "property",
+          "name": "isReloading",
+          "access": "public",
+          "tagname": "",
+          "type": "{Boolean}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 404,
+          "description": "All ember models have an id property. This is an identifier\nmanaged by an external source. These are always coerced to be\nstrings before being used internally. Note when declaring the\nattributes for a model it is an error to declare an id\nattribute.\n\n```javascript\nlet record = store.createRecord('model');\nrecord.get('id'); // null\n\nstore.findRecord('model', 1).then(function(model) {\n  model.get('id'); // '1'\n});\n```",
+          "itemtype": "property",
+          "name": "id",
+          "access": "public",
+          "tagname": "",
+          "type": "{String}",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 444,
+          "itemtype": "property",
+          "name": "currentState",
+          "access": "private",
+          "tagname": "",
+          "type": "{Object}",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 457,
+          "itemtype": "property",
+          "name": "_internalModel",
+          "access": "private",
+          "tagname": "",
+          "type": "{Object}",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 463,
+          "description": "The store service instance which created this record instance",
+          "itemtype": "property",
+          "name": "store",
+          "access": "public",
+          "tagname": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 470,
+          "description": "When the record is in the `invalid` state this object will contain\nany errors returned by the adapter. When present the errors hash\ncontains keys corresponding to the invalid property names\nand values which are arrays of Javascript objects with two keys:\n\n- `message` A string containing the error message from the backend\n- `attribute` The name of the property associated with this error message\n\n```javascript\nrecord.get('errors.length'); // 0\nrecord.set('foo', 'invalid value');\nrecord.save().catch(function() {\n  record.get('errors').get('foo');\n  // [{message: 'foo should be a number.', attribute: 'foo'}]\n});\n```\n\nThe `errors` property is useful for displaying error messages to\nthe user.\n\n```handlebars\n<label>Username: <Input @value={{@model.username}} /> </label>\n{{#each @model.errors.username as |error|}}\n  <div class=\"error\">\n    {{error.message}}\n  </div>\n{{/each}}\n<label>Email: <Input @value={{@model.email}} /> </label>\n{{#each @model.errors.email as |error|}}\n  <div class=\"error\">\n    {{error.message}}\n  </div>\n{{/each}}\n```\n\n\nYou can also access the special `messages` property on the error\nobject to get an array of all the error strings.\n\n```handlebars\n{{#each @model.errors.messages as |message|}}\n  <div class=\"error\">\n    {{message}}\n  </div>\n{{/each}}\n```",
+          "itemtype": "property",
+          "name": "errors",
+          "access": "public",
+          "tagname": "",
+          "type": "{Errors}",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 553,
+          "description": "This property holds the `AdapterError` object with which\nlast adapter operation was rejected.",
+          "itemtype": "property",
+          "name": "adapterError",
+          "access": "public",
+          "tagname": "",
+          "type": "{AdapterError}",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1134,
+          "description": "Represents the model's class name as a string. This can be used to look up the model's class name through\n`Store`'s modelFor method.\n\n`modelName` is generated for you by Ember Data. It will be a lowercased, dasherized string.\nFor example:\n\n```javascript\nstore.modelFor('post').modelName; // 'post'\nstore.modelFor('blog-post').modelName; // 'blog-post'\n```\n\nThe most common place you'll want to access `modelName` is in your serializer's `payloadKeyFromModelName` method. For example, to change payload\nkeys to underscore (instead of dasherized), you might use the following code:\n\n```javascript\nimport RESTSerializer from '@ember-data/serializer/rest';\nimport { underscore } from '@ember/string';\n\nexport default const PostSerializer = RESTSerializer.extend({\n  payloadKeyFromModelName(modelName) {\n    return underscore(modelName);\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "modelName",
+          "access": "public",
+          "tagname": "",
+          "type": "String",
+          "readonly": "",
+          "static": 1,
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1363,
+          "description": "The model's relationships as a map, keyed on the type of the\nrelationship. The value of each entry is an array containing a descriptor\nfor each relationship with that type, describing the name of the relationship\nas well as the type.\n\nFor example, given the following model definition:\n\n```js {data-filename=app/models/blog.js}\nimport Model, { belongsTo, hasMany } from '@ember-data/model';\n\nexport default class BlogModel extends Model {\n   @hasMany('user') users;\n   @belongsTo('user') owner;\n   @hasMany('post') posts;\n }\n```\n\nThis computed property would return a map describing these\nrelationships, like this:\n\n```javascript\nimport { get } from '@ember/object';\nimport Blog from 'app/models/blog';\nimport User from 'app/models/user';\nimport Post from 'app/models/post';\n\nlet relationships = Blog.relationships;\nrelationships.get('user');\n//=> [ { name: 'users', kind: 'hasMany' },\n//     { name: 'owner', kind: 'belongsTo' } ]\nrelationships.get('post');\n//=> [ { name: 'posts', kind: 'hasMany' } ]\n```",
+          "itemtype": "property",
+          "name": "relationships",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "type": "Map",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1424,
+          "description": "A hash containing lists of the model's relationships, grouped\nby the relationship kind. For example, given a model with this\ndefinition:\n\n```js {data-filename=app/models/blog.js}\nimport Model, { belongsTo, hasMany } from '@ember-data/model';\n\nexport default class BlogModel extends Model {\n   @hasMany('user') users;\n   @belongsTo('user') owner;\n\n   @hasMany('post') posts;\n }\n```\n\nThis property would contain the following:\n\n```javascript\nimport { get } from '@ember/object';\nimport Blog from 'app/models/blog';\n\nlet relationshipNames = Blog.relationshipNames;\nrelationshipNames.hasMany;\n//=> ['users', 'posts']\nrelationshipNames.belongsTo;\n//=> ['owner']\n```",
+          "itemtype": "property",
+          "name": "relationshipNames",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "type": "Object",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1475,
+          "description": "An array of types directly related to a model. Each type will be\nincluded once, regardless of the number of relationships it has with\nthe model.\n\nFor example, given a model with this definition:\n\n```js {data-filename=app/models/blog.js}\nimport Model, { belongsTo, hasMany } from '@ember-data/model';\n\nexport default class BlogModel extends Model {\n   @hasMany('user') users;\n   @belongsTo('user') owner;\n\n   @hasMany('post') posts;\n }\n```\n\nThis property would contain the following:\n\n```javascript\nimport { get } from '@ember/object';\nimport Blog from 'app/models/blog';\n\nlet relatedTypes = Blog.relatedTypes');\n//=> [ User, Post ]\n```",
+          "itemtype": "property",
+          "name": "relatedTypes",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "type": "Ember.Array",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1531,
+          "description": "A map whose keys are the relationships of a model and whose values are\nrelationship descriptors.\n\nFor example, given a model with this\ndefinition:\n\n```js {data-filename=app/models/blog.js}\nimport Model, { belongsTo, hasMany } from '@ember-data/model';\n\nexport default class BlogModel extends Model {\n   @hasMany('user') users;\n   @belongsTo('user') owner;\n\n   @hasMany('post') posts;\n }\n```\n\nThis property would contain the following:\n\n```javascript\nimport { get } from '@ember/object';\nimport Blog from 'app/models/blog';\n\nlet relationshipsByName = Blog.relationshipsByName;\nrelationshipsByName.get('users');\n//=> { key: 'users', kind: 'hasMany', type: 'user', options: Object, isRelationship: true }\nrelationshipsByName.get('owner');\n//=> { key: 'owner', kind: 'belongsTo', type: 'user', options: Object, isRelationship: true }\n```",
+          "itemtype": "property",
+          "name": "relationshipsByName",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "type": "Map",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1599,
+          "description": "A map whose keys are the fields of the model and whose values are strings\ndescribing the kind of the field. A model's fields are the union of all of its\nattributes and relationships.\n\nFor example:\n\n```js {data-filename=app/models/blog.js}\nimport Model, { attr, belongsTo, hasMany } from '@ember-data/model';\n\nexport default class BlogModel extends Model {\n   @hasMany('user') users;\n   @belongsTo('user') owner;\n\n   @hasMany('post') posts;\n\n   @attr('string') title;\n }\n```\n\n```js\nimport { get } from '@ember/object';\nimport Blog from 'app/models/blog'\n\nlet fields = Blog.fields;\nfields.forEach(function(kind, field) {\n   console.log(field, kind);\n });\n\n// prints:\n// users, hasMany\n// owner, belongsTo\n// posts, hasMany\n// title, attribute\n```",
+          "itemtype": "property",
+          "name": "fields",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "type": "Map",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1715,
+          "description": "A map whose keys are the attributes of the model (properties\ndescribed by attr) and whose values are the meta object for the\nproperty.\n\nExample\n\n```js {data-filename=app/models/person.js}\nimport Model, { attr } from '@ember-data/model';\n\nexport default class PersonModel extends Model {\n   @attr('string') firstName;\n   @attr('string') lastName;\n   @attr('date') birthday;\n }\n```\n\n```javascript\nimport { get } from '@ember/object';\nimport Person from 'app/models/person'\n\nlet attributes = Person.attributes\n\nattributes.forEach(function(meta, name) {\n   console.log(name, meta);\n });\n\n// prints:\n// firstName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"firstName\"}\n// lastName {type: \"string\", isAttribute: true, options: Object, parentType: function, name: \"lastName\"}\n// birthday {type: \"date\", isAttribute: true, options: Object, parentType: function, name: \"birthday\"}\n```",
+          "itemtype": "property",
+          "name": "attributes",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "type": "{Map}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../model/addon/-private/model.js",
+          "line": 1774,
+          "description": "A map whose keys are the attributes of the model (properties\ndescribed by attr) and whose values are type of transformation\napplied to each attribute. This map does not include any\nattributes that do not have an transformation type.\n\nExample\n\n```js {data-filename=app/models/person.js}\nimport Model, { attr } from '@ember-data/model';\n\nexport default class PersonModel extends Model {\n   @attr firstName;\n   @attr('string') lastName;\n   @attr('date') birthday;\n }\n```\n\n```javascript\nimport { get } from '@ember/object';\nimport Person from 'app/models/person';\n\nlet transformedAttributes = Person.transformedAttributes\n\ntransformedAttributes.forEach(function(field, type) {\n   console.log(field, type);\n });\n\n// prints:\n// lastName string\n// birthday date\n```",
+          "itemtype": "property",
+          "name": "transformedAttributes",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "type": "{Map}",
+          "readonly": "",
+          "class": "Model",
+          "module": "@ember-data/model"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.EmberObject",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-4.4.2-@ember-data/model",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-4.4.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

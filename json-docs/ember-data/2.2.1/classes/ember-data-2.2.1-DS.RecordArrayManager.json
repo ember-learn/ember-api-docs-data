@@ -1,0 +1,261 @@
+{
+  "data": {
+    "id": "ember-data-2.2.1-DS.RecordArrayManager",
+    "type": "class",
+    "attributes": {
+      "name": "DS.RecordArrayManager",
+      "shortname": "DS.RecordArrayManager",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-data",
+      "namespace": "DS",
+      "file": "packages/ember-data/lib/system/record-array-manager.js",
+      "line": 14,
+      "access": "private",
+      "tagname": "",
+      "extends": "Ember.Object",
+      "methods": [
+        {
+          "file": "packages/ember-data/lib/system/record-array-manager.js",
+          "line": 47,
+          "description": "This method is invoked whenever data is loaded into the store by the\nadapter or updated by the adapter, or when a record has changed.\n\nIt updates all record arrays that a record belongs to.\n\nTo avoid thrashing, it only runs at most once per run loop.",
+          "itemtype": "method",
+          "name": "updateRecordArrays",
+          "class": "DS.RecordArrayManager",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/record-array-manager.js",
+          "line": 107,
+          "description": "Update an individual filter.",
+          "itemtype": "method",
+          "name": "updateFilterRecordArray",
+          "params": [
+            {
+              "name": "array",
+              "description": "",
+              "type": "DS.FilteredRecordArray"
+            },
+            {
+              "name": "filter",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "record",
+              "description": "",
+              "type": "InternalModel"
+            }
+          ],
+          "class": "DS.RecordArrayManager",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/record-array-manager.js",
+          "line": 149,
+          "description": "This method is invoked if the `filterFunction` property is\nchanged on a `DS.FilteredRecordArray`.\n\nIt essentially re-runs the filter from scratch. This same\nmethod is invoked when the filter is created in th first place.",
+          "itemtype": "method",
+          "name": "updateFilter",
+          "params": [
+            {
+              "name": "array",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "modelName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "filter",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "class": "DS.RecordArrayManager",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/record-array-manager.js",
+          "line": 175,
+          "description": "Get the `DS.RecordArray` for a type, which contains all loaded records of\ngiven type.",
+          "itemtype": "method",
+          "name": "liveRecordArrayFor",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "Class"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "DS.RecordArray"
+          },
+          "class": "DS.RecordArrayManager",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/record-array-manager.js",
+          "line": 187,
+          "description": "Create a `DS.RecordArray` for a type.",
+          "itemtype": "method",
+          "name": "createRecordArray",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "Class"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "DS.RecordArray"
+          },
+          "class": "DS.RecordArrayManager",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/record-array-manager.js",
+          "line": 206,
+          "description": "Create a `DS.FilteredRecordArray` for a type and register it for updates.",
+          "itemtype": "method",
+          "name": "createFilteredRecordArray",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "filter",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "query",
+              "description": "(optional",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "DS.FilteredRecordArray"
+          },
+          "class": "DS.RecordArrayManager",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/record-array-manager.js",
+          "line": 230,
+          "description": "Create a `DS.AdapterPopulatedRecordArray` for a type with given query.",
+          "itemtype": "method",
+          "name": "createAdapterPopulatedRecordArray",
+          "params": [
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "query",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "DS.AdapterPopulatedRecordArray"
+          },
+          "class": "DS.RecordArrayManager",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/record-array-manager.js",
+          "line": 252,
+          "description": "Register a RecordArray for a given type to be backed by\na filter function. This will cause the array to update\nautomatically when records of that type change attribute\nvalues or states.",
+          "itemtype": "method",
+          "name": "registerFilteredRecordArray",
+          "params": [
+            {
+              "name": "array",
+              "description": "",
+              "type": "DS.RecordArray"
+            },
+            {
+              "name": "typeClass",
+              "description": "",
+              "type": "DS.Model"
+            },
+            {
+              "name": "filter",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "class": "DS.RecordArrayManager",
+          "module": "ember-data",
+          "namespace": "DS"
+        },
+        {
+          "file": "packages/ember-data/lib/system/record-array-manager.js",
+          "line": 270,
+          "description": "Unregister a RecordArray.\nSo manager will not update this array.",
+          "itemtype": "method",
+          "name": "unregisterRecordArray",
+          "params": [
+            {
+              "name": "array",
+              "description": "",
+              "type": "DS.RecordArray"
+            }
+          ],
+          "class": "DS.RecordArrayManager",
+          "module": "ember-data",
+          "namespace": "DS"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Object",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-2.2.1-ember-data",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-2.2.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
