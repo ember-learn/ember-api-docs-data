@@ -1,0 +1,261 @@
+{
+  "data": {
+    "id": "ember-2.6.2-Transition",
+    "type": "class",
+    "attributes": {
+      "name": "Transition",
+      "shortname": "Transition",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "file": "bower_components/router.js/lib/router/transition.js",
+      "line": 5,
+      "description": "A Transition is a thennable (a promise-like object) that represents\nan attempt to transition to another route. It can be aborted, either\nexplicitly via `abort` or by attempting another transition while a\nprevious one is still underway. An aborted transition can also\nbe `retry()`d later.",
+      "is_constructor": 1,
+      "params": [
+        {
+          "name": "router",
+          "description": "",
+          "type": "Object"
+        },
+        {
+          "name": "intent",
+          "description": "",
+          "type": "Object"
+        },
+        {
+          "name": "state",
+          "description": "",
+          "type": "Object"
+        },
+        {
+          "name": "error",
+          "description": "",
+          "type": "Object"
+        }
+      ],
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "bower_components/router.js/lib/router/transition.js",
+          "line": 130,
+          "description": "A standard promise hook that resolves if the transition\nsucceeds and rejects if it fails/redirects/aborts.\n\nForwards to the internal `promise` property which you can\nuse in situations where you want to pass around a thennable,\nbut not the Transition itself.",
+          "itemtype": "method",
+          "name": "then",
+          "params": [
+            {
+              "name": "onFulfilled",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "onRejected",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "label",
+              "description": "optional string for labeling the promise.\nUseful for tooling.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition"
+        },
+        {
+          "file": "bower_components/router.js/lib/router/transition.js",
+          "line": 150,
+          "description": "Forwards to the internal `promise` property which you can\n    use in situations where you want to pass around a thennable,\n    but not the Transition itself.",
+          "itemtype": "method",
+          "name": "catch",
+          "params": [
+            {
+              "name": "onRejection",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "label",
+              "description": "optional string for labeling the promise.\n    Useful for tooling.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition"
+        },
+        {
+          "file": "bower_components/router.js/lib/router/transition.js",
+          "line": 167,
+          "description": "Forwards to the internal `promise` property which you can\n    use in situations where you want to pass around a thennable,\n    but not the Transition itself.",
+          "itemtype": "method",
+          "name": "finally",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "label",
+              "description": "optional string for labeling the promise.\n    Useful for tooling.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition"
+        },
+        {
+          "file": "bower_components/router.js/lib/router/transition.js",
+          "line": 184,
+          "description": "Aborts the Transition. Note you can also implicitly abort a transition\nby initiating another transition while a previous one is underway.",
+          "itemtype": "method",
+          "name": "abort",
+          "return": {
+            "description": "this transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition"
+        },
+        {
+          "file": "bower_components/router.js/lib/router/transition.js",
+          "line": 202,
+          "description": "Retries a previously-aborted transition (making sure to abort the\n    transition if it's still active). Returns a new transition that\n    represents the new attempt to transition.",
+          "itemtype": "method",
+          "name": "retry",
+          "return": {
+            "description": "new transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition"
+        },
+        {
+          "file": "bower_components/router.js/lib/router/transition.js",
+          "line": 218,
+          "description": "Sets the URL-changing method to be employed at the end of a\n    successful transition. By default, a new Transition will just\n    use `updateURL`, but passing 'replace' to this method will\n    cause the URL to update using 'replaceWith' instead. Omitting\n    a parameter will disable the URL change, allowing for transitions\n    that don't update the URL at completion (this is also used for\n    handleURL, since the URL has already changed before the\n    transition took place).",
+          "itemtype": "method",
+          "name": "method",
+          "params": [
+            {
+              "name": "method",
+              "description": "the type of URL-changing method to use\n      at the end of a transition. Accepted values are 'replace',\n      falsy values, or any other non-falsy value (which is\n      interpreted as an updateURL transition).",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "this transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition"
+        },
+        {
+          "file": "bower_components/router.js/lib/router/transition.js",
+          "line": 243,
+          "description": "Fires an event on the current list of resolved/resolving\n    handlers within this transition. Useful for firing events\n    on route hierarchies that haven't fully been entered yet.\nNote: This method is also aliased as `send`",
+          "itemtype": "method",
+          "name": "trigger",
+          "params": [
+            {
+              "name": "ignoreFailure",
+              "description": "a boolean specifying whether unhandled events throw an error",
+              "type": "Boolean",
+              "optional": true,
+              "optdefault": "false"
+            },
+            {
+              "name": "name",
+              "description": "the name of the event to fire",
+              "type": "String"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Transition"
+        },
+        {
+          "file": "bower_components/router.js/lib/router/transition.js",
+          "line": 267,
+          "description": "Transitions are aborted and their promises rejected\nwhen redirects occur; this method returns a promise\nthat will follow any redirects that occur and fulfill\nwith the value fulfilled by any redirecting transitions\nthat occur.",
+          "itemtype": "method",
+          "name": "followRedirects",
+          "return": {
+            "description": "a promise that fulfills with the same\n  value that the final redirecting transition fulfills with",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Transition"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "bower_components/router.js/lib/router/transition.js",
+          "line": 103,
+          "description": "The Transition's internal promise. Calling `.then` on this property\nis that same as calling `.then` on the Transition object itself, but\nthis property is exposed for when you want to pass around a\nTransition's promise, but not the Transition object itself, since\nTransition object can be externally `abort`ed, while the promise\ncannot.",
+          "itemtype": "property",
+          "name": "promise",
+          "type": "{Object}",
+          "access": "public",
+          "tagname": "",
+          "class": "Transition"
+        },
+        {
+          "file": "bower_components/router.js/lib/router/transition.js",
+          "line": 117,
+          "description": "Custom state can be stored on a Transition's `data` object.\nThis can be useful for decorating a Transition within an earlier\nhook and shared with a later hook. Properties set on `data` will\nbe copied to new transitions generated by calling `retry` on this\ntransition.",
+          "itemtype": "property",
+          "name": "data",
+          "type": "{Object}",
+          "access": "public",
+          "tagname": "",
+          "class": "Transition"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.6.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.6.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "data": {
+    "id": "ember-1.1.2-Ember.Location",
+    "type": "namespace",
+    "attributes": {
+      "name": "Ember.Location",
+      "shortname": "Ember.Location",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-routing",
+      "namespace": "Ember",
+      "file": "../packages/ember-routing/lib/location/api.js",
+      "line": 24,
+      "description": "Ember.Location returns an instance of the correct implementation of\nthe `location` API.\n\nYou can pass it a `implementation` ('hash', 'history', 'none') to force a\nparticular implementation.",
+      "static": 1,
+      "methods": [
+        {
+          "file": "../packages/ember-routing/lib/location/api.js",
+          "line": 36,
+          "description": "Create an instance of a an implementation of the `location` API. Requires\nan options object with an `implementation` property.\n\nExample\n\n```javascript\nvar hashLocation = Ember.Location.create({implementation: 'hash'});\nvar historyLocation = Ember.Location.create({implementation: 'history'});\nvar noneLocation = Ember.Location.create({implementation: 'none'});\n```",
+          "itemtype": "method",
+          "name": "create",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "an instance of an implementation of the `location` API",
+            "type": "Object"
+          },
+          "class": "Ember.Location",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-routing/lib/location/api.js",
+          "line": 62,
+          "description": "Registers a class that implements the `location` API with an implementation\nname. This implementation name can then be specified by the location property on\nthe application's router class.\n\nExample\n\n```javascript\nEmber.Location.registerImplementation('history', Ember.HistoryLocation);\n\nApp.Router.reopen({\n  location: 'history'\n});\n```",
+          "itemtype": "method",
+          "name": "registerImplementation",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "implementation",
+              "description": "of the `location` API",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.Location",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.1.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.1.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

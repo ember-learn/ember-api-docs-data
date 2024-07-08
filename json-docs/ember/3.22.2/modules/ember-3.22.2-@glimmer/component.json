@@ -1,0 +1,36 @@
+{
+  "data": {
+    "id": "ember-3.22.2-@glimmer/component",
+    "type": "module",
+    "attributes": {
+      "name": "@glimmer/component",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "module",
+      "file": "packages/@ember/-internals/glimmer/lib/glimmer-component-docs.ts",
+      "line": 1,
+      "description": "A component is a reusable UI element that consists of a `.hbs` template and an\noptional JavaScript class that defines its behavior. For example, someone\nmight make a `button` in the template and handle the click behavior in the\nJavaScript file that shares the same name as the template.\n\nThe APIs available in a component vary depending on whether they import from\n`@glimmer/component` or the older \"classic\" type, `@ember/component`. The\ndocumentation below covers 100% of the available methods, hooks, and\nproperties of `@glimmer/component`. The source code can be found in\n[`@glimmer/component`](https://github.com/glimmerjs/glimmer.js/tree/master/packages/%40glimmer/component).\n\n## Defining a component\n\nTo define a component, subclass `Component` and add your own properties,\nmethods and lifecycle hooks:\n\n```javascript\nimport Component from '@glimmer/component';\n\nexport default class SomeComponent extends Component {\n  // your code here\n}\n```\n\n## `constructor`\n\nparams: `owner` object and `args` object\n\nConstructs a new component and assigns itself the passed properties. The\nconstructor is run whenever a new instance of the component is created, and\ncan be used to setup the initial state of the component.\n\n```javascript\nimport Component from '@glimmer/component';\n\nexport default class SomeComponent extends Component {\n  constructor(owner, args) {\n    super(owner, args);\n\n    if (this.args.displayMode === 'list') {\n      this.items = [];\n    }\n  }\n}\n```\n\nService injections and arguments are available in the constructor.\n\n```javascript\nimport Component from '@glimmer/component';\nimport { inject as service } from '@ember/service';\n\nexport default class SomeComponent extends Component {\n  @service myAnimations;\n\n  constructor(owner, args) {\n    super(owner, args);\n\n    if (this.args.fadeIn === true) {\n      this.myAnimations.register(this, 'fade-in');\n    }\n  }\n}\n```\n\n## `willDestroy`\n\n`willDestroy` is called after the component has been removed from the DOM, but\nbefore the component is fully destroyed. This lifecycle hook can be used to\ncleanup the component and any related state.\n\n```javascript\nimport Component from '@glimmer/component';\nimport { inject as service } from '@ember/service';\n\nexport default class SomeComponent extends Component {\n  @service myAnimations;\n\n  willDestroy() {\n    this.myAnimations.unregister(this);\n  }\n}\n```\n\n## `args`\n\nThe `args` property of Glimmer components is an object that contains the\n_arguments_ that are passed to the component. For instance, the\nfollowing component usage:\n\n```handlebars\n<SomeComponent @fadeIn={{true}} />\n```\n\nWould result in the following `args` object to be passed to the component:\n\n```javascript\n{ fadeIn: true }\n```\n\n`args` can be accessed at any point in the component lifecycle, including\n`constructor` and `willDestroy`. They are also automatically marked as tracked\nproperties, and they can be depended on as computed property dependencies:\n\n```javascript\nimport Component from '@glimmer/component';\nimport { computed } from '@ember/object';\n\nexport default class SomeComponent extends Component {\n\n  @computed('args.someValue')\n  get computedGetter() {\n    // updates whenever args.someValue updates\n    return this.args.someValue;\n  }\n\n  get standardGetter() {\n    // updates whenever args.anotherValue updates (Ember 3.13+)\n    return this.args.anotherValue;\n  }\n}\n```\n\n## `isDestroying`\n\nA boolean flag to tell if the component is in the process of destroying. This is set to\ntrue before `willDestroy` is called.\n\n## `isDestroyed`\nA boolean to tell if the component has been fully destroyed. This is set to true\nafter `willDestroy` is called.",
+      "access": "public",
+      "tagname": "",
+      "parent": null,
+      "publicclasses": [],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "3.22.2"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.22.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

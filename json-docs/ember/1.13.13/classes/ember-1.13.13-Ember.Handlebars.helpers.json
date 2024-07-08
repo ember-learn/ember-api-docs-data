@@ -1,0 +1,126 @@
+{
+  "data": {
+    "id": "ember-1.13.13-Ember.Handlebars.helpers",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Handlebars.helpers",
+      "shortname": "Ember.Handlebars.helpers",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-htmlbars",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/ember-htmlbars/lib/helpers/bind-attr.js",
+          "line": 6,
+          "description": "`bind-attr` allows you to create a binding between DOM element attributes and\nEmber objects. For example:\n\n```handlebars\n<img {{bind-attr src=imageUrl alt=imageTitle}}>\n```\n\nThe above handlebars template will fill the `<img>`'s `src` attribute with\nthe value of the property referenced with `imageUrl` and its `alt`\nattribute with the value of the property referenced with `imageTitle`.\n\nIf the rendering context of this template is the following object:\n\n```javascript\n{\n  imageUrl: 'http://lolcats.info/haz-a-funny',\n  imageTitle: 'A humorous image of a cat'\n}\n```\n\nThe resulting HTML output will be:\n\n```html\n<img src=\"http://lolcats.info/haz-a-funny\" alt=\"A humorous image of a cat\">\n```\n\n`bind-attr` cannot redeclare existing DOM element attributes. The use of `src`\nin the following `bind-attr` example will be ignored and the hard coded value\nof `src=\"/failwhale.gif\"` will take precedence:\n\n```handlebars\n<img src=\"/failwhale.gif\" {{bind-attr src=imageUrl alt=imageTitle}}>\n```\n\n### `bind-attr` and the `class` attribute\n\n`bind-attr` supports a special syntax for handling a number of cases unique\nto the `class` DOM element attribute. The `class` attribute combines\nmultiple discrete values into a single attribute as a space-delimited\nlist of strings. Each string can be:\n\n* a string return value of an object's property.\n* a boolean return value of an object's property\n* a hard-coded value\n\nA string return value works identically to other uses of `bind-attr`. The\nreturn value of the property will become the value of the attribute. For\nexample, the following view and template:\n\n```javascript\n  AView = View.extend({\n    someProperty: function() {\n      return \"aValue\";\n    }.property()\n  })\n```\n\n```handlebars\n<img {{bind-attr class=view.someProperty}}>\n```\n\nResult in the following rendered output:\n\n```html\n<img class=\"aValue\">\n```\n\nA boolean return value will insert a specified class name if the property\nreturns `true` and remove the class name if the property returns `false`.\n\nA class name is provided via the syntax\n`somePropertyName:class-name-if-true`.\n\n```javascript\nAView = View.extend({\n  someBool: true\n})\n```\n\n```handlebars\n<img {{bind-attr class=\"view.someBool:class-name-if-true\"}}>\n```\n\nResult in the following rendered output:\n\n```html\n<img class=\"class-name-if-true\">\n```\n\nAn additional section of the binding can be provided if you want to\nreplace the existing class instead of removing it when the boolean\nvalue changes:\n\n```handlebars\n<img {{bind-attr class=\"view.someBool:class-name-if-true:class-name-if-false\"}}>\n```\n\nA hard-coded value can be used by prepending `:` to the desired\nclass name: `:class-name-to-always-apply`.\n\n```handlebars\n<img {{bind-attr class=\":class-name-to-always-apply\"}}>\n```\n\nResults in the following rendered output:\n\n```html\n<img class=\"class-name-to-always-apply\">\n```\n\nAll three strategies - string return value, boolean return value, and\nhard-coded value – can be combined in a single declaration:\n\n```handlebars\n<img {{bind-attr class=\":class-name-to-always-apply view.someBool:class-name-if-true view.someProperty\"}}>\n```",
+          "itemtype": "method",
+          "name": "bind-attr",
+          "deprecated": true,
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "HTML string",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Handlebars.helpers",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        },
+        {
+          "file": "packages/ember-htmlbars/lib/helpers/bind-attr.js",
+          "line": 132,
+          "description": "See `bind-attr`",
+          "itemtype": "method",
+          "name": "bindAttr",
+          "deprecated": true,
+          "params": [
+            {
+              "name": "context",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "HTML string",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Handlebars.helpers",
+          "module": "ember",
+          "submodule": "ember-htmlbars"
+        },
+        {
+          "file": "packages/ember-routing-htmlbars/lib/keywords/link-to.js",
+          "line": 340,
+          "description": "See [link-to](/api/classes/Ember.Handlebars.helpers.html#method_link-to)",
+          "itemtype": "method",
+          "name": "linkTo",
+          "deprecated": true,
+          "params": [
+            {
+              "name": "routeName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "",
+              "type": "Object",
+              "optional": true,
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "HTML string",
+            "type": "String"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Handlebars.helpers",
+          "module": "ember",
+          "submodule": "ember-routing-htmlbars"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.13.13-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.13.13",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

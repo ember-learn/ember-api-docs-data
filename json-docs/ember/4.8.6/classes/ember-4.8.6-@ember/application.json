@@ -1,0 +1,138 @@
+{
+  "data": {
+    "id": "ember-4.8.6-@ember/application",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/application",
+      "shortname": "@ember/application",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/application",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 31,
+          "description": "Framework objects in an Ember application (components, services, routes, etc.)\nare created via a factory and dependency injection system. Each of these\nobjects is the responsibility of an \"owner\", which handled its\ninstantiation and manages its lifetime.\n\n`getOwner` fetches the owner object responsible for an instance. This can\nbe used to lookup or resolve other class instances, or register new factories\ninto the owner.\n\nFor example, this component dynamically looks up a service based on the\n`audioType` passed as an argument:\n\n```js {data-filename=app/components/play-audio.js}\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\nimport { getOwner } from '@ember/application';\n\n// Usage:\n//\n//   <PlayAudio @audioType={{@model.audioType}} @audioFile={{@model.file}}/>\n//\nexport default class extends Component {\n  get audioService() {\n    let owner = getOwner(this);\n    return owner.lookup(`service:${this.args.audioType}`);\n  }\n\n  @action\n  onPlay() {\n    let player = this.audioService;\n    player.play(this.args.audioFile);\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "getOwner",
+          "static": 1,
+          "params": [
+            {
+              "name": "object",
+              "description": "An object with an owner.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "An owner object.",
+            "type": "Object"
+          },
+          "since": "2.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 79,
+          "description": "`setOwner` forces a new owner on a given object instance. This is primarily\nuseful in some testing cases.",
+          "itemtype": "method",
+          "name": "setOwner",
+          "static": 1,
+          "params": [
+            {
+              "name": "object",
+              "description": "An object instance.",
+              "type": "Object"
+            },
+            {
+              "name": "object",
+              "description": "The new owner object of the object instance.",
+              "type": "Object"
+            }
+          ],
+          "since": "2.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/lazy_load.ts",
+          "line": 14,
+          "description": "Detects when a specific package of Ember (e.g. 'Application')\nhas fully loaded and is available for extension.\n\nThe provided `callback` will be called with the `name` passed\nresolved from a string into the object:\n\n``` javascript\nimport { onLoad } from '@ember/application';\n\nonLoad('Ember.Application' function(hbars) {\n  hbars.registerHelper(...);\n});\n```",
+          "itemtype": "method",
+          "name": "onLoad",
+          "static": 1,
+          "params": [
+            {
+              "name": "name",
+              "description": "name of hook",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "callback to be called",
+              "type": "Function"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/lazy_load.ts",
+          "line": 47,
+          "description": "Called when an Ember.js package (e.g Application) has finished\nloading. Triggers any callbacks registered for this event.",
+          "itemtype": "method",
+          "name": "runLoadHooks",
+          "static": 1,
+          "params": [
+            {
+              "name": "name",
+              "description": "name of hook",
+              "type": "String"
+            },
+            {
+              "name": "object",
+              "description": "object to pass to callbacks",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/application",
+          "module": "@ember/application"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-4.8.6-@ember/application",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-4.8.6",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

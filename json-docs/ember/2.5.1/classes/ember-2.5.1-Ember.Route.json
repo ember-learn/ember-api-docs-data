@@ -1,0 +1,2085 @@
+{
+  "data": {
+    "id": "ember-2.5.1-Ember.Route",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Route",
+      "shortname": "Ember.Route",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-routing",
+      "namespace": "Ember",
+      "file": "packages/ember-routing/lib/system/route.js",
+      "line": 43,
+      "description": "The `Ember.Route` class is used to define individual routes. Refer to\nthe [routing guide](http://emberjs.com/guides/routing/) for documentation.",
+      "extends": "Ember.Object",
+      "uses": [
+        "Ember.Evented",
+        "Ember.ActionHandler"
+      ],
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 263,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_stashNames",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 305,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_updatingQPChanged",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 316,
+          "description": "Retrieves parameters, for current route using the state.params\nvariable and getQueryParamsFor, using the supplied routeName.",
+          "itemtype": "method",
+          "name": "paramsFor",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 341,
+          "description": "Serializes the query parameter key",
+          "itemtype": "method",
+          "name": "serializeQueryParamKey",
+          "params": [
+            {
+              "name": "controllerPropertyName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 352,
+          "description": "Serializes value of the query parameter based on defaultValueType",
+          "itemtype": "method",
+          "name": "serializeQueryParam",
+          "params": [
+            {
+              "name": "value",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "urlKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "defaultValueType",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 371,
+          "description": "Deserializes value of the query parameter based on defaultValueType",
+          "itemtype": "method",
+          "name": "deserializeQueryParam",
+          "params": [
+            {
+              "name": "value",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "urlKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "defaultValueType",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 406,
+          "description": "A hook you can use to reset controller values either when the model\nchanges or the route is exiting.\n\n```javascript\nApp.ArticlesRoute = Ember.Route.extend({\n  // ...\n\n  resetController: function(controller, isExiting, transition) {\n    if (isExiting) {\n      controller.set('page', 1);\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "resetController",
+          "params": [
+            {
+              "name": "controller",
+              "description": "instance",
+              "type": "Controller"
+            },
+            {
+              "name": "isExiting",
+              "description": "",
+              "type": "Boolean"
+            },
+            {
+              "name": "transition",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "since": "1.7.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 431,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "exit",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 442,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_reset",
+          "since": "1.7.0",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 455,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "enter",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 855,
+          "description": "This hook is executed when the router completely exits this route. It is\nnot executed when the model for the route changes.",
+          "itemtype": "method",
+          "name": "deactivate",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 864,
+          "description": "This hook is executed when the router enters the route. It is not executed\nwhen the model for the route changes.",
+          "itemtype": "method",
+          "name": "activate",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 873,
+          "description": "Transition the application into another route. The route may\nbe either a single route or route path:\n\n```javascript\nthis.transitionTo('blogPosts');\nthis.transitionTo('blogPosts.recentEntries');\n```\n\nOptionally supply a model for the route in question. The model\nwill be serialized into the URL using the `serialize` hook of\nthe route:\n\n```javascript\nthis.transitionTo('blogPost', aPost);\n```\n\nIf a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the `model`\nhook of the route will be triggered:\n\n```javascript\nthis.transitionTo('blogPost', 1);\n```\n\nMultiple models will be applied last to first recursively up the\nroute tree.\n\n```javascript\nApp.Router.map(function() {\n  this.route('blogPost', { path:':blogPostId' }, function() {\n    this.route('blogComment', { path: ':blogCommentId', resetNamespace: true });\n  });\n});\n\nthis.transitionTo('blogComment', aPost, aComment);\nthis.transitionTo('blogComment', 1, 13);\n```\n\nIt is also possible to pass a URL (a string that starts with a\n`/`). This is intended for testing and debugging purposes and\nshould rarely be used in production code.\n\n```javascript\nthis.transitionTo('/');\nthis.transitionTo('/blog/post/1/comment/13');\nthis.transitionTo('/blog/posts?sort=title');\n```\n\nAn options hash with a `queryParams` property may be provided as\nthe final argument to add query parameters to the destination URL.\n\n```javascript\nthis.transitionTo('blogPost', 1, {\n  queryParams: {showComments: 'true'}\n});\n\n// if you just want to transition the query parameters without changing the route\nthis.transitionTo({queryParams: {sort: 'date'}});\n```\n\nSee also [replaceWith](#method_replaceWith).\n\nSimple Transition Example\n\n```javascript\nApp.Router.map(function() {\n  this.route('index');\n  this.route('secret');\n  this.route('fourOhFour', { path: '*:' });\n});\n\nApp.IndexRoute = Ember.Route.extend({\n  actions: {\n    moveToSecret: function(context) {\n      if (authorized()) {\n        this.transitionTo('secret', context);\n      } else {\n        this.transitionTo('fourOhFour');\n      }\n    }\n  }\n});\n```\n\nTransition to a nested route\n\n```javascript\nApp.Router.map(function() {\n  this.route('articles', { path: '/articles' }, function() {\n    this.route('new');\n  });\n});\n\nApp.IndexRoute = Ember.Route.extend({\n  actions: {\n    transitionToNewArticle: function() {\n      this.transitionTo('articles.new');\n    }\n  }\n});\n```\n\nMultiple Models Example\n\n```javascript\nApp.Router.map(function() {\n  this.route('index');\n\n  this.route('breakfast', { path: ':breakfastId' }, function() {\n    this.route('cereal', { path: ':cerealId', resetNamespace: true });\n  });\n});\n\nApp.IndexRoute = Ember.Route.extend({\n  actions: {\n    moveToChocolateCereal: function() {\n      var cereal = { cerealId: 'ChocolateYumminess' };\n      var breakfast = { breakfastId: 'CerealAndMilk' };\n\n      this.transitionTo('cereal', breakfast, cereal);\n    }\n  }\n});\n```\n\nNested Route with Query String Example\n\n```javascript\nApp.Router.map(function() {\n  this.route('fruits', function() {\n    this.route('apples');\n  });\n});\n\nApp.IndexRoute = Ember.Route.extend({\n  actions: {\n    transitionToApples: function() {\n      this.transitionTo('fruits.apples', {queryParams: {color: 'red'}});\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "transitionTo",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used while\n  transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\n  containing a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the transition object associated with this\n  attempted transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1032,
+          "description": "Perform a synchronous transition into another route without attempting\nto resolve promises, update the URL, or abort any currently active\nasynchronous transitions (i.e. regular transitions caused by\n`transitionTo` or URL changes).\n\nThis method is handy for performing intermediate transitions on the\nway to a final destination route, and is called internally by the\ndefault implementations of the `error` and `loading` handlers.",
+          "itemtype": "method",
+          "name": "intermediateTransitionTo",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) to be used while transitioning\nto the route.",
+              "type": "...Object"
+            }
+          ],
+          "since": "1.2.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1054,
+          "description": "Refresh the model on this route and any child routes, firing the\n`beforeModel`, `model`, and `afterModel` hooks in a similar fashion\nto how routes are entered when transitioning in from other route.\nThe current route params (e.g. `article_id`) will be passed in\nto the respective model hooks, and if a different model is returned,\n`setupController` and associated route hooks will re-fire as well.\n\nAn example usage of this method is re-querying the server for the\nlatest information using the same parameters as when the route\nwas first entered.\n\nNote that this will cause `model` hooks to fire even on routes\nthat were provided a model object when the route was initially\nentered.",
+          "itemtype": "method",
+          "name": "refresh",
+          "return": {
+            "description": "the transition object associated with this\n  attempted transition",
+            "type": "Transition"
+          },
+          "since": "1.4.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1080,
+          "description": "Transition into another route while replacing the current URL, if possible.\nThis will replace the current history entry instead of adding a new one.\nBeside that, it is identical to `transitionTo` in all other respects. See\n'transitionTo' for additional information regarding multiple models.\n\nExample\n\n```javascript\nApp.Router.map(function() {\n  this.route('index');\n  this.route('secret');\n});\n\nApp.SecretRoute = Ember.Route.extend({\n  afterModel: function() {\n    if (!authorized()){\n      this.replaceWith('index');\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "replaceWith",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used while\n  transitioning to the route.",
+              "type": "...Object"
+            }
+          ],
+          "return": {
+            "description": "the transition object associated with this\n  attempted transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1116,
+          "description": "Sends an action to the router, which will delegate it to the currently\nactive route hierarchy per the bubbling rules explained under `actions`.\n\nExample\n\n```javascript\nApp.Router.map(function() {\n  this.route('index');\n});\n\nApp.ApplicationRoute = Ember.Route.extend({\n  actions: {\n    track: function(arg) {\n      console.log(arg, 'was clicked');\n    }\n  }\n});\n\nApp.IndexRoute = Ember.Route.extend({\n  actions: {\n    trackIfDebug: function(arg) {\n      if (debug) {\n        this.send('track', arg);\n      }\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "",
+              "type": "...*"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1164,
+          "description": "This hook is the entry point for router.js",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "setup",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1248,
+          "description": "This hook is the first of the route entry validation hooks\ncalled when an attempt is made to transition into a route\nor one of its children. It is called before `model` and\n`afterModel`, and is appropriate for cases when:\n\n1) A decision can be made to redirect elsewhere without\n   needing to resolve the model first.\n2) Any async operations need to occur first before the\n   model is attempted to be resolved.\n\nThis hook is provided the current `transition` attempt\nas a parameter, which can be used to `.abort()` the transition,\nsave it for a later `.retry()`, or retrieve values set\non it from a previous hook. You can also just call\n`this.transitionTo` to another route to implicitly\nabort the `transition`.\n\nYou can return a promise from this hook to pause the\ntransition until the promise resolves (or rejects). This could\nbe useful, for instance, for retrieving async code from\nthe server that is required to enter a route.\n\n```javascript\nApp.PostRoute = Ember.Route.extend({\n  beforeModel: function(transition) {\n    if (!App.Post) {\n      return Ember.$.getScript('/models/post.js');\n    }\n  }\n});\n```\n\nIf `App.Post` doesn't exist in the above example,\n`beforeModel` will use jQuery's `getScript`, which\nreturns a promise that resolves after the server has\nsuccessfully retrieved and executed the code from the\nserver. Note that if an error were to occur, it would\nbe passed to the `error` hook on `Ember.Route`, but\nit's also possible to handle errors specific to\n`beforeModel` right from within the hook (to distinguish\nfrom the shared error handling behavior of the `error`\nhook):\n\n```javascript\nApp.PostRoute = Ember.Route.extend({\n  beforeModel: function(transition) {\n    if (!App.Post) {\n      var self = this;\n      return Ember.$.getScript('post.js').then(null, function(e) {\n        self.transitionTo('help');\n\n        // Note that the above transitionTo will implicitly\n        // halt the transition. If you were to return\n        // nothing from this promise reject handler,\n        // according to promise semantics, that would\n        // convert the reject into a resolve and the\n        // transition would continue. To propagate the\n        // error so that it'd be handled by the `error`\n        // hook, you would have to\n        return Ember.RSVP.reject(e);\n      });\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "beforeModel",
+          "params": [
+            {
+              "name": "transition",
+              "description": "",
+              "type": "Transition"
+            }
+          ],
+          "return": {
+            "description": "if the value returned from this hook is\n  a promise, the transition will pause until the transition\n  resolves. Otherwise, non-promise return values are not\n  utilized in any way.",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1325,
+          "description": "This hook is called after this route's model has resolved.\nIt follows identical async/promise semantics to `beforeModel`\nbut is provided the route's resolved model in addition to\nthe `transition`, and is therefore suited to performing\nlogic that can only take place after the model has already\nresolved.\n\n```javascript\nApp.PostsRoute = Ember.Route.extend({\n  afterModel: function(posts, transition) {\n    if (posts.get('length') === 1) {\n      this.transitionTo('post.show', posts.get('firstObject'));\n    }\n  }\n});\n```\n\nRefer to documentation for `beforeModel` for a description\nof transition-pausing semantics when a promise is returned\nfrom this hook.",
+          "itemtype": "method",
+          "name": "afterModel",
+          "params": [
+            {
+              "name": "resolvedModel",
+              "description": "the value returned from `model`,\n  or its resolved value if it was a promise",
+              "type": "Object"
+            },
+            {
+              "name": "transition",
+              "description": "",
+              "type": "Transition"
+            }
+          ],
+          "return": {
+            "description": "if the value returned from this hook is\n  a promise, the transition will pause until the transition\n  resolves. Otherwise, non-promise return values are not\n  utilized in any way.",
+            "type": "Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1359,
+          "description": "A hook you can implement to optionally redirect to another route.\n\nIf you call `this.transitionTo` from inside of this hook, this route\nwill not be entered in favor of the other hook.\n\n`redirect` and `afterModel` behave very similarly and are\ncalled almost at the same time, but they have an important\ndistinction in the case that, from one of these hooks, a\nredirect into a child route of this route occurs: redirects\nfrom `afterModel` essentially invalidate the current attempt\nto enter this route, and will result in this route's `beforeModel`,\n`model`, and `afterModel` hooks being fired again within\nthe new, redirecting transition. Redirects that occur within\nthe `redirect` hook, on the other hand, will _not_ cause\nthese hooks to be fired again the second time around; in\nother words, by the time the `redirect` hook has been called,\nboth the resolved model and attempted entry into this route\nare considered to be fully validated.",
+          "itemtype": "method",
+          "name": "redirect",
+          "params": [
+            {
+              "name": "model",
+              "description": "the model for this route",
+              "type": "Object"
+            },
+            {
+              "name": "transition",
+              "description": "the transition object associated with the current transition",
+              "type": "Transition"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1386,
+          "description": "Called when the context is changed by router.js.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "contextDidChange",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1396,
+          "description": "A hook you can implement to convert the URL into the model for\nthis route.\n\n```javascript\nApp.Router.map(function() {\n  this.route('post', { path: '/posts/:post_id' });\n});\n```\n\nThe model for the `post` route is `store.findRecord('post', params.post_id)`.\n\nBy default, if your route has a dynamic segment ending in `_id`:\n\n* The model class is determined from the segment (`post_id`'s\n  class is `App.Post`)\n* The find method is called on the model class with the value of\n  the dynamic segment.\n\nNote that for routes with dynamic segments, this hook is not always\nexecuted. If the route is entered through a transition (e.g. when\nusing the `link-to` Handlebars helper or the `transitionTo` method\nof routes), and a model context is already provided this hook\nis not called.\n\nA model context does not include a primitive string or number,\nwhich does cause the model hook to be called.\n\nRoutes without dynamic segments will always execute the model hook.\n\n```javascript\n// no dynamic segment, model hook always called\nthis.transitionTo('posts');\n\n// model passed in, so model hook not called\nthePost = store.findRecord('post', 1);\nthis.transitionTo('post', thePost);\n\n// integer passed in, model hook is called\nthis.transitionTo('post', 1);\n\n// model id passed in, model hook is called\n// useful for forcing the hook to execute\nthePost = store.findRecord('post', 1);\nthis.transitionTo('post', thePost.id);\n```\n\n\nThis hook follows the asynchronous/promise semantics\ndescribed in the documentation for `beforeModel`. In particular,\nif a promise returned from `model` fails, the error will be\nhandled by the `error` hook on `Ember.Route`.\n\nExample\n\n```javascript\nApp.PostRoute = Ember.Route.extend({\n  model: function(params) {\n    return this.store.findRecord('post', params.post_id);\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "model",
+          "params": [
+            {
+              "name": "params",
+              "description": "the parameters extracted from the URL",
+              "type": "Object"
+            },
+            {
+              "name": "transition",
+              "description": "",
+              "type": "Transition"
+            }
+          ],
+          "return": {
+            "description": "the model for this route. If\n  a promise is returned, the transition will pause until\n  the promise resolves, and the resolved value of the promise\n  will be used as the model for this route.",
+            "type": "Object|Promise"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1497,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "deserialize",
+          "params": [
+            {
+              "name": "params",
+              "description": "the parameters extracted from the URL",
+              "type": "Object"
+            },
+            {
+              "name": "transition",
+              "description": "",
+              "type": "Transition"
+            }
+          ],
+          "return": {
+            "description": "the model for this route.\n\nRouter.js hook.",
+            "type": "Object|Promise"
+          },
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1510,
+          "itemtype": "method",
+          "name": "findModel",
+          "params": [
+            {
+              "name": "type",
+              "description": "the model type",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "the value passed to find",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1522,
+          "description": "Store property provides a hook for data persistence libraries to inject themselves.\n\nBy default, this store property provides the exact same functionality previously\nin the model hook.\n\nCurrently, the required interface is:\n\n`store.find(modelName, findArguments)`",
+          "itemtype": "method",
+          "name": "store",
+          "params": [
+            {
+              "name": "store",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1557,
+          "description": "A hook you can implement to convert the route's model into parameters\nfor the URL.\n\n```javascript\nApp.Router.map(function() {\n  this.route('post', { path: '/posts/:post_id' });\n});\n\nApp.PostRoute = Ember.Route.extend({\n  model: function(params) {\n    // the server returns `{ id: 12 }`\n    return Ember.$.getJSON('/posts/' + params.post_id);\n  },\n\n  serialize: function(model) {\n    // this will make the URL `/posts/12`\n    return { post_id: model.id };\n  }\n});\n```\n\nThe default `serialize` method will insert the model's `id` into the\nroute's dynamic segment (in this case, `:post_id`) if the segment contains '_id'.\nIf the route has multiple dynamic segments or does not contain '_id', `serialize`\nwill return `Ember.getProperties(model, params)`\n\nThis method is called when `transitionTo` is called with a context\nin order to populate the URL.",
+          "itemtype": "method",
+          "name": "serialize",
+          "params": [
+            {
+              "name": "model",
+              "description": "the routes model",
+              "type": "Object"
+            },
+            {
+              "name": "params",
+              "description": "an Array of parameter names for the current\n  route (in the example, `['post_id']`.",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "the serialized parameters",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1614,
+          "description": "A hook you can use to setup the controller for the current route.\n\nThis method is called with the controller for the current route and the\nmodel supplied by the `model` hook.\n\nBy default, the `setupController` hook sets the `model` property of\nthe controller to the `model`.\n\nIf you implement the `setupController` hook in your Route, it will\nprevent this default behavior. If you want to preserve that behavior\nwhen implementing your `setupController` function, make sure to call\n`_super`:\n\n```javascript\nApp.PhotosRoute = Ember.Route.extend({\n  model: function() {\n    return this.store.findAll('photo');\n  },\n\n  setupController: function(controller, model) {\n    // Call _super for default behavior\n    this._super(controller, model);\n    // Implement your custom setup after\n    this.controllerFor('application').set('showingPhotos', true);\n  }\n});\n```\n\nThe provided controller will be one resolved based on the name\nof this route.\n\nIf no explicit controller is defined, Ember will automatically create one.\n\nAs an example, consider the router:\n\n```javascript\nApp.Router.map(function() {\n  this.route('post', { path: '/posts/:post_id' });\n});\n```\n\nFor the `post` route, a controller named `App.PostController` would\nbe used if it is defined. If it is not defined, a basic `Ember.Controller`\ninstance would be used.\n\nExample\n\n```javascript\nApp.PostRoute = Ember.Route.extend({\n  setupController: function(controller, model) {\n    controller.set('model', model);\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "setupController",
+          "params": [
+            {
+              "name": "controller",
+              "description": "instance",
+              "type": "Controller"
+            },
+            {
+              "name": "model",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1681,
+          "description": "Returns the controller for a particular route or name.\n\nThe controller instance must already have been created, either through entering the\nassociated route or using `generateController`.\n\n```javascript\nApp.PostRoute = Ember.Route.extend({\n  setupController: function(controller, post) {\n    this._super(controller, post);\n    this.controllerFor('posts').set('currentPost', post);\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "controllerFor",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or controller",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Controller"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1720,
+          "description": "Generates a controller for a route.\n\nExample\n\n```javascript\nApp.PostRoute = Ember.Route.extend({\n  setupController: function(controller, post) {\n    this._super(controller, post);\n    this.generateController('posts', post);\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "generateController",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the controller",
+              "type": "String"
+            },
+            {
+              "name": "model",
+              "description": "the model to infer the type of the controller (optional)",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1747,
+          "description": "Returns the resolved model of a parent (or any ancestor) route\nin a route hierarchy.  During a transition, all routes\nmust resolve a model object, and if a route\nneeds access to a parent route's model in order to\nresolve a model (or just reuse the model from a parent),\nit can call `this.modelFor(theNameOfParentRoute)` to\nretrieve it. If the ancestor route's model was a promise,\nits resolved result is returned.\n\nExample\n\n```javascript\nApp.Router.map(function() {\n    this.route('post', { path: '/post/:post_id' }, function() {\n      this.route('comments', { resetNamespace: true });\n    });\n});\n\nApp.CommentsRoute = Ember.Route.extend({\n    afterModel: function() {\n      this.set('post', this.modelFor('post'));\n    }\n});\n```",
+          "itemtype": "method",
+          "name": "modelFor",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the model object",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1794,
+          "description": "A hook you can use to render the template for the current route.\n\nThis method is called with the controller for the current route and the\nmodel supplied by the `model` hook. By default, it renders the route's\ntemplate, configured with the controller for the route.\n\nThis method can be overridden to set up and render additional or\nalternative templates.\n\n```javascript\nApp.PostsRoute = Ember.Route.extend({\n  renderTemplate: function(controller, model) {\n    var favController = this.controllerFor('favoritePost');\n\n    // Render the `favoritePost` template into\n    // the outlet `posts`, and display the `favoritePost`\n    // controller.\n    this.render('favoritePost', {\n      outlet: 'posts',\n      controller: favController\n    });\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "renderTemplate",
+          "params": [
+            {
+              "name": "controller",
+              "description": "the route's controller",
+              "type": "Object"
+            },
+            {
+              "name": "model",
+              "description": "the route's model",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1829,
+          "description": "`render` is used to render a template into a region of another template\n(indicated by an `{{outlet}}`). `render` is used both during the entry\nphase of routing (via the `renderTemplate` hook) and later in response to\nuser interaction.\n\nFor example, given the following minimal router and templates:\n\n```javascript\nRouter.map(function() {\n  this.route('photos');\n});\n```\n\n```handlebars\n<!-- application.hbs -->\n<div class='something-in-the-app-hbs'>\n  {{outlet \"anOutletName\"}}\n</div>\n```\n\n```handlebars\n<!-- photos.hbs -->\n<h1>Photos</h1>\n```\n\nYou can render `photos.hbs` into the `\"anOutletName\"` outlet of\n`application.hbs` by calling `render`:\n\n```javascript\n// posts route\nEmber.Route.extend({\n  renderTemplate: function() {\n    this.render('photos', {\n      into: 'application',\n      outlet: 'anOutletName'\n    })\n  }\n});\n```\n\n`render` additionally allows you to supply which `view`, `controller`, and\n`model` objects should be loaded and associated with the rendered template.\n\n\n```javascript\n// posts route\nEmber.Route.extend({\n  renderTemplate: function(controller, model){\n    this.render('posts', {    // the template to render, referenced by name\n      into: 'application',    // the template to render into, referenced by name\n      outlet: 'anOutletName', // the outlet inside `options.template` to render into.\n      view: 'aViewName',      // the view to use for this template, referenced by name\n      controller: 'someControllerName', // the controller to use for this template, referenced by name\n      model: model            // the model to set on `options.controller`.\n    })\n  }\n});\n```\n\nThe string values provided for the template name, view, and controller\nwill eventually pass through to the resolver for lookup. See\nEmber.Resolver for how these are mapped to JavaScript objects in your\napplication.\n\nNot all options need to be passed to `render`. Default values will be used\nbased on the name of the route specified in the router or the Route's\n`controllerName`, `viewName` and `templateName` properties.\n\nFor example:\n\n```javascript\n// router\nRouter.map(function() {\n  this.route('index');\n  this.route('post', { path: '/posts/:post_id' });\n});\n```\n\n```javascript\n// post route\nPostRoute = App.Route.extend({\n  renderTemplate: function() {\n    this.render(); // all defaults apply\n  }\n});\n```\n\nThe name of the `PostRoute`, defined by the router, is `post`.\n\nThe following equivalent default options will be applied when\nthe Route calls `render`:\n\n```javascript\n//\nthis.render('post', {  // the template name associated with 'post' Route\n  into: 'application', // the parent route to 'post' Route\n  outlet: 'main',      // {{outlet}} and {{outlet 'main'}} are synonymous,\n  view: 'post',        // the view associated with the 'post' Route\n  controller: 'post',  // the controller associated with the 'post' Route\n})\n```\n\nBy default the controller's `model` will be the route's model, so it does not\nneed to be passed unless you wish to change which model is being used.",
+          "itemtype": "method",
+          "name": "render",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the template to render",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "the options",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "into",
+                  "description": "the template to render into,\n                referenced by name. Defaults to the parent template",
+                  "type": "String",
+                  "optional": true
+                },
+                {
+                  "name": "outlet",
+                  "description": "the outlet inside `options.template` to render into.\n                Defaults to 'main'",
+                  "type": "String",
+                  "optional": true
+                },
+                {
+                  "name": "controller",
+                  "description": "the controller to use for this template,\n                referenced by name or as a controller instance. Defaults to the Route's paired controller",
+                  "type": "String|Object",
+                  "optional": true
+                },
+                {
+                  "name": "model",
+                  "description": "the model object to set on `options.controller`.\n                Defaults to the return value of the Route's model hook",
+                  "type": "Object",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 1967,
+          "description": "Disconnects a view that has been rendered into an outlet.\n\nYou may pass any or all of the following options to `disconnectOutlet`:\n\n* `outlet`: the name of the outlet to clear (default: 'main')\n* `parentView`: the name of the view containing the outlet to clear\n   (default: the view rendered by the parent route)\n\nExample:\n\n```javascript\nApp.ApplicationRoute = App.Route.extend({\n  actions: {\n    showModal: function(evt) {\n      this.render(evt.modalName, {\n        outlet: 'modal',\n        into: 'application'\n      });\n    },\n    hideModal: function(evt) {\n      this.disconnectOutlet({\n        outlet: 'modal',\n        parentView: 'application'\n      });\n    }\n  }\n});\n```\n\nAlternatively, you can pass the `outlet` name directly as a string.\n\nExample:\n\n```javascript\nhideModal: function(evt) {\n  this.disconnectOutlet('modal');\n}\n```",
+          "itemtype": "method",
+          "name": "disconnectOutlet",
+          "params": [
+            {
+              "name": "options",
+              "description": "the options hash or outlet name",
+              "type": "Object|String"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 2065,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "teardownViews",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/evented.js",
+          "line": 52,
+          "description": "Subscribes to a named event with given function.\n\n```javascript\nperson.on('didLoad', function() {\n  // fired once the person has loaded\n});\n```\n\nAn optional target can be passed in as the 2nd argument that will\nbe set as the \"this\" for the callback. This is a good way to give your\nfunction access to the object triggering the event. When the target\nparameter is used the callback becomes the third argument.",
+          "itemtype": "method",
+          "name": "on",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The \"this\" binding for the callback",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "method",
+              "description": "The callback to execute",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Evented"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/evented.js",
+          "line": 78,
+          "description": "Subscribes a function to a named event and then cancels the subscription\nafter the first time the event is triggered. It is good to use ``one`` when\nyou only care about the first time an event has taken place.\n\nThis function takes an optional 2nd argument that will become the \"this\"\nvalue for the callback. If this argument is passed then the 3rd argument\nbecomes the function.",
+          "itemtype": "method",
+          "name": "one",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The \"this\" binding for the callback",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "method",
+              "description": "The callback to execute",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Evented"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/evented.js",
+          "line": 104,
+          "description": "Triggers a named event for the object. Any additional arguments\nwill be passed as parameters to the functions that are subscribed to the\nevent.\n\n```javascript\nperson.on('didEat', function(food) {\n  console.log('person ate some ' + food);\n});\n\nperson.trigger('didEat', 'broccoli');\n\n// outputs: person ate some broccoli\n```",
+          "itemtype": "method",
+          "name": "trigger",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "Optional arguments to pass on",
+              "type": "Object..."
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Evented"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/evented.js",
+          "line": 127,
+          "description": "Cancels subscription for given name, target, and method.",
+          "itemtype": "method",
+          "name": "off",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target of the subscription",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The function of the subscription",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Evented"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/evented.js",
+          "line": 142,
+          "description": "Checks to see if object has any subscriptions for named event.",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "does the object have a subscription for event",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Evented"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 145,
+          "description": "Triggers a named action on the `ActionHandler`. Any parameters\nsupplied after the `actionName` string will be passed as arguments\nto the action target function.\n\nIf the `ActionHandler` has its `target` property set, actions may\nbubble to the `target`. Bubbling happens when an `actionName` can\nnot be found in the `ActionHandler`'s `actions` hash or if the\naction target function returns `true`.\n\nExample\n\n```js\nApp.WelcomeRoute = Ember.Route.extend({\n  actions: {\n    playTheme: function() {\n       this.send('playMusic', 'theme.mp3');\n    },\n    playMusic: function(track) {\n      // ...\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "actionName",
+              "description": "The action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 234,
+          "description": "An overridable method called when objects are instantiated. By default,\ndoes nothing unless it is overridden during class definition.\n\nExample:\n\n```javascript\nApp.Person = Ember.Object.extend({\n  init: function() {\n    alert('Name is ' + this.get('name'));\n  }\n});\n\nvar steve = App.Person.create({\n  name: \"Steve\"\n});\n\n// alerts 'Name is Steve'.\n```\n\nNOTE: If you do override `init` for a framework class like `Ember.View`,\nbe sure to call `this._super(...arguments)` in your\n`init` declaration! If you don't, Ember may not have an opportunity to\ndo important setup work, and you'll see strange behavior in your\napplication.",
+          "itemtype": "method",
+          "name": "init",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 434,
+          "description": "Destroys an object by setting the `isDestroyed` flag and removing its\nmetadata, which effectively destroys observers and bindings.\n\nIf you try to set a property on a destroyed object, an exception will be\nraised.\n\nNote that destruction is scheduled for the end of the run loop and does not\nhappen immediately.  It will set an isDestroying flag immediately.",
+          "itemtype": "method",
+          "name": "destroy",
+          "return": {
+            "description": "receiver",
+            "type": "Ember.Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 457,
+          "description": "Override to implement teardown.",
+          "itemtype": "method",
+          "name": "willDestroy",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 465,
+          "description": "Invoked by the run loop to actually destroy the object. This is\nscheduled for execution by the `destroy` method.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_scheduledDestroy",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 484,
+          "description": "Returns a string representation which attempts to provide more information\nthan Javascript's `toString` typically does, in a generic way for all Ember\nobjects.\n\n```javascript\nApp.Person = Em.Object.extend()\nperson = App.Person.create()\nperson.toString() //=> \"<App.Person:ember1024>\"\n```\n\nIf the object's class is not defined on an Ember namespace, it will\nindicate it is a subclass of the registered superclass:\n\n   ```javascript\nStudent = App.Person.extend()\nstudent = Student.create()\nstudent.toString() //=> \"<(subclass of App.Person):ember1025>\"\n```\n\nIf the method `toStringExtension` is defined, its return value will be\nincluded in the output.\n\n```javascript\nApp.Teacher = App.Person.extend({\n  toStringExtension: function() {\n    return this.get('fullName');\n  }\n});\nteacher = App.Teacher.create()\nteacher.toString(); //=> \"<App.Teacher:ember1026:Tom Dale>\"\n```",
+          "itemtype": "method",
+          "name": "toString",
+          "return": {
+            "description": "string representation",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 544,
+          "description": "Creates a new subclass.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    alert(thing);\n   }\n});\n```\n\nThis defines a new subclass of Ember.Object: `App.Person`. It contains one method: `say()`.\n\nYou can also create a subclass from any existing class by calling its `extend()` method.\nFor example, you might want to create a subclass of Ember's built-in `Ember.View` class:\n\n```javascript\nApp.PersonView = Ember.View.extend({\n  tagName: 'li',\n  classNameBindings: ['isAdministrator']\n});\n```\n\nWhen defining a subclass, you can override methods but still access the\nimplementation of your parent class by calling the special `_super()` method:\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    var name = this.get('name');\n    alert(name + ' says: ' + thing);\n  }\n});\n\nApp.Soldier = App.Person.extend({\n  say: function(thing) {\n    this._super(thing + \", sir!\");\n  },\n  march: function(numberOfHours) {\n    alert(this.get('name') + ' marches for ' + numberOfHours + ' hours.');\n  }\n});\n\nvar yehuda = App.Soldier.create({\n  name: \"Yehuda Katz\"\n});\n\nyehuda.say(\"Yes\");  // alerts \"Yehuda Katz says: Yes, sir!\"\n```\n\nThe `create()` on line #17 creates an *instance* of the `App.Soldier` class.\nThe `extend()` on line #8 creates a *subclass* of `App.Person`. Any instance\nof the `App.Person` class will *not* have the `march()` method.\n\nYou can also pass `Mixin` classes to add additional properties to the subclass.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  say: function(thing) {\n    alert(this.get('name') + ' says: ' + thing);\n  }\n});\n\nApp.SingingMixin = Mixin.create({\n  sing: function(thing){\n    alert(this.get('name') + ' sings: la la la ' + thing);\n  }\n});\n\nApp.BroadwayStar = App.Person.extend(App.SingingMixin, {\n  dance: function() {\n    alert(this.get('name') + ' dances: tap tap tap tap ');\n  }\n});\n```\n\nThe `App.BroadwayStar` class contains three methods: `say()`, `sing()`, and `dance()`.",
+          "itemtype": "method",
+          "name": "extend",
+          "static": 1,
+          "params": [
+            {
+              "name": "mixins",
+              "description": "One or more Mixin classes",
+              "type": "Mixin",
+              "optional": true,
+              "multiple": true
+            },
+            {
+              "name": "arguments",
+              "description": "Object containing values to use within the new class",
+              "type": "Object",
+              "optional": true,
+              "multiple": true
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 652,
+          "description": "Creates an instance of a class. Accepts either no arguments, or an object\ncontaining values to initialize the newly instantiated object with.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  helloWorld: function() {\n    alert(\"Hi, my name is \" + this.get('name'));\n  }\n});\n\nvar tom = App.Person.create({\n  name: 'Tom Dale'\n});\n\ntom.helloWorld(); // alerts \"Hi, my name is Tom Dale\".\n```\n\n`create` will call the `init` function if defined during\n`Ember.AnyObject.extend`\n\nIf no arguments are passed to `create`, it will not set values to the new\ninstance during initialization:\n\n```javascript\nvar noName = App.Person.create();\nnoName.helloWorld(); // alerts undefined\n```\n\nNOTE: For performance reasons, you cannot declare methods or computed\nproperties during `create`. You should instead declare methods and computed\nproperties when using `extend`.",
+          "itemtype": "method",
+          "name": "create",
+          "static": 1,
+          "params": [
+            {
+              "name": "arguments",
+              "description": "",
+              "optional": true,
+              "multiple": true
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 698,
+          "description": "Augments a constructor's prototype with additional\nproperties and functions:\n\n```javascript\nMyObject = Ember.Object.extend({\n  name: 'an object'\n});\n\no = MyObject.create();\no.get('name'); // 'an object'\n\nMyObject.reopen({\n  say: function(msg){\n    console.log(msg);\n  }\n})\n\no2 = MyObject.create();\no2.say(\"hello\"); // logs \"hello\"\n\no.say(\"goodbye\"); // logs \"goodbye\"\n```\n\nTo add functions and properties to the constructor itself,\nsee `reopenClass`",
+          "itemtype": "method",
+          "name": "reopen",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 734,
+          "description": "Augments a constructor's own properties and functions:\n\n```javascript\nMyObject = Ember.Object.extend({\n  name: 'an object'\n});\n\nMyObject.reopenClass({\n  canBuild: false\n});\n\nMyObject.canBuild; // false\no = MyObject.create();\n```\n\nIn other words, this creates static properties and functions for the class.\nThese are only available on the class and not on any instance of that class.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  name : \"\",\n  sayHello : function() {\n    alert(\"Hello. My name is \" + this.get('name'));\n  }\n});\n\nApp.Person.reopenClass({\n  species : \"Homo sapiens\",\n  createPerson: function(newPersonsName){\n    return App.Person.create({\n      name:newPersonsName\n    });\n  }\n});\n\nvar tom = App.Person.create({\n  name : \"Tom Dale\"\n});\nvar yehuda = App.Person.createPerson(\"Yehuda Katz\");\n\ntom.sayHello(); // \"Hello. My name is Tom Dale\"\nyehuda.sayHello(); // \"Hello. My name is Yehuda Katz\"\nalert(App.Person.species); // \"Homo sapiens\"\n```\n\nNote that `species` and `createPerson` are *not* valid on the `tom` and `yehuda`\nvariables. They are only valid on `App.Person`.\n\nTo add functions and properties to instances of\na constructor by extending the constructor's prototype\nsee `reopen`",
+          "itemtype": "method",
+          "name": "reopenClass",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 809,
+          "description": "In some cases, you may want to annotate computed properties with additional\nmetadata about how they function or what values they operate on. For\nexample, computed property functions may close over variables that are then\nno longer available for introspection.\n\nYou can pass a hash of these values to a computed property like this:\n\n```javascript\nperson: function() {\n  var personId = this.get('personId');\n  return App.Person.create({ id: personId });\n}.property().meta({ type: App.Person })\n```\n\nOnce you've done this, you can retrieve the values saved to the computed\nproperty from your class like this:\n\n```javascript\nMyClass.metaForProperty('person');\n```\n\nThis will return the original hash that was passed to `meta()`.",
+          "static": 1,
+          "itemtype": "method",
+          "name": "metaForProperty",
+          "params": [
+            {
+              "name": "key",
+              "description": "property name",
+              "type": "String"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 870,
+          "description": "Iterate over each computed property for the class, passing its name\nand any associated metadata (see `metaForProperty`) to the callback.",
+          "static": 1,
+          "itemtype": "method",
+          "name": "eachComputedProperty",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 898,
+          "description": "Provides lookup-time type validation for injected properties.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_onLookup",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 907,
+          "description": "Returns a hash of property names and container names that injected\nproperties will lookup on the container lazily.",
+          "itemtype": "method",
+          "name": "_lazyInjections",
+          "return": {
+            "description": "Hash of all lazy injected property keys to container names",
+            "type": "Object"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 100,
+          "description": "Retrieves the value of a property from the object.\n\nThis method is usually similar to using `object[keyName]` or `object.keyName`,\nhowever it supports both computed properties and the unknownProperty\nhandler.\n\nBecause `get` unifies the syntax for accessing all these kinds\nof properties, it can make many refactorings easier, such as replacing a\nsimple property with a computed property, or vice versa.\n\n### Computed Properties\n\nComputed properties are methods defined with the `property` modifier\ndeclared at the end, such as:\n\n```javascript\nfullName: function() {\n  return this.get('firstName') + ' ' + this.get('lastName');\n}.property('firstName', 'lastName')\n```\n\nWhen you call `get` on a computed property, the function will be\ncalled and the return value will be returned instead of the function\nitself.\n\n### Unknown Properties\n\nLikewise, if you try to call `get` on a property whose value is\n`undefined`, the `unknownProperty()` method will be called on the object.\nIf this method returns any value other than `undefined`, it will be returned\ninstead. This allows you to implement \"virtual\" properties that are\nnot defined upfront.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to retrieve",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The property value or undefined.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 143,
+          "description": "To get the values of multiple properties at once, call `getProperties`\nwith a list of strings or an array:\n\n```javascript\nrecord.getProperties('firstName', 'lastName', 'zipCode');\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```\n\nis equivalent to:\n\n```javascript\nrecord.getProperties(['firstName', 'lastName', 'zipCode']);\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```",
+          "itemtype": "method",
+          "name": "getProperties",
+          "params": [
+            {
+              "name": "list",
+              "description": "of keys to get",
+              "type": "String...|Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 168,
+          "description": "Sets the provided key or path to the value.\n\nThis method is generally very similar to calling `object[key] = value` or\n`object.key = value`, except that it provides support for computed\nproperties, the `setUnknownProperty()` method and property observers.\n\n### Computed Properties\n\nIf you try to set a value on a key that has a computed property handler\ndefined (see the `get()` method for an example), then `set()` will call\nthat method, passing both the value and key instead of simply changing\nthe value itself. This is useful for those times when you need to\nimplement a property that is composed of one or more member\nproperties.\n\n### Unknown Properties\n\nIf you try to set a value on a key that is undefined in the target\nobject, then the `setUnknownProperty()` handler will be called instead. This\ngives you an opportunity to implement complex \"virtual\" properties that\nare not predefined on the object. If `setUnknownProperty()` returns\nundefined, then `set()` will simply set the value on the object.\n\n### Property Observers\n\nIn addition to changing the property, `set()` will also register a property\nchange with the object. Unless you have placed this call inside of a\n`beginPropertyChanges()` and `endPropertyChanges(),` any \"local\" observers\n(i.e. observer methods declared on the same object), will be called\nimmediately. Any \"remote\" observers (i.e. observer methods declared on\nanother object) will be placed in a queue and called at a later time in a\ncoalesced manner.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to set or `null`.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed value",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 213,
+          "description": "Sets a list of properties at once. These properties are set inside\na single `beginPropertyChanges` and `endPropertyChanges` batch, so\nobservers will be buffered.\n\n```javascript\nrecord.setProperties({ firstName: 'Charles', lastName: 'Jolley' });\n```",
+          "itemtype": "method",
+          "name": "setProperties",
+          "params": [
+            {
+              "name": "hash",
+              "description": "the hash of keys and values to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed in hash",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 231,
+          "description": "Begins a grouping of property changes.\n\nYou can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call this\nmethod at the beginning of the changes to begin deferring change\nnotifications. When you are done making changes, call\n`endPropertyChanges()` to deliver the deferred change notifications and end\ndeferring.",
+          "itemtype": "method",
+          "name": "beginPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 251,
+          "description": "Ends a grouping of property changes.\n\nYou can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call\n`beginPropertyChanges()` at the beginning of the changes to defer change\nnotifications. When you are done making changes, call this method to\ndeliver the deferred change notifications and end deferring.",
+          "itemtype": "method",
+          "name": "endPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 270,
+          "description": "Notify the observer system that a property is about to change.\n\nSometimes you need to change a value directly or indirectly without\nactually calling `get()` or `set()` on it. In this case, you can use this\nmethod and `propertyDidChange()` instead. Calling these two methods\ntogether will notify all observers that the property has potentially\nchanged value.\n\nNote that you must always call `propertyWillChange` and `propertyDidChange`\nas a pair. If you do not, it may get the property change groups out of\norder and cause notifications to be delivered more often than you would\nlike.",
+          "itemtype": "method",
+          "name": "propertyWillChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key that is about to change.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 294,
+          "description": "Notify the observer system that a property has just changed.\n\nSometimes you need to change a value directly or indirectly without\nactually calling `get()` or `set()` on it. In this case, you can use this\nmethod and `propertyWillChange()` instead. Calling these two methods\ntogether will notify all observers that the property has potentially\nchanged value.\n\nNote that you must always call `propertyWillChange` and `propertyDidChange`\nas a pair. If you do not, it may get the property change groups out of\norder and cause notifications to be delivered more often than you would\nlike.",
+          "itemtype": "method",
+          "name": "propertyDidChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key that has just changed.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 318,
+          "description": "Convenience method to call `propertyWillChange` and `propertyDidChange` in\nsuccession.",
+          "itemtype": "method",
+          "name": "notifyPropertyChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key to be notified about.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 333,
+          "description": "Adds an observer on a property.\n\nThis is the core method used to register an observer for a property.\n\nOnce you call this method, any time the key's value is set, your observer\nwill be notified. Note that the observers are triggered any time the\nvalue is set, regardless of whether it has actually changed. Your\nobserver should be prepared to handle that.\n\nYou can also pass an optional context parameter to this method. The\ncontext will be passed to your observer method whenever it is triggered.\nNote that if you add the same target/method pair on a key multiple times\nwith different context parameters, your observer will only be called once\nwith the last context you passed.\n\n### Observer Methods\n\nObserver methods you pass should generally have the following signature if\nyou do not pass a `context` parameter:\n\n```javascript\nfooDidChange: function(sender, key, value, rev) { };\n```\n\nThe sender is the object that changed. The key is the property that\nchanges. The value property is currently reserved and unused. The rev\nis the last property revision of the object when it changed, which you can\nuse to detect if the key value has really changed or not.\n\nIf you pass a `context` parameter, the context will be passed before the\nrevision like so:\n\n```javascript\nfooDidChange: function(sender, key, value, context, rev) { };\n```\n\nUsually you will not need the value, context or revision parameters at\nthe end. In this case, it is common to write observer methods that take\nonly a sender and key value as parameters or, if you aren't interested in\nany of these values, to write an observer that has no parameters at all.",
+          "itemtype": "method",
+          "name": "addObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observer",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke.",
+              "type": "String|Function"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 385,
+          "description": "Remove an observer you have previously registered on this object. Pass\nthe same key, target, and method you passed to `addObserver()` and your\ntarget will no longer receive notifications.",
+          "itemtype": "method",
+          "name": "removeObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observer",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke.",
+              "type": "String|Function"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 400,
+          "description": "Returns `true` if the object currently has observers registered for a\nparticular key. You can use this method to potentially defer performing\nan expensive action until someone begins observing a particular property\non the object.",
+          "itemtype": "method",
+          "name": "hasObserverFor",
+          "params": [
+            {
+              "name": "key",
+              "description": "Key to check",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 415,
+          "description": "Retrieves the value of a property, or a default value in the case that the\nproperty returns `undefined`.\n\n```javascript\nperson.getWithDefault('lastName', 'Doe');\n```",
+          "itemtype": "method",
+          "name": "getWithDefault",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to retrieve",
+              "type": "String"
+            },
+            {
+              "name": "defaultValue",
+              "description": "The value to return if the property value is undefined",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The property value or the defaultValue.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 433,
+          "description": "Set the value of a property to the current value plus some amount.\n\n```javascript\nperson.incrementProperty('age');\nteam.incrementProperty('score', 2);\n```",
+          "itemtype": "method",
+          "name": "incrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to increment",
+              "type": "String"
+            },
+            {
+              "name": "increment",
+              "description": "The amount to increment by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 453,
+          "description": "Set the value of a property to the current value minus some amount.\n\n```javascript\nplayer.decrementProperty('lives');\norc.decrementProperty('health', 5);\n```",
+          "itemtype": "method",
+          "name": "decrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to decrement",
+              "type": "String"
+            },
+            {
+              "name": "decrement",
+              "description": "The amount to decrement by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 473,
+          "description": "Set the value of a boolean property to the opposite of its\ncurrent value.\n\n```javascript\nstarship.toggleProperty('warpDriveEngaged');\n```",
+          "itemtype": "method",
+          "name": "toggleProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to toggle",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/observable.js",
+          "line": 490,
+          "description": "Returns the cached value of a computed property, if it exists.\nThis allows you to inspect the value of a computed property\nwithout accidentally invoking it if it is intended to be\ngenerated lazily.",
+          "itemtype": "method",
+          "name": "cacheFor",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The cached value of the computed property, if any",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.Observable"
+        }
+      ],
+      "events": [
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 540,
+          "description": "The `willTransition` action is fired at the beginning of any\nattempted transition with a `Transition` object as the sole\nargument. This action can be used for aborting, redirecting,\nor decorating the transition from the currently active routes.\n\nA good example is preventing navigation when a form is\nhalf-filled out:\n\n```javascript\nApp.ContactFormRoute = Ember.Route.extend({\n  actions: {\n    willTransition: function(transition) {\n      if (this.controller.get('userHasEnteredData')) {\n        this.controller.displayNavigationConfirm();\n        transition.abort();\n      }\n    }\n  }\n});\n```\n\nYou can also redirect elsewhere by calling\n`this.transitionTo('elsewhere')` from within `willTransition`.\nNote that `willTransition` will not be fired for the\nredirecting `transitionTo`, since `willTransition` doesn't\nfire when there is already a transition underway. If you want\nsubsequent `willTransition` actions to fire for the redirecting\ntransition, you must first explicitly call\n`transition.abort()`.\n\nTo allow the `willTransition` event to continue bubbling to the parent\nroute, use `return true;`. When the `willTransition` method has a\nreturn value of `true` then the parent route's `willTransition` method\nwill be fired, enabling \"bubbling\" behavior for the event.",
+          "itemtype": "event",
+          "name": "willTransition",
+          "params": [
+            {
+              "name": "transition",
+              "description": "",
+              "type": "Transition"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 581,
+          "description": "The `didTransition` action is fired after a transition has\nsuccessfully been completed. This occurs after the normal model\nhooks (`beforeModel`, `model`, `afterModel`, `setupController`)\nhave resolved. The `didTransition` action has no arguments,\nhowever, it can be useful for tracking page views or resetting\nstate on the controller.\n\n```javascript\nApp.LoginRoute = Ember.Route.extend({\n  actions: {\n    didTransition: function() {\n      this.controller.get('errors.base').clear();\n      return true; // Bubble the didTransition event\n    }\n  }\n});\n```",
+          "itemtype": "event",
+          "name": "didTransition",
+          "since": "1.2.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 605,
+          "description": "The `loading` action is fired on the route when a route's `model`\nhook returns a promise that is not already resolved. The current\n`Transition` object is the first parameter and the route that\ntriggered the loading event is the second parameter.\n\n```javascript\nApp.ApplicationRoute = Ember.Route.extend({\n  actions: {\n    loading: function(transition, route) {\n      var view = Ember.View.create({\n        classNames: ['app-loading']\n      })\n      .append();\n\n      this.router.one('didTransition', function() {\n        view.destroy();\n      });\n\n      return true; // Bubble the loading event\n    }\n  }\n});\n```",
+          "itemtype": "event",
+          "name": "loading",
+          "params": [
+            {
+              "name": "transition",
+              "description": "",
+              "type": "Transition"
+            },
+            {
+              "name": "route",
+              "description": "The route that triggered the loading event",
+              "type": "Ember.Route"
+            }
+          ],
+          "since": "1.2.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 637,
+          "description": "When attempting to transition into a route, any of the hooks\nmay return a promise that rejects, at which point an `error`\naction will be fired on the partially-entered routes, allowing\nfor per-route error handling logic, or shared error handling\nlogic defined on a parent route.\n\nHere is an example of an error handler that will be invoked\nfor rejected promises from the various hooks on the route,\nas well as any unhandled errors from child routes:\n\n```javascript\nApp.AdminRoute = Ember.Route.extend({\n  beforeModel: function() {\n    return Ember.RSVP.reject('bad things!');\n  },\n\n  actions: {\n    error: function(error, transition) {\n      // Assuming we got here due to the error in `beforeModel`,\n      // we can expect that error === \"bad things!\",\n      // but a promise model rejecting would also\n      // call this hook, as would any errors encountered\n      // in `afterModel`.\n\n      // The `error` hook is also provided the failed\n      // `transition`, which can be stored and later\n      // `.retry()`d if desired.\n\n      this.transitionTo('login');\n    }\n  }\n});\n```\n\n`error` actions that bubble up all the way to `ApplicationRoute`\nwill fire a default error handler that logs the error. You can\nspecify your own global default error handler by overriding the\n`error` handler on `ApplicationRoute`:\n\n```javascript\nApp.ApplicationRoute = Ember.Route.extend({\n  actions: {\n    error: function(error, transition) {\n      this.controllerFor('banner').displayError(error.message);\n    }\n  }\n});\n```",
+          "itemtype": "event",
+          "name": "error",
+          "params": [
+            {
+              "name": "error",
+              "description": "",
+              "type": "Error"
+            },
+            {
+              "name": "transition",
+              "description": "",
+              "type": "Transition"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 692,
+          "description": "This event is triggered when the router enters the route. It is\nnot executed when the model for the route changes.\n\n```javascript\nApp.ApplicationRoute = Ember.Route.extend({\n  collectAnalytics: function(){\n    collectAnalytics();\n  }.on('activate')\n});\n```",
+          "itemtype": "event",
+          "name": "activate",
+          "since": "1.9.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 709,
+          "description": "This event is triggered when the router completely exits this\nroute. It is not executed when the model for the route changes.\n\n```javascript\nApp.IndexRoute = Ember.Route.extend({\n  trackPageLeaveAnalytics: function(){\n    trackPageLeaveAnalytics();\n  }.on('deactivate')\n});\n```",
+          "itemtype": "event",
+          "name": "deactivate",
+          "since": "1.9.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        }
+      ],
+      "properties": [
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 55,
+          "description": "Configuration hash for this route's queryParams. The possible\nconfiguration options and their defaults are as follows\n(assuming a query param whose controller property is `page`):\n\n```javascript\nqueryParams: {\n  page: {\n    // By default, controller query param properties don't\n    // cause a full transition when they are changed, but\n    // rather only cause the URL to update. Setting\n    // `refreshModel` to true will cause an \"in-place\"\n    // transition to occur, whereby the model hooks for\n    // this route (and any child routes) will re-fire, allowing\n    // you to reload models (e.g., from the server) using the\n    // updated query param values.\n    refreshModel: false,\n\n    // By default, changes to controller query param properties\n    // cause the URL to update via `pushState`, which means an\n    // item will be added to the browser's history, allowing\n    // you to use the back button to restore the app to the\n    // previous state before the query param property was changed.\n    // Setting `replace` to true will use `replaceState` (or its\n    // hash location equivalent), which causes no browser history\n    // item to be added. This options name and default value are\n    // the same as the `link-to` helper's `replace` option.\n    replace: false,\n\n    // By default, the query param URL key is the same name as\n    // the controller property name. Use `as` to specify a\n    // different URL key.\n    as: 'page'\n  }\n}\n```",
+          "itemtype": "property",
+          "name": "queryParams",
+          "type": "Object",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 99,
+          "description": "The name of the route, dot-delimited.\n\nFor example, a route found at `app/routes/posts/post.js` or\n`app/posts/post/route.js` (with pods) will have a `routeName` of\n`posts.post`.",
+          "itemtype": "property",
+          "name": "routeName",
+          "type": "String",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 112,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_qp",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 256,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_names",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 295,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_activeQPChanged",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 397,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_optionsForQueryParam",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 466,
+          "description": "The name of the view to use by default when rendering this routes template.\n\nWhen rendering a template, the route will, by default, determine the\ntemplate and view to use from the name of the route itself. If you need to\ndefine a specific view, set this property.\n\nThis is useful when multiple routes would benefit from using the same view\nbecause it doesn't require a custom `renderTemplate` method. For example,\nthe following routes will all render using the `App.PostsListView` view:\n\n```javascript\nvar PostsList = Ember.Route.extend({\n  viewName: 'postsList'\n});\n\nApp.PostsIndexRoute = PostsList.extend();\nApp.PostsArchivedRoute = PostsList.extend();\n```",
+          "itemtype": "property",
+          "name": "viewName",
+          "type": "String",
+          "default": "null",
+          "since": "1.4.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 494,
+          "description": "The name of the template to use by default when rendering this routes\ntemplate.\n\nThis is similar with `viewName`, but is useful when you just want a custom\ntemplate without a view.\n\n```javascript\nvar PostsList = Ember.Route.extend({\n  templateName: 'posts/list'\n});\n\nApp.PostsIndexRoute = PostsList.extend();\nApp.PostsArchivedRoute = PostsList.extend();\n```",
+          "itemtype": "property",
+          "name": "templateName",
+          "type": "String",
+          "default": "null",
+          "since": "1.4.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 518,
+          "description": "The name of the controller to associate with this route.\n\nBy default, Ember will lookup a route's controller that matches the name\nof the route (i.e. `App.PostController` for `App.PostRoute`). However,\nif you would like to define a specific controller to use, you can do so\nusing this property.\n\nThis is useful in many ways, as the controller specified will be:\n\n* passed to the `setupController` method.\n* used as the controller for the view being rendered by the route.\n* returned from a call to `controllerFor` for the route.",
+          "itemtype": "property",
+          "name": "controllerName",
+          "type": "String",
+          "default": "null",
+          "since": "1.4.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/route.js",
+          "line": 726,
+          "description": "The controller associated with this route.\n\nExample\n\n```javascript\nApp.FormRoute = Ember.Route.extend({\n  actions: {\n    willTransition: function(transition) {\n      if (this.controller.get('userHasEnteredData') &&\n          !confirm('Are you sure you want to abandon progress?')) {\n        transition.abort();\n      } else {\n        // Bubble the `willTransition` action so that\n        // parent routes can decide whether or not to abort.\n        return true;\n      }\n    }\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "controller",
+          "type": "Ember.Controller",
+          "since": "1.6.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 24,
+          "description": "The collection of functions, keyed by name, available on this\n`ActionHandler` as action targets.\n\nThese functions will be invoked when a matching `{{action}}` is triggered\nfrom within a template and the application's current route is this route.\n\nActions can also be invoked from other parts of your application\nvia `ActionHandler#send`.\n\nThe `actions` hash will inherit action handlers from\nthe `actions` hash defined on extended parent classes\nor mixins rather than just replace the entire hash, e.g.:\n\n```js\nApp.CanDisplayBanner = Ember.Mixin.create({\n  actions: {\n    displayBanner: function(msg) {\n      // ...\n    }\n  }\n});\n\nApp.WelcomeRoute = Ember.Route.extend(App.CanDisplayBanner, {\n  actions: {\n    playMusic: function() {\n      // ...\n    }\n  }\n});\n\n// `WelcomeRoute`, when active, will be able to respond\n// to both actions, since the actions hash is merged rather\n// then replaced when extending mixins / parent classes.\nthis.send('displayBanner');\nthis.send('playMusic');\n```\n\nWithin a Controller, Route, View or Component's action handler,\nthe value of the `this` context is the Controller, Route, View or\nComponent object:\n\n```js\nApp.SongRoute = Ember.Route.extend({\n  actions: {\n    myAction: function() {\n      this.controllerFor(\"song\");\n      this.transitionTo(\"other.route\");\n      ...\n    }\n  }\n});\n```\n\nIt is also possible to call `this._super(...arguments)` from within an\naction handler if it overrides a handler defined on a parent\nclass or mixin:\n\nTake for example the following routes:\n\n```js\nApp.DebugRoute = Ember.Mixin.create({\n  actions: {\n    debugRouteInformation: function() {\n      console.debug(\"trololo\");\n    }\n  }\n});\n\nApp.AnnoyingDebugRoute = Ember.Route.extend(App.DebugRoute, {\n  actions: {\n    debugRouteInformation: function() {\n      // also call the debugRouteInformation of mixed in App.DebugRoute\n      this._super(...arguments);\n\n      // show additional annoyance\n      window.alert(...);\n    }\n  }\n});\n```\n\n## Bubbling\n\nBy default, an action will stop bubbling once a handler defined\non the `actions` hash handles it. To continue bubbling the action,\nyou must return `true` from the handler:\n\n```js\nApp.Router.map(function() {\n  this.route(\"album\", function() {\n    this.route(\"song\");\n  });\n});\n\nApp.AlbumRoute = Ember.Route.extend({\n  actions: {\n    startPlaying: function() {\n    }\n  }\n});\n\nApp.AlbumSongRoute = Ember.Route.extend({\n  actions: {\n    startPlaying: function() {\n      // ...\n\n      if (actionShouldAlsoBeTriggeredOnParentRoute) {\n        return true;\n      }\n    }\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "actions",
+          "type": "Object",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 272,
+          "description": "Defines the properties that will be concatenated from the superclass\n(instead of overridden).\n\nBy default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property's value by combining the superclass' property\nvalue with the subclass' value. An example of this in use within Ember\nis the `classNames` property of `Ember.View`.\n\nHere is some sample code showing the difference between a concatenated\nproperty and a normal one:\n\n```javascript\nApp.BarView = Ember.View.extend({\n  someNonConcatenatedProperty: ['bar'],\n  classNames: ['bar']\n});\n\nApp.FooBarView = App.BarView.extend({\n  someNonConcatenatedProperty: ['foo'],\n  classNames: ['foo']\n});\n\nvar fooBarView = App.FooBarView.create();\nfooBarView.get('someNonConcatenatedProperty'); // ['foo']\nfooBarView.get('classNames'); // ['ember-view', 'bar', 'foo']\n```\n\nThis behavior extends to object creation as well. Continuing the\nabove example:\n\n```javascript\nvar view = App.FooBarView.create({\n  someNonConcatenatedProperty: ['baz'],\n  classNames: ['baz']\n})\nview.get('someNonConcatenatedProperty'); // ['baz']\nview.get('classNames'); // ['ember-view', 'bar', 'foo', 'baz']\n```\nAdding a single property that is not an array will just add it in the array:\n\n```javascript\nvar view = App.FooBarView.create({\n  classNames: 'baz'\n})\nview.get('classNames'); // ['ember-view', 'bar', 'foo', 'baz']\n```\n\nUsing the `concatenatedProperties` property, we can tell Ember to mix the\ncontent of the properties.\n\nIn `Ember.View` the `classNameBindings` and `attributeBindings` properties\nare also concatenated, in addition to `classNames`.\n\nThis feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual concatenated property (to not\nmislead your users to think they can override the property in a subclass).",
+          "itemtype": "property",
+          "name": "concatenatedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 341,
+          "description": "Defines the properties that will be merged from the superclass\n(instead of overridden).\n\nBy default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property's value by merging the superclass property value\nwith the subclass property's value. An example of this in use within Ember\nis the `queryParams` property of routes.\n\nHere is some sample code showing the difference between a merged\nproperty and a normal one:\n\n```javascript\nApp.BarRoute = Ember.Route.extend({\n  someNonMergedProperty: {\n    nonMerged: 'superclass value of nonMerged'\n  },\n  queryParams: {\n    page: {replace: false},\n    limit: {replace: true}\n  }\n});\n\nApp.FooBarRoute = App.BarRoute.extend({\n  someNonMergedProperty: {\n    completelyNonMerged: 'subclass value of nonMerged'\n  },\n  queryParams: {\n    limit: {replace: false}\n  }\n});\n\nvar fooBarRoute = App.FooBarRoute.create();\n\nfooBarRoute.get('someNonMergedProperty');\n// => { completelyNonMerged: 'subclass value of nonMerged' }\n//\n// Note the entire object, including the nonMerged property of\n// the superclass object, has been replaced\n\nfooBarRoute.get('queryParams');\n// => {\n//   page: {replace: false},\n//   limit: {replace: false}\n// }\n//\n// Note the page remains from the superclass, and the\n// `limit` property's value of `false` has been merged from\n// the subclass.\n```\n\nThis behavior is not available during object `create` calls. It is only\navailable at `extend` time.\n\nThis feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual merged property (to not\nmislead your users to think they can override the property in a subclass).",
+          "itemtype": "property",
+          "name": "mergedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 410,
+          "description": "Destroyed object property flag.\n\nif this property is `true` the observers and bindings were already\nremoved by the effect of calling the `destroy()` method.",
+          "itemtype": "property",
+          "name": "isDestroyed",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/core_object.js",
+          "line": 422,
+          "description": "Destruction scheduled flag. The `destroy()` method has been called.\n\nThe object stays intact until the end of the run loop at which point\nthe `isDestroyed` flag is set.",
+          "itemtype": "property",
+          "name": "isDestroying",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Route",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.CoreObject"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-2.5.1-Ember.Object",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.5.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.5.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

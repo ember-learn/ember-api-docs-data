@@ -1,0 +1,176 @@
+{
+  "data": {
+    "id": "ember-1.9.1-Ember.PromiseProxyMixin",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.PromiseProxyMixin",
+      "shortname": "Ember.PromiseProxyMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-runtime",
+      "namespace": "",
+      "file": "packages/ember-runtime/lib/mixins/promise_proxy.js",
+      "line": 36,
+      "description": "A low level mixin making ObjectProxy, ObjectController or ArrayController's promise aware.\n\n```javascript\nvar ObjectPromiseController = Ember.ObjectController.extend(Ember.PromiseProxyMixin);\n\nvar controller = ObjectPromiseController.create({\n  promise: $.getJSON('/some/remote/data.json')\n});\n\ncontroller.then(function(json){\n   // the json\n}, function(reason) {\n   // the reason why you have no json\n});\n```\n\nthe controller has bindable attributes which\ntrack the promises life cycle\n\n```javascript\ncontroller.get('isPending')   //=> true\ncontroller.get('isSettled')  //=> false\ncontroller.get('isRejected')  //=> false\ncontroller.get('isFulfilled') //=> false\n```\n\nWhen the the $.getJSON completes, and the promise is fulfilled\nwith json, the life cycle attributes will update accordingly.\n\n```javascript\ncontroller.get('isPending')   //=> false\ncontroller.get('isSettled')   //=> true\ncontroller.get('isRejected')  //=> false\ncontroller.get('isFulfilled') //=> true\n```\n\nAs the controller is an ObjectController, and the json now its content,\nall the json properties will be available directly from the controller.\n\n```javascript\n// Assuming the following json:\n{\n  firstName: 'Stefan',\n  lastName: 'Penner'\n}\n\n// both properties will accessible on the controller\ncontroller.get('firstName') //=> 'Stefan'\ncontroller.get('lastName')  //=> 'Penner'\n```\n\nIf the controller is backing a template, the attributes are\nbindable from within that template\n\n```handlebars\n{{#if isPending}}\n  loading...\n{{else}}\n  firstName: {{firstName}}\n  lastName: {{lastName}}\n{{/if}}\n```",
+      "methods": [
+        {
+          "file": "packages/ember-runtime/lib/mixins/promise_proxy.js",
+          "line": 167,
+          "description": "An alias to the proxied promise's `then`.\n\nSee RSVP.Promise.then.",
+          "itemtype": "method",
+          "name": "then",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise"
+          },
+          "class": "Ember.PromiseProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/promise_proxy.js",
+          "line": 178,
+          "description": "An alias to the proxied promise's `catch`.\n\nSee RSVP.Promise.catch.",
+          "itemtype": "method",
+          "name": "catch",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise"
+          },
+          "since": "1.3.0",
+          "class": "Ember.PromiseProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/promise_proxy.js",
+          "line": 190,
+          "description": "An alias to the proxied promise's `finally`.\n\nSee RSVP.Promise.finally.",
+          "itemtype": "method",
+          "name": "finally",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RSVP.Promise"
+          },
+          "since": "1.3.0",
+          "class": "Ember.PromiseProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/ember-runtime/lib/mixins/promise_proxy.js",
+          "line": 102,
+          "description": "If the proxied promise is rejected this will contain the reason\nprovided.",
+          "itemtype": "property",
+          "name": "reason",
+          "default": "null",
+          "class": "Ember.PromiseProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/promise_proxy.js",
+          "line": 111,
+          "description": "Once the proxied promise has settled this will become `false`.",
+          "itemtype": "property",
+          "name": "isPending",
+          "default": "true",
+          "class": "Ember.PromiseProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/promise_proxy.js",
+          "line": 119,
+          "description": "Once the proxied promise has settled this will become `true`.",
+          "itemtype": "property",
+          "name": "isSettled",
+          "default": "false",
+          "class": "Ember.PromiseProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/promise_proxy.js",
+          "line": 127,
+          "description": "Will become `true` if the proxied promise is rejected.",
+          "itemtype": "property",
+          "name": "isRejected",
+          "default": "false",
+          "class": "Ember.PromiseProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/promise_proxy.js",
+          "line": 135,
+          "description": "Will become `true` if the proxied promise is fulfilled.",
+          "itemtype": "property",
+          "name": "isFulfilled",
+          "default": "false",
+          "class": "Ember.PromiseProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/mixins/promise_proxy.js",
+          "line": 143,
+          "description": "The promise whose fulfillment value is being proxied by this object.\n\nThis property must be specified upon creation, and should not be\nchanged once created.\n\nExample:\n\n```javascript\nEmber.ObjectController.extend(Ember.PromiseProxyMixin).create({\n  promise: <thenable>\n});\n```",
+          "itemtype": "property",
+          "name": "promise",
+          "class": "Ember.PromiseProxyMixin",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.9.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.9.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

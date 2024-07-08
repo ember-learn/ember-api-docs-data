@@ -1,0 +1,2850 @@
+{
+  "data": {
+    "id": "ember-1.9.1-Ember",
+    "type": "namespace",
+    "attributes": {
+      "name": "Ember",
+      "shortname": "Ember",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-metal",
+      "namespace": "",
+      "file": "packages/ember-metal/lib/core.js",
+      "line": 8,
+      "description": "All Ember methods and functions are defined inside of this namespace. You\ngenerally should not add new properties to this namespace as it may be\noverwritten by future versions of Ember.\n\nYou can also use the shorthand `Em` instead of `Ember`.\n\nEmber-Runtime is a framework that provides core functions for Ember including\ncross-platform functions, support for property observing and objects. Its\nfocus is on small size and performance. You can use this in place of or\nalong-side other cross-platform libraries such as jQuery.\n\nThe core Runtime framework is based on the jQuery API with a number of\nperformance optimizations.",
+      "static": 1,
+      "version": "VERSION_STRING_PLACEHOLDER",
+      "methods": [
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 18,
+          "description": "Define an assertion that will throw an exception if the condition is not\nmet. Ember build tools will remove any calls to `Ember.assert()` when\ndoing a production build. Example:\n\n```javascript\n// Test for truthiness\nEmber.assert('Must pass a valid object', obj);\n\n// Fail unconditionally\nEmber.assert('This code path should never be run');\n```",
+          "itemtype": "method",
+          "name": "assert",
+          "params": [
+            {
+              "name": "desc",
+              "description": "A description of the assertion. This will become\n  the text of the Error thrown if the assertion fails.",
+              "type": "String"
+            },
+            {
+              "name": "test",
+              "description": "Must be truthy for the assertion to pass. If\n  falsy, an exception will be thrown.",
+              "type": "Boolean"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 44,
+          "description": "Display a warning with the provided message. Ember build tools will\nremove any calls to `Ember.warn()` when doing a production build.",
+          "itemtype": "method",
+          "name": "warn",
+          "params": [
+            {
+              "name": "message",
+              "description": "A warning to display.",
+              "type": "String"
+            },
+            {
+              "name": "test",
+              "description": "An optional boolean. If falsy, the warning\n  will be displayed.",
+              "type": "Boolean"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 60,
+          "description": "Display a debug notice. Ember build tools will remove any calls to\n`Ember.debug()` when doing a production build.\n\n```javascript\nEmber.debug('I\\'m a debug notice!');\n```",
+          "itemtype": "method",
+          "name": "debug",
+          "params": [
+            {
+              "name": "message",
+              "description": "A debug message to display.",
+              "type": "String"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 75,
+          "description": "Display a deprecation warning with the provided message and a stack trace\n(Chrome and Firefox only). Ember build tools will remove any calls to\n`Ember.deprecate()` when doing a production build.",
+          "itemtype": "method",
+          "name": "deprecate",
+          "params": [
+            {
+              "name": "message",
+              "description": "A description of the deprecation.",
+              "type": "String"
+            },
+            {
+              "name": "test",
+              "description": "An optional boolean. If falsy, the deprecation\n  will be displayed.",
+              "type": "Boolean"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 120,
+          "description": "Alias an old, deprecated method with its new counterpart.\n\nDisplay a deprecation warning with the provided message and a stack trace\n(Chrome and Firefox only) when the assigned method is called.\n\nEmber build tools will not remove calls to `Ember.deprecateFunc()`, though\nno warnings will be shown in production.\n\n```javascript\nEmber.oldMethod = Ember.deprecateFunc('Please use the new, updated method', Ember.newMethod);\n```",
+          "itemtype": "method",
+          "name": "deprecateFunc",
+          "params": [
+            {
+              "name": "message",
+              "description": "A description of the deprecation.",
+              "type": "String"
+            },
+            {
+              "name": "func",
+              "description": "The new function called to replace its deprecated counterpart.",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "a new function that wrapped the original function with a deprecation warning",
+            "type": "Function"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 146,
+          "description": "Run a function meant for debugging. Ember build tools will remove any calls to\n`Ember.runInDebug()` when doing a production build.\n\n```javascript\nEmber.runInDebug(function() {\n  Ember.Handlebars.EachView.reopen({\n    didInsertElement: function() {\n      console.log('I\\'m happy');\n    }\n  });\n});\n```",
+          "itemtype": "method",
+          "name": "runInDebug",
+          "params": [
+            {
+              "name": "func",
+              "description": "The function to be executed.",
+              "type": "Function"
+            }
+          ],
+          "since": "1.5.0",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 168,
+          "description": "Will call `Ember.warn()` if ENABLE_ALL_FEATURES, ENABLE_OPTIONAL_FEATURES, or\nany specific FEATURES flag is truthy.\n\nThis method is called automatically in debug canary builds.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_warnIfUsingStrippedFeatureFlags",
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-metal/lib/platform/create.js",
+          "line": 12,
+          "description": "Identical to `Object.create()`. Implements if not available natively.",
+          "itemtype": "method",
+          "name": "create",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/binding.js",
+          "line": 37,
+          "description": "Returns true if the provided path is global (e.g., `MyApp.fooController.bar`)\ninstead of local (`foo.bar.baz`).",
+          "itemtype": "method",
+          "name": "isGlobalPath",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Boolean"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/binding.js",
+          "line": 462,
+          "description": "Global helper method to create a new binding. Just pass the root object\nalong with a `to` and `from` path to create and connect the binding.",
+          "itemtype": "method",
+          "name": "bind",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The root object of the transform.",
+              "type": "Object"
+            },
+            {
+              "name": "to",
+              "description": "The path to the 'to' side of the binding.\n  Must be relative to obj.",
+              "type": "String"
+            },
+            {
+              "name": "from",
+              "description": "The path to the 'from' side of the binding.\n  Must be relative to obj or a global path.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "binding instance",
+            "type": "Ember.Binding"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/binding.js",
+          "line": 479,
+          "itemtype": "method",
+          "name": "oneWay",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The root object of the transform.",
+              "type": "Object"
+            },
+            {
+              "name": "to",
+              "description": "The path to the 'to' side of the binding.\n  Must be relative to obj.",
+              "type": "String"
+            },
+            {
+              "name": "from",
+              "description": "The path to the 'from' side of the binding.\n  Must be relative to obj or a global path.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "binding instance",
+            "type": "Ember.Binding"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed.js",
+          "line": 499,
+          "description": "This helper returns a new property descriptor that wraps the passed\ncomputed property function. You can use this helper to define properties\nwith mixins or via `Ember.defineProperty()`.\n\nThe function you pass will be used to both get and set property values.\nThe function should accept two parameters, key and value. If value is not\nundefined you should set the value first. In either case return the\ncurrent value of the property.\n\nA computed property defined in this way might look like this:\n\n```js\nvar Person = Ember.Object.extend({\n  firstName: 'Betty',\n  lastName: 'Jones',\n\n  fullName: Ember.computed('firstName', 'lastName', function(key, value) {\n    return this.get('firstName') + ' ' + this.get('lastName');\n  })\n});\n\nvar client = Person.create();\n\nclient.get('fullName'); // 'Betty Jones'\n\nclient.set('lastName', 'Fuller');\nclient.get('fullName'); // 'Betty Fuller'\n```\n\n_Note: This is the prefered way to define computed properties when writing third-party\nlibraries that depend on or use Ember, since there is no guarantee that the user\nwill have prototype extensions enabled._\n\nYou might use this method if you disabled\n[Prototype Extensions](http://emberjs.com/guides/configuring-ember/disabling-prototype-extensions/).\nThe alternative syntax might look like this\n(if prototype extensions are enabled, which is the default behavior):\n\n```js\nfullName: function () {\n  return this.get('firstName') + ' ' + this.get('lastName');\n}.property('firstName', 'lastName')\n```",
+          "itemtype": "method",
+          "name": "computed",
+          "params": [
+            {
+              "name": "dependentKeys*",
+              "description": "Optional dependent keys that trigger this computed property.",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "func",
+              "description": "The computed property function.",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "property descriptor instance",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed.js",
+          "line": 571,
+          "description": "Returns the cached value for a property, if one exists.\nThis can be useful for peeking at the value of a computed\nproperty that is generated lazily, without accidentally causing\nit to be created.",
+          "itemtype": "method",
+          "name": "cacheFor",
+          "params": [
+            {
+              "name": "obj",
+              "description": "the object whose property you want to check",
+              "type": "Object"
+            },
+            {
+              "name": "key",
+              "description": "the name of the property whose cached value you want\n  to return",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the cached value",
+            "type": "Object"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 44,
+          "description": "A computed property that returns true if the value of the dependent\nproperty is null, an empty string, empty array, or empty function.\n\nExample\n\n```javascript\nvar ToDoList = Ember.Object.extend({\n  done: Ember.computed.empty('todos')\n});\n\nvar todoList = ToDoList.create({\n  todos: ['Unit Test', 'Documentation', 'Release']\n});\n\ntodoList.get('done'); // false\ntodoList.get('todos').clear();\ntodoList.get('done'); // true\n```",
+          "since": "1.6.0",
+          "itemtype": "method",
+          "name": "computed.empty",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which negate\nthe original value for property",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 77,
+          "description": "A computed property that returns true if the value of the dependent\nproperty is NOT null, an empty string, empty array, or empty function.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  hasStuff: Ember.computed.notEmpty('backpack')\n});\n\nvar hamster = Hamster.create({ backpack: ['Food', 'Sleeping Bag', 'Tent'] });\n\nhamster.get('hasStuff');         // true\nhamster.get('backpack').clear(); // []\nhamster.get('hasStuff');         // false\n```",
+          "itemtype": "method",
+          "name": "computed.notEmpty",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if\noriginal value for property is not empty.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 107,
+          "description": "A computed property that returns true if the value of the dependent\nproperty is null or undefined. This avoids errors from JSLint complaining\nabout use of ==, which can be technically confusing.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  isHungry: Ember.computed.none('food')\n});\n\nvar hamster = Hamster.create();\n\nhamster.get('isHungry'); // true\nhamster.set('food', 'Banana');\nhamster.get('isHungry'); // false\nhamster.set('food', null);\nhamster.get('isHungry'); // true\n```",
+          "itemtype": "method",
+          "name": "computed.none",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which\nreturns true if original value for property is null or undefined.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 138,
+          "description": "A computed property that returns the inverse boolean value\nof the original value for the dependent property.\n\nExample\n\n```javascript\nvar User = Ember.Object.extend({\n  isAnonymous: Ember.computed.not('loggedIn')\n});\n\nvar user = User.create({loggedIn: false});\n\nuser.get('isAnonymous'); // true\nuser.set('loggedIn', true);\nuser.get('isAnonymous'); // false\n```",
+          "itemtype": "method",
+          "name": "computed.not",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns\ninverse of the original value for property",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 166,
+          "description": "A computed property that converts the provided dependent property\ninto a boolean value.\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  hasBananas: Ember.computed.bool('numBananas')\n});\n\nvar hamster = Hamster.create();\n\nhamster.get('hasBananas'); // false\nhamster.set('numBananas', 0);\nhamster.get('hasBananas'); // false\nhamster.set('numBananas', 1);\nhamster.get('hasBananas'); // true\nhamster.set('numBananas', null);\nhamster.get('hasBananas'); // false\n```",
+          "itemtype": "method",
+          "name": "computed.bool",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which converts\nto boolean the original value for property",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 196,
+          "description": "A computed property which matches the original value for the\ndependent property against a given RegExp, returning `true`\nif they values matches the RegExp and `false` if it does not.\n\nExample\n\n```javascript\nvar User = Ember.Object.extend({\n  hasValidEmail: Ember.computed.match('email', /^.+@.+\\..+$/)\n});\n\nvar user = User.create({loggedIn: false});\n\nuser.get('hasValidEmail'); // false\nuser.set('email', '');\nuser.get('hasValidEmail'); // false\nuser.set('email', 'ember_hamster@example.com');\nuser.get('hasValidEmail'); // true\n```",
+          "itemtype": "method",
+          "name": "computed.match",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "regexp",
+              "description": "",
+              "type": "RegExp"
+            }
+          ],
+          "return": {
+            "description": "computed property which match\nthe original value for property against a given RegExp",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 229,
+          "description": "A computed property that returns true if the provided dependent property\nis equal to the given value.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  napTime: Ember.computed.equal('state', 'sleepy')\n});\n\nvar hamster = Hamster.create();\n\nhamster.get('napTime'); // false\nhamster.set('state', 'sleepy');\nhamster.get('napTime'); // true\nhamster.set('state', 'hungry');\nhamster.get('napTime'); // false\n```",
+          "itemtype": "method",
+          "name": "computed.equal",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "String|Number|Object"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if\nthe original value for property is equal to the given value.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 260,
+          "description": "A computed property that returns true if the provided dependent property\nis greater than the provided value.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  hasTooManyBananas: Ember.computed.gt('numBananas', 10)\n});\n\nvar hamster = Hamster.create();\n\nhamster.get('hasTooManyBananas'); // false\nhamster.set('numBananas', 3);\nhamster.get('hasTooManyBananas'); // false\nhamster.set('numBananas', 11);\nhamster.get('hasTooManyBananas'); // true\n```",
+          "itemtype": "method",
+          "name": "computed.gt",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if\nthe original value for property is greater than given value.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 291,
+          "description": "A computed property that returns true if the provided dependent property\nis greater than or equal to the provided value.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  hasTooManyBananas: Ember.computed.gte('numBananas', 10)\n});\n\nvar hamster = Hamster.create();\n\nhamster.get('hasTooManyBananas'); // false\nhamster.set('numBananas', 3);\nhamster.get('hasTooManyBananas'); // false\nhamster.set('numBananas', 10);\nhamster.get('hasTooManyBananas'); // true\n```",
+          "itemtype": "method",
+          "name": "computed.gte",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if\nthe original value for property is greater or equal then given value.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 322,
+          "description": "A computed property that returns true if the provided dependent property\nis less than the provided value.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  needsMoreBananas: Ember.computed.lt('numBananas', 3)\n});\n\nvar hamster = Hamster.create();\n\nhamster.get('needsMoreBananas'); // true\nhamster.set('numBananas', 3);\nhamster.get('needsMoreBananas'); // false\nhamster.set('numBananas', 2);\nhamster.get('needsMoreBananas'); // true\n```",
+          "itemtype": "method",
+          "name": "computed.lt",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if\nthe original value for property is less then given value.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 353,
+          "description": "A computed property that returns true if the provided dependent property\nis less than or equal to the provided value.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  needsMoreBananas: Ember.computed.lte('numBananas', 3)\n});\n\nvar hamster = Hamster.create();\n\nhamster.get('needsMoreBananas'); // true\nhamster.set('numBananas', 5);\nhamster.get('needsMoreBananas'); // false\nhamster.set('numBananas', 3);\nhamster.get('needsMoreBananas'); // true\n```",
+          "itemtype": "method",
+          "name": "computed.lte",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "computed property which returns true if\nthe original value for property is less or equal than given value.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 384,
+          "description": "A computed property that performs a logical `and` on the\noriginal values for the provided dependent properties.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  readyForCamp: Ember.computed.and('hasTent', 'hasBackpack')\n});\n\nvar hamster = Hamster.create();\n\nhamster.get('readyForCamp'); // false\nhamster.set('hasTent', true);\nhamster.get('readyForCamp'); // false\nhamster.set('hasBackpack', true);\nhamster.get('readyForCamp'); // true\n```",
+          "itemtype": "method",
+          "name": "computed.and",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computed property which performs\na logical `and` on the values of all the original values for properties.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 419,
+          "description": "A computed property which performs a logical `or` on the\noriginal values for the provided dependent properties.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  readyForRain: Ember.computed.or('hasJacket', 'hasUmbrella')\n});\n\nvar hamster = Hamster.create();\n\nhamster.get('readyForRain'); // false\nhamster.set('hasJacket', true);\nhamster.get('readyForRain'); // true\n```",
+          "itemtype": "method",
+          "name": "computed.or",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computed property which performs\na logical `or` on the values of all the original values for properties.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 452,
+          "description": "A computed property that returns the first truthy value\nfrom a list of dependent properties.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  hasClothes: Ember.computed.any('hat', 'shirt')\n});\n\nvar hamster = Hamster.create();\n\nhamster.get('hasClothes'); // null\nhamster.set('shirt', 'Hawaiian Shirt');\nhamster.get('hasClothes'); // 'Hawaiian Shirt'\n```",
+          "itemtype": "method",
+          "name": "computed.any",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computed property which returns\nthe first truthy value of given list of properties.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 485,
+          "description": "A computed property that returns the array of values\nfor the provided dependent properties.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  clothes: Ember.computed.collect('hat', 'shirt')\n});\n\nvar hamster = Hamster.create();\n\nhamster.get('clothes'); // [null, null]\nhamster.set('hat', 'Camp Hat');\nhamster.set('shirt', 'Camp Shirt');\nhamster.get('clothes'); // ['Camp Hat', 'Camp Shirt']\n```",
+          "itemtype": "method",
+          "name": "computed.collect",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computed property which maps\nvalues of all passed in properties to an array.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 524,
+          "description": "Creates a new property that is an alias for another property\non an object. Calls to `get` or `set` this property behave as\nthough they were called on the original property.\n\n```javascript\nvar Person = Ember.Object.extend({\n  name: 'Alex Matchneer',\n  nomen: Ember.computed.alias('name')\n});\n\nvar alex = Person.create();\n\nalex.get('nomen'); // 'Alex Matchneer'\nalex.get('name');  // 'Alex Matchneer'\n\nalex.set('nomen', '@machty');\nalex.get('name');  // '@machty'\n```",
+          "itemtype": "method",
+          "name": "computed.alias",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which creates an\nalias to the original value for property.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 552,
+          "description": "Where `computed.alias` aliases `get` and `set`, and allows for bidirectional\ndata flow, `computed.oneWay` only provides an aliased `get`. The `set` will\nnot mutate the upstream property, rather causes the current property to\nbecome the value set. This causes the downstream property to permanently\ndiverge from the upstream property.\n\nExample\n\n```javascript\nvar User = Ember.Object.extend({\n  firstName: null,\n  lastName: null,\n  nickName: Ember.computed.oneWay('firstName')\n});\n\nvar teddy = User.create({\n  firstName: 'Teddy',\n  lastName:  'Zeenny'\n});\n\nteddy.get('nickName');              // 'Teddy'\nteddy.set('nickName', 'TeddyBear'); // 'TeddyBear'\nteddy.get('firstName');             // 'Teddy'\n```",
+          "itemtype": "method",
+          "name": "computed.oneWay",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which creates a\none way computed property to the original value for property.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 588,
+          "description": "This is a more semantically meaningful alias of `computed.oneWay`,\nwhose name is somewhat ambiguous as to which direction the data flows.",
+          "itemtype": "method",
+          "name": "computed.reads",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which creates a\n  one way computed property to the original value for property.",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 600,
+          "description": "Where `computed.oneWay` provides oneWay bindings, `computed.readOnly` provides\na readOnly one way binding. Very often when using `computed.oneWay` one does\nnot also want changes to propogate back up, as they will replace the value.\n\nThis prevents the reverse flow, and also throws an exception when it occurs.\n\nExample\n\n```javascript\nvar User = Ember.Object.extend({\n  firstName: null,\n  lastName: null,\n  nickName: Ember.computed.readOnly('firstName')\n});\n\nvar teddy = User.create({\n  firstName: 'Teddy',\n  lastName:  'Zeenny'\n});\n\nteddy.get('nickName');              // 'Teddy'\nteddy.set('nickName', 'TeddyBear'); // throws Exception\n// throw new Ember.Error('Cannot Set: nickName on: <User:ember27288>' );`\nteddy.get('firstName');             // 'Teddy'\n```",
+          "itemtype": "method",
+          "name": "computed.readOnly",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which creates a\none way computed property to the original value for property.",
+            "type": "Ember.ComputedProperty"
+          },
+          "since": "1.5.0",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 637,
+          "description": "A computed property that acts like a standard getter and setter,\nbut returns the value at the provided `defaultPath` if the\nproperty itself has not been set to a value\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  wishList: Ember.computed.defaultTo('favoriteFood')\n});\n\nvar hamster = Hamster.create({ favoriteFood: 'Banana' });\n\nhamster.get('wishList');                     // 'Banana'\nhamster.set('wishList', 'More Unit Tests');\nhamster.get('wishList');                     // 'More Unit Tests'\nhamster.get('favoriteFood');                 // 'Banana'\n```",
+          "itemtype": "method",
+          "name": "computed.defaultTo",
+          "params": [
+            {
+              "name": "defaultPath",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which acts like\na standard getter and setter, but defaults to the value from `defaultPath`.",
+            "type": "Ember.ComputedProperty"
+          },
+          "deprecated": true,
+          "deprecationMessage": "Use `Ember.computed.oneWay` or custom CP with default instead.",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed_macros.js",
+          "line": 676,
+          "description": "Creates a new property that is an alias for another property\non an object. Calls to `get` or `set` this property behave as\nthough they were called on the original property, but also\nprint a deprecation warning.",
+          "itemtype": "method",
+          "name": "computed.deprecatingAlias",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computed property which creates an\nalias with a deprecation to the original value for property.",
+            "type": "Ember.ComputedProperty"
+          },
+          "since": "1.7.0",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 187,
+          "description": "Empty function. Useful for some operations. Always returns `this`.",
+          "itemtype": "method",
+          "name": "K",
+          "access": "private",
+          "tagname": "",
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 122,
+          "description": "Add an event listener",
+          "itemtype": "method",
+          "name": "addListener",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "A target object or a function",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            },
+            {
+              "name": "once",
+              "description": "A flag whether a function should only be called once",
+              "type": "Boolean"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 156,
+          "description": "Remove an event listener\n\nArguments should match those passed to `Ember.addListener`.",
+          "itemtype": "method",
+          "name": "removeListener",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "A target object or a function",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 203,
+          "description": "Suspend listener during callback.\n\nThis should only be used by the target of the event listener\nwhen it is taking an action that would cause the event, e.g.\nan object might suspend its property change listener while it is\nsetting that property.",
+          "itemtype": "method",
+          "name": "suspendListener",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "A target object or a function",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 240,
+          "description": "Suspends multiple listeners during a callback.",
+          "itemtype": "method",
+          "name": "suspendListeners",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventNames",
+              "description": "Array of event names",
+              "type": "Array"
+            },
+            {
+              "name": "target",
+              "description": "A target object or a function",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 287,
+          "description": "Return a list of currently watched events",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "watchedEvents",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 309,
+          "description": "Send an event. The execution of suspended listeners\nis skipped, and once listeners are removed. A listener without\na target is executed on the passed object. If an array of actions\nis not passed, the actions stored on the passed object are invoked.",
+          "itemtype": "method",
+          "name": "sendEvent",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "params",
+              "description": "Optional parameters for each listener.",
+              "type": "Array"
+            },
+            {
+              "name": "actions",
+              "description": "Optional array of actions (listeners).",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "true"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 359,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "hasListeners",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 373,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "listenersFor",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 396,
+          "description": "Define a property as a function that should be executed when\na specified event or events are triggered.\n\n\n``` javascript\nvar Job = Ember.Object.extend({\n  logCompleted: Ember.on('completed', function() {\n    console.log('Job completed!');\n  })\n});\n\nvar job = Job.create();\n\nEmber.sendEvent(job, 'completed'); // Logs 'Job completed!'\n ```",
+          "itemtype": "method",
+          "name": "on",
+          "params": [
+            {
+              "name": "eventNames",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            },
+            {
+              "name": "func",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "func"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/is_blank.js",
+          "line": 3,
+          "description": "A value is blank if it is empty or a whitespace string.\n\n```javascript\nEmber.isBlank();                // true\nEmber.isBlank(null);            // true\nEmber.isBlank(undefined);       // true\nEmber.isBlank('');              // true\nEmber.isBlank([]);              // true\nEmber.isBlank('\\n\\t');          // true\nEmber.isBlank('  ');            // true\nEmber.isBlank({});              // false\nEmber.isBlank('\\n\\t Hello');    // false\nEmber.isBlank('Hello world');   // false\nEmber.isBlank([1,2,3]);         // false\n```",
+          "itemtype": "method",
+          "name": "isBlank",
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.5.0",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/is_empty.js",
+          "line": 4,
+          "description": "Verifies that a value is `null` or an empty string, empty array,\nor empty function.\n\nConstrains the rules on `Ember.isNone` by returning true for empty\nstring and empty arrays.\n\n```javascript\nEmber.isEmpty();                // true\nEmber.isEmpty(null);            // true\nEmber.isEmpty(undefined);       // true\nEmber.isEmpty('');              // true\nEmber.isEmpty([]);              // true\nEmber.isEmpty({});              // false\nEmber.isEmpty('Adam Hawkins');  // false\nEmber.isEmpty([0,1,2]);         // false\n```",
+          "itemtype": "method",
+          "name": "isEmpty",
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/is_none.js",
+          "line": 1,
+          "description": "Returns true if the passed value is null or undefined. This avoids errors\nfrom JSLint complaining about use of ==, which can be technically\nconfusing.\n\n```javascript\nEmber.isNone();              // true\nEmber.isNone(null);          // true\nEmber.isNone(undefined);     // true\nEmber.isNone('');            // false\nEmber.isNone([]);            // false\nEmber.isNone(function() {});  // false\n```",
+          "itemtype": "method",
+          "name": "isNone",
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/is_present.js",
+          "line": 5,
+          "description": "A value is present if it not `isBlank`.\n\n```javascript\nEmber.isPresent();                // false\nEmber.isPresent(null);            // false\nEmber.isPresent(undefined);       // false\nEmber.isPresent('');              // false\nEmber.isPresent([]);              // false\nEmber.isPresent('\\n\\t');          // false\nEmber.isPresent('  ');            // false\nEmber.isPresent({});              // true\nEmber.isPresent('\\n\\t Hello');    // true\nEmber.isPresent('Hello world');   // true\nEmber.isPresent([1,2,3]);         // true\n```",
+          "itemtype": "method",
+          "name": "isPresent",
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.7.0",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/keys.js",
+          "line": 3,
+          "description": "Returns all of the keys defined on an object or hash. This is useful\nwhen inspecting objects for debugging. On browsers that support it, this\nuses the native `Object.keys` implementation.",
+          "itemtype": "method",
+          "name": "keys",
+          "params": [
+            {
+              "name": "obj",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Array containing keys of obj",
+            "type": "Array"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/merge.js",
+          "line": 3,
+          "description": "Merge the contents of two objects together into the first object.\n\n```javascript\nEmber.merge({first: 'Tom'}, {last: 'Dale'}); // {first: 'Tom', last: 'Dale'}\nvar a = {first: 'Yehuda'}, b = {last: 'Katz'};\nEmber.merge(a, b); // a == {first: 'Yehuda', last: 'Katz'}, b == {last: 'Katz'}\n```",
+          "itemtype": "method",
+          "name": "merge",
+          "params": [
+            {
+              "name": "original",
+              "description": "The object to merge into",
+              "type": "Object"
+            },
+            {
+              "name": "updates",
+              "description": "The object to copy properties from",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 456,
+          "itemtype": "method",
+          "name": "mixin",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "mixins",
+              "description": "",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "obj"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 713,
+          "description": "Denotes a required property for a mixin",
+          "itemtype": "method",
+          "name": "required",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 729,
+          "description": "Makes a method available via an additional name.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  name: function() {\n    return 'Tomhuda Katzdale';\n  },\n  moniker: Ember.aliasMethod('name')\n});\n\nvar goodGuy = App.Person.create();\n\ngoodGuy.name();    // 'Tomhuda Katzdale'\ngoodGuy.moniker(); // 'Tomhuda Katzdale'\n```",
+          "itemtype": "method",
+          "name": "aliasMethod",
+          "params": [
+            {
+              "name": "methodName",
+              "description": "name of the method to alias",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.Descriptor"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 759,
+          "description": "Specify a method that observes property changes.\n\n```javascript\nEmber.Object.extend({\n  valueObserver: Ember.observer('value', function() {\n    // Executes whenever the \"value\" property changes\n  })\n});\n```\n\nIn the future this method may become asynchronous. If you want to ensure\nsynchronous behavior, use `immediateObserver`.\n\nAlso available as `Function.prototype.observes` if prototype extensions are\nenabled.",
+          "itemtype": "method",
+          "name": "observer",
+          "params": [
+            {
+              "name": "propertyNames",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            },
+            {
+              "name": "func",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "func"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 810,
+          "description": "Specify a method that observes property changes.\n\n```javascript\nEmber.Object.extend({\n  valueObserver: Ember.immediateObserver('value', function() {\n    // Executes whenever the \"value\" property changes\n  })\n});\n```\n\nIn the future, `Ember.observer` may become asynchronous. In this event,\n`Ember.immediateObserver` will maintain the synchronous behavior.\n\nAlso available as `Function.prototype.observesImmediately` if prototype extensions are\nenabled.",
+          "itemtype": "method",
+          "name": "immediateObserver",
+          "params": [
+            {
+              "name": "propertyNames",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            },
+            {
+              "name": "func",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "func"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 843,
+          "description": "When observers fire, they are called with the arguments `obj`, `keyName`.\n\nNote, `@each.property` observer is called per each add or replace of an element\nand it's not called with a specific enumeration item.\n\nA `beforeObserver` fires before a property changes.\n\nA `beforeObserver` is an alternative form of `.observesBefore()`.\n\n```javascript\nApp.PersonView = Ember.View.extend({\n  friends: [{ name: 'Tom' }, { name: 'Stefan' }, { name: 'Kris' }],\n\n  valueWillChange: Ember.beforeObserver('content.value', function(obj, keyName) {\n    this.changingFrom = obj.get(keyName);\n  }),\n\n  valueDidChange: Ember.observer('content.value', function(obj, keyName) {\n      // only run if updating a value already in the DOM\n      if (this.get('state') === 'inDOM') {\n        var color = obj.get(keyName) > this.changingFrom ? 'green' : 'red';\n        // logic\n      }\n  }),\n\n  friendsDidChange: Ember.observer('friends.@each.name', function(obj, keyName) {\n    // some logic\n    // obj.get(keyName) returns friends array\n  })\n});\n```\n\nAlso available as `Function.prototype.observesBefore` if prototype extensions are\nenabled.",
+          "itemtype": "method",
+          "name": "beforeObserver",
+          "params": [
+            {
+              "name": "propertyNames",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            },
+            {
+              "name": "func",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "func"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/observer.js",
+          "line": 28,
+          "itemtype": "method",
+          "name": "addObserver",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "targetOrMethod",
+              "description": "",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "",
+              "type": "Function|String",
+              "optional": true
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/observer.js",
+          "line": 47,
+          "itemtype": "method",
+          "name": "removeObserver",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "",
+              "type": "Function|String",
+              "optional": true
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/observer.js",
+          "line": 62,
+          "itemtype": "method",
+          "name": "addBeforeObserver",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "",
+              "type": "Function|String",
+              "optional": true
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/observer.js",
+          "line": 103,
+          "itemtype": "method",
+          "name": "removeBeforeObserver",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "",
+              "type": "Function|String",
+              "optional": true
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/properties.js",
+          "line": 46,
+          "description": "NOTE: This is a low-level method used by other parts of the API. You almost\nnever want to call this method directly. Instead you should use\n`Ember.mixin()` to define new properties.\n\nDefines a property on an object. This method works much like the ES5\n`Object.defineProperty()` method except that it can also accept computed\nproperties and other special descriptors.\n\nNormally this method takes only three parameters. However if you pass an\ninstance of `Ember.Descriptor` as the third param then you can pass an\noptional value as the fourth parameter. This is often more efficient than\ncreating new descriptor hashes for each property.\n\n## Examples\n\n```javascript\n// ES5 compatible mode\nEmber.defineProperty(contact, 'firstName', {\n  writable: true,\n  configurable: false,\n  enumerable: true,\n  value: 'Charles'\n});\n\n// define a simple property\nEmber.defineProperty(contact, 'lastName', undefined, 'Jolley');\n\n// define a computed property\nEmber.defineProperty(contact, 'fullName', Ember.computed(function() {\n  return this.firstName+' '+this.lastName;\n}).property('firstName', 'lastName'));\n```",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "defineProperty",
+          "params": [
+            {
+              "name": "obj",
+              "description": "the object to define this property on. This may be a prototype.",
+              "type": "Object"
+            },
+            {
+              "name": "keyName",
+              "description": "the name of the property",
+              "type": "String"
+            },
+            {
+              "name": "desc",
+              "description": "an instance of `Ember.Descriptor` (typically a\n  computed property) or an ES5 descriptor.\n  You must provide this or `data` but not both.",
+              "type": "Ember.Descriptor",
+              "optional": true
+            },
+            {
+              "name": "data",
+              "description": "something other than a descriptor, that will\n  become the explicit value of this property.",
+              "type": "*",
+              "optional": true
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_events.js",
+          "line": 20,
+          "description": "This function is called just before an object property is about to change.\nIt will notify any before observers and prepare caches among other things.\n\nNormally you will not need to call this method directly but if for some\nreason you can't directly watch a property you can invoke this method\nmanually along with `Ember.propertyDidChange()` which you should call just\nafter the property value changes.",
+          "itemtype": "method",
+          "name": "propertyWillChange",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object with the property that will change",
+              "type": "Object"
+            },
+            {
+              "name": "keyName",
+              "description": "The property key (or path) that will change.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_events.js",
+          "line": 58,
+          "description": "This function is called just after an object property has changed.\nIt will notify any observers and clear caches among other things.\n\nNormally you will not need to call this method directly but if for some\nreason you can't directly watch a property you can invoke this method\nmanually along with `Ember.propertyWillChange()` which you should call just\nbefore the property value changes.",
+          "itemtype": "method",
+          "name": "propertyDidChange",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object with the property that will change",
+              "type": "Object"
+            },
+            {
+              "name": "keyName",
+              "description": "The property key (or path) that will change.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_events.js",
+          "line": 230,
+          "itemtype": "method",
+          "name": "beginPropertyChanges",
+          "chainable": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_events.js",
+          "line": 239,
+          "itemtype": "method",
+          "name": "endPropertyChanges",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_events.js",
+          "line": 251,
+          "description": "Make a series of property changes together in an\nexception-safe way.\n\n```javascript\nEmber.changeProperties(function() {\n  obj1.set('foo', mayBlowUpWhenSet);\n  obj2.set('bar', baz);\n});\n```",
+          "itemtype": "method",
+          "name": "changeProperties",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "",
+              "optional": true
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_get.js",
+          "line": 23,
+          "description": "Gets the value of a property on an object. If the property is computed,\nthe function will be invoked. If the property is not defined but the\nobject implements the `unknownProperty` method then that will be invoked.\n\nIf you plan to run on IE8 and older browsers then you should use this\nmethod anytime you want to retrieve a property on an object that you don't\nknow for sure is private. (Properties beginning with an underscore '_'\nare considered private.)\n\nOn all newer browsers, you only need to use this method to retrieve\nproperties if the property might not be defined on the object and you want\nto respect the `unknownProperty` handler. Otherwise you can ignore this\nmethod.\n\nNote that if the object itself is `undefined`, this method will throw\nan error.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to retrieve from.",
+              "type": "Object"
+            },
+            {
+              "name": "keyName",
+              "description": "The property key to retrieve",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the property value or `null`.",
+            "type": "Object"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_get.js",
+          "line": 107,
+          "description": "Normalizes a target/path pair to reflect that actual target/path that should\nbe observed, etc. This takes into account passing in global property\npaths (i.e. a path beginning with a captial letter not defined on the\ntarget).",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "normalizeTuple",
+          "params": [
+            {
+              "name": "target",
+              "description": "The current target. May be `null`.",
+              "type": "Object"
+            },
+            {
+              "name": "path",
+              "description": "A path on the target or a global property path.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "a temporary array with the normalized target/path pair.",
+            "type": "Array"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_set.js",
+          "line": 16,
+          "description": "Sets the value of a property on an object, respecting computed properties\nand notifying observers and other listeners of the change. If the\nproperty is not defined but the object implements the `setUnknownProperty`\nmethod then that will be invoked as well.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to modify.",
+              "type": "Object"
+            },
+            {
+              "name": "keyName",
+              "description": "The property key to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the passed value.",
+            "type": "Object"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_set.js",
+          "line": 142,
+          "description": "Error-tolerant form of `Ember.set`. Will not blow up if any part of the\nchain is `undefined`, `null`, or destroyed.\n\nThis is primarily used when syncing bindings, which may try to update after\nan object has been destroyed.",
+          "itemtype": "method",
+          "name": "trySet",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to modify.",
+              "type": "Object"
+            },
+            {
+              "name": "path",
+              "description": "The property path to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to set",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/set_properties.js",
+          "line": 5,
+          "description": "Set a list of properties on an object. These properties are set inside\na single `beginPropertyChanges` and `endPropertyChanges` batch, so\nobservers will be buffered.\n\n```javascript\nvar anObject = Ember.Object.create();\n\nanObject.setProperties({\n  firstName: 'Stanley',\n  lastName: 'Stuart',\n  age: 21\n});\n```",
+          "itemtype": "method",
+          "name": "setProperties",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "properties",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "obj"
+          },
+          "class": "Ember",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 129,
+          "description": "Generates a new guid, optionally saving the guid to the object that you\npass in. You will rarely need to use this method. Instead you should\ncall `Ember.guidFor(obj)`, which return an existing guid if available.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "generateGuid",
+          "params": [
+            {
+              "name": "obj",
+              "description": "Object the guid will be used for. If passed in, the guid will\n  be saved on the object and reused whenever you pass the same object\n  again.\n\n  If no object is passed, just generate a new guid.",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "prefix",
+              "description": "Prefix to place in front of the guid. Useful when you want to\n  separate the guid into separate namespaces.",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the guid",
+            "type": "String"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 160,
+          "description": "Returns a unique id for the object. If the object does not yet have a guid,\none will be assigned to it. You can call this on any object,\n`Ember.Object`-based or not, but be aware that it will add a `_guid`\nproperty.\n\nYou can also use this method on DOM Element objects.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "guidFor",
+          "params": [
+            {
+              "name": "obj",
+              "description": "any object, string, number, Element, or primitive",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the unique guid for this instance.",
+            "type": "String"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 265,
+          "description": "Retrieves the meta hash for an object. If `writable` is true ensures the\nhash is writable for this object as well.\n\nThe meta object contains information about computed property descriptors as\nwell as any watched properties and other information. You generally will\nnot access this information directly but instead work with higher level\nmethods that manipulate this hash indirectly.",
+          "itemtype": "method",
+          "name": "meta",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to retrieve meta for",
+              "type": "Object"
+            },
+            {
+              "name": "writable",
+              "description": "Pass `false` if you do not intend to modify\n  the meta hash, allowing the method to avoid making an unnecessary copy.",
+              "type": "Boolean",
+              "optional": true,
+              "optdefault": "true"
+            }
+          ],
+          "return": {
+            "description": "the meta hash for an object",
+            "type": "Object"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 335,
+          "deprecated": true,
+          "access": "private",
+          "tagname": "In order to store defaults for a class, a prototype may need to create\na default meta object, which will be inherited by any objects instantiated\nfrom the class's constructor.\n\nHowever, the properties of that meta object are only shallow-cloned,\nso if a property is a hash (like the event system's `listeners` hash),\nit will by default be shared across all instances of that class.\n\nThis method allows extensions to deeply clone a series of nested hashes or\nother complex objects. For instance, the event system might pass\n`['listeners', 'foo:change', 'ember157']` to `prepareMetaPath`, which will\nwalk down the keys provided.\n\nFor each key, if the key does not exist, it is created. If it already\nexists and it was inherited from its constructor, the constructor's\nkey is cloned.\n\nYou can also pass false for `writable`, which will simply return\nundefined if `prepareMetaPath` discovers any part of the path that\nshared or undefined.",
+          "itemtype": "method",
+          "name": "metaPath",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object whose meta we are examining",
+              "type": "Object"
+            },
+            {
+              "name": "path",
+              "description": "An array of keys to walk down",
+              "type": "Array"
+            },
+            {
+              "name": "writable",
+              "description": "whether or not to create a new meta\n  (or meta property) if one does not already exist or if it's\n  shared with its constructor",
+              "type": "Boolean"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 392,
+          "description": "Wraps the passed function so that `this._super` will point to the superFunc\nwhen the function is invoked. This is the primitive we use to implement\ncalls to super.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "wrap",
+          "params": [
+            {
+              "name": "func",
+              "description": "The function to call",
+              "type": "Function"
+            },
+            {
+              "name": "superFunc",
+              "description": "The super function.",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "wrapped function.",
+            "type": "Function"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 429,
+          "description": "Returns true if the passed object is an array or Array-like.\n\nEmber Array Protocol:\n\n  - the object has an objectAt property\n  - the object is a native Array\n  - the object is an Object, and has a length property\n\nUnlike `Ember.typeOf` this method returns true even if the passed object is\nnot formally array but appears to be array-like (i.e. implements `Ember.Array`)\n\n```javascript\nEmber.isArray();                                          // false\nEmber.isArray([]);                                        // true\nEmber.isArray(Ember.ArrayProxy.create({ content: [] }));  // true\n```",
+          "itemtype": "method",
+          "name": "isArray",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "true if the passed object is an array or Array-like",
+            "type": "Boolean"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 473,
+          "description": "Forces the passed object to be part of an array. If the object is already\nan array or array-like, it will return the object. Otherwise, it will add the object to\nan array. If obj is `null` or `undefined`, it will return an empty array.\n\n```javascript\nEmber.makeArray();            // []\nEmber.makeArray(null);        // []\nEmber.makeArray(undefined);   // []\nEmber.makeArray('lindsay');   // ['lindsay']\nEmber.makeArray([1, 2, 42]);  // [1, 2, 42]\n\nvar controller = Ember.ArrayProxy.create({ content: [] });\n\nEmber.makeArray(controller) === controller;  // true\n```",
+          "itemtype": "method",
+          "name": "makeArray",
+          "params": [
+            {
+              "name": "obj",
+              "description": "the object",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 500,
+          "description": "Checks to see if the `methodName` exists on the `obj`.\n\n```javascript\nvar foo = { bar: Ember.K, baz: null };\n\nEmber.canInvoke(foo, 'bar'); // true\nEmber.canInvoke(foo, 'baz'); // false\nEmber.canInvoke(foo, 'bat'); // false\n```",
+          "itemtype": "method",
+          "name": "canInvoke",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to check for the method",
+              "type": "Object"
+            },
+            {
+              "name": "methodName",
+              "description": "The method name to check for",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 521,
+          "description": "Checks to see if the `methodName` exists on the `obj`,\nand if it does, invokes it with the arguments passed.\n\n```javascript\nvar d = new Date('03/15/2013');\n\nEmber.tryInvoke(d, 'getTime');              // 1363320000000\nEmber.tryInvoke(d, 'setFullYear', [2014]);  // 1394856000000\nEmber.tryInvoke(d, 'noSuchMethod', [2014]); // undefined\n```",
+          "itemtype": "method",
+          "name": "tryInvoke",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to check for the method",
+              "type": "Object"
+            },
+            {
+              "name": "methodName",
+              "description": "The method name to check for",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "The arguments to pass to the method",
+              "type": "Array",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the return value of the invoked method or undefined if it cannot be invoked",
+            "type": "*"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 560,
+          "description": "Provides try/finally functionality, while working\naround Safari's double finally bug.\n\n```javascript\nvar tryable = function() {\n  someResource.lock();\n  runCallback(); // May throw error.\n};\n\nvar finalizer = function() {\n  someResource.unlock();\n};\n\nEmber.tryFinally(tryable, finalizer);\n```",
+          "itemtype": "method",
+          "name": "tryFinally",
+          "params": [
+            {
+              "name": "tryable",
+              "description": "The function to run the try callback",
+              "type": "Function"
+            },
+            {
+              "name": "finalizer",
+              "description": "The function to run the finally callback",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "The optional calling object. Defaults to 'this'",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "The return value is the that of the finalizer,\nunless that value is undefined, in which case it is the return value\nof the tryable",
+            "type": "*"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 624,
+          "description": "Provides try/catch/finally functionality, while working\naround Safari's double finally bug.\n\n```javascript\nvar tryable = function() {\n  for (i = 0, l = listeners.length; i < l; i++) {\n    listener = listeners[i];\n    beforeValues[i] = listener.before(name, time(), payload);\n  }\n\n  return callback.call(binding);\n};\n\nvar catchable = function(e) {\n  payload = payload || {};\n  payload.exception = e;\n};\n\nvar finalizer = function() {\n  for (i = 0, l = listeners.length; i < l; i++) {\n    listener = listeners[i];\n    listener.after(name, time(), payload, beforeValues[i]);\n  }\n};\n\nEmber.tryCatchFinally(tryable, catchable, finalizer);\n```",
+          "itemtype": "method",
+          "name": "tryCatchFinally",
+          "params": [
+            {
+              "name": "tryable",
+              "description": "The function to run the try callback",
+              "type": "Function"
+            },
+            {
+              "name": "catchable",
+              "description": "The function to run the catchable callback",
+              "type": "Function"
+            },
+            {
+              "name": "finalizer",
+              "description": "The function to run the finally callback",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "The optional calling object. Defaults to 'this'",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "The return value is the that of the finalizer,\nunless that value is undefined, in which case it is the return value\nof the tryable.",
+            "type": "*"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 718,
+          "description": "Returns a consistent type for the passed item.\n\nUse this instead of the built-in `typeof` to get the type of an item.\nIt will return the same result across all browsers and includes a bit\nmore detail. Here is what will be returned:\n\n    | Return Value  | Meaning                                              |\n    |---------------|------------------------------------------------------|\n    | 'string'      | String primitive or String object.                   |\n    | 'number'      | Number primitive or Number object.                   |\n    | 'boolean'     | Boolean primitive or Boolean object.                 |\n    | 'null'        | Null value                                           |\n    | 'undefined'   | Undefined value                                      |\n    | 'function'    | A function                                           |\n    | 'array'       | An instance of Array                                 |\n    | 'regexp'      | An instance of RegExp                                |\n    | 'date'        | An instance of Date                                  |\n    | 'class'       | An Ember class (created using Ember.Object.extend()) |\n    | 'instance'    | An Ember object instance                             |\n    | 'error'       | An instance of the Error object                      |\n    | 'object'      | A JavaScript object not inheriting from Ember.Object |\n\nExamples:\n\n```javascript\nEmber.typeOf();                       // 'undefined'\nEmber.typeOf(null);                   // 'null'\nEmber.typeOf(undefined);              // 'undefined'\nEmber.typeOf('michael');              // 'string'\nEmber.typeOf(new String('michael'));  // 'string'\nEmber.typeOf(101);                    // 'number'\nEmber.typeOf(new Number(101));        // 'number'\nEmber.typeOf(true);                   // 'boolean'\nEmber.typeOf(new Boolean(true));      // 'boolean'\nEmber.typeOf(Ember.makeArray);        // 'function'\nEmber.typeOf([1, 2, 90]);             // 'array'\nEmber.typeOf(/abc/);                  // 'regexp'\nEmber.typeOf(new Date());             // 'date'\nEmber.typeOf(Ember.Object.extend());  // 'class'\nEmber.typeOf(Ember.Object.create());  // 'instance'\nEmber.typeOf(new Error('teamocil'));  // 'error'\n\n// 'normal' JavaScript object\nEmber.typeOf({ a: 'b' });             // 'object'\n```",
+          "itemtype": "method",
+          "name": "typeOf",
+          "params": [
+            {
+              "name": "item",
+              "description": "the item to check",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the type",
+            "type": "String"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 794,
+          "description": "Convenience method to inspect an object. This method will attempt to\nconvert the object into a useful string description.\n\nIt is a pretty simple implementation. If you want something more robust,\nuse something like JSDump: https://github.com/NV/jsDump",
+          "itemtype": "method",
+          "name": "inspect",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object you want to inspect.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "A description of the object",
+            "type": "String"
+          },
+          "since": "1.4.0",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/watching.js",
+          "line": 25,
+          "description": "Starts watching a property on an object. Whenever the property changes,\ninvokes `Ember.propertyWillChange` and `Ember.propertyDidChange`. This is the\nprimitive used by observers and dependent keys; usually you will never call\nthis method directly but instead use higher level methods like\n`Ember.addObserver()`",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "watch",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/watching.js",
+          "line": 71,
+          "description": "Tears down the meta on an object so that it can be garbage collected.\nMultiple calls will have no effect.",
+          "itemtype": "method",
+          "name": "destroy",
+          "params": [
+            {
+              "name": "obj",
+              "description": "the object to destroy",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/controller_for.js",
+          "line": 6,
+          "description": "Finds a controller instance.",
+          "itemtype": "method",
+          "name": "controllerFor",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/generate_controller.js",
+          "line": 10,
+          "description": "Generates a controller factory\n\nThe type of the generated controller factory is derived\nfrom the context. If the context is an array an array controller\nis generated, if an object, an object controller otherwise, a basic\ncontroller is generated.\n\nYou can customize your generated controllers by defining\n`App.ObjectController` or `App.ArrayController`.",
+          "itemtype": "method",
+          "name": "generateControllerFactory",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/generate_controller.js",
+          "line": 53,
+          "description": "Generates and instantiates a controller.\n\nThe type of the generated controller factory is derived\nfrom the context. If the context is an array an array controller\nis generated, if an object, an object controller otherwise, a basic\ncontroller is generated.",
+          "itemtype": "method",
+          "name": "generateController",
+          "access": "private",
+          "tagname": "",
+          "since": "1.3.0",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/array_computed.js",
+          "line": 53,
+          "description": "Creates a computed property which operates on dependent arrays and\nis updated with \"one at a time\" semantics. When items are added or\nremoved from the dependent array(s) an array computed only operates\non the change instead of re-evaluating the entire array. This should\nreturn an array, if you'd like to use \"one at a time\" semantics and\ncompute some value other then an array look at\n`Ember.reduceComputed`.\n\nIf there are more than one arguments the first arguments are\nconsidered to be dependent property keys. The last argument is\nrequired to be an options object. The options object can have the\nfollowing three properties.\n\n`initialize` - An optional initialize function. Typically this will be used\nto set up state on the instanceMeta object.\n\n`removedItem` - A function that is called each time an element is\nremoved from the array.\n\n`addedItem` - A function that is called each time an element is\nadded to the array.\n\n\nThe `initialize` function has the following signature:\n\n```javascript\nfunction(array, changeMeta, instanceMeta)\n```\n\n`array` - The initial value of the arrayComputed, an empty array.\n\n`changeMeta` - An object which contains meta information about the\ncomputed. It contains the following properties:\n\n   - `property` the computed property\n   - `propertyName` the name of the property on the object\n\n`instanceMeta` - An object that can be used to store meta\ninformation needed for calculating your computed. For example a\nunique computed might use this to store the number of times a given\nelement is found in the dependent array.\n\n\nThe `removedItem` and `addedItem` functions both have the following signature:\n\n```javascript\nfunction(accumulatedValue, item, changeMeta, instanceMeta)\n```\n\n`accumulatedValue` - The value returned from the last time\n`removedItem` or `addedItem` was called or an empty array.\n\n`item` - the element added or removed from the array\n\n`changeMeta` - An object which contains meta information about the\nchange. It contains the following properties:\n\n  - `property` the computed property\n  - `propertyName` the name of the property on the object\n  - `index` the index of the added or removed item\n  - `item` the added or removed item: this is exactly the same as\n    the second arg\n  - `arrayChanged` the array that triggered the change. Can be\n    useful when depending on multiple arrays.\n\nFor property changes triggered on an item property change (when\ndepKey is something like `someArray.@each.someProperty`),\n`changeMeta` will also contain the following property:\n\n  - `previousValues` an object whose keys are the properties that changed on\n  the item, and whose values are the item's previous values.\n\n`previousValues` is important Ember coalesces item property changes via\nEmber.run.once. This means that by the time removedItem gets called, item has\nthe new values, but you may need the previous value (eg for sorting &\nfiltering).\n\n`instanceMeta` - An object that can be used to store meta\ninformation needed for calculating your computed. For example a\nunique computed might use this to store the number of times a given\nelement is found in the dependent array.\n\nThe `removedItem` and `addedItem` functions should return the accumulated\nvalue. It is acceptable to not return anything (ie return undefined)\nto invalidate the computation. This is generally not a good idea for\narrayComputed but it's used in eg max and min.\n\nExample\n\n```javascript\nEmber.computed.map = function(dependentKey, callback) {\n  var options = {\n    addedItem: function(array, item, changeMeta, instanceMeta) {\n      var mapped = callback(item);\n      array.insertAt(changeMeta.index, mapped);\n      return array;\n    },\n    removedItem: function(array, item, changeMeta, instanceMeta) {\n      array.removeAt(changeMeta.index, 1);\n      return array;\n    }\n  };\n\n  return Ember.arrayComputed(dependentKey, options);\n};\n```",
+          "itemtype": "method",
+          "name": "arrayComputed",
+          "params": [
+            {
+              "name": "dependentKeys*",
+              "description": "",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed.js",
+          "line": 649,
+          "description": "Creates a computed property which operates on dependent arrays and\nis updated with \"one at a time\" semantics. When items are added or\nremoved from the dependent array(s) a reduce computed only operates\non the change instead of re-evaluating the entire array.\n\nIf there are more than one arguments the first arguments are\nconsidered to be dependent property keys. The last argument is\nrequired to be an options object. The options object can have the\nfollowing four properties:\n\n`initialValue` - A value or function that will be used as the initial\nvalue for the computed. If this property is a function the result of calling\nthe function will be used as the initial value. This property is required.\n\n`initialize` - An optional initialize function. Typically this will be used\nto set up state on the instanceMeta object.\n\n`removedItem` - A function that is called each time an element is removed\nfrom the array.\n\n`addedItem` - A function that is called each time an element is added to\nthe array.\n\n\nThe `initialize` function has the following signature:\n\n```javascript\nfunction(initialValue, changeMeta, instanceMeta)\n```\n\n`initialValue` - The value of the `initialValue` property from the\noptions object.\n\n`changeMeta` - An object which contains meta information about the\ncomputed. It contains the following properties:\n\n   - `property` the computed property\n   - `propertyName` the name of the property on the object\n\n`instanceMeta` - An object that can be used to store meta\ninformation needed for calculating your computed. For example a\nunique computed might use this to store the number of times a given\nelement is found in the dependent array.\n\n\nThe `removedItem` and `addedItem` functions both have the following signature:\n\n```javascript\nfunction(accumulatedValue, item, changeMeta, instanceMeta)\n```\n\n`accumulatedValue` - The value returned from the last time\n`removedItem` or `addedItem` was called or `initialValue`.\n\n`item` - the element added or removed from the array\n\n`changeMeta` - An object which contains meta information about the\nchange. It contains the following properties:\n\n  - `property` the computed property\n  - `propertyName` the name of the property on the object\n  - `index` the index of the added or removed item\n  - `item` the added or removed item: this is exactly the same as\n    the second arg\n  - `arrayChanged` the array that triggered the change. Can be\n    useful when depending on multiple arrays.\n\nFor property changes triggered on an item property change (when\ndepKey is something like `someArray.@each.someProperty`),\n`changeMeta` will also contain the following property:\n\n  - `previousValues` an object whose keys are the properties that changed on\n  the item, and whose values are the item's previous values.\n\n`previousValues` is important Ember coalesces item property changes via\nEmber.run.once. This means that by the time removedItem gets called, item has\nthe new values, but you may need the previous value (eg for sorting &\nfiltering).\n\n`instanceMeta` - An object that can be used to store meta\ninformation needed for calculating your computed. For example a\nunique computed might use this to store the number of times a given\nelement is found in the dependent array.\n\nThe `removedItem` and `addedItem` functions should return the accumulated\nvalue. It is acceptable to not return anything (ie return undefined)\nto invalidate the computation. This is generally not a good idea for\narrayComputed but it's used in eg max and min.\n\nNote that observers will be fired if either of these functions return a value\nthat differs from the accumulated value.  When returning an object that\nmutates in response to array changes, for example an array that maps\neverything from some other array (see `Ember.computed.map`), it is usually\nimportant that the *same* array be returned to avoid accidentally triggering observers.\n\nExample\n\n```javascript\nEmber.computed.max = function(dependentKey) {\n  return Ember.reduceComputed(dependentKey, {\n    initialValue: -Infinity,\n\n    addedItem: function(accumulatedValue, item, changeMeta, instanceMeta) {\n      return Math.max(accumulatedValue, item);\n    },\n\n    removedItem: function(accumulatedValue, item, changeMeta, instanceMeta) {\n      if (item < accumulatedValue) {\n        return accumulatedValue;\n      }\n    }\n  });\n};\n```\n\nDependent keys may refer to `@this` to observe changes to the object itself,\nwhich must be array-like, rather than a property of the object.  This is\nmostly useful for array proxies, to ensure objects are retrieved via\n`objectAtContent`.  This is how you could sort items by properties defined on an item controller.\n\nExample\n\n```javascript\nApp.PeopleController = Ember.ArrayController.extend({\n  itemController: 'person',\n\n  sortedPeople: Ember.computed.sort('@this.@each.reversedName', function(personA, personB) {\n    // `reversedName` isn't defined on Person, but we have access to it via\n    // the item controller App.PersonController.  If we'd used\n    // `content.@each.reversedName` above, we would be getting the objects\n    // directly and not have access to `reversedName`.\n    //\n    var reversedNameA = get(personA, 'reversedName');\n    var reversedNameB = get(personB, 'reversedName');\n\n    return Ember.compare(reversedNameA, reversedNameB);\n  })\n});\n\nApp.PersonController = Ember.ObjectController.extend({\n  reversedName: function() {\n    return reverse(get(this, 'name'));\n  }.property('name')\n});\n```\n\nDependent keys whose values are not arrays are treated as regular\ndependencies: when they change, the computed property is completely\nrecalculated.  It is sometimes useful to have dependent arrays with similar\nsemantics.  Dependent keys which end in `.[]` do not use \"one at a time\"\nsemantics.  When an item is added or removed from such a dependency, the\ncomputed property is completely recomputed.\n\nWhen the computed property is completely recomputed, the `accumulatedValue`\nis discarded, it starts with `initialValue` again, and each item is passed\nto `addedItem` in turn.\n\nExample\n\n```javascript\nEmber.Object.extend({\n  // When `string` is changed, `computed` is completely recomputed.\n  string: 'a string',\n\n  // When an item is added to `array`, `addedItem` is called.\n  array: [],\n\n  // When an item is added to `anotherArray`, `computed` is completely\n  // recomputed.\n  anotherArray: [],\n\n  computed: Ember.reduceComputed('string', 'array', 'anotherArray.[]', {\n    addedItem: addedItemCallback,\n    removedItem: removedItemCallback\n  })\n});\n```",
+          "itemtype": "method",
+          "name": "reduceComputed",
+          "params": [
+            {
+              "name": "dependentKeys*",
+              "description": "",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 26,
+          "description": "A computed property that returns the sum of the value\nin the dependent array.",
+          "itemtype": "method",
+          "name": "computed.sum",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computes the sum of all values in the dependentKey's array",
+            "type": "Ember.ComputedProperty"
+          },
+          "since": "1.4.0",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 51,
+          "description": "A computed property that calculates the maximum value in the\ndependent array. This will return `-Infinity` when the dependent\narray is empty.\n\n```javascript\nvar Person = Ember.Object.extend({\n  childAges: Ember.computed.mapBy('children', 'age'),\n  maxChildAge: Ember.computed.max('childAges')\n});\n\nvar lordByron = Person.create({ children: [] });\n\nlordByron.get('maxChildAge'); // -Infinity\nlordByron.get('children').pushObject({\n  name: 'Augusta Ada Byron', age: 7\n});\nlordByron.get('maxChildAge'); // 7\nlordByron.get('children').pushObjects([{\n  name: 'Allegra Byron',\n  age: 5\n}, {\n  name: 'Elizabeth Medora Leigh',\n  age: 8\n}]);\nlordByron.get('maxChildAge'); // 8\n```",
+          "itemtype": "method",
+          "name": "computed.max",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computes the largest value in the dependentKey's array",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 100,
+          "description": "A computed property that calculates the minimum value in the\ndependent array. This will return `Infinity` when the dependent\narray is empty.\n\n```javascript\nvar Person = Ember.Object.extend({\n  childAges: Ember.computed.mapBy('children', 'age'),\n  minChildAge: Ember.computed.min('childAges')\n});\n\nvar lordByron = Person.create({ children: [] });\n\nlordByron.get('minChildAge'); // Infinity\nlordByron.get('children').pushObject({\n  name: 'Augusta Ada Byron', age: 7\n});\nlordByron.get('minChildAge'); // 7\nlordByron.get('children').pushObjects([{\n  name: 'Allegra Byron',\n  age: 5\n}, {\n  name: 'Elizabeth Medora Leigh',\n  age: 8\n}]);\nlordByron.get('minChildAge'); // 5\n```",
+          "itemtype": "method",
+          "name": "computed.min",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computes the smallest value in the dependentKey's array",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 149,
+          "description": "Returns an array mapped via the callback\n\nThe callback method you provide should have the following signature.\n`item` is the current item in the iteration.\n`index` is the integer index of the current item in the iteration.\n\n```javascript\nfunction(item, index);\n```\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  excitingChores: Ember.computed.map('chores', function(chore, index) {\n    return chore.toUpperCase() + '!';\n  })\n});\n\nvar hamster = Hamster.create({\n  chores: ['clean', 'write more unit tests']\n});\n\nhamster.get('excitingChores'); // ['CLEAN!', 'WRITE MORE UNIT TESTS!']\n```",
+          "itemtype": "method",
+          "name": "computed.map",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "an array mapped via the callback",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 198,
+          "description": "Returns an array mapped to the specified key.\n\n```javascript\nvar Person = Ember.Object.extend({\n  childAges: Ember.computed.mapBy('children', 'age')\n});\n\nvar lordByron = Person.create({ children: [] });\n\nlordByron.get('childAges'); // []\nlordByron.get('children').pushObject({ name: 'Augusta Ada Byron', age: 7 });\nlordByron.get('childAges'); // [7]\nlordByron.get('children').pushObjects([{\n  name: 'Allegra Byron',\n  age: 5\n}, {\n  name: 'Elizabeth Medora Leigh',\n  age: 8\n}]);\nlordByron.get('childAges'); // [7, 5, 8]\n```",
+          "itemtype": "method",
+          "name": "computed.mapBy",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "propertyKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "an array mapped to the specified key",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 232,
+          "itemtype": "method",
+          "name": "computed.mapProperty",
+          "deprecated": true,
+          "deprecationMessage": "Use `Ember.computed.mapBy` instead",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": ""
+            },
+            {
+              "name": "propertyKey",
+              "description": ""
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 241,
+          "description": "Filters the array by the callback.\n\nThe callback method you provide should have the following signature.\n`item` is the current item in the iteration.\n`index` is the integer index of the current item in the iteration.\n\n```javascript\nfunction(item, index);\n```\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  remainingChores: Ember.computed.filter('chores', function(chore, index) {\n    return !chore.done;\n  })\n});\n\nvar hamster = Hamster.create({\n  chores: [\n    { name: 'cook', done: true },\n    { name: 'clean', done: true },\n    { name: 'write more unit tests', done: false }\n  ]\n});\n\nhamster.get('remainingChores'); // [{name: 'write more unit tests', done: false}]\n```",
+          "itemtype": "method",
+          "name": "computed.filter",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "the filtered array",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 307,
+          "description": "Filters the array by the property and value\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  remainingChores: Ember.computed.filterBy('chores', 'done', false)\n});\n\nvar hamster = Hamster.create({\n  chores: [\n    { name: 'cook', done: true },\n    { name: 'clean', done: true },\n    { name: 'write more unit tests', done: false }\n  ]\n});\n\nhamster.get('remainingChores'); // [{ name: 'write more unit tests', done: false }]\n```",
+          "itemtype": "method",
+          "name": "computed.filterBy",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "propertyKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "the filtered array",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 349,
+          "itemtype": "method",
+          "name": "computed.filterProperty",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": ""
+            },
+            {
+              "name": "propertyKey",
+              "description": ""
+            },
+            {
+              "name": "value",
+              "description": ""
+            }
+          ],
+          "deprecated": true,
+          "deprecationMessage": "Use `Ember.computed.filterBy` instead",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 359,
+          "description": "A computed property which returns a new array with all the unique\nelements from one or more dependent arrays.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  uniqueFruits: Ember.computed.uniq('fruits')\n});\n\nvar hamster = Hamster.create({\n  fruits: [\n    'banana',\n    'grape',\n    'kale',\n    'banana'\n  ]\n});\n\nhamster.get('uniqueFruits'); // ['banana', 'grape', 'kale']\n```",
+          "itemtype": "method",
+          "name": "computed.uniq",
+          "params": [
+            {
+              "name": "propertyKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computes a new array with all the\nunique elements from the dependent array",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 423,
+          "description": "Alias for [Ember.computed.uniq](/api/#method_computed_uniq).",
+          "itemtype": "method",
+          "name": "computed.union",
+          "params": [
+            {
+              "name": "propertyKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computes a new array with all the\nunique elements from the dependent array",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 434,
+          "description": "A computed property which returns a new array with all the duplicated\nelements from two or more dependent arrays.\n\nExample\n\n```javascript\nvar obj = Ember.Object.createWithMixins({\n  adaFriends: ['Charles Babbage', 'John Hobhouse', 'William King', 'Mary Somerville'],\n  charlesFriends: ['William King', 'Mary Somerville', 'Ada Lovelace', 'George Peacock'],\n  friendsInCommon: Ember.computed.intersect('adaFriends', 'charlesFriends')\n});\n\nobj.get('friendsInCommon'); // ['William King', 'Mary Somerville']\n```",
+          "itemtype": "method",
+          "name": "computed.intersect",
+          "params": [
+            {
+              "name": "propertyKey",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "computes a new array with all the\nduplicated elements from the dependent arrays",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 514,
+          "description": "A computed property which returns a new array with all the\nproperties from the first dependent array that are not in the second\ndependent array.\n\nExample\n\n```javascript\nvar Hamster = Ember.Object.extend({\n  likes: ['banana', 'grape', 'kale'],\n  wants: Ember.computed.setDiff('likes', 'fruits')\n});\n\nvar hamster = Hamster.create({\n  fruits: [\n    'grape',\n    'kale',\n  ]\n});\n\nhamster.get('wants'); // ['banana']\n```",
+          "itemtype": "method",
+          "name": "computed.setDiff",
+          "params": [
+            {
+              "name": "setAProperty",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "setBProperty",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "computes a new array with all the\nitems from the first dependent array that are not in the second\ndependent array",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/computed/reduce_computed_macros.js",
+          "line": 625,
+          "description": "A computed property which returns a new array with all the\nproperties from the first dependent array sorted based on a property\nor sort function.\n\nThe callback method you provide should have the following signature:\n\n```javascript\nfunction(itemA, itemB);\n```\n\n- `itemA` the first item to compare.\n- `itemB` the second item to compare.\n\nThis function should return negative number (e.g. `-1`) when `itemA` should come before\n`itemB`. It should return positive number (e.g. `1`) when `itemA` should come after\n`itemB`. If the `itemA` and `itemB` are equal this function should return `0`.\n\nTherefore, if this function is comparing some numeric values, simple `itemA - itemB` or\n`itemA.get( 'foo' ) - itemB.get( 'foo' )` can be used instead of series of `if`.\n\nExample\n\n```javascript\nvar ToDoList = Ember.Object.extend({\n  // using standard ascending sort\n  todosSorting: ['name'],\n  sortedTodos: Ember.computed.sort('todos', 'todosSorting'),\n\n  // using descending sort\n  todosSortingDesc: ['name:desc'],\n  sortedTodosDesc: Ember.computed.sort('todos', 'todosSortingDesc'),\n\n  // using a custom sort function\n  priorityTodos: Ember.computed.sort('todos', function(a, b){\n    if (a.priority > b.priority) {\n      return 1;\n    } else if (a.priority < b.priority) {\n      return -1;\n    }\n\n    return 0;\n  })\n});\n\nvar todoList = ToDoList.create({todos: [\n  { name: 'Unit Test', priority: 2 },\n  { name: 'Documentation', priority: 3 },\n  { name: 'Release', priority: 1 }\n]});\n\ntodoList.get('sortedTodos');      // [{ name:'Documentation', priority:3 }, { name:'Release', priority:1 }, { name:'Unit Test', priority:2 }]\ntodoList.get('sortedTodosDesc');  // [{ name:'Unit Test', priority:2 }, { name:'Release', priority:1 }, { name:'Documentation', priority:3 }]\ntodoList.get('priorityTodos');    // [{ name:'Release', priority:1 }, { name:'Unit Test', priority:2 }, { name:'Documentation', priority:3 }]\n```",
+          "itemtype": "method",
+          "name": "computed.sort",
+          "params": [
+            {
+              "name": "dependentKey",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "sortDefinition",
+              "description": "a dependent key to an\narray of sort properties (add `:desc` to the arrays sort properties to sort descending) or a function to use when sorting",
+              "type": "String or Function"
+            }
+          ],
+          "return": {
+            "description": "computes a new sorted array based\non the sort property array or callback function",
+            "type": "Ember.ComputedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/controllers/controller.js",
+          "line": 25,
+          "description": "Creates a property that lazily looks up another controller in the container.\nCan only be used when defining another controller.\n\nExample:\n\n```javascript\nApp.PostController = Ember.Controller.extend({\n  posts: Ember.inject.controller()\n});\n```\n\nThis example will create a `posts` property on the `post` controller that\nlooks up the `posts` controller in the container, making it easy to\nreference other controllers. This is functionally equivalent to:\n\n```javascript\nApp.PostController = Ember.Controller.extend({\n  needs: 'posts',\n  posts: Ember.computed.alias('controllers.posts')\n});\n```",
+          "itemtype": "method",
+          "name": "inject.controller",
+          "params": [
+            {
+              "name": "name",
+              "description": "(optional) name of the controller to inject, defaults\n       to the property's name",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "injection descriptor instance",
+            "type": "Ember.InjectedProperty"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/lazy_load.js",
+          "line": 15,
+          "description": "Detects when a specific package of Ember (e.g. 'Ember.Handlebars')\nhas fully loaded and is available for extension.\n\nThe provided `callback` will be called with the `name` passed\nresolved from a string into the object:\n\n``` javascript\nEmber.onLoad('Ember.Handlebars' function(hbars) {\n  hbars.registerHelper(...);\n});\n```",
+          "itemtype": "method",
+          "name": "onLoad",
+          "params": [
+            {
+              "name": "name",
+              "description": "name of hook",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "callback to be called",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/lazy_load.js",
+          "line": 44,
+          "description": "Called when an Ember.js package (e.g Ember.Handlebars) has finished\nloading. Triggers any callbacks registered for this event.",
+          "itemtype": "method",
+          "name": "runLoadHooks",
+          "params": [
+            {
+              "name": "name",
+              "description": "name of hook",
+              "type": "String"
+            },
+            {
+              "name": "object",
+              "description": "object to pass to callbacks",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/native_array.js",
+          "line": 107,
+          "description": "Creates an `Ember.NativeArray` from an Array like object.\nDoes not modify the original object. Ember.A is not needed if\n`Ember.EXTEND_PROTOTYPES` is `true` (the default value). However,\nit is recommended that you use Ember.A when creating addons for\nember or when you can not guarantee that `Ember.EXTEND_PROTOTYPES`\nwill be `true`.\n\nExample\n\n```js\nvar Pagination = Ember.CollectionView.extend({\n  tagName: 'ul',\n  classNames: ['pagination'],\n\n  init: function() {\n    this._super();\n    if (!this.get('content')) {\n      this.set('content', Ember.A());\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "A",
+          "return": {
+            "description": "",
+            "type": "Ember.NativeArray"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/service.js",
+          "line": 14,
+          "description": "Creates a property that lazily looks up a service in the container. There\nare no restrictions as to what objects a service can be injected into.\n\nExample:\n\n```javascript\nApp.ApplicationRoute = Ember.Route.extend({\n  authManager: Ember.inject.service('auth'),\n\n  model: function() {\n    return this.get('authManager').findCurrentUser();\n  }\n});\n```\n\nThis example will create an `authManager` property on the application route\nthat looks up the `auth` service in the container, making it easily\naccessible in the `model` hook.",
+          "itemtype": "method",
+          "name": "inject.service",
+          "params": [
+            {
+              "name": "name",
+              "description": "(optional) name of the service to inject, defaults to\n       the property's name",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "injection descriptor instance",
+            "type": "Ember.InjectedProperty"
+          },
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/compare.js",
+          "line": 26,
+          "description": "This will compare two javascript values of possibly different types.\nIt will tell you which one is greater than the other by returning:\n\n - -1 if the first is smaller than the second,\n - 0 if both are equal,\n - 1 if the first is greater than the second.\n\nThe order is calculated based on `Ember.ORDER_DEFINITION`, if types are different.\nIn case they have the same type an appropriate comparison for this type is made.\n\n ```javascript\n Ember.compare('hello', 'hello');  // 0\n Ember.compare('abc', 'dfg');      // -1\n Ember.compare(2, 1);              // 1\n ```",
+          "itemtype": "method",
+          "name": "compare",
+          "params": [
+            {
+              "name": "v",
+              "description": "First value to compare",
+              "type": "Object"
+            },
+            {
+              "name": "w",
+              "description": "Second value to compare",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "-1 if v < w, 0 if v = w and 1 if v > w.",
+            "type": "Number"
+          },
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/copy.js",
+          "line": 65,
+          "description": "Creates a clone of the passed object. This function can take just about\nany type of object and create a clone of it, including primitive values\n(which are not actually cloned because they are immutable).\n\nIf the passed object implements the `copy()` method, then this function\nwill simply call that method and return the result. Please see\n`Ember.Copyable` for further details.",
+          "itemtype": "method",
+          "name": "copy",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to clone",
+              "type": "Object"
+            },
+            {
+              "name": "deep",
+              "description": "If true, a deep copy of the object is made",
+              "type": "Boolean"
+            }
+          ],
+          "return": {
+            "description": "The cloned object",
+            "type": "Object"
+          },
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/core.js",
+          "line": 6,
+          "description": "Compares two objects, returning true if they are logically equal. This is\na deeper comparison than a simple triple equal. For sets it will compare the\ninternal objects. For any other object that implements `isEqual()` it will\nrespect that method.\n\n```javascript\nEmber.isEqual('hello', 'hello');  // true\nEmber.isEqual(1, 2);              // false\nEmber.isEqual([4, 2], [4, 2]);    // false\n```",
+          "itemtype": "method",
+          "name": "isEqual",
+          "params": [
+            {
+              "name": "a",
+              "description": "first object to compare",
+              "type": "Object"
+            },
+            {
+              "name": "b",
+              "description": "second object to compare",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-views/lib/main.js",
+          "line": 35,
+          "description": "Alias for jQuery",
+          "itemtype": "method",
+          "name": "$",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-views"
+        }
+      ],
+      "events": [
+        {
+          "file": "packages/ember-metal/lib/main.js",
+          "line": 327,
+          "description": "A function may be assigned to `Ember.onerror` to be called when Ember\ninternals encounter an error. This is useful for specialized error handling\nand reporting code.\n\n```javascript\nEmber.onerror = function(error) {\n  Em.$.ajax('/report-error', 'POST', {\n    stack: error.stack,\n    otherInformation: 'whatever app state you want to provide'\n  });\n};\n```\n\nInternally, `Ember.onerror` is used as Backburner's error handler.",
+          "itemtype": "event",
+          "name": "onerror",
+          "params": [
+            {
+              "name": "error",
+              "description": "the error object",
+              "type": "Exception"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        }
+      ],
+      "properties": [
+        {
+          "file": "packages/ember-metal/lib/array.js",
+          "line": 116,
+          "description": "Array polyfills to support ES5 features in older browsers.",
+          "itemtype": "property",
+          "name": "ArrayPolyfills",
+          "class": "Ember",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/binding.js",
+          "line": 25,
+          "description": "Debug parameter you can turn on. This will log all bindings that fire to\nthe console. This should be disabled in production code. Note that you\ncan also enable this from the console or temporarily.",
+          "itemtype": "property",
+          "name": "LOG_BINDINGS",
+          "type": "Boolean",
+          "default": "false",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 49,
+          "itemtype": "property",
+          "name": "VERSION",
+          "type": "String",
+          "default": "'VERSION_STRING_PLACEHOLDER'",
+          "static": 1,
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 57,
+          "description": "Standard environmental variables. You can define these in a global `EmberENV`\nvariable before loading Ember to control various configuration settings.\n\nFor backwards compatibility with earlier versions of Ember the global `ENV`\nvariable will be used if `EmberENV` is not defined.",
+          "itemtype": "property",
+          "name": "ENV",
+          "type": "Hash",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 139,
+          "description": "Determines whether Ember should enhance some built-in object prototypes to\nprovide a more friendly API. If enabled, a few methods will be added to\n`Function`, `String`, and `Array`. `Object.prototype` will not be enhanced,\nwhich is the one that causes most trouble for people.\n\nIn general we recommend leaving this option set to true since it rarely\nconflicts with other code. If you need to turn it off however, you can\ndefine an `ENV.EXTEND_PROTOTYPES` config to disable it.",
+          "itemtype": "property",
+          "name": "EXTEND_PROTOTYPES",
+          "type": "Boolean",
+          "default": "true",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 160,
+          "description": "Determines whether Ember logs a full stack trace during deprecation warnings",
+          "itemtype": "property",
+          "name": "LOG_STACKTRACE_ON_DEPRECATION",
+          "type": "Boolean",
+          "default": "true",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 169,
+          "description": "Determines whether Ember should add ECMAScript 5 Array shims to older browsers.",
+          "itemtype": "property",
+          "name": "SHIM_ES5",
+          "type": "Boolean",
+          "default": "Ember.EXTEND_PROTOTYPES",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 178,
+          "description": "Determines whether Ember logs info about version of used libraries",
+          "itemtype": "property",
+          "name": "LOG_VERSION",
+          "type": "Boolean",
+          "default": "true",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 44,
+          "description": "Prefix used for guids through out Ember.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "GUID_PREFIX",
+          "type": "String",
+          "final": 1,
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 106,
+          "description": "A unique key used to assign guids and other private metadata to objects.\nIf you inspect an object in your browser debugger you will often see these.\nThey can be safely ignored.\n\nOn browsers that support it, these properties are added with enumeration\ndisabled so they won't show up when you iterate over your properties.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "GUID_KEY",
+          "type": "String",
+          "final": 1,
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/string.js",
+          "line": 114,
+          "description": "Defines the hash of localized strings for the current language. Used by\nthe `Ember.String.loc()` helper. To localize, add string values to this\nhash.",
+          "itemtype": "property",
+          "name": "STRINGS",
+          "type": "Hash",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-views/lib/views/view.js",
+          "line": 85,
+          "description": "Global hash of shared templates. This will automatically be populated\nby the build tools so that you can store your Handlebars templates in\nseparate files that get loaded into JavaScript at buildtime.",
+          "itemtype": "property",
+          "name": "TEMPLATES",
+          "type": "Hash",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-views"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.9.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.9.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

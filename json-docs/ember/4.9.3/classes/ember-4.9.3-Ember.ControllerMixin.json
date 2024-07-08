@@ -1,0 +1,228 @@
+{
+  "data": {
+    "id": "ember-4.9.3-Ember.ControllerMixin",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ControllerMixin",
+      "shortname": "Ember.ControllerMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.Controller"
+      ],
+      "module": "ember/controller",
+      "namespace": "Ember",
+      "file": "packages/@ember/controller/index.ts",
+      "line": 24,
+      "uses": [
+        "Ember.ActionHandler"
+      ],
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 91,
+          "description": "Transition the application into another route. The route may\nbe either a single route or route path:\n\n```javascript\naController.transitionToRoute('blogPosts');\naController.transitionToRoute('blogPosts.recentEntries');\n```\n\nOptionally supply a model for the route in question. The model\nwill be serialized into the URL using the `serialize` hook of\nthe route:\n\n```javascript\naController.transitionToRoute('blogPost', aPost);\n```\n\nIf a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the `model`\nhook of the route will be triggered:\n\n```javascript\naController.transitionToRoute('blogPost', 1);\n```\n\nMultiple models will be applied last to first recursively up the\nroute tree.\n\n```js {data-filename=app/router.js}\nRouter.map(function() {\n  this.route('blogPost', { path: ':blogPostId' }, function() {\n    this.route('blogComment', { path: ':blogCommentId', resetNamespace: true });\n  });\n});\n```\n\n```javascript\naController.transitionToRoute('blogComment', aPost, aComment);\naController.transitionToRoute('blogComment', 1, 13);\n```\n\nIt is also possible to pass a URL (a string that starts with a\n`/`).\n\n```javascript\naController.transitionToRoute('/');\naController.transitionToRoute('/blog/post/1/comment/13');\naController.transitionToRoute('/blog/posts?sort=title');\n```\n\nAn options hash with a `queryParams` property may be provided as\nthe final argument to add query parameters to the destination URL.\n\n```javascript\naController.transitionToRoute('blogPost', 1, {\n  queryParams: { showComments: 'true' }\n});\n\n// if you just want to transition the query parameters without changing the route\naController.transitionToRoute({ queryParams: { sort: 'date' } });\n```\n\nSee also [replaceRoute](/ember/release/classes/Ember.ControllerMixin/methods/replaceRoute?anchor=replaceRoute).",
+          "itemtype": "method",
+          "name": "transitionToRoute",
+          "deprecated": true,
+          "deprecationMessage": "Use transitionTo from the Router service instead.",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\n  while transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\n  containing a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the transition object associated with this\n  attempted transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember/controller",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 169,
+          "description": "Transition into another route while replacing the current URL, if possible.\nThis will replace the current history entry instead of adding a new one.\nBeside that, it is identical to `transitionToRoute` in all other respects.\n\n```javascript\naController.replaceRoute('blogPosts');\naController.replaceRoute('blogPosts.recentEntries');\n```\n\nOptionally supply a model for the route in question. The model\nwill be serialized into the URL using the `serialize` hook of\nthe route:\n\n```javascript\naController.replaceRoute('blogPost', aPost);\n```\n\nIf a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the `model`\nhook of the route will be triggered:\n\n```javascript\naController.replaceRoute('blogPost', 1);\n```\n\nMultiple models will be applied last to first recursively up the\nroute tree.\n\n```js {data-filename=app/router.js}\nRouter.map(function() {\n  this.route('blogPost', { path: ':blogPostId' }, function() {\n    this.route('blogComment', { path: ':blogCommentId', resetNamespace: true });\n  });\n});\n```\n\n```\naController.replaceRoute('blogComment', aPost, aComment);\naController.replaceRoute('blogComment', 1, 13);\n```\n\nIt is also possible to pass a URL (a string that starts with a\n`/`).\n\n```javascript\naController.replaceRoute('/');\naController.replaceRoute('/blog/post/1/comment/13');\n```",
+          "itemtype": "method",
+          "name": "replaceRoute",
+          "deprecated": true,
+          "deprecationMessage": "Use replaceWith from the Router service instead.",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\nwhile transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\ncontaining a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the transition object associated with this\n  attempted transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember/controller",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 264,
+          "description": "This property is updated to various different callback functions depending on\nthe current \"state\" of the backing route. It is used by\n`Controller.prototype._qpChanged`.\n\nThe methods backing each state can be found in the `Route.prototype._qp` computed\nproperty return value (the `.states` property). The current values are listed here for\nthe sanity of future travelers:\n\n* `inactive` - This state is used when this controller instance is not part of the active\n  route hierarchy. Set in `Route.prototype._reset` (a `router.js` microlib hook) and\n  `Route.prototype.actions.finalizeQueryParamChange`.\n* `active` - This state is used when this controller instance is part of the active\n  route hierarchy. Set in `Route.prototype.actions.finalizeQueryParamChange`.\n* `allowOverrides` - This state is used in `Route.prototype.setup` (`route.js` microlib hook).",
+          "itemtype": "method",
+          "name": "_qpDelegate",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember/controller",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 285,
+          "description": "During `Route#setup` observers are created to invoke this method\nwhen any of the query params declared in `Controller#queryParams` property\nare changed.\n\nWhen invoked this method uses the currently active query param update delegate\n(see `Controller.prototype._qpDelegate` for details) and invokes it with\nthe QP key/value being changed.",
+          "itemtype": "method",
+          "name": "_qpChanged",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember/controller",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/action_handler.ts",
+          "line": 172,
+          "description": "Triggers a named action on the `ActionHandler`. Any parameters\nsupplied after the `actionName` string will be passed as arguments\nto the action target function.\n\nIf the `ActionHandler` has its `target` property set, actions may\nbubble to the `target`. Bubbling happens when an `actionName` can\nnot be found in the `ActionHandler`'s `actions` hash or if the\naction target function returns `true`.\n\nExample\n\n```js {data-filename=app/routes/welcome.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    playTheme() {\n      this.send('playMusic', 'theme.mp3');\n    },\n    playMusic(track) {\n      // ...\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "actionName",
+              "description": "The action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 36,
+          "description": "The object to which actions from the view should be sent.\n\nFor example, when a Handlebars template uses the `{{action}}` helper,\nit will attempt to send the action to the view's controller's `target`.\n\nBy default, the value of the target property is set to the router, and\nis injected when a controller is instantiated. This injection is applied\nas part of the application's initialization process. In most cases the\n`target` property will automatically be set to the logical consumer of\nactions for the controller.",
+          "itemtype": "property",
+          "name": "target",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember/controller",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 54,
+          "description": "The controller's current model. When retrieving or modifying a controller's\nmodel, this property should be used instead of the `content` property.",
+          "itemtype": "property",
+          "name": "model",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember/controller",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 63,
+          "description": "Defines which query parameters the controller accepts.\nIf you give the names `['category','page']` it will bind\nthe values of these query parameters to the variables\n`this.category` and `this.page`.\n\nBy default, query parameters are parsed as strings. This\nmay cause unexpected behavior if a query parameter is used with `toggleProperty`,\nbecause the initial value set for `param=false` will be the string `\"false\"`, which is truthy.\n\nTo avoid this, you may specify that the query parameter should be parsed as a boolean\nby using the following verbose form with a `type` property:\n```javascript\n  queryParams: [{\n    category: {\n      type: 'boolean'\n    }\n  }]\n```\nAvailable values for the `type` parameter are `'boolean'`, `'number'`, `'array'`, and `'string'`.\nIf query param type is not specified, it will default to `'string'`.",
+          "itemtype": "property",
+          "name": "queryParams",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember/controller",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/action_handler.ts",
+          "line": 27,
+          "description": "The collection of functions, keyed by name, available on this\n`ActionHandler` as action targets.\n\nThese functions will be invoked when a matching `{{action}}` is triggered\nfrom within a template and the application's current route is this route.\n\nActions can also be invoked from other parts of your application\nvia `ActionHandler#send`.\n\nThe `actions` hash will inherit action handlers from\nthe `actions` hash defined on extended parent classes\nor mixins rather than just replace the entire hash, e.g.:\n\n```js {data-filename=app/mixins/can-display-banner.js}\nimport Mixin from '@ember/object/mixin';\n\nexport default Mixin.create({\n  actions: {\n    displayBanner(msg) {\n      // ...\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/welcome.js}\nimport Route from '@ember/routing/route';\nimport CanDisplayBanner from '../mixins/can-display-banner';\n\nexport default Route.extend(CanDisplayBanner, {\n  actions: {\n    playMusic() {\n      // ...\n    }\n  }\n});\n\n// `WelcomeRoute`, when active, will be able to respond\n// to both actions, since the actions hash is merged rather\n// then replaced when extending mixins / parent classes.\nthis.send('displayBanner');\nthis.send('playMusic');\n```\n\nWithin a Controller, Route or Component's action handler,\nthe value of the `this` context is the Controller, Route or\nComponent object:\n\n```js {data-filename=app/routes/song.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    myAction() {\n      this.controllerFor(\"song\");\n      this.transitionTo(\"other.route\");\n      ...\n    }\n  }\n});\n```\n\nIt is also possible to call `this._super(...arguments)` from within an\naction handler if it overrides a handler defined on a parent\nclass or mixin:\n\nTake for example the following routes:\n\n```js {data-filename=app/mixins/debug-route.js}\nimport Mixin from '@ember/object/mixin';\n\nexport default Mixin.create({\n  actions: {\n    debugRouteInformation() {\n      console.debug(\"It's a-me, console.debug!\");\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/annoying-debug.js}\nimport Route from '@ember/routing/route';\nimport DebugRoute from '../mixins/debug-route';\n\nexport default Route.extend(DebugRoute, {\n  actions: {\n    debugRouteInformation() {\n      // also call the debugRouteInformation of mixed in DebugRoute\n      this._super(...arguments);\n\n      // show additional annoyance\n      window.alert(...);\n    }\n  }\n});\n```\n\n## Bubbling\n\nBy default, an action will stop bubbling once a handler defined\non the `actions` hash handles it. To continue bubbling the action,\nyou must return `true` from the handler:\n\n```js {data-filename=app/router.js}\nRouter.map(function() {\n  this.route(\"album\", function() {\n    this.route(\"song\");\n  });\n});\n```\n\n```js {data-filename=app/routes/album.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    startPlaying: function() {\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/album-song.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    startPlaying() {\n      // ...\n\n      if (actionShouldAlsoBeTriggeredOnParentRoute) {\n        return true;\n      }\n    }\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "actions",
+          "type": "Object",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-4.9.3-ember/controller",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-4.9.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

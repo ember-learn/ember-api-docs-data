@@ -1,0 +1,197 @@
+{
+  "data": {
+    "id": "ember-1.1.2-Ember.Binding",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Binding",
+      "shortname": "Ember.Binding",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-metal",
+      "namespace": "Ember",
+      "file": "../packages/ember-metal/lib/binding.js",
+      "line": 326,
+      "description": "An `Ember.Binding` connects the properties of two objects so that whenever\nthe value of one property changes, the other property will be changed also.\n\n## Automatic Creation of Bindings with `/^*Binding/`-named Properties\n\nYou do not usually create Binding objects directly but instead describe\nbindings in your class or object definition using automatic binding\ndetection.\n\nProperties ending in a `Binding` suffix will be converted to `Ember.Binding`\ninstances. The value of this property should be a string representing a path\nto another object or a custom binding instanced created using Binding helpers\n(see \"One Way Bindings\"):\n\n```\nvalueBinding: \"MyApp.someController.title\"\n```\n\nThis will create a binding from `MyApp.someController.title` to the `value`\nproperty of your object instance automatically. Now the two values will be\nkept in sync.\n\n## One Way Bindings\n\nOne especially useful binding customization you can use is the `oneWay()`\nhelper. This helper tells Ember that you are only interested in\nreceiving changes on the object you are binding from. For example, if you\nare binding to a preference and you want to be notified if the preference\nhas changed, but your object will not be changing the preference itself, you\ncould do:\n\n```\nbigTitlesBinding: Ember.Binding.oneWay(\"MyApp.preferencesController.bigTitles\")\n```\n\nThis way if the value of `MyApp.preferencesController.bigTitles` changes the\n`bigTitles` property of your object will change also. However, if you\nchange the value of your `bigTitles` property, it will not update the\n`preferencesController`.\n\nOne way bindings are almost twice as fast to setup and twice as fast to\nexecute because the binding only has to worry about changes to one side.\n\nYou should consider using one way bindings anytime you have an object that\nmay be created frequently and you do not intend to change a property; only\nto monitor it for changes (such as in the example above).\n\n## Adding Bindings Manually\n\nAll of the examples above show you how to configure a custom binding, but the\nresult of these customizations will be a binding template, not a fully active\nBinding instance. The binding will actually become active only when you\ninstantiate the object the binding belongs to. It is useful however, to\nunderstand what actually happens when the binding is activated.\n\nFor a binding to function it must have at least a `from` property and a `to`\nproperty. The `from` property path points to the object/key that you want to\nbind from while the `to` path points to the object/key you want to bind to.\n\nWhen you define a custom binding, you are usually describing the property\nyou want to bind from (such as `MyApp.someController.value` in the examples\nabove). When your object is created, it will automatically assign the value\nyou want to bind `to` based on the name of your binding key. In the\nexamples above, during init, Ember objects will effectively call\nsomething like this on your binding:\n\n```javascript\nbinding = Ember.Binding.from(this.valueBinding).to(\"value\");\n```\n\nThis creates a new binding instance based on the template you provide, and\nsets the to path to the `value` property of the new object. Now that the\nbinding is fully configured with a `from` and a `to`, it simply needs to be\nconnected to become active. This is done through the `connect()` method:\n\n```javascript\nbinding.connect(this);\n```\n\nNote that when you connect a binding you pass the object you want it to be\nconnected to. This object will be used as the root for both the from and\nto side of the binding when inspecting relative paths. This allows the\nbinding to be automatically inherited by subclassed objects as well.\n\nNow that the binding is connected, it will observe both the from and to side\nand relay changes.\n\nIf you ever needed to do so (you almost never will, but it is useful to\nunderstand this anyway), you could manually create an active binding by\nusing the `Ember.bind()` helper method. (This is the same method used by\nto setup your bindings on objects):\n\n```javascript\nEmber.bind(MyApp.anotherObject, \"value\", \"MyApp.someController.value\");\n```\n\nBoth of these code fragments have the same effect as doing the most friendly\nform of binding creation like so:\n\n```javascript\nMyApp.anotherObject = Ember.Object.create({\n  valueBinding: \"MyApp.someController.value\",\n\n  // OTHER CODE FOR THIS OBJECT...\n});\n```\n\nEmber's built in binding creation method makes it easy to automatically\ncreate bindings for you. You should always use the highest-level APIs\navailable, even if you understand how it works underneath.",
+      "since": "Ember 0.9",
+      "methods": [
+        {
+          "file": "../packages/ember-metal/lib/binding.js",
+          "line": 69,
+          "description": "This copies the Binding so it can be connected to another object.",
+          "itemtype": "method",
+          "name": "copy",
+          "return": {
+            "description": "`this`",
+            "type": "Ember.Binding"
+          },
+          "class": "Ember.Binding",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-metal/lib/binding.js",
+          "line": 85,
+          "description": "This will set `from` property path to the specified value. It will not\nattempt to resolve this property path to an actual object until you\nconnect the binding.\n\nThe binding will search for the property path starting at the root object\nyou pass when you `connect()` the binding. It follows the same rules as\n`get()` - see that method for more information.",
+          "itemtype": "method",
+          "name": "from",
+          "params": [
+            {
+              "name": "path",
+              "description": "the property path to connect to",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "`this`",
+            "type": "Ember.Binding"
+          },
+          "class": "Ember.Binding",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-metal/lib/binding.js",
+          "line": 103,
+          "description": "This will set the `to` property path to the specified value. It will not\nattempt to resolve this property path to an actual object until you\nconnect the binding.\n\nThe binding will search for the property path starting at the root object\nyou pass when you `connect()` the binding. It follows the same rules as\n`get()` - see that method for more information.",
+          "itemtype": "method",
+          "name": "to",
+          "params": [
+            {
+              "name": "path",
+              "description": "A property path or tuple",
+              "type": "String|Tuple"
+            }
+          ],
+          "return": {
+            "description": "`this`",
+            "type": "Ember.Binding"
+          },
+          "class": "Ember.Binding",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-metal/lib/binding.js",
+          "line": 121,
+          "description": "Configures the binding as one way. A one-way binding will relay changes\non the `from` side to the `to` side, but not the other way around. This\nmeans that if you change the `to` side directly, the `from` side may have\na different value.",
+          "itemtype": "method",
+          "name": "oneWay",
+          "return": {
+            "description": "`this`",
+            "type": "Ember.Binding"
+          },
+          "class": "Ember.Binding",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-metal/lib/binding.js",
+          "line": 135,
+          "itemtype": "method",
+          "name": "toString",
+          "return": {
+            "description": "string representation of binding",
+            "type": "String"
+          },
+          "class": "Ember.Binding",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-metal/lib/binding.js",
+          "line": 148,
+          "description": "Attempts to connect this binding instance so that it can receive and relay\nchanges. This method will raise an exception if you have not set the\nfrom/to properties yet.",
+          "itemtype": "method",
+          "name": "connect",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The root object for this binding.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "`this`",
+            "type": "Ember.Binding"
+          },
+          "class": "Ember.Binding",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-metal/lib/binding.js",
+          "line": 174,
+          "description": "Disconnects the binding instance. Changes will no longer be relayed. You\nwill not usually need to call this method.",
+          "itemtype": "method",
+          "name": "disconnect",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The root object you passed when connecting the binding.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "`this`",
+            "type": "Ember.Binding"
+          },
+          "class": "Ember.Binding",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-metal/lib/binding.js",
+          "line": 303,
+          "description": "Creates a new Binding instance and makes it apply in a single direction.\nA one-way binding will relay changes on the `from` side object (supplied\nas the `from` argument) the `to` side, but not the other way around.\nThis means that if you change the \"to\" side directly, the \"from\" side may have\na different value.\n\nSee `Binding.oneWay`.",
+          "itemtype": "method",
+          "name": "oneWay",
+          "params": [
+            {
+              "name": "from",
+              "description": "from path.",
+              "type": "String"
+            },
+            {
+              "name": "flag",
+              "description": "(Optional) passing nothing here will make the\n  binding `oneWay`. You can instead pass `false` to disable `oneWay`, making the\n  binding two way again.",
+              "type": "Boolean",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "`this`",
+            "type": "Ember.Binding"
+          },
+          "class": "Ember.Binding",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.1.2-ember-metal",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.1.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

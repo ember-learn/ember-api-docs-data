@@ -1,0 +1,130 @@
+{
+  "data": {
+    "id": "ember-2.5.1-Ember.ComputedProperty",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ComputedProperty",
+      "shortname": "Ember.ComputedProperty",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-metal",
+      "namespace": "Ember",
+      "file": "packages/ember-metal/lib/computed.js",
+      "line": 30,
+      "description": "A computed property transforms an object literal with object's accessor function(s) into a property.\n\nBy default the function backing the computed property will only be called\nonce and the result will be cached. You can specify various properties\nthat your computed property depends on. This will force the cached\nresult to be recomputed if the dependencies are modified.\n\nIn the following example we declare a computed property - `fullName` - by calling\n`.Ember.computed()` with property dependencies (`firstName` and `lastName`) as leading arguments and getter accessor function. The `fullName` getter function\nwill be called once (regardless of how many times it is accessed) as long\nas its dependencies have not changed. Once `firstName` or `lastName` are updated\nany future calls (or anything bound) to `fullName` will incorporate the new\nvalues.\n\n```javascript\nlet Person = Ember.Object.extend({\n  // these will be supplied by `create`\n  firstName: null,\n  lastName: null,\n\n  fullName: Ember.computed('firstName', 'lastName', function() {\n    let firstName = this.get('firstName'),\n        lastName  = this.get('lastName');\n\n    return firstName + ' ' + lastName;\n  })\n});\n\nlet tom = Person.create({\n  firstName: 'Tom',\n  lastName: 'Dale'\n});\n\ntom.get('fullName') // 'Tom Dale'\n```\n\nYou can also define what Ember should do when setting a computed property by providing additional function (`set`) in hash argument.\nIf you try to set a computed property, it will try to invoke setter accessor function with the key and\nvalue you want to set it to as arguments.\n\n```javascript\nlet Person = Ember.Object.extend({\n  // these will be supplied by `create`\n  firstName: null,\n  lastName: null,\n\n  fullName: Ember.computed('firstName', 'lastName', {\n    get(key) {\n      let firstName = this.get('firstName'),\n          lastName  = this.get('lastName');\n\n      return firstName + ' ' + lastName;\n    },\n    set(key, value) {\n      let [firstName, lastName] = value.split(' ');\n\n      this.set('firstName', firstName);\n      this.set('lastName', lastName);\n\n      return value;\n    }\n  })\n});\n\nlet person = Person.create();\n\nperson.set('fullName', 'Peter Wagenet');\nperson.get('firstName'); // 'Peter'\nperson.get('lastName');  // 'Wagenet'\n```\n\nYou can overwrite computed property with normal property (no longer computed), that won't change if dependencies change, if you set computed property and it won't have setter accessor function defined.\n\nYou can also mark computed property as `.readOnly()` and block all attempts to set it.\n\n```javascript\nlet Person = Ember.Object.extend({\n  // these will be supplied by `create`\n  firstName: null,\n  lastName: null,\n\n  fullName: Ember.computed('firstName', 'lastName', {\n    get(key) {\n      let firstName = this.get('firstName');\n      let lastName  = this.get('lastName');\n\n      return firstName + ' ' + lastName;\n    }\n  }).readOnly()\n});\n\nlet person = Person.create();\nperson.set('fullName', 'Peter Wagenet'); // Uncaught Error: Cannot set read-only property \"fullName\" on object: <(...):emberXXX>\n```\n\nAdditional resources:\n- [New CP syntax RFC](https://github.com/emberjs/rfcs/blob/master/text/0011-improved-cp-syntax.md)\n- [New computed syntax explained in \"Ember 1.12 released\" ](http://emberjs.com/blog/2015/05/13/ember-1-12-released.html#toc_new-computed-syntax)",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/ember-metal/lib/computed.js",
+          "line": 165,
+          "description": "Call on a computed property to set it into non-cached mode. When in this\nmode the computed property will not automatically cache the return value.\n\nIt also does not automatically fire any change events. You must manually notify\nany changes if you want to observe this property.\n\nDependency keys have no effect on volatile properties as they are for cache\ninvalidation and notification when cached value is invalidated.\n\n```javascript\nlet outsideService = Ember.Object.extend({\n  value: Ember.computed(function() {\n    return OutsideService.getValue();\n  }).volatile()\n}).create();\n```",
+          "itemtype": "method",
+          "name": "volatile",
+          "return": {
+            "description": "this",
+            "type": "Ember.ComputedProperty"
+          },
+          "chainable": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ComputedProperty",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed.js",
+          "line": 193,
+          "description": "Call on a computed property to set it into read-only mode. When in this\nmode the computed property will throw an error when set.\n\n```javascript\nlet Person = Ember.Object.extend({\n  guid: Ember.computed(function() {\n    return 'guid-guid-guid';\n  }).readOnly()\n});\n\nlet person = Person.create();\n\nperson.set('guid', 'new-guid'); // will throw an exception\n```",
+          "itemtype": "method",
+          "name": "readOnly",
+          "return": {
+            "description": "this",
+            "type": "Ember.ComputedProperty"
+          },
+          "chainable": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ComputedProperty",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed.js",
+          "line": 220,
+          "description": "Sets the dependent keys on this computed property. Pass any number of\narguments containing key paths that this computed property depends on.\n\n```javascript\nlet President = Ember.Object.extend({\n  fullName: Ember.computed(function() {\n    return this.get('firstName') + ' ' + this.get('lastName');\n\n    // Tell Ember that this computed property depends on firstName\n    // and lastName\n  }).property('firstName', 'lastName')\n});\n\nlet president = President.create({\n  firstName: 'Barack',\n  lastName: 'Obama'\n});\n\npresident.get('fullName'); // 'Barack Obama'\n```",
+          "itemtype": "method",
+          "name": "property",
+          "params": [
+            {
+              "name": "path",
+              "description": "zero or more property paths",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "this",
+            "type": "Ember.ComputedProperty"
+          },
+          "chainable": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ComputedProperty",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed.js",
+          "line": 271,
+          "description": "In some cases, you may want to annotate computed properties with additional\nmetadata about how they function or what values they operate on. For example,\ncomputed property functions may close over variables that are then no longer\navailable for introspection.\n\nYou can pass a hash of these values to a computed property like this:\n\n```\nperson: Ember.computed(function() {\n  let personId = this.get('personId');\n  return App.Person.create({ id: personId });\n}).meta({ type: App.Person })\n```\n\nThe hash that you pass to the `meta()` function will be saved on the\ncomputed property descriptor under the `_meta` key. Ember runtime\nexposes a public API for retrieving these values from classes,\nvia the `metaForProperty()` function.",
+          "itemtype": "method",
+          "name": "meta",
+          "params": [
+            {
+              "name": "meta",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "chainable": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ComputedProperty",
+          "module": "ember",
+          "submodule": "ember-metal",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.5.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.5.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

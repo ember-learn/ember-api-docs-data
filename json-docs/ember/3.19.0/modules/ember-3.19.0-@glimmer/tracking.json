@@ -1,0 +1,68 @@
+{
+  "data": {
+    "id": "ember-3.19.0-@glimmer/tracking",
+    "type": "module",
+    "attributes": {
+      "name": "@glimmer/tracking",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@glimmer/tracking": 1
+      },
+      "namespaces": {},
+      "tag": "module",
+      "file": "packages/@ember/-internals/glimmer/lib/glimmer-tracking-docs.ts",
+      "line": 1,
+      "description": "In order to tell Ember a value might change, we need to mark it as trackable.\nTrackable values are values that:\n\n- Can change over their component’s lifetime and\n- Should cause Ember to rerender if and when they change\n\nWe can do this by marking the field with the `@tracked` decorator.",
+      "access": "public",
+      "tagname": "",
+      "parent": null,
+      "publicclasses": [],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@glimmer/tracking": [
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/glimmer-tracking-docs.ts",
+            "line": 14,
+            "description": "Marks a property as tracked. By default, values that are rendered in Ember app\ntemplates are _static_, meaning that updates to them won't cause the\napplication to rerender. Marking a property as tracked means that when that\nproperty changes, any templates that used that property, directly or\nindirectly, will rerender. For instance, consider this component:\n\n```handlebars\n<div>Count: {{this.count}}</div>\n<div>Times Ten: {{this.timesTen}}</div>\n<div>\n  <button {{on \"click\" this.plusOne}}>\n    Plus One\n  </button>\n</div>\n```\n\n```javascript\nimport Component from '@glimmer/component';\nimport { tracked } from '@glimmer/tracking';\nimport { action } from '@ember/object';\n\nexport default class CounterComponent extends Component {\n  @tracked count = 0;\n\n  get timesTen() {\n    return this.count * 10;\n  }\n\n  @action\n  plusOne() {\n    this.count += 1;\n  }\n}\n```\n\nBoth the `{{this.count}}` and the `{{this.timesTen}}` properties in the\ntemplate will update whenever the button is clicked. Any tracked properties\nthat are used in any way to calculate a value that is used in the template\nwill cause a rerender when updated - this includes through method calls and\nother means:\n\n```javascript\nimport Component from '@glimmer/component';\nimport { tracked } from '@glimmer/tracking';\n\nclass Entry {\n  @tracked name;\n  @tracked phoneNumber;\n\n  constructor(name, phoneNumber) {\n    this.name = name;\n    this.phoneNumber = phoneNumber;\n  }\n}\n\nexport default class PhoneBookComponent extends Component {\n  entries = [\n    new Entry('Pizza Palace', 5551234),\n    new Entry('1st Street Cleaners', 5554321),\n    new Entry('Plants R Us', 5552468),\n  ];\n\n  // Any usage of this property will update whenever any of the names in the\n  // entries arrays are updated\n  get names() {\n    return this.entries.map(e => e.name);\n  }\n\n  // Any usage of this property will update whenever any of the numbers in the\n  // entries arrays are updated\n  get numbers() {\n    return this.getFormattedNumbers();\n  }\n\n  getFormattedNumbers() {\n    return this.entries\n      .map(e => e.phoneNumber)\n      .map(number => {\n        let numberString = '' + number;\n\n        return numberString.slice(0, 3) + '-' + numberString.slice(3);\n      });\n  }\n}\n```\n\nIt's important to note that setting tracked properties will always trigger an\nupdate, even if the property is set to the same value as it was before.\n\n```js\nlet entry = new Entry('Pizza Palace', 5551234);\n\n// if entry was used when rendering, this would cause a rerender, even though\n// the name is being set to the same value as it was before\nentry.name = entry.name;\n```\n\n`tracked` can also be used with the classic Ember object model in a similar\nmanner to classic computed properties:\n\n```javascript\nimport EmberObject from '@ember/object';\nimport { tracked } from '@glimmer/tracking';\n\nconst Entry = EmberObject.extend({\n  name: tracked(),\n  phoneNumber: tracked()\n});\n```\n\nOften this is unnecessary, but to ensure robust auto-tracking behavior it is\nadvisable to mark tracked state appropriately wherever possible.\n\nThis form of `tracked` also accepts an optional configuration object\ncontaining either an initial `value` or an `initializer` function (but not\nboth).\n\n```javascript\nimport EmberObject from '@ember/object';\nimport { tracked } from '@glimmer/tracking';\n\nconst Entry = EmberObject.extend({\n  name: tracked({ value: 'Zoey' }),\n  favoriteSongs: tracked({\n    initializer: () => ['Raspberry Beret', 'Time After Time']\n  })\n});\n```",
+            "itemtype": "method",
+            "name": "tracked",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@glimmer/tracking",
+            "module": "@glimmer/tracking"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@glimmer/tracking": [
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/glimmer-tracking-docs.ts",
+            "line": 14,
+            "description": "Marks a property as tracked. By default, values that are rendered in Ember app\ntemplates are _static_, meaning that updates to them won't cause the\napplication to rerender. Marking a property as tracked means that when that\nproperty changes, any templates that used that property, directly or\nindirectly, will rerender. For instance, consider this component:\n\n```handlebars\n<div>Count: {{this.count}}</div>\n<div>Times Ten: {{this.timesTen}}</div>\n<div>\n  <button {{on \"click\" this.plusOne}}>\n    Plus One\n  </button>\n</div>\n```\n\n```javascript\nimport Component from '@glimmer/component';\nimport { tracked } from '@glimmer/tracking';\nimport { action } from '@ember/object';\n\nexport default class CounterComponent extends Component {\n  @tracked count = 0;\n\n  get timesTen() {\n    return this.count * 10;\n  }\n\n  @action\n  plusOne() {\n    this.count += 1;\n  }\n}\n```\n\nBoth the `{{this.count}}` and the `{{this.timesTen}}` properties in the\ntemplate will update whenever the button is clicked. Any tracked properties\nthat are used in any way to calculate a value that is used in the template\nwill cause a rerender when updated - this includes through method calls and\nother means:\n\n```javascript\nimport Component from '@glimmer/component';\nimport { tracked } from '@glimmer/tracking';\n\nclass Entry {\n  @tracked name;\n  @tracked phoneNumber;\n\n  constructor(name, phoneNumber) {\n    this.name = name;\n    this.phoneNumber = phoneNumber;\n  }\n}\n\nexport default class PhoneBookComponent extends Component {\n  entries = [\n    new Entry('Pizza Palace', 5551234),\n    new Entry('1st Street Cleaners', 5554321),\n    new Entry('Plants R Us', 5552468),\n  ];\n\n  // Any usage of this property will update whenever any of the names in the\n  // entries arrays are updated\n  get names() {\n    return this.entries.map(e => e.name);\n  }\n\n  // Any usage of this property will update whenever any of the numbers in the\n  // entries arrays are updated\n  get numbers() {\n    return this.getFormattedNumbers();\n  }\n\n  getFormattedNumbers() {\n    return this.entries\n      .map(e => e.phoneNumber)\n      .map(number => {\n        let numberString = '' + number;\n\n        return numberString.slice(0, 3) + '-' + numberString.slice(3);\n      });\n  }\n}\n```\n\nIt's important to note that setting tracked properties will always trigger an\nupdate, even if the property is set to the same value as it was before.\n\n```js\nlet entry = new Entry('Pizza Palace', 5551234);\n\n// if entry was used when rendering, this would cause a rerender, even though\n// the name is being set to the same value as it was before\nentry.name = entry.name;\n```\n\n`tracked` can also be used with the classic Ember object model in a similar\nmanner to classic computed properties:\n\n```javascript\nimport EmberObject from '@ember/object';\nimport { tracked } from '@glimmer/tracking';\n\nconst Entry = EmberObject.extend({\n  name: tracked(),\n  phoneNumber: tracked()\n});\n```\n\nOften this is unnecessary, but to ensure robust auto-tracking behavior it is\nadvisable to mark tracked state appropriately wherever possible.\n\nThis form of `tracked` also accepts an optional configuration object\ncontaining either an initial `value` or an `initializer` function (but not\nboth).\n\n```javascript\nimport EmberObject from '@ember/object';\nimport { tracked } from '@glimmer/tracking';\n\nconst Entry = EmberObject.extend({\n  name: tracked({ value: 'Zoey' }),\n  favoriteSongs: tracked({\n    initializer: () => ['Raspberry Beret', 'Time After Time']\n  })\n});\n```",
+            "itemtype": "method",
+            "name": "tracked",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@glimmer/tracking",
+            "module": "@glimmer/tracking"
+          }
+        ]
+      },
+      "version": "3.19.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.19.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -16,7 +16,7 @@
         {
           "file": "packages/@ember/-internals/meta/lib/meta.ts",
           "line": 673,
-          "description": "<html><head></head><body><p>Retrieves the meta hash for an object. If <code>writable</code> is true ensures the\nhash is writable for this object as well.</p>\n<p>The meta object contains information about computed property descriptors as\nwell as any watched properties and other information. You generally will\nnot access this information directly but instead work with higher level\nmethods that manipulate this hash indirectly.</p>\n</body></html>",
+          "description": "Retrieves the meta hash for an object. If `writable` is true ensures the\nhash is writable for this object as well.\n\nThe meta object contains information about computed property descriptors as\nwell as any watched properties and other information. You generally will\nnot access this information directly but instead work with higher level\nmethods that manipulate this hash indirectly.",
           "itemtype": "method",
           "name": "meta",
           "access": "private",
@@ -45,7 +45,7 @@
         {
           "file": "packages/@ember/-internals/utils/lib/invoke.ts",
           "line": 1,
-          "description": "<html><head></head><body><p>Checks to see if the <code>methodName</code> exists on the <code>obj</code>.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">let</span> foo = { <span class=\"attr\">bar</span>: <span class=\"keyword\">function</span>(<span class=\"params\"></span>) { <span class=\"keyword\">return</span> <span class=\"string\">'bar'</span>; }, <span class=\"attr\">baz</span>: <span class=\"literal\">null</span> };\n\n<span class=\"title class_\">Ember</span>.<span class=\"title function_\">canInvoke</span>(foo, <span class=\"string\">'bar'</span>); <span class=\"comment\">// true</span>\n<span class=\"title class_\">Ember</span>.<span class=\"title function_\">canInvoke</span>(foo, <span class=\"string\">'baz'</span>); <span class=\"comment\">// false</span>\n<span class=\"title class_\">Ember</span>.<span class=\"title function_\">canInvoke</span>(foo, <span class=\"string\">'bat'</span>); <span class=\"comment\">// false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Checks to see if the `methodName` exists on the `obj`.\n\n```javascript\nlet foo = { bar: function() { return 'bar'; }, baz: null };\n\nEmber.canInvoke(foo, 'bar'); // true\nEmber.canInvoke(foo, 'baz'); // false\nEmber.canInvoke(foo, 'bat'); // false\n```",
           "itemtype": "method",
           "name": "canInvoke",
           "params": [
@@ -72,7 +72,7 @@
         {
           "file": "packages/@ember/-internals/utils/lib/spec.ts",
           "line": 1,
-          "description": "<html><head></head><body><p>Returns whether Type(value) is Object.</p>\n<p>Useful for checking whether a value is a valid WeakMap key.</p>\n<p>Refs: <a href=\"https://tc39.github.io/ecma262/#sec-typeof-operator-runtime-semantics-evaluation\">https://tc39.github.io/ecma262/#sec-typeof-operator-runtime-semantics-evaluation</a>\n      <a href=\"https://tc39.github.io/ecma262/#sec-weakmap.prototype.set\">https://tc39.github.io/ecma262/#sec-weakmap.prototype.set</a></p>\n</body></html>",
+          "description": "Returns whether Type(value) is Object.\n\nUseful for checking whether a value is a valid WeakMap key.\n\nRefs: https://tc39.github.io/ecma262/#sec-typeof-operator-runtime-semantics-evaluation\n      https://tc39.github.io/ecma262/#sec-weakmap.prototype.set",
           "access": "private",
           "tagname": "",
           "itemtype": "method",
@@ -83,7 +83,7 @@
         {
           "file": "packages/@ember/-internals/utils/lib/super.ts",
           "line": 71,
-          "description": "<html><head></head><body><p>Wraps the passed function so that <code>this._super</code> will point to the superFunc\nwhen the function is invoked. This is the primitive we use to implement\ncalls to super.</p>\n</body></html>",
+          "description": "Wraps the passed function so that `this._super` will point to the superFunc\nwhen the function is invoked. This is the primitive we use to implement\ncalls to super.",
           "access": "private",
           "tagname": "",
           "itemtype": "method",
@@ -110,7 +110,7 @@
         {
           "file": "packages/@ember/routing/lib/controller_for.ts",
           "line": 9,
-          "description": "<html><head></head><body><p>Finds a controller instance.</p>\n</body></html>",
+          "description": "Finds a controller instance.",
           "itemtype": "method",
           "name": "controllerFor",
           "access": "private",
@@ -121,7 +121,7 @@
         {
           "file": "packages/@ember/routing/lib/generate_controller.ts",
           "line": 11,
-          "description": "<html><head></head><body><p>Generates a controller factory</p>\n</body></html>",
+          "description": "Generates a controller factory",
           "itemtype": "method",
           "name": "generateControllerFactory",
           "access": "private",
@@ -132,7 +132,7 @@
         {
           "file": "packages/@ember/routing/lib/generate_controller.ts",
           "line": 52,
-          "description": "<html><head></head><body><p>Generates and instantiates a controller extending from <code>controller:basic</code>\nif present, or <code>Controller</code> if not.</p>\n</body></html>",
+          "description": "Generates and instantiates a controller extending from `controller:basic`\nif present, or `Controller` if not.",
           "itemtype": "method",
           "name": "generateController",
           "access": "private",
@@ -147,7 +147,7 @@
         {
           "file": "packages/@ember/-internals/utils/lib/guid.ts",
           "line": 26,
-          "description": "<html><head></head><body><p>Prefix used for guids through out Ember.</p>\n</body></html>",
+          "description": "Prefix used for guids through out Ember.",
           "access": "private",
           "tagname": "",
           "itemtype": "property",
@@ -160,7 +160,7 @@
         {
           "file": "packages/@ember/-internals/utils/lib/guid.ts",
           "line": 39,
-          "description": "<html><head></head><body><p>A unique key used to assign guids and other private metadata to objects.\nIf you inspect an object in your browser debugger you will often see these.\nThey can be safely ignored.</p>\n<p>On browsers that support it, these properties are added with enumeration\ndisabled so they won't show up when you iterate over your properties.</p>\n</body></html>",
+          "description": "A unique key used to assign guids and other private metadata to objects.\nIf you inspect an object in your browser debugger you will often see these.\nThey can be safely ignored.\n\nOn browsers that support it, these properties are added with enumeration\ndisabled so they won't show up when you iterate over your properties.",
           "access": "private",
           "tagname": "",
           "itemtype": "property",

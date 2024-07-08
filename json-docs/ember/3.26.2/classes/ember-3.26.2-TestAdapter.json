@@ -1,0 +1,91 @@
+{
+  "data": {
+    "id": "ember-3.26.2-TestAdapter",
+    "type": "class",
+    "attributes": {
+      "name": "TestAdapter",
+      "shortname": "TestAdapter",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/test",
+      "namespace": "",
+      "file": "packages/ember-testing/lib/adapters/adapter.js",
+      "line": 11,
+      "description": "The primary purpose of this class is to create hooks that can be implemented\nby an adapter for various test frameworks.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/ember-testing/lib/adapters/adapter.js",
+          "line": 19,
+          "description": "This callback will be called whenever an async operation is about to start.\n\nOverride this to call your framework's methods that handle async\noperations.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "asyncStart",
+          "class": "TestAdapter",
+          "module": "@ember/test"
+        },
+        {
+          "file": "packages/ember-testing/lib/adapters/adapter.js",
+          "line": 30,
+          "description": "This callback will be called whenever an async operation has completed.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "asyncEnd",
+          "class": "TestAdapter",
+          "module": "@ember/test"
+        },
+        {
+          "file": "packages/ember-testing/lib/adapters/adapter.js",
+          "line": 38,
+          "description": "Override this method with your testing framework's false assertion.\nThis function is called whenever an exception occurs causing the testing\npromise to fail.\n\nQUnit example:\n\n```javascript\n  exception: function(error) {\n    ok(false, error);\n  };\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "exception",
+          "params": [
+            {
+              "name": "error",
+              "description": "The exception to be raised.",
+              "type": "String"
+            }
+          ],
+          "class": "TestAdapter",
+          "module": "@ember/test"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-3.26.2-Ember.Test.QUnitAdapter"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.26.2-@ember/test",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.26.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

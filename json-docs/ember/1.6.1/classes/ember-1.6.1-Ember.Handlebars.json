@@ -1,0 +1,361 @@
+{
+  "data": {
+    "id": "ember-1.6.1-Ember.Handlebars",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Handlebars",
+      "shortname": "Ember.Handlebars",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-handlebars-compiler",
+      "namespace": "Ember",
+      "file": "../packages_es6/ember-handlebars-compiler/lib/main.js",
+      "line": 37,
+      "description": "Prepares the Handlebars templating library for use inside Ember's view\nsystem.\n\nThe `Ember.Handlebars` object is the standard Handlebars library, extended to\nuse Ember's `get()` method instead of direct property access, which allows\ncomputed properties to be used inside templates.\n\nTo create an `Ember.Handlebars` template, call `Ember.Handlebars.compile()`.\nThis will return a function that can be used by `Ember.View` for rendering.",
+      "methods": [
+        {
+          "file": "../packages_es6/ember-handlebars-compiler/lib/main.js",
+          "line": 53,
+          "description": "Register a bound helper or custom view helper.\n\n## Simple bound helper example\n\n```javascript\nEmber.Handlebars.helper('capitalize', function(value) {\n  return value.toUpperCase();\n});\n```\n\nThe above bound helper can be used inside of templates as follows:\n\n```handlebars\n{{capitalize name}}\n```\n\nIn this case, when the `name` property of the template's context changes,\nthe rendered value of the helper will update to reflect this change.\n\nFor more examples of bound helpers, see documentation for\n`Ember.Handlebars.registerBoundHelper`.\n\n## Custom view helper example\n\nAssuming a view subclass named `App.CalendarView` were defined, a helper\nfor rendering instances of this view could be registered as follows:\n\n```javascript\nEmber.Handlebars.helper('calendar', App.CalendarView):\n```\n\nThe above bound helper can be used inside of templates as follows:\n\n```handlebars\n{{calendar}}\n```\n\nWhich is functionally equivalent to:\n\n```handlebars\n{{view App.CalendarView}}\n```\n\nOptions in the helper will be passed to the view in exactly the same\nmanner as with the `view` helper.",
+          "itemtype": "method",
+          "name": "helper",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "function",
+              "description": "or view class constructor",
+              "type": "Function|Ember.View"
+            },
+            {
+              "name": "dependentKeys",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "submodule": "ember-handlebars-compiler",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-handlebars-compiler/lib/main.js",
+          "line": 119,
+          "description": "Returns a helper function that renders the provided ViewClass.\n\nUsed internally by Ember.Handlebars.helper and other methods\ninvolving helper/component registration.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "makeViewHelper",
+          "params": [
+            {
+              "name": "ViewClass",
+              "description": "view class constructor",
+              "type": "Function"
+            }
+          ],
+          "since": "1.2.0",
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "submodule": "ember-handlebars-compiler",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-handlebars-compiler/lib/main.js",
+          "line": 260,
+          "description": "Used for precompilation of Ember Handlebars templates. This will not be used\nduring normal app execution.",
+          "itemtype": "method",
+          "name": "precompile",
+          "static": 1,
+          "params": [
+            {
+              "name": "string",
+              "description": "The template to precompile",
+              "type": "String"
+            },
+            {
+              "name": "asObject",
+              "description": "optional parameter, defaulting to true, of whether or not the\n                          compiled template should be returned as an Object or a String",
+              "type": "Boolean"
+            }
+          ],
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "submodule": "ember-handlebars-compiler",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-handlebars-compiler/lib/main.js",
+          "line": 295,
+          "description": "The entry point for Ember Handlebars. This replaces the default\n`Handlebars.compile` and turns on template-local data and String\nparameters.",
+          "itemtype": "method",
+          "name": "compile",
+          "static": 1,
+          "params": [
+            {
+              "name": "string",
+              "description": "The template to compile",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Function"
+          },
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "submodule": "ember-handlebars-compiler",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-handlebars/lib/helpers/binding.js",
+          "line": 811,
+          "description": "Helper that, given a space-separated string of property paths and a context,\nreturns an array of class names. Calling this method also has the side\neffect of setting up observers at those property paths, such that if they\nchange, the correct class name will be reapplied to the DOM element.\n\nFor example, if you pass the string \"fooBar\", it will first look up the\n\"fooBar\" value of the context. If that value is true, it will add the\n\"foo-bar\" class to the current element (i.e., the dasherized form of\n\"fooBar\"). If the value is a string, it will add that string as the class.\nOtherwise, it will not add any new class name.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "bindClasses",
+          "params": [
+            {
+              "name": "context",
+              "description": "The context from which to lookup properties",
+              "type": "Ember.Object"
+            },
+            {
+              "name": "classBindings",
+              "description": "A string, space-separated, of class bindings\n  to use",
+              "type": "String"
+            },
+            {
+              "name": "view",
+              "description": "The view in which observers should look for the\n  element to update",
+              "type": "View"
+            },
+            {
+              "name": "bindAttrId",
+              "description": "Optional bindAttr id used to lookup elements",
+              "type": "Srting"
+            }
+          ],
+          "return": {
+            "description": "An array of class names to add",
+            "type": "Array"
+          },
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-handlebars/lib/ext.js",
+          "line": 64,
+          "description": "Lookup both on root and on window. If the path starts with\na keyword, the corresponding object will be looked up in the\ntemplate's data hash and used to resolve the path.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "root",
+              "description": "The object to look up the property on",
+              "type": "Object"
+            },
+            {
+              "name": "path",
+              "description": "The path to be lookedup",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "The template's option hash",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-handlebars/lib/ext.js",
+          "line": 108,
+          "description": "This method uses `Ember.Handlebars.get` to lookup a value, then ensures\nthat the value is escaped properly.\n\nIf `unescaped` is a truthy value then the escaping will not be performed.",
+          "itemtype": "method",
+          "name": "getEscaped",
+          "params": [
+            {
+              "name": "root",
+              "description": "The object to look up the property on",
+              "type": "Object"
+            },
+            {
+              "name": "path",
+              "description": "The path to be lookedup",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "The template's option hash",
+              "type": "Object"
+            }
+          ],
+          "since": "1.4.0",
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-handlebars/lib/ext.js",
+          "line": 239,
+          "description": "Register a bound handlebars helper. Bound helpers behave similarly to regular\nhandlebars helpers, with the added ability to re-render when the underlying data\nchanges.\n\n## Simple example\n\n```javascript\nEmber.Handlebars.registerBoundHelper('capitalize', function(value) {\n  return Ember.String.capitalize(value);\n});\n```\n\nThe above bound helper can be used inside of templates as follows:\n\n```handlebars\n{{capitalize name}}\n```\n\nIn this case, when the `name` property of the template's context changes,\nthe rendered value of the helper will update to reflect this change.\n\n## Example with options\n\nLike normal handlebars helpers, bound helpers have access to the options\npassed into the helper call.\n\n```javascript\nEmber.Handlebars.registerBoundHelper('repeat', function(value, options) {\n  var count = options.hash.count;\n  var a = [];\n  while(a.length < count) {\n      a.push(value);\n  }\n  return a.join('');\n});\n```\n\nThis helper could be used in a template as follows:\n\n```handlebars\n{{repeat text count=3}}\n```\n\n## Example with bound options\n\nBound hash options are also supported. Example:\n\n```handlebars\n{{repeat text count=numRepeats}}\n```\n\nIn this example, count will be bound to the value of\nthe `numRepeats` property on the context. If that property\nchanges, the helper will be re-rendered.\n\n## Example with extra dependencies\n\nThe `Ember.Handlebars.registerBoundHelper` method takes a variable length\nthird parameter which indicates extra dependencies on the passed in value.\nThis allows the handlebars helper to update when these dependencies change.\n\n```javascript\nEmber.Handlebars.registerBoundHelper('capitalizeName', function(value) {\n  return value.get('name').toUpperCase();\n}, 'name');\n```\n\n## Example with multiple bound properties\n\n`Ember.Handlebars.registerBoundHelper` supports binding to\nmultiple properties, e.g.:\n\n```javascript\nEmber.Handlebars.registerBoundHelper('concatenate', function() {\n  var values = Array.prototype.slice.call(arguments, 0, -1);\n  return values.join('||');\n});\n```\n\nWhich allows for template syntax such as `{{concatenate prop1 prop2}}` or\n`{{concatenate prop1 prop2 prop3}}`. If any of the properties change,\nthe helper will re-render.  Note that dependency keys cannot be\nusing in conjunction with multi-property helpers, since it is ambiguous\nwhich property the dependent keys would belong to.\n\n## Use with unbound helper\n\nThe `{{unbound}}` helper can be used with bound helper invocations\nto render them in their unbound form, e.g.\n\n```handlebars\n{{unbound capitalize name}}\n```\n\nIn this example, if the name property changes, the helper\nwill not re-render.\n\n## Use with blocks not supported\n\nBound helpers do not support use with Handlebars blocks or\nthe addition of child views of any kind.",
+          "itemtype": "method",
+          "name": "registerBoundHelper",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "function",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "dependentKeys",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-handlebars/lib/ext.js",
+          "line": 354,
+          "description": "A helper function used by `registerBoundHelper`. Takes the\nprovided Handlebars helper function fn and returns it in wrapped\nbound helper form.\n\nThe main use case for using this outside of `registerBoundHelper`\nis for registering helpers on the container:\n\n```js\nvar boundHelperFn = Ember.Handlebars.makeBoundHelper(function(word) {\n  return word.toUpperCase();\n});\n\ncontainer.register('helper:my-bound-helper', boundHelperFn);\n```\n\nIn the above example, if the helper function hadn't been wrapped in\n`makeBoundHelper`, the registered helper would be unbound.",
+          "itemtype": "method",
+          "name": "makeBoundHelper",
+          "params": [
+            {
+              "name": "function",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "dependentKeys",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "since": "1.2.0",
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-handlebars/lib/ext.js",
+          "line": 502,
+          "description": "Renders the unbound form of an otherwise bound helper function.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "evaluateUnboundHelper",
+          "params": [
+            {
+              "name": "fn",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "context",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "normalizedProperties",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-handlebars/lib/ext.js",
+          "line": 541,
+          "description": "Overrides Handlebars.template so that we can distinguish\nuser-created, top-level templates from inner contexts.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "template",
+          "params": [
+            {
+              "name": "spec",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages_es6/ember-handlebars/lib/loader.js",
+          "line": 15,
+          "description": "Find templates stored in the head tag as script tags and make them available\nto `Ember.CoreView` in the global `Ember.TEMPLATES` object. This will be run\nas as jQuery DOM-ready callback.\n\nScript tags with `text/x-handlebars` will be compiled\nwith Ember's Handlebars and are suitable for use as a view's template.\nThose with type `text/x-raw-handlebars` will be compiled with regular\nHandlebars and are suitable for use in views' computed properties.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "bootstrap",
+          "static": 1,
+          "params": [
+            {
+              "name": "ctx",
+              "description": ""
+            }
+          ],
+          "class": "Ember.Handlebars",
+          "module": "ember",
+          "submodule": "ember-handlebars",
+          "namespace": "Ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.6.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.6.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

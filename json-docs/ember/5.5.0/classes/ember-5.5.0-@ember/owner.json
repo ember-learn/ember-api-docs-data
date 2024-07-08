@@ -16,7 +16,7 @@
         {
           "file": "packages/@ember/-internals/owner/index.ts",
           "line": 544,
-          "description": "<html><head></head><body><p><code>setOwner</code> forces a new owner on a given object instance. This is primarily\nuseful in some testing cases.</p>\n</body></html>",
+          "description": "`setOwner` forces a new owner on a given object instance. This is primarily\nuseful in some testing cases.",
           "itemtype": "method",
           "name": "setOwner",
           "static": 1,
@@ -41,7 +41,7 @@
         {
           "file": "packages/@ember/-internals/owner/index.ts",
           "line": 574,
-          "description": "<html><head></head><body><p>Returns an object that can be used to provide an owner to a\nmanually created instance.</p>\n<p>Example:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> { getOwner } <span class=\"keyword\">from</span> <span class=\"string\">'@ember/application'</span>;\n\nlet owner = getOwner(this);\n\n<span class=\"keyword\">User</span>.<span class=\"keyword\">create</span>(\n  <span class=\"keyword\">owner</span>.ownerInjection(),\n  { username: <span class=\"string\">'rwjblue'</span> }\n)</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Returns an object that can be used to provide an owner to a\nmanually created instance.\n\nExample:\n\n```\nimport { getOwner } from '@ember/application';\n\nlet owner = getOwner(this);\n\nUser.create(\n  owner.ownerInjection(),\n  { username: 'rwjblue' }\n)\n```",
           "access": "public",
           "tagname": "",
           "itemtype": "method",
@@ -57,7 +57,7 @@
         {
           "file": "packages/@ember/-internals/owner/index.ts",
           "line": 606,
-          "description": "<html><head></head><body><p>Given a fullName return the corresponding factory.</p>\n</body></html>",
+          "description": "Given a fullName return the corresponding factory.",
           "access": "public",
           "tagname": "",
           "itemtype": "method",
@@ -79,7 +79,7 @@
         {
           "file": "packages/@ember/-internals/owner/index.ts",
           "line": 616,
-          "description": "<html><head></head><body><p>Unregister a factory.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> Application <span class=\"keyword\">from</span> <span class=\"string\">'@ember/application'</span>;\n<span class=\"keyword\">import</span> EmberObject <span class=\"keyword\">from</span> <span class=\"string\">'@ember/object'</span>;\n\nlet App = Application.<span class=\"keyword\">create</span>();\nlet <span class=\"keyword\">User</span> = EmberObject.extend();\nApp.register(<span class=\"string\">'model:user'</span>, <span class=\"keyword\">User</span>);\n\nApp.resolveRegistration(<span class=\"string\">'model:user'</span>).<span class=\"keyword\">create</span>() instanceof <span class=\"keyword\">User</span> //=&gt; <span class=\"keyword\">true</span>\n\nApp.unregister(<span class=\"string\">'model:user'</span>)\nApp.resolveRegistration(<span class=\"string\">'model:user'</span>) === undefined //=&gt; <span class=\"keyword\">true</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Unregister a factory.\n\n```javascript\nimport Application from '@ember/application';\nimport EmberObject from '@ember/object';\n\nlet App = Application.create();\nlet User = EmberObject.extend();\nApp.register('model:user', User);\n\nApp.resolveRegistration('model:user').create() instanceof User //=> true\n\nApp.unregister('model:user')\nApp.resolveRegistration('model:user') === undefined //=> true\n```",
           "access": "public",
           "tagname": "",
           "itemtype": "method",
@@ -97,7 +97,7 @@
         {
           "file": "packages/@ember/-internals/owner/index.ts",
           "line": 639,
-          "description": "<html><head></head><body><p>Check if a factory is registered.</p>\n</body></html>",
+          "description": "Check if a factory is registered.",
           "access": "public",
           "tagname": "",
           "itemtype": "method",
@@ -119,7 +119,7 @@
         {
           "file": "packages/@ember/-internals/owner/index.ts",
           "line": 649,
-          "description": "<html><head></head><body><p>Return a specific registered option for a particular factory.</p>\n</body></html>",
+          "description": "Return a specific registered option for a particular factory.",
           "access": "public",
           "tagname": "",
           "itemtype": "method",
@@ -146,7 +146,7 @@
         {
           "file": "packages/@ember/-internals/owner/index.ts",
           "line": 663,
-          "description": "<html><head></head><body><p>Register options for a particular factory.</p>\n</body></html>",
+          "description": "Register options for a particular factory.",
           "access": "public",
           "tagname": "",
           "itemtype": "method",
@@ -169,7 +169,7 @@
         {
           "file": "packages/@ember/-internals/owner/index.ts",
           "line": 673,
-          "description": "<html><head></head><body><p>Return registered options for a particular factory.</p>\n</body></html>",
+          "description": "Return registered options for a particular factory.",
           "access": "public",
           "tagname": "",
           "itemtype": "method",
@@ -191,7 +191,7 @@
         {
           "file": "packages/@ember/-internals/owner/index.ts",
           "line": 683,
-          "description": "<html><head></head><body><p>Allow registering options for all factories of a type.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"title class_\">Application</span> <span class=\"keyword\">from</span> <span class=\"string\">'@ember/application'</span>;\n\n<span class=\"keyword\">let</span> <span class=\"title class_\">App</span> = <span class=\"title class_\">Application</span>.<span class=\"title function_\">create</span>();\n<span class=\"keyword\">let</span> appInstance = <span class=\"title class_\">App</span>.<span class=\"title function_\">buildInstance</span>();\n\n<span class=\"comment\">// if all of type `connection` must not be singletons</span>\nappInstance.<span class=\"title function_\">registerOptionsForType</span>(<span class=\"string\">'connection'</span>, { <span class=\"attr\">singleton</span>: <span class=\"literal\">false</span> });\n\nappInstance.<span class=\"title function_\">register</span>(<span class=\"string\">'connection:twitter'</span>, <span class=\"title class_\">TwitterConnection</span>);\nappInstance.<span class=\"title function_\">register</span>(<span class=\"string\">'connection:facebook'</span>, <span class=\"title class_\">FacebookConnection</span>);\n\n<span class=\"keyword\">let</span> twitter = appInstance.<span class=\"title function_\">lookup</span>(<span class=\"string\">'connection:twitter'</span>);\n<span class=\"keyword\">let</span> twitter2 = appInstance.<span class=\"title function_\">lookup</span>(<span class=\"string\">'connection:twitter'</span>);\n\ntwitter === twitter2; <span class=\"comment\">// =&gt; false</span>\n\n<span class=\"keyword\">let</span> facebook = appInstance.<span class=\"title function_\">lookup</span>(<span class=\"string\">'connection:facebook'</span>);\n<span class=\"keyword\">let</span> facebook2 = appInstance.<span class=\"title function_\">lookup</span>(<span class=\"string\">'connection:facebook'</span>);\n\nfacebook === facebook2; <span class=\"comment\">// =&gt; false</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Allow registering options for all factories of a type.\n\n```javascript\nimport Application from '@ember/application';\n\nlet App = Application.create();\nlet appInstance = App.buildInstance();\n\n// if all of type `connection` must not be singletons\nappInstance.registerOptionsForType('connection', { singleton: false });\n\nappInstance.register('connection:twitter', TwitterConnection);\nappInstance.register('connection:facebook', FacebookConnection);\n\nlet twitter = appInstance.lookup('connection:twitter');\nlet twitter2 = appInstance.lookup('connection:twitter');\n\ntwitter === twitter2; // => false\n\nlet facebook = appInstance.lookup('connection:facebook');\nlet facebook2 = appInstance.lookup('connection:facebook');\n\nfacebook === facebook2; // => false\n```",
           "access": "public",
           "tagname": "",
           "itemtype": "method",
@@ -214,7 +214,7 @@
         {
           "file": "packages/@ember/-internals/owner/index.ts",
           "line": 716,
-          "description": "<html><head></head><body><p>Return the registered options for all factories of a type.</p>\n</body></html>",
+          "description": "Return the registered options for all factories of a type.",
           "access": "public",
           "tagname": "",
           "itemtype": "method",
@@ -236,7 +236,7 @@
         {
           "file": "packages/@ember/owner/index.ts",
           "line": 41,
-          "description": "<html><head></head><body><p>Framework objects in an Ember application (components, services, routes, etc.)\nare created via a factory and dependency injection system. Each of these\nobjects is the responsibility of an \"owner\", which handled its\ninstantiation and manages its lifetime.</p>\n<p><code>getOwner</code> fetches the owner object responsible for an instance. This can\nbe used to lookup or resolve other class instances, or register new factories\ninto the owner.</p>\n<p>For example, this component dynamically looks up a service based on the\n<code>audioType</code> passed as an argument:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <thead>\n            <tr>\n              <td colspan=\"2\">audio.js</td>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">import</span> <span class=\"type\">Component</span> from '<span class=\"meta\">@glimmer</span>/component';\n<span class=\"keyword\">import</span> { action } from '<span class=\"meta\">@ember</span>/<span class=\"class\"><span class=\"keyword\">object</span>'</span>;\n<span class=\"keyword\">import</span> { getOwner } from '<span class=\"meta\">@ember</span>/application';\n\n<span class=\"comment\">// Usage:</span>\n<span class=\"comment\">//</span>\n<span class=\"comment\">//   &lt;PlayAudio @audioType={{@model.audioType}} @audioFile={{@model.file}}/&gt;</span>\n<span class=\"comment\">//</span>\n<span class=\"keyword\">export</span> <span class=\"keyword\">default</span> <span class=\"class\"><span class=\"keyword\">class</span> <span class=\"keyword\">extends</span> <span class=\"title\">Component</span> </span>{\n  get audioService() {\n    <span class=\"keyword\">return</span> getOwner(<span class=\"keyword\">this</span>)?.lookup(`service:${<span class=\"keyword\">this</span>.args.audioType}`);\n  }\n\n  <span class=\"meta\">@action</span>\n  onPlay() {\n    <span class=\"keyword\">this</span>.audioService?.play(<span class=\"keyword\">this</span>.args.audioFile);\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "description": "Framework objects in an Ember application (components, services, routes, etc.)\nare created via a factory and dependency injection system. Each of these\nobjects is the responsibility of an \"owner\", which handled its\ninstantiation and manages its lifetime.\n\n`getOwner` fetches the owner object responsible for an instance. This can\nbe used to lookup or resolve other class instances, or register new factories\ninto the owner.\n\nFor example, this component dynamically looks up a service based on the\n`audioType` passed as an argument:\n\n```js {data-filename=app/components/play-audio.js}\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\nimport { getOwner } from '@ember/application';\n\n// Usage:\n//\n//   <PlayAudio @audioType={{@model.audioType}} @audioFile={{@model.file}}/>\n//\nexport default class extends Component {\n  get audioService() {\n    return getOwner(this)?.lookup(`service:${this.args.audioType}`);\n  }\n\n  @action\n  onPlay() {\n    this.audioService?.play(this.args.audioFile);\n  }\n}\n```",
           "itemtype": "method",
           "name": "getOwner",
           "static": 1,

@@ -1,0 +1,102 @@
+{
+  "data": {
+    "id": "ember-3.28.12-Ember.TargetActionSupport",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.TargetActionSupport",
+      "shortname": "Ember.TargetActionSupport",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Component",
+        "Ember.TextSupport"
+      ],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "packages/@ember/-internals/runtime/lib/mixins/target_action_support.js",
+      "line": 15,
+      "description": "`Ember.TargetActionSupport` is a mixin that can be included in a class\nto add a `triggerAction` method with semantics similar to the Handlebars\n`{{action}}` helper. In normal Ember usage, the `{{action}}` helper is\nusually the best choice. This mixin is most often useful when you are\ndoing more complex event handling in Components.",
+      "extends": "Mixin",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/target_action_support.js",
+          "line": 46,
+          "description": "Send an `action` with an `actionContext` to a `target`. The action, actionContext\nand target will be retrieved from properties of the object. For example:\n\n```javascript\nimport { alias } from '@ember/object/computed';\n\nApp.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {\n  target: alias('controller'),\n  action: 'save',\n  actionContext: alias('context'),\n  click() {\n    this.triggerAction(); // Sends the `save` action, along with the current context\n                          // to the current controller\n  }\n});\n```\n\nThe `target`, `action`, and `actionContext` can be provided as properties of\nan optional object argument to `triggerAction` as well.\n\n```javascript\nApp.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {\n  click() {\n    this.triggerAction({\n      action: 'save',\n      target: this.get('controller'),\n      actionContext: this.get('context')\n    }); // Sends the `save` action, along with the current context\n        // to the current controller\n  }\n});\n```\n\nThe `actionContext` defaults to the object you are mixing `TargetActionSupport` into.\nBut `target` and `action` must be specified either as properties or with the argument\nto `triggerAction`, or a combination:\n\n```javascript\nimport { alias } from '@ember/object/computed';\n\nApp.SaveButtonView = Ember.View.extend(Ember.TargetActionSupport, {\n  target: alias('controller'),\n  click() {\n    this.triggerAction({\n      action: 'save'\n    }); // Sends the `save` action, along with a reference to `this`,\n        // to the current controller\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "triggerAction",
+          "params": [
+            {
+              "name": "opts",
+              "description": "(optional, with the optional keys action, target and/or actionContext)",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "true if the action was sent successfully and did not return false",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TargetActionSupport",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/@ember/-internals/metal/lib/mixin.ts",
+          "line": 474,
+          "itemtype": "method",
+          "name": "mixin",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "mixins",
+              "description": "",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "obj"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.TargetActionSupport",
+          "module": "@ember/object",
+          "inherited": true,
+          "inheritedFrom": "Mixin"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-3.28.12-Mixin",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.28.12-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.28.12",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "data": {
+    "id": "ember-3.0.0-Helper",
+    "type": "class",
+    "attributes": {
+      "name": "Helper",
+      "shortname": "Helper",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/component",
+      "namespace": "",
+      "file": "packages/ember-glimmer/lib/helper.ts",
+      "line": 12,
+      "description": "Ember Helpers are functions that can compute values, and are used in templates.\nFor example, this code calls a helper named `format-currency`:\n\n```handlebars\n<div>{{format-currency cents currency=\"$\"}}</div>\n```\n\nAdditionally a helper can be called as a nested helper (sometimes called a\nsubexpression). In this example, the computed value of a helper is passed\nto a component named `show-money`:\n\n```handlebars\n{{show-money amount=(format-currency cents currency=\"$\")}}\n```\n\nHelpers defined using a class must provide a `compute` function. For example:\n\n```js {data-filename=app/helpers/format-currency.js}\nimport Helper from '@ember/component/helper';\n\nexport default Helper.extend({\n  compute(params, hash) {\n    let cents = params[0];\n    let currency = hash.currency;\n    return `${currency}${cents * 0.01}`;\n  }\n});\n```\n\nEach time the input to a helper changes, the `compute` function will be\ncalled again.\n\nAs instances, these helpers also have access to the container an will accept\ninjected dependencies.\n\nAdditionally, class helpers can call `recompute` to force a new computation.",
+      "access": "public",
+      "tagname": "",
+      "since": "1.13.0",
+      "methods": [
+        {
+          "file": "packages/ember-glimmer/lib/helper.ts",
+          "line": 62,
+          "description": "On a class-based helper, it may be useful to force a recomputation of that\nhelpers value. This is akin to `rerender` on a component.\n\nFor example, this component will rerender when the `currentUser` on a\nsession service changes:\n\n```js {data-filename=app/helpers/current-user-email.js}\nimport Helper from '@ember/component/helper'\nimport { inject as service } from '@ember/service'\nimport { observer } from '@ember/object'\n\nexport default Helper.extend({\n  session: service(),\n  onNewUser: observer('session.currentUser', function() {\n    this.recompute();\n  }),\n  compute() {\n    return this.get('session.currentUser.email');\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "recompute",
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Helper",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/ember-glimmer/lib/helper.ts",
+          "line": 93,
+          "description": "Override this function when writing a class-based helper.",
+          "itemtype": "method",
+          "name": "compute",
+          "params": [
+            {
+              "name": "params",
+              "description": "The positional arguments to the helper",
+              "type": "Array"
+            },
+            {
+              "name": "hash",
+              "description": "The named arguments to the helper",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "since": "1.13.0",
+          "class": "Helper",
+          "module": "@ember/component"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.0.0-@ember/component",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.0.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

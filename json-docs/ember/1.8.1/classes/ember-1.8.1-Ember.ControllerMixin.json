@@ -1,0 +1,320 @@
+{
+  "data": {
+    "id": "ember-1.8.1-Ember.ControllerMixin",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ControllerMixin",
+      "shortname": "Ember.ControllerMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.ArrayController",
+        "Ember.Controller",
+        "Ember.ObjectController"
+      ],
+      "module": "ember",
+      "submodule": "ember-application",
+      "namespace": "Ember",
+      "file": "../packages/ember-runtime/lib/mixins/controller.js",
+      "line": 9,
+      "description": "`Ember.ControllerMixin` provides a standard interface for all classes that\ncompose Ember's controller layer: `Ember.Controller`,\n`Ember.ArrayController`, and `Ember.ObjectController`.",
+      "uses": [
+        "Ember.ActionHandler"
+      ],
+      "methods": [
+        {
+          "file": "../packages/ember-application/lib/ext/controller.js",
+          "line": 142,
+          "itemtype": "method",
+          "name": "controllerFor",
+          "see": [
+            "{Ember.Route#controllerFor}"
+          ],
+          "deprecated": true,
+          "deprecationMessage": "Use `needs` instead",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 96,
+          "itemtype": "method",
+          "name": "_updateCacheParams",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 117,
+          "itemtype": "method",
+          "name": "_qpChanged",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 141,
+          "itemtype": "method",
+          "name": "_calculateCacheKey",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 155,
+          "description": "Transition the application into another route. The route may\nbe either a single route or route path:\n\n```javascript\naController.transitionToRoute('blogPosts');\naController.transitionToRoute('blogPosts.recentEntries');\n```\n\nOptionally supply a model for the route in question. The model\nwill be serialized into the URL using the `serialize` hook of\nthe route:\n\n```javascript\naController.transitionToRoute('blogPost', aPost);\n```\n\nIf a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the `model`\nhook of the route will be triggered:\n\n```javascript\naController.transitionToRoute('blogPost', 1);\n```\n\nMultiple models will be applied last to first recursively up the\nresource tree.\n\n```javascript\nApp.Router.map(function() {\n  this.resource('blogPost', {path:':blogPostId'}, function(){\n    this.resource('blogComment', {path: ':blogCommentId'});\n  });\n});\n\naController.transitionToRoute('blogComment', aPost, aComment);\naController.transitionToRoute('blogComment', 1, 13);\n```\n\nIt is also possible to pass a URL (a string that starts with a\n`/`). This is intended for testing and debugging purposes and\nshould rarely be used in production code.\n\n```javascript\naController.transitionToRoute('/');\naController.transitionToRoute('/blog/post/1/comment/13');\n```\n\nSee also [replaceRoute](/api/classes/Ember.ControllerMixin.html#method_replaceRoute).",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\nwhile transitioning to the route.",
+              "type": "...Object"
+            }
+          ],
+          "itemtype": "method",
+          "name": "transitionToRoute",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 218,
+          "deprecated": true,
+          "itemtype": "method",
+          "name": "transitionTo",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 228,
+          "description": "Transition into another route while replacing the current URL, if possible.\nThis will replace the current history entry instead of adding a new one.\nBeside that, it is identical to `transitionToRoute` in all other respects.\n\n```javascript\naController.replaceRoute('blogPosts');\naController.replaceRoute('blogPosts.recentEntries');\n```\n\nOptionally supply a model for the route in question. The model\nwill be serialized into the URL using the `serialize` hook of\nthe route:\n\n```javascript\naController.replaceRoute('blogPost', aPost);\n```\n\nIf a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the `model`\nhook of the route will be triggered:\n\n```javascript\naController.replaceRoute('blogPost', 1);\n```\n\nMultiple models will be applied last to first recursively up the\nresource tree.\n\n```javascript\nApp.Router.map(function() {\n  this.resource('blogPost', {path:':blogPostId'}, function(){\n    this.resource('blogComment', {path: ':blogCommentId'});\n  });\n});\n\naController.replaceRoute('blogComment', aPost, aComment);\naController.replaceRoute('blogComment', 1, 13);\n```\n\nIt is also possible to pass a URL (a string that starts with a\n`/`). This is intended for testing and debugging purposes and\nshould rarely be used in production code.\n\n```javascript\naController.replaceRoute('/');\naController.replaceRoute('/blog/post/1/comment/13');\n```",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String"
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\nwhile transitioning to the route.",
+              "type": "...Object"
+            }
+          ],
+          "itemtype": "method",
+          "name": "replaceRoute",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 290,
+          "deprecated": true,
+          "itemtype": "method",
+          "name": "replaceWith",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 148,
+          "description": "Moves `actions` to `_actions` at extend time. Note that this currently\nmodifies the mixin themselves, which is technically dubious but\nis practically of little consequence. This may change in the future.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "willMergeMixin",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 177,
+          "description": "Triggers a named action on the `ActionHandler`. Any parameters\nsupplied after the `actionName` string will be passed as arguments\nto the action target function.\n\nIf the `ActionHandler` has its `target` property set, actions may\nbubble to the `target`. Bubbling happens when an `actionName` can\nnot be found in the `ActionHandler`'s `actions` hash or if the\naction target function returns `true`.\n\nExample\n\n```js\nApp.WelcomeRoute = Ember.Route.extend({\n  actions: {\n    playTheme: function() {\n       this.send('playMusic', 'theme.mp3');\n    },\n    playMusic: function(track) {\n      // ...\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "actionName",
+              "description": "The action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*"
+            }
+          ],
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/ember-application/lib/ext/controller.js",
+          "line": 72,
+          "description": "An array of other controller objects available inside\ninstances of this controller via the `controllers`\nproperty:\n\nFor example, when you define a controller:\n\n```javascript\nApp.CommentsController = Ember.ArrayController.extend({\n  needs: ['post']\n});\n```\n\nThe application's single instance of these other\ncontrollers are accessible by name through the\n`controllers` property:\n\n```javascript\nthis.get('controllers.post'); // instance of App.PostController\n```\n\nGiven that you have a nested controller (nested resource):\n\n```javascript\nApp.CommentsNewController = Ember.ObjectController.extend({\n});\n```\n\nWhen you define a controller that requires access to a nested one:\n\n```javascript\nApp.IndexController = Ember.ObjectController.extend({\n  needs: ['commentsNew']\n});\n```\n\nYou will be able to get access to it:\n\n```javascript\nthis.get('controllers.commentsNew'); // instance of App.CommentsNewController\n```\n\nThis is only available for singleton controllers.",
+          "itemtype": "property",
+          "name": "needs",
+          "type": "Array",
+          "default": "[]",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-application/lib/ext/controller.js",
+          "line": 152,
+          "description": "Stores the instances of other controllers available from within\nthis controller. Any controller listed by name in the `needs`\nproperty will be accessible by name through this property.\n\n```javascript\nApp.CommentsController = Ember.ArrayController.extend({\n  needs: ['post'],\n  postTitle: function(){\n    var currentPost = this.get('controllers.post'); // instance of App.PostController\n    return currentPost.get('title');\n  }.property('controllers.post.title')\n});\n```",
+          "see": [
+            "{Ember.ControllerMixin#needs}"
+          ],
+          "itemtype": "property",
+          "name": "controllers",
+          "type": "Object",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-application",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 25,
+          "itemtype": "property",
+          "name": "queryParams",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 31,
+          "itemtype": "property",
+          "name": "_qpDelegate",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 37,
+          "itemtype": "property",
+          "name": "_normalizedQueryParams",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "../packages/ember-routing/lib/ext/controller.js",
+          "line": 61,
+          "itemtype": "property",
+          "name": "_cacheMeta",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/controller.js",
+          "line": 22,
+          "description": "The object to which actions from the view should be sent.\n\nFor example, when a Handlebars template uses the `{{action}}` helper,\nit will attempt to send the action to the view's controller's `target`.\n\nBy default, the value of the target property is set to the router, and\nis injected when a controller is instantiated. This injection is defined\nin Ember.Application#buildContainer, and is applied as part of the\napplications initialization process. It can also be set after a controller\nhas been instantiated, for instance when using the render helper in a\ntemplate, or when a controller is used as an `itemController`. In most\ncases the `target` property will automatically be set to the logical\nconsumer of actions for the controller.",
+          "itemtype": "property",
+          "name": "target",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/controller.js",
+          "line": 48,
+          "description": "The controller's current model. When retrieving or modifying a controller's\nmodel, this property should be used instead of the `content` property.",
+          "itemtype": "property",
+          "name": "model",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "namespace": "Ember"
+        },
+        {
+          "file": "../packages/ember-runtime/lib/mixins/action_handler.js",
+          "line": 28,
+          "description": "The collection of functions, keyed by name, available on this\n`ActionHandler` as action targets.\n\nThese functions will be invoked when a matching `{{action}}` is triggered\nfrom within a template and the application's current route is this route.\n\nActions can also be invoked from other parts of your application\nvia `ActionHandler#send`.\n\nThe `actions` hash will inherit action handlers from\nthe `actions` hash defined on extended parent classes\nor mixins rather than just replace the entire hash, e.g.:\n\n```js\nApp.CanDisplayBanner = Ember.Mixin.create({\n  actions: {\n    displayBanner: function(msg) {\n      // ...\n    }\n  }\n});\n\nApp.WelcomeRoute = Ember.Route.extend(App.CanDisplayBanner, {\n  actions: {\n    playMusic: function() {\n      // ...\n    }\n  }\n});\n\n// `WelcomeRoute`, when active, will be able to respond\n// to both actions, since the actions hash is merged rather\n// then replaced when extending mixins / parent classes.\nthis.send('displayBanner');\nthis.send('playMusic');\n```\n\nWithin a Controller, Route, View or Component's action handler,\nthe value of the `this` context is the Controller, Route, View or\nComponent object:\n\n```js\nApp.SongRoute = Ember.Route.extend({\n  actions: {\n    myAction: function() {\n      this.controllerFor(\"song\");\n      this.transitionTo(\"other.route\");\n      ...\n    }\n  }\n});\n```\n\nIt is also possible to call `this._super()` from within an\naction handler if it overrides a handler defined on a parent\nclass or mixin:\n\nTake for example the following routes:\n\n```js\nApp.DebugRoute = Ember.Mixin.create({\n  actions: {\n    debugRouteInformation: function() {\n      console.debug(\"trololo\");\n    }\n  }\n});\n\nApp.AnnoyingDebugRoute = Ember.Route.extend(App.DebugRoute, {\n  actions: {\n    debugRouteInformation: function() {\n      // also call the debugRouteInformation of mixed in App.DebugRoute\n      this._super();\n\n      // show additional annoyance\n      window.alert(...);\n    }\n  }\n});\n```\n\n## Bubbling\n\nBy default, an action will stop bubbling once a handler defined\non the `actions` hash handles it. To continue bubbling the action,\nyou must return `true` from the handler:\n\n```js\nApp.Router.map(function() {\n  this.resource(\"album\", function() {\n    this.route(\"song\");\n  });\n});\n\nApp.AlbumRoute = Ember.Route.extend({\n  actions: {\n    startPlaying: function() {\n    }\n  }\n});\n\nApp.AlbumSongRoute = Ember.Route.extend({\n  actions: {\n    startPlaying: function() {\n      // ...\n\n      if (actionShouldAlsoBeTriggeredOnParentRoute) {\n        return true;\n      }\n    }\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "actions",
+          "type": "Hash",
+          "default": "null",
+          "class": "Ember.ControllerMixin",
+          "module": "ember",
+          "submodule": "ember-runtime",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.8.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.8.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

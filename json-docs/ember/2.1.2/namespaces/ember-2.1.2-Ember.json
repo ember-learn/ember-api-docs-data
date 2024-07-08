@@ -1,0 +1,2036 @@
+{
+  "data": {
+    "id": "ember-2.1.2-Ember",
+    "type": "namespace",
+    "attributes": {
+      "name": "Ember",
+      "shortname": "Ember",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-metal",
+      "namespace": "",
+      "file": "packages/ember-metal/lib/core.js",
+      "line": 8,
+      "access": "public",
+      "tagname": "",
+      "description": "This namespace contains all Ember methods and functions. Future versions of\nEmber may overwrite this namespace and therefore, you should avoid adding any\nnew properties.\n\nYou can also use the shorthand `Em` instead of `Ember`.\n\nAt the heart of Ember is Ember-Runtime, a set of core functions that provide\ncross-platform compatibility and object property observing.  Ember-Runtime is\nsmall and performance-focused so you can use it alongside other\ncross-platform libraries such as jQuery. For more details, see\n[Ember-Runtime](http://emberjs.com/api/modules/ember-runtime.html).",
+      "static": 1,
+      "version": "VERSION_STRING_PLACEHOLDER",
+      "methods": [
+        {
+          "file": "packages/ember-debug/lib/deprecate.js",
+          "line": 85,
+          "description": "Display a deprecation warning with the provided message and a stack trace\n(Chrome and Firefox only). Ember build tools will remove any calls to\n`Ember.deprecate()` when doing a production build.",
+          "itemtype": "method",
+          "name": "deprecate",
+          "params": [
+            {
+              "name": "message",
+              "description": "A description of the deprecation.",
+              "type": "String"
+            },
+            {
+              "name": "test",
+              "description": "A boolean. If falsy, the deprecation\n  will be displayed. If this is a function, it will be executed and its return\n  value will be used as condition.",
+              "type": "Boolean|Function"
+            },
+            {
+              "name": "options",
+              "description": "An object that can be used to pass\n  in a `url` to the transition guide on the emberjs.com website, and a unique\n  `id` for this deprecation. The `id` can be used by Ember debugging tools\n  to change the behavior (raise, log or silence) for that specific deprecation.\n  The `id` should be namespaced by dots, e.g. \"view.helper.select\".",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 28,
+          "description": "Define an assertion that will throw an exception if the condition is not\nmet. Ember build tools will remove any calls to `Ember.assert()` when\ndoing a production build. Example:\n\n```javascript\n// Test for truthiness\nEmber.assert('Must pass a valid object', obj);\n\n// Fail unconditionally\nEmber.assert('This code path should never be run');\n```",
+          "itemtype": "method",
+          "name": "assert",
+          "params": [
+            {
+              "name": "desc",
+              "description": "A description of the assertion. This will become\n  the text of the Error thrown if the assertion fails.",
+              "type": "String"
+            },
+            {
+              "name": "test",
+              "description": "Must be truthy for the assertion to pass. If\n  falsy, an exception will be thrown. If this is a function, it will be executed and\n  its return value will be used as condition.",
+              "type": "Boolean|Function"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 63,
+          "description": "Display a debug notice. Ember build tools will remove any calls to\n`Ember.debug()` when doing a production build.\n\n```javascript\nEmber.debug('I\\'m a debug notice!');\n```",
+          "itemtype": "method",
+          "name": "debug",
+          "params": [
+            {
+              "name": "message",
+              "description": "A debug message to display.",
+              "type": "String"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 79,
+          "description": "Alias an old, deprecated method with its new counterpart.\n\nDisplay a deprecation warning with the provided message and a stack trace\n(Chrome and Firefox only) when the assigned method is called.\n\nEmber build tools will not remove calls to `Ember.deprecateFunc()`, though\nno warnings will be shown in production.\n\n```javascript\nEmber.oldMethod = Ember.deprecateFunc('Please use the new, updated method', Ember.newMethod);\n```",
+          "itemtype": "method",
+          "name": "deprecateFunc",
+          "params": [
+            {
+              "name": "message",
+              "description": "A description of the deprecation.",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "The options object for Ember.deprecate.",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "func",
+              "description": "The new function called to replace its deprecated counterpart.",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "a new function that wrapped the original function with a deprecation warning",
+            "type": "Function"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 116,
+          "description": "Run a function meant for debugging. Ember build tools will remove any calls to\n`Ember.runInDebug()` when doing a production build.\n\n```javascript\nEmber.runInDebug(() => {\n  Ember.Component.reopen({\n    didInsertElement() {\n      console.log(\"I'm happy\");\n    }\n  });\n});\n```",
+          "itemtype": "method",
+          "name": "runInDebug",
+          "params": [
+            {
+              "name": "func",
+              "description": "The function to be executed.",
+              "type": "Function"
+            }
+          ],
+          "since": "1.5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/main.js",
+          "line": 146,
+          "description": "Will call `Ember.warn()` if ENABLE_ALL_FEATURES, ENABLE_OPTIONAL_FEATURES, or\nany specific FEATURES flag is truthy.\n\nThis method is called automatically in debug canary builds.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_warnIfUsingStrippedFeatureFlags",
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/warn.js",
+          "line": 26,
+          "description": "Display a warning with the provided message. Ember build tools will\nremove any calls to `Ember.warn()` when doing a production build.",
+          "itemtype": "method",
+          "name": "warn",
+          "params": [
+            {
+              "name": "message",
+              "description": "A warning to display.",
+              "type": "String"
+            },
+            {
+              "name": "test",
+              "description": "An optional boolean. If falsy, the warning\n  will be displayed.",
+              "type": "Boolean"
+            },
+            {
+              "name": "options",
+              "description": "An ojbect that can be used to pass a unique\n  `id` for this warning.  The `id` can be used by Ember debugging tools\n  to change the behavior (raise, log, or silence) for that specific warning.\n  The `id` should be namespaced by dots, e.g. \"ember-debug.feature-flag-with-features-stripped\"",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-metal/lib/binding.js",
+          "line": 39,
+          "description": "Returns true if the provided path is global (e.g., `MyApp.fooController.bar`)\ninstead of local (`foo.bar.baz`).",
+          "itemtype": "method",
+          "name": "isGlobalPath",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Boolean"
+          },
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/binding.js",
+          "line": 451,
+          "description": "Global helper method to create a new binding. Just pass the root object\nalong with a `to` and `from` path to create and connect the binding.",
+          "itemtype": "method",
+          "name": "bind",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The root object of the transform.",
+              "type": "Object"
+            },
+            {
+              "name": "to",
+              "description": "The path to the 'to' side of the binding.\n  Must be relative to obj.",
+              "type": "String"
+            },
+            {
+              "name": "from",
+              "description": "The path to the 'from' side of the binding.\n  Must be relative to obj or a global path.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "binding instance",
+            "type": "Ember.Binding"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/computed.js",
+          "line": 609,
+          "description": "Returns the cached value for a property, if one exists.\nThis can be useful for peeking at the value of a computed\nproperty that is generated lazily, without accidentally causing\nit to be created.",
+          "itemtype": "method",
+          "name": "cacheFor",
+          "params": [
+            {
+              "name": "obj",
+              "description": "the object whose property you want to check",
+              "type": "Object"
+            },
+            {
+              "name": "key",
+              "description": "the name of the property whose cached value you want\n  to return",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the cached value",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 152,
+          "description": "An empty function useful for some operations. Always returns `this`.",
+          "itemtype": "method",
+          "name": "K",
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 73,
+          "description": "Add an event listener",
+          "itemtype": "method",
+          "name": "addListener",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "A target object or a function",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            },
+            {
+              "name": "once",
+              "description": "A flag whether a function should only be called once",
+              "type": "Boolean"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 105,
+          "description": "Remove an event listener\n\nArguments should match those passed to `Ember.addListener`.",
+          "itemtype": "method",
+          "name": "removeListener",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "A target object or a function",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 133,
+          "description": "Suspend listener during callback.\n\nThis should only be used by the target of the event listener\nwhen it is taking an action that would cause the event, e.g.\nan object might suspend its property change listener while it is\nsetting that property.",
+          "itemtype": "method",
+          "name": "suspendListener",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "A target object or a function",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 155,
+          "description": "Suspends multiple listeners during a callback.",
+          "itemtype": "method",
+          "name": "suspendListeners",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventNames",
+              "description": "Array of event names",
+              "type": "Array"
+            },
+            {
+              "name": "target",
+              "description": "A target object or a function",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            },
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 176,
+          "description": "Return a list of currently watched events",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "watchedEvents",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 188,
+          "description": "Send an event. The execution of suspended listeners\nis skipped, and once listeners are removed. A listener without\na target is executed on the passed object. If an array of actions\nis not passed, the actions stored on the passed object are invoked.",
+          "itemtype": "method",
+          "name": "sendEvent",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "params",
+              "description": "Optional parameters for each listener.",
+              "type": "Array"
+            },
+            {
+              "name": "actions",
+              "description": "Optional array of actions (listeners).",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "true"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 237,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "hasListeners",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 250,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "listenersFor",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "eventName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/events.js",
+          "line": 273,
+          "description": "Define a property as a function that should be executed when\na specified event or events are triggered.\n\n\n``` javascript\nvar Job = Ember.Object.extend({\n  logCompleted: Ember.on('completed', function() {\n    console.log('Job completed!');\n  })\n});\n\nvar job = Job.create();\n\nEmber.sendEvent(job, 'completed'); // Logs 'Job completed!'\n ```",
+          "itemtype": "method",
+          "name": "on",
+          "params": [
+            {
+              "name": "eventNames",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            },
+            {
+              "name": "func",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "func"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/expand_properties.js",
+          "line": 10,
+          "description": "Expands `pattern`, invoking `callback` for each expansion.\n\nThe only pattern supported is brace-expansion, anything else will be passed\nonce to `callback` directly.\n\nExample\n\n```js\nfunction echo(arg){ console.log(arg); }\n\nEmber.expandProperties('foo.bar', echo);              //=> 'foo.bar'\nEmber.expandProperties('{foo,bar}', echo);            //=> 'foo', 'bar'\nEmber.expandProperties('foo.{bar,baz}', echo);        //=> 'foo.bar', 'foo.baz'\nEmber.expandProperties('{foo,bar}.baz', echo);        //=> 'foo.baz', 'bar.baz'\nEmber.expandProperties('foo.{bar,baz}.[]', echo)      //=> 'foo.bar.[]', 'foo.baz.[]'\nEmber.expandProperties('{foo,bar}.{spam,eggs}', echo) //=> 'foo.spam', 'foo.eggs', 'bar.spam', 'bar.eggs'\nEmber.expandProperties('{foo}.bar.{baz}')             //=> 'foo.bar.baz'\n```",
+          "itemtype": "method",
+          "name": "expandProperties",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "pattern",
+              "description": "The property pattern to expand.",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "The callback to invoke.  It is invoked once per\nexpansion, and is passed the expansion.",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/get_properties.js",
+          "line": 3,
+          "description": "To get multiple properties at once, call `Ember.getProperties`\nwith an object followed by a list of strings or an array:\n\n```javascript\nEmber.getProperties(record, 'firstName', 'lastName', 'zipCode');\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```\n\nis equivalent to:\n\n```javascript\nEmber.getProperties(record, ['firstName', 'lastName', 'zipCode']);\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```",
+          "itemtype": "method",
+          "name": "getProperties",
+          "params": [
+            {
+              "name": "obj",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "list",
+              "description": "of keys to get",
+              "type": "String...|Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/is_blank.js",
+          "line": 3,
+          "description": "A value is blank if it is empty or a whitespace string.\n\n```javascript\nEmber.isBlank();                // true\nEmber.isBlank(null);            // true\nEmber.isBlank(undefined);       // true\nEmber.isBlank('');              // true\nEmber.isBlank([]);              // true\nEmber.isBlank('\\n\\t');          // true\nEmber.isBlank('  ');            // true\nEmber.isBlank({});              // false\nEmber.isBlank('\\n\\t Hello');    // false\nEmber.isBlank('Hello world');   // false\nEmber.isBlank([1,2,3]);         // false\n```",
+          "itemtype": "method",
+          "name": "isBlank",
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.5.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/is_empty.js",
+          "line": 4,
+          "description": "Verifies that a value is `null` or an empty string, empty array,\nor empty function.\n\nConstrains the rules on `Ember.isNone` by returning true for empty\nstring and empty arrays.\n\n```javascript\nEmber.isEmpty();                // true\nEmber.isEmpty(null);            // true\nEmber.isEmpty(undefined);       // true\nEmber.isEmpty('');              // true\nEmber.isEmpty([]);              // true\nEmber.isEmpty({});              // false\nEmber.isEmpty('Adam Hawkins');  // false\nEmber.isEmpty([0,1,2]);         // false\n```",
+          "itemtype": "method",
+          "name": "isEmpty",
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/is_none.js",
+          "line": 1,
+          "description": "Returns true if the passed value is null or undefined. This avoids errors\nfrom JSLint complaining about use of ==, which can be technically\nconfusing.\n\n```javascript\nEmber.isNone();              // true\nEmber.isNone(null);          // true\nEmber.isNone(undefined);     // true\nEmber.isNone('');            // false\nEmber.isNone([]);            // false\nEmber.isNone(function() {});  // false\n```",
+          "itemtype": "method",
+          "name": "isNone",
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/is_present.js",
+          "line": 3,
+          "description": "A value is present if it not `isBlank`.\n\n```javascript\nEmber.isPresent();                // false\nEmber.isPresent(null);            // false\nEmber.isPresent(undefined);       // false\nEmber.isPresent(false);           // false\nEmber.isPresent('');              // false\nEmber.isPresent([]);              // false\nEmber.isPresent('\\n\\t');          // false\nEmber.isPresent('  ');            // false\nEmber.isPresent({});              // true\nEmber.isPresent('\\n\\t Hello');    // true\nEmber.isPresent('Hello world');   // true\nEmber.isPresent([1,2,3]);         // true\n```",
+          "itemtype": "method",
+          "name": "isPresent",
+          "params": [
+            {
+              "name": "obj",
+              "description": "Value to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "since": "1.8.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/keys.js",
+          "line": 1,
+          "description": "Returns all of the keys defined on an object or hash. This is useful\nwhen inspecting objects for debugging. On browsers that support it, this\nuses the native `Object.keys` implementation.",
+          "itemtype": "method",
+          "name": "keys",
+          "params": [
+            {
+              "name": "obj",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Array containing keys of obj",
+            "type": "Array"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/merge.js",
+          "line": 1,
+          "description": "Merge the contents of two objects together into the first object.\n\n```javascript\nEmber.merge({first: 'Tom'}, {last: 'Dale'}); // {first: 'Tom', last: 'Dale'}\nvar a = {first: 'Yehuda'};\nvar b = {last: 'Katz'};\nEmber.merge(a, b); // a == {first: 'Yehuda', last: 'Katz'}, b == {last: 'Katz'}\n```",
+          "itemtype": "method",
+          "name": "merge",
+          "params": [
+            {
+              "name": "original",
+              "description": "The object to merge into",
+              "type": "Object"
+            },
+            {
+              "name": "updates",
+              "description": "The object to copy properties from",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/meta.js",
+          "line": 243,
+          "description": "Retrieves the meta hash for an object. If `writable` is true ensures the\nhash is writable for this object as well.\n\nThe meta object contains information about computed property descriptors as\nwell as any watched properties and other information. You generally will\nnot access this information directly but instead work with higher level\nmethods that manipulate this hash indirectly.",
+          "itemtype": "method",
+          "name": "meta",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to retrieve meta for",
+              "type": "Object"
+            },
+            {
+              "name": "writable",
+              "description": "Pass `false` if you do not intend to modify\n  the meta hash, allowing the method to avoid making an unnecessary copy.",
+              "type": "Boolean",
+              "optional": true,
+              "optdefault": "true"
+            }
+          ],
+          "return": {
+            "description": "the meta hash for an object",
+            "type": "Object"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 418,
+          "itemtype": "method",
+          "name": "mixin",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "mixins",
+              "description": "",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "obj"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 671,
+          "description": "Denotes a required property for a mixin",
+          "itemtype": "method",
+          "name": "required",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 690,
+          "description": "Makes a method available via an additional name.\n\n```javascript\nApp.Person = Ember.Object.extend({\n  name: function() {\n    return 'Tomhuda Katzdale';\n  },\n  moniker: Ember.aliasMethod('name')\n});\n\nvar goodGuy = App.Person.create();\n\ngoodGuy.name();    // 'Tomhuda Katzdale'\ngoodGuy.moniker(); // 'Tomhuda Katzdale'\n```",
+          "itemtype": "method",
+          "name": "aliasMethod",
+          "params": [
+            {
+              "name": "methodName",
+              "description": "name of the method to alias",
+              "type": "String"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 720,
+          "description": "Specify a method that observes property changes.\n\n```javascript\nEmber.Object.extend({\n  valueObserver: Ember.observer('value', function() {\n    // Executes whenever the \"value\" property changes\n  })\n});\n```\n\nAlso available as `Function.prototype.observes` if prototype extensions are\nenabled.",
+          "itemtype": "method",
+          "name": "observer",
+          "params": [
+            {
+              "name": "propertyNames",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            },
+            {
+              "name": "func",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "func"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 778,
+          "description": "Specify a method that observes property changes.\n\n```javascript\nEmber.Object.extend({\n  valueObserver: Ember.immediateObserver('value', function() {\n    // Executes whenever the \"value\" property changes\n  })\n});\n```\n\nIn the future, `Ember.observer` may become asynchronous. In this event,\n`Ember.immediateObserver` will maintain the synchronous behavior.\n\nAlso available as `Function.prototype.observesImmediately` if prototype extensions are\nenabled.",
+          "itemtype": "method",
+          "name": "_immediateObserver",
+          "params": [
+            {
+              "name": "propertyNames",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            },
+            {
+              "name": "func",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "deprecated": true,
+          "deprecationMessage": "Use `Ember.observer` instead.",
+          "return": {
+            "description": "func"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/mixin.js",
+          "line": 815,
+          "description": "When observers fire, they are called with the arguments `obj`, `keyName`.\n\nNote, `@each.property` observer is called per each add or replace of an element\nand it's not called with a specific enumeration item.\n\nA `_beforeObserver` fires before a property changes.\n\nA `_beforeObserver` is an alternative form of `.observesBefore()`.\n\n```javascript\nApp.PersonView = Ember.View.extend({\n  friends: [{ name: 'Tom' }, { name: 'Stefan' }, { name: 'Kris' }],\n\n  valueDidChange: Ember.observer('content.value', function(obj, keyName) {\n      // only run if updating a value already in the DOM\n      if (this.get('state') === 'inDOM') {\n        var color = obj.get(keyName) > this.changingFrom ? 'green' : 'red';\n        // logic\n      }\n  }),\n\n  friendsDidChange: Ember.observer('friends.@each.name', function(obj, keyName) {\n    // some logic\n    // obj.get(keyName) returns friends array\n  })\n});\n```\n\nAlso available as `Function.prototype.observesBefore` if prototype extensions are\nenabled.",
+          "itemtype": "method",
+          "name": "beforeObserver",
+          "params": [
+            {
+              "name": "propertyNames",
+              "description": "",
+              "type": "String",
+              "multiple": true
+            },
+            {
+              "name": "func",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "func"
+          },
+          "deprecated": true,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/observer.js",
+          "line": 27,
+          "itemtype": "method",
+          "name": "addObserver",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "_path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "",
+              "type": "Function|String",
+              "optional": true
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/observer.js",
+          "line": 47,
+          "itemtype": "method",
+          "name": "removeObserver",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "",
+              "type": "Function|String",
+              "optional": true
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/observer.js",
+          "line": 63,
+          "itemtype": "method",
+          "name": "_addBeforeObserver",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "",
+              "type": "Function|String",
+              "optional": true
+            }
+          ],
+          "deprecated": true,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/observer.js",
+          "line": 93,
+          "itemtype": "method",
+          "name": "removeBeforeObserver",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "path",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "",
+              "type": "Object|Function"
+            },
+            {
+              "name": "method",
+              "description": "",
+              "type": "Function|String",
+              "optional": true
+            }
+          ],
+          "deprecated": true,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/properties.js",
+          "line": 41,
+          "description": "NOTE: This is a low-level method used by other parts of the API. You almost\nnever want to call this method directly. Instead you should use\n`Ember.mixin()` to define new properties.\n\nDefines a property on an object. This method works much like the ES5\n`Object.defineProperty()` method except that it can also accept computed\nproperties and other special descriptors.\n\nNormally this method takes only three parameters. However if you pass an\ninstance of `Descriptor` as the third param then you can pass an\noptional value as the fourth parameter. This is often more efficient than\ncreating new descriptor hashes for each property.\n\n## Examples\n\n```javascript\n// ES5 compatible mode\nEmber.defineProperty(contact, 'firstName', {\n  writable: true,\n  configurable: false,\n  enumerable: true,\n  value: 'Charles'\n});\n\n// define a simple property\nEmber.defineProperty(contact, 'lastName', undefined, 'Jolley');\n\n// define a computed property\nEmber.defineProperty(contact, 'fullName', Ember.computed(function() {\n  return this.firstName+' '+this.lastName;\n}).property('firstName', 'lastName'));\n```",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "defineProperty",
+          "params": [
+            {
+              "name": "obj",
+              "description": "the object to define this property on. This may be a prototype.",
+              "type": "Object"
+            },
+            {
+              "name": "keyName",
+              "description": "the name of the property",
+              "type": "String"
+            },
+            {
+              "name": "desc",
+              "description": "an instance of `Descriptor` (typically a\n  computed property) or an ES5 descriptor.\n  You must provide this or `data` but not both.",
+              "type": "Descriptor",
+              "optional": true
+            },
+            {
+              "name": "data",
+              "description": "something other than a descriptor, that will\n  become the explicit value of this property.",
+              "type": "*",
+              "optional": true
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_events.js",
+          "line": 21,
+          "description": "This function is called just before an object property is about to change.\nIt will notify any before observers and prepare caches among other things.\n\nNormally you will not need to call this method directly but if for some\nreason you can't directly watch a property you can invoke this method\nmanually along with `Ember.propertyDidChange()` which you should call just\nafter the property value changes.",
+          "itemtype": "method",
+          "name": "propertyWillChange",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object with the property that will change",
+              "type": "Object"
+            },
+            {
+              "name": "keyName",
+              "description": "The property key (or path) that will change.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_events.js",
+          "line": 61,
+          "description": "This function is called just after an object property has changed.\nIt will notify any observers and clear caches among other things.\n\nNormally you will not need to call this method directly but if for some\nreason you can't directly watch a property you can invoke this method\nmanually along with `Ember.propertyWillChange()` which you should call just\nbefore the property value changes.",
+          "itemtype": "method",
+          "name": "propertyDidChange",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object with the property that will change",
+              "type": "Object"
+            },
+            {
+              "name": "keyName",
+              "description": "The property key (or path) that will change.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_events.js",
+          "line": 217,
+          "itemtype": "method",
+          "name": "beginPropertyChanges",
+          "chainable": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_events.js",
+          "line": 226,
+          "itemtype": "method",
+          "name": "endPropertyChanges",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_events.js",
+          "line": 238,
+          "description": "Make a series of property changes together in an\nexception-safe way.\n\n```javascript\nEmber.changeProperties(function() {\n  obj1.set('foo', mayBlowUpWhenSet);\n  obj2.set('bar', baz);\n});\n```",
+          "itemtype": "method",
+          "name": "changeProperties",
+          "params": [
+            {
+              "name": "callback",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "binding",
+              "description": "",
+              "optional": true
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_get.js",
+          "line": 23,
+          "description": "Gets the value of a property on an object. If the property is computed,\nthe function will be invoked. If the property is not defined but the\nobject implements the `unknownProperty` method then that will be invoked.\n\nIf you plan to run on IE8 and older browsers then you should use this\nmethod anytime you want to retrieve a property on an object that you don't\nknow for sure is private. (Properties beginning with an underscore '_'\nare considered private.)\n\nOn all newer browsers, you only need to use this method to retrieve\nproperties if the property might not be defined on the object and you want\nto respect the `unknownProperty` handler. Otherwise you can ignore this\nmethod.\n\nNote that if the object itself is `undefined`, this method will throw\nan error.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to retrieve from.",
+              "type": "Object"
+            },
+            {
+              "name": "keyName",
+              "description": "The property key to retrieve",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the property value or `null`.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_get.js",
+          "line": 90,
+          "description": "Normalizes a target/path pair to reflect that actual target/path that should\nbe observed, etc. This takes into account passing in global property\npaths (i.e. a path beginning with a capital letter not defined on the\ntarget).",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "normalizeTuple",
+          "params": [
+            {
+              "name": "target",
+              "description": "The current target. May be `null`.",
+              "type": "Object"
+            },
+            {
+              "name": "path",
+              "description": "A path on the target or a global property path.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "a temporary array with the normalized target/path pair.",
+            "type": "Array"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_set.js",
+          "line": 16,
+          "description": "Sets the value of a property on an object, respecting computed properties\nand notifying observers and other listeners of the change. If the\nproperty is not defined but the object implements the `setUnknownProperty`\nmethod then that will be invoked as well.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to modify.",
+              "type": "Object"
+            },
+            {
+              "name": "keyName",
+              "description": "The property key to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the passed value.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/property_set.js",
+          "line": 131,
+          "description": "Error-tolerant form of `Ember.set`. Will not blow up if any part of the\nchain is `undefined`, `null`, or destroyed.\n\nThis is primarily used when syncing bindings, which may try to update after\nan object has been destroyed.",
+          "itemtype": "method",
+          "name": "trySet",
+          "params": [
+            {
+              "name": "root",
+              "description": "The object to modify.",
+              "type": "Object"
+            },
+            {
+              "name": "path",
+              "description": "The property path to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to set",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/set_properties.js",
+          "line": 4,
+          "description": "Set a list of properties on an object. These properties are set inside\na single `beginPropertyChanges` and `endPropertyChanges` batch, so\nobservers will be buffered.\n\n```javascript\nvar anObject = Ember.Object.create();\n\nanObject.setProperties({\n  firstName: 'Stanley',\n  lastName: 'Stuart',\n  age: 21\n});\n```",
+          "itemtype": "method",
+          "name": "setProperties",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "properties",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "properties"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal",
+          "namespace": "Ember"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 138,
+          "description": "Generates a new guid, optionally saving the guid to the object that you\npass in. You will rarely need to use this method. Instead you should\ncall `Ember.guidFor(obj)`, which return an existing guid if available.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "generateGuid",
+          "params": [
+            {
+              "name": "obj",
+              "description": "Object the guid will be used for. If passed in, the guid will\n  be saved on the object and reused whenever you pass the same object\n  again.\n\n  If no object is passed, just generate a new guid.",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "prefix",
+              "description": "Prefix to place in front of the guid. Useful when you want to\n  separate the guid into separate namespaces.",
+              "type": "String",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the guid",
+            "type": "String"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 176,
+          "description": "Returns a unique id for the object. If the object does not yet have a guid,\none will be assigned to it. You can call this on any object,\n`Ember.Object`-based or not, but be aware that it will add a `_guid`\nproperty.\n\nYou can also use this method on DOM Element objects.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "guidFor",
+          "params": [
+            {
+              "name": "obj",
+              "description": "any object, string, number, Element, or primitive",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the unique guid for this instance.",
+            "type": "String"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 284,
+          "description": "Wraps the passed function so that `this._super` will point to the superFunc\nwhen the function is invoked. This is the primitive we use to implement\ncalls to super.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "wrap",
+          "params": [
+            {
+              "name": "func",
+              "description": "The function to call",
+              "type": "Function"
+            },
+            {
+              "name": "superFunc",
+              "description": "The super function.",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "wrapped function.",
+            "type": "Function"
+          },
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 342,
+          "description": "Checks to see if the `methodName` exists on the `obj`.\n\n```javascript\nvar foo = { bar: function() { return 'bar'; }, baz: null };\n\nEmber.canInvoke(foo, 'bar'); // true\nEmber.canInvoke(foo, 'baz'); // false\nEmber.canInvoke(foo, 'bat'); // false\n```",
+          "itemtype": "method",
+          "name": "canInvoke",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to check for the method",
+              "type": "Object"
+            },
+            {
+              "name": "methodName",
+              "description": "The method name to check for",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 364,
+          "description": "Checks to see if the `methodName` exists on the `obj`,\nand if it does, invokes it with the arguments passed.\n\n```javascript\nvar d = new Date('03/15/2013');\n\nEmber.tryInvoke(d, 'getTime');              // 1363320000000\nEmber.tryInvoke(d, 'setFullYear', [2014]);  // 1394856000000\nEmber.tryInvoke(d, 'noSuchMethod', [2014]); // undefined\n```",
+          "itemtype": "method",
+          "name": "tryInvoke",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to check for the method",
+              "type": "Object"
+            },
+            {
+              "name": "methodName",
+              "description": "The method name to check for",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "The arguments to pass to the method",
+              "type": "Array",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the return value of the invoked method or undefined if it cannot be invoked",
+            "type": "*"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 396,
+          "description": "Forces the passed object to be part of an array. If the object is already\nan array, it will return the object. Otherwise, it will add the object to\nan array. If obj is `null` or `undefined`, it will return an empty array.\n\n```javascript\nEmber.makeArray();            // []\nEmber.makeArray(null);        // []\nEmber.makeArray(undefined);   // []\nEmber.makeArray('lindsay');   // ['lindsay']\nEmber.makeArray([1, 2, 42]);  // [1, 2, 42]\n\nvar controller = Ember.ArrayProxy.create({ content: [] });\n\nEmber.makeArray(controller) === controller;  // true\n```",
+          "itemtype": "method",
+          "name": "makeArray",
+          "params": [
+            {
+              "name": "obj",
+              "description": "the object",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 424,
+          "description": "Convenience method to inspect an object. This method will attempt to\nconvert the object into a useful string description.\n\nIt is a pretty simple implementation. If you want something more robust,\nuse something like JSDump: https://github.com/NV/jsDump",
+          "itemtype": "method",
+          "name": "inspect",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object you want to inspect.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "A description of the object",
+            "type": "String"
+          },
+          "since": "1.4.0",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/watching.js",
+          "line": 21,
+          "description": "Starts watching a property on an object. Whenever the property changes,\ninvokes `Ember.propertyWillChange` and `Ember.propertyDidChange`. This is the\nprimitive used by observers and dependent keys; usually you will never call\nthis method directly but instead use higher level methods like\n`Ember.addObserver()`",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "watch",
+          "params": [
+            {
+              "name": "obj",
+              "description": ""
+            },
+            {
+              "name": "_keyPath",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/watching.js",
+          "line": 67,
+          "description": "Tears down the meta on an object so that it can be garbage collected.\nMultiple calls will have no effect.",
+          "itemtype": "method",
+          "name": "destroy",
+          "params": [
+            {
+              "name": "obj",
+              "description": "the object to destroy",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/controller_for.js",
+          "line": 6,
+          "description": "Finds a controller instance.",
+          "itemtype": "method",
+          "name": "controllerFor",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/generate_controller.js",
+          "line": 9,
+          "description": "Generates a controller factory",
+          "itemtype": "method",
+          "name": "generateControllerFactory",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "packages/ember-routing/lib/system/generate_controller.js",
+          "line": 34,
+          "description": "Generates and instantiates a controller.\n\nThe type of the generated controller factory is derived\nfrom the context. If the context is an array an array controller\nis generated, if an object, an object controller otherwise, a basic\ncontroller is generated.",
+          "itemtype": "method",
+          "name": "generateController",
+          "access": "private",
+          "tagname": "",
+          "since": "1.3.0",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-routing"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/lazy_load.js",
+          "line": 15,
+          "description": "Detects when a specific package of Ember (e.g. 'Ember.Application')\nhas fully loaded and is available for extension.\n\nThe provided `callback` will be called with the `name` passed\nresolved from a string into the object:\n\n``` javascript\nEmber.onLoad('Ember.Application' function(hbars) {\n  hbars.registerHelper(...);\n});\n```",
+          "itemtype": "method",
+          "name": "onLoad",
+          "params": [
+            {
+              "name": "name",
+              "description": "name of hook",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "callback to be called",
+              "type": "Function"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/lazy_load.js",
+          "line": 45,
+          "description": "Called when an Ember.js package (e.g Ember.Application) has finished\nloading. Triggers any callbacks registered for this event.",
+          "itemtype": "method",
+          "name": "runLoadHooks",
+          "params": [
+            {
+              "name": "name",
+              "description": "name of hook",
+              "type": "String"
+            },
+            {
+              "name": "object",
+              "description": "object to pass to callbacks",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/native_array.js",
+          "line": 107,
+          "description": "Creates an `Ember.NativeArray` from an Array like object.\nDoes not modify the original object. Ember.A is not needed if\n`Ember.EXTEND_PROTOTYPES` is `true` (the default value). However,\nit is recommended that you use Ember.A when creating addons for\nember or when you can not guarantee that `Ember.EXTEND_PROTOTYPES`\nwill be `true`.\n\nExample\n\n```js\nvar Pagination = Ember.CollectionView.extend({\n  tagName: 'ul',\n  classNames: ['pagination'],\n\n  init: function() {\n    this._super.apply(this, arguments);\n    if (!this.get('content')) {\n      this.set('content', Ember.A());\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "A",
+          "return": {
+            "description": "",
+            "type": "Ember.NativeArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-runtime/lib/compare.js",
+          "line": 26,
+          "description": "This will compare two javascript values of possibly different types.\nIt will tell you which one is greater than the other by returning:\n\n - -1 if the first is smaller than the second,\n - 0 if both are equal,\n - 1 if the first is greater than the second.\n\nThe order is calculated based on `Ember.ORDER_DEFINITION`, if types are different.\nIn case they have the same type an appropriate comparison for this type is made.\n\n ```javascript\n Ember.compare('hello', 'hello');  // 0\n Ember.compare('abc', 'dfg');      // -1\n Ember.compare(2, 1);              // 1\n ```",
+          "itemtype": "method",
+          "name": "compare",
+          "params": [
+            {
+              "name": "v",
+              "description": "First value to compare",
+              "type": "Object"
+            },
+            {
+              "name": "w",
+              "description": "Second value to compare",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "-1 if v < w, 0 if v = w and 1 if v > w.",
+            "type": "Number"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/copy.js",
+          "line": 64,
+          "description": "Creates a clone of the passed object. This function can take just about\nany type of object and create a clone of it, including primitive values\n(which are not actually cloned because they are immutable).\n\nIf the passed object implements the `copy()` method, then this function\nwill simply call that method and return the result. Please see\n`Ember.Copyable` for further details.",
+          "itemtype": "method",
+          "name": "copy",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to clone",
+              "type": "Object"
+            },
+            {
+              "name": "deep",
+              "description": "If true, a deep copy of the object is made",
+              "type": "Boolean"
+            }
+          ],
+          "return": {
+            "description": "The cloned object",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/inject.js",
+          "line": 19,
+          "description": "This method allows other Ember modules to register injection helpers for a\ngiven container type. Helpers are exported to the `inject` namespace as the\ncontainer type itself.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "createInjectionHelper",
+          "since": "1.10.0",
+          "params": [
+            {
+              "name": "type",
+              "description": "The container type the helper will inject",
+              "type": "String"
+            },
+            {
+              "name": "validator",
+              "description": "A validation callback that is executed at mixin-time",
+              "type": "Function"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/inject.js",
+          "line": 39,
+          "description": "Validation function that runs per-type validation functions once for each\ninjected type encountered.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "validatePropertyInjections",
+          "since": "1.10.0",
+          "params": [
+            {
+              "name": "factory",
+              "description": "The factory object",
+              "type": "Object"
+            }
+          ],
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/is-equal.js",
+          "line": 1,
+          "description": "Compares two objects, returning true if they are logically equal. This is\na deeper comparison than a simple triple equal. For sets it will compare the\ninternal objects. For any other object that implements `isEqual()` it will\nrespect that method.\n\n```javascript\nEmber.isEqual('hello', 'hello');                   // true\nEmber.isEqual(1, 2);                               // false\nEmber.isEqual([4, 2], [4, 2]);                     // false\nEmber.isEqual({ isEqual() { return true;} }, null) // true\n```",
+          "itemtype": "method",
+          "name": "isEqual",
+          "params": [
+            {
+              "name": "a",
+              "description": "first object to compare",
+              "type": "Object"
+            },
+            {
+              "name": "b",
+              "description": "second object to compare",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/utils.js",
+          "line": 20,
+          "description": "Returns true if the passed object is an array or Array-like.\n\nEmber Array Protocol:\n\n  - the object has an objectAt property\n  - the object is a native Array\n  - the object is an Object, and has a length property\n\nUnlike `Ember.typeOf` this method returns true even if the passed object is\nnot formally array but appears to be array-like (i.e. implements `Ember.Array`)\n\n```javascript\nEmber.isArray();                                          // false\nEmber.isArray([]);                                        // true\nEmber.isArray(Ember.ArrayProxy.create({ content: [] }));  // true\n```",
+          "itemtype": "method",
+          "name": "isArray",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "true if the passed object is an array or Array-like",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-runtime/lib/utils.js",
+          "line": 55,
+          "description": "Returns a consistent type for the passed item.\n\nUse this instead of the built-in `typeof` to get the type of an item.\nIt will return the same result across all browsers and includes a bit\nmore detail. Here is what will be returned:\n\n    | Return Value  | Meaning                                              |\n    |---------------|------------------------------------------------------|\n    | 'string'      | String primitive or String object.                   |\n    | 'number'      | Number primitive or Number object.                   |\n    | 'boolean'     | Boolean primitive or Boolean object.                 |\n    | 'null'        | Null value                                           |\n    | 'undefined'   | Undefined value                                      |\n    | 'function'    | A function                                           |\n    | 'array'       | An instance of Array                                 |\n    | 'regexp'      | An instance of RegExp                                |\n    | 'date'        | An instance of Date                                  |\n    | 'class'       | An Ember class (created using Ember.Object.extend()) |\n    | 'instance'    | An Ember object instance                             |\n    | 'error'       | An instance of the Error object                      |\n    | 'object'      | A JavaScript object not inheriting from Ember.Object |\n\nExamples:\n\n```javascript\nEmber.typeOf();                       // 'undefined'\nEmber.typeOf(null);                   // 'null'\nEmber.typeOf(undefined);              // 'undefined'\nEmber.typeOf('michael');              // 'string'\nEmber.typeOf(new String('michael'));  // 'string'\nEmber.typeOf(101);                    // 'number'\nEmber.typeOf(new Number(101));        // 'number'\nEmber.typeOf(true);                   // 'boolean'\nEmber.typeOf(new Boolean(true));      // 'boolean'\nEmber.typeOf(Ember.makeArray);        // 'function'\nEmber.typeOf([1, 2, 90]);             // 'array'\nEmber.typeOf(/abc/);                  // 'regexp'\nEmber.typeOf(new Date());             // 'date'\nEmber.typeOf(Ember.Object.extend());  // 'class'\nEmber.typeOf(Ember.Object.create());  // 'instance'\nEmber.typeOf(new Error('teamocil'));  // 'error'\n\n// 'normal' JavaScript object\nEmber.typeOf({ a: 'b' });             // 'object'\n```",
+          "itemtype": "method",
+          "name": "typeOf",
+          "params": [
+            {
+              "name": "item",
+              "description": "the item to check",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "the type",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/ember-views/lib/main.js",
+          "line": 45,
+          "description": "Alias for jQuery",
+          "itemtype": "method",
+          "name": "$",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-views"
+        }
+      ],
+      "events": [
+        {
+          "file": "packages/ember-metal/lib/main.js",
+          "line": 328,
+          "description": "A function may be assigned to `Ember.onerror` to be called when Ember\ninternals encounter an error. This is useful for specialized error handling\nand reporting code.\n\n```javascript\nEmber.onerror = function(error) {\n  Em.$.ajax('/report-error', 'POST', {\n    stack: error.stack,\n    otherInformation: 'whatever app state you want to provide'\n  });\n};\n```\n\nInternally, `Ember.onerror` is used as Backburner's error handler.",
+          "itemtype": "event",
+          "name": "onerror",
+          "params": [
+            {
+              "name": "error",
+              "description": "the error object",
+              "type": "Exception"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        }
+      ],
+      "properties": [
+        {
+          "file": "packages/ember-metal/lib/binding.js",
+          "line": 26,
+          "description": "Debug parameter you can turn on. This will log all bindings that fire to\nthe console. This should be disabled in production code. Note that you\ncan also enable this from the console or temporarily.",
+          "itemtype": "property",
+          "name": "LOG_BINDINGS",
+          "type": "Boolean",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 49,
+          "description": "The semantic version.",
+          "itemtype": "property",
+          "name": "VERSION",
+          "type": "String",
+          "default": "'VERSION_STRING_PLACEHOLDER'",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 60,
+          "description": "The hash of environment variables used to control various configuration\nsettings. To specify your own or override default settings, add the\ndesired properties to a global hash named `EmberENV` (or `ENV` for\nbackwards compatibility with earlier versions of Ember). The `EmberENV`\nhash must be created before loading Ember.",
+          "itemtype": "property",
+          "name": "ENV",
+          "type": "Object",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 94,
+          "description": "Determines whether Ember should add to `Array`, `Function`, and `String`\nnative object prototypes, a few extra methods in order to provide a more\nfriendly API.\n\nWe generally recommend leaving this option set to true however, if you need\nto turn it off, you can add the configuration property\n`EXTEND_PROTOTYPES` to `EmberENV` and set it to `false`.\n\nNote, when disabled (the default configuration for Ember Addons), you will\ninstead have to access all methods and functions from the Ember\nnamespace.",
+          "itemtype": "property",
+          "name": "EXTEND_PROTOTYPES",
+          "type": "Boolean",
+          "default": "true",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 119,
+          "description": "The `LOG_STACKTRACE_ON_DEPRECATION` property, when true, tells Ember to log\na full stack trace during deprecation warnings.",
+          "itemtype": "property",
+          "name": "LOG_STACKTRACE_ON_DEPRECATION",
+          "type": "Boolean",
+          "default": "true",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 130,
+          "description": "The `SHIM_ES5` property, when true, tells Ember to add ECMAScript 5 Array\nshims to older browsers.",
+          "itemtype": "property",
+          "name": "SHIM_ES5",
+          "type": "Boolean",
+          "default": "Ember.EXTEND_PROTOTYPES",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/core.js",
+          "line": 141,
+          "description": "The `LOG_VERSION` property, when true, tells Ember to log versions of all\ndependent libraries in use.",
+          "itemtype": "property",
+          "name": "LOG_VERSION",
+          "type": "Boolean",
+          "default": "true",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 31,
+          "description": "Prefix used for guids through out Ember.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "GUID_PREFIX",
+          "type": "String",
+          "final": 1,
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-metal/lib/utils.js",
+          "line": 103,
+          "description": "A unique key used to assign guids and other private metadata to objects.\nIf you inspect an object in your browser debugger you will often see these.\nThey can be safely ignored.\n\nOn browsers that support it, these properties are added with enumeration\ndisabled so they won't show up when you iterate over your properties.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "GUID_KEY",
+          "type": "String",
+          "final": 1,
+          "class": "Ember",
+          "module": "ember-metal"
+        },
+        {
+          "file": "packages/ember-runtime/lib/system/string.js",
+          "line": 141,
+          "description": "Defines the hash of localized strings for the current language. Used by\nthe `Ember.String.loc()` helper. To localize, add string values to this\nhash.",
+          "itemtype": "property",
+          "name": "STRINGS",
+          "type": "Object",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-runtime"
+        },
+        {
+          "file": "packages/ember-views/lib/views/view.js",
+          "line": 52,
+          "description": "Global hash of shared templates. This will automatically be populated\nby the build tools so that you can store your Handlebars templates in\nseparate files that get loaded into JavaScript at buildtime.",
+          "itemtype": "property",
+          "name": "TEMPLATES",
+          "type": "Object",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "ember",
+          "submodule": "ember-views"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.1.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.1.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

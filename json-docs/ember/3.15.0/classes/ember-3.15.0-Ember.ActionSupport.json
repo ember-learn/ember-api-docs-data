@@ -1,0 +1,73 @@
+{
+  "data": {
+    "id": "ember-3.15.0-Ember.ActionSupport",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ActionSupport",
+      "shortname": "Ember.ActionSupport",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Component"
+      ],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "packages/@ember/-internals/views/lib/mixins/action_support.js",
+      "line": 184,
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/views/lib/mixins/action_support.js",
+          "line": 40,
+          "description": "Calls an action passed to a component.\n\nFor example a component for playing or pausing music may translate click events\ninto action notifications of \"play\" or \"stop\" depending on some internal state\nof the component:\n\n```js {data-filename=app/components/play-button.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  click() {\n    if (this.get('isPlaying')) {\n      this.sendAction('play');\n    } else {\n      this.sendAction('stop');\n    }\n  }\n});\n```\n\nThe actions \"play\" and \"stop\" must be passed to this `play-button` component:\n\n```handlebars\n{{! app/templates/application.hbs }}\n{{play-button play=(action \"musicStarted\") stop=(action \"musicStopped\")}}\n```\n\nWhen the component receives a browser `click` event it translate this\ninteraction into application-specific semantics (\"play\" or \"stop\") and\ncalls the specified action.\n\n```js {data-filename=app/controller/application.js}\nimport Controller from '@ember/controller';\n\nexport default Controller.extend({\n  actions: {\n    musicStarted() {\n      // called when the play button is clicked\n      // and the music started playing\n    },\n    musicStopped() {\n      // called when the play button is clicked\n      // and the music stopped playing\n    }\n  }\n});\n```\n\nIf no action is passed to `sendAction` a default name of \"action\"\nis assumed.\n\n```js {data-filename=app/components/next-button.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  click() {\n    this.sendAction();\n  }\n});\n```\n\n```handlebars\n{{! app/templates/application.hbs }}\n{{next-button action=(action \"playNextSongInAlbum\")}}\n```\n\n```js {data-filename=app/controllers/application.js}\nimport Controller from '@ember/controller';\n\nexport default Controller.extend({\n  actions: {\n    playNextSongInAlbum() {\n      ...\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "sendAction",
+          "params": [
+            {
+              "name": "action",
+              "description": "the action to call",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "params",
+              "description": "arguments for the action",
+              "type": "*",
+              "optional": true
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "deprecated": true,
+          "class": "Ember.ActionSupport",
+          "module": "ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-3.15.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-3.15.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "data": {
+    "id": "ember-1.7.1-Ember.ReduceComputedProperty",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.ReduceComputedProperty",
+      "shortname": "Ember.ReduceComputedProperty",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "Ember",
+      "file": "../packages/ember-runtime/lib/computed/reduce_computed.js",
+      "line": 461,
+      "description": "A computed property whose dependent keys are arrays and which is updated with\n\"one at a time\" semantics.",
+      "extends": "Ember.ComputedProperty",
+      "is_constructor": 1,
+      "methods": [
+        {
+          "file": "../packages/ember-metal/lib/computed.js",
+          "line": 137,
+          "description": "Properties are cacheable by default. Computed property will automatically\ncache the return value of your function until one of the dependent keys changes.\n\nCall `volatile()` to set it into non-cached mode. When in this mode\nthe computed property will not automatically cache the return value.\n\nHowever, if a property is properly observable, there is no reason to disable\ncaching.",
+          "itemtype": "method",
+          "name": "cacheable",
+          "params": [
+            {
+              "name": "aFlag",
+              "description": "optional set to `false` to disable caching",
+              "type": "Boolean"
+            }
+          ],
+          "return": {
+            "description": "this",
+            "type": "Ember.ComputedProperty"
+          },
+          "chainable": 1,
+          "class": "Ember.ReduceComputedProperty",
+          "module": "ember-metal",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ComputedProperty"
+        },
+        {
+          "file": "../packages/ember-metal/lib/computed.js",
+          "line": 157,
+          "description": "Call on a computed property to set it into non-cached mode. When in this\nmode the computed property will not automatically cache the return value.\n\n```javascript\nvar outsideService = Ember.Object.extend({\n  value: function() {\n    return OutsideService.getValue();\n  }.property().volatile()\n}).create();\n```",
+          "itemtype": "method",
+          "name": "volatile",
+          "return": {
+            "description": "this",
+            "type": "Ember.ComputedProperty"
+          },
+          "chainable": 1,
+          "class": "Ember.ReduceComputedProperty",
+          "module": "ember-metal",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ComputedProperty"
+        },
+        {
+          "file": "../packages/ember-metal/lib/computed.js",
+          "line": 177,
+          "description": "Call on a computed property to set it into read-only mode. When in this\nmode the computed property will throw an error when set.\n\n```javascript\nvar Person = Ember.Object.extend({\n  guid: function() {\n    return 'guid-guid-guid';\n  }.property().readOnly()\n});\n\nvar person = Person.create();\n\nperson.set('guid', 'new-guid'); // will throw an exception\n```",
+          "itemtype": "method",
+          "name": "readOnly",
+          "return": {
+            "description": "this",
+            "type": "Ember.ComputedProperty"
+          },
+          "chainable": 1,
+          "class": "Ember.ReduceComputedProperty",
+          "module": "ember-metal",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ComputedProperty"
+        },
+        {
+          "file": "../packages/ember-metal/lib/computed.js",
+          "line": 202,
+          "description": "Sets the dependent keys on this computed property. Pass any number of\narguments containing key paths that this computed property depends on.\n\n```javascript\nvar President = Ember.Object.extend({\n  fullName: computed(function() {\n    return this.get('firstName') + ' ' + this.get('lastName');\n\n    // Tell Ember that this computed property depends on firstName\n    // and lastName\n  }).property('firstName', 'lastName')\n});\n\nvar president = President.create({\n  firstName: 'Barack',\n  lastName: 'Obama'\n});\n\npresident.get('fullName'); // 'Barack Obama'\n```",
+          "itemtype": "method",
+          "name": "property",
+          "params": [
+            {
+              "name": "path",
+              "description": "zero or more property paths",
+              "type": "String",
+              "multiple": true
+            }
+          ],
+          "return": {
+            "description": "this",
+            "type": "Ember.ComputedProperty"
+          },
+          "chainable": 1,
+          "class": "Ember.ReduceComputedProperty",
+          "module": "ember-metal",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ComputedProperty"
+        },
+        {
+          "file": "../packages/ember-metal/lib/computed.js",
+          "line": 245,
+          "description": "In some cases, you may want to annotate computed properties with additional\nmetadata about how they function or what values they operate on. For example,\ncomputed property functions may close over variables that are then no longer\navailable for introspection.\n\nYou can pass a hash of these values to a computed property like this:\n\n```\nperson: function() {\n  var personId = this.get('personId');\n  return App.Person.create({ id: personId });\n}.property().meta({ type: App.Person })\n```\n\nThe hash that you pass to the `meta()` function will be saved on the\ncomputed property descriptor under the `_meta` key. Ember runtime\nexposes a public API for retrieving these values from classes,\nvia the `metaForProperty()` function.",
+          "itemtype": "method",
+          "name": "meta",
+          "params": [
+            {
+              "name": "meta",
+              "description": "",
+              "type": "Hash"
+            }
+          ],
+          "chainable": 1,
+          "class": "Ember.ReduceComputedProperty",
+          "module": "ember-metal",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ComputedProperty"
+        },
+        {
+          "file": "../packages/ember-metal/lib/computed.js",
+          "line": 299,
+          "description": "Access the value of the function backing the computed property.\nIf this property has already been cached, return the cached result.\nOtherwise, call the function passing the property name as an argument.\n\n```javascript\nvar Person = Ember.Object.extend({\n  fullName: function(keyName) {\n    // the keyName parameter is 'fullName' in this case.\n    return this.get('firstName') + ' ' + this.get('lastName');\n  }.property('firstName', 'lastName')\n});\n\n\nvar tom = Person.create({\n  firstName: 'Tom',\n  lastName: 'Dale'\n});\n\ntom.get('fullName') // 'Tom Dale'\n```",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The key being accessed.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The return value of the function backing the CP.",
+            "type": "Object"
+          },
+          "class": "Ember.ReduceComputedProperty",
+          "module": "ember-metal",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ComputedProperty"
+        },
+        {
+          "file": "../packages/ember-metal/lib/computed.js",
+          "line": 355,
+          "description": "Set the value of a computed property. If the function that backs your\ncomputed property does not accept arguments then the default action for\nsetting would be to define the property on the current object, and set\nthe value of the property to the value being set.\n\nGenerally speaking if you intend for your computed property to be set\nyour backing function should accept either two or three arguments.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The key being accessed.",
+              "type": "String"
+            },
+            {
+              "name": "newValue",
+              "description": "The new value being assigned.",
+              "type": "Object"
+            },
+            {
+              "name": "oldValue",
+              "description": "The old value being replaced.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The return value of the function backing the CP.",
+            "type": "Object"
+          },
+          "class": "Ember.ReduceComputedProperty",
+          "module": "ember-metal",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ComputedProperty"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-1.7.1-Ember.ComputedProperty",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-1.7.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-1.7.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

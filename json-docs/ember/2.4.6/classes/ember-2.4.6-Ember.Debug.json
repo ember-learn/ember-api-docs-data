@@ -1,0 +1,88 @@
+{
+  "data": {
+    "id": "ember-2.4.6-Ember.Debug",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Debug",
+      "shortname": "Ember.Debug",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "submodule": "ember-debug",
+      "namespace": "",
+      "file": "packages/ember-debug/lib/index.js",
+      "line": 231,
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/ember-debug/lib/index.js",
+          "line": 238,
+          "description": "Allows for runtime registration of handler functions that override the default deprecation behavior.\nDeprecations are invoked by calls to [Ember.deprecate](http://emberjs.com/api/classes/Ember.html#method_deprecate).\nThe following example demonstrates its usage by registering a handler that throws an error if the\nmessage contains the word \"should\", otherwise defers to the default handler.\n\n```javascript\nEmber.Debug.registerDeprecationHandler((message, options, next) => {\n  if (message.indexOf('should') !== -1) {\n    throw new Error(`Deprecation message with should: ${message}`);\n  } else {\n    // defer to whatever handler was registered before this one\n    next(message, options);\n  }\n}\n```\n\nThe handler function takes the following arguments:\n\n<ul>\n  <li> <code>message</code> - The message received from the deprecation call. </li>\n  <li> <code>options</code> - An object passed in with the deprecation call containing additional information including:</li>\n    <ul>\n      <li> <code>id</code> - an id of the deprecation in the form of <code>package-name.specific-deprecation</code>.</li>\n      <li> <code>until</code> - is the version number Ember the feature and deprecation will be removed in.</li>\n    </ul>\n  <li> <code>next</code> - a function that calls into the previously registered handler.</li>\n</ul>",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "registerDeprecationHandler",
+          "params": [
+            {
+              "name": "handler",
+              "description": "a function to handle deprecation calls",
+              "type": "Function"
+            }
+          ],
+          "since": "2.1.0",
+          "class": "Ember.Debug",
+          "module": "ember",
+          "submodule": "ember-debug"
+        },
+        {
+          "file": "packages/ember-debug/lib/index.js",
+          "line": 274,
+          "description": "Allows for runtime registration of handler functions that override the default warning behavior.\nWarnings are invoked by calls made to [Ember.warn](http://emberjs.com/api/classes/Ember.html#method_warn).\nThe following example demonstrates its usage by registering a handler that does nothing overriding Ember's\ndefault warning behavior.\n\n```javascript\n// next is not called, so no warnings get the default behavior\nEmber.Debug.registerWarnHandler(() => {});\n```\n\nThe handler function takes the following arguments:\n\n<ul>\n  <li> <code>message</code> - The message received from the warn call. </li>\n  <li> <code>options</code> - An object passed in with the warn call containing additional information including:</li>\n    <ul>\n      <li> <code>id</code> - an id of the warning in the form of <code>package-name.specific-warning</code>.</li>\n    </ul>\n  <li> <code>next</code> - a function that calls into the previously registered handler.</li>\n</ul>",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "registerWarnHandler",
+          "params": [
+            {
+              "name": "handler",
+              "description": "a function to handle warnings",
+              "type": "Function"
+            }
+          ],
+          "since": "2.1.0",
+          "class": "Ember.Debug",
+          "module": "ember",
+          "submodule": "ember-debug"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-2.4.6-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-2.4.6",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
