@@ -1,0 +1,215 @@
+{
+  "data": {
+    "id": "ember-5.10.0-@ember/helper",
+    "type": "module",
+    "attributes": {
+      "name": "@ember/helper",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember/helper": 1
+      },
+      "namespaces": {},
+      "tag": "module",
+      "file": "packages/@ember/helper/index.ts",
+      "line": 1,
+      "parent": null,
+      "publicclasses": [],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@ember/helper": [
+          {
+            "file": "packages/@ember/helper/index.ts",
+            "line": 17,
+            "description": "`capabilities` returns a capabilities configuration which can be used to modify\nthe behavior of the manager. Manager capabilities _must_ be provided using the\n`capabilities` function, as the underlying implementation can change over time.\n\nThe first argument to capabilities is a version string, which is the version of\nEmber that the capabilities were defined in. Ember can add new versions at any\ntime, and these may have entirely different behaviors, but it will not remove\nold versions until the next major version.\n\n```js\ncapabilities('3.23');\n```\n\nThe second argument is an object of capabilities and boolean values indicating\nwhether they are enabled or disabled.\n\n```js\ncapabilities('3.23', {\n  hasValue: true,\n  hasDestructor: true,\n});\n```\n\nIf no value is specified, then the default value will be used.\n\n### `3.23` capabilities\n\n#### `hasDestroyable`\n\n- Default value: false\n\nDetermines if the helper has a destroyable to include in the destructor\nhierarchy. If enabled, the `getDestroyable` hook will be called, and its result\nwill be associated with the destroyable parent block.\n\n#### `hasValue`\n\n- Default value: false\n\nDetermines if the helper has a value which can be used externally. The helper's\n`getValue` hook will be run whenever the value of the helper is accessed if this\ncapability is enabled.",
+            "itemtype": "method",
+            "name": "capabilities",
+            "static": 1,
+            "params": [
+              {
+                "name": "managerApiVersion",
+                "description": "The version of capabilities that are being used",
+                "type": "String"
+              },
+              {
+                "name": "options",
+                "description": "The capabilities values"
+              }
+            ],
+            "return": {
+              "description": "The capabilities object instance",
+              "type": "Capabilities"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/helper",
+            "module": "@ember/helper"
+          },
+          {
+            "file": "packages/@ember/helper/index.ts",
+            "line": 265,
+            "description": "The `invokeHelper` function can be used to create a helper instance in\nJavaScript.\n\nTo access a helper's value you have to use `getValue` from\n`@glimmer/tracking/primitives/cache`.\n\n```js\n// app/components/data-loader.js\nimport Component from '@glimmer/component';\nimport { getValue } from '@glimmer/tracking/primitives/cache';\nimport Helper from '@ember/component/helper';\nimport { invokeHelper } from '@ember/helper';\n\nclass PlusOne extends Helper {\n  compute([number]) {\n    return number + 1;\n  }\n}\n\nexport default class PlusOneComponent extends Component {\n  plusOne = invokeHelper(this, PlusOne, () => {\n    return {\n      positional: [this.args.number],\n    };\n  });\n\n  get value() {\n    return getValue(this.plusOne);\n  }\n}\n```\n```js\n{{this.value}}\n```\n\nIt receives three arguments:\n\n* `context`: The parent context of the helper. When the parent is torn down and\n  removed, the helper will be as well.\n* `definition`: The definition of the helper.\n* `computeArgs`: An optional function that produces the arguments to the helper.\n  The function receives the parent context as an argument, and must return an\n  object with a `positional` property that is an array and/or a `named`\n  property that is an object.\n\nAnd it returns a Cache instance that contains the most recent value of the\nhelper. You can access the helper using `getValue()` like any other cache. The\ncache is also destroyable, and using the `destroy()` function on it will cause\nthe helper to be torn down.\n\nNote that using `getValue()` on helpers that have scheduled effects will not\ntrigger the effect early. Effects will continue to run at their scheduled time.",
+            "itemtype": "method",
+            "name": "invokeHelper",
+            "static": 1,
+            "params": [
+              {
+                "name": "context",
+                "description": "The parent context of the helper",
+                "type": "Object"
+              },
+              {
+                "name": "definition",
+                "description": "The helper definition",
+                "type": "Object"
+              },
+              {
+                "name": "computeArgs",
+                "description": "An optional function that produces args",
+                "type": "Function"
+              }
+            ],
+            "return": {
+              "description": ""
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/helper",
+            "module": "@ember/helper"
+          },
+          {
+            "file": "packages/@ember/helper/index.ts",
+            "line": 71,
+            "description": "Sets the helper manager for an object or function.\n\n```js\nsetHelperManager((owner) => new ClassHelperManager(owner), Helper)\n```\n\nWhen a value is used as a helper in a template, the helper manager is looked up\non the object by walking up its prototype chain and finding the first helper\nmanager. This manager then receives the value and can create and manage an\ninstance of a helper from it. This provides a layer of indirection that allows\nusers to design high-level helper APIs, without Ember needing to worry about the\ndetails. High-level APIs can be experimented with and iterated on while the\ncore of Ember helpers remains stable, and new APIs can be introduced gradually\nover time to existing code bases.\n\n`setHelperManager` receives two arguments:\n\n1. A factory function, which receives the `owner` and returns an instance of a\n  helper manager.\n2. A helper definition, which is the object or function to associate the factory function with.\n\nThe first time the object is looked up, the factory function will be called to\ncreate the helper manager. It will be cached, and in subsequent lookups the\ncached helper manager will be used instead.\n\nOnly one helper manager is guaranteed to exist per `owner` and per usage of\n`setHelperManager`, so many helpers will end up using the same instance of the\nhelper manager. As such, you should only store state that is related to the\nmanager itself. If you want to store state specific to a particular helper\ndefinition, you should assign a unique helper manager to that helper. In\ngeneral, most managers should either be stateless, or only have the `owner` they\nwere created with as state.\n\nHelper managers must fulfill the following interface (This example uses\n[TypeScript interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html)\nfor precision, you do not need to write helper managers using TypeScript):\n\n```ts\ninterface HelperManager<HelperStateBucket> {\n  capabilities: HelperCapabilities;\n\n  createHelper(definition: HelperDefinition, args: TemplateArgs): HelperStateBucket;\n\n  getValue?(bucket: HelperStateBucket): unknown;\n\n  runEffect?(bucket: HelperStateBucket): void;\n\n  getDestroyable?(bucket: HelperStateBucket): object;\n}\n```\n\nThe capabilities property _must_ be provided using the `capabilities()` function\nimported from the same module as `setHelperManager`:\n\n```js\nimport { capabilities } from '@ember/helper';\n\nclass MyHelperManager {\n  capabilities = capabilities('3.21.0', { hasValue: true });\n\n  // ...snip...\n}\n```\n\nBelow is a description of each of the methods on the interface and their\nfunctions.\n\n#### `createHelper`\n\n`createHelper` is a required hook on the HelperManager interface. The hook is\npassed the definition of the helper that is currently being created, and is\nexpected to return a _state bucket_. This state bucket is what represents the\ncurrent state of the helper, and will be passed to the other lifecycle hooks at\nappropriate times. It is not necessarily related to the definition of the\nhelper itself - for instance, you could return an object _containing_ an\ninstance of the helper:\n\n```js\nclass MyManager {\n  createHelper(Definition, args) {\n    return {\n      instance: new Definition(args);\n    };\n  }\n}\n```\n\nThis allows the manager to store metadata that it doesn't want to expose to the\nuser.\n\nThis hook is _not_ autotracked - changes to tracked values used within this hook\nwill _not_ result in a call to any of the other lifecycle hooks. This is because\nit is unclear what should happen if it invalidates, and rather than make a\ndecision at this point, the initial API is aiming to allow as much expressivity\nas possible. This could change in the future with changes to capabilities and\ntheir behaviors.\n\nIf users do want to autotrack some values used during construction, they can\neither create the instance of the helper in `runEffect` or `getValue`, or they\ncan use the `cache` API to autotrack the `createHelper` hook themselves. This\nprovides maximum flexibility and expressiveness to manager authors.\n\nThis hook has the following timing semantics:\n\n**Always**\n- called as discovered during DOM construction\n- called in definition order in the template\n\n#### `getValue`\n\n`getValue` is an optional hook that should return the value of the helper. This\nis the value that is returned from the helper and passed into the template.\n\nThis hook is called when the value is requested from the helper (e.g. when the\ntemplate is rendering and the helper value is needed). The hook is autotracked,\nand will rerun whenever any tracked values used inside of it are updated.\nOtherwise it does not rerun.\n\n> Note: This means that arguments which are not _consumed_ within the hook will\n> not trigger updates.\n\nThis hook is only called for helpers with the `hasValue` capability enabled.\nThis hook has the following timing semantics:\n\n**Always**\n- called the first time the helper value is requested\n- called after autotracked state has changed\n\n**Never**\n- called if the `hasValue` capability is disabled\n\n#### `runEffect`\n\n`runEffect` is an optional hook that should run the effect that the helper is\napplying, setting it up or updating it.\n\nThis hook is scheduled to be called some time after render and prior to paint.\nThere is not a guaranteed, 1-to-1 relationship between a render pass and this\nhook firing. For instance, multiple render passes could occur, and the hook may\nonly trigger once. It may also never trigger if it was dirtied in one render\npass and then destroyed in the next.\n\nThe hook is autotracked, and will rerun whenever any tracked values used inside\nof it are updated. Otherwise it does not rerun.\n\nThe hook is also run during a time period where state mutations are _disabled_\nin Ember. Any tracked state mutation will throw an error during this time,\nincluding changes to tracked properties, changes made using `Ember.set`, updates\nto computed properties, etc. This is meant to prevent infinite rerenders and\nother antipatterns.\n\nThis hook is only called for helpers with the `hasScheduledEffect` capability\nenabled. This hook is also not called in SSR currently, though this could be\nadded as a capability in the future. It has the following timing semantics:\n\n**Always**\n- called after the helper was first created, if the helper has not been\n  destroyed since creation\n- called after autotracked state has changed, if the helper has not been\n  destroyed during render\n\n**Never**\n- called if the `hasScheduledEffect` capability is disabled\n- called in SSR\n\n#### `getDestroyable`\n\n`getDestroyable` is an optional hook that users can use to register a\ndestroyable object for the helper. This destroyable will be registered to the\ncontaining block or template parent, and will be destroyed when it is destroyed.\nSee the [Destroyables RFC](https://github.com/emberjs/rfcs/blob/master/text/0580-destroyables.md)\nfor more details.\n\n`getDestroyable` is only called if the `hasDestroyable` capability is enabled.\n\nThis hook has the following timing semantics:\n\n**Always**\n- called immediately after the `createHelper` hook is called\n\n**Never**\n- called if the `hasDestroyable` capability is disabled",
+            "itemtype": "method",
+            "name": "setHelperManager",
+            "static": 1,
+            "params": [
+              {
+                "name": "factory",
+                "description": "A factory function which receives an optional owner, and returns a helper manager",
+                "type": "Function"
+              },
+              {
+                "name": "definition",
+                "description": "The definition to associate the manager factory with",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "The definition passed into setHelperManager",
+              "type": "Object"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/helper",
+            "module": "@ember/helper"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember/helper": [
+          {
+            "file": "packages/@ember/helper/index.ts",
+            "line": 17,
+            "description": "`capabilities` returns a capabilities configuration which can be used to modify\nthe behavior of the manager. Manager capabilities _must_ be provided using the\n`capabilities` function, as the underlying implementation can change over time.\n\nThe first argument to capabilities is a version string, which is the version of\nEmber that the capabilities were defined in. Ember can add new versions at any\ntime, and these may have entirely different behaviors, but it will not remove\nold versions until the next major version.\n\n```js\ncapabilities('3.23');\n```\n\nThe second argument is an object of capabilities and boolean values indicating\nwhether they are enabled or disabled.\n\n```js\ncapabilities('3.23', {\n  hasValue: true,\n  hasDestructor: true,\n});\n```\n\nIf no value is specified, then the default value will be used.\n\n### `3.23` capabilities\n\n#### `hasDestroyable`\n\n- Default value: false\n\nDetermines if the helper has a destroyable to include in the destructor\nhierarchy. If enabled, the `getDestroyable` hook will be called, and its result\nwill be associated with the destroyable parent block.\n\n#### `hasValue`\n\n- Default value: false\n\nDetermines if the helper has a value which can be used externally. The helper's\n`getValue` hook will be run whenever the value of the helper is accessed if this\ncapability is enabled.",
+            "itemtype": "method",
+            "name": "capabilities",
+            "static": 1,
+            "params": [
+              {
+                "name": "managerApiVersion",
+                "description": "The version of capabilities that are being used",
+                "type": "String"
+              },
+              {
+                "name": "options",
+                "description": "The capabilities values"
+              }
+            ],
+            "return": {
+              "description": "The capabilities object instance",
+              "type": "Capabilities"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/helper",
+            "module": "@ember/helper"
+          },
+          {
+            "file": "packages/@ember/helper/index.ts",
+            "line": 265,
+            "description": "The `invokeHelper` function can be used to create a helper instance in\nJavaScript.\n\nTo access a helper's value you have to use `getValue` from\n`@glimmer/tracking/primitives/cache`.\n\n```js\n// app/components/data-loader.js\nimport Component from '@glimmer/component';\nimport { getValue } from '@glimmer/tracking/primitives/cache';\nimport Helper from '@ember/component/helper';\nimport { invokeHelper } from '@ember/helper';\n\nclass PlusOne extends Helper {\n  compute([number]) {\n    return number + 1;\n  }\n}\n\nexport default class PlusOneComponent extends Component {\n  plusOne = invokeHelper(this, PlusOne, () => {\n    return {\n      positional: [this.args.number],\n    };\n  });\n\n  get value() {\n    return getValue(this.plusOne);\n  }\n}\n```\n```js\n{{this.value}}\n```\n\nIt receives three arguments:\n\n* `context`: The parent context of the helper. When the parent is torn down and\n  removed, the helper will be as well.\n* `definition`: The definition of the helper.\n* `computeArgs`: An optional function that produces the arguments to the helper.\n  The function receives the parent context as an argument, and must return an\n  object with a `positional` property that is an array and/or a `named`\n  property that is an object.\n\nAnd it returns a Cache instance that contains the most recent value of the\nhelper. You can access the helper using `getValue()` like any other cache. The\ncache is also destroyable, and using the `destroy()` function on it will cause\nthe helper to be torn down.\n\nNote that using `getValue()` on helpers that have scheduled effects will not\ntrigger the effect early. Effects will continue to run at their scheduled time.",
+            "itemtype": "method",
+            "name": "invokeHelper",
+            "static": 1,
+            "params": [
+              {
+                "name": "context",
+                "description": "The parent context of the helper",
+                "type": "Object"
+              },
+              {
+                "name": "definition",
+                "description": "The helper definition",
+                "type": "Object"
+              },
+              {
+                "name": "computeArgs",
+                "description": "An optional function that produces args",
+                "type": "Function"
+              }
+            ],
+            "return": {
+              "description": ""
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/helper",
+            "module": "@ember/helper"
+          },
+          {
+            "file": "packages/@ember/helper/index.ts",
+            "line": 71,
+            "description": "Sets the helper manager for an object or function.\n\n```js\nsetHelperManager((owner) => new ClassHelperManager(owner), Helper)\n```\n\nWhen a value is used as a helper in a template, the helper manager is looked up\non the object by walking up its prototype chain and finding the first helper\nmanager. This manager then receives the value and can create and manage an\ninstance of a helper from it. This provides a layer of indirection that allows\nusers to design high-level helper APIs, without Ember needing to worry about the\ndetails. High-level APIs can be experimented with and iterated on while the\ncore of Ember helpers remains stable, and new APIs can be introduced gradually\nover time to existing code bases.\n\n`setHelperManager` receives two arguments:\n\n1. A factory function, which receives the `owner` and returns an instance of a\n  helper manager.\n2. A helper definition, which is the object or function to associate the factory function with.\n\nThe first time the object is looked up, the factory function will be called to\ncreate the helper manager. It will be cached, and in subsequent lookups the\ncached helper manager will be used instead.\n\nOnly one helper manager is guaranteed to exist per `owner` and per usage of\n`setHelperManager`, so many helpers will end up using the same instance of the\nhelper manager. As such, you should only store state that is related to the\nmanager itself. If you want to store state specific to a particular helper\ndefinition, you should assign a unique helper manager to that helper. In\ngeneral, most managers should either be stateless, or only have the `owner` they\nwere created with as state.\n\nHelper managers must fulfill the following interface (This example uses\n[TypeScript interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html)\nfor precision, you do not need to write helper managers using TypeScript):\n\n```ts\ninterface HelperManager<HelperStateBucket> {\n  capabilities: HelperCapabilities;\n\n  createHelper(definition: HelperDefinition, args: TemplateArgs): HelperStateBucket;\n\n  getValue?(bucket: HelperStateBucket): unknown;\n\n  runEffect?(bucket: HelperStateBucket): void;\n\n  getDestroyable?(bucket: HelperStateBucket): object;\n}\n```\n\nThe capabilities property _must_ be provided using the `capabilities()` function\nimported from the same module as `setHelperManager`:\n\n```js\nimport { capabilities } from '@ember/helper';\n\nclass MyHelperManager {\n  capabilities = capabilities('3.21.0', { hasValue: true });\n\n  // ...snip...\n}\n```\n\nBelow is a description of each of the methods on the interface and their\nfunctions.\n\n#### `createHelper`\n\n`createHelper` is a required hook on the HelperManager interface. The hook is\npassed the definition of the helper that is currently being created, and is\nexpected to return a _state bucket_. This state bucket is what represents the\ncurrent state of the helper, and will be passed to the other lifecycle hooks at\nappropriate times. It is not necessarily related to the definition of the\nhelper itself - for instance, you could return an object _containing_ an\ninstance of the helper:\n\n```js\nclass MyManager {\n  createHelper(Definition, args) {\n    return {\n      instance: new Definition(args);\n    };\n  }\n}\n```\n\nThis allows the manager to store metadata that it doesn't want to expose to the\nuser.\n\nThis hook is _not_ autotracked - changes to tracked values used within this hook\nwill _not_ result in a call to any of the other lifecycle hooks. This is because\nit is unclear what should happen if it invalidates, and rather than make a\ndecision at this point, the initial API is aiming to allow as much expressivity\nas possible. This could change in the future with changes to capabilities and\ntheir behaviors.\n\nIf users do want to autotrack some values used during construction, they can\neither create the instance of the helper in `runEffect` or `getValue`, or they\ncan use the `cache` API to autotrack the `createHelper` hook themselves. This\nprovides maximum flexibility and expressiveness to manager authors.\n\nThis hook has the following timing semantics:\n\n**Always**\n- called as discovered during DOM construction\n- called in definition order in the template\n\n#### `getValue`\n\n`getValue` is an optional hook that should return the value of the helper. This\nis the value that is returned from the helper and passed into the template.\n\nThis hook is called when the value is requested from the helper (e.g. when the\ntemplate is rendering and the helper value is needed). The hook is autotracked,\nand will rerun whenever any tracked values used inside of it are updated.\nOtherwise it does not rerun.\n\n> Note: This means that arguments which are not _consumed_ within the hook will\n> not trigger updates.\n\nThis hook is only called for helpers with the `hasValue` capability enabled.\nThis hook has the following timing semantics:\n\n**Always**\n- called the first time the helper value is requested\n- called after autotracked state has changed\n\n**Never**\n- called if the `hasValue` capability is disabled\n\n#### `runEffect`\n\n`runEffect` is an optional hook that should run the effect that the helper is\napplying, setting it up or updating it.\n\nThis hook is scheduled to be called some time after render and prior to paint.\nThere is not a guaranteed, 1-to-1 relationship between a render pass and this\nhook firing. For instance, multiple render passes could occur, and the hook may\nonly trigger once. It may also never trigger if it was dirtied in one render\npass and then destroyed in the next.\n\nThe hook is autotracked, and will rerun whenever any tracked values used inside\nof it are updated. Otherwise it does not rerun.\n\nThe hook is also run during a time period where state mutations are _disabled_\nin Ember. Any tracked state mutation will throw an error during this time,\nincluding changes to tracked properties, changes made using `Ember.set`, updates\nto computed properties, etc. This is meant to prevent infinite rerenders and\nother antipatterns.\n\nThis hook is only called for helpers with the `hasScheduledEffect` capability\nenabled. This hook is also not called in SSR currently, though this could be\nadded as a capability in the future. It has the following timing semantics:\n\n**Always**\n- called after the helper was first created, if the helper has not been\n  destroyed since creation\n- called after autotracked state has changed, if the helper has not been\n  destroyed during render\n\n**Never**\n- called if the `hasScheduledEffect` capability is disabled\n- called in SSR\n\n#### `getDestroyable`\n\n`getDestroyable` is an optional hook that users can use to register a\ndestroyable object for the helper. This destroyable will be registered to the\ncontaining block or template parent, and will be destroyed when it is destroyed.\nSee the [Destroyables RFC](https://github.com/emberjs/rfcs/blob/master/text/0580-destroyables.md)\nfor more details.\n\n`getDestroyable` is only called if the `hasDestroyable` capability is enabled.\n\nThis hook has the following timing semantics:\n\n**Always**\n- called immediately after the `createHelper` hook is called\n\n**Never**\n- called if the `hasDestroyable` capability is disabled",
+            "itemtype": "method",
+            "name": "setHelperManager",
+            "static": 1,
+            "params": [
+              {
+                "name": "factory",
+                "description": "A factory function which receives an optional owner, and returns a helper manager",
+                "type": "Function"
+              },
+              {
+                "name": "definition",
+                "description": "The definition to associate the manager factory with",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "The definition passed into setHelperManager",
+              "type": "Object"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/helper",
+            "module": "@ember/helper"
+          }
+        ]
+      },
+      "version": "5.10.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.10.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

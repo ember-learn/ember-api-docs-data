@@ -1,0 +1,164 @@
+{
+  "data": {
+    "id": "ember-5.10.0-EmberENV",
+    "type": "class",
+    "attributes": {
+      "name": "EmberENV",
+      "shortname": "EmberENV",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "rsvp",
+      "namespace": "",
+      "file": "packages/@ember/-internals/environment/lib/env.ts",
+      "line": 4,
+      "description": "The hash of environment variables used to control various configuration\nsettings. To specify your own or override default settings, add the\ndesired properties to a global hash named `EmberENV` (or `ENV` for\nbackwards compatibility with earlier versions of Ember). The `EmberENV`\nhash must be created before loading Ember.",
+      "type": "Object",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 18,
+          "description": "Determines whether Ember should add to `Array`\nnative object prototypes, a few extra methods in order to provide a more\nfriendly API.\n\nWe generally recommend leaving this option set to true however, if you need\nto turn it off, you can add the configuration property\n`EXTEND_PROTOTYPES` to `EmberENV` and set it to `false`.\n\nNote, when disabled (the default configuration for Ember Addons), you will\ninstead have to access all methods and functions from the Ember\nnamespace.",
+          "itemtype": "property",
+          "name": "EXTEND_PROTOTYPES",
+          "type": "Boolean",
+          "default": "true",
+          "access": "public",
+          "tagname": "",
+          "class": "EmberENV",
+          "module": "rsvp"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 41,
+          "description": "The `LOG_STACKTRACE_ON_DEPRECATION` property, when true, tells Ember to log\na full stack trace during deprecation warnings.",
+          "itemtype": "property",
+          "name": "LOG_STACKTRACE_ON_DEPRECATION",
+          "type": "Boolean",
+          "default": "true",
+          "access": "public",
+          "tagname": "",
+          "class": "EmberENV",
+          "module": "rsvp"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 53,
+          "description": "The `LOG_VERSION` property, when true, tells Ember to log versions of all\ndependent libraries in use.",
+          "itemtype": "property",
+          "name": "LOG_VERSION",
+          "type": "Boolean",
+          "default": "true",
+          "access": "public",
+          "tagname": "",
+          "class": "EmberENV",
+          "module": "rsvp"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 69,
+          "description": "Whether to perform extra bookkeeping needed to make the `captureRenderTree`\nAPI work.\n\nThis has to be set before the ember JavaScript code is evaluated. This is\nusually done by setting `window.EmberENV = { _DEBUG_RENDER_TREE: true };`\nbefore the \"vendor\" `<script>` tag in `index.html`.\n\nSetting the flag after Ember is already loaded will not work correctly. It\nmay appear to work somewhat, but fundamentally broken.\n\nThis is not intended to be set directly. Ember Inspector will enable the\nflag on behalf of the user as needed.\n\nThis flag is always on in development mode.\n\nThe flag is off by default in production mode, due to the cost associated\nwith the the bookkeeping work.\n\nThe expected flow is that Ember Inspector will ask the user to refresh the\npage after enabling the feature. It could also offer a feature where the\nuser add some domains to the \"always on\" list. In either case, Ember\nInspector will inject the code on the page to set the flag if needed.",
+          "itemtype": "property",
+          "name": "_DEBUG_RENDER_TREE",
+          "type": "Boolean",
+          "default": "false",
+          "access": "private",
+          "tagname": "",
+          "class": "EmberENV",
+          "module": "rsvp"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 101,
+          "description": "Whether to force all deprecations to be enabled. This is used internally by\nEmber to enable deprecations in tests. It is not intended to be set in\nprojects.",
+          "itemtype": "property",
+          "name": "_ALL_DEPRECATIONS_ENABLED",
+          "type": "Boolean",
+          "default": "false",
+          "access": "private",
+          "tagname": "",
+          "class": "EmberENV",
+          "module": "rsvp"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 114,
+          "description": "Override the version of ember-source used to determine when deprecations \"break\".\nThis is used internally by Ember to test with deprecated features \"removed\".\nThis is never intended to be set by projects.",
+          "itemtype": "property",
+          "name": "_OVERRIDE_DEPRECATION_VERSION",
+          "type": "string | null",
+          "default": "null",
+          "access": "private",
+          "tagname": "",
+          "class": "EmberENV",
+          "module": "rsvp"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 126,
+          "description": "Whether the app defaults to using async observers.\n\nThis is not intended to be set directly, as the implementation may change in\nthe future. Use `@ember/optional-features` instead.",
+          "itemtype": "property",
+          "name": "_DEFAULT_ASYNC_OBSERVERS",
+          "type": "Boolean",
+          "default": "false",
+          "access": "private",
+          "tagname": "",
+          "class": "EmberENV",
+          "module": "rsvp"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 140,
+          "description": "Whether the app still has default record-loading behavior in the model\nhook from RFC https://rfcs.emberjs.com/id/0774-implicit-record-route-loading\nThis will also remove the default store property from the route.\n\nThis is not intended to be set directly, as the implementation may change in\nthe future. Use `@ember/optional-features` instead.",
+          "itemtype": "property",
+          "name": "_NO_IMPLICIT_ROUTE_MODEL",
+          "type": "Boolean",
+          "default": "false",
+          "access": "private",
+          "tagname": "",
+          "class": "EmberENV",
+          "module": "rsvp"
+        },
+        {
+          "file": "packages/@ember/-internals/environment/lib/env.ts",
+          "line": 156,
+          "description": "Controls the maximum number of scheduled rerenders without \"settling\". In general,\napplications should not need to modify this environment variable, but please\nopen an issue so that we can determine if a better default value is needed.",
+          "itemtype": "property",
+          "name": "_RERENDER_LOOP_LIMIT",
+          "type": "number",
+          "default": "1000",
+          "access": "private",
+          "tagname": "",
+          "class": "EmberENV",
+          "module": "rsvp"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.10.0-rsvp",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.10.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
