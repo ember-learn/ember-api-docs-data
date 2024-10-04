@@ -1,0 +1,427 @@
+{
+  "data": {
+    "id": "ember-5.12.0-Ember.Templates.helpers",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Templates.helpers",
+      "shortname": "Ember.Templates.helpers",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "",
+      "file": "packages/@ember/-internals/glimmer/index.ts",
+      "line": 86,
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/components/input.ts",
+          "line": 46,
+          "description": "See [Ember.Templates.components.Input](/ember/release/classes/Ember.Templates.components/methods/Input?anchor=Input).",
+          "itemtype": "method",
+          "name": "input",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Hash"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/components/link-to.ts",
+          "line": 256,
+          "description": "See [Ember.Templates.components.LinkTo](/ember/release/classes/Ember.Templates.components/methods/input?anchor=LinkTo).",
+          "itemtype": "method",
+          "name": "link-to",
+          "see": [
+            "{Ember.Templates.components.LinkTo}"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/components/textarea.ts",
+          "line": 123,
+          "description": "See [Ember.Templates.components.Textarea](/ember/release/classes/Ember.Templates.components/methods/Textarea?anchor=Textarea)",
+          "itemtype": "method",
+          "name": "textarea",
+          "see": [
+            "{Ember.Templates.components.Textarea}"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/action.ts",
+          "line": 18,
+          "description": "The `{{action}}` helper provides a way to pass triggers for behavior (usually\njust a function) between components, and into components from controllers.\n\n### Passing functions with the action helper\n\nThere are three contexts an action helper can be used in. The first two\ncontexts to discuss are attribute context, and Handlebars value context.\n\n```handlebars\n{{! An example of attribute context }}\n<div onclick={{action \"save\"}}></div>\n{{! Examples of Handlebars value context }}\n{{input on-input=(action \"save\")}}\n{{yield (action \"refreshData\") andAnotherParam}}\n```\n\nIn these contexts,\nthe helper is called a \"closure action\" helper. Its behavior is simple:\nIf passed a function name, read that function off the `actions` property\nof the current context. Once that function is read, or immediately if a function was\npassed, create a closure over that function and any arguments.\nThe resulting value of an action helper used this way is simply a function.\n\nFor example, in the attribute context:\n\n```handlebars\n{{! An example of attribute context }}\n<div onclick={{action \"save\"}}></div>\n```\n\nThe resulting template render logic would be:\n\n```js\nvar div = document.createElement('div');\nvar actionFunction = (function(context){\n  return function() {\n    return context.actions.save.apply(context, arguments);\n  };\n})(context);\ndiv.onclick = actionFunction;\n```\n\nThus when the div is clicked, the action on that context is called.\nBecause the `actionFunction` is just a function, closure actions can be\npassed between components and still execute in the correct context.\n\nHere is an example action handler on a component:\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\n\nexport default class extends Component {\n  @action\n  save() {\n    this.model.save();\n  }\n}\n```\n\nActions are always looked up on the `actions` property of the current context.\nThis avoids collisions in the naming of common actions, such as `destroy`.\nTwo options can be passed to the `action` helper when it is used in this way.\n\n* `target=someProperty` will look to `someProperty` instead of the current\n  context for the `actions` hash. This can be useful when targeting a\n  service for actions.\n* `value=\"target.value\"` will read the path `target.value` off the first\n  argument to the action when it is called and rewrite the first argument\n  to be that value. This is useful when attaching actions to event listeners.\n\n### Invoking an action\n\nClosure actions curry both their scope and any arguments. When invoked, any\nadditional arguments are added to the already curried list.\nActions are presented in JavaScript as callbacks, and are\ninvoked like any other JavaScript function.\n\nFor example\n\n```js {data-filename=app/components/update-name.js}\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\n\nexport default class extends Component {\n  @action\n  setName(model, name) {\n    model.set('name', name);\n  }\n}\n```\n\n```handlebars {data-filename=app/components/update-name.hbs}\n{{input on-input=(action (action 'setName' @model) value=\"target.value\")}}\n```\n\nThe first argument (`@model`) was curried over, and the run-time argument (`event`)\nbecomes a second argument. Action calls can be nested this way because each simply\nreturns a function. Any function can be passed to the `{{action}}` helper, including\nother actions.\n\nActions invoked with `sendAction` have the same currying behavior as demonstrated\nwith `on-input` above. For example:\n\n```js {data-filename=app/components/my-input.js}\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\n\nexport default class extends Component {\n  @action\n  setName(model, name) {\n    model.set('name', name);\n  }\n}\n```\n\n```handlebars\n<MyInput @submit={{action 'setName' @model}} />\n```\n\nor\n\n```handlebars\n{{my-input submit=(action 'setName' @model)}}\n```\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  click() {\n    // Note that model is not passed, it was curried in the template\n    this.submit('bob');\n  }\n});\n```\n\n### Attaching actions to DOM elements\n\nThe third context of the `{{action}}` helper can be called \"element space\".\nFor example:\n\n```handlebars\n{{! An example of element space }}\n<div {{action \"save\"}}></div>\n```\n\nUsed this way, the `{{action}}` helper provides a useful shortcut for\nregistering an HTML element in a template for a single DOM event and\nforwarding that interaction to the template's context (controller or component).\nIf the context of a template is a controller, actions used this way will\nbubble to routes when the controller does not implement the specified action.\nOnce an action hits a route, it will bubble through the route hierarchy.\n\n### Event Propagation\n\n`{{action}}` helpers called in element space can control event bubbling. Note\nthat the closure style actions cannot.\n\nEvents triggered through the action helper will automatically have\n`.preventDefault()` called on them. You do not need to do so in your event\nhandlers. If you need to allow event propagation (to handle file inputs for\nexample) you can supply the `preventDefault=false` option to the `{{action}}` helper:\n\n```handlebars\n<div {{action \"sayHello\" preventDefault=false}}>\n  <input type=\"file\" />\n  <input type=\"checkbox\" />\n</div>\n```\n\nTo disable bubbling, pass `bubbles=false` to the helper:\n\n```handlebars\n<button {{action 'edit' post bubbles=false}}>Edit</button>\n```\n\nTo disable bubbling with closure style actions you must create your own\nwrapper helper that makes use of `event.stopPropagation()`:\n\n```handlebars\n<div onclick={{disable-bubbling (action \"sayHello\")}}>Hello</div>\n```\n\n```js {data-filename=app/helpers/disable-bubbling.js}\nimport { helper } from '@ember/component/helper';\n\nexport function disableBubbling([action]) {\n  return function(event) {\n    event.stopPropagation();\n    return action(event);\n  };\n}\nexport default helper(disableBubbling);\n```\n\nIf you need the default handler to trigger you should either register your\nown event handler, or use event methods on your view class. See\n[\"Responding to Browser Events\"](/ember/release/classes/Component)\nin the documentation for `Component` for more information.\n\n### Specifying DOM event type\n\n`{{action}}` helpers called in element space can specify an event type.\nBy default the `{{action}}` helper registers for DOM `click` events. You can\nsupply an `on` option to the helper to specify a different DOM event name:\n\n```handlebars\n<div {{action \"anActionName\" on=\"doubleClick\"}}>\n  click me\n</div>\n```\n\nSee [\"Event Names\"](/ember/release/classes/Component) for a list of\nacceptable DOM event names.\n\n### Specifying whitelisted modifier keys\n\n`{{action}}` helpers called in element space can specify modifier keys.\nBy default the `{{action}}` helper will ignore click events with pressed modifier\nkeys. You can supply an `allowedKeys` option to specify which keys should not be ignored.\n\n```handlebars\n<div {{action \"anActionName\" allowedKeys=\"alt\"}}>\n  click me\n</div>\n```\n\nThis way the action will fire when clicking with the alt key pressed down.\nAlternatively, supply \"any\" to the `allowedKeys` option to accept any combination of modifier keys.\n\n```handlebars\n<div {{action \"anActionName\" allowedKeys=\"any\"}}>\n  click me with any key pressed\n</div>\n```\n\n### Specifying a Target\n\nA `target` option can be provided to the helper to change\nwhich object will receive the method call. This option must be a path\nto an object, accessible in the current context:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<div {{action \"anActionName\" target=someService}}>\n  click me\n</div>\n```\n\n```js {data-filename=app/controllers/application.js}\nimport Controller from '@ember/controller';\nimport { service } from '@ember/service';\n\nexport default class extends Controller {\n  @service someService;\n}\n```",
+          "itemtype": "method",
+          "name": "action",
+          "deprecated": true,
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/component.ts",
+          "line": 5,
+          "description": "The `{{component}}` helper lets you add instances of `Component` to a\ntemplate. See [Component](/ember/release/classes/Component) for\nadditional information on how a `Component` functions.\n`{{component}}`'s primary use is for cases where you want to dynamically\nchange which type of component is rendered as the state of your application\nchanges. This helper has three modes: inline, block, and nested.\n\n### Inline Form\n\nGiven the following template:\n\n```handlebars {data-filename=app/application.hbs}\n{{component this.infographicComponentName}}\n```\n\nAnd the following application code:\n\n```js {data-filename=app/controllers/application.js}\nimport Controller from '@ember/controller';\nimport { tracked } from '@glimmer/tracking';\n\nexport default class ApplicationController extends Controller {\n  @tracked isMarketOpen = 'live-updating-chart'\n\n  get infographicComponentName() {\n    return this.isMarketOpen ? 'live-updating-chart' : 'market-close-summary';\n  }\n}\n```\n\nThe `live-updating-chart` component will be appended when `isMarketOpen` is\n`true`, and the `market-close-summary` component will be appended when\n`isMarketOpen` is `false`. If the value changes while the app is running,\nthe component will be automatically swapped out accordingly.\nNote: You should not use this helper when you are consistently rendering the same\ncomponent. In that case, use standard component syntax, for example:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<LiveUpdatingChart />\n```\n\nor\n\n```handlebars {data-filename=app/templates/application.hbs}\n{{live-updating-chart}}\n```\n\n### Block Form\n\nUsing the block form of this helper is similar to using the block form\nof a component. Given the following application template:\n\n```handlebars {data-filename=app/templates/application.hbs}\n{{#component this.infographicComponentName}}\n  Last update: {{this.lastUpdateTimestamp}}\n{{/component}}\n```\n\nThe following controller code:\n\n```js {data-filename=app/controllers/application.js}\nimport Controller from '@ember/controller';\nimport { computed } from '@ember/object';\nimport { tracked } from '@glimmer/tracking';\n\nexport default class ApplicationController extends Controller {\n  @tracked isMarketOpen = 'live-updating-chart'\n\n  get lastUpdateTimestamp() {\n    return new Date();\n  }\n\n  get infographicComponentName() {\n    return this.isMarketOpen ? 'live-updating-chart' : 'market-close-summary';\n  }\n}\n```\n\nAnd the following component template:\n\n```handlebars {data-filename=app/templates/components/live-updating-chart.hbs}\n{{! chart }}\n{{yield}}\n```\n\nThe `Last Update: {{this.lastUpdateTimestamp}}` will be rendered in place of the `{{yield}}`.\n\n### Nested Usage\n\nThe `component` helper can be used to package a component path with initial attrs.\nThe included attrs can then be merged during the final invocation.\nFor example, given a `person-form` component with the following template:\n\n```handlebars {data-filename=app/templates/components/person-form.hbs}\n{{yield (hash\n  nameInput=(component \"my-input-component\" value=@model.name placeholder=\"First Name\")\n)}}\n```\n\nWhen yielding the component via the `hash` helper, the component is invoked directly.\nSee the following snippet:\n\n```\n<PersonForm as |form|>\n  <form.nameInput @placeholder=\"Username\" />\n</PersonForm>\n```\n\nor\n```\n{{#person-form as |form|}}\n  {{form.nameInput placeholder=\"Username\"}}\n{{/person-form}}\n```\n\nWhich outputs an input whose value is already bound to `model.name` and `placeholder`\nis \"Username\".\n\nWhen yielding the component without the `hash` helper use the `component` helper.\nFor example, below is a `full-name` component template:\n\n```handlebars\n{{yield (component \"my-input-component\" value=@model.name placeholder=\"Name\")}}\n```\n\n```\n<FullName as |field|>\n  {{component field placeholder=\"Full name\"}}\n</FullName>\n```\nor\n```\n{{#full-name as |field|}}\n  {{component field placeholder=\"Full name\"}}\n{{/full-name}}\n```",
+          "itemtype": "method",
+          "name": "component",
+          "since": "1.11.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/each-in.ts",
+          "line": 13,
+          "description": "The `{{#each}}` helper loops over elements in a collection. It is an extension\nof the base Handlebars `{{#each}}` helper.\n\nThe default behavior of `{{#each}}` is to yield its inner block once for every\nitem in an array passing the item as the first block parameter.\n\nAssuming the `@developers` argument contains this array:\n\n```javascript\n[{ name: 'Yehuda' },{ name: 'Tom' }, { name: 'Paul' }];\n```\n\n```handlebars\n<ul>\n  {{#each @developers as |person|}}\n    <li>Hello, {{person.name}}!</li>\n  {{/each}}\n</ul>\n```\n\nThe same rules apply to arrays of primitives.\n\n```javascript\n['Yehuda', 'Tom', 'Paul']\n```\n\n```handlebars\n<ul>\n  {{#each @developerNames as |name|}}\n    <li>Hello, {{name}}!</li>\n  {{/each}}\n</ul>\n```\n\nDuring iteration, the index of each item in the array is provided as a second block\nparameter.\n\n```handlebars\n<ul>\n  {{#each @developers as |person index|}}\n    <li>Hello, {{person.name}}! You're number {{index}} in line</li>\n  {{/each}}\n</ul>\n```\n\n### Specifying Keys\n\nIn order to improve rendering speed, Ember will try to reuse the DOM elements\nwhere possible. Specifically, if the same item is present in the array both\nbefore and after the change, its DOM output will be reused.\n\nThe `key` option is used to tell Ember how to determine if the items in the\narray being iterated over with `{{#each}}` has changed between renders. By\ndefault the item's object identity is used.\n\nThis is usually sufficient, so in most cases, the `key` option is simply not\nneeded. However, in some rare cases, the objects' identities may change even\nthough they represent the same underlying data.\n\nFor example:\n\n```javascript\npeople.map(person => {\n  return { ...person, type: 'developer' };\n});\n```\n\nIn this case, each time the `people` array is `map`-ed over, it will produce\nan new array with completely different objects between renders. In these cases,\nyou can help Ember determine how these objects related to each other with the\n`key` option:\n\n```handlebars\n<ul>\n  {{#each @developers key=\"name\" as |person|}}\n    <li>Hello, {{person.name}}!</li>\n  {{/each}}\n</ul>\n```\n\nBy doing so, Ember will use the value of the property specified (`person.name`\nin the example) to find a \"match\" from the previous render. That is, if Ember\nhas previously seen an object from the `@developers` array with a matching\nname, its DOM elements will be re-used.\n\nThere are two special values for `key`:\n\n  * `@index` - The index of the item in the array.\n  * `@identity` - The item in the array itself.\n\n### {{else}} condition\n\n`{{#each}}` can have a matching `{{else}}`. The contents of this block will render\nif the collection is empty.\n\n```handlebars\n<ul>\n  {{#each @developers as |person|}}\n    <li>{{person.name}} is available!</li>\n  {{else}}\n    <li>Sorry, nobody is available for this task.</li>\n  {{/each}}\n</ul>\n```",
+          "itemtype": "method",
+          "name": "each",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/each-in.ts",
+          "line": 124,
+          "description": "The `{{each-in}}` helper loops over properties on an object.\n\nFor example, given this component definition:\n\n```js {data-filename=app/components/developer-details.js}\nimport Component from '@glimmer/component';\nimport { tracked } from '@glimmer/tracking';\n\nexport default class extends Component {\n  @tracked developer = {\n    \"name\": \"Shelly Sails\",\n    \"age\": 42\n  };\n}\n```\n\nThis template would display all properties on the `developer`\nobject in a list:\n\n```handlebars {data-filename=app/components/developer-details.hbs}\n<ul>\n  {{#each-in this.developer as |key value|}}\n    <li>{{key}}: {{value}}</li>\n  {{/each-in}}\n</ul>\n```\n\nOutputting their name and age:\n\n```html\n<ul>\n  <li>name: Shelly Sails</li>\n  <li>age: 42</li>\n</ul>\n```",
+          "itemtype": "method",
+          "name": "each-in",
+          "access": "public",
+          "tagname": "",
+          "since": "2.1.0",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/helper.ts",
+          "line": 5,
+          "description": "Use the `{{helper}}` helper to create contextual helper so\nthat it can be passed around as first-class values in templates.\n\n```handlebars\n{{#let (helper \"join-words\" \"foo\" \"bar\" separator=\" \") as |foo-bar|}}\n\n  {{!-- this is equivalent to invoking `{{join-words \"foo\" \"bar\" separator=\" \"}}` --}}\n  {{foo-bar}}\n\n  {{!-- this will pass the helper itself into the component, instead of invoking it now --}}\n  <MyComponent @helper={{helper foo-bar \"baz\"}} />\n\n  {{!-- this will yield the helper itself (\"contextual helper\"), instead of invoking it now --}}\n  {{yield foo-bar}}\n{{/let}}\n```\n\n### Arguments\n\nThe `{{helper}}` helper works similarly to the [`{{component}}`](./component?anchor=component) and\n[`{{modifier}}`](./modifier?anchor=modifier) helper:\n\n* When passed a string (e.g. `(helper \"foo\")`) as the first argument,\n  it will produce an opaque, internal \"helper definition\" object\n  that can be passed around and invoked elsewhere.\n\n* Any additional positional and/or named arguments (a.k.a. params and hash)\n  will be stored (\"curried\") inside the definition object, such that, when invoked,\n  these arguments will be passed along to the referenced helper.",
+          "itemtype": "method",
+          "name": "helper",
+          "access": "public",
+          "tagname": "",
+          "since": "3.27.0",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/if-unless.ts",
+          "line": 5,
+          "description": "The `if` helper allows you to conditionally render one of two branches,\ndepending on the \"truthiness\" of a property.\nFor example the following values are all falsey: `false`, `undefined`, `null`, `\"\"`, `0`, `NaN` or an empty array.\n\nThis helper has two forms, block and inline.\n\n## Block form\n\nYou can use the block form of `if` to conditionally render a section of the template.\n\nTo use it, pass the conditional value to the `if` helper,\nusing the block form to wrap the section of template you want to conditionally render.\nLike so:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<Weather />\n```\n\n```handlebars {data-filename=app/components/weather.hbs}\n{{! will not render because greeting is undefined}}\n{{#if @isRaining}}\n  Yes, grab an umbrella!\n{{/if}}\n```\n\nYou can also define what to show if the property is falsey by using\nthe `else` helper.\n\n```handlebars {data-filename=app/components/weather.hbs}\n{{#if @isRaining}}\n  Yes, grab an umbrella!\n{{else}}\n  No, it's lovely outside!\n{{/if}}\n```\n\nYou are also able to combine `else` and `if` helpers to create more complex\nconditional logic.\n\nFor the following template:\n\n ```handlebars {data-filename=app/components/weather.hbs}\n{{#if @isRaining}}\n  Yes, grab an umbrella!\n{{else if @isCold}}\n  Grab a coat, it's chilly!\n{{else}}\n  No, it's lovely outside!\n{{/if}}\n```\n\nIf you call it by saying `isCold` is true:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<Weather @isCold={{true}} />\n```\n\nThen `Grab a coat, it's chilly!` will be rendered.\n\n## Inline form\n\nThe inline `if` helper conditionally renders a single property or string.\n\nIn this form, the `if` helper receives three arguments, the conditional value,\nthe value to render when truthy, and the value to render when falsey.\n\nFor example, if `useLongGreeting` is truthy, the following:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<Greeting @useLongGreeting={{true}} />\n```\n\n```handlebars {data-filename=app/components/greeting.hbs}\n{{if @useLongGreeting \"Hello\" \"Hi\"}} Alex\n```\n\nWill render:\n\n```html\nHello Alex\n```\n\nOne detail to keep in mind is that both branches of the `if` helper will be evaluated,\nso if you have `{{if condition \"foo\" (expensive-operation \"bar\")`,\n`expensive-operation` will always calculate.",
+          "itemtype": "method",
+          "name": "if",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/if-unless.ts",
+          "line": 97,
+          "description": "The `unless` helper is the inverse of the `if` helper. It displays if a value\nis falsey (\"not true\" or \"is false\"). Example values that will display with\n`unless`: `false`, `undefined`, `null`, `\"\"`, `0`, `NaN` or an empty array.\n\n## Inline form\n\nThe inline `unless` helper conditionally renders a single property or string.\nThis helper acts like a ternary operator. If the first property is falsy,\nthe second argument will be displayed, otherwise, the third argument will be\ndisplayed\n\nFor example, if you pass a falsey `useLongGreeting` to the `Greeting` component:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<Greeting @useLongGreeting={{false}} />\n```\n\n```handlebars {data-filename=app/components/greeting.hbs}\n{{unless @useLongGreeting \"Hi\" \"Hello\"}} Ben\n```\n\nThen it will display:\n\n```html\nHi Ben\n```\n\n## Block form\n\nLike the `if` helper, the `unless` helper also has a block form.\n\nThe following will not render anything:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<Greeting />\n```\n\n```handlebars {data-filename=app/components/greeting.hbs}\n{{#unless @greeting}}\n  No greeting was found. Why not set one?\n{{/unless}}\n```\n\nYou can also use an `else` helper with the `unless` block. The\n`else` will display if the value is truthy.\n\nIf you have the following component:\n\n```handlebars {data-filename=app/components/logged-in.hbs}\n{{#unless @userData}}\n  Please login.\n{{else}}\n  Welcome back!\n{{/unless}}\n```\n\nCalling it with a truthy `userData`:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<LoggedIn @userData={{hash username=\"Zoey\"}} />\n```\n\nWill render:\n\n```html\nWelcome back!\n```\n\nand calling it with a falsey `userData`:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<LoggedIn @userData={{false}} />\n```\n\nWill render:\n\n```html\nPlease login.\n```",
+          "itemtype": "method",
+          "name": "unless",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/log.ts",
+          "line": 5,
+          "description": "`log` allows you to output the value of variables in the current rendering\ncontext. `log` also accepts primitive types such as strings or numbers.\n\n```handlebars\n{{log \"myVariable:\" myVariable }}\n```",
+          "itemtype": "method",
+          "name": "log",
+          "params": [
+            {
+              "name": "params",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/modifier.ts",
+          "line": 5,
+          "description": "Use the `{{modifier}}` helper to create contextual modifier so\nthat it can be passed around as first-class values in templates.\n\n```handlebars\n{{#let (modifier \"click-outside\" click=this.submit) as |on-click-outside|}}\n\n  {{!-- this is equivalent to `<MyComponent {{click-outside click=this.submit}} />` --}}\n  <MyComponent {{on-click-outside}} />\n\n  {{!-- this will pass the modifier itself into the component, instead of invoking it now --}}\n  <MyComponent @modifier={{modifier on-click-outside \"extra\" \"args\"}} />\n\n  {{!-- this will yield the modifier itself (\"contextual modifier\"), instead of invoking it now --}}\n  {{yield on-click-outside}}\n{{/let}}\n```\n\n### Arguments\n\nThe `{{modifier}}` helper works similarly to the [`{{component}}`](./component?anchor=component) and\n[`{{helper}}`](./helper?anchor=helper) helper:\n\n* When passed a string (e.g. `(modifier \"foo\")`) as the first argument,\n  it will produce an opaque, internal \"modifier definition\" object\n  that can be passed around and invoked elsewhere.\n\n* Any additional positional and/or named arguments (a.k.a. params and hash)\n  will be stored (\"curried\") inside the definition object, such that, when invoked,\n  these arguments will be passed along to the referenced modifier.",
+          "itemtype": "method",
+          "name": "modifier",
+          "access": "public",
+          "tagname": "",
+          "since": "3.27.0",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/mut.ts",
+          "line": 9,
+          "description": "The `mut` helper lets you __clearly specify__ that a child `Component` can update the\n(mutable) value passed to it, which will __change the value of the parent component__.\n\nTo specify that a parameter is mutable, when invoking the child `Component`:\n\n```handlebars\n<MyChild @childClickCount={{fn (mut totalClicks)}} />\n```\n\n or\n\n```handlebars\n{{my-child childClickCount=(mut totalClicks)}}\n```\n\nThe child `Component` can then modify the parent's value just by modifying its own\nproperty:\n\n```javascript\n// my-child.js\nexport default Component.extend({\n  click() {\n    this.incrementProperty('childClickCount');\n  }\n});\n```\n\nNote that for curly components (`{{my-component}}`) the bindings are already mutable,\nmaking the `mut` unnecessary.\n\nAdditionally, the `mut` helper can be combined with the `fn` helper to\nmutate a value. For example:\n\n```handlebars\n<MyChild @childClickCount={{this.totalClicks}} @click-count-change={{fn (mut totalClicks))}} />\n```\n\nor\n\n```handlebars\n{{my-child childClickCount=totalClicks click-count-change=(fn (mut totalClicks))}}\n```\n\nThe child `Component` would invoke the function with the new click value:\n\n```javascript\n// my-child.js\nexport default Component.extend({\n  click() {\n    this.get('click-count-change')(this.get('childClickCount') + 1);\n  }\n});\n```\n\nThe `mut` helper changes the `totalClicks` value to what was provided as the `fn` argument.\n\nThe `mut` helper, when used with `fn`, will return a function that\nsets the value passed to `mut` to its first argument. As an example, we can create a\nbutton that increments a value passing the value directly to the `fn`:\n\n```handlebars\n{{! inc helper is not provided by Ember }}\n<button onclick={{fn (mut count) (inc count)}}>\n  Increment count\n</button>\n```",
+          "itemtype": "method",
+          "name": "mut",
+          "params": [
+            {
+              "name": "attr",
+              "description": "the \"two-way\" attribute that can be modified.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/page-title.ts",
+          "line": 5,
+          "description": "`page-title` allows you to set the title of any page in your application and\nappend additional titles for each route. For complete documentation, see\nhttps://github.com/ember-cli/ember-page-title.\n\n```handlebars\n{{page-title \"My Page Title\" }}\n```",
+          "itemtype": "method",
+          "name": "page-title",
+          "params": [
+            {
+              "name": "param",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/readonly.ts",
+          "line": 9,
+          "description": "The `readonly` helper let's you specify that a binding is one-way only,\ninstead of two-way.\nWhen you pass a `readonly` binding from an outer context (e.g. parent component),\nto to an inner context (e.g. child component), you are saying that changing that\nproperty in the inner context does not change the value in the outer context.\n\nTo specify that a binding is read-only, when invoking the child `Component`:\n\n```js {data-filename=app/components/my-parent.js}\nexport default Component.extend({\n  totalClicks: 3\n});\n```\n\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log totalClicks}} // -> 3\n<MyChild @childClickCount={{readonly totalClicks}} />\n```\n```\n{{my-child childClickCount=(readonly totalClicks)}}\n```\n\nNow, when you update `childClickCount`:\n\n```js {data-filename=app/components/my-child.js}\nexport default Component.extend({\n  click() {\n    this.incrementProperty('childClickCount');\n  }\n});\n```\n\nThe value updates in the child component, but not the parent component:\n\n```handlebars {data-filename=app/templates/components/my-child.hbs}\n{{log childClickCount}} //-> 4\n```\n\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log totalClicks}} //-> 3\n<MyChild @childClickCount={{readonly totalClicks}} />\n```\nor\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log totalClicks}} //-> 3\n{{my-child childClickCount=(readonly totalClicks)}}\n```\n\n### Objects and Arrays\n\nWhen passing a property that is a complex object (e.g. object, array) instead of a primitive object (e.g. number, string),\nonly the reference to the object is protected using the readonly helper.\nThis means that you can change properties of the object both on the parent component, as well as the child component.\nThe `readonly` binding behaves similar to the `const` keyword in JavaScript.\n\nLet's look at an example:\n\nFirst let's set up the parent component:\n\n```js {data-filename=app/components/my-parent.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  clicks: null,\n\n  init() {\n    this._super(...arguments);\n    this.set('clicks', { total: 3 });\n  }\n});\n```\n\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log clicks.total}} //-> 3\n<MyChild @childClicks={{readonly clicks}} />\n```\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log clicks.total}} //-> 3\n{{my-child childClicks=(readonly clicks)}}\n```\n\nNow, if you update the `total` property of `childClicks`:\n\n```js {data-filename=app/components/my-child.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  click() {\n    this.get('clicks').incrementProperty('total');\n  }\n});\n```\n\nYou will see the following happen:\n\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log clicks.total}} //-> 4\n<MyChild @childClicks={{readonly clicks}} />\n```\nor\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log clicks.total}} //-> 4\n{{my-child childClicks=(readonly clicks)}}\n```\n\n```handlebars {data-filename=app/templates/components/my-child.hbs}\n{{log childClicks.total}} //-> 4\n```",
+          "itemtype": "method",
+          "name": "readonly",
+          "params": [
+            {
+              "name": "attr",
+              "description": "the read-only attribute.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/unbound.ts",
+          "line": 10,
+          "description": "The `{{unbound}}` helper disconnects the one-way binding of a property,\nessentially freezing its value at the moment of rendering. For example,\nin this example the display of the variable `name` will not change even\nif it is set with a new value:\n\n```handlebars\n{{unbound this.name}}\n```\n\nLike any helper, the `unbound` helper can accept a nested helper expression.\nThis allows for custom helpers to be rendered unbound:\n\n```handlebars\n{{unbound (some-custom-helper)}}\n{{unbound (capitalize this.name)}}\n{{! You can use any helper, including unbound, in a nested expression }}\n{{capitalize (unbound this.name)}}\n```\n\nThe `unbound` helper only accepts a single argument, and it return an\nunbound value.",
+          "itemtype": "method",
+          "name": "unbound",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/unique-id.ts",
+          "line": 5,
+          "description": "Use the {{unique-id}} helper to generate a unique ID string suitable for use as\nan ID attribute in the DOM.\n\n```handlebars\n<input id={{unique-id}} type=\"email\" />\n```\nEach invocation of {{unique-id}} will return a new, unique ID string.\nYou can use the `let` helper to create an ID that can be reused within a template.\n\n```handlebars\n{{#let (unique-id) as |emailId|}}\n  <label for={{emailId}}>Email address</label>\n  <input id={{emailId}} type=\"email\" />\n{{/let}}\n```",
+          "itemtype": "method",
+          "name": "unique-id",
+          "since": "4.4.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/modifiers/on.ts",
+          "line": 5,
+          "description": "The `{{on}}` modifier lets you easily add event listeners (it uses\n[EventTarget.addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)\ninternally).\n\nFor example, if you'd like to run a function on your component when a `<button>`\nin the components template is clicked you might do something like:\n\n```handlebars {data-filename=app/components/like-post.hbs}\n<button {{on 'click' this.saveLike}}>Like this post!</button>\n```\n\n```js {data-filename=app/components/like-post.js}\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\n\nexport default class LikePostComponent extends Component {\n  @action\n  saveLike() {\n    // someone likes your post!\n    // better send a request off to your server...\n  }\n}\n```\n\n### Arguments\n\n`{{on}}` accepts two positional arguments, and a few named arguments.\n\nThe positional arguments are:\n\n- `event` -- the name to use when calling `addEventListener`\n- `callback` -- the function to be passed to `addEventListener`\n\nThe named arguments are:\n\n- capture -- a `true` value indicates that events of this type will be dispatched\n  to the registered listener before being dispatched to any EventTarget beneath it\n  in the DOM tree.\n- once -- indicates that the listener should be invoked at most once after being\n  added. If true, the listener would be automatically removed when invoked.\n- passive -- if `true`, indicates that the function specified by listener will never\n  call preventDefault(). If a passive listener does call preventDefault(), the user\n  agent will do nothing other than generate a console warning. See\n  [Improving scrolling performance with passive listeners](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Improving_scrolling_performance_with_passive_listeners)\n  to learn more.\n\nThe callback function passed to `{{on}}` will receive any arguments that are passed\nto the event handler. Most commonly this would be the `event` itself.\n\nIf you would like to pass additional arguments to the function you should use\nthe `{{fn}}` helper.\n\nFor example, in our example case above if you'd like to pass in the post that\nwas being liked when the button is clicked you could do something like:\n\n```handlebars {data-filename=app/components/like-post.hbs}\n<button {{on 'click' (fn this.saveLike @post)}}>Like this post!</button>\n```\n\nIn this case, the `saveLike` function will receive two arguments: the click event\nand the value of `@post`.\n\n### Function Context\n\nIn the example above, we used `@action` to ensure that `likePost` is\nproperly bound to the `items-list`, but let's explore what happens if we\nleft out `@action`:\n\n```js {data-filename=app/components/like-post.js}\nimport Component from '@glimmer/component';\n\nexport default class LikePostComponent extends Component {\n  saveLike() {\n    // ...snip...\n  }\n}\n```\n\nIn this example, when the button is clicked `saveLike` will be invoked,\nit will **not** have access to the component instance. In other\nwords, it will have no `this` context, so please make sure your functions\nare bound (via `@action` or other means) before passing into `on`!",
+          "itemtype": "method",
+          "name": "on",
+          "access": "public",
+          "tagname": "",
+          "since": "3.11.0",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/syntax/in-element.ts",
+          "line": 5,
+          "description": "The `in-element` helper renders its block content outside of the regular flow,\ninto a DOM element given by its `destinationElement` positional argument.\n\nCommon use cases - often referred to as \"portals\" or \"wormholes\" - are rendering\ndropdowns, modals or tooltips close to the root of the page to bypass CSS overflow\nrules, or to render content to parts of the page that are outside of the control\nof the Ember app itself (e.g. embedded into a static or server rendered HTML page).\n\n```handlebars\n{{#in-element this.destinationElement}}\n  <div>Some content</div>\n{{/in-element}}\n```\n\n### Arguments\n\n`{{in-element}}` requires a single positional argument:\n\n- `destinationElement` -- the DOM element to render into. It must exist at the time\nof rendering.\n\nIt also supports an optional named argument:\n\n- `insertBefore` -- by default the DOM element's content is replaced when used as\n`destinationElement`. Passing `null` to `insertBefore` changes the behaviour to\nappend the block content to the end of any existing content. Any other value than\n`null` is currently not supported.\n\n    For example:\n\n    ```handlebars\n    {{#in-element this.destinationElement insertBefore=null}}\n      <div>Some content</div>\n    {{/in-element}}\n    ```",
+          "itemtype": "method",
+          "name": "in-element",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/syntax/let.ts",
+          "line": 5,
+          "description": "The `let` helper receives one or more positional arguments and yields\nthem out as block params.\n\nThis allows the developer to introduce shorter names for certain computations\nin the template.\n\nThis is especially useful if you are passing properties to a component\nthat receives a lot of options and you want to clean up the invocation.\n\nFor the following example, the template receives a `post` object with\n`content` and `title` properties.\n\nWe are going to call the `my-post` component, passing a title which is\nthe title of the post suffixed with the name of the blog, the content\nof the post, and a series of options defined in-place.\n\n```handlebars\n{{#let\n    (concat post.title ' | The Ember.js Blog')\n    post.content\n    (hash\n      theme=\"high-contrast\"\n      enableComments=true\n    )\n    as |title content options|\n}}\n  <MyPost @title={{title}} @content={{content}} @options={{options}} />\n{{/let}}\n  ```\n or\n  ```handlebars\n{{#let\n    (concat post.title ' | The Ember.js Blog')\n    post.content\n    (hash\n      theme=\"high-contrast\"\n      enableComments=true\n    )\n    as |title content options|\n}}\n  {{my-post title=title content=content options=options}}\n{{/let}}\n  ```",
+          "itemtype": "method",
+          "name": "let",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/syntax/mount.ts",
+          "line": 17,
+          "description": "The `{{mount}}` helper lets you embed a routeless engine in a template.\nMounting an engine will cause an instance to be booted and its `application`\ntemplate to be rendered.\n\nFor example, the following template mounts the `ember-chat` engine:\n\n```handlebars\n{{! application.hbs }}\n{{mount \"ember-chat\"}}\n```\n\nAdditionally, you can also pass in a `model` argument that will be\nset as the engines model. This can be an existing object:\n\n```\n<div>\n  {{mount 'admin' model=userSettings}}\n</div>\n```\n\nOr an inline `hash`, and you can even pass components:\n\n```\n<div>\n  <h1>Application template!</h1>\n  {{mount 'admin' model=(hash\n      title='Secret Admin'\n      signInButton=(component 'sign-in-button')\n  )}}\n</div>\n```",
+          "itemtype": "method",
+          "name": "mount",
+          "params": [
+            {
+              "name": "name",
+              "description": "Name of the engine to mount.",
+              "type": "String"
+            },
+            {
+              "name": "model",
+              "description": "Object that will be set as\n                        the model of the engine.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/syntax/outlet.ts",
+          "line": 22,
+          "description": "The `{{outlet}}` helper lets you specify where a child route will render in\nyour template. An important use of the `{{outlet}}` helper is in your\napplication's `application.hbs` file:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<MyHeader />\n\n<div class=\"my-dynamic-content\">\n  <!-- this content will change based on the current route, which depends on the current URL -->\n  {{outlet}}\n</div>\n\n<MyFooter />\n```\n\nSee the [routing guide](https://guides.emberjs.com/release/routing/rendering-a-template/) for more\ninformation on how your `route` interacts with the `{{outlet}}` helper.\nNote: Your content __will not render__ if there isn't an `{{outlet}}` for it.",
+          "itemtype": "method",
+          "name": "outlet",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/index.ts",
+          "line": 91,
+          "description": "`{{yield}}` denotes an area of a template that will be rendered inside\nof another template.\n\n### Use with `Component`\n\nWhen designing components `{{yield}}` is used to denote where, inside the component's\ntemplate, an optional block passed to the component should render:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<LabeledTextfield @value={{@model.name}}>\n  First name:\n</LabeledTextfield>\n```\n\n```handlebars {data-filename=app/components/labeled-textfield.hbs}\n<label>\n  {{yield}} <Input @value={{@value}} />\n</label>\n```\n\nResult:\n\n```html\n<label>\n  First name: <input type=\"text\" />\n</label>\n```\n\nAdditionally you can `yield` properties into the context for use by the consumer:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<LabeledTextfield @value={{@model.validation}} @validator={{this.firstNameValidator}} as |validationError|>\n  {{#if validationError}}\n    <p class=\"error\">{{validationError}}</p>\n  {{/if}}\n  First name:\n</LabeledTextfield>\n```\n\n```handlebars {data-filename=app/components/labeled-textfield.hbs}\n<label>\n  {{yield this.validationError}} <Input @value={{@value}} />\n</label>\n```\n\nResult:\n\n```html\n<label>\n  <p class=\"error\">First Name must be at least 3 characters long.</p>\n  First name: <input type=\"text\" />\n</label>\n```\n\n`yield` can also be used with the `hash` helper:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<DateRanges @value={{@model.date}} as |range|>\n  Start date: {{range.start}}\n  End date: {{range.end}}\n</DateRanges>\n```\n\n```handlebars {data-filename=app/components/date-ranges.hbs}\n<div>\n  {{yield (hash start=@value.start end=@value.end)}}\n</div>\n```\n\nResult:\n\n```html\n<div>\n  Start date: July 1st\n  End date: July 30th\n</div>\n```\n\nMultiple values can be yielded as block params:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<Banner @value={{@model}} as |title subtitle body|>\n  <h1>{{title}}</h1>\n  <h2>{{subtitle}}</h2>\n  {{body}}\n</Banner>\n```\n\n```handlebars {data-filename=app/components/banner.hbs}\n<div>\n  {{yield \"Hello title\" \"hello subtitle\" \"body text\"}}\n</div>\n```\n\nResult:\n\n```html\n<div>\n  <h1>Hello title</h1>\n  <h2>hello subtitle</h2>\n  body text\n</div>\n```\n\nHowever, it is preferred to use the hash helper, as this can prevent breaking changes to your component and also simplify the api for the component.\n\nMultiple components can be yielded with the `hash` and `component` helper:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<Banner @value={{@model}} as |banner|>\n  <banner.Title>Banner title</banner.Title>\n  <banner.Subtitle>Banner subtitle</banner.Subtitle>\n  <banner.Body>A load of body text</banner.Body>\n</Banner>\n```\n\n```js {data-filename=app/components/banner.js}\nimport Title from './banner/title';\nimport Subtitle from './banner/subtitle';\nimport Body from './banner/body';\n\nexport default class Banner extends Component {\n  Title = Title;\n  Subtitle = Subtitle;\n  Body = Body;\n}\n```\n\n```handlebars {data-filename=app/components/banner.hbs}\n<div>\n  {{yield (hash\n    Title=this.Title\n    Subtitle=this.Subtitle\n    Body=(component this.Body defaultArg=\"some value\")\n  )}}\n</div>\n```\n\nResult:\n\n```html\n<div>\n  <h1>Banner title</h1>\n  <h2>Banner subtitle</h2>\n  A load of body text\n</div>\n```\n\nA benefit of using this pattern is that the user of the component can change the order the components are displayed.\n\n```handlebars {data-filename=app/templates/application.hbs}\n<Banner @value={{@model}} as |banner|>\n  <banner.Subtitle>Banner subtitle</banner.Subtitle>\n  <banner.Title>Banner title</banner.Title>\n  <banner.Body>A load of body text</banner.Body>\n</Banner>\n```\n\nResult:\n\n```html\n<div>\n  <h2>Banner subtitle</h2>\n  <h1>Banner title</h1>\n  A load of body text\n</div>\n```\n\nAnother benefit to using `yield` with the `hash` and `component` helper\nis you can pass attributes and arguments to these components:\n\n```handlebars {data-filename=app/templates/application.hbs}\n<Banner @value={{@model}} as |banner|>\n  <banner.Subtitle class=\"mb-1\">Banner subtitle</banner.Subtitle>\n  <banner.Title @variant=\"loud\">Banner title</banner.Title>\n  <banner.Body>A load of body text</banner.Body>\n</Banner>\n```\n\n```handlebars {data-filename=app/components/banner/subtitle.hbs}\n{{!-- note the use of ..attributes --}}\n<h2 ...attributes>\n  {{yield}}\n</h2>\n```\n\n```handlebars {data-filename=app/components/banner/title.hbs}\n{{#if (eq @variant \"loud\")}}\n    <h1 class=\"loud\">{{yield}}</h1>\n{{else}}\n    <h1 class=\"quiet\">{{yield}}</h1>\n{{/if}}\n```\n\nResult:\n\n```html\n<div>\n  <h2 class=\"mb-1\">Banner subtitle</h2>\n  <h1 class=\"loud\">Banner title</h1>\n  A load of body text\n</div>\n```",
+          "itemtype": "method",
+          "name": "yield",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Hash"
+            }
+          ],
+          "return": {
+            "description": "HTML string",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/index.ts",
+          "line": 303,
+          "description": "`{{(has-block)}}` indicates if the component was invoked with a block.\n\nThis component is invoked with a block:\n\n```handlebars\n{{#my-component}}\n  Hi Jen!\n{{/my-component}}\n```\n\nThis component is invoked without a block:\n\n```handlebars\n{{my-component}}\n```\n\nUsing angle bracket invocation, this looks like:\n\n```html\n<MyComponent>Hi Jen!</MyComponent> {{! with a block}}\n```\n\n```html\n<MyComponent/> {{! without a block}}\n```\n\nThis is useful when you want to create a component that can optionally take a block\nand then render a default template when it is not invoked with a block.\n\n```handlebars {data-filename=app/templates/components/my-component.hbs}\n{{#if (has-block)}}\n  Welcome {{yield}}, we are happy you're here!\n{{else}}\n  Hey you! You're great!\n{{/if}}\n```",
+          "itemtype": "method",
+          "name": "has-block",
+          "params": [
+            {
+              "name": "the",
+              "description": "name of the block. The name (at the moment) is either \"main\" or \"inverse\" (though only curly components support inverse)",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "`true` if the component was invoked with a block",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/index.ts",
+          "line": 348,
+          "description": "`{{(has-block-params)}}` indicates if the component was invoked with block params.\n\nThis component is invoked with block params:\n\n```handlebars\n{{#my-component as |favoriteFlavor|}}\n  Hi Jen!\n{{/my-component}}\n```\n\nThis component is invoked without block params:\n\n```handlebars\n{{#my-component}}\n  Hi Jenn!\n{{/my-component}}\n```\n\nWith angle bracket syntax, block params look like this:\n\n  ```handlebars\n<MyComponent as |favoriteFlavor|>\n  Hi Jen!\n</MyComponent>\n```\n\nAnd without block params:\n\n```handlebars\n<MyComponent>\n  Hi Jen!\n</MyComponent>\n```\n\nThis is useful when you want to create a component that can render itself\ndifferently when it is not invoked with block params.\n\n```handlebars {data-filename=app/templates/components/my-component.hbs}\n{{#if (has-block-params)}}\n  Welcome {{yield this.favoriteFlavor}}, we're happy you're here and hope you\n  enjoy your favorite ice cream flavor.\n{{else}}\n  Welcome {{yield}}, we're happy you're here, but we're unsure what\n  flavor ice cream you would enjoy.\n{{/if}}\n```",
+          "itemtype": "method",
+          "name": "has-block-params",
+          "params": [
+            {
+              "name": "the",
+              "description": "name of the block. The name (at the moment) is either \"main\" or \"inverse\" (though only curly components support inverse)",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "`true` if the component was invoked with block params",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/index.ts",
+          "line": 403,
+          "description": "Execute the `debugger` statement in the current template's context.\n\n```handlebars\n{{debugger}}\n```\n\nWhen using the debugger helper you will have access to a `get` function. This\nfunction retrieves values available in the context of the template.\nFor example, if you're wondering why a value `{{foo}}` isn't rendering as\nexpected within a template, you could place a `{{debugger}}` statement and,\nwhen the `debugger;` breakpoint is hit, you can attempt to retrieve this value:\n\n```\n> get('foo')\n```\n\n`get` is also aware of keywords. So in this situation\n\n```handlebars\n{{#each this.items as |item|}}\n  {{debugger}}\n{{/each}}\n```\n\nYou'll be able to get values from the current item:\n\n```\n> get('item.name')\n```\n\nYou can also access the context of the view to make sure it is the object that\nyou expect:\n\n```\n> context\n```",
+          "itemtype": "method",
+          "name": "debugger",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Templates.helpers",
+          "module": "ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-5.12.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-5.12.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
