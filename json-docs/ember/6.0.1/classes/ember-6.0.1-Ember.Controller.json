@@ -1,0 +1,729 @@
+{
+  "data": {
+    "id": "ember-6.0.1-Ember.Controller",
+    "type": "class",
+    "attributes": {
+      "name": "Ember.Controller",
+      "shortname": "Controller",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/controller",
+      "namespace": "Ember",
+      "file": "packages/@ember/controller/index.ts",
+      "line": 308,
+      "extends": "EmberObject",
+      "uses": [
+        "Ember.ControllerMixin"
+      ],
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 91,
+          "description": "Transition the application into another route. The route may\nbe either a single route or route path:\n\n```javascript\naController.transitionToRoute('blogPosts');\naController.transitionToRoute('blogPosts.recentEntries');\n```\n\nOptionally supply a model for the route in question. The model\nwill be serialized into the URL using the `serialize` hook of\nthe route:\n\n```javascript\naController.transitionToRoute('blogPost', aPost);\n```\n\nIf a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the `model`\nhook of the route will be triggered:\n\n```javascript\naController.transitionToRoute('blogPost', 1);\n```\n\nMultiple models will be applied last to first recursively up the\nroute tree.\n\n```js {data-filename=app/router.js}\nRouter.map(function() {\n  this.route('blogPost', { path: ':blogPostId' }, function() {\n    this.route('blogComment', { path: ':blogCommentId', resetNamespace: true });\n  });\n});\n```\n\n```javascript\naController.transitionToRoute('blogComment', aPost, aComment);\naController.transitionToRoute('blogComment', 1, 13);\n```\n\nIt is also possible to pass a URL (a string that starts with a\n`/`).\n\n```javascript\naController.transitionToRoute('/');\naController.transitionToRoute('/blog/post/1/comment/13');\naController.transitionToRoute('/blog/posts?sort=title');\n```\n\nAn options hash with a `queryParams` property may be provided as\nthe final argument to add query parameters to the destination URL.\n\n```javascript\naController.transitionToRoute('blogPost', 1, {\n  queryParams: { showComments: 'true' }\n});\n\n// if you just want to transition the query parameters without changing the route\naController.transitionToRoute({ queryParams: { sort: 'date' } });\n```\n\nSee also [replaceRoute](/ember/release/classes/Ember.ControllerMixin/methods/replaceRoute?anchor=replaceRoute).",
+          "itemtype": "method",
+          "name": "transitionToRoute",
+          "deprecated": true,
+          "deprecationMessage": "Use transitionTo from the Router service instead.",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\n  while transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\n  containing a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the transition object associated with this\n  attempted transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/controller",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 169,
+          "description": "Transition into another route while replacing the current URL, if possible.\nThis will replace the current history entry instead of adding a new one.\nBeside that, it is identical to `transitionToRoute` in all other respects.\n\n```javascript\naController.replaceRoute('blogPosts');\naController.replaceRoute('blogPosts.recentEntries');\n```\n\nOptionally supply a model for the route in question. The model\nwill be serialized into the URL using the `serialize` hook of\nthe route:\n\n```javascript\naController.replaceRoute('blogPost', aPost);\n```\n\nIf a literal is passed (such as a number or a string), it will\nbe treated as an identifier instead. In this case, the `model`\nhook of the route will be triggered:\n\n```javascript\naController.replaceRoute('blogPost', 1);\n```\n\nMultiple models will be applied last to first recursively up the\nroute tree.\n\n```js {data-filename=app/router.js}\nRouter.map(function() {\n  this.route('blogPost', { path: ':blogPostId' }, function() {\n    this.route('blogComment', { path: ':blogCommentId', resetNamespace: true });\n  });\n});\n```\n\n```\naController.replaceRoute('blogComment', aPost, aComment);\naController.replaceRoute('blogComment', 1, 13);\n```\n\nIt is also possible to pass a URL (a string that starts with a\n`/`).\n\n```javascript\naController.replaceRoute('/');\naController.replaceRoute('/blog/post/1/comment/13');\n```",
+          "itemtype": "method",
+          "name": "replaceRoute",
+          "deprecated": true,
+          "deprecationMessage": "Use replaceWith from the Router service instead.",
+          "params": [
+            {
+              "name": "name",
+              "description": "the name of the route or a URL",
+              "type": "String",
+              "optional": true
+            },
+            {
+              "name": "models",
+              "description": "the model(s) or identifier(s) to be used\nwhile transitioning to the route.",
+              "type": "...Object"
+            },
+            {
+              "name": "options",
+              "description": "optional hash with a queryParams property\ncontaining a mapping of query parameters",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "the transition object associated with this\n  attempted transition",
+            "type": "Transition"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/controller",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 264,
+          "description": "This property is updated to various different callback functions depending on\nthe current \"state\" of the backing route. It is used by\n`Controller.prototype._qpChanged`.\n\nThe methods backing each state can be found in the `Route.prototype._qp` computed\nproperty return value (the `.states` property). The current values are listed here for\nthe sanity of future travelers:\n\n* `inactive` - This state is used when this controller instance is not part of the active\n  route hierarchy. Set in `Route.prototype._reset` (a `router.js` microlib hook) and\n  `Route.prototype.actions.finalizeQueryParamChange`.\n* `active` - This state is used when this controller instance is part of the active\n  route hierarchy. Set in `Route.prototype.actions.finalizeQueryParamChange`.\n* `allowOverrides` - This state is used in `Route.prototype.setup` (`route.js` microlib hook).",
+          "itemtype": "method",
+          "name": "_qpDelegate",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/controller",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 285,
+          "description": "During `Route#setup` observers are created to invoke this method\nwhen any of the query params declared in `Controller#queryParams` property\nare changed.\n\nWhen invoked this method uses the currently active query param update delegate\n(see `Controller.prototype._qpDelegate` for details) and invokes it with\nthe QP key/value being changed.",
+          "itemtype": "method",
+          "name": "_qpChanged",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/controller",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "packages/@ember/object/core.ts",
+          "line": 321,
+          "description": "An overridable method called when objects are instantiated. By default,\ndoes nothing unless it is overridden during class definition.\n\nExample:\n\n```javascript\nimport EmberObject from '@ember/object';\n\nconst Person = EmberObject.extend({\n  init() {\n    alert(`Name is ${this.get('name')}`);\n  }\n});\n\nlet steve = Person.create({\n  name: 'Steve'\n});\n\n// alerts 'Name is Steve'.\n```\n\nNOTE: If you do override `init` for a framework class like `Component`\nfrom `@ember/component`, be sure to call `this._super(...arguments)`\nin your `init` declaration!\nIf you don't, Ember may not have an opportunity to\ndo important setup work, and you'll see strange behavior in your\napplication.",
+          "itemtype": "method",
+          "name": "init",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/core",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/object/core.ts",
+          "line": 540,
+          "description": "Destroys an object by setting the `isDestroyed` flag and removing its\nmetadata, which effectively destroys observers and bindings.\n\nIf you try to set a property on a destroyed object, an exception will be\nraised.\n\nNote that destruction is scheduled for the end of the run loop and does not\nhappen immediately.  It will set an isDestroying flag immediately.",
+          "itemtype": "method",
+          "name": "destroy",
+          "return": {
+            "description": "receiver",
+            "type": "EmberObject"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/core",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/object/core.ts",
+          "line": 567,
+          "description": "Override to implement teardown.",
+          "itemtype": "method",
+          "name": "willDestroy",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/core",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/object/core.ts",
+          "line": 575,
+          "description": "Returns a string representation which attempts to provide more information\nthan Javascript's `toString` typically does, in a generic way for all Ember\nobjects.\n\n```javascript\nimport EmberObject from '@ember/object';\n\nconst Person = EmberObject.extend();\nperson = Person.create();\nperson.toString(); //=> \"<Person:ember1024>\"\n```\n\nIf the object's class is not defined on an Ember namespace, it will\nindicate it is a subclass of the registered superclass:\n\n```javascript\nconst Student = Person.extend();\nlet student = Student.create();\nstudent.toString(); //=> \"<(subclass of Person):ember1025>\"\n```\n\nIf the method `toStringExtension` is defined, its return value will be\nincluded in the output.\n\n```javascript\nconst Teacher = Person.extend({\n  toStringExtension() {\n    return this.get('fullName');\n  }\n});\nteacher = Teacher.create();\nteacher.toString(); //=> \"<Teacher:ember1026:Tom Dale>\"\n```",
+          "itemtype": "method",
+          "name": "toString",
+          "return": {
+            "description": "string representation",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/core",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 97,
+          "description": "Retrieves the value of a property from the object.\n\nThis method is usually similar to using `object[keyName]` or `object.keyName`,\nhowever it supports both computed properties and the unknownProperty\nhandler.\n\nBecause `get` unifies the syntax for accessing all these kinds\nof properties, it can make many refactorings easier, such as replacing a\nsimple property with a computed property, or vice versa.\n\n### Computed Properties\n\nComputed properties are methods defined with the `property` modifier\ndeclared at the end, such as:\n\n```javascript\nimport { computed } from '@ember/object';\n\nfullName: computed('firstName', 'lastName', function() {\n  return this.get('firstName') + ' ' + this.get('lastName');\n})\n```\n\nWhen you call `get` on a computed property, the function will be\ncalled and the return value will be returned instead of the function\nitself.\n\n### Unknown Properties\n\nLikewise, if you try to call `get` on a property whose value is\n`undefined`, the `unknownProperty()` method will be called on the object.\nIf this method returns any value other than `undefined`, it will be returned\ninstead. This allows you to implement \"virtual\" properties that are\nnot defined upfront.",
+          "itemtype": "method",
+          "name": "get",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to retrieve",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The property value or undefined.",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 141,
+          "description": "To get the values of multiple properties at once, call `getProperties`\nwith a list of strings or an array:\n\n```javascript\nrecord.getProperties('firstName', 'lastName', 'zipCode');\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```\n\nis equivalent to:\n\n```javascript\nrecord.getProperties(['firstName', 'lastName', 'zipCode']);\n// { firstName: 'John', lastName: 'Doe', zipCode: '10011' }\n```",
+          "itemtype": "method",
+          "name": "getProperties",
+          "params": [
+            {
+              "name": "list",
+              "description": "of keys to get",
+              "type": "String...|Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 168,
+          "description": "Sets the provided key or path to the value.\n\n```javascript\nrecord.set(\"key\", value);\n```\n\nThis method is generally very similar to calling `object[\"key\"] = value` or\n`object.key = value`, except that it provides support for computed\nproperties, the `setUnknownProperty()` method and property observers.\n\n### Computed Properties\n\nIf you try to set a value on a key that has a computed property handler\ndefined (see the `get()` method for an example), then `set()` will call\nthat method, passing both the value and key instead of simply changing\nthe value itself. This is useful for those times when you need to\nimplement a property that is composed of one or more member\nproperties.\n\n### Unknown Properties\n\nIf you try to set a value on a key that is undefined in the target\nobject, then the `setUnknownProperty()` handler will be called instead. This\ngives you an opportunity to implement complex \"virtual\" properties that\nare not predefined on the object. If `setUnknownProperty()` returns\nundefined, then `set()` will simply set the value on the object.\n\n### Property Observers\n\nIn addition to changing the property, `set()` will also register a property\nchange with the object. Unless you have placed this call inside of a\n`beginPropertyChanges()` and `endPropertyChanges(),` any \"local\" observers\n(i.e. observer methods declared on the same object), will be called\nimmediately. Any \"remote\" observers (i.e. observer methods declared on\nanother object) will be placed in a queue and called at a later time in a\ncoalesced manner.",
+          "itemtype": "method",
+          "name": "set",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The value to set or `null`.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed value",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 216,
+          "description": "Sets a list of properties at once. These properties are set inside\na single `beginPropertyChanges` and `endPropertyChanges` batch, so\nobservers will be buffered.\n\n```javascript\nrecord.setProperties({ firstName: 'Charles', lastName: 'Jolley' });\n```",
+          "itemtype": "method",
+          "name": "setProperties",
+          "params": [
+            {
+              "name": "hash",
+              "description": "the hash of keys and values to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "The passed in hash",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 233,
+          "description": "Convenience method to call `propertyWillChange` and `propertyDidChange` in\nsuccession.\n\nNotify the observer system that a property has just changed.\n\nSometimes you need to change a value directly or indirectly without\nactually calling `get()` or `set()` on it. In this case, you can use this\nmethod instead. Calling this method will notify all observers that the\nproperty has potentially changed value.",
+          "itemtype": "method",
+          "name": "notifyPropertyChange",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The property key to be notified about.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 251,
+          "description": "Adds an observer on a property.\n\nThis is the core method used to register an observer for a property.\n\nOnce you call this method, any time the key's value is set, your observer\nwill be notified. Note that the observers are triggered any time the\nvalue is set, regardless of whether it has actually changed. Your\nobserver should be prepared to handle that.\n\nThere are two common invocation patterns for `.addObserver()`:\n\n- Passing two arguments:\n  - the name of the property to observe (as a string)\n  - the function to invoke (an actual function)\n- Passing three arguments:\n  - the name of the property to observe (as a string)\n  - the target object (will be used to look up and invoke a\n    function on)\n  - the name of the function to invoke on the target object\n    (as a string).\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  init() {\n    this._super(...arguments);\n\n    // the following are equivalent:\n\n    // using three arguments\n    this.addObserver('foo', this, 'fooDidChange');\n\n    // using two arguments\n    this.addObserver('foo', (...args) => {\n      this.fooDidChange(...args);\n    });\n  },\n\n  fooDidChange() {\n    // your custom logic code\n  }\n});\n```\n\n### Observer Methods\n\nObserver methods have the following signature:\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\n\nexport default Component.extend({\n  init() {\n    this._super(...arguments);\n    this.addObserver('foo', this, 'fooDidChange');\n  },\n\n  fooDidChange(sender, key, value, rev) {\n    // your code\n  }\n});\n```\n\nThe `sender` is the object that changed. The `key` is the property that\nchanges. The `value` property is currently reserved and unused. The `rev`\nis the last property revision of the object when it changed, which you can\nuse to detect if the key value has really changed or not.\n\nUsually you will not need the value or revision parameters at\nthe end. In this case, it is common to write observer methods that take\nonly a sender and key value as parameters or, if you aren't interested in\nany of these values, to write an observer that has no parameters at all.",
+          "itemtype": "method",
+          "name": "addObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observe",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke",
+              "type": "String|Function"
+            },
+            {
+              "name": "sync",
+              "description": "Whether the observer is sync or not",
+              "type": "Boolean"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 337,
+          "description": "Remove an observer you have previously registered on this object. Pass\nthe same key, target, and method you passed to `addObserver()` and your\ntarget will no longer receive notifications.",
+          "itemtype": "method",
+          "name": "removeObserver",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to observe",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target object to invoke",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The method to invoke",
+              "type": "String|Function"
+            },
+            {
+              "name": "sync",
+              "description": "Whether the observer is async or not",
+              "type": "Boolean"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 358,
+          "description": "Set the value of a property to the current value plus some amount.\n\n```javascript\nperson.incrementProperty('age');\nteam.incrementProperty('score', 2);\n```",
+          "itemtype": "method",
+          "name": "incrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to increment",
+              "type": "String"
+            },
+            {
+              "name": "increment",
+              "description": "The amount to increment by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 375,
+          "description": "Set the value of a property to the current value minus some amount.\n\n```javascript\nplayer.decrementProperty('lives');\norc.decrementProperty('health', 5);\n```",
+          "itemtype": "method",
+          "name": "decrementProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to decrement",
+              "type": "String"
+            },
+            {
+              "name": "decrement",
+              "description": "The amount to decrement by. Defaults to 1",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Number"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 392,
+          "description": "Set the value of a boolean property to the opposite of its\ncurrent value.\n\n```javascript\nstarship.toggleProperty('warpDriveEngaged');\n```",
+          "itemtype": "method",
+          "name": "toggleProperty",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "The name of the property to toggle",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The new property value",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 407,
+          "description": "Returns the cached value of a computed property, if it exists.\nThis allows you to inspect the value of a computed property\nwithout accidentally invoking it if it is intended to be\ngenerated lazily.",
+          "itemtype": "method",
+          "name": "cacheFor",
+          "params": [
+            {
+              "name": "keyName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "The cached value of the computed property, if any",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 437,
+          "description": "Begins a grouping of property changes.\n\nYou can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call this\nmethod at the beginning of the changes to begin deferring change\nnotifications. When you are done making changes, call\n`endPropertyChanges()` to deliver the deferred change notifications and end\ndeferring.",
+          "itemtype": "method",
+          "name": "beginPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 457,
+          "description": "Ends a grouping of property changes.\n\nYou can use this method to group property changes so that notifications\nwill not be sent until the changes are finished. If you plan to make a\nlarge number of changes to an object at one time, you should call\n`beginPropertyChanges()` at the beginning of the changes to defer change\nnotifications. When you are done making changes, call this method to\ndeliver the deferred change notifications and end deferring.",
+          "itemtype": "method",
+          "name": "endPropertyChanges",
+          "return": {
+            "description": "",
+            "type": "Observable"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/object/observable.ts",
+          "line": 501,
+          "description": "Returns `true` if the object currently has observers registered for a\nparticular key. You can use this method to potentially defer performing\nan expensive action until someone begins observing a particular property\non the object.",
+          "itemtype": "method",
+          "name": "hasObserverFor",
+          "params": [
+            {
+              "name": "key",
+              "description": "Key to check",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/observable",
+          "inherited": true,
+          "inheritedFrom": "Observable"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/action_handler.ts",
+          "line": 172,
+          "description": "Triggers a named action on the `ActionHandler`. Any parameters\nsupplied after the `actionName` string will be passed as arguments\nto the action target function.\n\nIf the `ActionHandler` has its `target` property set, actions may\nbubble to the `target`. Bubbling happens when an `actionName` can\nnot be found in the `ActionHandler`'s `actions` hash or if the\naction target function returns `true`.\n\nExample\n\n```js {data-filename=app/routes/welcome.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    playTheme() {\n      this.send('playMusic', 'theme.mp3');\n    },\n    playMusic(track) {\n      // ...\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "send",
+          "params": [
+            {
+              "name": "actionName",
+              "description": "The action to trigger",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "description": "a context to send with the action",
+              "type": "*"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 36,
+          "description": "The object to which actions from the view should be sent.\n\nFor example, when a Handlebars template uses the `{{action}}` helper,\nit will attempt to send the action to the view's controller's `target`.\n\nBy default, the value of the target property is set to the router, and\nis injected when a controller is instantiated. This injection is applied\nas part of the application's initialization process. In most cases the\n`target` property will automatically be set to the logical consumer of\nactions for the controller.",
+          "itemtype": "property",
+          "name": "target",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/controller",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 54,
+          "description": "The controller's current model. When retrieving or modifying a controller's\nmodel, this property should be used instead of the `content` property.",
+          "itemtype": "property",
+          "name": "model",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/controller",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "packages/@ember/controller/index.ts",
+          "line": 63,
+          "description": "Defines which query parameters the controller accepts.\nIf you give the names `['category','page']` it will bind\nthe values of these query parameters to the variables\n`this.category` and `this.page`.\n\nBy default, query parameters are parsed as strings. This\nmay cause unexpected behavior if a query parameter is used with `toggleProperty`,\nbecause the initial value set for `param=false` will be the string `\"false\"`, which is truthy.\n\nTo avoid this, you may specify that the query parameter should be parsed as a boolean\nby using the following verbose form with a `type` property:\n```javascript\n  queryParams: [{\n    category: {\n      type: 'boolean'\n    }\n  }]\n```\nAvailable values for the `type` parameter are `'boolean'`, `'number'`, `'array'`, and `'string'`.\nIf query param type is not specified, it will default to `'string'`.",
+          "itemtype": "property",
+          "name": "queryParams",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/controller",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ControllerMixin"
+        },
+        {
+          "file": "packages/@ember/object/core.ts",
+          "line": 355,
+          "description": "Defines the properties that will be concatenated from the superclass\n(instead of overridden).\n\nBy default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property's value by combining the superclass' property\nvalue with the subclass' value. An example of this in use within Ember\nis the `classNames` property of `Component` from `@ember/component`.\n\nHere is some sample code showing the difference between a concatenated\nproperty and a normal one:\n\n```javascript\nimport EmberObject from '@ember/object';\n\nconst Bar = EmberObject.extend({\n  // Configure which properties to concatenate\n  concatenatedProperties: ['concatenatedProperty'],\n\n  someNonConcatenatedProperty: ['bar'],\n  concatenatedProperty: ['bar']\n});\n\nconst FooBar = Bar.extend({\n  someNonConcatenatedProperty: ['foo'],\n  concatenatedProperty: ['foo']\n});\n\nlet fooBar = FooBar.create();\nfooBar.get('someNonConcatenatedProperty'); // ['foo']\nfooBar.get('concatenatedProperty'); // ['bar', 'foo']\n```\n\nThis behavior extends to object creation as well. Continuing the\nabove example:\n\n```javascript\nlet fooBar = FooBar.create({\n  someNonConcatenatedProperty: ['baz'],\n  concatenatedProperty: ['baz']\n})\nfooBar.get('someNonConcatenatedProperty'); // ['baz']\nfooBar.get('concatenatedProperty'); // ['bar', 'foo', 'baz']\n```\n\nAdding a single property that is not an array will just add it in the array:\n\n```javascript\nlet fooBar = FooBar.create({\n  concatenatedProperty: 'baz'\n})\nview.get('concatenatedProperty'); // ['bar', 'foo', 'baz']\n```\n\nUsing the `concatenatedProperties` property, we can tell Ember to mix the\ncontent of the properties.\n\nIn `Component` the `classNames`, `classNameBindings` and\n`attributeBindings` properties are concatenated.\n\nThis feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual concatenated property (to not\nmislead your users to think they can override the property in a subclass).",
+          "itemtype": "property",
+          "name": "concatenatedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/core",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/object/core.ts",
+          "line": 429,
+          "description": "Defines the properties that will be merged from the superclass\n(instead of overridden).\n\nBy default, when you extend an Ember class a property defined in\nthe subclass overrides a property with the same name that is defined\nin the superclass. However, there are some cases where it is preferable\nto build up a property's value by merging the superclass property value\nwith the subclass property's value. An example of this in use within Ember\nis the `queryParams` property of routes.\n\nHere is some sample code showing the difference between a merged\nproperty and a normal one:\n\n```javascript\nimport EmberObject from '@ember/object';\n\nconst Bar = EmberObject.extend({\n  // Configure which properties are to be merged\n  mergedProperties: ['mergedProperty'],\n\n  someNonMergedProperty: {\n    nonMerged: 'superclass value of nonMerged'\n  },\n  mergedProperty: {\n    page: { replace: false },\n    limit: { replace: true }\n  }\n});\n\nconst FooBar = Bar.extend({\n  someNonMergedProperty: {\n    completelyNonMerged: 'subclass value of nonMerged'\n  },\n  mergedProperty: {\n    limit: { replace: false }\n  }\n});\n\nlet fooBar = FooBar.create();\n\nfooBar.get('someNonMergedProperty');\n// => { completelyNonMerged: 'subclass value of nonMerged' }\n//\n// Note the entire object, including the nonMerged property of\n// the superclass object, has been replaced\n\nfooBar.get('mergedProperty');\n// => {\n//   page: {replace: false},\n//   limit: {replace: false}\n// }\n//\n// Note the page remains from the superclass, and the\n// `limit` property's value of `false` has been merged from\n// the subclass.\n```\n\nThis behavior is not available during object `create` calls. It is only\navailable at `extend` time.\n\nIn `Route` the `queryParams` property is merged.\n\nThis feature is available for you to use throughout the Ember object model,\nalthough typical app developers are likely to use it infrequently. Since\nit changes expectations about behavior of properties, you should properly\ndocument its usage in each individual merged property (to not\nmislead your users to think they can override the property in a subclass).",
+          "itemtype": "property",
+          "name": "mergedProperties",
+          "type": "Array",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/core",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/object/core.ts",
+          "line": 504,
+          "description": "Destroyed object property flag.\n\nif this property is `true` the observers and bindings were already\nremoved by the effect of calling the `destroy()` method.",
+          "itemtype": "property",
+          "name": "isDestroyed",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/core",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/object/core.ts",
+          "line": 522,
+          "description": "Destruction scheduled flag. The `destroy()` method has been called.\n\nThe object stays intact until the end of the run loop at which point\nthe `isDestroyed` flag is set.",
+          "itemtype": "property",
+          "name": "isDestroying",
+          "default": "false",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "@ember/object/core",
+          "inherited": true,
+          "inheritedFrom": "CoreObject"
+        },
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/action_handler.ts",
+          "line": 27,
+          "description": "The collection of functions, keyed by name, available on this\n`ActionHandler` as action targets.\n\nThese functions will be invoked when a matching `{{action}}` is triggered\nfrom within a template and the application's current route is this route.\n\nActions can also be invoked from other parts of your application\nvia `ActionHandler#send`.\n\nThe `actions` hash will inherit action handlers from\nthe `actions` hash defined on extended parent classes\nor mixins rather than just replace the entire hash, e.g.:\n\n```js {data-filename=app/mixins/can-display-banner.js}\nimport Mixin from '@ember/object/mixin';\n\nexport default Mixin.create({\n  actions: {\n    displayBanner(msg) {\n      // ...\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/welcome.js}\nimport Route from '@ember/routing/route';\nimport CanDisplayBanner from '../mixins/can-display-banner';\n\nexport default Route.extend(CanDisplayBanner, {\n  actions: {\n    playMusic() {\n      // ...\n    }\n  }\n});\n\n// `WelcomeRoute`, when active, will be able to respond\n// to both actions, since the actions hash is merged rather\n// then replaced when extending mixins / parent classes.\nthis.send('displayBanner');\nthis.send('playMusic');\n```\n\nWithin a Controller, Route or Component's action handler,\nthe value of the `this` context is the Controller, Route or\nComponent object:\n\n```js {data-filename=app/routes/song.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    myAction() {\n      this.controllerFor(\"song\");\n      this.transitionTo(\"other.route\");\n      ...\n    }\n  }\n});\n```\n\nIt is also possible to call `this._super(...arguments)` from within an\naction handler if it overrides a handler defined on a parent\nclass or mixin:\n\nTake for example the following routes:\n\n```js {data-filename=app/mixins/debug-route.js}\nimport Mixin from '@ember/object/mixin';\n\nexport default Mixin.create({\n  actions: {\n    debugRouteInformation() {\n      console.debug(\"It's a-me, console.debug!\");\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/annoying-debug.js}\nimport Route from '@ember/routing/route';\nimport DebugRoute from '../mixins/debug-route';\n\nexport default Route.extend(DebugRoute, {\n  actions: {\n    debugRouteInformation() {\n      // also call the debugRouteInformation of mixed in DebugRoute\n      this._super(...arguments);\n\n      // show additional annoyance\n      window.alert(...);\n    }\n  }\n});\n```\n\n## Bubbling\n\nBy default, an action will stop bubbling once a handler defined\non the `actions` hash handles it. To continue bubbling the action,\nyou must return `true` from the handler:\n\n```js {data-filename=app/router.js}\nRouter.map(function() {\n  this.route(\"album\", function() {\n    this.route(\"song\");\n  });\n});\n```\n\n```js {data-filename=app/routes/album.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    startPlaying: function() {\n    }\n  }\n});\n```\n\n```js {data-filename=app/routes/album-song.js}\nimport Route from '@ember/routing/route';\n\nexport default Route.extend({\n  actions: {\n    startPlaying() {\n      // ...\n\n      if (actionShouldAlsoBeTriggeredOnParentRoute) {\n        return true;\n      }\n    }\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "actions",
+          "type": "Object",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Ember.Controller",
+          "module": "ember",
+          "namespace": "Ember",
+          "inherited": true,
+          "inheritedFrom": "Ember.ActionHandler"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-6.0.1-EmberObject",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.0.1-@ember/controller",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.0.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
