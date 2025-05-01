@@ -1,0 +1,261 @@
+{
+  "data": {
+    "id": "ember-cli-5.3.0-PerBundleAddonCache {",
+    "type": "class",
+    "attributes": {
+      "name": "PerBundleAddonCache {",
+      "shortname": "PerBundleAddonCache {",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-cli",
+      "namespace": "",
+      "file": "lib/models/per-bundle-addon-cache/index.js",
+      "line": 46,
+      "description": "<html><head></head><body><p>For large applications with many addons (and many instances of each, resulting in\npotentially many millions of addon instances during a build), the build can become\nvery, very slow (tens of minutes) partially due to the sheer number of addon instances.\nThe PerBundleAddonCache deals with this slowness by doing 3 things:</p>\n<p>(1) Making only a single copy of each of certain addons and their dependent addons\n(2) Replacing any other instances of those addons with Proxy copies to the single instance\n(3) Having the Proxies return an empty array for their dependent addons, rather\n    than proxying to the contents of the single addon instance. This gives up the\n    ability of the Proxies to traverse downward into their child addons,\n    something that many addons do not do anyway, for the huge reduction in duplications\n    of those child addons. For applications that enable <code>ember-engines</code> dedupe logic,\n    that logic is stateful, and having the Proxies allow access to the child addons array\n    just breaks everything, because that logic will try multiple times to remove items\n    it thinks are duplicated, messing up the single copy of the child addon array.\n    See the explanation of the dedupe logic in\n   {@link <a href=\"https://github.com/ember-engines/ember-engines/blob/master/packages/ember-engines/lib/utils/deeply-non-duplicated-addon.js%7D\">https://github.com/ember-engines/ember-engines/blob/master/packages/ember-engines/lib/utils/deeply-non-duplicated-addon.js}</a></p>\n<p>What follows are the more technical details of how the PerBundleAddonCache implements\nthe above 3 behaviors.</p>\n<p>This class supports per-bundle-host (bundle host = project or lazy engine)\ncaching of addon instances. During addon initialization we cannot add a\ncache to each bundle host object AFTER it is instantiated because running the\naddon constructor ultimately causes Addon class <code>setupRegistry</code> code to\nrun which instantiates child addons, which need the cache to already be\nin place for the parent bundle host.\nWe handle this by providing a global cache that exists independent of the\nbundle host objects. That is this object.</p>\n<p>There are a number of \"behaviors\" being implemented by this object and\nits contents. They are:\n(1) Any addon that is a lazy engine has only a single real instance per\nproject - all other references to the lazy engine are to be proxies. These\nlazy engines are compared by name, not by packageInfo.realPath.\n(2) Any addon that is not a lazy engine, there is only a single real instance\nof the addon per \"bundle host\" (i.e. lazy engine or project).\n(3) An optimization - any addon that is in a lazy engine but that is also\nin bundled by its LCA host - the single instance is the one bundled by this\nhost. All other instances (in any lazy engine) are proxies.</p>\n<p>NOTE: the optimization is only enabled if the environment variable that controls\n<code>ember-engines</code> transitive deduplication (process.env.EMBER_ENGINES_ADDON_DEDUPE)\nis set to a truthy value. For more info, see:\n<a href=\"https://github.com/ember-engines/ember-engines/blob/master/packages/ember-engines/lib/engine-addon.js#L396\">https://github.com/ember-engines/ember-engines/blob/master/packages/ember-engines/lib/engine-addon.js#L396</a></p>\n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "lib/models/per-bundle-addon-cache/addon-proxy.js",
+          "line": 7,
+          "description": "<html><head></head><body><p>Validates that a new cache key for a given tree type matches the previous\ncache key for the same tree type. To opt-in to bundle addon caching for\na given addon it's assumed that it returns stable cache keys; specifically\nthis is because the interplay between bundle addon caching and <code>ember-engines</code>\nwhen transitive deduplication is enabled assumes stable cache keys, so we validate\nfor this case here.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "validateCacheKey",
+          "params": [
+            {
+              "name": "realAddonInstance",
+              "description": "The real addon instance",
+              "type": "Addon"
+            },
+            {
+              "name": "treeType",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "newCacheKey",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "throws": {
+            "description": "If the new cache key doesn't match the previous cache key",
+            "type": "Error"
+          },
+          "class": "PerBundleAddonCache {",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/per-bundle-addon-cache/addon-proxy.js",
+          "line": 42,
+          "description": "<html><head></head><body><p>Returns a proxy to a target with specific handling for the\n<code>parent</code> property, as well has to handle the <code>app</code> property;\nthat is, the proxy should maintain correct local state in\nclosure scope for the <code>app</code> property if it happens to be set\nby <code>ember-cli</code>. Other than <code>parent</code> &amp; <code>app</code>, this function also\nproxies <em>almost</em> everything to <code>target[TARGET_INSTANCE] with a few exceptions: we trap &amp; return </code>[]<code>for</code>addons<code>, and we don't return the original </code>included<code>(it's already called on the \"real\" addon by</code>ember-cli`).</p>\n<p>Note: the target is NOT the per-bundle cacheable instance of the addon. Rather,\nit is a cache entry POJO from PerBundleAddonCache.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "getAddonProxy",
+          "params": [
+            {
+              "name": "targetCacheEntry",
+              "description": "the PerBundleAddonCache cache entry we are to proxy. It\nhas one interesting property, the real addon instance the proxy is forwarding\ncalls to (that property is not globally exposed)."
+            },
+            {
+              "name": "parent",
+              "description": "the parent object of the proxy being created (the same as\nthe 'parent' property of a normal addon instance)"
+            }
+          ],
+          "return": {
+            "description": "Proxy"
+          },
+          "class": "PerBundleAddonCache {",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/per-bundle-addon-cache/index.js",
+          "line": 17,
+          "description": "<html><head></head><body><p>Resolves the perBundleAddonCacheUtil; this prefers the custom provided version by\nthe consuming application, and defaults to an internal implementation here.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "resolvePerBundleAddonCacheUtil",
+          "params": [
+            {
+              "name": "project",
+              "description": "",
+              "type": "Project"
+            }
+          ],
+          "return": {
+            "description": "}",
+            "type": "AllowCachingPerBundle: Function"
+          },
+          "class": "PerBundleAddonCache {",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/per-bundle-addon-cache/index.js",
+          "line": 116,
+          "description": "<html><head></head><body><p>The default implementation here is to indicate if the original addon entry point has\nthe <code>allowCachingPerBundle</code> flag set either on itself or on its prototype.</p>\n<p>If a consuming application specifies a relative path to a custom utility via the\n<code>ember-addon.perBundleAddonCacheUtil</code> configuration, we prefer the custom implementation\nprovided by the consumer.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "allowCachingPerBundle",
+          "params": [
+            {
+              "name": "addonEntryPointModule",
+              "description": "",
+              "type": "Object|Function"
+            }
+          ],
+          "return": {
+            "description": "true if the given constructor function or class supports caching per bundle, false otherwise",
+            "type": "Boolean"
+          },
+          "class": "PerBundleAddonCache {",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/per-bundle-addon-cache/index.js",
+          "line": 132,
+          "description": "<html><head></head><body><p>Creates a cache entry for the bundleHostCache. Because we want to use the same sort of proxy\nfor both bundle hosts and for 'regular' addon instances (though their cache entries have\nslightly different structures) we'll use the Symbol from getAddonProxy.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "createBundleHostCacheEntry",
+          "params": [
+            {
+              "name": "bundleHostPkgInfo",
+              "description": "bundle host's pkgInfo.realPath",
+              "type": "PackageInfo"
+            }
+          ],
+          "return": {
+            "description": "an object in the form of a bundle-host cache entry",
+            "type": "Object"
+          },
+          "class": "PerBundleAddonCache {",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/per-bundle-addon-cache/index.js",
+          "line": 145,
+          "description": "<html><head></head><body><p>Create a cache entry object for a given (non-bundle-host) addon to put into\nan addon cache.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "createAddonCacheEntry",
+          "params": [
+            {
+              "name": "addonInstance",
+              "description": "the addon instance to cache",
+              "type": "Addon"
+            },
+            {
+              "name": "addonRealPath",
+              "description": "the addon's pkgInfo.realPath",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "an object in the form of an addon-cache entry",
+            "type": "Object"
+          },
+          "class": "PerBundleAddonCache {",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/per-bundle-addon-cache/index.js",
+          "line": 158,
+          "description": "<html><head></head><body><p>Given a parent object of a potential addon (another addon or the project),\ngo up the 'parent' chain to find the potential addon's bundle host object\n(i.e. lazy engine or project.) Because Projects are always bundle hosts,\nthis should always pass, but we'll throw if somehow it doesn't work.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "findBundleHost",
+          "params": [
+            {
+              "name": "addonParent",
+              "description": "the direct parent object of a (potential or real) addon.",
+              "type": "Project|Addon"
+            },
+            {
+              "name": "addonPkgInfo",
+              "description": "the PackageInfo for an addon being instantiated. This is only\nused for information if an error is going to be thrown.",
+              "type": "PackageInfo"
+            }
+          ],
+          "return": {
+            "description": "the object in the 'parent' chain that is a bundle host.",
+            "type": "Object"
+          },
+          "throws": {
+            "description": "if there is not bundle host",
+            "type": "Error"
+          },
+          "class": "PerBundleAddonCache {",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/per-bundle-addon-cache/index.js",
+          "line": 197,
+          "description": "<html><head></head><body><p>An optimization we support from lazy engines is the following:</p>\n<p>If an addon instance is supposed to be bundled with a particular lazy engine, and\nsame addon is also to be bundled by a common LCA host, prefer the one bundled by the\nhost (since it's ultimately going to be deduped later by <code>ember-engines</code>).</p>\n<p>NOTE: this only applies if this.engineAddonTransitiveDedupeEnabled is truthy. If it is not,\nthe bundle host always \"owns\" the addon instance.</p>\n<p>If deduping is enabled and the LCA host also depends on the same addon,\nthe lazy-engine instances of the addon will all be proxies to the one in\nthe LCA host. This function indicates whether the bundle host passed in\n(either the project or a lazy engine) is really the bundle host to \"own\" the\nnew addon.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "bundleHostOwnsInstance",
+          "params": [
+            {
+              "name": "(Object}",
+              "description": "bundleHost the project or lazy engine that is trying to \"own\"\nthe new addon instance specified by addonPkgInfo"
+            },
+            {
+              "name": "addonPkgInfo",
+              "description": "the PackageInfo of the potential new addon instance",
+              "type": "PackageInfo"
+            }
+          ],
+          "return": {
+            "description": "true if the bundle host is to \"own\" the instance, false otherwise.",
+            "type": "Boolean"
+          },
+          "class": "PerBundleAddonCache {",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/per-bundle-addon-cache/index.js",
+          "line": 247,
+          "description": "<html><head></head><body><p>Called from PackageInfo.getAddonInstance(), return an instance of the requested\naddon or a Proxy, based on the type of addon and its bundle host.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "getAddonInstance",
+          "params": [
+            {
+              "name": "parent",
+              "description": "the parent Addon or Project this addon instance is\na child of.",
+              "type": "Addon|Project"
+            },
+            {
+              "name": "addonPkgInfo",
+              "description": "the PackageInfo for the addon being created.",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "An addon instance (for the first copy of the addon) or a Proxy.\nAn addon that is a lazy engine will only ever have a single copy in the cache.\nAn addon that is not will have 1 copy per bundle host (Project or lazy engine),\nexcept if it is an addon that's also owned by a given LCA host and transitive\ndedupe is enabled (`engineAddonTransitiveDedupeEnabled`), in which case it will\nonly have a single copy in the project's addon cache.",
+            "type": "Addon|Proxy"
+          },
+          "class": "PerBundleAddonCache {",
+          "module": "ember-cli"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-cli-5.3.0-ember-cli",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

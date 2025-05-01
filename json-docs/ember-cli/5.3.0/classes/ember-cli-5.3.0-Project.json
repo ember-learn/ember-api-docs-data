@@ -1,0 +1,575 @@
+{
+  "data": {
+    "id": "ember-cli-5.3.0-Project",
+    "type": "class",
+    "attributes": {
+      "name": "Project",
+      "shortname": "Project",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-cli",
+      "namespace": "",
+      "file": "lib/models/project.js",
+      "line": 27,
+      "description": "<html><head></head><body><p>The Project model is tied to your package.json. It is instantiated\nby giving {{#crossLink \"Project/closestSync:method\"}}{{/crossLink}}\nthe path to your project.</p>\n</body></html>",
+      "is_constructor": 1,
+      "params": [
+        {
+          "name": "root",
+          "description": "Root directory for the project",
+          "type": "String"
+        },
+        {
+          "name": "pkg",
+          "description": "Contents of package.json",
+          "type": "Object"
+        },
+        {
+          "name": "ui",
+          "description": "",
+          "type": "UI"
+        },
+        {
+          "name": "cli",
+          "description": "",
+          "type": "CLI"
+        }
+      ],
+      "methods": [
+        {
+          "file": "lib/models/project.js",
+          "line": 154,
+          "description": "<html><head></head><body><p>Returns the name from package.json.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "name",
+          "return": {
+            "description": "Package name",
+            "type": "String"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 167,
+          "description": "<html><head></head><body><p>Returns whether or not this is an Ember CLI project.\nThis checks whether ember-cli is listed in devDependencies.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "isEmberCLIProject",
+          "return": {
+            "description": "Whether this is an Ember CLI project",
+            "type": "Boolean"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 179,
+          "description": "<html><head></head><body><p>Returns whether or not this is an Ember CLI addon.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isEmberCLIAddon",
+          "return": {
+            "description": "Whether or not this is an Ember CLI Addon.",
+            "type": "Boolean"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 189,
+          "description": "<html><head></head><body><p>Returns the path to the configuration.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "configPath",
+          "return": {
+            "description": "Configuration path",
+            "type": "String"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 206,
+          "description": "<html><head></head><body><p>Loads the configuration for this project and its addons.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "config",
+          "params": [
+            {
+              "name": "env",
+              "description": "Environment name",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Merged configuration object",
+            "type": "Object"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 225,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "configWithoutCache",
+          "params": [
+            {
+              "name": "env",
+              "description": "Environment name",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Merged configuration object",
+            "type": "Object"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 271,
+          "description": "<html><head></head><body><p>Returns the addons configuration.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getAddonsConfig",
+          "params": [
+            {
+              "name": "env",
+              "description": "Environment name",
+              "type": "String"
+            },
+            {
+              "name": "appConfig",
+              "description": "Application configuration",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Merged configuration of all addons",
+            "type": "Object"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 294,
+          "description": "<html><head></head><body><p>Returns whether or not the given file name is present in this project.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "file",
+              "description": "File name",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Whether or not the file is present",
+            "type": "Boolean"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 306,
+          "description": "<html><head></head><body><p>Resolves the absolute path to a file synchronously</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "resolveSync",
+          "params": [
+            {
+              "name": "file",
+              "description": "File to resolve",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Absolute path to file",
+            "type": "String"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 320,
+          "description": "<html><head></head><body><p>Calls <code>require</code> on a given module from the context of the project. For\ninstance, an addon may want to require a class from the root project's\nversion of ember-cli.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "require",
+          "params": [
+            {
+              "name": "file",
+              "description": "File path or module name",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Imported module",
+            "type": "Object"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 335,
+          "description": "<html><head></head><body><p>Returns the dependencies from a package.json</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "dependencies",
+          "params": [
+            {
+              "name": "pkg",
+              "description": "Package object",
+              "type": "Object",
+              "optional": true,
+              "optdefault": "this.pkg"
+            },
+            {
+              "name": "excludeDevDeps",
+              "description": "Whether or not development dependencies should be excluded",
+              "type": "Boolean",
+              "optional": true,
+              "optdefault": "false"
+            }
+          ],
+          "return": {
+            "description": "Dependencies",
+            "type": "Object"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 355,
+          "description": "<html><head></head><body><p>Provides the list of paths to consult for addons that may be provided\ninternally to this project. Used for middleware addons with built-in support.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "supportedInternalAddonPaths",
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 381,
+          "description": "<html><head></head><body><p>Discovers all addons for this project and stores their names and\npackage.json contents in this.addonPackages as key-value pairs.</p>\n<p>Any packageInfos that we find that are marked as not valid are excluded.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "discoverAddons",
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 403,
+          "description": "<html><head></head><body><p>Loads and initializes all addons for this project.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "initializeAddons",
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 424,
+          "description": "<html><head></head><body><p>Returns what commands are made available by addons by inspecting\n<code>includedCommands</code> for every addon.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addonCommands",
+          "return": {
+            "description": "Addon names and command maps as key-value pairs",
+            "type": "Object"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 465,
+          "description": "<html><head></head><body><p>Execute a given callback for every addon command.\nExample:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>project.eachAddonCommand(<span class=\"keyword\">function</span>(<span class=\"params\">addonName, commands</span>) {\n  <span class=\"built_in\">console</span>.<span class=\"built_in\">log</span>(<span class=\"string\">'Addon '</span> + addonName + <span class=\"string\">' exported the following commands:'</span> + commands.keys().join(<span class=\"string\">', '</span>));\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "eachAddonCommand",
+          "params": [
+            {
+              "name": "callback",
+              "description": "[description]",
+              "type": "Function"
+            }
+          ],
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 488,
+          "description": "<html><head></head><body><p>Path to the blueprints for this project.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "localBlueprintLookupPath",
+          "return": {
+            "description": "Path to blueprints",
+            "type": "String"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 499,
+          "description": "<html><head></head><body><p>Returns a list of paths (including addon paths) where blueprints will be looked up.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "blueprintLookupPaths",
+          "return": {
+            "description": "List of paths",
+            "type": "Array"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 517,
+          "description": "<html><head></head><body><p>Returns a list of addon paths where blueprints will be looked up.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addonBlueprintLookupPaths",
+          "return": {
+            "description": "List of paths",
+            "type": "Array"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 540,
+          "description": "<html><head></head><body><p>Reloads package.json of the project. Clears and reloads the packageInfo and\nper-bundle addon cache, too.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "reloadPkg",
+          "return": {
+            "description": "Package content",
+            "type": "Object"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 568,
+          "description": "<html><head></head><body><p>Re-initializes addons.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "reloadAddons",
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 581,
+          "description": "<html><head></head><body><p>Find an addon by its name</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "findAddonByName",
+          "params": [
+            {
+              "name": "name",
+              "description": "Addon name as specified in package.json",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Addon instance",
+            "type": "Addon"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 595,
+          "description": "<html><head></head><body><p>Generate test file contents.</p>\n<p>This method is supposed to be overwritten by test framework addons\nlike <code>ember-qunit</code>.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "generateTestFile",
+          "params": [
+            {
+              "name": "moduleName",
+              "description": "Name of the test module (e.g. `JSHint`)",
+              "type": "String"
+            },
+            {
+              "name": "tests",
+              "description": "Array of tests with `name`, `passed` and `errorMessage` properties",
+              "type": "Object[]"
+            }
+          ],
+          "return": {
+            "description": "The test file content",
+            "type": "String"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 619,
+          "description": "<html><head></head><body><p>Returns a new project based on the first <code>package.json</code> that is found\nin <code>pathName</code>.</p>\n<p>If the above <code>package.json</code> specifies <code>ember-addon.projectRoot</code>, we load\nthe project based on the relative path between this directory and the\nspecified <code>projectRoot</code>.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "closestSync",
+          "params": [
+            {
+              "name": "pathName",
+              "description": "Path to your project",
+              "type": "String"
+            },
+            {
+              "name": "_ui",
+              "description": "The UI instance to provide to the created Project.",
+              "type": "UI"
+            }
+          ],
+          "return": {
+            "description": "Project instance",
+            "type": "Project"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 670,
+          "description": "<html><head></head><body><p>Returns a new project based on the first package.json that is found\nin <code>pathName</code>, or the nullProject.</p>\n<p>The nullProject signifies no-project, but abides by the null object pattern</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "projectOrnullProject",
+          "params": [
+            {
+              "name": "_ui",
+              "description": "The UI instance to provide to the created Project.",
+              "type": "UI"
+            }
+          ],
+          "return": {
+            "description": "Project instance",
+            "type": "Project"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 694,
+          "description": "<html><head></head><body><p>Returns the project root based on the first package.json that is found</p>\n</body></html>",
+          "static": 1,
+          "itemtype": "method",
+          "name": "getProjectRoot",
+          "return": {
+            "description": "The project root directory",
+            "type": "String"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "lib/models/project.js",
+          "line": 52,
+          "description": "<html><head></head><body><p>Set when the <code>Watcher.detectWatchman</code> helper method finishes running,\nso that other areas of the system can be aware that watchman is being used.</p>\n<p>For example, this information is used in the broccoli build pipeline to know\nif we can watch additional directories \"cheaply\".</p>\n<p>Contains <code>enabled</code> and <code>version</code>.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_watchmanInfo",
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "default": "false",
+          "class": "Project",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/project.js",
+          "line": 244,
+          "description": "<html><head></head><body><p>Returns the targets of this project, or the default targets if not present.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "targets",
+          "return": {
+            "description": "Targets object",
+            "type": "Object"
+          },
+          "class": "Project",
+          "module": "ember-cli"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-cli-5.3.0-ember-cli",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
