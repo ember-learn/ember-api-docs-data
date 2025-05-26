@@ -1,0 +1,112 @@
+{
+  "data": {
+    "id": "ember-data-5.4.1-RequestManager",
+    "type": "class",
+    "attributes": {
+      "name": "RequestManager",
+      "shortname": "RequestManager",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/request",
+      "namespace": "",
+      "file": "../request/src/-private/manager.ts",
+      "line": 441,
+      "description": "```js\nimport RequestManager from '@ember-data/request';\n```\n\nA RequestManager provides a request/response flow in which configured\nhandlers are successively given the opportunity to handle, modify, or\npass-along a request.\n\n```ts\ninterface RequestManager {\n  request<T>(req: RequestInfo): Future<T>;\n}\n```\n\nFor example:\n\n```ts\nimport RequestManager from '@ember-data/request';\nimport Fetch from '@ember-data/request/fetch';\nimport Auth from 'ember-simple-auth/ember-data-handler';\nimport Config from './config';\n\nconst { apiUrl } = Config;\n\n// ... create manager\nconst manager = new RequestManager().use([Auth, Fetch]);\n\n// ... execute a request\nconst response = await manager.request({\n  url: `${apiUrl}/users`\n});\n```\n\n### Futures\n\nThe return value of `manager.request` is a `Future`, which allows\naccess to limited information about the request while it is still\npending and fulfills with the final state when the request completes.\n\nA `Future` is cancellable via `abort`.\n\nHandlers may optionally expose a `ReadableStream` to the `Future` for\nstreaming data; however, when doing so the future should not resolve\nuntil the response stream is fully read.\n\n```ts\ninterface Future<T> extends Promise<StructuredDocument<T>> {\n  abort(): void;\n\n  async getStream(): ReadableStream | null;\n}\n```\n\n### StructuredDocuments\n\nA Future resolves with a `StructuredDataDocument` or rejects with a `StructuredErrorDocument`.\n\n```ts\ninterface StructuredDataDocument<T> {\n  request: ImmutableRequestInfo;\n  response: ImmutableResponseInfo;\n  content: T;\n}\ninterface StructuredErrorDocument extends Error {\n  request: ImmutableRequestInfo;\n  response: ImmutableResponseInfo;\n  error: string | object;\n}\ntype StructuredDocument<T> = StructuredDataDocument<T> | StructuredErrorDocument;\n```",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/request/src/-private/manager.ts",
+          "line": 536,
+          "description": "Register a handler to use for primary cache intercept.\n\nOnly one such handler may exist. If using the same\nRequestManager as the Store instance the Store\nregisters itself as a Cache handler.",
+          "itemtype": "method",
+          "name": "useCache",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "cacheHandler",
+              "description": "",
+              "type": "Handler[]"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "ThisType"
+          },
+          "class": "RequestManager",
+          "module": "@ember-data/request"
+        },
+        {
+          "file": "../packages/request/src/-private/manager.ts",
+          "line": 565,
+          "description": "Register handler(s) to use when a request is issued.\n\nHandlers will be invoked in the order they are registered.\nEach Handler is given the opportunity to handle the request,\ncurry the request, or pass along a modified request.",
+          "itemtype": "method",
+          "name": "use",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "newHandlers",
+              "description": "",
+              "type": "Handler[]"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "ThisType"
+          },
+          "class": "RequestManager",
+          "module": "@ember-data/request"
+        },
+        {
+          "file": "../packages/request/src/-private/manager.ts",
+          "line": 600,
+          "description": "Issue a Request.\n\nReturns a Future that fulfills with a StructuredDocument",
+          "itemtype": "method",
+          "name": "request",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "request",
+              "description": "",
+              "type": "RequestInfo"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Future"
+          },
+          "class": "RequestManager",
+          "module": "@ember-data/request"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.4.1-@ember-data/request",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.4.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

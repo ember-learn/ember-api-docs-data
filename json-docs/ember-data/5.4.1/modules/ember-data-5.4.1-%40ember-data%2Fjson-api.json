@@ -1,0 +1,37 @@
+{
+  "data": {
+    "id": "ember-data-5.4.1-@ember-data/json-api",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/json-api",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../json-api/src/-private/cache.ts",
+      "line": 125,
+      "description": "<p align=\"center\">\n <img\n   class=\"project-logo\"\n   src=\"https://raw.githubusercontent.com/emberjs/data/4612c9354e4c54d53327ec2cf21955075ce21294/ember-data-logo-light.svg#gh-light-mode-only\"\n   alt=\"EmberData\"\n   width=\"240px\"\n   title=\"EmberData\"\n   />\n</p>\n\nThis package provides an in-memory [JSON:API](https://jsonapi.org/) document and resource [*Ember***Data** Cache](https://github.com/emberjs/data/blob/main/ember-data-types/cache/cache.ts) implementation.\n\n## Installation\n\nInstall using your javascript package manager of choice. For instance with [pnpm](https://pnpm.io/)\n\n```\npnpm add @ember-data/json-api\n```\n\n## 🚀 Setup\n\n> **Note**\n> When using [ember-data](https://github.com/emberjs/data/blob/main/packages/-ember-data) the below\n> configuration is handled for you automatically.\n\n```ts\nimport Store from '@ember-data/store';\nimport Cache from '@ember-data/json-api';\n\nexport default class extends Store {\n createCache(wrapper) {\n   return new Cache(wrapper);\n }\n}\n```\n\n\n## Usage\n\nUsually you will directly interact with the cache only if implementing a presentation class. Below we\ngive an example of a read-only record (mutations never written back to the cache). More typically cache\ninteractions are something that the `Store` coordinates as part of the `request/response` lifecycle.\n\n```ts\nimport Store, { recordIdentifierFor } from '@ember-data/store';\nimport Cache from '@ember-data/json-api';\nimport { TrackedObject } from 'tracked-built-ins';\n\nclass extends Store {\n createCache(wrapper) {\n   return new Cache(wrapper);\n }\n\n instantiateRecord(identifier) {\n   const { cache, notifications } = this;\n   const { type, id } = identifier;\n\n   // create a TrackedObject with our attributes, id and type\n   const attrs = cache.peek(identifier).attributes;\n   const data = Object.assign({}, attrs, { type, id });\n   const record = new TrackedObject(data);\n\n   // update the TrackedObject whenever attributes change\n   const token = notifications.subscribe(identifier, (_, change) => {\n     if (change === 'attributes') {\n       Object.assign(record, cache.peek(identifier).attributes);\n     }\n   });\n\n   // setup the ability to teardown the subscription when the\n   // record is no longer needed\n   record.destroy = () => {\n     this.notifications.unsubscribe(token);\n   };\n\n   return record;\n }\n\n teardownRecord(record: FakeRecord) {\n   record.destroy();\n }\n}\n```\n\nFor the full list of APIs see the docs for [Cache Interface](https://api.emberjs.com/ember-data/release/classes/%3CInterface%3E%20Cache)",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "Cache"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "5.4.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.4.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

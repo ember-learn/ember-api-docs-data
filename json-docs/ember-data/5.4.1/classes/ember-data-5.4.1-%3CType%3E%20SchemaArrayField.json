@@ -1,0 +1,94 @@
+{
+  "data": {
+    "id": "ember-data-5.4.1-<Type> SchemaArrayField",
+    "type": "class",
+    "attributes": {
+      "name": "<Type> SchemaArrayField",
+      "shortname": "<Type> SchemaArrayField",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/core-types",
+      "namespace": "",
+      "file": "../core-types/src/schema/fields.ts",
+      "line": 599,
+      "description": "Represents a field whose value is an array\nof objects with a well-defined structure\ndescribed by a non-resource schema.\n\nIf the array's elements are not well-defined,\nuse 'array' instead.",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 611,
+          "description": "The kind of field this is.",
+          "itemtype": "property",
+          "name": "kind",
+          "type": "'schema-array'",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> SchemaArrayField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 619,
+          "description": "The name of the field.",
+          "itemtype": "property",
+          "name": "name",
+          "type": "String",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> SchemaArrayField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 627,
+          "description": "The name of the ObjectSchema that describes the\nstructure of the objects in the array.",
+          "itemtype": "property",
+          "name": "type",
+          "type": "String",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> SchemaArrayField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 636,
+          "description": "Options for configuring the behavior of the\nSchemaArray.\n\n- `key`\n\nConfigures how the SchemaArray determines whether an object in the cache is the same\nas an object previously used to instantiate one of the schema-objects it contains.\n\nThe default is `'@identity'`.\n\nValid options are:\n\n- `'@identity'` (default) : the cached object's referential identity will be used.\n      This may result in significant instability when resource data is updated from the API\n- `'@index'`              : the cached object's index in the array will be used.\n      This is only a good choice for arrays that rarely if ever change membership\n- `'@hash'`               : will lookup the `@hash` function supplied in the ResourceSchema for\n      The contained schema-object and use the computed result to determine and compare identity.\n- <field-name> (string)   : the name of a field to use as the key, only GenericFields (kind `field`)\n      Are valid field names for this purpose. The cache state without transforms applied will be\n      used when comparing values. The field value should be unique enough to guarantee two schema-objects\n      of the same type will not collide.\n\n- `polymorphic` : Whether this SchemaArray is Polymorphic.\n- `type` : If the SchemaArray is Polymorphic, the key on the raw cache data to use as the \"resource-type\" value for the schema-object.",
+          "itemtype": "property",
+          "name": "options",
+          "type": "ObjectValue | undefined",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> SchemaArrayField",
+          "module": "@warp-drive/core-types"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.4.1-@warp-drive/core-types",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.4.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "data": {
+    "id": "ember-data-5.4.1-AdapterError",
+    "type": "class",
+    "attributes": {
+      "name": "AdapterError",
+      "shortname": "AdapterError",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/adapter/error",
+      "namespace": "",
+      "file": "../adapter/src/error.js",
+      "line": 7,
+      "description": "## Overview\n\n<blockquote style=\"margin: 1em; padding: .1em 1em .1em 1em; border-left: solid 1em #E34C32; background: #e0e0e0;\">\n<p>\n  ⚠️ <strong>This is LEGACY documentation</strong> for a feature that is no longer encouraged to be used.\n  If starting a new app or thinking of implementing a new adapter, consider writing a\n  <a href=\"/ember-data/release/classes/%3CInterface%3E%20Handler\">Handler</a> instead to be used with the <a href=\"https://github.com/emberjs/data/tree/main/packages/request#readme\">RequestManager</a>\n</p>\n</blockquote>\n\nAn `AdapterError` is used by an adapter to signal that an error occurred\nduring a request to an external API. It indicates a generic error, and\nsubclasses are used to indicate specific error states.\n\nTo create a custom error to signal a specific error state in communicating\nwith an external API, extend the `AdapterError`. For example, if the\nexternal API exclusively used HTTP `503 Service Unavailable` to indicate\nit was closed for maintenance:\n\n```js {data-filename=app/adapters/maintenance-error.js}\nimport AdapterError from '@ember-data/adapter/error';\n\nexport default AdapterError.extend({ message: \"Down for maintenance.\" });\n```\n\nThis error would then be returned by an adapter's `handleResponse` method:\n\n```js {data-filename=app/adapters/application.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\nimport MaintenanceError from './maintenance-error';\n\nexport default class ApplicationAdapter extends JSONAPIAdapter {\n  handleResponse(status) {\n    if (503 === status) {\n      return new MaintenanceError();\n    }\n\n    return super.handleResponse(...arguments);\n  }\n}\n```\n\nAnd can then be detected in an application and used to send the user to an\n`under-maintenance` route:\n\n```js {data-filename=app/routes/application.js}\nimport MaintenanceError from '../adapters/maintenance-error';\n\nexport default class ApplicationRoute extends Route {\n  actions: {\n    error(error, transition) {\n      if (error instanceof MaintenanceError) {\n        this.transitionTo('under-maintenance');\n        return;\n      }\n\n      // ...other error handling logic\n    }\n  }\n}\n```\n  @mainName @ember-data/adapter/error\n  @tag main\n",
+      "_main": true,
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-data-5.4.1-InvalidError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-5.4.1-TimeoutError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-5.4.1-AbortError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-5.4.1-UnauthorizedError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-5.4.1-ForbiddenError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-5.4.1-NotFoundError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-5.4.1-ConflictError"
+          },
+          {
+            "type": "class",
+            "id": "ember-data-5.4.1-ServerError"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.4.1-@ember-data/adapter/error",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.4.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
