@@ -1,0 +1,151 @@
+{
+  "data": {
+    "id": "ember-data-5.4.1-@warp-drive/schema-record",
+    "type": "module",
+    "attributes": {
+      "name": "@warp-drive/schema-record",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@warp-drive/schema-record": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "../schema-record/src/-private/schema.ts",
+      "line": 195,
+      "description": "<h3 align=\"center\">Your Data, Managed.</h3>\n<p align=\"center\">🌲 Get back to Nature 🐿️ Or shipping 💚</p>\n\nSchemaRecord is a reactive object that transforms raw data from an [associated cache](../classes/<Interface>%20Cache)\ninto reactive data backed by Signals. The shape of the object and the transformation of raw cache data into its\nreactive form is controlled by a resource schema. Resource schemas are simple JSON, allowing them to be defined\nand delivered from anywhere.\n\nThe capabilities that SchemaRecord brings to [*Warp***Drive**](https://github.com/emberjs/data/)\nwill simplify even the most complex parts of your app's state management.\n\n## Installation\n\nInstall using your javascript package manager of choice. For instance\nwith [pnpm](https://pnpm.io/)\n\n```cli\npnpm add @warp-drive/schema-record\n```\n\n\n---\n\n\n## Getting Started\n\nIf this package is how you are first learning about WarpDrive/EmberData, we\nrecommend starting with learning about [Requests](../modules/@ember-data%2Frequest)\nand the [Store](../modules/@ember-data%2Fstore).\n\n\n---\n\n\n## 🚀 Setup\n\nSchemaRecord integrates with WarpDrive via the Store's resource lifecycle hooks.\nWhen WarpDrive needs to create a new record instance to give reactive access to\na resource in the cache, it calls `instantiateRecord`. When it no longer needs\nthat instance, it will call `teardownRecord`.\n\n```diff\nimport Store from '@ember-data/store';\n+import { instantiateRecord, teardownRecord, registerDerivations, SchemaService } from '@warp-drive/schema-record';\n\nclass AppStore extends Store {\n\n+  createSchemaService() {\n+    const schema = new SchemaService();\n+    registerDerivations(schema);\n+    return schema;\n+  }\n\n+  instantiateRecord(identifier, createArgs) {\n+    return instantiateRecord(this, identifier, createArgs);\n+  }\n\n+  teardownRecord(record) {\n+    return teardownRecord(record);\n+  }\n}\n```\n\nAny Store API that returns a record instance will use the `instantiateRecord`\nhook configured above to instantiate a SchemaRecord once this is in place.\nAfter that, its up to you what SchemaRecord can do.\n\n\n---\n\n\n## Start Using\n\n### Modes\n\nSchemaRecord has two modes: `legacy` and `polaris`.\n\n**LegacyMode** can be used to emulate the behaviors and capabilities of EmberData's `Model` class,\nand because there is little distinction between Model and SchemaRecord in LegacyMode we refer\nto both of these approaches as LegacyMode. This mode is the default experience in V5.\n\nIn LegacyMode:\n\n- records are mutable\n- local changes immediately reflect app wide\n- records have all the APIs of Model (references, state props, currentState, methods etc)\n- the continued use of `@ember-data/model` and `@ember-data/legacy-compat` packages is required (though most imports from them can be removed)\n- `async: true` relationships are supported (but not recommended outside of [LinksMode](https://github.com/emberjs/data/blob/main/guides/relationships/features/links-mode.md))\n\n---\n\n**PolarisMode** is an upcoming suite of features that will become the default experience in V6.\n\nIn PolarisMode:\n\n- records are immutable, unless creating a new resource or explicitly checking out a record for editing\n- local changes are isolated until committed, displaying only via the editable version of the record\n- records have a more limited API, focused on only what is in their schema.\n- some common operations may have more friction to perform because intended utilities are not yet available\n- `async: true` relationships are not supported (see [LinksMode](https://github.com/emberjs/data/blob/main/guides/relationships/features/links-mode.md))\n- `@ember-data/model` and `@ember-data/legacy-compat` packages are not required\n\nThese modes are interopable. The reactive object (record) for a resource in PolarisMode can relate to\na record in LegacyMode and vice-versa. This interopability is true whether the record in LegacyMode is\na SchemaRecord or a Model.\n\n---\n\n### About\n\nSchemaRecord is a reactive object that transforms raw data from an associated\ncache into reactive data backed by Signals.\n\nThe shape of the object and the transformation of raw cache data into its\nreactive form is controlled by a resource schema.\n\nFor instance, lets say your API is a [{JSON:API}](https://jsonapi.org) and your store is using\nthe Cache provided by [@ember-data/json-api](../modules/@ember-data%2Fjson-api), and a request\nreturns the following raw data:\n\n```ts\n{\n  data: {\n    type: 'user',\n    id: '1',\n    attributes: { firstName: 'Chris', lastName: 'Thoburn' },\n    relationships: { pets: { data: [{ type: 'dog', id: '1' }] }}\n  },\n  included: [\n    {\n      type: 'dog',\n      id: '1',\n      attributes: { name: 'Rey' },\n      relationships: { owner: { data: { type: 'user', id: '1' }}}\n    }\n  ]\n}\n```\n\nWe could describe the `'user'` and `'dog'` resources in the above payload\nwith the following schemas:\n\n```ts\nstore.schema.registerResources([\n  {\n    type: 'user',\n    identity: { type: '@id', name: 'id' },\n    fields: [\n      {\n        type: '@identity',\n        name: '$type',\n        kind: 'derived',\n        options: { key: 'type' },\n      },\n      { kind: 'field', name: 'firstName' },\n      { kind: 'field', name: 'lastName' },\n      {\n        kind: 'derived',\n        name: 'name',\n        type: 'concat',\n        options: { fields: ['firstName', 'lastName'], separator: ' ' }\n      },\n      {\n        kind: 'hasMany',\n        name: 'pets',\n        type: 'pet',\n        options: {\n          async: false,\n          inverse: 'owner',\n          polymorphic: true,\n          linksMode: true,\n        }\n      }\n    ]\n  },\n  {\n    type: 'dog',\n    identity: { type: '@id', name: 'id' },\n    fields: [\n      {\n        type: '@identity',\n        name: '$type',\n        kind: 'derived',\n        options: { key: 'type' },\n      },\n      { kind: 'field', name: 'name' },\n      {\n        kind: 'belongsTo',\n        name: 'owner',\n        type: 'user',\n        options: {\n          async: false,\n          inverse: 'pets',\n          as: 'pet',\n          linksMode: true,\n        }\n      }\n    ]\n  }\n]);\n```\n\nWith these schemas in place, the reactive objects that the store would\nprovide us whenever we encountered a `'user'` or a `'dog'` would be:\n\n```ts\n\ninterface Pet {\n  readonly id: string;\n  readonly owner: User;\n}\n\ninterface Dog extends Pet {\n  readonly $type: 'dog';\n  readonly name: string;\n}\n\ninterface EditableUser {\n  readonly $type: 'user';\n  readonly id: string;\n  firstName: string;\n  lastName: string;\n  readonly name: string;\n  pets: Array<Dog | Pet>;\n}\n\ninterface User {\n  readonly $type: 'user';\n  readonly id: string;\n  readonly firstName: string;\n  readonly lastName: string;\n  readonly name: string;\n  readonly pets: Readonly<Array<Dog | Pet>>;\n  [Checkout]: Promise<EditableUser>\n}>\n```\n\nNote how based on the schema the reactive object we receive is able to produce\n`name` on user (despite no name field being in the cache), provide `$type`\npulled from the identity of the resource, and flatten the individual attributes\nand relationships onto the record for easier use.\n\nNotice also how we typed this object with `readonly`. This is because while\nSchemaRecord instances are ***deeply reactive***, they are also ***immutable***.\n\nWe can mutate a SchemaRecord only be explicitly asking permission to do so, and\nin the process gaining access to an editable copy. The immutable version will\nnot show any in-process edits made to this editable copy.\n\n```ts\nimport { Checkout } from '@warp-drive/schema-record';\n\nconst editable = await user[Checkout]();\n```\n\n---\n\n### Utilities\n\nSchemaRecord provides a schema builder that simplifies setting up a couple of\nconventional fields like identity and `$type`. We can rewrite the schema\ndefinition above using this utility like so:\n\n```ts\nimport { withDefaults } from '@warp-drive/schema-record';\n\nstore.schema.registerResources([\n  withDefaults({\n    type: 'user',\n    fields: [\n      { kind: 'field', name: 'firstName' },\n      { kind: 'field', name: 'lastName' },\n      {\n        kind: 'derived',\n        name: 'name',\n        type: 'concat',\n        options: { fields: ['firstName', 'lastName'], separator: ' ' }\n      },\n      {\n        kind: 'hasMany',\n        name: 'pets',\n        type: 'pet',\n        options: {\n          async: false,\n          inverse: 'owner',\n          polymorphic: true,\n          linksMode: true,\n        }\n      }\n    ]\n  }),\n  withDefaults({\n    type: 'dog',\n    fields: [\n      { kind: 'field', name: 'name' },\n      {\n        kind: 'belongsTo',\n        name: 'owner',\n        type: 'user',\n        options: {\n          async: false,\n          inverse: 'pets',\n          as: 'pet',\n          linksMode: true,\n        }\n      }\n    ]\n  })\n]);\n```\n\nAdditionally, `@warp-drive/core-types` provides several utilities for type-checking and narrowing schemas.\n\n- (type) [PolarisResourceSchema](../classes/<Type>%20PolarisResourceSchema)\n- (type) [LegacyResourceSchema](../classes/<Type>%20LegacyResourceSchema)\n- (type) [ObjectSchema](../classes/<Type>%20ObjectSchema)\n- [resourceSchema](../functions/@warp-drive%2Fcore-types/resourceSchema)\n- [objectSchema](../functions/@warp-drive%2Fcore-types/objectSchema)\n- [isResourceSchema](../functions/@warp-drive%2Fcore-types/isResourceSchema)\n- [isLegacyResourceSchema](../functions/@warp-drive%2Fcore-types/isLegacyResourceSchema)\n\n---\n\n### Field Schemas\n\nLegacyMode\n\n- (type) [LegacyModeFieldSchema](../classes/<Type>%20LegacyModeFieldSchema)\n\nPolarisMode\n\n- (type) [PolarisModeFieldSchema](../classes/<Type>%20PolarisModeFieldSchema)",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "SchemaService"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@warp-drive/schema-record": [
+          {
+            "file": "../packages/schema-record/src/-private/schema.ts",
+            "line": 91,
+            "description": "A derivation that computes its value from the\nrecord's identity.\n\nIt can be used via a derived field definition like:\n\n```ts\n{\n  kind: 'derived',\n  name: 'id',\n  type: '@identity',\n  options: { key: 'id' }\n}\n```\n\nValid keys are `'id'`, `'lid'`, `'type'`, and `'^'`.\n\n`^` returns the entire identifier object.",
+            "itemtype": "method",
+            "name": "fromIdentity",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@warp-drive/schema-record",
+            "module": "@warp-drive/schema-record"
+          },
+          {
+            "file": "../packages/schema-record/src/-private/schema.ts",
+            "line": 135,
+            "description": "Registers the default derivations for the SchemaRecord",
+            "itemtype": "method",
+            "name": "registerDerivations",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "schema",
+                "description": "",
+                "type": "SchemaService"
+              }
+            ],
+            "class": "@warp-drive/schema-record",
+            "module": "@warp-drive/schema-record"
+          },
+          {
+            "file": "../packages/schema-record/src/-private/schema.ts",
+            "line": 69,
+            "description": "Utility for constructing a ResourceSchema with the recommended fields\nfor the Polaris experience.",
+            "itemtype": "method",
+            "name": "withDefaults",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "schema",
+                "description": ""
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "ResourceSchema"
+            },
+            "class": "@warp-drive/schema-record",
+            "module": "@warp-drive/schema-record"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@warp-drive/schema-record": [
+          {
+            "file": "../packages/schema-record/src/-private/schema.ts",
+            "line": 91,
+            "description": "A derivation that computes its value from the\nrecord's identity.\n\nIt can be used via a derived field definition like:\n\n```ts\n{\n  kind: 'derived',\n  name: 'id',\n  type: '@identity',\n  options: { key: 'id' }\n}\n```\n\nValid keys are `'id'`, `'lid'`, `'type'`, and `'^'`.\n\n`^` returns the entire identifier object.",
+            "itemtype": "method",
+            "name": "fromIdentity",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@warp-drive/schema-record",
+            "module": "@warp-drive/schema-record"
+          },
+          {
+            "file": "../packages/schema-record/src/-private/schema.ts",
+            "line": 135,
+            "description": "Registers the default derivations for the SchemaRecord",
+            "itemtype": "method",
+            "name": "registerDerivations",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "schema",
+                "description": "",
+                "type": "SchemaService"
+              }
+            ],
+            "class": "@warp-drive/schema-record",
+            "module": "@warp-drive/schema-record"
+          },
+          {
+            "file": "../packages/schema-record/src/-private/schema.ts",
+            "line": 69,
+            "description": "Utility for constructing a ResourceSchema with the recommended fields\nfor the Polaris experience.",
+            "itemtype": "method",
+            "name": "withDefaults",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "schema",
+                "description": ""
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "ResourceSchema"
+            },
+            "class": "@warp-drive/schema-record",
+            "module": "@warp-drive/schema-record"
+          }
+        ]
+      },
+      "version": "5.4.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.4.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

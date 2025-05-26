@@ -1,0 +1,86 @@
+{
+  "data": {
+    "id": "ember-data-5.4.1-@warp-drive/ember",
+    "type": "class",
+    "attributes": {
+      "name": "@warp-drive/ember",
+      "shortname": "@warp-drive/ember",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/ember",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "../packages/ember/src/-private/promise-state.ts",
+          "line": 81,
+          "description": "Returns a reactive state-machine for the provided promise or awaitable.\n\nRepeat calls to `getPromiseState` with the same promise will return the same state object\nmaking is safe and easy to use in templates and JavaScript code to produce reactive\nbehaviors around promises.\n\n`getPromiseState` can be used in both JavaScript and Template contexts.\n\n```ts\nimport { getPromiseState } from '@warp-drive/ember';\n\nconst state = getPromiseState(promise);\n```\n\nFor instance, we could write a getter on a component that updates whenever\nthe promise state advances or the promise changes, by combining the function\nwith the use of `@cached`\n\n```ts\nclass Component {\n  @cached\n  get title() {\n    const state = getPromiseState(this.args.request);\n    if (state.isPending) {\n      return 'loading...';\n    }\n    if (state.isError) { return null; }\n    return state.result.title;\n  }\n}\n```\n\nOr in a template as a helper:\n\n```gjs\nimport { getPromiseState } from '@warp-drive/ember';\n\n<template>\n  {{#let (getPromiseState @request) as |state|}}\n    {{#if state.isPending}} <Spinner />\n    {{else if state.isError}} <ErrorForm @error={{state.error}} />\n    {{else}}\n      <h1>{{state.result.title}}</h1>\n    {{/if}}\n  {{/let}}\n</template>\n```\n\nIf looking to use in a template, consider also the `<Await />` component.",
+          "itemtype": "method",
+          "name": "getPromiseState",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "promise",
+              "description": "",
+              "type": "Promise<T> | Awaitable<T, E>"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "PromiseState<T, E>"
+          },
+          "class": "@warp-drive/ember",
+          "module": "@warp-drive/ember"
+        },
+        {
+          "file": "../packages/ember/src/-private/request-state.ts",
+          "line": 323,
+          "description": "`getRequestState` can be used in both JavaScript and Template contexts.\n\n ```ts\n import { getRequestState } from '@warp-drive/ember';\n\n const state = getRequestState(future);\n ```\n\n For instance, we could write a getter on a component that updates whenever\n the request state advances or the future changes, by combining the function\n with the use of `@cached`\n\n ```ts\n class Component {\n   @cached\n   get title() {\n     const state = getRequestState(this.args.request);\n     if (state.isPending) {\n       return 'loading...';\n     }\n     if (state.isError) { return null; }\n     return state.result.title;\n   }\n }\n ```\n\n Or in a template as a helper:\n\n ```gjs\n import { getRequestState } from '@warp-drive/ember';\n\n <template>\n   {{#let (getRequestState @request) as |state|}}\n     {{#if state.isPending}}\n       <Spinner />\n     {{else if state.isError}}\n       <ErrorForm @error={{state.error}} />\n     {{else}}\n       <h1>{{state.result.title}}</h1>\n     {{/if}}\n   {{/let}}\n </template>\n ```\n\n If looking to use in a template, consider also the `<Request />` component\n which offers a numbe of additional capabilities for requests *beyond* what\n `RequestState` provides.",
+          "itemtype": "method",
+          "name": "getRequestState",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "future",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "RequestState"
+          },
+          "class": "@warp-drive/ember",
+          "module": "@warp-drive/ember"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.4.1-@warp-drive/ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.4.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

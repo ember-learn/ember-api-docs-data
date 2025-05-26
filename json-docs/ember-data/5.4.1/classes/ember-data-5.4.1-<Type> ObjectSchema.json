@@ -1,0 +1,82 @@
+{
+  "data": {
+    "id": "ember-data-5.4.1-<Type> ObjectSchema",
+    "type": "class",
+    "attributes": {
+      "name": "<Type> ObjectSchema",
+      "shortname": "<Type> ObjectSchema",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/core-types",
+      "namespace": "",
+      "file": "../core-types/src/schema/fields.ts",
+      "line": 1892,
+      "description": "Represents a schema for an object that is not\na primary resource (has no unique identity of its own).\n\nObjectSchemas may not currently contain relationships.",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 1902,
+          "description": "Either a HashField from which to calculate an identity or null\n\nIn the case of `null`, the object's identity will be based\non the referential identity of the object in the cache itself\nwhen an identity is needed.",
+          "itemtype": "property",
+          "name": "identity",
+          "type": "HashField | null",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> ObjectSchema",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 1914,
+          "description": "The name of the schema\n\nThe names of object and resource schemas share\na single namespace and must not conflict.\n\nWe recommend a naming convention for object schemas\nsuch as below for ensuring uniqueness:\n\n- for globally shared objects: The pattern `$field:${KlassName}` e.g. `$field:AddressObject`\n- for resource-specific objects: The pattern `$${ResourceKlassName}:$field:${KlassName}` e.g. `$User:$field:ReusableAddress`\n- for inline objects: The pattern `$${ResourceKlassName}.${fieldPath}:$field:anonymous` e.g. `$User.shippingAddress:$field:anonymous`",
+          "itemtype": "property",
+          "name": "type",
+          "type": "String",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> ObjectSchema",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 1932,
+          "description": "The fields that make up the shape of the object",
+          "itemtype": "property",
+          "name": "fields",
+          "type": "ObjectFieldSchema[]",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> ObjectSchema",
+          "module": "@warp-drive/core-types"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.4.1-@warp-drive/core-types",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.4.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
