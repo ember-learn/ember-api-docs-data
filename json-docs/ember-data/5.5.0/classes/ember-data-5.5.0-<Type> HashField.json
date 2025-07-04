@@ -1,0 +1,94 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-<Type> HashField",
+    "type": "class",
+    "attributes": {
+      "name": "<Type> HashField",
+      "shortname": "<Type> HashField",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/core-types",
+      "namespace": "",
+      "file": "../core-types/src/schema/fields.ts",
+      "line": 320,
+      "description": "Represents a specialized field whose computed value\nwill be used as the primary key of a schema-object\nfor serializability and comparison purposes.\n\nThis field functions similarly to derived fields in that\nit is non-settable, derived state but differs in that\nit is only able to compute off of cache state and is given\nno access to a record instance.\n\nThis means that if a hashing function wants to compute its value\ntaking into account transformations and derivations it must\nperform those itself.\n\nA schema-array can declare its \"key\" value to be `@hash` if\na schema-object has such a field.\n\nOnly one hash field is permittable per schema-object, and\nit should be placed in the `ResourceSchema`'s `@id` field\nin place of an `IdentityField`.",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 345,
+          "description": "The kind of field this is.",
+          "itemtype": "property",
+          "name": "kind",
+          "type": "{'@hash'}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> HashField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 354,
+          "description": "The name of the field that serves as the\nhash for the resource.\n\nOnly required if access to this value by\nthe UI is desired, it can be `null` otherwise.",
+          "itemtype": "property",
+          "name": "name",
+          "type": "{String | null}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> HashField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 367,
+          "description": "The name of a function to run to compute the hash.\nThe function will only have access to the cached\ndata for the record.",
+          "itemtype": "property",
+          "name": "type",
+          "type": "{String}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> HashField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 378,
+          "description": "Any options that should be provided to the hash\nfunction.",
+          "itemtype": "property",
+          "name": "options",
+          "type": "{ObjectValue | undefined}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> HashField",
+          "module": "@warp-drive/core-types"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@warp-drive/core-types",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

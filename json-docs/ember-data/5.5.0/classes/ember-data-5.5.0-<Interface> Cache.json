@@ -1,0 +1,787 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-<Interface> Cache",
+    "type": "class",
+    "attributes": {
+      "name": "<Interface> Cache",
+      "shortname": "<Interface> Cache",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/experimental-preview-types",
+      "namespace": "",
+      "file": "../core-types/src/cache.ts",
+      "line": 39,
+      "description": "The interface for EmberData Caches.\n\nA Cache handles in-memory storage of Document and Resource\ndata.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 61,
+          "description": "Cache the response to a request\n\nUnlike `store.push` which has UPSERT\nsemantics, `put` has `replace` semantics similar to\nthe `http` method `PUT`\n\nthe individually cacheable resource data it may contain\nshould upsert, but the document data surrounding it should\nfully replace any existing information\n\nNote that in order to support inserting arbitrary data\nto the cache that did not originate from a request `put`\nshould expect to sometimes encounter a document with only\na `content` member and therefor must not assume the existence\nof `request` and `response` on the document.",
+          "itemtype": "method",
+          "name": "put",
+          "params": [
+            {
+              "name": "doc",
+              "description": "",
+              "type": "StructuredDocument"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "ResourceDocument"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 85,
+          "description": "Update the \"remote\" or \"canonical\" (persisted) state of the Cache\nby merging new information into the existing state.",
+          "itemtype": "method",
+          "name": "patch",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "op",
+              "description": "the operation(s) to perform",
+              "type": "Operation | Operation[]"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 96,
+          "description": "Update the \"local\" or \"current\" (unpersisted) state of the Cache",
+          "itemtype": "method",
+          "name": "mutate",
+          "params": [
+            {
+              "name": "mutation",
+              "description": "",
+              "type": "Mutation"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 106,
+          "description": "Peek resource data from the Cache.\n\nIn development, if the return value\nis JSON the return value\nwill be deep-cloned and deep-frozen\nto prevent mutation thereby enforcing cache\nImmutability.\n\nThis form of peek is useful for implementations\nthat want to feed raw-data from cache to the UI\nor which want to interact with a blob of data\ndirectly from the presentation cache.\n\nAn implementation might want to do this because\nde-referencing records which read from their own\nblob is generally safer because the record does\nnot require retainining connections to the Store\nand Cache to present data on a per-field basis.\n\nThis generally takes the place of `getAttr` as\nan API and may even take the place of `getRelationship`\ndepending on implementation specifics, though this\nlatter usage is less recommended due to the advantages\nof the Graph handling necessary entanglements and\nnotifications for relational data.",
+          "itemtype": "method",
+          "name": "peek",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier | StableDocumentIdentifier"
+            }
+          ],
+          "return": {
+            "description": "the known resource data",
+            "type": "ResourceDocument | ResourceBlob | null"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 141,
+          "description": "Peek remote resource data from the Cache.\n\nThis will give the data provided from the server without any local changes.\n\nIn development, if the return value\nis JSON the return value\nwill be deep-cloned and deep-frozen\nto prevent mutation thereby enforcing cache\nImmutability.\n\nThis form of peek is useful for implementations\nthat want to feed raw-data from cache to the UI\nor which want to interact with a blob of data\ndirectly from the presentation cache.\n\nAn implementation might want to do this because\nde-referencing records which read from their own\nblob is generally safer because the record does\nnot require retainining connections to the Store\nand Cache to present data on a per-field basis.\n\nThis generally takes the place of `getAttr` as\nan API and may even take the place of `getRelationship`\ndepending on implementation specifics, though this\nlatter usage is less recommended due to the advantages\nof the Graph handling necessary entanglements and\nnotifications for relational data.",
+          "itemtype": "method",
+          "name": "peek",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier | StableDocumentIdentifier"
+            }
+          ],
+          "return": {
+            "description": "the known resource data",
+            "type": "ResourceDocument | ResourceBlob | null"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 178,
+          "description": "Peek the Cache for the existing request data associated with\na cacheable request\n\nThis is effectively the reverse of `put` for a request in\nthat it will return the the request, response, and content\nwhereas `peek` will return just the `content`.",
+          "itemtype": "method",
+          "name": "peekRequest",
+          "params": [
+            {
+              "name": "UNKNOWN",
+              "description": "",
+              "type": "StableDocumentIdentifier"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "StructuredDocument<ResourceDocument> | null"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 193,
+          "description": "Push resource data from a remote source into the cache for this identifier",
+          "itemtype": "method",
+          "name": "upsert",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "data",
+              "description": ""
+            },
+            {
+              "name": "hasRecord",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "if `hasRecord` is true then calculated key changes should be returned",
+            "type": "Void | string[]"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 208,
+          "description": "Create a fork of the cache from the current state.\n\nApplications should typically not call this method themselves,\npreferring instead to fork at the Store level, which will\nutilize this method to fork the cache.",
+          "itemtype": "method",
+          "name": "fork",
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "Promise<Cache>"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 221,
+          "description": "Merge a fork back into a parent Cache.\n\nApplications should typically not call this method themselves,\npreferring instead to merge at the Store level, which will\nutilize this method to merge the caches.",
+          "itemtype": "method",
+          "name": "merge",
+          "params": [
+            {
+              "name": "cache",
+              "description": "",
+              "type": "Cache"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "return": {
+            "description": "Promise<void>"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 235,
+          "description": "Generate the list of changes applied to all\nrecord in the store.\n\nEach individual resource or document that has\nbeen mutated should be described as an individual\n`Change` entry in the returned array.\n\nA `Change` is described by an object containing up to\nthree properties: (1) the `identifier` of the entity that\nchanged; (2) the `op` code of that change being one of\n`upsert` or `remove`, and if the op is `upsert` a `patch`\ncontaining the data to merge into the cache for the given\nentity.\n\nThis `patch` is opaque to the Store but should be understood\nby the Cache and may expect to be utilized by an Adapter\nwhen generating data during a `save` operation.\n\nIt is generally recommended that the `patch` contain only\nthe updated state, ignoring fields that are unchanged\n\n```ts\ninterface Change {\n identifier: StableRecordIdentifier | StableDocumentIdentifier;\n op: 'upsert' | 'remove';\n patch?: unknown;\n}\n```",
+          "itemtype": "method",
+          "name": "diff",
+          "access": "public",
+          "tagname": "",
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 273,
+          "description": "Serialize the entire contents of the Cache into a Stream\nwhich may be fed back into a new instance of the same Cache\nvia `cache.hydrate`.",
+          "itemtype": "method",
+          "name": "dump",
+          "return": {
+            "description": "",
+            "type": "Promise<ReadableStream>"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 284,
+          "description": "hydrate a Cache from a Stream with content previously serialized\nfrom another instance of the same Cache, resolving when hydration\nis complete.\n\nThis method should expect to be called both in the context of restoring\nthe Cache during application rehydration after SSR **AND** at unknown\ntimes during the lifetime of an already booted application when it is\ndesired to bulk-load additional information into the cache. This latter\nbehavior supports optimizing pre/fetching of data for route transitions\nvia data-only SSR modes.",
+          "itemtype": "method",
+          "name": "hydrate",
+          "params": [
+            {
+              "name": "stream",
+              "description": "",
+              "type": "ReadableStream"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise<void>"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 306,
+          "description": "[LIFECYCLE] Signal to the cache that a new record has been instantiated on the client\n\nIt returns properties from options that should be set on the record during the create\nprocess. This return value behavior is deprecated.",
+          "itemtype": "method",
+          "name": "clientDidCreate",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "createArgs",
+              "description": ""
+            }
+          ],
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 319,
+          "description": "[LIFECYCLE] Signals to the cache that a resource\nwill be part of a save transaction.",
+          "itemtype": "method",
+          "name": "willCommit",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 329,
+          "description": "[LIFECYCLE] Signals to the cache that a resource\nwas successfully updated as part of a save transaction.",
+          "itemtype": "method",
+          "name": "didCommit",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "- the primary identifier that was operated on"
+            },
+            {
+              "name": "data",
+              "description": "- a document in the cache format containing any updated data"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "SingleResourceDataDocument"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 341,
+          "description": "[LIFECYCLE] Signals to the cache that a resource\nwas update via a save transaction failed.",
+          "itemtype": "method",
+          "name": "commitWasRejected",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "errors",
+              "description": ""
+            }
+          ],
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 352,
+          "description": "[LIFECYCLE] Signals to the cache that all data for a resource\nshould be cleared.\n\nThis method is a candidate to become a mutation",
+          "itemtype": "method",
+          "name": "unloadRecord",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 367,
+          "description": "Retrieve the data for an attribute from the cache",
+          "itemtype": "method",
+          "name": "getAttr",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "field",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Unknown"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 378,
+          "description": "Retrieve remote state without any local changes for a specific attribute",
+          "itemtype": "method",
+          "name": "getRemoteAttr",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "field",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Unknown"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 389,
+          "description": "Mutate the data for an attribute in the cache\n\nThis method is a candidate to become a mutation",
+          "itemtype": "method",
+          "name": "setAttr",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "field",
+              "description": ""
+            },
+            {
+              "name": "value",
+              "description": ""
+            }
+          ],
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 402,
+          "description": "Query the cache for the changed attributes of a resource.\n\nReturns a map of field names to tuples of [old, new] values\n\n```\n{ <field>: [<old>, <new>] }\n```",
+          "itemtype": "method",
+          "name": "changedAttrs",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "{ <field>: [<old>, <new>] }",
+            "type": "Record<string, [unknown, unknown]>"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 418,
+          "description": "Query the cache for whether any mutated attributes exist",
+          "itemtype": "method",
+          "name": "hasChangedAttrs",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 428,
+          "description": "Tell the cache to discard any uncommitted mutations to attributes\n\nThis method is a candidate to become a mutation",
+          "itemtype": "method",
+          "name": "rollbackAttrs",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "the names of fields that were restored",
+            "type": "String[]"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 440,
+          "description": "Query the cache for the changes to relationships of a resource.\n\nReturns a map of relationship names to RelationshipDiff objects.\n\n```ts\ntype RelationshipDiff =\n | {\n     kind: 'collection';\n     remoteState: StableRecordIdentifier[];\n     additions: Set<StableRecordIdentifier>;\n     removals: Set<StableRecordIdentifier>;\n     localState: StableRecordIdentifier[];\n     reordered: boolean;\n   }\n | {\n     kind: 'resource';\n     remoteState: StableRecordIdentifier | null;\n     localState: StableRecordIdentifier | null;\n   };\n   ```",
+          "itemtype": "method",
+          "name": "changedRelationships",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Map<string, RelationshipDiff>"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 469,
+          "description": "Query the cache for whether any mutated attributes exist",
+          "itemtype": "method",
+          "name": "hasChangedRelationships",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 479,
+          "description": "Tell the cache to discard any uncommitted mutations to relationships.\n\nThis will also discard the change on any appropriate inverses.\n\nThis method is a candidate to become a mutation",
+          "itemtype": "method",
+          "name": "rollbackRelationships",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            }
+          ],
+          "return": {
+            "description": "the names of relationships that were restored",
+            "type": "String[]"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 493,
+          "description": "Query the cache for the current state of a relationship property",
+          "itemtype": "method",
+          "name": "getRelationship",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            },
+            {
+              "name": "field",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "resource relationship object"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 508,
+          "description": "Query the cache for the server state of a relationship property without any local changes",
+          "itemtype": "method",
+          "name": "getRelationship",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableRecordIdentifier"
+            },
+            {
+              "name": "field",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "resource relationship object"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 526,
+          "description": "Update the cache state for the given resource to be marked\nas locally deleted, or remove such a mark.\n\nThis method is a candidate to become a mutation",
+          "itemtype": "method",
+          "name": "setIsDeleted",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            },
+            {
+              "name": "isDeleted",
+              "description": "",
+              "type": "Boolean"
+            }
+          ],
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 539,
+          "description": "Query the cache for any validation errors applicable to the given resource.",
+          "itemtype": "method",
+          "name": "getErrors",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "JsonApiError[]"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 549,
+          "description": "Query the cache for whether a given resource has any available data",
+          "itemtype": "method",
+          "name": "isEmpty",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 559,
+          "description": "Query the cache for whether a given resource was created locally and not\nyet persisted.",
+          "itemtype": "method",
+          "name": "isNew",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 570,
+          "description": "Query the cache for whether a given resource is marked as deleted (but not\nnecessarily persisted yet).",
+          "itemtype": "method",
+          "name": "isDeleted",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        },
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 581,
+          "description": "Query the cache for whether a given resource has been deleted and that deletion\nhas also been persisted.",
+          "itemtype": "method",
+          "name": "isDeletionCommitted",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/core-types/src/cache.ts",
+          "line": 49,
+          "description": "The Cache Version that this implementation implements.",
+          "type": "{'2'}",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "version",
+          "class": "<Interface> Cache",
+          "module": "@ember-data/experimental-preview-types"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@ember-data/experimental-preview-types",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

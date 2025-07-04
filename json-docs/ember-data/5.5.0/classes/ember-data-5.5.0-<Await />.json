@@ -1,0 +1,45 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-<Await />",
+    "type": "class",
+    "attributes": {
+      "name": "<Await />",
+      "shortname": "<Await />",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/ember",
+      "namespace": "",
+      "file": "../ember/src/-private/await.gts",
+      "line": 52,
+      "description": "The <Await /> component allow you to utilize reactive control flow\nfor asynchronous states in your application.\n\nAwait is ideal for handling \"boundaries\", outside which some state is\nstill allowed to be unresolved and within which it MUST be resolved.\n\n```gjs\nimport { Await } from '@warp-drive/ember';\n\n<template>\n  <Await @promise={{@request}}>\n    <:pending>\n      <Spinner />\n    </:pending>\n\n    <:error as |error|>\n      <ErrorForm @error={{error}} />\n    </:error>\n\n    <:success as |result|>\n      <h1>{{result.title}}</h1>\n    </:success>\n  </Await>\n</template>\n```\n\nThe <Await /> component requires that error states are properly handled.\n\nIf no error block is provided and the promise rejects, the error will\nbe thrown.",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@warp-drive/ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

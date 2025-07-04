@@ -1,0 +1,39 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-@ember-data/adapter/rest",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/adapter/rest",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember-data/adapter/rest": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "../adapter/src/rest.ts",
+      "line": 68,
+      "description": "<blockquote style=\"margin: 1em; padding: .1em 1em .1em 1em; border-left: solid 1em #E34C32; background: #e0e0e0;\">\n <p>\n   ⚠️ <strong>This is LEGACY documentation</strong> for a feature that is no longer encouraged to be used.\n   If starting a new app or thinking of implementing a new adapter, consider writing a\n   <a href=\"/ember-data/release/classes/%3CInterface%3E%20Handler\">Handler</a> instead to be used with the <a href=\"https://github.com/emberjs/data/tree/main/packages/request#readme\">RequestManager</a>\n </p>\n </blockquote>\n\n The REST adapter allows your store to communicate with an HTTP server by\n transmitting JSON via XHR.\n\n This adapter is designed around the idea that the JSON exchanged with\n the server should be conventional. It builds URLs in a manner that follows\n the structure of most common REST-style web services.\n\n ## Success and failure\n\n The REST adapter will consider a success any response with a status code\n of the 2xx family (\"Success\"), as well as 304 (\"Not Modified\"). Any other\n status code will be considered a failure.\n\n On success, the request promise will be resolved with the full response\n payload.\n\n Failed responses with status code 422 (\"Unprocessable Entity\") will be\n considered \"invalid\". The response will be discarded, except for the\n `errors` key. The request promise will be rejected with a `InvalidError`.\n This error object will encapsulate the saved `errors` value.\n\n Any other status codes will be treated as an \"adapter error\". The request\n promise will be rejected, similarly to the \"invalid\" case, but with\n an instance of `AdapterError` instead.\n\n ## JSON Structure\n\n The REST adapter expects the JSON returned from your server to follow\n these conventions.\n\n ### Object Root\n\n The JSON payload should be an object that contains the record inside a\n root property. For example, in response to a `GET` request for\n `/posts/1`, the JSON should look like this:\n\n ```js\n {\n   \"posts\": {\n     \"id\": 1,\n     \"title\": \"I'm Running to Reform the W3C\",\n     \"author\": \"Yehuda Katz\"\n   }\n }\n ```\n\n Similarly, in response to a `GET` request for `/posts`, the JSON should\n look like this:\n\n ```js\n {\n   \"posts\": [\n     {\n       \"id\": 1,\n       \"title\": \"I'm Running to Reform the W3C\",\n       \"author\": \"Yehuda Katz\"\n     },\n     {\n       \"id\": 2,\n       \"title\": \"Rails is omakase\",\n       \"author\": \"D2H\"\n     }\n   ]\n }\n ```\n\n Note that the object root can be pluralized for both a single-object response\n and an array response: the REST adapter is not strict on this. Further, if the\n HTTP server responds to a `GET` request to `/posts/1` (e.g. the response to a\n `findRecord` query) with more than one object in the array, Ember Data will\n only display the object with the matching ID.\n\n ### Conventional Names\n\n Attribute names in your JSON payload should be the camelCased versions of\n the attributes in your Ember.js models.\n\n For example, if you have a `Person` model:\n\n ```js {data-filename=app/models/person.js}\n import Model, { attr } from '@ember-data/model';\n\n export default Model.extend({\n   firstName: attr('string'),\n   lastName: attr('string'),\n   occupation: attr('string')\n });\n ```\n\n The JSON returned should look like this:\n\n ```js\n {\n   \"people\": {\n     \"id\": 5,\n     \"firstName\": \"Zaphod\",\n     \"lastName\": \"Beeblebrox\",\n     \"occupation\": \"President\"\n   }\n }\n ```\n\n #### Relationships\n\n Relationships are usually represented by ids to the record in the\n relationship. The related records can then be sideloaded in the\n response under a key for the type.\n\n ```js\n {\n   \"posts\": {\n     \"id\": 5,\n     \"title\": \"I'm Running to Reform the W3C\",\n     \"author\": \"Yehuda Katz\",\n     \"comments\": [1, 2]\n   },\n   \"comments\": [{\n     \"id\": 1,\n     \"author\": \"User 1\",\n     \"message\": \"First!\",\n   }, {\n     \"id\": 2,\n     \"author\": \"User 2\",\n     \"message\": \"Good Luck!\",\n   }]\n }\n ```\n\n If the records in the relationship are not known when the response\n is serialized it's also possible to represent the relationship as a\n URL using the `links` key in the response. Ember Data will fetch\n this URL to resolve the relationship when it is accessed for the\n first time.\n\n ```js\n {\n   \"posts\": {\n     \"id\": 5,\n     \"title\": \"I'm Running to Reform the W3C\",\n     \"author\": \"Yehuda Katz\",\n     \"links\": {\n       \"comments\": \"/posts/5/comments\"\n     }\n   }\n }\n ```\n\n ### Errors\n\n If a response is considered a failure, the JSON payload is expected to include\n a top-level key `errors`, detailing any specific issues. For example:\n\n ```js\n {\n   \"errors\": {\n     \"msg\": \"Something went wrong\"\n   }\n }\n ```\n\n This adapter does not make any assumptions as to the format of the `errors`\n object. It will simply be passed along as is, wrapped in an instance\n of `InvalidError` or `AdapterError`. The serializer can interpret it\n afterwards.\n\n ## Customization\n\n ### Endpoint path customization\n\n Endpoint paths can be prefixed with a `namespace` by setting the namespace\n property on the adapter:\n\n ```js {data-filename=app/adapters/application.js}\n import RESTAdapter from '@ember-data/adapter/rest';\n\n export default class ApplicationAdapter extends RESTAdapter {\n   namespace = 'api/1';\n }\n ```\n Requests for the `Person` model would now target `/api/1/people/1`.\n\n ### Host customization\n\n An adapter can target other hosts by setting the `host` property.\n\n ```js {data-filename=app/adapters/application.js}\n import RESTAdapter from '@ember-data/adapter/rest';\n\n export default class ApplicationAdapter extends RESTAdapter {\n   host = 'https://api.example.com';\n }\n ```\n\n ### Headers customization\n\n Some APIs require HTTP headers, e.g. to provide an API key. Arbitrary\n headers can be set as key/value pairs on the `RESTAdapter`'s `headers`\n object and EmberData will send them along with each ajax request.\n\n\n ```js {data-filename=app/adapters/application.js}\n import RESTAdapter from '@ember-data/adapter/rest';\n\n export default class ApplicationAdapter extends RESTAdapter {\n   get headers() {\n     return {\n       'API_KEY': 'secret key',\n       'ANOTHER_HEADER': 'Some header value'\n     };\n   }\n }\n ```",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "RESTAdapter"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "5.5.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

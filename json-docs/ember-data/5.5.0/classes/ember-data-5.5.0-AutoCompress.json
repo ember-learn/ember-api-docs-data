@@ -1,0 +1,50 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-AutoCompress",
+    "type": "class",
+    "attributes": {
+      "name": "AutoCompress",
+      "shortname": "AutoCompress",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/request-utils/handlers",
+      "namespace": "",
+      "file": "../request-utils/src/-private/handlers/auto-compress.ts",
+      "line": 164,
+      "description": "A request handler that automatically compresses the request body\nif the request body is a string, array buffer, blob, or form data.\n\nThis uses the [CompressionStream API](https://developer.mozilla.org/en-US/docs/Web/API/CompressionStream)\n\nThe compression format as well as the kinds of data to compress can be\nconfigured using the `format` and `constraints` options.\n\n```diff\n+import { AutoCompress } from '@ember-data/request-utils/handlers';\nimport Fetch from '@ember-data/request/fetch';\nimport RequestManager from '@ember-data/request';\nimport Store from '@ember-data/store';\n\nclass AppStore extends Store {\n  requestManager = new RequestManager()\n    .use([\n+       new AutoCompress(),\n       Fetch\n    ]);\n}\n```",
+      "extends": "Handler",
+      "access": "public",
+      "tagname": "",
+      "since": "5.5.0",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Handler",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@ember-data/request-utils/handlers",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

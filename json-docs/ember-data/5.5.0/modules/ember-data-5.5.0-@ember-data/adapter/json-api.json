@@ -1,0 +1,38 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-@ember-data/adapter/json-api",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/adapter/json-api",
+      "submodules": {},
+      "elements": {},
+      "fors": {},
+      "namespaces": {},
+      "tag": "main",
+      "file": "../adapter/src/json-api.ts",
+      "line": 16,
+      "description": "## Overview\n\n<blockquote style=\"margin: 1em; padding: .1em 1em .1em 1em; border-left: solid 1em #E34C32; background: #e0e0e0;\">\n<p>\n  ⚠️ <strong>This is LEGACY documentation</strong> for a feature that is no longer encouraged to be used.\n  If starting a new app or thinking of implementing a new adapter, consider writing a\n  <a href=\"/ember-data/release/classes/%3CInterface%3E%20Handler\">Handler</a> instead to be used with the <a href=\"https://github.com/emberjs/data/tree/main/packages/request#readme\">RequestManager</a>\n</p>\n</blockquote>\n\nThe `JSONAPIAdapter` is an adapter whichtransforms the store's\nrequests into HTTP requests that follow the [JSON API format](http://jsonapi.org/format/).\n\n## JSON API Conventions\n\nThe JSONAPIAdapter uses JSON API conventions for building the URL\nfor a record and selecting the HTTP verb to use with a request. The\nactions you can take on a record map onto the following URLs in the\nJSON API adapter:\n\n<table>\n<tr>\n  <th>\n    Action\n  </th>\n  <th>\n    HTTP Verb\n  </th>\n  <th>\n    URL\n  </th>\n</tr>\n<tr>\n  <th>\n    `store.findRecord('post', 123)`\n  </th>\n  <td>\n    GET\n  </td>\n  <td>\n    /posts/123\n  </td>\n</tr>\n<tr>\n  <th>\n    `store.findAll('post')`\n  </th>\n  <td>\n    GET\n  </td>\n  <td>\n    /posts\n  </td>\n</tr>\n<tr>\n  <th>\n    Update `postRecord.save()`\n  </th>\n  <td>\n    PATCH\n  </td>\n  <td>\n    /posts/123\n  </td>\n</tr>\n<tr>\n  <th>\n    Create `store.createRecord('post').save()`\n  </th>\n  <td>\n    POST\n  </td>\n  <td>\n    /posts\n  </td>\n</tr>\n<tr>\n  <th>\n    Delete `postRecord.destroyRecord()`\n  </th>\n  <td>\n    DELETE\n  </td>\n  <td>\n    /posts/123\n  </td>\n</tr>\n</table>\n\n## Success and failure\n\nThe JSONAPIAdapter will consider a success any response with a\nstatus code of the 2xx family (\"Success\"), as well as 304 (\"Not\nModified\"). Any other status code will be considered a failure.\n\nOn success, the request promise will be resolved with the full\nresponse payload.\n\nFailed responses with status code 422 (\"Unprocessable Entity\") will\nbe considered \"invalid\". The response will be discarded, except for\nthe `errors` key. The request promise will be rejected with a\n`InvalidError`. This error object will encapsulate the saved\n`errors` value.\n\nAny other status codes will be treated as an adapter error. The\nrequest promise will be rejected, similarly to the invalid case,\nbut with an instance of `AdapterError` instead.\n\n### Endpoint path customization\n\nEndpoint paths can be prefixed with a `namespace` by setting the\nnamespace property on the adapter:\n\n```js {data-filename=app/adapters/application.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default class ApplicationAdapter extends JSONAPIAdapter {\n  namespace = 'api/1';\n}\n```\nRequests for the `person` model would now target `/api/1/people/1`.\n\n### Host customization\n\nAn adapter can target other hosts by setting the `host` property.\n\n```js {data-filename=app/adapters/application.js}\nimport JSONAPIAdapter from '@ember-data/adapter/json-api';\n\nexport default class ApplicationAdapter extends JSONAPIAdapter {\n  host = 'https://api.example.com';\n}\n```\n\nRequests for the `person` model would now target\n`https://api.example.com/people/1`.",
+      "since": "1.13.0",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "JSONAPIAdapter"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {},
+      "allstaticfunctions": {},
+      "version": "5.5.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

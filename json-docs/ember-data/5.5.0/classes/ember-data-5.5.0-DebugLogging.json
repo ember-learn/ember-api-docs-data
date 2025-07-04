@@ -1,0 +1,166 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-DebugLogging",
+    "type": "class",
+    "attributes": {
+      "name": "DebugLogging",
+      "shortname": "DebugLogging",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/build-config",
+      "namespace": "",
+      "file": "../build-config/src/debugging.ts",
+      "line": 4,
+      "description": "## Debug Logging\n\nMany portions of the internals are helpfully instrumented with logging.\nThis instrumentation is always removed from production builds.\n\nLog instrumentation is \"regionalized\" to specific concepts and concerns\nto enable you to enable/disable just the areas you are interested in.\n\nTo activate a particular group of logs set the appropriate flag to `true`\neither in your build config or via the runtime helper.\n\n\n### Activation Via Runtime Helper\n\nA runtime helper is attached to `globalThis` to enable activation of the logs\nfrom anywhere in your application including from the devtools panel.\n\nThe runtime helper overrides any build config settings for the given flag\nfor the current browser tab. It stores the configuration you give it in\n`sessionStorage` so that it persists across page reloads of the current tab,\nbut not across browser tabs or windows. Thus if you need to deactivate the\nlogging, you can call the helper again with the same flag set to `false` or\njust open a new tab/window.\n\nExample Usage:\n\n```ts\nsetWarpDriveLogging({\n  LOG_CACHE: true,\n  LOG_REQUESTS: true,\n})\n```\n\n### Activation Via Build Config\n\n```ts\nsetConfig(__dirname, app, {\n  debug: {\n    LOG_CACHE: false, // data store received to update cache with\n    LOG_NOTIFICATIONS: false,\n    LOG_REQUESTS: false,\n    LOG_REQUEST_STATUS: false,\n    LOG_IDENTIFIERS: false,\n    LOG_GRAPH: false,\n    LOG_INSTANCE_CACHE: false,\n    LOG_METRIC_COUNTS: false,\n    DEBUG_RELATIONSHIP_NOTIFICATIONS: false,\n  }\n});\n```",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/build-config/src/debugging.ts",
+          "line": 59,
+          "description": "log cache updates for both local\nand remote state. Note in some older versions\nthis was called `LOG_PAYLOADS` and was one\nof three flags that controlled logging of\ncache updates. This is now the only flag.\n\nThe others were `LOG_OPERATIONS` and `LOG_MUTATIONS`.",
+          "itemtype": "property",
+          "name": "LOG_CACHE",
+          "type": "{Boolean}",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@warp-drive/build-config"
+        },
+        {
+          "file": "../packages/build-config/src/debugging.ts",
+          "line": 73,
+          "description": "Log decisions made by the Basic CachePolicy",
+          "itemtype": "property",
+          "name": "LOG_CACHE_POLICY",
+          "type": "{Boolean}",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@warp-drive/build-config"
+        },
+        {
+          "file": "../packages/build-config/src/debugging.ts",
+          "line": 82,
+          "description": "log notifications received by the NotificationManager",
+          "itemtype": "property",
+          "name": "LOG_NOTIFICATIONS",
+          "type": "{Boolean}",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@warp-drive/build-config"
+        },
+        {
+          "file": "../packages/build-config/src/debugging.ts",
+          "line": 90,
+          "description": "log requests issued by the RequestManager",
+          "itemtype": "property",
+          "name": "LOG_REQUESTS",
+          "type": "{Boolean}",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@warp-drive/build-config"
+        },
+        {
+          "file": "../packages/build-config/src/debugging.ts",
+          "line": 98,
+          "description": "log updates to requests the store has issued to\nthe network (adapter) to fulfill.",
+          "itemtype": "property",
+          "name": "LOG_REQUEST_STATUS",
+          "type": "{Boolean}",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@warp-drive/build-config"
+        },
+        {
+          "file": "../packages/build-config/src/debugging.ts",
+          "line": 107,
+          "description": "log peek, generation and updates to\nRecord Identifiers.",
+          "itemtype": "property",
+          "name": "LOG_IDENTIFIERS",
+          "type": "{Boolean}",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@warp-drive/build-config"
+        },
+        {
+          "file": "../packages/build-config/src/debugging.ts",
+          "line": 117,
+          "description": "log updates received by the graph (relationship pointer storage)",
+          "itemtype": "property",
+          "name": "LOG_GRAPH",
+          "type": "{Boolean}",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@warp-drive/build-config"
+        },
+        {
+          "file": "../packages/build-config/src/debugging.ts",
+          "line": 125,
+          "description": "log creation/removal of RecordData and Record\ninstances.",
+          "itemtype": "property",
+          "name": "LOG_INSTANCE_CACHE",
+          "type": "{Boolean}",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@warp-drive/build-config"
+        },
+        {
+          "file": "../packages/build-config/src/debugging.ts",
+          "line": 134,
+          "description": "Log key count metrics, useful for performance\ndebugging.",
+          "itemtype": "property",
+          "name": "LOG_METRIC_COUNTS",
+          "type": "{Boolean}",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@warp-drive/build-config"
+        },
+        {
+          "file": "../packages/build-config/src/debugging.ts",
+          "line": 143,
+          "description": "Helps when debugging causes of a change notification\nwhen processing an update to a hasMany relationship.",
+          "itemtype": "property",
+          "name": "DEBUG_RELATIONSHIP_NOTIFICATIONS",
+          "type": "{Boolean}",
+          "access": "public",
+          "tagname": "",
+          "class": "DebugLogging",
+          "module": "@warp-drive/build-config"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@warp-drive/build-config",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

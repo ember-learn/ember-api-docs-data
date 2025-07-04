@@ -1,0 +1,799 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-@ember-data/request-utils/string",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/request-utils/string",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember-data/request-utils/string": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "../request-utils/src/string.ts",
+      "line": 1,
+      "description": "String utilties for transforming and inflecting strings useful for\nwhen the format provided by the server is not the format you want to use\nin your application.\n\nEach transformation function stores its results in an LRUCache to avoid\nrecomputing the same value multiple times. The cache size can be set\nusing the `setMaxLRUCacheSize` function. The default size is 10,000.",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@ember-data/request-utils/string": [
+          {
+            "file": "../packages/request-utils/src/-private/string/transform.ts",
+            "line": 122,
+            "description": "Returns the lowerCamelCase form of a string.\n\n```js\nimport { camelize } from '@ember-data/request-utils/string';\n\ncamelize('innerHTML');                   // 'innerHTML'\ncamelize('action_name');                 // 'actionName'\ncamelize('css-class-name');              // 'cssClassName'\ncamelize('my favorite items');           // 'myFavoriteItems'\ncamelize('My Favorite Items');           // 'myFavoriteItems'\ncamelize('private-docs/owner-invoice');  // 'privateDocs/ownerInvoice'\n```",
+            "itemtype": "method",
+            "name": "camelize",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "str",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/transform.ts",
+            "line": 173,
+            "description": "Returns the Capitalized form of a string\n\n```js\nimport { capitalize } from '@ember-data/request-utils/string';\n\ncapitalize('innerHTML')                 // 'InnerHTML'\ncapitalize('action_name')               // 'Action_name'\ncapitalize('css-class-name')            // 'Css-class-name'\ncapitalize('my favorite items')         // 'My favorite items'\ncapitalize('privateDocs/ownerInvoice'); // 'PrivateDocs/ownerInvoice'\n```",
+            "itemtype": "method",
+            "name": "capitalize",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "str",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 108,
+            "description": "Clears the caches for singularize and pluralize.",
+            "itemtype": "method",
+            "name": "clear",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 141,
+            "description": "Clears all inflection rules\nand resets the caches for singularize and pluralize.",
+            "itemtype": "method",
+            "name": "clearRules",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/transform.ts",
+            "line": 97,
+            "description": "Replaces underscores, spaces, or camelCase with dashes.\n\n```js\nimport { dasherize } from '@ember-data/request-utils/string';\n\ndasherize('innerHTML');                // 'inner-html'\ndasherize('action_name');              // 'action-name'\ndasherize('css-class-name');           // 'css-class-name'\ndasherize('my favorite items');        // 'my-favorite-items'\ndasherize('privateDocs/ownerInvoice';  // 'private-docs/owner-invoice'\n```",
+            "itemtype": "method",
+            "name": "dasherize",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "str",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 60,
+            "description": "Marks a word as irregular. Irregular words have unique\npluralization and singularization rules.",
+            "itemtype": "method",
+            "name": "irregular",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "single",
+                "description": "",
+                "type": "String"
+              },
+              {
+                "name": "plur",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 83,
+            "description": "Marks a list of word pairs as irregular. Irregular words have unique\npluralization and singularization rules.",
+            "itemtype": "method",
+            "name": "loadIrregular",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "irregularPairs",
+                "description": "",
+                "type": "Array<Array<String>>"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 42,
+            "description": "Marks a list of words as uncountable. Uncountable words are not pluralized\nor singularized.",
+            "itemtype": "method",
+            "name": "loadUncountable",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "uncountables",
+                "description": "",
+                "type": "Array<String>"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 205,
+            "description": "Adds a pluralization rule.",
+            "itemtype": "method",
+            "name": "plural",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "regex",
+                "description": "",
+                "type": "RegExp"
+              },
+              {
+                "name": "string",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 179,
+            "description": "Pluralizes a word.",
+            "itemtype": "method",
+            "name": "pluralize",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "word",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 123,
+            "description": "Resets the inflection rules to the defaults.",
+            "itemtype": "method",
+            "name": "resetToDefaults",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/transform.ts",
+            "line": 198,
+            "description": "Sets the maximum size of the LRUCache for all string transformation functions.\nThe default size is 10,000.",
+            "itemtype": "method",
+            "name": "setMaxLRUCacheSize",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "size",
+                "description": "",
+                "type": "Number"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 227,
+            "description": "Adds a singularization rule.",
+            "itemtype": "method",
+            "name": "singular",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "regex",
+                "description": "",
+                "type": "RegExp"
+              },
+              {
+                "name": "string",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 162,
+            "description": "Singularizes a word.",
+            "itemtype": "method",
+            "name": "singularize",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "word",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 26,
+            "description": "Marks a word as uncountable. Uncountable words are not pluralized\nor singularized.",
+            "itemtype": "method",
+            "name": "uncountable",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "word",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/transform.ts",
+            "line": 148,
+            "description": "Returns the lower\\_case\\_and\\_underscored form of a string.\n\n```js\nimport { underscore } from '@ember-data/request-utils/string';\n\nunderscore('innerHTML');                 // 'inner_html'\nunderscore('action_name');               // 'action_name'\nunderscore('css-class-name');            // 'css_class_name'\nunderscore('my favorite items');         // 'my_favorite_items'\nunderscore('privateDocs/ownerInvoice');  // 'private_docs/owner_invoice'\n```",
+            "itemtype": "method",
+            "name": "underscore",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "str",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember-data/request-utils/string": [
+          {
+            "file": "../packages/request-utils/src/-private/string/transform.ts",
+            "line": 122,
+            "description": "Returns the lowerCamelCase form of a string.\n\n```js\nimport { camelize } from '@ember-data/request-utils/string';\n\ncamelize('innerHTML');                   // 'innerHTML'\ncamelize('action_name');                 // 'actionName'\ncamelize('css-class-name');              // 'cssClassName'\ncamelize('my favorite items');           // 'myFavoriteItems'\ncamelize('My Favorite Items');           // 'myFavoriteItems'\ncamelize('private-docs/owner-invoice');  // 'privateDocs/ownerInvoice'\n```",
+            "itemtype": "method",
+            "name": "camelize",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "str",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/transform.ts",
+            "line": 173,
+            "description": "Returns the Capitalized form of a string\n\n```js\nimport { capitalize } from '@ember-data/request-utils/string';\n\ncapitalize('innerHTML')                 // 'InnerHTML'\ncapitalize('action_name')               // 'Action_name'\ncapitalize('css-class-name')            // 'Css-class-name'\ncapitalize('my favorite items')         // 'My favorite items'\ncapitalize('privateDocs/ownerInvoice'); // 'PrivateDocs/ownerInvoice'\n```",
+            "itemtype": "method",
+            "name": "capitalize",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+              {
+                "name": "str",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 108,
+            "description": "Clears the caches for singularize and pluralize.",
+            "itemtype": "method",
+            "name": "clear",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 141,
+            "description": "Clears all inflection rules\nand resets the caches for singularize and pluralize.",
+            "itemtype": "method",
+            "name": "clearRules",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/transform.ts",
+            "line": 97,
+            "description": "Replaces underscores, spaces, or camelCase with dashes.\n\n```js\nimport { dasherize } from '@ember-data/request-utils/string';\n\ndasherize('innerHTML');                // 'inner-html'\ndasherize('action_name');              // 'action-name'\ndasherize('css-class-name');           // 'css-class-name'\ndasherize('my favorite items');        // 'my-favorite-items'\ndasherize('privateDocs/ownerInvoice';  // 'private-docs/owner-invoice'\n```",
+            "itemtype": "method",
+            "name": "dasherize",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "str",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 60,
+            "description": "Marks a word as irregular. Irregular words have unique\npluralization and singularization rules.",
+            "itemtype": "method",
+            "name": "irregular",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "single",
+                "description": "",
+                "type": "String"
+              },
+              {
+                "name": "plur",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 83,
+            "description": "Marks a list of word pairs as irregular. Irregular words have unique\npluralization and singularization rules.",
+            "itemtype": "method",
+            "name": "loadIrregular",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "irregularPairs",
+                "description": "",
+                "type": "Array<Array<String>>"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 42,
+            "description": "Marks a list of words as uncountable. Uncountable words are not pluralized\nor singularized.",
+            "itemtype": "method",
+            "name": "loadUncountable",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "uncountables",
+                "description": "",
+                "type": "Array<String>"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 205,
+            "description": "Adds a pluralization rule.",
+            "itemtype": "method",
+            "name": "plural",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "regex",
+                "description": "",
+                "type": "RegExp"
+              },
+              {
+                "name": "string",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 179,
+            "description": "Pluralizes a word.",
+            "itemtype": "method",
+            "name": "pluralize",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "word",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 123,
+            "description": "Resets the inflection rules to the defaults.",
+            "itemtype": "method",
+            "name": "resetToDefaults",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/transform.ts",
+            "line": 198,
+            "description": "Sets the maximum size of the LRUCache for all string transformation functions.\nThe default size is 10,000.",
+            "itemtype": "method",
+            "name": "setMaxLRUCacheSize",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "size",
+                "description": "",
+                "type": "Number"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 227,
+            "description": "Adds a singularization rule.",
+            "itemtype": "method",
+            "name": "singular",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "regex",
+                "description": "",
+                "type": "RegExp"
+              },
+              {
+                "name": "string",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 162,
+            "description": "Singularizes a word.",
+            "itemtype": "method",
+            "name": "singularize",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "word",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/inflect.ts",
+            "line": 26,
+            "description": "Marks a word as uncountable. Uncountable words are not pluralized\nor singularized.",
+            "itemtype": "method",
+            "name": "uncountable",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "word",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          },
+          {
+            "file": "../packages/request-utils/src/-private/string/transform.ts",
+            "line": 148,
+            "description": "Returns the lower\\_case\\_and\\_underscored form of a string.\n\n```js\nimport { underscore } from '@ember-data/request-utils/string';\n\nunderscore('innerHTML');                 // 'inner_html'\nunderscore('action_name');               // 'action_name'\nunderscore('css-class-name');            // 'css_class_name'\nunderscore('my favorite items');         // 'my_favorite_items'\nunderscore('privateDocs/ownerInvoice');  // 'private_docs/owner_invoice'\n```",
+            "itemtype": "method",
+            "name": "underscore",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "str",
+                "description": "",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "String"
+            },
+            "since": "4.13.0",
+            "class": "@ember-data/request-utils/string",
+            "module": "@ember-data/request-utils/string"
+          }
+        ]
+      },
+      "version": "5.5.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

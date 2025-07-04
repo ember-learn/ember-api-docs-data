@@ -1,0 +1,128 @@
+{
+  "data": {
+    "id": "ember-6.5.0-Location",
+    "type": "class",
+    "attributes": {
+      "name": "Location",
+      "shortname": "Location",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/routing/location",
+      "namespace": "",
+      "file": "packages/@ember/routing/location.ts",
+      "line": 5,
+      "description": "`Location` defines an interface to be implemented by `location` APIs. It is\nnot user-constructible; the only valid way to get a `Location` is via one of\nits concrete implementations.\n\n## Implementations\n\nYou can pass an implementation name (`hash`, `history`, `none`) to force a\nparticular implementation to be used in your application.\n\n- See [HashLocation](/ember/release/classes/HashLocation).\n- See [HistoryLocation](/ember/release/classes/HistoryLocation).\n- See [NoneLocation](/ember/release/classes/NoneLocation).\n\n## Location API\n\nEach location implementation must provide the following methods:\n\n* `getURL`: returns the current URL.\n* `setURL(path)`: sets the current URL.\n* `replaceURL(path)`: replace the current URL (optional).\n* `onUpdateURL(callback)`: triggers the callback when the URL changes.\n* `formatURL(url)`: formats `url` to be placed into `href` attribute.\n\nCalling `setURL` or `replaceURL` will not trigger onUpdateURL callbacks.\n\n## Custom implementation\n\nEmber scans `app/locations/*` for extending the Location API.\n\nExample:\n\n```javascript\nimport HistoryLocation from '@ember/routing/history-location';\n\nexport default class MyHistory {\n  implementation = 'my-custom-history';\n\n  constructor() {\n    this._history = HistoryLocation.create(...arguments);\n  }\n\n  create() {\n    return new this(...arguments);\n  }\n\n  pushState(path) {\n     this._history.pushState(path);\n  }\n}\n```",
+      "since": "5.0.0",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/routing/location.ts",
+          "line": 82,
+          "description": "Sets the current URL. Calling `setURL` will not trigger `onUpdateURL`\ncallbacks.",
+          "itemtype": "method",
+          "name": "setURL",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "url",
+              "description": "the new URL to update to.",
+              "type": "String"
+            }
+          ],
+          "class": "Location",
+          "module": "@ember/routing/location"
+        },
+        {
+          "file": "packages/@ember/routing/location.ts",
+          "line": 93,
+          "description": "Replace the current URL (optional). Calling `replaceURL` will not trigger\n`onUpdateURL` callbacks.",
+          "itemtype": "method",
+          "name": "replaceURL",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "url",
+              "description": "the new URL to replace the current URL with.",
+              "type": "String"
+            }
+          ],
+          "class": "Location",
+          "module": "@ember/routing/location"
+        },
+        {
+          "file": "packages/@ember/routing/location.ts",
+          "line": 111,
+          "description": "Formats url to be placed into href attribute.",
+          "itemtype": "method",
+          "name": "formatURL",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "url",
+              "description": "the url to format",
+              "type": "String"
+            }
+          ],
+          "class": "Location",
+          "module": "@ember/routing/location"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/routing/location.ts",
+          "line": 63,
+          "description": "If the location needs to redirect to a different URL, it can cancel routing\nby setting the `cancelRouterSetup` property on itself to false.",
+          "itemtype": "property",
+          "name": "cancelRouterSetup",
+          "type": "Boolean",
+          "optional": 1,
+          "default": "true",
+          "access": "public",
+          "tagname": "",
+          "class": "Location",
+          "module": "@ember/routing/location"
+        },
+        {
+          "file": "packages/@ember/routing/location.ts",
+          "line": 74,
+          "description": "The current URL.",
+          "itemtype": "property",
+          "name": "currentURL",
+          "type": "String",
+          "access": "public",
+          "tagname": "",
+          "class": "Location",
+          "module": "@ember/routing/location"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.5.0-@ember/routing/location",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,271 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-@ember-data/active-record/request",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/active-record/request",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember-data/active-record/request": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "../active-record/src/request.ts",
+      "line": 1,
+      "description": "<p align=\"center\">\n <img\n   class=\"project-logo\"\n   src=\"https://raw.githubusercontent.com/emberjs/data/4612c9354e4c54d53327ec2cf21955075ce21294/ember-data-logo-light.svg#gh-light-mode-only\"\n   alt=\"EmberData\"\n   width=\"240px\"\n   title=\"EmberData\"\n />\n</p>\n\nThis package provides utilities for working with [ActiveRecord](https://guides.rubyonrails.org/active_record_basics.html#convention-over-configuration-in-active-record) APIs with [*Ember***Data**](https://github.com/emberjs/data/).\n\n## Installation\n\nInstall using your javascript package manager of choice. For instance with [pnpm](https://pnpm.io/)\n\n```\npnpm add @ember-data/active-record\n```\n\n## Usage\n\nRequest builders are functions that produce [Fetch Options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).\nThey take a few contextual inputs about the request you want to make, abstracting away the gnarlier details.\n\nFor instance, to fetch a resource from your API\n\n```ts\nimport { findRecord } from '@ember-data/active-record/request';\n\nconst options = findRecord('ember-developer', '1', { include: ['pets', 'friends'] });\n\n/\\*\n => {\n   url: 'https://api.example.com/v1/ember_developers/1?include=friends,pets',\n   method: 'GET',\n   headers: <Headers>, // 'Content-Type': 'application/json;charset=utf-8'\n   op: 'findRecord';\n   records: [{ type: 'ember-developer', id: '1' }]\n }\n\\/\n```\n\nRequest builder output may be used with either `requestManager.request` or `store.request`.\n\nURLs are stable. The same query will produce the same URL every time, even if the order of keys in\nthe query or values in an array changes.\n\nURLs follow the most common ActiveRecord format (underscored pluralized resource types).\n\n### Available Builders\n\n- [createRecord](https://api.emberjs.com/ember-data/release/functions/@ember-data%2Factive-record/createRecord)\n- [deleteRecord](https://api.emberjs.com/ember-data/release/functions/@ember-data%2Factive-record/deleteRecord)\n- [findRecord](https://api.emberjs.com/ember-data/release/functions/@ember-data%2Factive-record/findRecord)\n- [query](https://api.emberjs.com/ember-data/release/functions/@ember-data%2Factive-record/query)\n- [updateRecord](https://api.emberjs.com/ember-data/release/functions/@ember-data%2Factive-record/updateRecord)",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@ember-data/active-record/request": [
+          {
+            "file": "../packages/active-record/src/-private/builders/save-record.ts",
+            "line": 107,
+            "description": "Builds request options to create new record for resources,\nconfigured for the url, method and header expectations of most ActiveRecord APIs.\n\n**Basic Usage**\n\n```ts\nimport { createRecord } from '@ember-data/active-record/request';\n\nconst person = store.createRecord('person', { name: 'Ted' });\nconst data = await store.request(createRecord(person));\n```\n\n**Supplying Options to Modify the Request Behavior**\n\nThe following options are supported:\n\n- `host` - The host to use for the request, defaults to the `host` configured with `setBuildURLConfig`.\n- `namespace` - The namespace to use for the request, defaults to the `namespace` configured with `setBuildURLConfig`.\n- `resourcePath` - The resource path to use for the request, defaults to pluralizing the supplied type\n- `reload` - Whether to forcibly reload the request if it is already in the store, not supplying this\n     option will delegate to the store's CachePolicy, defaulting to `false` if none is configured.\n- `backgroundReload` - Whether to reload the request if it is already in the store, but to also resolve the\n     promise with the cached value, not supplying this option will delegate to the store's CachePolicy,\n     defaulting to `false` if none is configured.\n- `urlParamsSetting` - an object containing options for how to serialize the query params (see `buildQueryParams`)\n\n```ts\nimport { createRecord } from '@ember-data/active-record/request';\n\nconst person = store.createRecord('person', { name: 'Ted' });\nconst options = createRecord(person, { namespace: 'api/v1' });\nconst data = await store.request(options);\n```",
+            "itemtype": "method",
+            "name": "createRecord",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "record",
+                "description": ""
+              },
+              {
+                "name": "options",
+                "description": ""
+              }
+            ],
+            "class": "@ember-data/active-record/request",
+            "module": "@ember-data/active-record/request"
+          },
+          {
+            "file": "../packages/active-record/src/-private/builders/save-record.ts",
+            "line": 24,
+            "description": "Builds request options to delete record for resources,\nconfigured for the url, method and header expectations of ActiveRecord APIs.\n\n**Basic Usage**\n\n```ts\nimport { deleteRecord } from '@ember-data/active-record/request';\n\nconst person = store.peekRecord('person', '1');\n\n// mark record as deleted\nstore.deleteRecord(person);\n\n// persist deletion\nconst data = await store.request(deleteRecord(person));\n```\n\n**Supplying Options to Modify the Request Behavior**\n\nThe following options are supported:\n\n- `host` - The host to use for the request, defaults to the `host` configured with `setBuildURLConfig`.\n- `namespace` - The namespace to use for the request, defaults to the `namespace` configured with `setBuildURLConfig`.\n- `resourcePath` - The resource path to use for the request, defaults to pluralizing the supplied type\n- `reload` - Whether to forcibly reload the request if it is already in the store, not supplying this\n     option will delegate to the store's CachePolicy, defaulting to `false` if none is configured.\n- `backgroundReload` - Whether to reload the request if it is already in the store, but to also resolve the\n     promise with the cached value, not supplying this option will delegate to the store's CachePolicy,\n     defaulting to `false` if none is configured.\n- `urlParamsSetting` - an object containing options for how to serialize the query params (see `buildQueryParams`)\n\n```ts\nimport { deleteRecord } from '@ember-data/active-record/request';\n\nconst person = store.peekRecord('person', '1');\n\n// mark record as deleted\nstore.deleteRecord(person);\n\n// persist deletion\nconst options = deleteRecord(person, { namespace: 'api/v1' });\nconst data = await store.request(options);\n```",
+            "itemtype": "method",
+            "name": "deleteRecord",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "record",
+                "description": ""
+              },
+              {
+                "name": "options",
+                "description": ""
+              }
+            ],
+            "class": "@ember-data/active-record/request",
+            "module": "@ember-data/active-record/request"
+          },
+          {
+            "file": "../packages/active-record/src/-private/builders/find-record.ts",
+            "line": 18,
+            "description": "Builds request options to fetch a single resource by a known id or identifier\nconfigured for the url and header expectations of most ActiveRecord APIs.\n\n**Basic Usage**\n\n```ts\nimport { findRecord } from '@ember-data/active-record/request';\n\nconst data = await store.request(findRecord('person', '1'));\n```\n\n**With Options**\n\n```ts\nimport { findRecord } from '@ember-data/active-record/request';\n\nconst options = findRecord('person', '1', { include: ['pets', 'friends'] });\nconst data = await store.request(options);\n```\n\n**With an Identifier**\n\n```ts\nimport { findRecord } from '@ember-data/active-record/request';\n\nconst options = findRecord({ type: 'person', id: '1' }, { include: ['pets', 'friends'] });\nconst data = await store.request(options);\n```\n\n**Supplying Options to Modify the Request Behavior**\n\nThe following options are supported:\n\n- `host` - The host to use for the request, defaults to the `host` configured with `setBuildURLConfig`.\n- `namespace` - The namespace to use for the request, defaults to the `namespace` configured with `setBuildURLConfig`.\n- `resourcePath` - The resource path to use for the request, defaults to pluralizing and underscoring the supplied type\n- `reload` - Whether to forcibly reload the request if it is already in the store, not supplying this\n     option will delegate to the store's CachePolicy, defaulting to `false` if none is configured.\n- `backgroundReload` - Whether to reload the request if it is already in the store, but to also resolve the\n     promise with the cached value, not supplying this option will delegate to the store's CachePolicy,\n     defaulting to `false` if none is configured.\n- `urlParamsSetting` - an object containing options for how to serialize the query params (see `buildQueryParams`)\n\n```ts\nimport { findRecord } from '@ember-data/active-record/request';\n\nconst options = findRecord('person', '1', { include: ['pets', 'friends'] }, { namespace: 'api/v2' });\nconst data = await store.request(options);\n```",
+            "itemtype": "method",
+            "name": "findRecord",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "identifier",
+                "description": ""
+              },
+              {
+                "name": "options",
+                "description": ""
+              }
+            ],
+            "class": "@ember-data/active-record/request",
+            "module": "@ember-data/active-record/request"
+          },
+          {
+            "file": "../packages/active-record/src/-private/builders/query.ts",
+            "line": 13,
+            "description": "Builds request options to query for resources, usually by a primary\ntype, configured for the url and header expectations of most ActiveRecord APIs.\n\n**Basic Usage**\n\n```ts\nimport { query } from '@ember-data/active-record/request';\n\nconst data = await store.request(query('person'));\n```\n\n**With Query Params**\n\n```ts\nimport { query } from '@ember-data/active-record/request';\n\nconst options = query('person', { include: ['pets', 'friends'] });\nconst data = await store.request(options);\n```\n\n**Supplying Options to Modify the Request Behavior**\n\nThe following options are supported:\n\n- `host` - The host to use for the request, defaults to the `host` configured with `setBuildURLConfig`.\n- `namespace` - The namespace to use for the request, defaults to the `namespace` configured with `setBuildURLConfig`.\n- `resourcePath` - The resource path to use for the request, defaults to pluralizing and underscoring the supplied type\n- `reload` - Whether to forcibly reload the request if it is already in the store, not supplying this\n     option will delegate to the store's CachePolicy, defaulting to `false` if none is configured.\n- `backgroundReload` - Whether to reload the request if it is already in the store, but to also resolve the\n     promise with the cached value, not supplying this option will delegate to the store's CachePolicy,\n     defaulting to `false` if none is configured.\n- `urlParamsSetting` - an object containing options for how to serialize the query params (see `buildQueryParams`)\n\n```ts\nimport { query } from '@ember-data/active-record/request';\n\nconst options = query('person', { include: ['pets', 'friends'] }, { reload: true });\nconst data = await store.request(options);\n```",
+            "itemtype": "method",
+            "name": "query",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "identifier",
+                "description": ""
+              },
+              {
+                "name": "query",
+                "description": ""
+              },
+              {
+                "name": "options",
+                "description": ""
+              }
+            ],
+            "class": "@ember-data/active-record/request",
+            "module": "@ember-data/active-record/request"
+          },
+          {
+            "file": "../packages/active-record/src/-private/builders/save-record.ts",
+            "line": 179,
+            "description": "Builds request options to update existing record for resources,\nconfigured for the url, method and header expectations of most ActiveRecord APIs.\n\n**Basic Usage**\n\n```ts\nimport { updateRecord } from '@ember-data/active-record/request';\n\nconst person = store.peekRecord('person', '1');\nperson.name = 'Chris';\nconst data = await store.request(updateRecord(person));\n```\n\n**Supplying Options to Modify the Request Behavior**\n\nThe following options are supported:\n\n- `patch` - Allows caller to specify whether to use a PATCH request instead of a PUT request, defaults to `false`.\n- `host` - The host to use for the request, defaults to the `host` configured with `setBuildURLConfig`.\n- `namespace` - The namespace to use for the request, defaults to the `namespace` configured with `setBuildURLConfig`.\n- `resourcePath` - The resource path to use for the request, defaults to pluralizing the supplied type\n- `reload` - Whether to forcibly reload the request if it is already in the store, not supplying this\n     option will delegate to the store's CachePolicy, defaulting to `false` if none is configured.\n- `backgroundReload` - Whether to reload the request if it is already in the store, but to also resolve the\n     promise with the cached value, not supplying this option will delegate to the store's CachePolicy,\n     defaulting to `false` if none is configured.\n- `urlParamsSetting` - an object containing options for how to serialize the query params (see `buildQueryParams`)\n\n```ts\nimport { updateRecord } from '@ember-data/active-record/request';\n\nconst person = store.peekRecord('person', '1');\nperson.name = 'Chris';\nconst options = updateRecord(person, { patch: true });\nconst data = await store.request(options);\n```",
+            "itemtype": "method",
+            "name": "updateRecord",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "record",
+                "description": ""
+              },
+              {
+                "name": "options",
+                "description": ""
+              }
+            ],
+            "class": "@ember-data/active-record/request",
+            "module": "@ember-data/active-record/request"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember-data/active-record/request": [
+          {
+            "file": "../packages/active-record/src/-private/builders/save-record.ts",
+            "line": 107,
+            "description": "Builds request options to create new record for resources,\nconfigured for the url, method and header expectations of most ActiveRecord APIs.\n\n**Basic Usage**\n\n```ts\nimport { createRecord } from '@ember-data/active-record/request';\n\nconst person = store.createRecord('person', { name: 'Ted' });\nconst data = await store.request(createRecord(person));\n```\n\n**Supplying Options to Modify the Request Behavior**\n\nThe following options are supported:\n\n- `host` - The host to use for the request, defaults to the `host` configured with `setBuildURLConfig`.\n- `namespace` - The namespace to use for the request, defaults to the `namespace` configured with `setBuildURLConfig`.\n- `resourcePath` - The resource path to use for the request, defaults to pluralizing the supplied type\n- `reload` - Whether to forcibly reload the request if it is already in the store, not supplying this\n     option will delegate to the store's CachePolicy, defaulting to `false` if none is configured.\n- `backgroundReload` - Whether to reload the request if it is already in the store, but to also resolve the\n     promise with the cached value, not supplying this option will delegate to the store's CachePolicy,\n     defaulting to `false` if none is configured.\n- `urlParamsSetting` - an object containing options for how to serialize the query params (see `buildQueryParams`)\n\n```ts\nimport { createRecord } from '@ember-data/active-record/request';\n\nconst person = store.createRecord('person', { name: 'Ted' });\nconst options = createRecord(person, { namespace: 'api/v1' });\nconst data = await store.request(options);\n```",
+            "itemtype": "method",
+            "name": "createRecord",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "record",
+                "description": ""
+              },
+              {
+                "name": "options",
+                "description": ""
+              }
+            ],
+            "class": "@ember-data/active-record/request",
+            "module": "@ember-data/active-record/request"
+          },
+          {
+            "file": "../packages/active-record/src/-private/builders/save-record.ts",
+            "line": 24,
+            "description": "Builds request options to delete record for resources,\nconfigured for the url, method and header expectations of ActiveRecord APIs.\n\n**Basic Usage**\n\n```ts\nimport { deleteRecord } from '@ember-data/active-record/request';\n\nconst person = store.peekRecord('person', '1');\n\n// mark record as deleted\nstore.deleteRecord(person);\n\n// persist deletion\nconst data = await store.request(deleteRecord(person));\n```\n\n**Supplying Options to Modify the Request Behavior**\n\nThe following options are supported:\n\n- `host` - The host to use for the request, defaults to the `host` configured with `setBuildURLConfig`.\n- `namespace` - The namespace to use for the request, defaults to the `namespace` configured with `setBuildURLConfig`.\n- `resourcePath` - The resource path to use for the request, defaults to pluralizing the supplied type\n- `reload` - Whether to forcibly reload the request if it is already in the store, not supplying this\n     option will delegate to the store's CachePolicy, defaulting to `false` if none is configured.\n- `backgroundReload` - Whether to reload the request if it is already in the store, but to also resolve the\n     promise with the cached value, not supplying this option will delegate to the store's CachePolicy,\n     defaulting to `false` if none is configured.\n- `urlParamsSetting` - an object containing options for how to serialize the query params (see `buildQueryParams`)\n\n```ts\nimport { deleteRecord } from '@ember-data/active-record/request';\n\nconst person = store.peekRecord('person', '1');\n\n// mark record as deleted\nstore.deleteRecord(person);\n\n// persist deletion\nconst options = deleteRecord(person, { namespace: 'api/v1' });\nconst data = await store.request(options);\n```",
+            "itemtype": "method",
+            "name": "deleteRecord",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "record",
+                "description": ""
+              },
+              {
+                "name": "options",
+                "description": ""
+              }
+            ],
+            "class": "@ember-data/active-record/request",
+            "module": "@ember-data/active-record/request"
+          },
+          {
+            "file": "../packages/active-record/src/-private/builders/find-record.ts",
+            "line": 18,
+            "description": "Builds request options to fetch a single resource by a known id or identifier\nconfigured for the url and header expectations of most ActiveRecord APIs.\n\n**Basic Usage**\n\n```ts\nimport { findRecord } from '@ember-data/active-record/request';\n\nconst data = await store.request(findRecord('person', '1'));\n```\n\n**With Options**\n\n```ts\nimport { findRecord } from '@ember-data/active-record/request';\n\nconst options = findRecord('person', '1', { include: ['pets', 'friends'] });\nconst data = await store.request(options);\n```\n\n**With an Identifier**\n\n```ts\nimport { findRecord } from '@ember-data/active-record/request';\n\nconst options = findRecord({ type: 'person', id: '1' }, { include: ['pets', 'friends'] });\nconst data = await store.request(options);\n```\n\n**Supplying Options to Modify the Request Behavior**\n\nThe following options are supported:\n\n- `host` - The host to use for the request, defaults to the `host` configured with `setBuildURLConfig`.\n- `namespace` - The namespace to use for the request, defaults to the `namespace` configured with `setBuildURLConfig`.\n- `resourcePath` - The resource path to use for the request, defaults to pluralizing and underscoring the supplied type\n- `reload` - Whether to forcibly reload the request if it is already in the store, not supplying this\n     option will delegate to the store's CachePolicy, defaulting to `false` if none is configured.\n- `backgroundReload` - Whether to reload the request if it is already in the store, but to also resolve the\n     promise with the cached value, not supplying this option will delegate to the store's CachePolicy,\n     defaulting to `false` if none is configured.\n- `urlParamsSetting` - an object containing options for how to serialize the query params (see `buildQueryParams`)\n\n```ts\nimport { findRecord } from '@ember-data/active-record/request';\n\nconst options = findRecord('person', '1', { include: ['pets', 'friends'] }, { namespace: 'api/v2' });\nconst data = await store.request(options);\n```",
+            "itemtype": "method",
+            "name": "findRecord",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "identifier",
+                "description": ""
+              },
+              {
+                "name": "options",
+                "description": ""
+              }
+            ],
+            "class": "@ember-data/active-record/request",
+            "module": "@ember-data/active-record/request"
+          },
+          {
+            "file": "../packages/active-record/src/-private/builders/query.ts",
+            "line": 13,
+            "description": "Builds request options to query for resources, usually by a primary\ntype, configured for the url and header expectations of most ActiveRecord APIs.\n\n**Basic Usage**\n\n```ts\nimport { query } from '@ember-data/active-record/request';\n\nconst data = await store.request(query('person'));\n```\n\n**With Query Params**\n\n```ts\nimport { query } from '@ember-data/active-record/request';\n\nconst options = query('person', { include: ['pets', 'friends'] });\nconst data = await store.request(options);\n```\n\n**Supplying Options to Modify the Request Behavior**\n\nThe following options are supported:\n\n- `host` - The host to use for the request, defaults to the `host` configured with `setBuildURLConfig`.\n- `namespace` - The namespace to use for the request, defaults to the `namespace` configured with `setBuildURLConfig`.\n- `resourcePath` - The resource path to use for the request, defaults to pluralizing and underscoring the supplied type\n- `reload` - Whether to forcibly reload the request if it is already in the store, not supplying this\n     option will delegate to the store's CachePolicy, defaulting to `false` if none is configured.\n- `backgroundReload` - Whether to reload the request if it is already in the store, but to also resolve the\n     promise with the cached value, not supplying this option will delegate to the store's CachePolicy,\n     defaulting to `false` if none is configured.\n- `urlParamsSetting` - an object containing options for how to serialize the query params (see `buildQueryParams`)\n\n```ts\nimport { query } from '@ember-data/active-record/request';\n\nconst options = query('person', { include: ['pets', 'friends'] }, { reload: true });\nconst data = await store.request(options);\n```",
+            "itemtype": "method",
+            "name": "query",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "identifier",
+                "description": ""
+              },
+              {
+                "name": "query",
+                "description": ""
+              },
+              {
+                "name": "options",
+                "description": ""
+              }
+            ],
+            "class": "@ember-data/active-record/request",
+            "module": "@ember-data/active-record/request"
+          },
+          {
+            "file": "../packages/active-record/src/-private/builders/save-record.ts",
+            "line": 179,
+            "description": "Builds request options to update existing record for resources,\nconfigured for the url, method and header expectations of most ActiveRecord APIs.\n\n**Basic Usage**\n\n```ts\nimport { updateRecord } from '@ember-data/active-record/request';\n\nconst person = store.peekRecord('person', '1');\nperson.name = 'Chris';\nconst data = await store.request(updateRecord(person));\n```\n\n**Supplying Options to Modify the Request Behavior**\n\nThe following options are supported:\n\n- `patch` - Allows caller to specify whether to use a PATCH request instead of a PUT request, defaults to `false`.\n- `host` - The host to use for the request, defaults to the `host` configured with `setBuildURLConfig`.\n- `namespace` - The namespace to use for the request, defaults to the `namespace` configured with `setBuildURLConfig`.\n- `resourcePath` - The resource path to use for the request, defaults to pluralizing the supplied type\n- `reload` - Whether to forcibly reload the request if it is already in the store, not supplying this\n     option will delegate to the store's CachePolicy, defaulting to `false` if none is configured.\n- `backgroundReload` - Whether to reload the request if it is already in the store, but to also resolve the\n     promise with the cached value, not supplying this option will delegate to the store's CachePolicy,\n     defaulting to `false` if none is configured.\n- `urlParamsSetting` - an object containing options for how to serialize the query params (see `buildQueryParams`)\n\n```ts\nimport { updateRecord } from '@ember-data/active-record/request';\n\nconst person = store.peekRecord('person', '1');\nperson.name = 'Chris';\nconst options = updateRecord(person, { patch: true });\nconst data = await store.request(options);\n```",
+            "itemtype": "method",
+            "name": "updateRecord",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "params": [
+              {
+                "name": "record",
+                "description": ""
+              },
+              {
+                "name": "options",
+                "description": ""
+              }
+            ],
+            "class": "@ember-data/active-record/request",
+            "module": "@ember-data/active-record/request"
+          }
+        ]
+      },
+      "version": "5.5.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
