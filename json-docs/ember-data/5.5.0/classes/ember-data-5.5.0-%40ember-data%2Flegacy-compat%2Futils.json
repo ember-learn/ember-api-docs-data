@@ -1,0 +1,197 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-@ember-data/legacy-compat/utils",
+    "type": "class",
+    "attributes": {
+      "name": "@ember-data/legacy-compat/utils",
+      "shortname": "@ember-data/legacy-compat/utils",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/legacy-compat/utils",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 35,
+          "description": "Configure a function to be called when an id or type\nchanges during normalization. This is useful for instrumenting\nto discover places where usage in the app is not consistent.",
+          "itemtype": "method",
+          "name": "configureMismatchReporter",
+          "params": [
+            {
+              "name": "method",
+              "description": "a function which takes a mismatch-type ('formatted-id' | 'formatted-type'), actual, and expected value"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 50,
+          "description": "Configure a function to be called when an id or type\nfails validation. This is useful for instrumenting\nto discover places where usage in the app is not consistent.",
+          "itemtype": "method",
+          "name": "configureAssertFn",
+          "params": [
+            {
+              "name": "method",
+              "description": "a function which takes a message and a condition"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 65,
+          "description": "Configure a function to be called to normalize\na resource type string. Used by both formattedType\nand isEquivType to ensure consistent normalization\nduring comparison.\n\nIf validation fails or the type turns out be unnormalized\nthe configured mismatch reporter and assert functions will\nbe called.",
+          "itemtype": "method",
+          "name": "configureTypeNormalization",
+          "params": [
+            {
+              "name": "method",
+              "description": "a function which takes a string and returns a string"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 87,
+          "description": "Converts a potentially unnormalized type into the format expected\nby our EmberData Cache. Currently this is singular-dasherized.\n\nyou should not rely on this function to give you an exact format\nfor display purposes. Formatting for display should be handled\ndifferently if the exact format matters.\n\nAsserts invalid types (undefined, null, '') in dev.\n\n**Usage**\n\n```js\nimport formattedType from 'soxhub-client/helpers/formatted-type';\n\nformattedType('post'); // => 'post'\nformattedType('posts'); // => 'post'\nformattedType('Posts'); // => 'post'\nformattedType('post-comment'); // => 'post-comment'\nformattedType('post-comments'); // => 'post-comment'\nformattedType('post_comment'); // => 'post-comment'\nformattedType('postComment'); // => 'post-comment'\nformattedType('PostComment'); // => 'post-comment'\n```",
+          "itemtype": "method",
+          "name": "formattedType",
+          "params": [
+            {
+              "name": "type",
+              "description": "the potentially un-normalized type",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "the normalized type",
+            "type": "String"
+          },
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 138,
+          "description": "Format an id to the format expected by the EmberData Cache.\nCurrently this means that id should be `string | null`.\n\nAsserts invalid IDs (undefined, '', 0, '0') in dev.\n\n**Usage**\n\n```js\nimport formattedId from 'client/utils/formatted-id';\n\nformattedId('1'); // => '1'\nformattedId(1); // => '1'\nformattedId(null); // => null\n\t```",
+          "itemtype": "method",
+          "name": "formattedId",
+          "params": [
+            {
+              "name": "id",
+              "description": "the potentially un-normalized id",
+              "type": "String | Number | null"
+            }
+          ],
+          "return": {
+            "description": "the normalized id",
+            "type": "String | null"
+          },
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 191,
+          "description": "Compares two types for strict equality, converting them to\nthe format expected by the EmberData Cache to ensure\ndifferences in format are accounted for in the comparison.\n\nAsserts when expected or actual are invalid types in dev.\nExpected may never be null.\n\n```js\nisEquivType('posts', 'post'); // true\nisEquivType('post', 'post'); // true\nisEquivType('posts', 'posts'); // true\nisEquivType('post-comment', 'postComment'); // true\nisEquivType('post-comment', 'PostComment'); // true\nisEquivType('post-comment', 'post_comment'); // true\nisEquivType('post-comment', 'post-comment'); // true\nisEquivType('post-comment', 'post'); // false\nisEquivType('posts', null); // false\n```",
+          "itemtype": "method",
+          "name": "isEquivType",
+          "params": [
+            {
+              "name": "expected",
+              "description": "a potentially unnormalized type to match against",
+              "type": "String"
+            },
+            {
+              "name": "actual",
+              "description": "a potentially unnormalized type to match against",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "true if the types are equivalent",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        },
+        {
+          "file": "../packages/legacy-compat/src/utils.ts",
+          "line": 233,
+          "description": "Compares two IDs for strict equality, converting them to\nthe format expected by the EmberData Cache to ensure\ndifferences in format are accounted for in the comparison.\n\nAsserts when expected or actual are invalid IDs in dev.\nExpected may never be null.\n\n```js\nisEquivId('1', 1); // true\nisEquivId('2', '2'); // true\nisEquivId(3, '3'); // true\nisEquivId(4, '3'); // false\nisEquivId(1, null); // false\n```",
+          "itemtype": "method",
+          "name": "isEquivId",
+          "params": [
+            {
+              "name": "expected",
+              "description": "a potentially un-normalized id to match against",
+              "type": "String | number"
+            },
+            {
+              "name": "actual",
+              "description": "a potentially un-normalized id to match against",
+              "type": "String | number"
+            }
+          ],
+          "return": {
+            "description": "true if the ids are equivalent",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "class": "@ember-data/legacy-compat/utils",
+          "module": "@ember-data/legacy-compat/utils"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@ember-data/legacy-compat/utils",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

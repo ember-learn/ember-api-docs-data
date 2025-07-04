@@ -1,0 +1,45 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-RequestState",
+    "type": "class",
+    "attributes": {
+      "name": "RequestState",
+      "shortname": "RequestState",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/ember",
+      "namespace": "",
+      "file": "../ember/src/index.ts",
+      "line": 140,
+      "description": "RequestState extends the concept of PromiseState to provide a reactive\nwrapper for a request `Future` which allows you write declarative code\naround a Future's control flow.\n\nIt is useful in both Template and JavaScript contexts, allowing you\nto quickly derive behaviors and data from pending, error and success\nstates.\n\nThe key difference between a Promise and a Future is that Futures provide\naccess to a stream of their content, the identity of the request (if any)\nas well as the ability to attempt to abort the request.\n\n```ts\ninterface Future<T> extends Promise<T>> {\n  getStream(): Promise<ReadableStream>;\n  abort(): void;\n  lid: StableDocumentIdentifier | null;\n}\n```\n\nThese additional APIs allow us to craft even richer state experiences.\n\nTo get the state of a request, use `getRequestState`.",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@warp-drive/ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

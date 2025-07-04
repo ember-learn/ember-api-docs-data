@@ -1,0 +1,94 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-<Type> PolarisResourceSchema",
+    "type": "class",
+    "attributes": {
+      "name": "<Type> PolarisResourceSchema",
+      "shortname": "<Type> PolarisResourceSchema",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/core-types",
+      "namespace": "",
+      "file": "../core-types/src/schema/fields.ts",
+      "line": 1794,
+      "description": "Represents a schema for a primary resource in PolarisMode.\n\nPrimary resources are objects with a unique identity of their\nown which may allow them to appear in relationships, or in multiple\nresponse documents.",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 1807,
+          "description": "For primary resources, this should be an IdentityField\n\nfor schema-objects, this should be either a HashField or null",
+          "itemtype": "property",
+          "name": "identity",
+          "type": "{IdentityField}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> PolarisResourceSchema",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 1818,
+          "description": "The name of the schema\n\nFor cacheable resources, this should be the\nprimary resource type.\n\nFor object schemas, this should be the name\nof the object schema.\n\nThe names of object and resource schemas share\na single namespace and must not conflict.\n\nWe recommend a naming convention for object schemas\nsuch as below for ensuring uniqueness:\n\n- for globally shared objects: The pattern `$field:${KlassName}` e.g. `$field:AddressObject`\n- for resource-specific objects: The pattern `$${ResourceKlassName}:$field:${KlassName}` e.g. `$User:$field:ReusableAddress`\n- for inline objects: The pattern `$${ResourceKlassName}.${fieldPath}:$field:anonymous` e.g. `$User.shippingAddress:$field:anonymous`",
+          "itemtype": "property",
+          "name": "type",
+          "type": "{String}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> PolarisResourceSchema",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 1843,
+          "description": "The fields that make up the shape of the resource",
+          "itemtype": "property",
+          "name": "fields",
+          "type": "{PolarisModeFieldSchema[]}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> PolarisResourceSchema",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 1852,
+          "description": "A list of traits that this resource implements. The fields for these\ntraits should still be defined in the fields array.\n\nEach trait should be a string that matches the `type` of another\nresource schema. The trait can be abstract and reference a resource\ntype that is never defined as a schema.",
+          "itemtype": "property",
+          "name": "traits",
+          "type": "{String[]}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> PolarisResourceSchema",
+          "module": "@warp-drive/core-types"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@warp-drive/core-types",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

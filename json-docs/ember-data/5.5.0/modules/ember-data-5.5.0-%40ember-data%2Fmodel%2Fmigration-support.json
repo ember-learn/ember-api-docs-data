@@ -1,0 +1,138 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-@ember-data/model/migration-support",
+    "type": "module",
+    "attributes": {
+      "name": "@ember-data/model/migration-support",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember-data/model/migration-support": 1
+      },
+      "namespaces": {},
+      "tag": "main",
+      "file": "../model/src/migration-support.ts",
+      "line": 365,
+      "description": "This module provides support for migrating away from @ember-data/model\nto @warp-drive/schema-record.\n\nIt includes:\n\n- A `withDefaults` function to assist in creating a schema in LegacyMode\n- A `registerDerivations` function to register the derivations necessary to support LegacyMode\n- A `DelegatingSchemaService` that can be used to provide a schema service that works with both",
+      "ember": "-data/model and @warp-drive/schema-record simultaneously for migration purposes.\n- A `WithLegacy` type util that can be used to create a type that includes the legacy\n  properties and methods of a record.\n\nUsing LegacyMode features on a SchemaRecord *requires* the use of these derivations and schema\nadditions. LegacyMode is not intended to be a long-term solution, but rather a stepping stone\nto assist in more rapidly adopting modern WarpDrive features.",
+      "itemtype": "main",
+      "parent": null,
+      "publicclasses": [
+        "DelegatingSchemaService"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@ember-data/model/migration-support": [
+          {
+            "file": "../packages/model/src/migration-support.ts",
+            "line": 344,
+            "description": "A function which registers the necessary derivations to support\nthe LegacyMode features of @ember-data/model while migrating to WarpDrive.\n\nThis must be called in order to use the fields added by:\n\n```ts\nimport { withDefaults } from '@ember-data/model/migration-support';\n```",
+            "itemtype": "method",
+            "name": "registerDerivations",
+            "static": 1,
+            "params": [
+              {
+                "name": "schema",
+                "description": "The schema service to register the derivations with.",
+                "type": "SchemaService"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember-data/model/migration-support",
+            "module": "@ember-data/model/migration-support"
+          },
+          {
+            "file": "../packages/model/src/migration-support.ts",
+            "line": 255,
+            "itemtype": "method",
+            "description": "A function which adds the necessary fields to a schema and marks it as\nbeing in LegacyMode. This is used to support the legacy features of\n  @ember -data/model while migrating to WarpDrive.\n\nExample:\n\n```ts\nimport { withDefaults, WithLegacy } from '---AT-PLACEHOLDER---ember-data/model/migration-support';\nimport { Type } from '---AT-PLACEHOLDER---warp-drive/core-types/symbols';\nimport type { HasMany } from '---AT-PLACEHOLDER---ember-data/model';\n\nexport const UserSchema = withDefaults({\n  type: 'user',\n  fields: [\n    { name: 'firstName', kind: 'attribute' },\n    { name: 'lastName', kind: 'attribute' },\n    { name: 'age', kind: 'attribute' },\n    { name: 'friends',\n      kind: 'hasMany',\n      type: 'user',\n      options: { inverse: 'friends', async: false }\n    },\n    { name: 'bestFriend',\n      kind: 'belongsTo',\n      type: 'user',\n      options: { inverse: null, async: false }\n    },\n  ],\n});\n\nexport type User = WithLegacy<{\n  firstName: string;\n  lastName: string;\n  age: number;\n  friends: HasMany<User>;\n  bestFriend: User | null;\n  [Type]: 'user';\n}>\n```\n\nUsing this function require registering the derivations\nit requires with the schema service.\n\n```ts\nimport { registerDerivations } from '---AT-PLACEHOLDER---ember-data/model/migration-support';\n\nregisterDerivations(schema);\n```\n",
+            "name": "withDefaults",
+            "static": 1,
+            "params": [
+              {
+                "name": "schema",
+                "description": "The schema to add legacy support to.",
+                "type": "LegacyResourceSchema"
+              }
+            ],
+            "return": {
+              "description": "The schema with legacy support added.",
+              "type": "LegacyResourceSchema"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember-data/model/migration-support",
+            "module": "@ember-data/model/migration-support"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember-data/model/migration-support": [
+          {
+            "file": "../packages/model/src/migration-support.ts",
+            "line": 344,
+            "description": "A function which registers the necessary derivations to support\nthe LegacyMode features of @ember-data/model while migrating to WarpDrive.\n\nThis must be called in order to use the fields added by:\n\n```ts\nimport { withDefaults } from '@ember-data/model/migration-support';\n```",
+            "itemtype": "method",
+            "name": "registerDerivations",
+            "static": 1,
+            "params": [
+              {
+                "name": "schema",
+                "description": "The schema service to register the derivations with.",
+                "type": "SchemaService"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Void"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember-data/model/migration-support",
+            "module": "@ember-data/model/migration-support"
+          },
+          {
+            "file": "../packages/model/src/migration-support.ts",
+            "line": 255,
+            "itemtype": "method",
+            "description": "A function which adds the necessary fields to a schema and marks it as\nbeing in LegacyMode. This is used to support the legacy features of\n  @ember -data/model while migrating to WarpDrive.\n\nExample:\n\n```ts\nimport { withDefaults, WithLegacy } from '---AT-PLACEHOLDER---ember-data/model/migration-support';\nimport { Type } from '---AT-PLACEHOLDER---warp-drive/core-types/symbols';\nimport type { HasMany } from '---AT-PLACEHOLDER---ember-data/model';\n\nexport const UserSchema = withDefaults({\n  type: 'user',\n  fields: [\n    { name: 'firstName', kind: 'attribute' },\n    { name: 'lastName', kind: 'attribute' },\n    { name: 'age', kind: 'attribute' },\n    { name: 'friends',\n      kind: 'hasMany',\n      type: 'user',\n      options: { inverse: 'friends', async: false }\n    },\n    { name: 'bestFriend',\n      kind: 'belongsTo',\n      type: 'user',\n      options: { inverse: null, async: false }\n    },\n  ],\n});\n\nexport type User = WithLegacy<{\n  firstName: string;\n  lastName: string;\n  age: number;\n  friends: HasMany<User>;\n  bestFriend: User | null;\n  [Type]: 'user';\n}>\n```\n\nUsing this function require registering the derivations\nit requires with the schema service.\n\n```ts\nimport { registerDerivations } from '---AT-PLACEHOLDER---ember-data/model/migration-support';\n\nregisterDerivations(schema);\n```\n",
+            "name": "withDefaults",
+            "static": 1,
+            "params": [
+              {
+                "name": "schema",
+                "description": "The schema to add legacy support to.",
+                "type": "LegacyResourceSchema"
+              }
+            ],
+            "return": {
+              "description": "The schema with legacy support added.",
+              "type": "LegacyResourceSchema"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember-data/model/migration-support",
+            "module": "@ember-data/model/migration-support"
+          }
+        ]
+      },
+      "version": "5.5.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-<Type> LocalField",
+    "type": "class",
+    "attributes": {
+      "name": "<Type> LocalField",
+      "shortname": "<Type> LocalField",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/core-types",
+      "namespace": "",
+      "file": "../core-types/src/schema/fields.ts",
+      "line": 389,
+      "description": "Represents a field whose value is a local\nvalue that is not stored in the cache, nor\nis it sent to the server.\n\nLocal fields can be written to, and their\nvalue is both memoized and reactive (though\nnot deep-tracked).\n\nBecause their state is not derived from the cache\ndata or the server, they represent a divorced\nuncanonical source of state.\n\nFor this reason Local fields should be used sparingly.\n\nCurrently, while we document this feature here,\nonly allow our own SchemaRecord default fields to\nutilize them and the feature should be considered private.\n\nExample use cases that drove the creation of local\nfields are states like `isDestroying` and `isDestroyed`\nwhich are specific to a record instance but not\nstored in the cache. We wanted to be able to drive\nthese fields from schema the same as all other fields.\n\nDon't make us regret this decision.",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 420,
+          "description": "The kind of field this is.",
+          "itemtype": "property",
+          "name": "kind",
+          "type": "{'@local'}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> LocalField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 429,
+          "description": "The name of the field.",
+          "itemtype": "property",
+          "name": "name",
+          "type": "{String}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> LocalField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 437,
+          "description": "Not currently utilized, we are considering\nallowing transforms to operate on local fields",
+          "itemtype": "property",
+          "name": "type",
+          "type": "{String | undefined}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> LocalField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 447,
+          "description": "Options for the field.",
+          "itemtype": "property",
+          "name": "options",
+          "type": "{ObjectValue | undefined}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> LocalField",
+          "module": "@warp-drive/core-types"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@warp-drive/core-types",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

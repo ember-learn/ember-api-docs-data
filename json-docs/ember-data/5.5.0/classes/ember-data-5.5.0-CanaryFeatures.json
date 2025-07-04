@@ -1,0 +1,59 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-CanaryFeatures",
+    "type": "class",
+    "attributes": {
+      "name": "CanaryFeatures",
+      "shortname": "CanaryFeatures",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/build-config",
+      "namespace": "",
+      "file": "../build-config/src/canary-features.ts",
+      "line": 6,
+      "description": "## Canary Features\nEmberData allows users to test features that are implemented but not yet\n available even in canary.\nTypically these features represent work that might introduce a new concept,\n new API, change an API, or risk an unintended change in behavior to consuming\n applications.\nSuch features have their implementations guarded by a \"feature flag\", and the\n flag is only activated once the core-data team is prepared to ship the work\n in a canary release.\n### Installing Canary\nTo test a feature you MUST be using a canary build. Canary builds are published\n to `npm` and can be installed using a precise tag (such as `ember-data@3.16.0-alpha.1`)\n or by installing the latest dist-tag published to the `canary` channel using your javascript\n package manager of choice. For instance with [pnpm](https://pnpm.io/)\n ```cli\n  pnpm add ember-data@canary\n  ```\n### Activating a Canary Feature\nOnce you have installed canary, feature-flags can be activated at build-time\nby setting an environment variable:\n```cli\n # Activate a single flag\n WARP_DRIVE_FEATURE_OVERRIDE=SOME_FLAG ember build\n# Activate multiple flags by separating with commas\n WARP_DRIVE_FEATURE_OVERRIDE=SOME_FLAG,OTHER_FLAG ember build\n# Activate all flags\n WARP_DRIVE_FEATURE_OVERRIDE=ENABLE_ALL_OPTIONAL ember build\n ```\nor by setting the appropriate flag in your `ember-cli-build` file:\n```ts\n setConfig(app, __dirname, {\n   features: {\n     SAMPLE_FEATURE_FLAG: false // utliize existing behavior, strip code for the new feature\n     OTHER_FEATURE_FLAG: true // utilize this new feature, strip code for the older behavior\n   }\n })\n ```\n**The \"off\" branch of feature-flagged code is always stripped from production builds.**\nThe list of available feature-flags is located [here](https://github.com/emberjs/data/tree/main/packages/build-config/src/virtual/canary-features.ts \"List of EmberData FeatureFlags\")\n\n### Preparing a Project to use a Canary Feature\nFor most projects, simple version detection should be enough.\n Using the provided version compatibility helpers from [embroider-macros](https://github.com/embroider-build/embroider/tree/main/packages/macros#readme)\n the following can be done:\n```js\n if (macroCondition(dependencySatisfies('@ember-data/store', '5.0'))) {\n   // do thing\n }\n ```\nThe current list of features used at build time for canary releases is defined below.\n If empty there are no features currently gated by feature flags.\nThe valid values are:\n - `true` | The feature is **enabled** at all times, and cannot be disabled.\n  - `false` | The feature is **disabled** at all times, and cannot be enabled.\n  - `null` | The feature is **disabled by default**, but can be enabled via configuration.",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/build-config/src/canary-features.ts",
+          "line": 91,
+          "description": "This upcoming feature adds a validation step to payloads received\nby the JSONAPICache implementation.\n\nWhen a request completes and the result is given to the cache via\n`cache.put`, the cache will validate the payload against registered\nschemas as well as the JSON:API spec.",
+          "itemtype": "property",
+          "name": "JSON_API_CACHE_VALIDATION_ERRORS",
+          "type": "{Boolean|null}",
+          "since": "5.4",
+          "access": "public",
+          "tagname": "",
+          "class": "CanaryFeatures",
+          "module": "@warp-drive/build-config"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@warp-drive/build-config",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

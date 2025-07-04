@@ -1,0 +1,94 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-<Type> DerivedField",
+    "type": "class",
+    "attributes": {
+      "name": "<Type> DerivedField",
+      "shortname": "<Type> DerivedField",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/core-types",
+      "namespace": "",
+      "file": "../core-types/src/schema/fields.ts",
+      "line": 755,
+      "description": "Represents a field whose value is derived\nfrom other fields in the schema.\n\nThe value is read-only, and is not stored\nin the cache, nor is it sent to the server.\n\nUsage of derived fields should be minimized\nto scenarios where the derivation is known\nto be safe. For instance, derivations that\nrequired fields that are not always loaded\nor that require access to related resources\nthat may not be loaded should be avoided.",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": [
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 773,
+          "description": "The kind of field this is.",
+          "itemtype": "property",
+          "name": "kind",
+          "type": "{'derived'}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> DerivedField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 782,
+          "description": "The name of the field.",
+          "itemtype": "property",
+          "name": "name",
+          "type": "{String}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> DerivedField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 791,
+          "description": "The name of the derivation to use.\n\nDerivations are functions that take the\nrecord, options, and the name of the field\nas arguments, and return the derived value.\n\nDerivations are memoized, and are only\nrecomputed when the fields they depend on\nchange.\n\nDerivations are not stored in the cache,\nand are not sent to the server.\n\nDerivation functions must be explicitly\nregistered with the schema service.",
+          "itemtype": "property",
+          "name": "type",
+          "type": "{String}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> DerivedField",
+          "module": "@warp-drive/core-types"
+        },
+        {
+          "file": "../packages/core-types/src/schema/fields.ts",
+          "line": 814,
+          "description": "Options to pass to the derivation, if any\n\nMust comply to the specific derivation's\noptions schema.",
+          "itemtype": "property",
+          "name": "options",
+          "type": "{ObjectValue | undefined}",
+          "access": "public",
+          "tagname": "",
+          "class": "<Type> DerivedField",
+          "module": "@warp-drive/core-types"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@warp-drive/core-types",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

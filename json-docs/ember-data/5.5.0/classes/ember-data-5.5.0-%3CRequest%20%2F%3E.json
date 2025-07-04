@@ -1,0 +1,45 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-<Request />",
+    "type": "class",
+    "attributes": {
+      "name": "<Request />",
+      "shortname": "<Request />",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/ember",
+      "namespace": "",
+      "file": "../ember/src/-private/request.gts",
+      "line": 186,
+      "description": "The `<Request />` component is a powerful tool for managing data fetching and\nstate in your Ember application. It provides a declarative approach to reactive\ncontrol-flow for managing requests and state in your application.\n\nThe `<Request />` component is ideal for handling \"boundaries\", outside which some\nstate is still allowed to be unresolved and within which it MUST be resolved.\n\n## Request States\n\n`<Request />` has five states, only one of which will be active and rendered at a time.\n\n- `idle`: The component is waiting to be given a request to monitor\n- `loading`: The request is in progress\n- `error`: The request failed\n- `content`: The request succeeded\n- `cancelled`: The request was cancelled\n\nAdditionally, the `content` state has a `refresh` method that can be used to\nrefresh the request in the background, which is available as a sub-state of\nthe `content` state.\n\nAs with the `<Await />` component, if no error block is provided and the request\nrejects, the error will be thrown. Cancellation errors are swallowed instead of\nrethrown if no error block or cancellation block is present.\n\n```gts\nimport { Request } from '@warp-drive/ember';\n\n<template>\n  <Request @request={{@request}}>\n    <:loading as |state|>\n      <Spinner @percentDone={{state.completedRatio}} />\n      <button {{on \"click\" state.abort}}>Cancel</button>\n    </:loading>\n\n    <:error as |error state|>\n      <ErrorForm @error={{error}} />\n      <button {{on \"click\" state.retry}}>Retry</button>\n    </:error>\n\n    <:content as |data state|>\n      <h1>{{data.title}}</h1>\n      {{#if state.isBackgroundReloading}}\n        <SmallSpinner />\n        <button {{on \"click\" state.abort}}>Cancel</button>\n      {{else}}\n        <button {{on \"click\" state.refresh}}>Refresh</button>\n      {{/if}}\n    </:content>\n\n    <:cancelled as |error state|>\n      <h2>The Request was cancelled</h2>\n      <button {{on \"click\" state.retry}}>Retry</button>\n    </:cancelled>\n\n    <:idle>\n      <button {{on \"click\" @kickOffRequest}}>Load Preview?</button>\n    </:idle>\n\n  </Request>\n</template>\n```\n\n## Streaming Data\n\nThe loading state exposes the download `ReadableStream` instance for consumption\n\n```gjs\nimport { Request } from '@warp-drive/ember';\n\n<template>\n  <Request @request={{@request}}>\n    <:loading as |state|>\n      <Video @stream={{state.stream}} />\n    </:loading>\n\n    <:error as |error|>\n      <ErrorForm @error={{error}} />\n    </:error>\n  </Request>\n</template>\n```\n\n## Retry\n\nCancelled and error'd requests may be retried by calling the `retry` method.\n\nRetry will restart the state progression, using the loading, error, cancelled,\nand content blocks as appropriate.\n\n## Reloading\n\nThe `reload` method will force the request to be fully re-executed, bypassing\ncache and restarting the state progression through the loading, error, and\ncontent blocks as appropriate.\n\nBackground reload (refresh) is a special substate of the content state that\nallows you to refresh the request in the background. This is useful for when\nyou want to update the data in the background without blocking the UI.\n\nReload and refresh are available as methods on the `content` state.\n\n```gjs\nimport { Request } from '@warp-drive/ember';\n\n<template>\n  <Request @request={{@request}}>\n    <:content as |data state|>\n      <h1>{{data.title}}</h1>\n      {{#if state.isBackgroundReloading}}\n        <SmallSpinner />\n        <button {{on \"click\" state.abort}}>Cancel</button>\n      {{/if}}\n\n      <button {{on \"click\" state.refresh}}>Refresh</button>\n      <button {{on \"click\" state.reload}}>Reload</button>\n    </:content>\n </Request>\n</template>\n```\n\n## Advanced Reloading\n\nWe can nest our usage of `<Request />` to handle more advanced\nreloading scenarios.\n\n```gjs\nimport { Request } from '@warp-drive/ember';\n\n<template>\n  <Request @request={{@request}}>\n    <:cancelled>\n      <h2>The Request Cancelled</h2>\n    </:cancelled>\n\n    <:error as |error|>\n      <ErrorForm @error={{error}} />\n    </:error>\n\n    <:content as |result state|>\n      <Request @request={{state.latestRequest}}>\n        <!-- Handle Background Request -->\n      </Request>\n\n      <h1>{{result.title}}</h1>\n\n      <button {{on \"click\" state.refresh}}>Refresh</button>\n    </:content>\n  </Request>\n</template>\n```\n\n## Autorefresh\n\n`<Request />` supports automatic refresh and reload under certain conditions.\n\n- `online`: This occurs when a browser window or tab comes back to the foreground\n  after being backgrounded or when the network reports as being online after\n  having been offline.\n- `interval`: This occurs when a specified amount of time has passed.\n- `invalid`: This occurs when the store emits a notification that the request\n  has become invalid.\n\nYou can specify when autorefresh should occur by setting the `autorefresh` arg\nto `true` or a comma-separated list of the above values.\n\nA value of `true` is equivalent to `'online,invalid'`.\n\nBy default, an autorefresh will only occur if the browser was backgrounded or\noffline for more than 30s before coming back available. This amount of time can\nbe tweaked by setting the number of milliseconds via `@autorefreshThreshold`.\n\nThis arg also controls the interval at which the request will be refreshed\nif the `interval` autorefresh type is enabled.\n\nFinally, the behavior of the request initiated by autorefresh can be adjusted\nby setting the `autorefreshBehavior` arg to `'refresh'`, `'reload'`, or `'policy'`.\n\n- `'refresh'`: Refresh the request in the background\n- `'reload'`: Force a reload of the request\n- `'policy'` (**default**): Let the store's configured CachePolicy decide whether to\n   reload, refresh, or do nothing.\n\nMore advanced refresh and reload behaviors can be created by passing the reload and\nrefresh actions into another component. For instance, refresh could be set up on a\ntimer or on a websocket subscription.\n\n\n```gjs\nimport { Request } from '@warp-drive/ember';\n\n<template>\n  <Request @request={{@request}}>\n    <:content as |result state|>\n      <h1>{{result.title}}</h1>\n\n      <Interval @period={{30_000}} @fn={{state.refresh}} />\n      <Subscribe @channel={{@someValue}} @fn={{state.refresh}} />\n    </:content>\n  </Request>\n</template>\n```\n\nIf a matching request is refreshed or reloaded by any other component,\nthe `Request` component will react accordingly.\n\n## Deduping\n\nThe store dedupes requests by identity. If a request is made for the same identity\nfrom multiple `<Request />` components, even if the request is not referentially the\nsame, only one actual request will be made.",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@warp-drive/ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

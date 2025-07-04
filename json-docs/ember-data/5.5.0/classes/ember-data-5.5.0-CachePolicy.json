@@ -1,0 +1,183 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-CachePolicy",
+    "type": "class",
+    "attributes": {
+      "name": "CachePolicy",
+      "shortname": "CachePolicy",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/request-utils",
+      "namespace": "",
+      "file": "../request-utils/src/index.ts",
+      "line": 967,
+      "description": "A basic CachePolicy that can be added to the Store service.\n\nDetermines staleness based on time since the request was last received from the API\nusing the `date` header.\n\nDetermines expiration based on configured constraints as well as a time based\nexpiration strategy based on the `date` header.\n\nIn order expiration is determined by:\n\n- Is explicitly invalidated\n-  ↳ (if null) isExpired function <IF Constraint Active>\n-  ↳ (if null) X-WarpDrive-Expires header <IF Constraint Active>\n-  ↳ (if null) Cache-Control header <IF Constraint Active>\n-  ↳ (if null) Expires header <IF Constraint Active>\n-  ↳ (if null) Date header + apiCacheHardExpires < current time\n\nInvalidates any request for which `cacheOptions.types` was provided when a createRecord\nrequest for that type is successful.\n\nFor this to work, the `createRecord` request must include the `cacheOptions.types` array\nwith the types that should be invalidated, or its request should specify the identifiers\nof the records that are being created via `records`. Providing both is valid.\n\n> [!NOTE]\n> only requests that had specified `cacheOptions.types` and occurred prior to the\n> createRecord request will be invalidated. This means that a given request should always\n> specify the types that would invalidate it to opt into this behavior. Abstracting this\n> behavior via builders is recommended to ensure consistency.\n\nThis allows the Store's CacheHandler to determine if a request is expired and\nshould be refetched upon next request.\n\nThe `Fetch` handler provided by `@ember-data/request/fetch` will automatically\nadd the `date` header to responses if it is not present.\n\n> [!NOTE]\n> Date headers do not have millisecond precision, so expiration times should\n> generally be larger than 1000ms.\n\nUsage:\n\n```ts\nimport { CachePolicy } from '@ember-data/request-utils';\nimport DataStore from '@ember-data/store';\n\n// ...\n\nexport class Store extends DataStore {\n  constructor(args) {\n    super(args);\n    this.lifetimes = new CachePolicy({ apiCacheSoftExpires: 30_000, apiCacheHardExpires: 60_000 });\n  }\n}\n```\n\nIn Testing environments, the `apiCacheSoftExpires` will always be `false`\nand `apiCacheHardExpires` will use the `apiCacheSoftExpires` value.\n\nThis helps reduce flakiness and produce predictably rendered results in test suites.\n\nRequests that specifically set `cacheOptions.backgroundReload = true` will\nstill be background reloaded in tests.\n\nThis behavior can be opted out of by setting `disableTestOptimization = true`\nin the policy config.",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "../packages/request-utils/src/index.ts",
+          "line": 1081,
+          "description": "Invalidate a request by its identifier for a given store instance.\n\nWhile the store argument may seem redundant, the CachePolicy\nis designed to be shared across multiple stores / forks\nof the store.\n\n```ts\nstore.lifetimes.invalidateRequest(store, identifier);\n```",
+          "itemtype": "method",
+          "name": "invalidateRequest",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableDocumentIdentifier"
+            },
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            }
+          ],
+          "class": "CachePolicy",
+          "module": "@ember-data/request-utils"
+        },
+        {
+          "file": "../packages/request-utils/src/index.ts",
+          "line": 1101,
+          "description": "Invalidate all requests associated to a specific type\nfor a given store instance.\n\nWhile the store argument may seem redundant, the CachePolicy\nis designed to be shared across multiple stores / forks\nof the store.\n\nThis invalidation is done automatically when using this service\nfor both the CacheHandler and the LegacyNetworkHandler.\n\n```ts\nstore.lifetimes.invalidateRequestsForType(store, 'person');\n```",
+          "itemtype": "method",
+          "name": "invalidateRequestsForType",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            }
+          ],
+          "class": "CachePolicy",
+          "module": "@ember-data/request-utils"
+        },
+        {
+          "file": "../packages/request-utils/src/index.ts",
+          "line": 1135,
+          "description": "Invoked when a request has been fulfilled from the configured request handlers.\nThis is invoked by the CacheHandler for both foreground and background requests\nonce the cache has been updated.\n\nNote, this is invoked by the CacheHandler regardless of whether\nthe request has a cache-key.\n\nThis method should not be invoked directly by consumers.",
+          "itemtype": "method",
+          "name": "didRequest",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "request",
+              "description": "",
+              "type": "ImmutableRequestInfo"
+            },
+            {
+              "name": "response",
+              "description": "",
+              "type": "ImmutableResponse"
+            },
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            },
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableDocumentIdentifier | null"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Void"
+          },
+          "class": "CachePolicy",
+          "module": "@ember-data/request-utils"
+        },
+        {
+          "file": "../packages/request-utils/src/index.ts",
+          "line": 1190,
+          "description": "Invoked to determine if the request may be fulfilled from cache\nif possible.\n\nNote, this is only invoked by the CacheHandler if the request has\na cache-key.\n\nIf no cache entry is found or the entry is hard expired,\nthe request will be fulfilled from the configured request handlers\nand the cache will be updated before returning the response.",
+          "itemtype": "method",
+          "name": "isHardExpired",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableDocumentIdentifier"
+            },
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            }
+          ],
+          "return": {
+            "description": "true if the request is considered hard expired",
+            "type": "Boolean"
+          },
+          "class": "CachePolicy",
+          "module": "@ember-data/request-utils"
+        },
+        {
+          "file": "../packages/request-utils/src/index.ts",
+          "line": 1227,
+          "description": "Invoked if `isHardExpired` is false to determine if the request\nshould be update behind the scenes if cache data is already available.\n\nNote, this is only invoked by the CacheHandler if the request has\na cache-key.\n\nIf true, the request will be fulfilled from cache while a backgrounded\nrequest is made to update the cache via the configured request handlers.",
+          "itemtype": "method",
+          "name": "isSoftExpired",
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "identifier",
+              "description": "",
+              "type": "StableDocumentIdentifier"
+            },
+            {
+              "name": "store",
+              "description": "",
+              "type": "Store"
+            }
+          ],
+          "return": {
+            "description": "true if the request is considered soft expired",
+            "type": "Boolean"
+          },
+          "class": "CachePolicy",
+          "module": "@ember-data/request-utils"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@ember-data/request-utils",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

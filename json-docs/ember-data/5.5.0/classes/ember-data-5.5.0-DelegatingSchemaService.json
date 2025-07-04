@@ -1,0 +1,49 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-DelegatingSchemaService",
+    "type": "class",
+    "attributes": {
+      "name": "DelegatingSchemaService",
+      "shortname": "DelegatingSchemaService",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/model/migration-support",
+      "namespace": "",
+      "file": "../model/src/migration-support.ts",
+      "line": 365,
+      "description": "A class which provides a schema service that delegates between\na primary schema service and one that supports legacy model\nclasses as its schema source.\n\nWhen the primary schema service has a schema for the given\nresource, it will be used. Otherwise, the fallback schema\nservice will be used.\n\nThis can be used when incrementally migrating from Models to\nSchemaRecords by enabling unmigrated Models to continue to\nprovide their own schema information to the application.\n\n```ts\nimport { DelegatingSchemaService } from '@ember-data/model/migration-support';\nimport { SchemaService } from '@warp-drive/schema-record';\n\nclass AppStore extends Store {\n  createSchemaService() {\n    const schema = new SchemaService();\n    return new DelegatingSchemaService(this, schema);\n  }\n}\n```\n\nAll calls to register resources, derivations, transformations, hash functions\netc. will be delegated to the primary schema service.",
+      "extends": "SchemaService",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-data-5.5.0-SchemaService",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@ember-data/model/migration-support",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

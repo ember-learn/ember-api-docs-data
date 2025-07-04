@@ -1,0 +1,94 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-@warp-drive/schema-record",
+    "type": "class",
+    "attributes": {
+      "name": "@warp-drive/schema-record",
+      "shortname": "@warp-drive/schema-record",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@warp-drive/schema-record",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "../packages/schema-record/src/-private/schema.ts",
+          "line": 69,
+          "description": "Utility for constructing a ResourceSchema with the recommended\nfields for the PolarisMode experience.\n\nUsing this requires registering the PolarisMode derivations\n\n```ts\nimport { registerDerivations } from '@warp-drive/schema-record';\n\nregisterDerivations(schema);\n```",
+          "itemtype": "method",
+          "name": "withDefaults",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "schema",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "PolarisResourceSchema"
+          },
+          "class": "@warp-drive/schema-record",
+          "module": "@warp-drive/schema-record"
+        },
+        {
+          "file": "../packages/schema-record/src/-private/schema.ts",
+          "line": 99,
+          "description": "A derivation that computes its value from the\nrecord's identity.\n\nIt can be used via a derived field definition like:\n\n```ts\n{\n  kind: 'derived',\n  name: 'id',\n  type: '@identity',\n  options: { key: 'id' }\n}\n```\n\nValid keys are `'id'`, `'lid'`, `'type'`, and `'^'`.\n\n`^` returns the entire identifier object.",
+          "itemtype": "method",
+          "name": "fromIdentity",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "@warp-drive/schema-record",
+          "module": "@warp-drive/schema-record"
+        },
+        {
+          "file": "../packages/schema-record/src/-private/schema.ts",
+          "line": 143,
+          "description": "Registers the default derivations for records that want\nto use the PolarisMode defaults provided by\n\n```ts\nimport { withDefaults } from '@warp-drive/schema-record';\n```",
+          "itemtype": "method",
+          "name": "registerDerivations",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "schema",
+              "description": "",
+              "type": "SchemaService"
+            }
+          ],
+          "class": "@warp-drive/schema-record",
+          "module": "@warp-drive/schema-record"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@warp-drive/schema-record",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

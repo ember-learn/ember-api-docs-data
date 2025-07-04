@@ -1,0 +1,125 @@
+{
+  "data": {
+    "id": "ember-data-5.5.0-@ember-data/model",
+    "type": "class",
+    "attributes": {
+      "name": "@ember-data/model",
+      "shortname": "@ember-data/model",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember-data/model",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "../packages/model/src/-private/attr.ts",
+          "line": 190,
+          "description": "`attr` defines an attribute on a [Model](/ember-data/release/classes/Model).\nBy default, attributes are passed through as-is, however you can specify an\noptional type to have the value automatically transformed.\nEmberData ships with four basic transform types: `string`, `number`,\n`boolean` and `date`. You can define your own transforms by subclassing\n[Transform](/ember-data/release/classes/Transform).\n\nNote that you cannot use `attr` to define an attribute of `id`.\n\n`attr` takes an optional hash as a second parameter, currently\nsupported options are:\n\n- `defaultValue`: Pass a string or a function to be called to set the attribute\nto a default value if and only if the key is absent from the payload response.\n\nExample\n\n```js {data-filename=app/models/user.js}\nimport Model, { attr } from '@ember-data/model';\n\nexport default class UserModel extends Model {\n  @attr('string') username;\n  @attr('string') email;\n  @attr('boolean', { defaultValue: false }) verified;\n}\n```\n\nDefault value can also be a function. This is useful it you want to return\na new object for each attribute.\n\n```js {data-filename=app/models/user.js}\nimport Model, { attr } from '@ember-data/model';\n\nexport default class UserModel extends Model {\n  @attr('string') username;\n  @attr('string') email;\n\n  @attr({\n    defaultValue() {\n      return {};\n    }\n  })\n  settings;\n}\n```\n\nThe `options` hash is passed as second argument to a transforms'\n`serialize` and `deserialize` method. This allows to configure a\ntransformation and adapt the corresponding value, based on the config:\n\n```js {data-filename=app/models/post.js}\nimport Model, { attr } from '@ember-data/model';\n\nexport default class PostModel extends Model {\n  @attr('text', {\n    uppercase: true\n  })\n  text;\n}\n```\n\n```js {data-filename=app/transforms/text.js}\nexport default class TextTransform {\n  serialize(value, options) {\n    if (options.uppercase) {\n      return value.toUpperCase();\n    }\n\n    return value;\n  }\n\n  deserialize(value) {\n    return value;\n  }\n\n  static create() {\n    return new this();\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "attr",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "type",
+              "description": "the attribute type",
+              "type": "String|Object"
+            },
+            {
+              "name": "options",
+              "description": "a hash of options",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Attribute"
+          },
+          "class": "@ember-data/model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/belongs-to.ts",
+          "line": 118,
+          "description": "`belongsTo` is used to define One-To-One and One-To-Many, and One-To-None\nrelationships on a [Model](/ember-data/release/classes/Model).\n\n`belongsTo` takes a configuration hash as a second parameter, currently\nsupported options are:\n\n- `async`: (*required*) A boolean value used to declare whether this is a sync (false) or async (true) relationship.\n- `inverse`: (*required*)  A string used to identify the inverse property on a related model, or `null`.\n- `polymorphic`: (*optional*) A boolean value to mark the relationship as polymorphic\n- `as`: (*optional*) A string used to declare the abstract type \"this\" record satisfies for polymorphism.\n\n### Examples\n\nTo declare a **one-to-many** (or many-to-many) relationship, use\n`belongsTo` in combination with `hasMany`:\n\n```js\n// app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default class Comment extends Model {\n  @belongsTo('post', { async: false, inverse: 'comments' }) post;\n}\n\n// app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class Post extends Model {\n  @hasMany('comment', { async: false, inverse: 'post' }) comments;\n}\n```\n\nTo declare a **one-to-one** relationship with managed inverses, use `belongsTo` for both sides:\n\n```js\n// app/models/author.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default class Author extends Model {\n  @belongsTo('address', { async: true, inverse: 'owner' }) address;\n}\n\n// app/models/address.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default class Address extends Model {\n  @belongsTo('author', { async: true, inverse: 'address' }) owner;\n}\n```\n\nTo declare a **one-to-one** relationship without managed inverses, use `belongsTo` for both sides\nwith `null` as the inverse:\n\n```js\n// app/models/author.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default class Author extends Model {\n  @belongsTo('address', { async: true, inverse: null }) address;\n}\n\n// app/models/address.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default class Address extends Model {\n  @belongsTo('author', { async: true, inverse: null }) owner;\n}\n```\n\nTo declare a one-to-none relationship between two models, use\n`belongsTo` with inverse set to `null` on just one side::\n\n```js\n// app/models/person.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default class Person extends Model {\n  @belongsTo('person', { async: false, inverse: null }) bestFriend;\n}\n```\n\n#### Sync vs Async Relationships\n\nEmberData fulfills relationships using resource data available in\nthe cache.\n\nSync relationships point directly to the known related resources.\n\nWhen a relationship is declared as async, if any of the known related\nresources have not been loaded, they will be fetched. The property\non the record when accessed provides a promise that resolves once\nall resources are loaded.\n\nAsync relationships may take advantage of links. On access, if the related\nlink has not been loaded, or if any known resources are not available in\nthe cache, the fresh state will be fetched using the link.\n\nIn contrast to async relationship, accessing a sync relationship\nwill error on access when any of the known related resources have\nnot been loaded.\n\nIf you are using `links` with sync relationships, you have to use\nthe BelongsTo reference API to fetch or refresh related resources\nthat aren't loaded. For instance, for a `bestFriend` relationship:\n\n```js\nperson.belongsTo('bestFriend').reload();\n```\n\n#### Polymorphic Relationships\n\nTo declare a polymorphic relationship, use `hasMany` with the `polymorphic`\noption set to `true`:\n\n```js\n// app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default class Comment extends Model {\n  @belongsTo('commentable', { async: false, inverse: 'comments', polymorphic: true }) parent;\n}\n```\n\n`'commentable'` here is referred to as the \"abstract type\" for the polymorphic\nrelationship.\n\nPolymorphic relationships with `inverse: null` will accept any type of record as their content.\nPolymorphic relationships with `inverse` set to a string will only accept records with a matching\ninverse relationships declaring itself as satisfying the abstract type.\n\nBelow, 'as' is used to declare the that 'post' record satisfies the abstract type 'commentable'\nfor this relationship.\n\n```js\n// app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class Post extends Model {\n  @hasMany('comment', { async: false, inverse: 'parent', as: 'commentable' }) comments;\n}\n```\n\nNote: every Model that declares an inverse to a polymorphic relationship must\ndeclare itself exactly the same. This is because polymorphism is based on structural\ntraits.\n\nPolymorphic to polymorphic relationships are supported. Both sides of the relationship\nmust be declared as polymorphic, and the `as` option must be used to declare the abstract\ntype each record satisfies on both sides.",
+          "itemtype": "method",
+          "name": "belongsTo",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "type",
+              "description": "(optional) the name of the related resource",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "(optional) a hash of options",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "relationship",
+            "type": "PropertyDescriptor"
+          },
+          "class": "@ember-data/model",
+          "module": "@ember-data/model"
+        },
+        {
+          "file": "../packages/model/src/-private/has-many.ts",
+          "line": 94,
+          "description": "`hasMany` is used to define Many-To-One and Many-To-Many, and Many-To-None\nrelationships on a [Model](/ember-data/release/classes/Model).\n\n`hasMany` takes a configuration hash as a second parameter, currently\nsupported options are:\n\n- `async`: (*required*) A boolean value used to declare whether this is a sync (false) or async (true) relationship.\n- `inverse`: (*required*)  A string used to identify the inverse property on a related model, or `null`.\n- `polymorphic`: (*optional*) A boolean value to mark the relationship as polymorphic\n- `as`: (*optional*) A string used to declare the abstract type \"this\" record satisfies for polymorphism.\n\n### Examples\n\nTo declare a **many-to-one** (or one-to-many) relationship, use\n`belongsTo` in combination with `hasMany`:\n\n```js\n// app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class Post extends Model {\n  @hasMany('comment', { async: false, inverse: 'post' }) comments;\n}\n\n\n// app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default class Comment extends Model {\n  @belongsTo('post', { async: false, inverse: 'comments' }) post;\n}\n```\n\nTo declare a **many-to-many** relationship with managed inverses, use `hasMany` for both sides:\n\n```js\n// app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class Post extends Model {\n  @hasMany('tag', { async: true, inverse: 'posts' }) tags;\n}\n\n// app/models/tag.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class Tag extends Model {\n  @hasMany('post', { async: true, inverse: 'tags' }) posts;\n}\n```\n\nTo declare a **many-to-many** relationship without managed inverses, use `hasMany` for both sides\nwith `null` as the inverse:\n\n```js\n// app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class Post extends Model {\n  @hasMany('tag', { async: true, inverse: null }) tags;\n}\n\n// app/models/tag.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class Tag extends Model {\n  @hasMany('post', { async: true, inverse: null }) posts;\n}\n```\n\nTo declare a many-to-none relationship between two models, use\n`hasMany` with inverse set to `null` on just one side::\n\n```js\n// app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class Post extends Model {\n  @hasMany('category', { async: true, inverse: null }) categories;\n}\n```\n\n#### Sync vs Async Relationships\n\nEmberData fulfills relationships using resource data available in\nthe cache.\n\nSync relationships point directly to the known related resources.\n\nWhen a relationship is declared as async, if any of the known related\nresources have not been loaded, they will be fetched. The property\non the record when accessed provides a promise that resolves once\nall resources are loaded.\n\nAsync relationships may take advantage of links. On access, if the related\nlink has not been loaded, or if any known resources are not available in\nthe cache, the fresh state will be fetched using the link.\n\nIn contrast to async relationship, accessing a sync relationship\nwill error on access when any of the known related resources have\nnot been loaded.\n\nIf you are using `links` with sync relationships, you have to use\nthe HasMany reference API to fetch or refresh related resources\nthat aren't loaded. For instance, for a `comments` relationship:\n\n```js\npost.hasMany('comments').reload();\n```\n\n#### Polymorphic Relationships\n\nTo declare a polymorphic relationship, use `hasMany` with the `polymorphic`\noption set to `true`:\n\n```js\n// app/models/comment.js\nimport Model, { belongsTo } from '@ember-data/model';\n\nexport default class Comment extends Model {\n  @belongsTo('commentable', { async: false, inverse: 'comments', polymorphic: true }) parent;\n}\n```\n\n`'commentable'` here is referred to as the \"abstract type\" for the polymorphic\nrelationship.\n\nPolymorphic relationships with `inverse: null` will accept any type of record as their content.\nPolymorphic relationships with `inverse` set to a string will only accept records with a matching\ninverse relationships declaring itself as satisfying the abstract type.\n\nBelow, 'as' is used to declare the that 'post' record satisfies the abstract type 'commentable'\nfor this relationship.\n\n```js\n// app/models/post.js\nimport Model, { hasMany } from '@ember-data/model';\n\nexport default class Post extends Model {\n  @hasMany('comment', { async: false, inverse: 'parent', as: 'commentable' }) comments;\n}\n```\n\nNote: every Model that declares an inverse to a polymorphic relationship must\ndeclare itself exactly the same. This is because polymorphism is based on structural\ntraits.\n\nPolymorphic to polymorphic relationships are supported. Both sides of the relationship\nmust be declared as polymorphic, and the `as` option must be used to declare the abstract\ntype each record satisfies on both sides.",
+          "itemtype": "method",
+          "name": "hasMany",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "type",
+              "description": "(optional) the name of the related resource",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "(optional) a hash of options",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "relationship",
+            "type": "PropertyDescriptor"
+          },
+          "class": "@ember-data/model",
+          "module": "@ember-data/model"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-data-5.5.0-@ember-data/model",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-data-5.5.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
