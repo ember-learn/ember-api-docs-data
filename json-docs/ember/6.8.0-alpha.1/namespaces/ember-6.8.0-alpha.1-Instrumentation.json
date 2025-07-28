@@ -1,0 +1,46 @@
+{
+  "data": {
+    "id": "ember-6.8.0-alpha.1-Instrumentation",
+    "type": "namespace",
+    "attributes": {
+      "name": "Instrumentation",
+      "shortname": "Instrumentation",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/instrumentation",
+      "namespace": "",
+      "file": "packages/@ember/instrumentation/index.ts",
+      "line": 39,
+      "description": "The purpose of the Ember Instrumentation module is\nto provide efficient, general-purpose instrumentation\nfor Ember.\n\nSubscribe to a listener by using `subscribe`:\n\n```javascript\nimport { subscribe } from '@ember/instrumentation';\n\nsubscribe(\"render\", {\n  before(name, timestamp, payload) {\n\n  },\n\n  after(name, timestamp, payload) {\n\n  }\n});\n```\n\nIf you return a value from the `before` callback, that same\nvalue will be passed as a fourth parameter to the `after`\ncallback.\n\nInstrument a block of code by using `instrument`:\n\n```javascript\nimport { instrument } from '@ember/instrumentation';\n\ninstrument(\"render.handlebars\", payload, function() {\n  // rendering logic\n}, binding);\n```\n\nEvent names passed to `instrument` are namespaced\nby periods, from more general to more specific. Subscribers\ncan listen for events by whatever level of granularity they\nare interested in.\n\nIn the above example, the event is `render.handlebars`,\nand the subscriber listened for all events beginning with\n`render`. It would receive callbacks for events named\n`render`, `render.handlebars`, `render.container`, or\neven `render.handlebars.layout`.",
+      "static": 1,
+      "access": "private",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.8.0-alpha.1-@ember/instrumentation",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.8.0-alpha.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

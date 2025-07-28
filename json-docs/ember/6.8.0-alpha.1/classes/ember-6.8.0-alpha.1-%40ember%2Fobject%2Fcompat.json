@@ -1,0 +1,64 @@
+{
+  "data": {
+    "id": "ember-6.8.0-alpha.1-@ember/object/compat",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/object/compat",
+      "shortname": "@ember/object/compat",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/object",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/object/compat.ts",
+          "line": 40,
+          "description": "`@dependentKeyCompat` is decorator that can be used on _native getters_ that\nuse tracked properties. It exposes the getter to Ember's classic computed\nproperty and observer systems, so they can watch it for changes. It can be\nused in both native and classic classes.\n\nNative Example:\n\n```js\nimport { tracked } from '@glimmer/tracking';\nimport { dependentKeyCompat } from '@ember/object/compat';\nimport { computed, set } from '@ember/object';\n\nclass Person {\n  @tracked firstName;\n  @tracked lastName;\n\n  @dependentKeyCompat\n  get fullName() {\n    return `${this.firstName} ${this.lastName}`;\n  }\n}\n\nclass Profile {\n  constructor(person) {\n    set(this, 'person', person);\n  }\n\n  @computed('person.fullName')\n  get helloMessage() {\n    return `Hello, ${this.person.fullName}!`;\n  }\n}\n```\n\nClassic Example:\n\n```js\nimport { tracked } from '@glimmer/tracking';\nimport { dependentKeyCompat } from '@ember/object/compat';\nimport EmberObject, { computed, observer, set } from '@ember/object';\n\nconst Person = EmberObject.extend({\n  firstName: tracked(),\n  lastName: tracked(),\n\n  fullName: dependentKeyCompat(function() {\n    return `${this.firstName} ${this.lastName}`;\n  }),\n});\n\nconst Profile = EmberObject.extend({\n  person: null,\n\n  helloMessage: computed('person.fullName', function() {\n    return `Hello, ${this.person.fullName}!`;\n  }),\n\n  onNameUpdated: observer('person.fullName', function() {\n    console.log('person name updated!');\n  }),\n});\n```\n\n`dependentKeyCompat()` can receive a getter function or an object containing\n`get`/`set` methods when used in classic classes, like computed properties.\n\nIn general, only properties which you _expect_ to be watched by older,\nuntracked clases should be marked as dependency compatible. The decorator is\nmeant as an interop layer for parts of Ember's older classic APIs, and should\nnot be applied to every possible getter/setter in classes. The number of\ndependency compatible getters should be _minimized_ wherever possible. New\napplication code should not need to use `@dependentKeyCompat`, since it is\nonly for interoperation with older code.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "dependentKeyCompat",
+          "static": 1,
+          "params": [
+            {
+              "name": "desc",
+              "description": "A property descriptor containing\n                                           the getter and setter (when used in\n                                           classic classes)",
+              "type": "PropertyDescriptor|undefined"
+            }
+          ],
+          "return": {
+            "description": "property decorator instance",
+            "type": "PropertyDecorator"
+          },
+          "class": "@ember/object/compat",
+          "module": "@ember/object"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.8.0-alpha.1-@ember/object",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.8.0-alpha.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
