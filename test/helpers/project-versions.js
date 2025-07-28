@@ -9,10 +9,10 @@ const projectVersionPairs = [];
 projects.forEach((p) => {
   const fullProjectVersions = readdirSync(
     `json-docs/${p}`
-  ).filter((v) => v.match(/\d+\.\d+\.\d+/));
+  ).filter((v) => v.match(/^\d+\.\d+\.\d+(-[\w\.]+)?$/));
 
   const projectVersions = fullProjectVersions.map((v) => {
-    let [, major, minor] = v.match(/(\d+)\.(\d+)\.\d+/);
+    let [, major, minor] = v.match(/^(\d+)\.(\d+)\.\d+(?:-[\w\.]+)?$/);
     return `${major}.${minor}`;
   });
 
@@ -21,12 +21,12 @@ projects.forEach((p) => {
   uniqueProjectVersions.forEach((uniqVersion) => {
     const sortedPatchVersions = fullProjectVersions
       .filter((projectVersion) => {
-        return semver.satisfies(projectVersion, uniqVersion);
+        return projectVersion.startsWith(uniqVersion + '.');
       })
-      .sort(cmp);
-    projectVersionPairs.push([p, sortedPatchVersions[sortedPatchVersions.length - 1]])
+      .sort(semver.compare);
 
-  })
+    projectVersionPairs.push([p, sortedPatchVersions[sortedPatchVersions.length - 1]]);
+  });
 });
 
 module.exports = projectVersionPairs;
