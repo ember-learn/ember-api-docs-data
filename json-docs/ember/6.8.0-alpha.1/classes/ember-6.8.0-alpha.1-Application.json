@@ -1,0 +1,573 @@
+{
+  "data": {
+    "id": "ember-6.8.0-alpha.1-Application",
+    "type": "class",
+    "attributes": {
+      "name": "Application",
+      "shortname": "Application",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/application",
+      "namespace": "",
+      "file": "packages/@ember/application/index.ts",
+      "line": 42,
+      "description": "An instance of `Application` is the starting point for every Ember\napplication. It instantiates, initializes and coordinates the\nobjects that make up your app.\n\nEach Ember app has one and only one `Application` object. Although\nEmber CLI creates this object implicitly, the `Application` class\nis defined in the `app/app.js`. You can define a `ready` method on the\n`Application` class, which will be run by Ember when the application is\ninitialized.\n\n```js {data-filename=app/app.js}\nexport default class App extends Application {\n  ready() {\n    // your code here\n  }\n}\n```\n\nBecause `Application` ultimately inherits from `Ember.Namespace`, any classes\nyou create will have useful string representations when calling `toString()`.\nSee the `Ember.Namespace` documentation for more information.\n\nWhile you can think of your `Application` as a container that holds the\nother classes in your application, there are several other responsibilities\ngoing on under-the-hood that you may want to understand. It is also important\nto understand that an `Application` is different from an `ApplicationInstance`.\nRefer to the Guides to understand the difference between these.\n\n### Event Delegation\n\nEmber uses a technique called _event delegation_. This allows the framework\nto set up a global, shared event listener instead of requiring each view to\ndo it manually. For example, instead of each view registering its own\n`mousedown` listener on its associated element, Ember sets up a `mousedown`\nlistener on the `body`.\n\nIf a `mousedown` event occurs, Ember will look at the target of the event and\nstart walking up the DOM node tree, finding corresponding views and invoking\ntheir `mouseDown` method as it goes.\n\n`Application` has a number of default events that it listens for, as\nwell as a mapping from lowercase events to camel-cased view method names. For\nexample, the `keypress` event causes the `keyPress` method on the view to be\ncalled, the `dblclick` event causes `doubleClick` to be called, and so on.\n\nIf there is a bubbling browser event that Ember does not listen for by\ndefault, you can specify custom events and their corresponding view method\nnames by setting the application's `customEvents` property:\n\n```js {data-filename=app/app.js}\nimport Application from '@ember/application';\n\nexport default class App extends Application {\n  customEvents = {\n    // add support for the paste event\n    paste: 'paste'\n  }\n}\n```\n\nTo prevent Ember from setting up a listener for a default event,\nspecify the event name with a `null` value in the `customEvents`\nproperty:\n\n```js {data-filename=app/app.js}\nimport Application from '@ember/application';\n\nexport default class App extends Application {\n  customEvents = {\n    // prevent listeners for mouseenter/mouseleave events\n    mouseenter: null,\n    mouseleave: null\n  }\n}\n```\n\nBy default, the application sets up these event listeners on the document\nbody. However, in cases where you are embedding an Ember application inside\nan existing page, you may want it to set up the listeners on an element\ninside the body.\n\nFor example, if only events inside a DOM element with the ID of `ember-app`\nshould be delegated, set your application's `rootElement` property:\n\n```js {data-filename=app/app.js}\nimport Application from '@ember/application';\n\nexport default class App extends Application {\n  rootElement = '#ember-app'\n}\n```\n\nThe `rootElement` can be either a DOM element or a CSS selector\nstring. Note that *views appended to the DOM outside the root element will\nnot receive events.* If you specify a custom root element, make sure you only\nappend views inside it!\n\nTo learn more about the events Ember components use, see\n\n[components/handling-events](https://guides.emberjs.com/release/components/handling-events/#toc_event-names).\n\n### Initializers\n\nTo add behavior to the Application's boot process, you can define initializers in\nthe `app/initializers` directory, or with `ember generate initializer` using Ember CLI.\nThese files should export a named `initialize` function which will receive the created `application`\nobject as its first argument.\n\n```javascript\nexport function initialize(application) {\n  // application.inject('route', 'foo', 'service:foo');\n}\n```\n\nApplication initializers can be used for a variety of reasons including:\n\n- setting up external libraries\n- injecting dependencies\n- setting up event listeners in embedded apps\n- deferring the boot process using the `deferReadiness` and `advanceReadiness` APIs.\n\n### Routing\n\nIn addition to creating your application's router, `Application` is\nalso responsible for telling the router when to start routing. Transitions\nbetween routes can be logged with the `LOG_TRANSITIONS` flag, and more\ndetailed intra-transition logging can be logged with\nthe `LOG_TRANSITIONS_INTERNAL` flag:\n\n```javascript\nimport Application from '@ember/application';\n\nlet App = Application.create({\n  LOG_TRANSITIONS: true, // basic logging of successful transitions\n  LOG_TRANSITIONS_INTERNAL: true // detailed logging of all routing steps\n});\n```\n\nBy default, the router will begin trying to translate the current URL into\napplication state once the browser emits the `DOMContentReady` event. If you\nneed to defer routing, you can call the application's `deferReadiness()`\nmethod. Once routing can begin, call the `advanceReadiness()` method.\n\nIf there is any setup required before routing begins, you can implement a\n`ready()` method on your app that will be invoked immediately before routing\nbegins.",
+      "extends": "Engine",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 196,
+          "description": "This creates a registry with the default Ember naming conventions.\n\nIt also configures the registry:\n\n* registered views are created every time they are looked up (they are\n  not singletons)\n* registered templates are not factories; the registered value is\n  returned directly.\n* the router receives the application as its `namespace` property\n* all controllers receive the router as their `target` and `controllers`\n  properties\n* all controllers receive the application as their `namespace` property\n* the application view receives the application controller as its\n  `controller` property\n* the application view receives the application template as its\n  `defaultTemplate` property",
+          "itemtype": "method",
+          "name": "buildRegistry",
+          "static": 1,
+          "params": [
+            {
+              "name": "namespace",
+              "description": "the application for which to\n  build the registry",
+              "type": "Application"
+            }
+          ],
+          "return": {
+            "description": "the built registry",
+            "type": "Ember.Registry"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 443,
+          "description": "Create an ApplicationInstance for this application.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "buildInstance",
+          "return": {
+            "description": "the application instance",
+            "type": "ApplicationInstance"
+          },
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 468,
+          "description": "Start tracking an ApplicationInstance for this application.\nUsed when the ApplicationInstance is created.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_watchInstance",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 479,
+          "description": "Stop tracking an ApplicationInstance for this application.\nUsed when the ApplicationInstance is about to be destroyed.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_unwatchInstance",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 492,
+          "description": "Enable the legacy globals mode by allowing this application to act\nas a global namespace. See the docs on the `_globalsMode` property\nfor details.\n\nMost of these features are already deprecated in 1.x, so we can\nstop using them internally and try to remove them.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_prepareForGlobalsMode",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 539,
+          "description": "Automatically kick-off the boot process for the application once the\nDOM has become ready.\n\nThe initialization itself is scheduled on the actions queue which\nensures that code-loading finishes before booting.\n\nIf you are asynchronously loading code, you should call `deferReadiness()`\nto defer booting, and then call `advanceReadiness()` once all of your code\nhas finished loading.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "waitForDOMReady",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 579,
+          "description": "This is the autoboot flow:\n\n1. Boot the app by calling `this.boot()`\n2. Create an instance (or use the `__deprecatedInstance__` in globals mode)\n3. Boot the instance by calling `instance.boot()`\n4. Invoke the `App.ready()` callback\n5. Kick-off routing on the instance\n\nIdeally, this is all we would need to do:\n\n```javascript\n_autoBoot() {\n  this.boot().then(() => {\n    let instance = (this._globalsMode) ? this.__deprecatedInstance__ : this.buildInstance();\n    return instance.boot();\n  }).then((instance) => {\n    App.ready();\n    instance.startRouting();\n  });\n}\n```\n\nUnfortunately, we cannot actually write this because we need to participate\nin the \"synchronous\" boot process. While the code above would work fine on\nthe initial boot (i.e. DOM ready), when `App.reset()` is called, we need to\nboot a new instance synchronously (see the documentation on `_bootSync()`\nfor details).\n\nBecause of this restriction, the actual logic of this method is located\ninside `didBecomeReady()`.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "domReady",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 624,
+          "description": "Use this to defer readiness until some condition is true.\n\nExample:\n\n```javascript\nimport Application from '@ember/application';\n\nlet App = Application.create();\n\nApp.deferReadiness();\n\nfetch('/auth-token')\n.then(response => response.json())\n.then(data => {\n  App.token = data.token;\n  App.advanceReadiness();\n});\n```\n\nThis allows you to perform asynchronous setup logic and defer\nbooting your application until the setup has finished.\n\nHowever, if the setup requires a loading UI, it might be better\nto use the router for this purpose.",
+          "itemtype": "method",
+          "name": "deferReadiness",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 674,
+          "description": "Call `advanceReadiness` after any asynchronous setup logic has completed.\nEach call to `deferReadiness` must be matched by a call to `advanceReadiness`\nor the application will never become ready and routing will not begin.",
+          "itemtype": "method",
+          "name": "advanceReadiness",
+          "see": [
+            "{Application#deferReadiness}"
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 713,
+          "description": "Initialize the application and return a promise that resolves with the `Application`\nobject when the boot process is complete.\n\nRun any application initializers and run the application load hook. These hooks may\nchoose to defer readiness. For example, an authentication hook might want to defer\nreadiness until the auth token has been retrieved.\n\nBy default, this method is called automatically on \"DOM ready\"; however, if autoboot\nis disabled, this is automatically called when the first application instance is\ncreated via `visit`.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "boot",
+          "return": {
+            "description": "",
+            "type": "Promise<Application,Error>"
+          },
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 794,
+          "description": "Reset the application. This is typically used only in tests. It cleans up\nthe application in the following order:\n\n1. Deactivate existing routes\n2. Destroy all objects in the container\n3. Create a new application container\n4. Re-route to the existing url\n\nTypical Example:\n\n```javascript\nimport Application from '@ember/application';\nlet App;\n\nrun(function() {\n  App = Application.create();\n});\n\nmodule('acceptance test', {\n  setup: function() {\n    App.reset();\n  }\n});\n\ntest('first test', function() {\n  // App is freshly reset\n});\n\ntest('second test', function() {\n  // App is again freshly reset\n});\n```\n\nAdvanced Example:\n\nOccasionally you may want to prevent the app from initializing during\nsetup. This could enable extra configuration, or enable asserting prior\nto the app becoming ready.\n\n```javascript\nimport Application from '@ember/application';\nlet App;\n\nrun(function() {\n  App = Application.create();\n});\n\nmodule('acceptance test', {\n  setup: function() {\n    run(function() {\n      App.reset();\n      App.deferReadiness();\n    });\n  }\n});\n\ntest('first test', function() {\n  ok(true, 'something before app is initialized');\n\n  run(function() {\n    App.advanceReadiness();\n  });\n\n  ok(true, 'something after app is initialized');\n});\n```",
+          "itemtype": "method",
+          "name": "reset",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 898,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "didBecomeReady",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 976,
+          "description": "Boot a new instance of `ApplicationInstance` for the current\napplication and navigate it to the given `url`. Returns a `Promise` that\nresolves with the instance when the initial routing and rendering is\ncomplete, or rejects with any error that occurred during the boot process.\n\nWhen `autoboot` is disabled, calling `visit` would first cause the\napplication to boot, which runs the application initializers.\n\nThis method also takes a hash of boot-time configuration options for\ncustomizing the instance's behavior. See the documentation on\n`ApplicationInstance.BootOptions` for details.\n\n`ApplicationInstance.BootOptions` is an interface class that exists\npurely to document the available options; you do not need to construct it\nmanually. Simply pass a regular JavaScript object containing of the\ndesired options:\n\n```javascript\nMyApp.visit(\"/\", { location: \"none\", rootElement: \"#container\" });\n```\n\n### Supported Scenarios\n\nWhile the `BootOptions` class exposes a large number of knobs, not all\ncombinations of them are valid; certain incompatible combinations might\nresult in unexpected behavior.\n\nFor example, booting the instance in the full browser environment\nwhile specifying a foreign `document` object (e.g. `{ isBrowser: true,\ndocument: iframe.contentDocument }`) does not work correctly today,\nlargely due to Ember's jQuery dependency.\n\nCurrently, there are three officially supported scenarios/configurations.\nUsages outside of these scenarios are not guaranteed to work, but please\nfeel free to file bug reports documenting your experience and any issues\nyou encountered to help expand support.\n\n#### Browser Applications (Manual Boot)\n\nThe setup is largely similar to how Ember works out-of-the-box. Normally,\nEmber will boot a default instance for your Application on \"DOM ready\".\nHowever, you can customize this behavior by disabling `autoboot`.\n\nFor example, this allows you to render a miniture demo of your application\ninto a specific area on your marketing website:\n\n```javascript\nimport MyApp from 'my-app';\n\n$(function() {\n  let App = MyApp.create({ autoboot: false });\n\n  let options = {\n    // Override the router's location adapter to prevent it from updating\n    // the URL in the address bar\n    location: 'none',\n\n    // Override the default `rootElement` on the app to render into a\n    // specific `div` on the page\n    rootElement: '#demo'\n  };\n\n  // Start the app at the special demo URL\n  App.visit('/demo', options);\n});\n```\n\nOr perhaps you might want to boot two instances of your app on the same\npage for a split-screen multiplayer experience:\n\n```javascript\nimport MyApp from 'my-app';\n\n$(function() {\n  let App = MyApp.create({ autoboot: false });\n\n  let sessionId = MyApp.generateSessionID();\n\n  let player1 = App.visit(`/matches/join?name=Player+1&session=${sessionId}`, { rootElement: '#left', location: 'none' });\n  let player2 = App.visit(`/matches/join?name=Player+2&session=${sessionId}`, { rootElement: '#right', location: 'none' });\n\n  Promise.all([player1, player2]).then(() => {\n    // Both apps have completed the initial render\n    $('#loading').fadeOut();\n  });\n});\n```\n\nDo note that each app instance maintains their own registry/container, so\nthey will run in complete isolation by default.\n\n#### Server-Side Rendering (also known as FastBoot)\n\nThis setup allows you to run your Ember app in a server environment using\nNode.js and render its content into static HTML for SEO purposes.\n\n```javascript\nconst HTMLSerializer = new SimpleDOM.HTMLSerializer(SimpleDOM.voidMap);\n\nfunction renderURL(url) {\n  let dom = new SimpleDOM.Document();\n  let rootElement = dom.body;\n  let options = { isBrowser: false, document: dom, rootElement: rootElement };\n\n  return MyApp.visit(options).then(instance => {\n    try {\n      return HTMLSerializer.serialize(rootElement.firstChild);\n    } finally {\n      instance.destroy();\n    }\n  });\n}\n```\n\nIn this scenario, because Ember does not have access to a global `document`\nobject in the Node.js environment, you must provide one explicitly. In practice,\nin the non-browser environment, the stand-in `document` object only needs to\nimplement a limited subset of the full DOM API. The `SimpleDOM` library is known\nto work.\n\nSince there is no DOM access in the non-browser environment, you must also\nspecify a DOM `Element` object in the same `document` for the `rootElement` option\n(as opposed to a selector string like `\"body\"`).\n\nSee the documentation on the `isBrowser`, `document` and `rootElement` properties\non `ApplicationInstance.BootOptions` for details.\n\n#### Server-Side Resource Discovery\n\nThis setup allows you to run the routing layer of your Ember app in a server\nenvironment using Node.js and completely disable rendering. This allows you\nto simulate and discover the resources (i.e. AJAX requests) needed to fulfill\na given request and eagerly \"push\" these resources to the client.\n\n```js {data-filename=app/initializers/network-service.js}\nimport BrowserNetworkService from 'app/services/network/browser';\nimport NodeNetworkService from 'app/services/network/node';\n\n// Inject a (hypothetical) service for abstracting all AJAX calls and use\n// the appropriate implementation on the client/server. This also allows the\n// server to log all the AJAX calls made during a particular request and use\n// that for resource-discovery purpose.\n\nexport function initialize(application) {\n  if (window) { // browser\n    application.register('service:network', BrowserNetworkService);\n  } else { // node\n    application.register('service:network', NodeNetworkService);\n  }\n};\n\nexport default {\n  name: 'network-service',\n  initialize: initialize\n};\n```\n\n```js {data-filename=app/routes/post.js}\nimport Route from '@ember/routing/route';\nimport { service } from '@ember/service';\n\n// An example of how the (hypothetical) service is used in routes.\n\nexport default class IndexRoute extends Route {\n  @service network;\n\n  model(params) {\n    return this.network.fetch(`/api/posts/${params.post_id}.json`);\n  }\n\n  afterModel(post) {\n    if (post.isExternalContent) {\n      return this.network.fetch(`/api/external/?url=${post.externalURL}`);\n    } else {\n      return post;\n    }\n  }\n}\n```\n\n```javascript\n// Finally, put all the pieces together\n\nfunction discoverResourcesFor(url) {\n  return MyApp.visit(url, { isBrowser: false, shouldRender: false }).then(instance => {\n    let networkService = instance.lookup('service:network');\n    return networkService.requests; // => { \"/api/posts/123.json\": \"...\" }\n  });\n}\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "visit",
+          "params": [
+            {
+              "name": "url",
+              "description": "The initial URL to navigate to",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "ApplicationInstance.BootOptions"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise<ApplicationInstance, Error>"
+          },
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 62,
+          "description": "The goal of initializers should be to register dependencies and injections.\nThis phase runs once. Because these initializers may load code, they are\nallowed to defer application readiness and advance it. If you need to access\nthe container or store you should use an InstanceInitializer that will be run\nafter all initializers and therefore after all code is loaded and the app is\nready.\n\nInitializer receives an object which has the following attributes:\n`name`, `before`, `after`, `initialize`. The only required attribute is\n`initialize`, all others are optional.\n\n* `name` allows you to specify under which name the initializer is registered.\nThis must be a unique name, as trying to register two initializers with the\nsame name will result in an error.\n\n```js {data-filename=app/initializer/named-initializer.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('Running namedInitializer!');\n}\n\nexport default {\n  name: 'named-initializer',\n  initialize\n};\n```\n\n* `before` and `after` are used to ensure that this initializer is ran prior\nor after the one identified by the value. This value can be a single string\nor an array of strings, referencing the `name` of other initializers.\n\nAn example of ordering initializers, we create an initializer named `first`:\n\n```js {data-filename=app/initializer/first.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('First initializer!');\n}\n\nexport default {\n  name: 'first',\n  initialize\n};\n```\n\n```bash\n// DEBUG: First initializer!\n```\n\nWe add another initializer named `second`, specifying that it should run\nafter the initializer named `first`:\n\n```js {data-filename=app/initializer/second.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('Second initializer!');\n}\n\nexport default {\n  name: 'second',\n  after: 'first',\n  initialize\n};\n```\n\n```\n// DEBUG: First initializer!\n// DEBUG: Second initializer!\n```\n\nAfterwards we add a further initializer named `pre`, this time specifying\nthat it should run before the initializer named `first`:\n\n```js {data-filename=app/initializer/pre.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('Pre initializer!');\n}\n\nexport default {\n  name: 'pre',\n  before: 'first',\n  initialize\n};\n```\n\n```bash\n// DEBUG: Pre initializer!\n// DEBUG: First initializer!\n// DEBUG: Second initializer!\n```\n\nFinally we add an initializer named `post`, specifying it should run after\nboth the `first` and the `second` initializers:\n\n```js {data-filename=app/initializer/post.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('Post initializer!');\n}\n\nexport default {\n  name: 'post',\n  after: ['first', 'second'],\n  initialize\n};\n```\n\n```bash\n// DEBUG: Pre initializer!\n// DEBUG: First initializer!\n// DEBUG: Second initializer!\n// DEBUG: Post initializer!\n```\n\n* `initialize` is a callback function that receives one argument,\n  `application`, on which you can operate.\n\nExample of using `application` to register an adapter:\n\n```js {data-filename=app/initializer/api-adapter.js}\nimport ApiAdapter from '../utils/api-adapter';\n\nexport function initialize(application) {\n  application.register('api-adapter:main', ApiAdapter);\n}\n\nexport default {\n  name: 'post',\n  after: ['first', 'second'],\n  initialize\n};\n```",
+          "itemtype": "method",
+          "name": "initializer",
+          "params": [
+            {
+              "name": "initializer",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 209,
+          "description": "Instance initializers run after all initializers have run. Because\ninstance initializers run after the app is fully set up. We have access\nto the store, container, and other items. However, these initializers run\nafter code has loaded and are not allowed to defer readiness.\n\nInstance initializer receives an object which has the following attributes:\n`name`, `before`, `after`, `initialize`. The only required attribute is\n`initialize`, all others are optional.\n\n* `name` allows you to specify under which name the instanceInitializer is\nregistered. This must be a unique name, as trying to register two\ninstanceInitializer with the same name will result in an error.\n\n```js {data-filename=app/initializer/named-instance-initializer.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('Running named-instance-initializer!');\n}\n\nexport default {\n  name: 'named-instance-initializer',\n  initialize\n};\n```\n\n* `before` and `after` are used to ensure that this initializer is ran prior\nor after the one identified by the value. This value can be a single string\nor an array of strings, referencing the `name` of other initializers.\n\n* See Application.initializer for discussion on the usage of before\nand after.\n\nExample instanceInitializer to preload data into the store.\n\n```js {data-filename=app/initializer/preload-data.js}\n\nexport function initialize(application) {\n    var userConfig, userConfigEncoded, store;\n    // We have a HTML escaped JSON representation of the user's basic\n    // configuration generated server side and stored in the DOM of the main\n    // index.html file. This allows the app to have access to a set of data\n    // without making any additional remote calls. Good for basic data that is\n    // needed for immediate rendering of the page. Keep in mind, this data,\n    // like all local models and data can be manipulated by the user, so it\n    // should not be relied upon for security or authorization.\n\n    // Grab the encoded data from the meta tag\n    userConfigEncoded = document.querySelector('head meta[name=app-user-config]').attr('content');\n\n    // Unescape the text, then parse the resulting JSON into a real object\n    userConfig = JSON.parse(unescape(userConfigEncoded));\n\n    // Lookup the store\n    store = application.lookup('service:store');\n\n    // Push the encoded JSON into the store\n    store.pushPayload(userConfig);\n}\n\nexport default {\n  name: 'named-instance-initializer',\n  initialize\n};\n```",
+          "itemtype": "method",
+          "name": "instanceInitializer",
+          "params": [
+            {
+              "name": "instanceInitializer",
+              "description": ""
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 285,
+          "description": "This creates a registry with the default Ember naming conventions.\n\nIt also configures the registry:\n\n* registered views are created every time they are looked up (they are\n  not singletons)\n* registered templates are not factories; the registered value is\n  returned directly.\n* the router receives the application as its `namespace` property\n* all controllers receive the router as their `target` and `controllers`\n  properties\n* all controllers receive the application as their `namespace` property\n* the application view receives the application controller as its\n  `controller` property\n* the application view receives the application template as its\n  `defaultTemplate` property",
+          "itemtype": "method",
+          "name": "buildRegistry",
+          "static": 1,
+          "params": [
+            {
+              "name": "namespace",
+              "description": "the application for which to\n  build the registry",
+              "type": "Application"
+            }
+          ],
+          "return": {
+            "description": "the built registry",
+            "type": "Ember.Registry"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 346,
+          "description": "Ensure that initializers are run once, and only once, per engine.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "ensureInitializers",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 359,
+          "description": "Create an EngineInstance for this engine.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "buildInstance",
+          "return": {
+            "description": "the engine instance",
+            "type": "EngineInstance"
+          },
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 371,
+          "description": "Build and configure the registry for the current engine.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "buildRegistry",
+          "return": {
+            "description": "the configured registry",
+            "type": "Ember.Registry"
+          },
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 384,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "initializer",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 392,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "instanceInitializer",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 400,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "runInitializers",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 414,
+          "access": "private",
+          "tagname": "",
+          "since": "1.12.0",
+          "itemtype": "method",
+          "name": "runInstanceInitializers",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 448,
+          "description": "This function defines the default lookup rules for container lookups:\n\n* templates are looked up on `Ember.TEMPLATES`\n* other names are looked up on the application after classifying the name.\n  For example, `controller:post` looks up `App.PostController` by default.\n* if the default lookup fails, look for registered classes on the container\n\nThis allows the application to register default injections in the container\nthat could be overridden by the normal naming convention.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "resolverFor",
+          "params": [
+            {
+              "name": "namespace",
+              "description": "the namespace to look for classes",
+              "type": "Ember.Enginer"
+            }
+          ],
+          "return": {
+            "description": "the resolved value for a given lookup",
+            "type": "*"
+          },
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 107,
+          "description": "Registers a factory that can be used for dependency injection (with\n`inject`) or for service lookup. Each factory is registered with\na full name including two parts: `type:name`.\n\nA simple example:\n\n```javascript\nimport Application from '@ember/application';\nimport EmberObject from '@ember/object';\n\nlet App = Application.create();\n\nApp.Orange = EmberObject.extend();\nApp.register('fruit:favorite', App.Orange);\n```\n\nEmber will resolve factories from the `App` namespace automatically.\nFor example `App.CarsController` will be discovered and returned if\nan application requests `controller:cars`.\n\nAn example of registering a controller with a non-standard name:\n\n```javascript\nimport Application from '@ember/application';\nimport Controller from '@ember/controller';\n\nlet App = Application.create();\nlet Session = Controller.extend();\n\nApp.register('controller:session', Session);\n\n// The Session controller can now be treated like a normal controller,\n// despite its non-standard name.\nApp.ApplicationController = Controller.extend({\n  needs: ['session']\n});\n```\n\nRegistered factories are **instantiated** by having `create`\ncalled on them. Additionally they are **singletons**, each time\nthey are looked up they return the same instance.\n\nSome examples modifying that default behavior:\n\n```javascript\nimport Application from '@ember/application';\nimport EmberObject from '@ember/object';\n\nlet App = Application.create();\n\nApp.Person = EmberObject.extend();\nApp.Orange = EmberObject.extend();\nApp.Email = EmberObject.extend();\nApp.session = EmberObject.create();\n\nApp.register('model:user', App.Person, { singleton: false });\nApp.register('fruit:favorite', App.Orange);\nApp.register('communication:main', App.Email, { singleton: false });\nApp.register('session', App.session, { instantiate: false });\n```",
+          "itemtype": "method",
+          "name": "register",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "type:name (e.g., 'model:user')",
+              "type": "String"
+            },
+            {
+              "name": "factory",
+              "description": "(e.g., App.Person)",
+              "type": "Factory|object"
+            },
+            {
+              "name": "options",
+              "description": "(optional) disable instantiation or singleton usage",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/owner",
+          "inherited": true,
+          "inheritedFrom": "BasicRegistry"
+        }
+      ],
+      "events": [
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 951,
+          "description": "Called when the Application has become ready, immediately before routing\nbegins. The call will be delayed until the DOM has become ready.",
+          "itemtype": "event",
+          "name": "ready",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        }
+      ],
+      "properties": [
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 241,
+          "description": "The root DOM element of the Application. This can be specified as an\nelement or a [selector string](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors#reference_table_of_selectors).\n\nThis is the element that will be passed to the Application's,\n`eventDispatcher`, which sets up the listeners for event delegation. Every\nview in your application should be a child of the element you specify here.",
+          "itemtype": "property",
+          "name": "rootElement",
+          "type": "DOMElement",
+          "default": "'body'",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 256,
+          "itemtype": "property",
+          "name": "_document",
+          "type": "Document | null",
+          "default": "'window.document'",
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 265,
+          "description": "The `Ember.EventDispatcher` responsible for delegating events to this\napplication's views.\n\nThe event dispatcher is created by the application at initialization time\nand sets up event listeners on the DOM element described by the\napplication's `rootElement` property.\n\nSee the documentation for `Ember.EventDispatcher` for more information.",
+          "itemtype": "property",
+          "name": "eventDispatcher",
+          "type": "Ember.EventDispatcher",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 282,
+          "description": "The DOM events for which the event dispatcher should listen.\n\nBy default, the application's `Ember.EventDispatcher` listens\nfor a set of standard DOM events, such as `mousedown` and\n`keyup`, and delegates them to your application's `Ember.View`\ninstances.\n\nIf you would like additional bubbling events to be delegated to your\nviews, set your `Application`'s `customEvents` property\nto a hash containing the DOM event name as the key and the\ncorresponding view method name as the value. Setting an event to\na value of `null` will prevent a default event listener from being\nadded for that event.\n\nTo add new events to be listened to:\n\n```js {data-filename=app/app.js}\nimport Application from '@ember/application';\n\nlet App = Application.extend({\n  customEvents: {\n    // add support for the paste event\n    paste: 'paste'\n  }\n});\n```\n\nTo prevent default events from being listened to:\n\n```js {data-filename=app/app.js}\nimport Application from '@ember/application';\n\nlet App = Application.extend({\n  customEvents: {\n    // remove support for mouseenter / mouseleave events\n    mouseenter: null,\n    mouseleave: null\n  }\n});\n```",
+          "itemtype": "property",
+          "name": "customEvents",
+          "type": "Object",
+          "default": "null",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 330,
+          "description": "Whether the application should automatically start routing and render\ntemplates to the `rootElement` on DOM ready. While default by true,\nother environments such as FastBoot or a testing harness can set this\nproperty to `false` and control the precise timing and behavior of the boot\nprocess.",
+          "itemtype": "property",
+          "name": "autoboot",
+          "type": "Boolean",
+          "default": "true",
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 344,
+          "description": "Whether the application should be configured for the legacy \"globals mode\".\nUnder this mode, the Application object serves as a global namespace for all\nclasses.\n\n```javascript\nimport Application from '@ember/application';\nimport Component from '@ember/component';\n\nlet App = Application.create({\n  ...\n});\n\nApp.Router.reopen({\n  location: 'none'\n});\n\nApp.Router.map({\n  ...\n});\n\nApp.MyComponent = Component.extend({\n  ...\n});\n```\n\nThis flag also exposes other internal APIs that assumes the existence of\na special \"default instance\", like `App.__container__.lookup(...)`.\n\nThis option is currently not configurable, its value is derived from\nthe `autoboot` flag – disabling `autoboot` also implies opting-out of\nglobals mode support, although they are ultimately orthogonal concerns.\n\nSome of the global modes features are already deprecated in 1.x. The\nexistence of this flag is to untangle the globals mode code paths from\nthe autoboot code paths, so that these legacy features can be reviewed\nfor deprecation/removal separately.\n\nForcing the (autoboot=true, _globalsMode=false) here and running the tests\nwould reveal all the places where we are still relying on these legacy\nbehavior internally (mostly just tests).",
+          "itemtype": "property",
+          "name": "_globalsMode",
+          "type": "Boolean",
+          "default": "true",
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/index.ts",
+          "line": 393,
+          "description": "An array of application instances created by `buildInstance()`. Used\ninternally to ensure that all instances get destroyed.",
+          "itemtype": "property",
+          "name": "_applicationInstances",
+          "type": "Array",
+          "access": "private",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 325,
+          "description": "Set this to provide an alternate class to `DefaultResolver`",
+          "itemtype": "property",
+          "name": "resolver",
+          "access": "public",
+          "tagname": "",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 338,
+          "description": "A private flag indicating whether an engine's initializers have run yet.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_initializersRan",
+          "class": "Application",
+          "module": "@ember/engine",
+          "inherited": true,
+          "inheritedFrom": "Engine"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-6.8.0-alpha.1-Engine",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.8.0-alpha.1-@ember/application",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.8.0-alpha.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
