@@ -1,0 +1,45 @@
+{
+  "data": {
+    "id": "ember-6.6.0-TransformActionSyntax",
+    "type": "class",
+    "attributes": {
+      "name": "TransformActionSyntax",
+      "shortname": "TransformActionSyntax",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "",
+      "file": "packages/@ember/template-compiler/lib/plugins/transform-action-syntax.ts",
+      "line": 9,
+      "description": "A Glimmer2 AST transformation that replaces all instances of\n\n```handlebars\n <button {{action 'foo'}}>\n <button onblur={{action 'foo'}}>\n <button onblur={{action (action 'foo') 'bar'}}>\n```\n\nwith\n\n```handlebars\n <button {{action this 'foo'}}>\n <button onblur={{action this 'foo'}}>\n <button onblur={{action this (action this 'foo') 'bar'}}>\n```",
+      "access": "private",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.6.0-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.6.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
