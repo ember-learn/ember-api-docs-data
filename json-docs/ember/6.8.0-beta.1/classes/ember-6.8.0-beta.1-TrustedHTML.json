@@ -1,0 +1,77 @@
+{
+  "data": {
+    "id": "ember-6.8.0-beta.1-TrustedHTML",
+    "type": "class",
+    "attributes": {
+      "name": "TrustedHTML",
+      "shortname": "TrustedHTML",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/template",
+      "namespace": "",
+      "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+      "line": 7,
+      "description": "A wrapper around a string that has been marked as \"trusted\". **When\nrendered in HTML, Ember will not perform any escaping.**\n\nNote:\n\n1. This does not *make* the string safe; it means that some code in your\n   application has *marked* it as trusted using the `trustHTML()` function.\n\n2. The only public API for getting a `TrutsedHTML` is calling `trustHTML()`. It\n   is *not* user-constructible.\n\nIf a string contains user inputs or other untrusted data, you must sanitize\nthe string before using the `trustHTML` method. Otherwise your code is\nvulnerable to [Cross-Site Scripting][xss]. There are many open source\nsanitization libraries to choose from, both for front end and server-side\nsanitization.\n\n[xss]: https://owasp.org/www-community/attacks/DOM_Based_XSS\n\n```javascript\nimport { trustHTML } from '@ember/template';\n\nlet someTrustedOrSanitizedString = \"<div>Hello!</div>\"\n\ntrustHTML(someTrustedorSanitizedString);\n```",
+      "since": "6.7.0",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+          "line": 47,
+          "description": "Get the string back to use as a string.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "toString",
+          "return": {
+            "description": "The string marked as trusted",
+            "type": "String"
+          },
+          "class": "TrustedHTML",
+          "module": "@ember/template"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+          "line": 58,
+          "description": "Get the wrapped string as HTML to use without escaping.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "toHTML",
+          "return": {
+            "description": "the trusted string, without any escaping applied",
+            "type": "String"
+          },
+          "class": "TrustedHTML",
+          "module": "@ember/template"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.8.0-beta.1-@ember/template",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.8.0-beta.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
