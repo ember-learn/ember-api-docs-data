@@ -1,0 +1,102 @@
+{
+  "data": {
+    "id": "ember-6.8.0-beta.2-BasicContainer",
+    "type": "class",
+    "attributes": {
+      "name": "BasicContainer",
+      "shortname": "BasicContainer",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Owner"
+      ],
+      "module": "@ember/owner",
+      "namespace": "",
+      "file": "packages/@ember/-internals/owner/index.ts",
+      "line": 189,
+      "description": "The common interface for the ability to `lookup()` or get the `factoryFor` an\nitem, shared by the `Owner` and `ContainerProxy` interfaces.",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 198,
+          "description": "Given a fullName return a corresponding instance.\n\nThe default behavior is for lookup to return a singleton instance.\nThe singleton is scoped to the container, allowing multiple containers\nto all have their own locally scoped singletons.\n\n```javascript\nlet registry = new Registry();\nlet container = registry.container();\n\nregistry.register('api:twitter', Twitter);\n\nlet twitter = container.lookup('api:twitter');\n\ntwitter instanceof Twitter; // => true\n\n// by default the container will return singletons\nlet twitter2 = container.lookup('api:twitter');\ntwitter2 instanceof Twitter; // => true\n\ntwitter === twitter2; //=> true\n```\n\nIf singletons are not wanted an optional flag can be provided at lookup.\n\n```javascript\nlet registry = new Registry();\nlet container = registry.container();\n\nregistry.register('api:twitter', Twitter);\n\nlet twitter = container.lookup('api:twitter', { singleton: false });\nlet twitter2 = container.lookup('api:twitter', { singleton: false });\n\ntwitter === twitter2; //=> false\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "lookup",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "RegisterOptions"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "BasicContainer",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 247,
+          "description": "Given a `FullName`, of the form `\"type:name\"` return a `FactoryManager`.\n\nThis method returns a manager which can be used for introspection of the\nfactory's class or for the creation of factory instances with initial\nproperties. The manager is an object with the following properties:\n\n* `class` - The registered or resolved class.\n* `create` - A function that will create an instance of the class with\n  any dependencies injected.\n\nFor example:\n\n```javascript\nimport { getOwner } from '@ember/application';\n\nlet owner = getOwner(otherInstance);\n// the owner is commonly the `applicationInstance`, and can be accessed via\n// an instance initializer.\n\nlet factory = owner.factoryFor('service:bespoke');\n\nfactory.class;\n// The registered or resolved class. For example when used with an Ember-CLI\n// app, this would be the default export from `app/services/bespoke.js`.\n\nlet instance = factory.create({\n  someProperty: 'an initial property value'\n});\n// Create an instance with any injections and the passed options as\n// initial properties.\n```\n\nAny instances created via the factory's `.create()` method *must* be destroyed\nmanually by the caller of `.create()`. Typically, this is done during the creating\nobjects own `destroy` or `willDestroy` methods.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "factoryFor",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "FactoryManager"
+          },
+          "class": "BasicContainer",
+          "module": "@ember/owner"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-6.8.0-beta.2-ContainerProxy"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.8.0-beta.2-@ember/owner",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.8.0-beta.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
