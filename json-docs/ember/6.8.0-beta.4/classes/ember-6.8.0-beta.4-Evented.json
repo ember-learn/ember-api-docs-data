@@ -1,0 +1,190 @@
+{
+  "data": {
+    "id": "ember-6.8.0-beta.4-Evented",
+    "type": "class",
+    "attributes": {
+      "name": "Evented",
+      "shortname": "Evented",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "Ember.CoreView",
+        "Route",
+        "EmberRouter"
+      ],
+      "module": "@ember/object/evented",
+      "namespace": "",
+      "file": "packages/@ember/object/evented.ts",
+      "line": 10,
+      "description": "This mixin allows for Ember objects to subscribe to and emit events.\n\n```js {data-filename=app/utils/person.js}\nimport EmberObject from '@ember/object';\nimport Evented from '@ember/object/evented';\n\nexport default class Person extends EmberObject.extend(Evented) {\n  greet() {\n    // ...\n    this.trigger('greet');\n  }\n}\n```\n\n```javascript\nvar person = Person.create();\n\nperson.on('greet', function() {\n  console.log('Our person has greeted');\n});\n\nperson.greet();\n\n// outputs: 'Our person has greeted'\n```\n\nYou can also chain multiple event subscriptions:\n\n```javascript\nperson.on('greet', function() {\n  console.log('Our person has greeted');\n}).one('greet', function() {\n  console.log('Offer one-time special');\n}).off('event', this, forgetThis);\n```",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/object/evented.ts",
+          "line": 51,
+          "description": "Subscribes to a named event with given function.\n\n```javascript\nperson.on('didLoad', function() {\n  // fired once the person has loaded\n});\n```\n\nAn optional target can be passed in as the 2nd argument that will\nbe set as the \"this\" for the callback. This is a good way to give your\nfunction access to the object triggering the event. When the target\nparameter is used the callback method becomes the third argument.",
+          "itemtype": "method",
+          "name": "on",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The \"this\" binding for the callback",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Evented",
+          "module": "@ember/object/evented"
+        },
+        {
+          "file": "packages/@ember/object/evented.ts",
+          "line": 78,
+          "description": "Subscribes a function to a named event and then cancels the subscription\nafter the first time the event is triggered. It is good to use ``one`` when\nyou only care about the first time an event has taken place.\n\nThis function takes an optional 2nd argument that will become the \"this\"\nvalue for the callback. When the target parameter is used the callback method\nbecomes the third argument.",
+          "itemtype": "method",
+          "name": "one",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The \"this\" binding for the callback",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "method",
+              "description": "A function or the name of a function to be called on `target`",
+              "type": "Function|String"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Evented",
+          "module": "@ember/object/evented"
+        },
+        {
+          "file": "packages/@ember/object/evented.ts",
+          "line": 100,
+          "description": "Triggers a named event for the object. Any additional arguments\nwill be passed as parameters to the functions that are subscribed to the\nevent.\n\n```javascript\nperson.on('didEat', function(food) {\n  console.log('person ate some ' + food);\n});\n\nperson.trigger('didEat', 'broccoli');\n\n// outputs: person ate some broccoli\n```",
+          "itemtype": "method",
+          "name": "trigger",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "Optional arguments to pass on",
+              "type": "Object..."
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Evented",
+          "module": "@ember/object/evented"
+        },
+        {
+          "file": "packages/@ember/object/evented.ts",
+          "line": 121,
+          "description": "Cancels subscription for given name, target, and method.",
+          "itemtype": "method",
+          "name": "off",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "The target of the subscription",
+              "type": "Object"
+            },
+            {
+              "name": "method",
+              "description": "The function or the name of a function of the subscription",
+              "type": "Function|String"
+            }
+          ],
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Evented",
+          "module": "@ember/object/evented"
+        },
+        {
+          "file": "packages/@ember/object/evented.ts",
+          "line": 137,
+          "description": "Checks to see if object has any subscriptions for named event.",
+          "itemtype": "method",
+          "name": "has",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of the event",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "does the object have a subscription for event",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Evented",
+          "module": "@ember/object/evented"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.8.0-beta.4-@ember/object/evented",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.8.0-beta.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

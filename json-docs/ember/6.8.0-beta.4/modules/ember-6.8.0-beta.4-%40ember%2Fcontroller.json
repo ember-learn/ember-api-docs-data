@@ -1,0 +1,151 @@
+{
+  "data": {
+    "id": "ember-6.8.0-beta.4-@ember/controller",
+    "type": "module",
+    "attributes": {
+      "name": "@ember/controller",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "Ember.ControllerMixin": 1,
+        "@ember/controller": 1,
+        "@ember/debug": 1
+      },
+      "namespaces": {
+        "Ember": 1
+      },
+      "tag": "module",
+      "file": "packages/@ember/controller/index.ts",
+      "line": 308,
+      "parent": null,
+      "publicclasses": [
+        "Ember.Controller"
+      ],
+      "privateclasses": [
+        "Ember.ControllerMixin"
+      ],
+      "staticfunctions": {
+        "@ember/debug": [
+          {
+            "file": "packages/@ember/debug/lib/assert.ts",
+            "line": 16,
+            "description": "Verify that a certain expectation is met, or throw a exception otherwise.\n\nThis is useful for communicating assumptions in the code to other human\nreaders as well as catching bugs that accidentally violates these\nexpectations.\n\nAssertions are removed from production builds, so they can be freely added\nfor documentation and debugging purposes without worries of incuring any\nperformance penalty. However, because of that, they should not be used for\nchecks that could reasonably fail during normal usage. Furthermore, care\nshould be taken to avoid accidentally relying on side-effects produced from\nevaluating the condition itself, since the code will not run in production.\n\n```javascript\nimport { assert } from '@ember/debug';\n\n// Test for truthiness\nassert('Must pass a string', typeof str === 'string');\n\n// Fail unconditionally\nassert('This code path should never be run');\n```",
+            "itemtype": "method",
+            "name": "assert",
+            "static": 1,
+            "params": [
+              {
+                "name": "description",
+                "description": "Describes the expectation. This will become the\n  text of the Error thrown if the assertion fails.",
+                "type": "String"
+              },
+              {
+                "name": "condition",
+                "description": "Must be truthy for the assertion to pass. If\n  falsy, an exception will be thrown.",
+                "type": "Any"
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "1.0.0",
+            "class": "@ember/debug",
+            "module": "@ember/controller"
+          }
+        ],
+        "Ember.@ember/controller": [
+          {
+            "file": "packages/@ember/controller/index.ts",
+            "line": 317,
+            "description": "Creates a property that lazily looks up another controller in the container.\nCan only be used when defining another controller.\n\nExample:\n\n```app/controllers/post.js\nimport Controller, {\n  inject as controller\n} from '@ember/controller';\n\nexport default class PostController extends Controller {\n  @controller posts;\n}\n```\n\nClassic Class Example:\n\n```app/controllers/post.js\nimport Controller, {\n  inject as controller\n} from '@ember/controller';\n\nexport default Controller.extend({\n  posts: controller()\n});\n```\n\nThis example will create a `posts` property on the `post` controller that\nlooks up the `posts` controller in the container, making it easy to reference\nother controllers.",
+            "itemtype": "method",
+            "name": "inject",
+            "static": 1,
+            "since": "1.10.0",
+            "params": [
+              {
+                "name": "name",
+                "description": "(optional) name of the controller to inject, defaults to\n       the property's name",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "injection decorator instance",
+              "type": "ComputedDecorator"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "Ember.@ember/controller",
+            "module": "@ember/controller"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember/debug": [
+          {
+            "file": "packages/@ember/debug/lib/assert.ts",
+            "line": 16,
+            "description": "Verify that a certain expectation is met, or throw a exception otherwise.\n\nThis is useful for communicating assumptions in the code to other human\nreaders as well as catching bugs that accidentally violates these\nexpectations.\n\nAssertions are removed from production builds, so they can be freely added\nfor documentation and debugging purposes without worries of incuring any\nperformance penalty. However, because of that, they should not be used for\nchecks that could reasonably fail during normal usage. Furthermore, care\nshould be taken to avoid accidentally relying on side-effects produced from\nevaluating the condition itself, since the code will not run in production.\n\n```javascript\nimport { assert } from '@ember/debug';\n\n// Test for truthiness\nassert('Must pass a string', typeof str === 'string');\n\n// Fail unconditionally\nassert('This code path should never be run');\n```",
+            "itemtype": "method",
+            "name": "assert",
+            "static": 1,
+            "params": [
+              {
+                "name": "description",
+                "description": "Describes the expectation. This will become the\n  text of the Error thrown if the assertion fails.",
+                "type": "String"
+              },
+              {
+                "name": "condition",
+                "description": "Must be truthy for the assertion to pass. If\n  falsy, an exception will be thrown.",
+                "type": "Any"
+              }
+            ],
+            "access": "public",
+            "tagname": "",
+            "since": "1.0.0",
+            "class": "@ember/debug",
+            "module": "@ember/controller"
+          }
+        ],
+        "Ember.@ember/controller": [
+          {
+            "file": "packages/@ember/controller/index.ts",
+            "line": 317,
+            "description": "Creates a property that lazily looks up another controller in the container.\nCan only be used when defining another controller.\n\nExample:\n\n```app/controllers/post.js\nimport Controller, {\n  inject as controller\n} from '@ember/controller';\n\nexport default class PostController extends Controller {\n  @controller posts;\n}\n```\n\nClassic Class Example:\n\n```app/controllers/post.js\nimport Controller, {\n  inject as controller\n} from '@ember/controller';\n\nexport default Controller.extend({\n  posts: controller()\n});\n```\n\nThis example will create a `posts` property on the `post` controller that\nlooks up the `posts` controller in the container, making it easy to reference\nother controllers.",
+            "itemtype": "method",
+            "name": "inject",
+            "static": 1,
+            "since": "1.10.0",
+            "params": [
+              {
+                "name": "name",
+                "description": "(optional) name of the controller to inject, defaults to\n       the property's name",
+                "type": "String"
+              }
+            ],
+            "return": {
+              "description": "injection decorator instance",
+              "type": "ComputedDecorator"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "Ember.@ember/controller",
+            "module": "@ember/controller"
+          }
+        ]
+      },
+      "version": "6.8.0-beta.4"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.8.0-beta.4",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
