@@ -1,0 +1,323 @@
+{
+  "data": {
+    "id": "ember-6.9.0-alpha.1-@ember/reactive/collections",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/reactive/collections",
+      "shortname": "@ember/reactive/collections",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/reactive/collections",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/reactive/collections.ts",
+          "line": 8,
+          "description": "A utility for creating tracked arrays, copying the original data so that\nmutations to the tracked data don't mutate the original untracked data.\n\n`trackedArray` can be used in templates and in JavaScript via import.\nAll property accesses entangle with that property, all property sets dirty\nthat property, and changes to the collection only render what changed\nwithout causing unneeded renders.\n\nSee [MDN for more information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)",
+          "example": [
+            "\n```javascript\nimport { trackedArray } from '@ember/reactive/collections';\nimport { on } from '@ember/modifier';\nimport { fn } from '@ember/helper';\n\nconst nonTrackedArray = [1, 2, 3];\nconst addTo = (arr) => arr.push(Math.random());\n\n<template>\n    {{#let (trackedArray nonTrackedArray) as |arr|}}\n        {{#each arr as |datum|}}\n            {{datum}}\n        {{/each}}\n\n        <button {{on 'click' (fn addTo arr)}}>Add Item</button>\n    {{/let}}\n</template>\n```"
+          ],
+          "itemtype": "method",
+          "name": "trackedArray",
+          "static": 1,
+          "params": [
+            {
+              "name": "data",
+              "description": "The initial array data to track",
+              "type": "Array",
+              "optional": true
+            },
+            {
+              "name": "options",
+              "description": "Optional configuration",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "equals",
+                  "description": "Custom equality function (defaults to Object.is)",
+                  "type": "Function",
+                  "optional": true
+                },
+                {
+                  "name": "description",
+                  "description": "Description for debugging purposes",
+                  "type": "String",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "return": {
+            "description": "A tracked array that updates reactively",
+            "type": "Array"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/reactive/collections",
+          "module": "@ember/reactive/collections"
+        },
+        {
+          "file": "packages/@ember/reactive/collections.ts",
+          "line": 51,
+          "description": "A utility for creating tracked objects, copying the original data so that\nmutations to the tracked data don't mutate the original untracked data.\n\n`trackedObject` can be used in templates and in JavaScript via import.\nAll property accesses entangle with that property, all property sets dirty\nthat property, and changes to the collection only render what changed\nwithout causing unneeded renders.\n\nSee [MDN for more information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)",
+          "example": [
+            "\n```gjs\nimport { trackedObject } from '@ember/reactive/collections';\nimport { on } from '@ember/modifier';\nimport { fn } from '@ember/helper';\n\nconst nonTrackedObject = { a: 1 };\nconst addTo = (obj) => obj[Math.random()] = Math.random();\n\n<template>\n    {{#let (trackedObject nonTrackedObject) as |obj|}}\n        {{#each-in obj as |key value|}}\n            {{key}} => {{value}}<br>\n        {{/each-in}}\n\n        <button {{on 'click' (fn addTo obj)}}>Add Pair</button>\n    {{/let}}\n</template>\n```"
+          ],
+          "itemtype": "method",
+          "name": "trackedObject",
+          "static": 1,
+          "params": [
+            {
+              "name": "data",
+              "description": "The initial object data to track",
+              "type": "Object",
+              "optional": true
+            },
+            {
+              "name": "options",
+              "description": "Optional configuration",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "equals",
+                  "description": "Custom equality function (defaults to Object.is)",
+                  "type": "Function",
+                  "optional": true
+                },
+                {
+                  "name": "description",
+                  "description": "Description for debugging purposes",
+                  "type": "String",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "return": {
+            "description": "A tracked object that updates reactively",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/reactive/collections",
+          "module": "@ember/reactive/collections"
+        },
+        {
+          "file": "packages/@ember/reactive/collections.ts",
+          "line": 94,
+          "description": "A utility for creating tracked sets, copying the original data so that\nmutations to the tracked data don't mutate the original untracked data.\n\n`trackedSet` can be used in templates and in JavaScript via import.\nAll property accesses entangle with that property, all property sets dirty\nthat property, and changes to the collection only render what changed\nwithout causing unneeded renders.\n\nSee [MDN for more information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)",
+          "example": [
+            "\n```gjs\nimport { trackedSet } from '@ember/reactive/collections';\nimport { on } from '@ember/modifier';\nimport { fn } from '@ember/helper';\n\nconst nonTrackedSet = new Set();\nnonTrackedSet.add(1);\nconst addTo = (set) => set.add(Math.random());\n\n<template>\n    {{#let (trackedSet nonTrackedSet) as |set|}}\n        {{#each set as |value|}}\n            {{value}}<br>\n        {{/each}}\n\n        <button {{on 'click' (fn addTo set)}}>Add</button>\n    {{/let}}\n</template>\n```"
+          ],
+          "itemtype": "method",
+          "name": "trackedSet",
+          "static": 1,
+          "params": [
+            {
+              "name": "data",
+              "description": "The initial Set data to track",
+              "type": "Set",
+              "optional": true
+            },
+            {
+              "name": "options",
+              "description": "Optional configuration",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "equals",
+                  "description": "Custom equality function (defaults to Object.is)",
+                  "type": "Function",
+                  "optional": true
+                },
+                {
+                  "name": "description",
+                  "description": "Description for debugging purposes",
+                  "type": "String",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "return": {
+            "description": "A tracked Set that updates reactively",
+            "type": "Set"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/reactive/collections",
+          "module": "@ember/reactive/collections"
+        },
+        {
+          "file": "packages/@ember/reactive/collections.ts",
+          "line": 138,
+          "description": "A utility for creating tracked weak sets, copying the original data so that\nmutations to the tracked data don't mutate the original untracked data.\n\n`trackedWeakSet` can be used in templates and in JavaScript via import.\nAll property accesses entangle with that property, all property sets dirty\nthat property, and changes to the collection only render what changed\nwithout causing unneeded renders.\n\nWeakSets hold weak references to their values, allowing garbage collection\nwhen objects are no longer referenced elsewhere.\n\nSee [MDN for more information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet)",
+          "example": [
+            "\n```gjs\nimport { trackedWeakSet } from '@ember/reactive/collections';\nimport { on } from '@ember/modifier';\nimport { fn } from '@ember/helper';\n\nconst nonTrackedWeakSet = new WeakSet();\n\n<template>\n    {{#let (trackedWeakSet nonTrackedWeakSet) as |weakSet|}}\n        {{log weakSet}}\n    {{/let}}\n</template>\n```"
+          ],
+          "itemtype": "method",
+          "name": "trackedWeakSet",
+          "static": 1,
+          "params": [
+            {
+              "name": "data",
+              "description": "The initial WeakSet data to track",
+              "type": "WeakSet",
+              "optional": true
+            },
+            {
+              "name": "options",
+              "description": "Optional configuration",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "equals",
+                  "description": "Custom equality function (defaults to Object.is)",
+                  "type": "Function",
+                  "optional": true
+                },
+                {
+                  "name": "description",
+                  "description": "Description for debugging purposes",
+                  "type": "String",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "return": {
+            "description": "A tracked WeakSet that updates reactively",
+            "type": "WeakSet"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/reactive/collections",
+          "module": "@ember/reactive/collections"
+        },
+        {
+          "file": "packages/@ember/reactive/collections.ts",
+          "line": 179,
+          "description": "A utility for creating tracked maps, copying the original data so that\nmutations to the tracked data don't mutate the original untracked data.\n\n`trackedMap` can be used in templates and in JavaScript via import.\nAll property accesses entangle with that property, all property sets dirty\nthat property, and changes to the collection only render what changed\nwithout causing unneeded renders.\n\nSee [MDN for more information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)",
+          "example": [
+            "\n```gjs\nimport { trackedMap } from '@ember/reactive/collections';\nimport { on } from '@ember/modifier';\nimport { fn } from '@ember/helper';\n\nconst nonTrackedMap = new Map();\nnonTrackedMap.set('a', 1);\nconst addTo = (map) => map.set(Math.random(), Math.random());\n\n<template>\n    {{#let (trackedMap nonTrackedMap) as |map|}}\n        {{#each-in map as |key value|}}\n            {{key}} => {{value}}<br>\n        {{/each-in}}\n\n        <button {{on 'click' (fn addTo map)}}>Add Pair</button>\n    {{/let}}\n</template>\n```"
+          ],
+          "itemtype": "method",
+          "name": "trackedMap",
+          "static": 1,
+          "params": [
+            {
+              "name": "data",
+              "description": "The initial Map data to track",
+              "type": "Map",
+              "optional": true
+            },
+            {
+              "name": "options",
+              "description": "Optional configuration",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "equals",
+                  "description": "Custom equality function (defaults to Object.is)",
+                  "type": "Function",
+                  "optional": true
+                },
+                {
+                  "name": "description",
+                  "description": "Description for debugging purposes",
+                  "type": "String",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "return": {
+            "description": "A tracked Map that updates reactively",
+            "type": "Map"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/reactive/collections",
+          "module": "@ember/reactive/collections"
+        },
+        {
+          "file": "packages/@ember/reactive/collections.ts",
+          "line": 223,
+          "description": "A utility for creating tracked weak maps, copying the original data so that\nmutations to the tracked data don't mutate the original untracked data.\n\n`trackedWeakMap` can be used in templates and in JavaScript via import.\nAll property accesses entangle with that property, all property sets dirty\nthat property, and changes to the collection only render what changed\nwithout causing unneeded renders.\n\nWeakMaps hold weak references to their keys, allowing garbage collection\nwhen key objects are no longer referenced elsewhere.\n\nSee [MDN for more information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)",
+          "example": [
+            "\n```gjs\nimport { trackedWeakMap } from '@ember/reactive/collections';\nimport { on } from '@ember/modifier';\nimport { fn } from '@ember/helper';\n\nconst nonTrackedWeakMap = new WeakMap();\n\n<template>\n    {{#let (trackedWeakMap nonTrackedWeakMap) as |weakMap|}}\n        {{log weakMap}}\n    {{/let}}\n</template>\n```"
+          ],
+          "itemtype": "method",
+          "name": "trackedWeakMap",
+          "static": 1,
+          "params": [
+            {
+              "name": "data",
+              "description": "The initial WeakMap data to track",
+              "type": "WeakMap",
+              "optional": true
+            },
+            {
+              "name": "options",
+              "description": "Optional configuration",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "equals",
+                  "description": "Custom equality function (defaults to Object.is)",
+                  "type": "Function",
+                  "optional": true
+                },
+                {
+                  "name": "description",
+                  "description": "Description for debugging purposes",
+                  "type": "String",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "return": {
+            "description": "A tracked WeakMap that updates reactively",
+            "type": "WeakMap"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/reactive/collections",
+          "module": "@ember/reactive/collections"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.9.0-alpha.1-@ember/reactive/collections",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.9.0-alpha.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
