@@ -1,0 +1,273 @@
+{
+  "data": {
+    "id": "ember-6.8.0-Engine",
+    "type": "class",
+    "attributes": {
+      "name": "Engine",
+      "shortname": "Engine",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/engine",
+      "namespace": "",
+      "file": "packages/@ember/engine/index.ts",
+      "line": 40,
+      "description": "The `Engine` class contains core functionality for both applications and\nengines.\n\nEach engine manages a registry that's used for dependency injection and\nexposed through `RegistryProxy`.\n\nEngines also manage initializers and instance initializers.\n\nEngines can spawn `EngineInstance` instances via `buildInstance()`.",
+      "extends": "Ember.Namespace",
+      "uses": [
+        "RegistryProxyMixin"
+      ],
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 62,
+          "description": "The goal of initializers should be to register dependencies and injections.\nThis phase runs once. Because these initializers may load code, they are\nallowed to defer application readiness and advance it. If you need to access\nthe container or store you should use an InstanceInitializer that will be run\nafter all initializers and therefore after all code is loaded and the app is\nready.\n\nInitializer receives an object which has the following attributes:\n`name`, `before`, `after`, `initialize`. The only required attribute is\n`initialize`, all others are optional.\n\n* `name` allows you to specify under which name the initializer is registered.\nThis must be a unique name, as trying to register two initializers with the\nsame name will result in an error.\n\n```js {data-filename=app/initializer/named-initializer.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('Running namedInitializer!');\n}\n\nexport default {\n  name: 'named-initializer',\n  initialize\n};\n```\n\n* `before` and `after` are used to ensure that this initializer is ran prior\nor after the one identified by the value. This value can be a single string\nor an array of strings, referencing the `name` of other initializers.\n\nAn example of ordering initializers, we create an initializer named `first`:\n\n```js {data-filename=app/initializer/first.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('First initializer!');\n}\n\nexport default {\n  name: 'first',\n  initialize\n};\n```\n\n```bash\n// DEBUG: First initializer!\n```\n\nWe add another initializer named `second`, specifying that it should run\nafter the initializer named `first`:\n\n```js {data-filename=app/initializer/second.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('Second initializer!');\n}\n\nexport default {\n  name: 'second',\n  after: 'first',\n  initialize\n};\n```\n\n```\n// DEBUG: First initializer!\n// DEBUG: Second initializer!\n```\n\nAfterwards we add a further initializer named `pre`, this time specifying\nthat it should run before the initializer named `first`:\n\n```js {data-filename=app/initializer/pre.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('Pre initializer!');\n}\n\nexport default {\n  name: 'pre',\n  before: 'first',\n  initialize\n};\n```\n\n```bash\n// DEBUG: Pre initializer!\n// DEBUG: First initializer!\n// DEBUG: Second initializer!\n```\n\nFinally we add an initializer named `post`, specifying it should run after\nboth the `first` and the `second` initializers:\n\n```js {data-filename=app/initializer/post.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('Post initializer!');\n}\n\nexport default {\n  name: 'post',\n  after: ['first', 'second'],\n  initialize\n};\n```\n\n```bash\n// DEBUG: Pre initializer!\n// DEBUG: First initializer!\n// DEBUG: Second initializer!\n// DEBUG: Post initializer!\n```\n\n* `initialize` is a callback function that receives one argument,\n  `application`, on which you can operate.\n\nExample of using `application` to register an adapter:\n\n```js {data-filename=app/initializer/api-adapter.js}\nimport ApiAdapter from '../utils/api-adapter';\n\nexport function initialize(application) {\n  application.register('api-adapter:main', ApiAdapter);\n}\n\nexport default {\n  name: 'post',\n  after: ['first', 'second'],\n  initialize\n};\n```",
+          "itemtype": "method",
+          "name": "initializer",
+          "params": [
+            {
+              "name": "initializer",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 209,
+          "description": "Instance initializers run after all initializers have run. Because\ninstance initializers run after the app is fully set up. We have access\nto the store, container, and other items. However, these initializers run\nafter code has loaded and are not allowed to defer readiness.\n\nInstance initializer receives an object which has the following attributes:\n`name`, `before`, `after`, `initialize`. The only required attribute is\n`initialize`, all others are optional.\n\n* `name` allows you to specify under which name the instanceInitializer is\nregistered. This must be a unique name, as trying to register two\ninstanceInitializer with the same name will result in an error.\n\n```js {data-filename=app/initializer/named-instance-initializer.js}\nimport { debug } from '@ember/debug';\n\nexport function initialize() {\n  debug('Running named-instance-initializer!');\n}\n\nexport default {\n  name: 'named-instance-initializer',\n  initialize\n};\n```\n\n* `before` and `after` are used to ensure that this initializer is ran prior\nor after the one identified by the value. This value can be a single string\nor an array of strings, referencing the `name` of other initializers.\n\n* See Application.initializer for discussion on the usage of before\nand after.\n\nExample instanceInitializer to preload data into the store.\n\n```js {data-filename=app/initializer/preload-data.js}\n\nexport function initialize(application) {\n    var userConfig, userConfigEncoded, store;\n    // We have a HTML escaped JSON representation of the user's basic\n    // configuration generated server side and stored in the DOM of the main\n    // index.html file. This allows the app to have access to a set of data\n    // without making any additional remote calls. Good for basic data that is\n    // needed for immediate rendering of the page. Keep in mind, this data,\n    // like all local models and data can be manipulated by the user, so it\n    // should not be relied upon for security or authorization.\n\n    // Grab the encoded data from the meta tag\n    userConfigEncoded = document.querySelector('head meta[name=app-user-config]').attr('content');\n\n    // Unescape the text, then parse the resulting JSON into a real object\n    userConfig = JSON.parse(unescape(userConfigEncoded));\n\n    // Lookup the store\n    store = application.lookup('service:store');\n\n    // Push the encoded JSON into the store\n    store.pushPayload(userConfig);\n}\n\nexport default {\n  name: 'named-instance-initializer',\n  initialize\n};\n```",
+          "itemtype": "method",
+          "name": "instanceInitializer",
+          "params": [
+            {
+              "name": "instanceInitializer",
+              "description": ""
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 285,
+          "description": "This creates a registry with the default Ember naming conventions.\n\nIt also configures the registry:\n\n* registered views are created every time they are looked up (they are\n  not singletons)\n* registered templates are not factories; the registered value is\n  returned directly.\n* the router receives the application as its `namespace` property\n* all controllers receive the router as their `target` and `controllers`\n  properties\n* all controllers receive the application as their `namespace` property\n* the application view receives the application controller as its\n  `controller` property\n* the application view receives the application template as its\n  `defaultTemplate` property",
+          "itemtype": "method",
+          "name": "buildRegistry",
+          "static": 1,
+          "params": [
+            {
+              "name": "namespace",
+              "description": "the application for which to\n  build the registry",
+              "type": "Application"
+            }
+          ],
+          "return": {
+            "description": "the built registry",
+            "type": "Ember.Registry"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 346,
+          "description": "Ensure that initializers are run once, and only once, per engine.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "ensureInitializers",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 359,
+          "description": "Create an EngineInstance for this engine.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "buildInstance",
+          "return": {
+            "description": "the engine instance",
+            "type": "EngineInstance"
+          },
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 371,
+          "description": "Build and configure the registry for the current engine.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "buildRegistry",
+          "return": {
+            "description": "the configured registry",
+            "type": "Ember.Registry"
+          },
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 384,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "initializer",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 392,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "instanceInitializer",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 400,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "runInitializers",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 414,
+          "access": "private",
+          "tagname": "",
+          "since": "1.12.0",
+          "itemtype": "method",
+          "name": "runInstanceInitializers",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 448,
+          "description": "This function defines the default lookup rules for container lookups:\n\n* templates are looked up on `Ember.TEMPLATES`\n* other names are looked up on the application after classifying the name.\n  For example, `controller:post` looks up `App.PostController` by default.\n* if the default lookup fails, look for registered classes on the container\n\nThis allows the application to register default injections in the container\nthat could be overridden by the normal naming convention.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "resolverFor",
+          "params": [
+            {
+              "name": "namespace",
+              "description": "the namespace to look for classes",
+              "type": "Ember.Enginer"
+            }
+          ],
+          "return": {
+            "description": "the resolved value for a given lookup",
+            "type": "*"
+          },
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 107,
+          "description": "Registers a factory that can be used for dependency injection (with\n`inject`) or for service lookup. Each factory is registered with\na full name including two parts: `type:name`.\n\nA simple example:\n\n```javascript\nimport Application from '@ember/application';\nimport EmberObject from '@ember/object';\n\nlet App = Application.create();\n\nApp.Orange = EmberObject.extend();\nApp.register('fruit:favorite', App.Orange);\n```\n\nEmber will resolve factories from the `App` namespace automatically.\nFor example `App.CarsController` will be discovered and returned if\nan application requests `controller:cars`.\n\nAn example of registering a controller with a non-standard name:\n\n```javascript\nimport Application from '@ember/application';\nimport Controller from '@ember/controller';\n\nlet App = Application.create();\nlet Session = Controller.extend();\n\nApp.register('controller:session', Session);\n\n// The Session controller can now be treated like a normal controller,\n// despite its non-standard name.\nApp.ApplicationController = Controller.extend({\n  needs: ['session']\n});\n```\n\nRegistered factories are **instantiated** by having `create`\ncalled on them. Additionally they are **singletons**, each time\nthey are looked up they return the same instance.\n\nSome examples modifying that default behavior:\n\n```javascript\nimport Application from '@ember/application';\nimport EmberObject from '@ember/object';\n\nlet App = Application.create();\n\nApp.Person = EmberObject.extend();\nApp.Orange = EmberObject.extend();\nApp.Email = EmberObject.extend();\nApp.session = EmberObject.create();\n\nApp.register('model:user', App.Person, { singleton: false });\nApp.register('fruit:favorite', App.Orange);\nApp.register('communication:main', App.Email, { singleton: false });\nApp.register('session', App.session, { instantiate: false });\n```",
+          "itemtype": "method",
+          "name": "register",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "type:name (e.g., 'model:user')",
+              "type": "String"
+            },
+            {
+              "name": "factory",
+              "description": "(e.g., App.Person)",
+              "type": "Factory|object"
+            },
+            {
+              "name": "options",
+              "description": "(optional) disable instantiation or singleton usage",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Engine",
+          "module": "@ember/owner",
+          "inherited": true,
+          "inheritedFrom": "BasicRegistry"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 325,
+          "description": "Set this to provide an alternate class to `DefaultResolver`",
+          "itemtype": "property",
+          "name": "resolver",
+          "access": "public",
+          "tagname": "",
+          "class": "Engine",
+          "module": "@ember/engine"
+        },
+        {
+          "file": "packages/@ember/engine/index.ts",
+          "line": 338,
+          "description": "A private flag indicating whether an engine's initializers have run yet.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_initializersRan",
+          "class": "Engine",
+          "module": "@ember/engine"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "Ember.Namespace",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-6.8.0-Application"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.8.0-@ember/engine",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.8.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
