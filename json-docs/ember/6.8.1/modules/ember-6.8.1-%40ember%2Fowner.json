@@ -1,0 +1,179 @@
+{
+  "data": {
+    "id": "ember-6.8.1-@ember/owner",
+    "type": "module",
+    "attributes": {
+      "name": "@ember/owner",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember/owner": 1
+      },
+      "namespaces": {},
+      "tag": "module",
+      "file": "packages/@ember/-internals/owner/index.ts",
+      "line": 600,
+      "description": "Ember’s dependency injection system is built on the idea of an \"owner\": an\nobject responsible for managing items which can be registered and looked up\nwith the system.\n\nThis module does not provide any concrete instances of owners. Instead, it\ndefines the core type, `Owner`, which specifies the public API contract for an\nowner. The primary concrete implementations of `Owner` are `EngineInstance`,\nfrom `@ember/engine/instance`, and its `ApplicationInstance` subclass, from\n`@ember/application/instance`.\n\nAlong with `Owner` itself, this module provides a number of supporting types\nrelated to Ember's DI system:\n\n- `Factory`, Ember's primary interface for something which can create class\n  instances registered with the DI system.\n\n- `FactoryManager`, an interface for inspecting a `Factory`'s class.\n\n- `Resolver`, an interface defining the contract for the object responsible\n  for mapping string names to the corresponding classes. For example, when you\n  write `@service('session')`, a resolver is responsible to map that back to\n  the `Session` service class in your codebase. Normally, this is handled for\n  you automatically with `ember-resolver`, which is the main implementor of\n  this interface.\n\nFor more details on each, see their per-item docs.",
+      "access": "public",
+      "tagname": "",
+      "parent": null,
+      "publicclasses": [
+        "FullName",
+        "Owner",
+        "RegisterOptions",
+        "Factory",
+        "FactoryManager",
+        "Resolver"
+      ],
+      "privateclasses": [
+        "BasicRegistry",
+        "BasicContainer",
+        "InternalFactory",
+        "ContainerProxy",
+        "RegistryProxy"
+      ],
+      "staticfunctions": {
+        "@ember/owner": [
+          {
+            "file": "packages/@ember/owner/index.ts",
+            "line": 41,
+            "description": "Framework objects in an Ember application (components, services, routes, etc.)\nare created via a factory and dependency injection system. Each of these\nobjects is the responsibility of an \"owner\", which handled its\ninstantiation and manages its lifetime.\n\n`getOwner` fetches the owner object responsible for an instance. This can\nbe used to lookup or resolve other class instances, or register new factories\ninto the owner.\n\nFor example, this component dynamically looks up a service based on the\n`audioType` passed as an argument:\n\n```app/components/play-audio.js\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\nimport { getOwner } from '@ember/owner';\n\n// Usage:\n//\n//   <PlayAudio @audioType={{@model.audioType}} @audioFile={{@model.file}}/>\n//\nexport default class extends Component {\n  get audioService() {\n    return getOwner(this)?.lookup(`service:${this.args.audioType}`);\n  }\n\n  @action\n  onPlay() {\n    this.audioService?.play(this.args.audioFile);\n  }\n}\n```",
+            "itemtype": "method",
+            "name": "getOwner",
+            "static": 1,
+            "params": [
+              {
+                "name": "object",
+                "description": "An object with an owner.",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "An owner object.",
+              "type": "Object"
+            },
+            "since": "2.3.0",
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/owner",
+            "module": "@ember/owner"
+          },
+          {
+            "file": "packages/@ember/-internals/owner/index.ts",
+            "line": 545,
+            "description": "`setOwner` forces a new owner on a given object instance. This is primarily\nuseful in some testing cases.",
+            "itemtype": "method",
+            "name": "setOwner",
+            "static": 1,
+            "params": [
+              {
+                "name": "object",
+                "description": "An object instance.",
+                "type": "Object"
+              },
+              {
+                "name": "object",
+                "description": "The new owner object of the object instance.",
+                "type": "Owner"
+              }
+            ],
+            "since": "2.3.0",
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/owner",
+            "module": "@ember/owner"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember/owner": [
+          {
+            "file": "packages/@ember/owner/index.ts",
+            "line": 41,
+            "description": "Framework objects in an Ember application (components, services, routes, etc.)\nare created via a factory and dependency injection system. Each of these\nobjects is the responsibility of an \"owner\", which handled its\ninstantiation and manages its lifetime.\n\n`getOwner` fetches the owner object responsible for an instance. This can\nbe used to lookup or resolve other class instances, or register new factories\ninto the owner.\n\nFor example, this component dynamically looks up a service based on the\n`audioType` passed as an argument:\n\n```app/components/play-audio.js\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\nimport { getOwner } from '@ember/owner';\n\n// Usage:\n//\n//   <PlayAudio @audioType={{@model.audioType}} @audioFile={{@model.file}}/>\n//\nexport default class extends Component {\n  get audioService() {\n    return getOwner(this)?.lookup(`service:${this.args.audioType}`);\n  }\n\n  @action\n  onPlay() {\n    this.audioService?.play(this.args.audioFile);\n  }\n}\n```",
+            "itemtype": "method",
+            "name": "getOwner",
+            "static": 1,
+            "params": [
+              {
+                "name": "object",
+                "description": "An object with an owner.",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "An owner object.",
+              "type": "Object"
+            },
+            "since": "2.3.0",
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/owner",
+            "module": "@ember/owner"
+          },
+          {
+            "file": "packages/@ember/-internals/owner/index.ts",
+            "line": 545,
+            "description": "`setOwner` forces a new owner on a given object instance. This is primarily\nuseful in some testing cases.",
+            "itemtype": "method",
+            "name": "setOwner",
+            "static": 1,
+            "params": [
+              {
+                "name": "object",
+                "description": "An object instance.",
+                "type": "Object"
+              },
+              {
+                "name": "object",
+                "description": "The new owner object of the object instance.",
+                "type": "Owner"
+              }
+            ],
+            "since": "2.3.0",
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/owner",
+            "module": "@ember/owner"
+          }
+        ],
+        "InternalFactory": [
+          {
+            "file": "packages/@ember/-internals/owner/index.ts",
+            "line": 526,
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "isFactory",
+            "params": [
+              {
+                "name": "obj",
+                "description": "",
+                "type": "Object"
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Boolean"
+            },
+            "static": 1,
+            "class": "InternalFactory",
+            "module": "@ember/owner"
+          }
+        ]
+      },
+      "version": "6.8.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.8.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
