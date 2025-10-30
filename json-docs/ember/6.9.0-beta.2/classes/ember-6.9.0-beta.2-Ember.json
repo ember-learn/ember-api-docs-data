@@ -1,0 +1,196 @@
+{
+  "data": {
+    "id": "ember-6.9.0-beta.2-Ember",
+    "type": "class",
+    "attributes": {
+      "name": "Ember",
+      "shortname": "Ember",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/utils",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/meta/lib/meta.ts",
+          "line": 673,
+          "description": "Retrieves the meta hash for an object. If `writable` is true ensures the\nhash is writable for this object as well.\n\nThe meta object contains information about computed property descriptors as\nwell as any watched properties and other information. You generally will\nnot access this information directly but instead work with higher level\nmethods that manipulate this hash indirectly.",
+          "itemtype": "method",
+          "name": "meta",
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to retrieve meta for",
+              "type": "Object"
+            },
+            {
+              "name": "writable",
+              "description": "Pass `false` if you do not intend to modify\n  the meta hash, allowing the method to avoid making an unnecessary copy.",
+              "type": "Boolean",
+              "optional": true,
+              "optdefault": "true"
+            }
+          ],
+          "return": {
+            "description": "the meta hash for an object",
+            "type": "Object"
+          },
+          "class": "Ember",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/-internals/utils/lib/invoke.ts",
+          "line": 1,
+          "description": "Checks to see if the `methodName` exists on the `obj`.\n\n```javascript\nlet foo = { bar: function() { return 'bar'; }, baz: null };\n\nEmber.canInvoke(foo, 'bar'); // true\nEmber.canInvoke(foo, 'baz'); // false\nEmber.canInvoke(foo, 'bat'); // false\n```",
+          "itemtype": "method",
+          "name": "canInvoke",
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to check for the method",
+              "type": "Object"
+            },
+            {
+              "name": "methodName",
+              "description": "The method name to check for",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/-internals/utils/lib/spec.ts",
+          "line": 1,
+          "description": "Returns whether Type(value) is Object.\n\nUseful for checking whether a value is a valid WeakMap key.\n\nRefs: https://tc39.github.io/ecma262/#sec-typeof-operator-runtime-semantics-evaluation\n      https://tc39.github.io/ecma262/#sec-weakmap.prototype.set",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "isObject",
+          "class": "Ember",
+          "module": "@ember/utils"
+        },
+        {
+          "file": "packages/@ember/-internals/utils/lib/super.ts",
+          "line": 71,
+          "description": "Wraps the passed function so that `this._super` will point to the superFunc\nwhen the function is invoked. This is the primitive we use to implement\ncalls to super.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "wrap",
+          "params": [
+            {
+              "name": "func",
+              "description": "The function to call",
+              "type": "Function"
+            },
+            {
+              "name": "superFunc",
+              "description": "The super function.",
+              "type": "Function"
+            }
+          ],
+          "return": {
+            "description": "wrapped function.",
+            "type": "Function"
+          },
+          "class": "Ember",
+          "module": "@ember/utils"
+        },
+        {
+          "file": "packages/@ember/routing/lib/controller_for.ts",
+          "line": 9,
+          "description": "Finds a controller instance.",
+          "itemtype": "method",
+          "name": "controllerFor",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/routing/lib/generate_controller.ts",
+          "line": 11,
+          "description": "Generates a controller factory",
+          "itemtype": "method",
+          "name": "generateControllerFactory",
+          "access": "private",
+          "tagname": "",
+          "class": "Ember",
+          "module": "@ember/routing"
+        },
+        {
+          "file": "packages/@ember/routing/lib/generate_controller.ts",
+          "line": 55,
+          "description": "Generates and instantiates a controller extending from `controller:basic`\nif present, or `Controller` if not.",
+          "itemtype": "method",
+          "name": "generateController",
+          "access": "private",
+          "tagname": "",
+          "since": "1.3.0",
+          "class": "Ember",
+          "module": "@ember/routing"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/utils/lib/guid.ts",
+          "line": 26,
+          "description": "Prefix used for guids through out Ember.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "GUID_PREFIX",
+          "type": "String",
+          "final": 1,
+          "class": "Ember",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/-internals/utils/lib/guid.ts",
+          "line": 39,
+          "description": "A unique key used to assign guids and other private metadata to objects.\nIf you inspect an object in your browser debugger you will often see these.\nThey can be safely ignored.\n\nOn browsers that support it, these properties are added with enumeration\ndisabled so they won't show up when you iterate over your properties.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "GUID_KEY",
+          "type": "String",
+          "final": 1,
+          "class": "Ember",
+          "module": "@ember/object"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.9.0-beta.2-@ember/utils",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.9.0-beta.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "data": {
+    "id": "ember-6.9.0-beta.2-@ember/array",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/array",
+      "shortname": "@ember/array",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/array/lib/make-array.ts",
+          "line": 5,
+          "description": "Forces the passed object to be part of an array. If the object is already\nan array, it will return the object. Otherwise, it will add the object to\nan array. If object is `null` or `undefined`, it will return an empty array.\n\n```javascript\nimport { makeArray } from '@ember/array';\nimport ArrayProxy from '@ember/array/proxy';\n\nmakeArray();            // []\nmakeArray(null);        // []\nmakeArray(undefined);   // []\nmakeArray('lindsay');   // ['lindsay']\nmakeArray([1, 2, 42]);  // [1, 2, 42]\n\nlet proxy = ArrayProxy.create({ content: [] });\n\nmakeArray(proxy) === proxy;  // false\n```",
+          "itemtype": "method",
+          "name": "makeArray",
+          "static": 1,
+          "params": [
+            {
+              "name": "obj",
+              "description": "the object",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 139,
+          "description": "Returns true if the passed object is an array or Array-like.\n\nObjects are considered Array-like if any of the following are true:\n\n  - the object is a native Array\n  - the object has an objectAt property\n  - the object is an Object, and has a length property\n\nUnlike `typeOf` this method returns true even if the passed object is\nnot formally an array but appears to be array-like (i.e. implements `Array`)\n\n```javascript\nimport { isArray } from '@ember/array';\nimport ArrayProxy from '@ember/array/proxy';\n\nisArray();                                      // false\nisArray([]);                                    // true\nisArray(ArrayProxy.create({ content: [] }));    // true\n```",
+          "itemtype": "method",
+          "name": "isArray",
+          "static": 1,
+          "params": [
+            {
+              "name": "obj",
+              "description": "The object to test",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "true if the passed object is an array or Array-like",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1855,
+          "description": "Creates an `Ember.NativeArray` from an Array-like object.\nDoes not modify the original object's contents.\n\nExample\n\n```js {data-filename=app/components/my-component.js}\nimport Component from '@ember/component';\nimport { A } from '@ember/array';\n\nexport default Component.extend({\n  tagName: 'ul',\n  classNames: ['pagination'],\n\n  init() {\n    this._super(...arguments);\n\n    if (!this.get('content')) {\n      this.set('content', A());\n      this.set('otherContent', A([1,2,3]));\n    }\n  }\n});\n```",
+          "itemtype": "method",
+          "name": "A",
+          "static": 1,
+          "return": {
+            "description": "",
+            "type": "Ember.NativeArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "@ember/array"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1970,
+          "description": "Remove all occurrences of an object in the array.\n\n```javascript\nlet cities = ['Chicago', 'Berlin', 'Lima', 'Chicago'];\n\ncities.removeObject('Chicago');  // ['Berlin', 'Lima']\ncities.removeObject('Lima');     // ['Berlin']\ncities.removeObject('Tokyo')     // ['Berlin']\n```",
+          "itemtype": "method",
+          "name": "removeObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to remove",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 1991,
+          "description": "Push the object onto the end of the array if it is not already\npresent in the array.\n\n```javascript\nlet cities = ['Chicago', 'Berlin'];\n\ncities.addObject('Lima');    // ['Chicago', 'Berlin', 'Lima']\ncities.addObject('Berlin');  // ['Chicago', 'Berlin', 'Lima']\n```",
+          "itemtype": "method",
+          "name": "addObject",
+          "params": [
+            {
+              "name": "obj",
+              "description": "object to add, if not already present",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "EmberArray"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "ember"
+        },
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 2012,
+          "description": "Sets the value on the named property for each member. This is more\nergonomic than using other methods defined on this helper. If the object\nimplements Observable, the value will be changed to `set(),` otherwise\nit will be set directly. `null` objects are skipped.\n\n```javascript\nlet people = [{name: 'Joe'}, {name: 'Matt'}];\n\npeople.setEach('zipCode', '10011');\n// [{name: 'Joe', zipCode: '10011'}, {name: 'Matt', zipCode: '10011'}];\n```",
+          "itemtype": "method",
+          "name": "setEach",
+          "params": [
+            {
+              "name": "key",
+              "description": "The key to set",
+              "type": "String"
+            },
+            {
+              "name": "value",
+              "description": "The object to set",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "receiver",
+            "type": "Object"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "ember"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/array/index.ts",
+          "line": 2032,
+          "description": "This is the handler for the special array content property. If you get\nthis property, it will return this. If you set this property to a new\narray, it will replace the current content.\n\n```javascript\nlet peopleToMoon = ['Armstrong', 'Aldrin'];\n\npeopleToMoon.get('[]'); // ['Armstrong', 'Aldrin']\n\npeopleToMoon.set('[]', ['Collins']); // ['Collins']\npeopleToMoon.get('[]'); // ['Collins']\n```",
+          "itemtype": "property",
+          "name": "[]",
+          "return": {
+            "description": "this"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/array",
+          "module": "ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.9.0-beta.2-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.9.0-beta.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

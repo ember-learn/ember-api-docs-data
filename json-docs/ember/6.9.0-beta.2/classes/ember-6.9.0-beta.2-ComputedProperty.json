@@ -1,0 +1,81 @@
+{
+  "data": {
+    "id": "ember-6.9.0-beta.2-ComputedProperty",
+    "type": "class",
+    "attributes": {
+      "name": "ComputedProperty",
+      "shortname": "ComputedProperty",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/object",
+      "namespace": "",
+      "file": "packages/@ember/-internals/metal/lib/computed.ts",
+      "line": 76,
+      "description": "`@computed` is a decorator that turns a JavaScript getter and setter into a\ncomputed property, which is a _cached, trackable value_. By default the getter\nwill only be called once and the result will be cached. You can specify\nvarious properties that your computed property depends on. This will force the\ncached result to be cleared if the dependencies are modified, and lazily recomputed the next time something asks for it.\n\nIn the following example we decorate a getter - `fullName` -  by calling\n`computed` with the property dependencies (`firstName` and `lastName`) as\narguments. The `fullName` getter will be called once (regardless of how many\ntimes it is accessed) as long as its dependencies do not change. Once\n`firstName` or `lastName` are updated any future calls to `fullName` will\nincorporate the new values, and any watchers of the value such as templates\nwill be updated:\n\n```javascript\nimport { computed, set } from '@ember/object';\n\nclass Person {\n  constructor(firstName, lastName) {\n    set(this, 'firstName', firstName);\n    set(this, 'lastName', lastName);\n  }\n\n  @computed('firstName', 'lastName')\n  get fullName() {\n    return `${this.firstName} ${this.lastName}`;\n  }\n});\n\nlet tom = new Person('Tom', 'Dale');\n\ntom.fullName; // 'Tom Dale'\n```\n\nYou can also provide a setter, which will be used when updating the computed\nproperty. Ember's `set` function must be used to update the property\nsince it will also notify observers of the property:\n\n```javascript\nimport { computed, set } from '@ember/object';\n\nclass Person {\n  constructor(firstName, lastName) {\n    set(this, 'firstName', firstName);\n    set(this, 'lastName', lastName);\n  }\n\n  @computed('firstName', 'lastName')\n  get fullName() {\n    return `${this.firstName} ${this.lastName}`;\n  }\n\n  set fullName(value) {\n    let [firstName, lastName] = value.split(' ');\n\n    set(this, 'firstName', firstName);\n    set(this, 'lastName', lastName);\n  }\n});\n\nlet person = new Person();\n\nset(person, 'fullName', 'Peter Wagenet');\nperson.firstName; // 'Peter'\nperson.lastName;  // 'Wagenet'\n```\n\nYou can also pass a getter function or object with `get` and `set` functions\nas the last argument to the computed decorator. This allows you to define\ncomputed property _macros_:\n\n```js\nimport { computed } from '@ember/object';\n\nfunction join(...keys) {\n  return computed(...keys, function() {\n    return keys.map(key => this[key]).join(' ');\n  });\n}\n\nclass Person {\n  @join('firstName', 'lastName')\n  fullName;\n}\n```\n\nNote that when defined this way, getters and setters receive the _key_ of the\nproperty they are decorating as the first argument. Setters receive the value\nthey are setting to as the second argument instead. Additionally, setters must\n_return_ the value that should be cached:\n\n```javascript\nimport { computed, set } from '@ember/object';\n\nfunction fullNameMacro(firstNameKey, lastNameKey) {\n  return computed(firstNameKey, lastNameKey, {\n    get() {\n      return `${this[firstNameKey]} ${this[lastNameKey]}`;\n    }\n\n    set(key, value) {\n      let [firstName, lastName] = value.split(' ');\n\n      set(this, firstNameKey, firstName);\n      set(this, lastNameKey, lastName);\n\n      return value;\n    }\n  });\n}\n\nclass Person {\n  constructor(firstName, lastName) {\n    set(this, 'firstName', firstName);\n    set(this, 'lastName', lastName);\n  }\n\n  @fullNameMacro('firstName', 'lastName') fullName;\n});\n\nlet person = new Person();\n\nset(person, 'fullName', 'Peter Wagenet');\nperson.firstName; // 'Peter'\nperson.lastName;  // 'Wagenet'\n```\n\nComputed properties can also be used in classic classes. To do this, we\nprovide the getter and setter as the last argument like we would for a macro,\nand we assign it to a property on the class definition. This is an _anonymous_\ncomputed macro:\n\n```javascript\nimport EmberObject, { computed, set } from '@ember/object';\n\nlet Person = EmberObject.extend({\n  // these will be supplied by `create`\n  firstName: null,\n  lastName: null,\n\n  fullName: computed('firstName', 'lastName', {\n    get() {\n      return `${this.firstName} ${this.lastName}`;\n    }\n\n    set(key, value) {\n      let [firstName, lastName] = value.split(' ');\n\n      set(this, 'firstName', firstName);\n      set(this, 'lastName', lastName);\n\n      return value;\n    }\n  })\n});\n\nlet tom = Person.create({\n  firstName: 'Tom',\n  lastName: 'Dale'\n});\n\ntom.get('fullName') // 'Tom Dale'\n```\n\nYou can overwrite computed property without setters with a normal property (no\nlonger computed) that won't change if dependencies change. You can also mark\ncomputed property as `.readOnly()` and block all attempts to set it.\n\n```javascript\nimport { computed, set } from '@ember/object';\n\nclass Person {\n  constructor(firstName, lastName) {\n    set(this, 'firstName', firstName);\n    set(this, 'lastName', lastName);\n  }\n\n  @computed('firstName', 'lastName').readOnly()\n  get fullName() {\n    return `${this.firstName} ${this.lastName}`;\n  }\n});\n\nlet person = new Person();\nperson.set('fullName', 'Peter Wagenet'); // Uncaught Error: Cannot set read-only property \"fullName\" on object: <(...):emberXXX>\n```\n\nAdditional resources:\n- [Decorators RFC](https://github.com/emberjs/rfcs/blob/master/text/0408-decorators.md)\n- [New CP syntax RFC](https://github.com/emberjs/rfcs/blob/master/text/0011-improved-cp-syntax.md)\n- [New computed syntax explained in \"Ember 1.12 released\" ](https://emberjs.com/blog/2015/05/13/ember-1-12-released.html#toc_new-computed-syntax)",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/metal/lib/computed.ts",
+          "line": 606,
+          "description": "Call on a computed property to set it into read-only mode. When in this\nmode the computed property will throw an error when set.\n\nExample:\n\n```javascript\nimport { computed, set } from '@ember/object';\n\nclass Person {\n  @computed().readOnly()\n  get guid() {\n    return 'guid-guid-guid';\n  }\n}\n\nlet person = new Person();\nset(person, 'guid', 'new-guid'); // will throw an exception\n```\n\nClassic Class Example:\n\n```javascript\nimport EmberObject, { computed } from '@ember/object';\n\nlet Person = EmberObject.extend({\n  guid: computed(function() {\n    return 'guid-guid-guid';\n  }).readOnly()\n});\n\nlet person = Person.create();\nperson.set('guid', 'new-guid'); // will throw an exception\n```",
+          "itemtype": "method",
+          "name": "readOnly",
+          "return": {
+            "description": "this",
+            "type": "ComputedProperty"
+          },
+          "chainable": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "ComputedProperty",
+          "module": "@ember/object"
+        },
+        {
+          "file": "packages/@ember/-internals/metal/lib/computed.ts",
+          "line": 656,
+          "description": "In some cases, you may want to annotate computed properties with additional\nmetadata about how they function or what values they operate on. For example,\ncomputed property functions may close over variables that are then no longer\navailable for introspection. You can pass a hash of these values to a\ncomputed property.\n\nExample:\n\n```javascript\nimport { computed } from '@ember/object';\nimport Person from 'my-app/utils/person';\n\nclass Store {\n  @computed().meta({ type: Person })\n  get person() {\n    let personId = this.personId;\n    return Person.create({ id: personId });\n  }\n}\n```\n\nClassic Class Example:\n\n```javascript\nimport { computed } from '@ember/object';\nimport Person from 'my-app/utils/person';\n\nconst Store = EmberObject.extend({\n  person: computed(function() {\n    let personId = this.get('personId');\n    return Person.create({ id: personId });\n  }).meta({ type: Person })\n});\n```\n\nThe hash that you pass to the `meta()` function will be saved on the\ncomputed property descriptor under the `_meta` key. Ember runtime\nexposes a public API for retrieving these values from classes,\nvia the `metaForProperty()` function.",
+          "itemtype": "method",
+          "name": "meta",
+          "params": [
+            {
+              "name": "meta",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "chainable": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "ComputedProperty",
+          "module": "@ember/object"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.9.0-beta.2-@ember/object",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.9.0-beta.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
