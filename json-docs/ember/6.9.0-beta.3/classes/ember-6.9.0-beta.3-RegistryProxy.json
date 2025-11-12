@@ -1,0 +1,84 @@
+{
+  "data": {
+    "id": "ember-6.9.0-beta.3-RegistryProxy",
+    "type": "class",
+    "attributes": {
+      "name": "RegistryProxy",
+      "shortname": "RegistryProxy",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/owner",
+      "namespace": "",
+      "file": "packages/@ember/-internals/owner/index.ts",
+      "line": 600,
+      "extends": "BasicRegistry",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 107,
+          "description": "Registers a factory that can be used for dependency injection (with\n`inject`) or for service lookup. Each factory is registered with\na full name including two parts: `type:name`.\n\nA simple example:\n\n```javascript\nimport Application from '@ember/application';\nimport EmberObject from '@ember/object';\n\nlet App = Application.create();\n\nApp.Orange = EmberObject.extend();\nApp.register('fruit:favorite', App.Orange);\n```\n\nEmber will resolve factories from the `App` namespace automatically.\nFor example `App.CarsController` will be discovered and returned if\nan application requests `controller:cars`.\n\nAn example of registering a controller with a non-standard name:\n\n```javascript\nimport Application from '@ember/application';\nimport Controller from '@ember/controller';\n\nlet App = Application.create();\nlet Session = Controller.extend();\n\nApp.register('controller:session', Session);\n\n// The Session controller can now be treated like a normal controller,\n// despite its non-standard name.\nApp.ApplicationController = Controller.extend({\n  needs: ['session']\n});\n```\n\nRegistered factories are **instantiated** by having `create`\ncalled on them. Additionally they are **singletons**, each time\nthey are looked up they return the same instance.\n\nSome examples modifying that default behavior:\n\n```javascript\nimport Application from '@ember/application';\nimport EmberObject from '@ember/object';\n\nlet App = Application.create();\n\nApp.Person = EmberObject.extend();\nApp.Orange = EmberObject.extend();\nApp.Email = EmberObject.extend();\nApp.session = EmberObject.create();\n\nApp.register('model:user', App.Person, { singleton: false });\nApp.register('fruit:favorite', App.Orange);\nApp.register('communication:main', App.Email, { singleton: false });\nApp.register('session', App.session, { instantiate: false });\n```",
+          "itemtype": "method",
+          "name": "register",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "type:name (e.g., 'model:user')",
+              "type": "String"
+            },
+            {
+              "name": "factory",
+              "description": "(e.g., App.Person)",
+              "type": "Factory|object"
+            },
+            {
+              "name": "options",
+              "description": "(optional) disable instantiation or singleton usage",
+              "type": "Object"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "RegistryProxy",
+          "module": "@ember/owner",
+          "inherited": true,
+          "inheritedFrom": "BasicRegistry"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-6.9.0-beta.3-BasicRegistry",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-6.9.0-beta.3-RegistryProxyMixin"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.9.0-beta.3-@ember/owner",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.9.0-beta.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
