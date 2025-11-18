@@ -1,0 +1,46 @@
+{
+  "data": {
+    "id": "ember-6.8.2-SafeString",
+    "type": "class",
+    "attributes": {
+      "name": "SafeString",
+      "shortname": "SafeString",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/template",
+      "namespace": "",
+      "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+      "line": 70,
+      "description": "A wrapper around a string that has been marked as safe (\"trusted\"). **When\nrendered in HTML, Ember will not perform any escaping.**\n\nNote:\n\n1. This does not *make* the string safe; it means that some code in your\n   application has *marked* it as safe using the `htmlSafe()` function.\n\n2. The only public API for getting a `SafeString` is calling `htmlSafe()`. It\n   is *not* user-constructible.\n\nIf a string contains user inputs or other untrusted data, you must sanitize\nthe string before using the `htmlSafe` method. Otherwise your code is\nvulnerable to [Cross-Site Scripting][xss]. There are many open source\nsanitization libraries to choose from, both for front end and server-side\nsanitization.\n\n[xss]: https://owasp.org/www-community/attacks/DOM_Based_XSS\n\n```javascript\nimport { htmlSafe } from '@ember/template';\n\nlet someTrustedOrSanitizedString = \"<div>Hello!</div>\"\n\nhtmlSafe(someTrustedorSanitizedString);\n```",
+      "since": "4.12.0",
+      "access": "public",
+      "tagname": "",
+      "methods": [],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.8.2-@ember/template",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.8.2",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
