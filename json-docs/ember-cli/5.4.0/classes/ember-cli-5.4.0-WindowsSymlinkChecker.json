@@ -1,0 +1,385 @@
+{
+  "data": {
+    "id": "ember-cli-5.4.0-WindowsSymlinkChecker",
+    "type": "class",
+    "attributes": {
+      "name": "WindowsSymlinkChecker",
+      "shortname": "WindowsSymlinkChecker",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "is-lazy-engine",
+      "namespace": "",
+      "file": "lib/utilities/windows-admin.js",
+      "line": 6,
+      "description": "<html><head></head><body><p>On Windows, users will have a much better experience if symlinks are enabled\n and usable. When queried, this object informs Windows users regarding\n improving their build performance, and how.</p>\n<blockquote>\n<p>Windows Vista: nothing we can really do, so we fall back to junctions for folders + copying of files\n  &lt;= Windows Vista: symlinks are available but using them is somewhat tricky\n    * if the user is an admin, the process needs to have been started with elevated privileges\n    * if the user is not an admin, a specific setting needs to be enabled\n  &lt;= Windows 10\n    * if developer mode is enabled, symlinks \"just work\"\n    * <a href=\"https://blogs.windows.com/buildingapps/2016/12/02/symlinks-windows-10\">https://blogs.windows.com/buildingapps/2016/12/02/symlinks-windows-10</a></p>\n</blockquote>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre> <span class=\"keyword\">let</span> <span class=\"keyword\">checker</span> = WindowsSymlinkChecker;\n <span class=\"keyword\">let</span> {\n   windows,\n   elevated\n } = await = <span class=\"keyword\">checker</span><span class=\"variable\">.checkIfSymlinksNeedToBeEnabled</span>(); <span class=\"comment\">// aslso emits helpful warnings</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "lib/tasks/serve.js",
+          "line": 102,
+          "description": "<html><head></head><body><p>Exit silently</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "onInterrupt",
+          "class": "WindowsSymlinkChecker",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/tasks/test-server.js",
+          "line": 61,
+          "description": "<html><head></head><body><p>Exit silently</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "onInterrupt",
+          "class": "WindowsSymlinkChecker",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/utilities/directory-for-package-name.js",
+          "line": 5,
+          "description": "<html><head></head><body><p>Derive a directory name from a package name.\nTakes scoped packages into account.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "directoryForPackageName",
+          "params": [
+            {
+              "name": "packageName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Derived directory name.",
+            "type": "String"
+          },
+          "class": "WindowsSymlinkChecker",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/utilities/ember-app-utils.js",
+          "line": 7,
+          "description": "<html><head></head><body><p>Returns a normalized url given a string.\nReturns an empty string if <code>null</code>, <code>undefined</code> or an empty string are passed\nin.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "normalizeUrl",
+          "params": [
+            {
+              "name": "Raw",
+              "description": "url.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Normalized url.",
+            "type": "String"
+          },
+          "class": "WindowsSymlinkChecker",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/utilities/ember-app-utils.js",
+          "line": 24,
+          "description": "<html><head></head><body><p>Converts Javascript Object to a string.\nReturns an empty object string representation if a \"falsy\" value is passed\nin.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "convertObjectToString",
+          "params": [
+            {
+              "name": "Any",
+              "description": "Javascript Object.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "A string representation of a Javascript Object.",
+            "type": "String"
+          },
+          "class": "WindowsSymlinkChecker",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/utilities/ember-app-utils.js",
+          "line": 37,
+          "description": "<html><head></head><body><p>Returns the content for a specific type (section) for index.html.</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre><span class=\"template-variable\">{{<span class=\"name\">content-for</span> <span class=\"string\">\"[type]\"</span>}}</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Supported types:</p>\n<ul>\n<li>'head'</li>\n<li>'config-module'</li>\n<li>'head-footer'</li>\n<li>'test-header-footer'</li>\n<li>'body-footer'</li>\n<li>'test-body-footer'</li>\n</ul>\n</body></html>",
+          "itemtype": "method",
+          "name": "contentFor",
+          "params": [
+            {
+              "name": "config",
+              "description": "Ember.js application configuration",
+              "type": "Object"
+            },
+            {
+              "name": "match",
+              "description": "Regular expression to match against",
+              "type": "RegExp"
+            },
+            {
+              "name": "type",
+              "description": "Type of content",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "Settings that control the default content",
+              "type": "Object",
+              "props": [
+                {
+                  "name": "autoRun",
+                  "description": "Controls whether to bootstrap the\n                   application or not",
+                  "type": "Boolean"
+                },
+                {
+                  "name": "storeConfigInMeta",
+                  "description": "Controls whether to include the\n                   contents of config",
+                  "type": "Boolean"
+                }
+              ]
+            }
+          ],
+          "return": {
+            "description": "The content.",
+            "type": "String"
+          },
+          "class": "WindowsSymlinkChecker",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/utilities/insert-into-file.js",
+          "line": 6,
+          "description": "<html><head></head><body><p>Inserts the given content into a file. If the <code>contentsToInsert</code> string is already\npresent in the current contents, the file will not be changed unless <code>force</code> option\nis passed.</p>\n<p>If <code>options.before</code> is specified, <code>contentsToInsert</code> will be inserted before\nthe first instance of that string.  If <code>options.after</code> is specified, the\ncontents will be inserted after the first instance of that string.\nIf the string specified by options.before or options.after is not in the file,\nno change will be made. Both of these options support regular expressions.</p>\n<p>If neither <code>options.before</code> nor <code>options.after</code> are present, <code>contentsToInsert</code>\nwill be inserted at the end of the file.</p>\n<p>It will create a new file if one doesn't exist, unless you set the <code>options.create</code>\noption to <code>false</code>.</p>\n<p>Example:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// app/router.js</span>\nRouter.<span class=\"built_in\">map</span>(<span class=\"keyword\">function</span> (<span class=\"params\"></span>) {\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>insertIntoFile(<span class=\"symbol\">'app</span>/router.js', '  this.route(<span class=\"string\">\"admin\"</span>);', {\n  after: <span class=\"symbol\">'Router.map</span>(<span class=\"keyword\">function</span> <span class=\"title\"></span>() {' + EOL\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// app/router.js</span>\nRouter.map(<span class=\"keyword\">function</span> <span class=\"params\">()</span> {\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">\"admin\"</span>);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "insertIntoFile",
+          "params": [
+            {
+              "name": "pathRelativeToProjectRoot",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "contentsToInsert",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "providedOptions",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "WindowsSymlinkChecker",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/utilities/valid-project-name.js",
+          "line": 5,
+          "description": "<html><head></head><body><p>Checks if the string starts with a number.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "startsWithNumber",
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        },
+        {
+          "file": "lib/utilities/valid-project-name.js",
+          "line": 24,
+          "description": "<html><head></head><body><p>Checks if project name is valid.</p>\n<p>Invalid names are some of the internal constants that Ember CLI uses, such as\n<code>app</code>, <code>ember</code>, <code>ember-cli</code>, <code>test</code>, and <code>vendor</code>. Names that start with\nnumbers are considered invalid as well.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "validProjectName",
+          "params": [
+            {
+              "name": "name",
+              "description": "The name of Ember CLI project",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        },
+        {
+          "file": "lib/utilities/will-interrupt-process.js",
+          "line": 47,
+          "description": "<html><head></head><body><p>Drops all the interruption handlers and disables an ability to add new one</p>\n<p>Note: We don't call `captureExit.releaseExit() here.\nIn some rare scenarios it can lead to the hard to debug issues.\nsee: <a href=\"https://github.com/ember-cli/ember-cli/issues/6779#issuecomment-280940358\">https://github.com/ember-cli/ember-cli/issues/6779#issuecomment-280940358</a></p>\n<p>We can more or less feel comfortable with a captured exit because it behaves very\nsimilar to the original <code>exit</code> except of cases when we need to do cleanup before exit.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "release",
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        },
+        {
+          "file": "lib/utilities/will-interrupt-process.js",
+          "line": 69,
+          "description": "<html><head></head><body><p>Add process interruption handler</p>\n<p>When the first handler is added then automatically\nsets up process interruption signals listeners</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addHandler",
+          "params": [
+            {
+              "name": "cb",
+              "description": "Callback to be called when process interruption fired",
+              "type": "Function"
+            }
+          ],
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        },
+        {
+          "file": "lib/utilities/will-interrupt-process.js",
+          "line": 97,
+          "description": "<html><head></head><body><p>Remove process interruption handler</p>\n<p>If there are no remaining handlers after removal\nthen clean up all the process interruption signal listeners</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "removeHandler",
+          "params": [
+            {
+              "name": "cb",
+              "description": "Callback to be removed",
+              "type": "Function"
+            }
+          ],
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        },
+        {
+          "file": "lib/utilities/will-interrupt-process.js",
+          "line": 122,
+          "description": "<html><head></head><body><p>Sets up listeners for interruption signals</p>\n<p>When one of these signals is caught than raise process.exit()\nwhich enforces <code>capture-exit</code> to run registered interruption handlers</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "setupSignalsTrap",
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        },
+        {
+          "file": "lib/utilities/will-interrupt-process.js",
+          "line": 140,
+          "description": "<html><head></head><body><p>Removes interruption signal listeners and tears down capture-exit</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "teardownSignalsTrap",
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        },
+        {
+          "file": "lib/utilities/will-interrupt-process.js",
+          "line": 155,
+          "description": "<html><head></head><body><p>Suppresses \"Terminate batch job (Y/N)\" confirmation on Windows</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "trapWindowsSignals",
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        },
+        {
+          "file": "lib/utilities/windows-admin.js",
+          "line": 38,
+          "description": "<html><head></head><body><p>if not windows, will fulfill with:\n  <code>{ windows: false, elevated: null)</code>\nif windows, and elevated will fulfill with:\n  <code>{ windows: false, elevated: true)</code>\nif windows, and is NOT elevated will fulfill with:\n  <code>{ windows: false, elevated: false)</code>\n will include heplful warning, so that users know (if possible) how to\n  achieve better windows build performance</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "checkIfSymlinksNeedToBeEnabled",
+          "return": {
+            "description": "Object describing whether we're on windows and if admin rights exist",
+            "type": "Promise<Object>"
+          },
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        },
+        {
+          "file": "lib/utilities/windows-admin.js",
+          "line": 60,
+          "description": "<html><head></head><body><p>sets up a WindowsSymlinkChecker</p>\n<p>providing it with defaults for:</p>\n<ul>\n<li>if we are on windows</li>\n<li>if we can symlink</li>\n<li>a reference to exec</li>\n</ul>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_setup",
+          "params": [
+            {
+              "name": "UI",
+              "description": "",
+              "type": "UI"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "WindowsSymlinkChecker"
+          },
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        },
+        {
+          "file": "lib/utilities/windows-admin.js",
+          "line": 81,
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "checkIfSymlinksNeedToBeEnabled",
+          "return": {
+            "description": "Object describing whether we're on windows and if admin rights exist",
+            "type": "Promise<Object>"
+          },
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        },
+        {
+          "file": "lib/utilities/windows-admin.js",
+          "line": 104,
+          "description": "<html><head></head><body><p>Uses the eon-old command NET SESSION to determine whether or not the\n current user has elevated rights (think sudo, but Windows).</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_checkForElevatedRights",
+          "params": [
+            {
+              "name": "ui",
+              "description": "- ui object used to call writeLine();",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Object describing whether we're on windows and if admin rights exist",
+            "type": "Object"
+          },
+          "class": "WindowsSymlinkChecker",
+          "module": "is-lazy-engine"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-cli-5.4.0-is-lazy-engine",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.4.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
