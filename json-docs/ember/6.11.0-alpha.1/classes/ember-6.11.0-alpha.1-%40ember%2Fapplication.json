@@ -1,0 +1,89 @@
+{
+  "data": {
+    "id": "ember-6.11.0-alpha.1-@ember/application",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/application",
+      "shortname": "@ember/application",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/application",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/application/lib/lazy_load.ts",
+          "line": 14,
+          "description": "Detects when a specific package of Ember (e.g. 'Application')\nhas fully loaded and is available for extension.\n\nThe provided `callback` will be called with the `name` passed\nresolved from a string into the object:\n\n``` javascript\nimport { onLoad } from '@ember/application';\n\nonLoad('Ember.Application' function(hbars) {\n  hbars.registerHelper(...);\n});\n```",
+          "itemtype": "method",
+          "name": "onLoad",
+          "static": 1,
+          "params": [
+            {
+              "name": "name",
+              "description": "name of hook",
+              "type": "String"
+            },
+            {
+              "name": "callback",
+              "description": "callback to be called",
+              "type": "Function"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/application",
+          "module": "@ember/application"
+        },
+        {
+          "file": "packages/@ember/application/lib/lazy_load.ts",
+          "line": 47,
+          "description": "Called when an Ember.js package (e.g Application) has finished\nloading. Triggers any callbacks registered for this event.",
+          "itemtype": "method",
+          "name": "runLoadHooks",
+          "static": 1,
+          "params": [
+            {
+              "name": "name",
+              "description": "name of hook",
+              "type": "String"
+            },
+            {
+              "name": "object",
+              "description": "object to pass to callbacks",
+              "type": "Object"
+            }
+          ],
+          "access": "private",
+          "tagname": "",
+          "class": "@ember/application",
+          "module": "@ember/application"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.11.0-alpha.1-@ember/application",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.11.0-alpha.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

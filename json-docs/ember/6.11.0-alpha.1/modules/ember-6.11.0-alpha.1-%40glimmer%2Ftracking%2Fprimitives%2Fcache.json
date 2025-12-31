@@ -1,0 +1,145 @@
+{
+  "data": {
+    "id": "ember-6.11.0-alpha.1-@glimmer/tracking/primitives/cache",
+    "type": "module",
+    "attributes": {
+      "name": "@glimmer/tracking/primitives/cache",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@glimmer/tracking/primitives/cache": 1,
+        "@glimmer/tracking": 1
+      },
+      "namespaces": {},
+      "tag": "module",
+      "file": "packages/@ember/-internals/metal/lib/cache.ts",
+      "line": 3,
+      "description": "Ember uses caching based on trackable values to avoid updating large portions\nof the application. This caching is exposed via a cache primitive that can be\nused to cache a specific computation, so that it will not update and will\nreturn the cached value until a tracked value used in its computation has\nupdated.",
+      "access": "public",
+      "tagname": "",
+      "parent": null,
+      "publicclasses": [],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@glimmer/tracking": [
+          {
+            "file": "packages/@ember/-internals/metal/lib/cached.ts",
+            "line": 7,
+            "decorator": "Gives the getter a caching behavior. The return value of the getter\n will be cached until any of the properties it is entangled with\n are invalidated. This is useful when a getter is expensive and\n used very often.\n\n For instance, in this `GuestList` class, we have the `sortedGuests`\n getter that sorts the guests alphabetically:\n\n ```javascript\n   import { tracked } from '---AT-PLACEHOLDER---glimmer/tracking';\n\n   class GuestList {\n     ---AT-PLACEHOLDER---tracked guests = ['Zoey', 'Tomster'];\n\n     get sortedGuests() {\n       return this.guests.slice().sort()\n     }\n   }\n ```\n\n Every time `sortedGuests` is accessed, a new array will be created and sorted,\n because JavaScript getters do not cache by default. When the guest list\n is small, like the one in the example, this is not a problem. However, if\n the guest list were to grow very large, it would mean that we would be doing\n a large amount of work each time we accessed `sortedGuests`. With `@cached`,\n we can cache the value instead:\n\n ```javascript\n   import { tracked, cached } from '---AT-PLACEHOLDER---glimmer/tracking';\n\n   class GuestList {\n     ---AT-PLACEHOLDER---tracked guests = ['Zoey', 'Tomster'];\n\n     ---AT-PLACEHOLDER---cached\n     get sortedGuests() {\n       return this.guests.slice().sort()\n     }\n   }\n ```\n\n Now the `sortedGuests` getter will be cached based on autotracking.\n It will only rerun and create a new sorted array when the guests tracked\n property is updated.\n\n\n ### Tradeoffs\n\n Overuse is discouraged.\n\n In general, you should avoid using `@cached` unless you have confirmed that\n the getter you are decorating is computationally expensive, since `@cached`\n adds a small amount of overhead to the getter.\n While the individual costs are small, a systematic use of the `@cached`\n decorator can add up to a large impact overall in your app.\n Many getters and tracked properties are only accessed once during rendering,\n and then never rerendered, so adding `@cached` when unnecessary can\n negatively impact performance.\n\n Also, `@cached` may rerun even if the values themselves have not changed,\n since tracked properties will always invalidate.\n For example updating an integer value from `5` to an other `5` will trigger\n a rerun of the cached properties building from this integer.\n\n Avoiding a cache invalidation in this case is not something that can\n be achieved on the `@cached` decorator itself, but rather when updating\n the underlying tracked values, by applying some diff checking mechanisms:\n\n ```javascript\n if (nextValue !== this.trackedProp) {\n   this.trackedProp = nextValue;\n }\n ```\n\n Here equal values won't update the property, therefore not triggering\n the subsequent cache invalidations of the `@cached` properties who were\n using this `trackedProp`.\n\n Remember that setting tracked data should only be done during initialization, \n or as the result of a user action. Setting tracked data during render\n (such as in a getter), is not supported.",
+            "itemtype": "method",
+            "name": "cached",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@glimmer/tracking",
+            "module": "@glimmer/tracking/primitives/cache"
+          }
+        ],
+        "@glimmer/tracking/primitives/cache": [
+          {
+            "file": "packages/@ember/-internals/metal/lib/cache.ts",
+            "line": 14,
+            "description": "Receives a function, and returns a wrapped version of it that memoizes based on\n_autotracking_. The function will only rerun whenever any tracked values used\nwithin it have changed. Otherwise, it will return the previous value.\n\n```js\nimport { tracked } from '@glimmer/tracking';\nimport { createCache, getValue } from '@glimmer/tracking/primitives/cache';\n\nclass State {\n  @tracked value;\n}\n\nlet state = new State();\nlet computeCount = 0;\n\nlet counter = createCache(() => {\n  // consume the state. Now, `counter` will\n  // only rerun if `state.value` changes.\n  state.value;\n\n  return ++computeCount;\n});\n\ngetValue(counter); // 1\n\n// returns the same value because no tracked state has changed\ngetValue(counter); // 1\n\nstate.value = 'foo';\n\n// reruns because a tracked value used in the function has changed,\n// incermenting the counter\ngetValue(counter); // 2\n```",
+            "itemtype": "method",
+            "name": "createCache",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@glimmer/tracking/primitives/cache",
+            "module": "@glimmer/tracking/primitives/cache"
+          },
+          {
+            "file": "packages/@ember/-internals/metal/lib/cache.ts",
+            "line": 56,
+            "description": "Gets the value of a cache created with `createCache`.\n\n```js\nimport { tracked } from '@glimmer/tracking';\nimport { createCache, getValue } from '@glimmer/tracking/primitives/cache';\n\nlet computeCount = 0;\n\nlet counter = createCache(() => {\n  return ++computeCount;\n});\n\ngetValue(counter); // 1\n```",
+            "itemtype": "method",
+            "name": "getValue",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@glimmer/tracking/primitives/cache",
+            "module": "@glimmer/tracking/primitives/cache"
+          },
+          {
+            "file": "packages/@ember/-internals/metal/lib/cache.ts",
+            "line": 78,
+            "description": "Can be used to check if a memoized function is _constant_. If no tracked state\nwas used while running a memoized function, it will never rerun, because nothing\ncan invalidate its result. `isConst` can be used to determine if a memoized\nfunction is constant or not, in order to optimize code surrounding that\nfunction.\n\n```js\nimport { tracked } from '@glimmer/tracking';\nimport { createCache, getValue, isConst } from '@glimmer/tracking/primitives/cache';\n\nclass State {\n  @tracked value;\n}\n\nlet state = new State();\nlet computeCount = 0;\n\nlet counter = createCache(() => {\n  // consume the state\n  state.value;\n\n  return computeCount++;\n});\n\nlet constCounter = createCache(() => {\n  return computeCount++;\n});\n\ngetValue(counter);\ngetValue(constCounter);\n\nisConst(counter); // false\nisConst(constCounter); // true\n```\n\nIf called on a cache that hasn't been accessed yet, it will throw an\nerror. This is because there's no way to know if the function will be constant\nor not yet, and so this helps prevent missing an optimization opportunity on\naccident.",
+            "itemtype": "method",
+            "name": "isConst",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@glimmer/tracking/primitives/cache",
+            "module": "@glimmer/tracking/primitives/cache"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@glimmer/tracking": [
+          {
+            "file": "packages/@ember/-internals/metal/lib/cached.ts",
+            "line": 7,
+            "decorator": "Gives the getter a caching behavior. The return value of the getter\n will be cached until any of the properties it is entangled with\n are invalidated. This is useful when a getter is expensive and\n used very often.\n\n For instance, in this `GuestList` class, we have the `sortedGuests`\n getter that sorts the guests alphabetically:\n\n ```javascript\n   import { tracked } from '---AT-PLACEHOLDER---glimmer/tracking';\n\n   class GuestList {\n     ---AT-PLACEHOLDER---tracked guests = ['Zoey', 'Tomster'];\n\n     get sortedGuests() {\n       return this.guests.slice().sort()\n     }\n   }\n ```\n\n Every time `sortedGuests` is accessed, a new array will be created and sorted,\n because JavaScript getters do not cache by default. When the guest list\n is small, like the one in the example, this is not a problem. However, if\n the guest list were to grow very large, it would mean that we would be doing\n a large amount of work each time we accessed `sortedGuests`. With `@cached`,\n we can cache the value instead:\n\n ```javascript\n   import { tracked, cached } from '---AT-PLACEHOLDER---glimmer/tracking';\n\n   class GuestList {\n     ---AT-PLACEHOLDER---tracked guests = ['Zoey', 'Tomster'];\n\n     ---AT-PLACEHOLDER---cached\n     get sortedGuests() {\n       return this.guests.slice().sort()\n     }\n   }\n ```\n\n Now the `sortedGuests` getter will be cached based on autotracking.\n It will only rerun and create a new sorted array when the guests tracked\n property is updated.\n\n\n ### Tradeoffs\n\n Overuse is discouraged.\n\n In general, you should avoid using `@cached` unless you have confirmed that\n the getter you are decorating is computationally expensive, since `@cached`\n adds a small amount of overhead to the getter.\n While the individual costs are small, a systematic use of the `@cached`\n decorator can add up to a large impact overall in your app.\n Many getters and tracked properties are only accessed once during rendering,\n and then never rerendered, so adding `@cached` when unnecessary can\n negatively impact performance.\n\n Also, `@cached` may rerun even if the values themselves have not changed,\n since tracked properties will always invalidate.\n For example updating an integer value from `5` to an other `5` will trigger\n a rerun of the cached properties building from this integer.\n\n Avoiding a cache invalidation in this case is not something that can\n be achieved on the `@cached` decorator itself, but rather when updating\n the underlying tracked values, by applying some diff checking mechanisms:\n\n ```javascript\n if (nextValue !== this.trackedProp) {\n   this.trackedProp = nextValue;\n }\n ```\n\n Here equal values won't update the property, therefore not triggering\n the subsequent cache invalidations of the `@cached` properties who were\n using this `trackedProp`.\n\n Remember that setting tracked data should only be done during initialization, \n or as the result of a user action. Setting tracked data during render\n (such as in a getter), is not supported.",
+            "itemtype": "method",
+            "name": "cached",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@glimmer/tracking",
+            "module": "@glimmer/tracking/primitives/cache"
+          }
+        ],
+        "@glimmer/tracking/primitives/cache": [
+          {
+            "file": "packages/@ember/-internals/metal/lib/cache.ts",
+            "line": 14,
+            "description": "Receives a function, and returns a wrapped version of it that memoizes based on\n_autotracking_. The function will only rerun whenever any tracked values used\nwithin it have changed. Otherwise, it will return the previous value.\n\n```js\nimport { tracked } from '@glimmer/tracking';\nimport { createCache, getValue } from '@glimmer/tracking/primitives/cache';\n\nclass State {\n  @tracked value;\n}\n\nlet state = new State();\nlet computeCount = 0;\n\nlet counter = createCache(() => {\n  // consume the state. Now, `counter` will\n  // only rerun if `state.value` changes.\n  state.value;\n\n  return ++computeCount;\n});\n\ngetValue(counter); // 1\n\n// returns the same value because no tracked state has changed\ngetValue(counter); // 1\n\nstate.value = 'foo';\n\n// reruns because a tracked value used in the function has changed,\n// incermenting the counter\ngetValue(counter); // 2\n```",
+            "itemtype": "method",
+            "name": "createCache",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@glimmer/tracking/primitives/cache",
+            "module": "@glimmer/tracking/primitives/cache"
+          },
+          {
+            "file": "packages/@ember/-internals/metal/lib/cache.ts",
+            "line": 56,
+            "description": "Gets the value of a cache created with `createCache`.\n\n```js\nimport { tracked } from '@glimmer/tracking';\nimport { createCache, getValue } from '@glimmer/tracking/primitives/cache';\n\nlet computeCount = 0;\n\nlet counter = createCache(() => {\n  return ++computeCount;\n});\n\ngetValue(counter); // 1\n```",
+            "itemtype": "method",
+            "name": "getValue",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@glimmer/tracking/primitives/cache",
+            "module": "@glimmer/tracking/primitives/cache"
+          },
+          {
+            "file": "packages/@ember/-internals/metal/lib/cache.ts",
+            "line": 78,
+            "description": "Can be used to check if a memoized function is _constant_. If no tracked state\nwas used while running a memoized function, it will never rerun, because nothing\ncan invalidate its result. `isConst` can be used to determine if a memoized\nfunction is constant or not, in order to optimize code surrounding that\nfunction.\n\n```js\nimport { tracked } from '@glimmer/tracking';\nimport { createCache, getValue, isConst } from '@glimmer/tracking/primitives/cache';\n\nclass State {\n  @tracked value;\n}\n\nlet state = new State();\nlet computeCount = 0;\n\nlet counter = createCache(() => {\n  // consume the state\n  state.value;\n\n  return computeCount++;\n});\n\nlet constCounter = createCache(() => {\n  return computeCount++;\n});\n\ngetValue(counter);\ngetValue(constCounter);\n\nisConst(counter); // false\nisConst(constCounter); // true\n```\n\nIf called on a cache that hasn't been accessed yet, it will throw an\nerror. This is because there's no way to know if the function will be constant\nor not yet, and so this helps prevent missing an optimization opportunity on\naccident.",
+            "itemtype": "method",
+            "name": "isConst",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "@glimmer/tracking/primitives/cache",
+            "module": "@glimmer/tracking/primitives/cache"
+          }
+        ]
+      },
+      "version": "6.11.0-alpha.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.11.0-alpha.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
