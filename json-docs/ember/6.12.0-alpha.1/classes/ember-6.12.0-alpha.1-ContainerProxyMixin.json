@@ -1,0 +1,118 @@
+{
+  "data": {
+    "id": "ember-6.12.0-alpha.1-ContainerProxyMixin",
+    "type": "class",
+    "attributes": {
+      "name": "ContainerProxyMixin",
+      "shortname": "ContainerProxyMixin",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [
+        "EngineInstance"
+      ],
+      "module": "ember",
+      "namespace": "",
+      "file": "packages/@ember/-internals/runtime/lib/mixins/container_proxy.ts",
+      "line": 12,
+      "description": "ContainerProxyMixin is used to provide public access to specific\ncontainer functionality.",
+      "extends": "ContainerProxy",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 198,
+          "description": "Given a fullName return a corresponding instance.\n\nThe default behavior is for lookup to return a singleton instance.\nThe singleton is scoped to the container, allowing multiple containers\nto all have their own locally scoped singletons.\n\n```javascript\nlet registry = new Registry();\nlet container = registry.container();\n\nregistry.register('api:twitter', Twitter);\n\nlet twitter = container.lookup('api:twitter');\n\ntwitter instanceof Twitter; // => true\n\n// by default the container will return singletons\nlet twitter2 = container.lookup('api:twitter');\ntwitter2 instanceof Twitter; // => true\n\ntwitter === twitter2; //=> true\n```\n\nIf singletons are not wanted an optional flag can be provided at lookup.\n\n```javascript\nlet registry = new Registry();\nlet container = registry.container();\n\nregistry.register('api:twitter', Twitter);\n\nlet twitter = container.lookup('api:twitter', { singleton: false });\nlet twitter2 = container.lookup('api:twitter', { singleton: false });\n\ntwitter === twitter2; //=> false\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "lookup",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "RegisterOptions"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Any"
+          },
+          "class": "ContainerProxyMixin",
+          "module": "@ember/owner",
+          "inherited": true,
+          "inheritedFrom": "BasicContainer"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 247,
+          "description": "Given a `FullName`, of the form `\"type:name\"` return a `FactoryManager`.\n\nThis method returns a manager which can be used for introspection of the\nfactory's class or for the creation of factory instances with initial\nproperties. The manager is an object with the following properties:\n\n* `class` - The registered or resolved class.\n* `create` - A function that will create an instance of the class with\n  any dependencies injected.\n\nFor example:\n\n```javascript\nimport { getOwner } from '@ember/application';\n\nlet owner = getOwner(otherInstance);\n// the owner is commonly the `applicationInstance`, and can be accessed via\n// an instance initializer.\n\nlet factory = owner.factoryFor('service:bespoke');\n\nfactory.class;\n// The registered or resolved class. For example when used with an Ember-CLI\n// app, this would be the default export from `app/services/bespoke.js`.\n\nlet instance = factory.create({\n  someProperty: 'an initial property value'\n});\n// Create an instance with any injections and the passed options as\n// initial properties.\n```\n\nAny instances created via the factory's `.create()` method *must* be destroyed\nmanually by the caller of `.create()`. Typically, this is done during the creating\nobjects own `destroy` or `willDestroy` methods.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "factoryFor",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "FactoryManager"
+          },
+          "class": "ContainerProxyMixin",
+          "module": "@ember/owner",
+          "inherited": true,
+          "inheritedFrom": "BasicContainer"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "packages/@ember/-internals/runtime/lib/mixins/container_proxy.ts",
+          "line": 25,
+          "description": "The container stores state.",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "__container__",
+          "type": "Ember.Container",
+          "class": "ContainerProxyMixin",
+          "module": "ember"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "ember-6.12.0-alpha.1-ContainerProxy",
+          "type": "class"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.12.0-alpha.1-ember",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.12.0-alpha.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
