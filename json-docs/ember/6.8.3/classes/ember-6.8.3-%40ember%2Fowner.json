@@ -1,0 +1,285 @@
+{
+  "data": {
+    "id": "ember-6.8.3-@ember/owner",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/owner",
+      "shortname": "@ember/owner",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/owner",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 545,
+          "description": "`setOwner` forces a new owner on a given object instance. This is primarily\nuseful in some testing cases.",
+          "itemtype": "method",
+          "name": "setOwner",
+          "static": 1,
+          "params": [
+            {
+              "name": "object",
+              "description": "An object instance.",
+              "type": "Object"
+            },
+            {
+              "name": "object",
+              "description": "The new owner object of the object instance.",
+              "type": "Owner"
+            }
+          ],
+          "since": "2.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/owner",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 575,
+          "description": "Returns an object that can be used to provide an owner to a\nmanually created instance.\n\nExample:\n\n```\nimport { getOwner } from '@ember/application';\n\nlet owner = getOwner(this);\n\nUser.create(\n  owner.ownerInjection(),\n  { username: 'rwjblue' }\n)\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "ownerInjection",
+          "since": "2.3.0",
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "@ember/owner",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 607,
+          "description": "Given a fullName return the corresponding factory.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "resolveRegistration",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "fullName's factory",
+            "type": "Function"
+          },
+          "class": "@ember/owner",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 617,
+          "description": "Unregister a factory.\n\n```javascript\nimport Application from '@ember/application';\nimport EmberObject from '@ember/object';\n\nlet App = Application.create();\nlet User = EmberObject.extend();\nApp.register('model:user', User);\n\nApp.resolveRegistration('model:user').create() instanceof User //=> true\n\nApp.unregister('model:user')\nApp.resolveRegistration('model:user') === undefined //=> true\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "unregister",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "@ember/owner",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 640,
+          "description": "Check if a factory is registered.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "hasRegistration",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "@ember/owner",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 650,
+          "description": "Return a specific registered option for a particular factory.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registeredOption",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "optionName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "options",
+            "type": "Object"
+          },
+          "class": "@ember/owner",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 664,
+          "description": "Register options for a particular factory.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registerOptions",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "@ember/owner",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 674,
+          "description": "Return registered options for a particular factory.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registeredOptions",
+          "params": [
+            {
+              "name": "fullName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "options",
+            "type": "Object"
+          },
+          "class": "@ember/owner",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 684,
+          "description": "Allow registering options for all factories of a type.\n\n```javascript\nimport Application from '@ember/application';\n\nlet App = Application.create();\nlet appInstance = App.buildInstance();\n\n// if all of type `connection` must not be singletons\nappInstance.registerOptionsForType('connection', { singleton: false });\n\nappInstance.register('connection:twitter', TwitterConnection);\nappInstance.register('connection:facebook', FacebookConnection);\n\nlet twitter = appInstance.lookup('connection:twitter');\nlet twitter2 = appInstance.lookup('connection:twitter');\n\ntwitter === twitter2; // => false\n\nlet facebook = appInstance.lookup('connection:facebook');\nlet facebook2 = appInstance.lookup('connection:facebook');\n\nfacebook === facebook2; // => false\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registerOptionsForType",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "@ember/owner",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/-internals/owner/index.ts",
+          "line": 717,
+          "description": "Return the registered options for all factories of a type.",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "registeredOptionsForType",
+          "params": [
+            {
+              "name": "type",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "options",
+            "type": "Object"
+          },
+          "class": "@ember/owner",
+          "module": "@ember/owner"
+        },
+        {
+          "file": "packages/@ember/owner/index.ts",
+          "line": 41,
+          "description": "Framework objects in an Ember application (components, services, routes, etc.)\nare created via a factory and dependency injection system. Each of these\nobjects is the responsibility of an \"owner\", which handled its\ninstantiation and manages its lifetime.\n\n`getOwner` fetches the owner object responsible for an instance. This can\nbe used to lookup or resolve other class instances, or register new factories\ninto the owner.\n\nFor example, this component dynamically looks up a service based on the\n`audioType` passed as an argument:\n\n```js {data-filename=app/components/play-audio.js}\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\nimport { getOwner } from '@ember/owner';\n\n// Usage:\n//\n//   <PlayAudio @audioType={{@model.audioType}} @audioFile={{@model.file}}/>\n//\nexport default class extends Component {\n  get audioService() {\n    return getOwner(this)?.lookup(`service:${this.args.audioType}`);\n  }\n\n  @action\n  onPlay() {\n    this.audioService?.play(this.args.audioFile);\n  }\n}\n```",
+          "itemtype": "method",
+          "name": "getOwner",
+          "static": 1,
+          "params": [
+            {
+              "name": "object",
+              "description": "An object with an owner.",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "An owner object.",
+            "type": "Object"
+          },
+          "since": "2.3.0",
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/owner",
+          "module": "@ember/owner"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-6.8.3-@ember/owner",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.8.3",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
