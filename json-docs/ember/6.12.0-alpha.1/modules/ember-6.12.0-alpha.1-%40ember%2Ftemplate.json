@@ -1,0 +1,200 @@
+{
+  "data": {
+    "id": "ember-6.12.0-alpha.1-@ember/template",
+    "type": "module",
+    "attributes": {
+      "name": "@ember/template",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "@ember/template": 1
+      },
+      "namespaces": {},
+      "tag": "module",
+      "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+      "line": 70,
+      "parent": null,
+      "publicclasses": [
+        "TrustedHTML",
+        "SafeString"
+      ],
+      "privateclasses": [],
+      "staticfunctions": {
+        "@ember/template": [
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+            "line": 106,
+            "description": "Use this method to indicate that a string should be rendered as HTML\nwhen the string is used in a template. To say this another way,\nstrings marked with `htmlSafe` will not be HTML escaped.\n\nA word of warning -   The `htmlSafe` method does not make the string safe;\nit only tells the framework to treat the string as if it is safe to render\nas HTML. If a string contains user inputs or other untrusted\ndata, you must sanitize the string before using the `htmlSafe` method.\nOtherwise your code is vulnerable to\n[Cross-Site Scripting](https://owasp.org/www-community/attacks/DOM_Based_XSS).\nThere are many open source sanitization libraries to choose from,\nboth for front end and server-side sanitization.\n\n```javascript\nimport { htmlSafe } from '@ember/template';\n\nconst someTrustedOrSanitizedString = \"<div>Hello!</div>\"\n\nhtmlSafe(someTrustedorSanitizedString)\n```",
+            "itemtype": "method",
+            "name": "htmlSafe",
+            "params": [
+              {
+                "name": "str",
+                "description": "The string to treat as trusted.",
+                "type": "String"
+              }
+            ],
+            "static": 1,
+            "return": {
+              "description": "A string that will not be HTML escaped by Handlebars.",
+              "type": "SafeString"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/template",
+            "module": "@ember/template"
+          },
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+            "line": 177,
+            "description": "Detects if a string was decorated using `htmlSafe`.\n\n```javascript\nimport { htmlSafe, isHTMLSafe } from '@ember/template';\n\nlet plainString = 'plain string';\nlet safeString = htmlSafe('<div>someValue</div>');\n\nisHTMLSafe(plainString); // false\nisHTMLSafe(safeString);  // true\n```",
+            "itemtype": "method",
+            "name": "isHTMLSafe",
+            "static": 1,
+            "return": {
+              "description": "`true` if the string was decorated with `htmlSafe`, `false` otherwise.",
+              "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/template",
+            "module": "@ember/template"
+          },
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+            "line": 198,
+            "description": "Detects if a string was decorated using `trustHTML`.\n\n```javascript\nimport { trustHTML, isTrustedHTML } from '@ember/template';\n\nlet plainString = 'plain string';\nlet safeString = trustHTML('<div>someValue</div>');\n\nisTrustedHTML(plainString); // false\nisTrustedHTML(safeString);  // true\n```",
+            "itemtype": "method",
+            "name": "isTrustedHTML",
+            "static": 1,
+            "return": {
+              "description": "`true` if the string was decorated with `htmlSafe`, `false` otherwise.",
+              "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/template",
+            "module": "@ember/template"
+          },
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+            "line": 137,
+            "description": "Use this method to indicate that a string should be rendered as HTML\nwithout escaping when the string is used in a template. To say this another way,\nstrings marked with `trustHTML` will not be HTML escaped.\n\nA word of warning -   The `trustHTML` method does not make the string safe;\nit only tells the framework to treat the string as if it is safe to render\nas HTML - that we trust its contents to be safe. If a string contains user inputs or other untrusted\ndata, you must sanitize the string before using the `trustHTML` method.\nOtherwise your code is vulnerable to\n[Cross-Site Scripting](https://owasp.org/www-community/attacks/DOM_Based_XSS).\nThere are many open source sanitization libraries to choose from,\nboth for front end and server-side sanitization.\n\n```glimmer-js\nimport { trustHTML } from '@ember/template';\n\nconst someTrustedOrSanitizedString = \"<div>Hello!</div>\"\n\n<template>\n  {{trustHTML someTrustedOrSanitizedString}}\n</template>\n```",
+            "itemtype": "method",
+            "name": "trustHTML",
+            "params": [
+              {
+                "name": "str",
+                "description": "The string to treat as trusted.",
+                "type": "String"
+              }
+            ],
+            "static": 1,
+            "return": {
+              "description": "A string that will not be HTML escaped by Handlebars.",
+              "type": "TrustedHTML"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/template",
+            "module": "@ember/template"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "@ember/template": [
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+            "line": 106,
+            "description": "Use this method to indicate that a string should be rendered as HTML\nwhen the string is used in a template. To say this another way,\nstrings marked with `htmlSafe` will not be HTML escaped.\n\nA word of warning -   The `htmlSafe` method does not make the string safe;\nit only tells the framework to treat the string as if it is safe to render\nas HTML. If a string contains user inputs or other untrusted\ndata, you must sanitize the string before using the `htmlSafe` method.\nOtherwise your code is vulnerable to\n[Cross-Site Scripting](https://owasp.org/www-community/attacks/DOM_Based_XSS).\nThere are many open source sanitization libraries to choose from,\nboth for front end and server-side sanitization.\n\n```javascript\nimport { htmlSafe } from '@ember/template';\n\nconst someTrustedOrSanitizedString = \"<div>Hello!</div>\"\n\nhtmlSafe(someTrustedorSanitizedString)\n```",
+            "itemtype": "method",
+            "name": "htmlSafe",
+            "params": [
+              {
+                "name": "str",
+                "description": "The string to treat as trusted.",
+                "type": "String"
+              }
+            ],
+            "static": 1,
+            "return": {
+              "description": "A string that will not be HTML escaped by Handlebars.",
+              "type": "SafeString"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/template",
+            "module": "@ember/template"
+          },
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+            "line": 177,
+            "description": "Detects if a string was decorated using `htmlSafe`.\n\n```javascript\nimport { htmlSafe, isHTMLSafe } from '@ember/template';\n\nlet plainString = 'plain string';\nlet safeString = htmlSafe('<div>someValue</div>');\n\nisHTMLSafe(plainString); // false\nisHTMLSafe(safeString);  // true\n```",
+            "itemtype": "method",
+            "name": "isHTMLSafe",
+            "static": 1,
+            "return": {
+              "description": "`true` if the string was decorated with `htmlSafe`, `false` otherwise.",
+              "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/template",
+            "module": "@ember/template"
+          },
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+            "line": 198,
+            "description": "Detects if a string was decorated using `trustHTML`.\n\n```javascript\nimport { trustHTML, isTrustedHTML } from '@ember/template';\n\nlet plainString = 'plain string';\nlet safeString = trustHTML('<div>someValue</div>');\n\nisTrustedHTML(plainString); // false\nisTrustedHTML(safeString);  // true\n```",
+            "itemtype": "method",
+            "name": "isTrustedHTML",
+            "static": 1,
+            "return": {
+              "description": "`true` if the string was decorated with `htmlSafe`, `false` otherwise.",
+              "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/template",
+            "module": "@ember/template"
+          },
+          {
+            "file": "packages/@ember/-internals/glimmer/lib/utils/string.ts",
+            "line": 137,
+            "description": "Use this method to indicate that a string should be rendered as HTML\nwithout escaping when the string is used in a template. To say this another way,\nstrings marked with `trustHTML` will not be HTML escaped.\n\nA word of warning -   The `trustHTML` method does not make the string safe;\nit only tells the framework to treat the string as if it is safe to render\nas HTML - that we trust its contents to be safe. If a string contains user inputs or other untrusted\ndata, you must sanitize the string before using the `trustHTML` method.\nOtherwise your code is vulnerable to\n[Cross-Site Scripting](https://owasp.org/www-community/attacks/DOM_Based_XSS).\nThere are many open source sanitization libraries to choose from,\nboth for front end and server-side sanitization.\n\n```glimmer-js\nimport { trustHTML } from '@ember/template';\n\nconst someTrustedOrSanitizedString = \"<div>Hello!</div>\"\n\n<template>\n  {{trustHTML someTrustedOrSanitizedString}}\n</template>\n```",
+            "itemtype": "method",
+            "name": "trustHTML",
+            "params": [
+              {
+                "name": "str",
+                "description": "The string to treat as trusted.",
+                "type": "String"
+              }
+            ],
+            "static": 1,
+            "return": {
+              "description": "A string that will not be HTML escaped by Handlebars.",
+              "type": "TrustedHTML"
+            },
+            "access": "public",
+            "tagname": "",
+            "class": "@ember/template",
+            "module": "@ember/template"
+          }
+        ]
+      },
+      "version": "6.12.0-alpha.1"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-6.12.0-alpha.1",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
