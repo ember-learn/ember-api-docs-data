@@ -1,0 +1,374 @@
+{
+  "data": {
+    "id": "ember-cli-5.3.0-PackageInfo",
+    "type": "class",
+    "attributes": {
+      "name": "PackageInfo",
+      "shortname": "PackageInfo",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-cli",
+      "namespace": "",
+      "file": "lib/models/package-info-cache/package-info.js",
+      "line": 50,
+      "description": "<html><head></head><body><p>Class that stores information about a single package (directory tree with\na package.json and other data, like and Addon or Project.) It is one of the\ntwo types of entries in a PackageInfoCache. It is only created by the\nPackageInfoCache.</p>\n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 96,
+          "description": "<html><head></head><body><p>Given error data, add an ErrorEntry to the ErrorList for this object.\nThis is used by the _readPackage and _readNodeModulesList methods. It\nshould not be called otherwise.</p>\n</body></html>",
+          "access": "protected",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addError",
+          "params": [
+            {
+              "name": "errorType",
+              "description": "one of the Errors.ERROR_* constants.",
+              "type": "String"
+            },
+            {
+              "name": "errorData",
+              "description": "any error data relevant to the type of error\nbeing created. See showErrors().",
+              "type": "Object"
+            }
+          ],
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 111,
+          "description": "<html><head></head><body><p>Indicate if there are any errors in the ErrorList for this package. Note that this does\nNOT indicate if there are any errors in the objects referred to by this package (e.g.,\ninternal addons or dependencies).</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "hasErrors",
+          "params": [
+            {
+              "name": "true",
+              "description": "if there are errors in the ErrorList, else false.",
+              "type": "Boolean"
+            }
+          ],
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 124,
+          "description": "<html><head></head><body><p>Add a reference to an in-repo addon PackageInfo object.</p>\n</body></html>",
+          "access": "protected",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addInRepoAddon",
+          "params": [
+            {
+              "name": "inRepoAddonPkg",
+              "description": "the PackageInfo for the in-repo addon",
+              "type": "PackageInfo"
+            }
+          ],
+          "return": {
+            "description": "null"
+          },
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 139,
+          "description": "<html><head></head><body><p>Add a reference to an internal addon PackageInfo object.\n\"internal\" addons (note: not in-repo addons) only exist in\nProjects, not other packages. Since the cache is loaded from\n'loadProject', this can be done appropriately.</p>\n</body></html>",
+          "access": "protected",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addInternalAddon",
+          "params": [
+            {
+              "name": "internalAddonPkg",
+              "description": "the PackageInfo for the internal addon",
+              "type": "PackageInfo"
+            }
+          ],
+          "return": {
+            "description": "null"
+          },
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 157,
+          "description": "<html><head></head><body><p>For each dependency in the given list, find the corresponding\nPackageInfo object in the cache (going up the file tree if\nnecessary, as in the node resolution algorithm). Return a map\nof the dependencyName to PackageInfo object. Caller can then\nstore it wherever they like.</p>\n<p>Note: this is not to be  called until all packages that can be have\nbeen added to the cache.</p>\n<p>Note: this is for ALL dependencies, not just addons. To get just\naddons, filter the result by calling pkgInfo.isForAddon().</p>\n<p>Note: this is only intended for use from PackageInfoCache._resolveDependencies.\nIt is not to be called directly by anything else.</p>\n</body></html>",
+          "access": "protected",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addDependencies",
+          "params": [
+            {
+              "name": "dependencies",
+              "description": "value of 'dependencies' or 'devDependencies'\n       attributes of a package.json.",
+              "type": "PackageInfo"
+            }
+          ],
+          "return": {
+            "description": "a JavaScript object keyed on dependency name/path with\n   values the corresponding PackageInfo object from the cache.",
+            "type": "Object"
+          },
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 226,
+          "description": "<html><head></head><body><p>Indicate if this packageInfo is for a project. Should be called only after the project\nhas been loaded (see {@link PackageInfoCache#loadProject} for details).</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isForProject",
+          "return": {
+            "description": "true if this packageInfo is for a Project, false otherwise.",
+            "type": "Boolean"
+          },
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 237,
+          "description": "<html><head></head><body><p>Indicate if this packageInfo is for an Addon.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isForAddon",
+          "return": {
+            "description": "true if this packageInfo is for an Addon, false otherwise.",
+            "type": "Boolean"
+          },
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 247,
+          "description": "<html><head></head><body><p>Indicate if this packageInfo represents an engine.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isForEngine",
+          "return": {
+            "description": "true if this pkgInfo is configured as an engine & false otherwise",
+            "type": "Boolean"
+          },
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 257,
+          "description": "<html><head></head><body><p>Indicate if this packageInfo represents a lazy engine.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isForLazyEngine",
+          "return": {
+            "description": "true if this pkgInfo is configured as an engine and the\nmodule this represents has lazyLoading enabled, false otherwise.",
+            "type": "Boolean"
+          },
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 268,
+          "description": "<html><head></head><body><p>For use with the PerBundleAddonCache, is this packageInfo representing a\nbundle host (for now, a Project or a lazy engine).</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "isForBundleHost",
+          "return": {
+            "description": "true if this pkgInfo is for a bundle host, false otherwise.",
+            "type": "Boolean"
+          },
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 279,
+          "description": "<html><head></head><body><p>Add to a list of child addon PackageInfos for this packageInfo.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "addPackages",
+          "params": [
+            {
+              "name": "addonPackageList",
+              "description": "the list of child addon PackageInfos being constructed from various\nsources in this packageInfo.",
+              "type": "Array"
+            },
+            {
+              "name": "packageInfoList",
+              "description": "a list or map of PackageInfos being considered\n(e.g., pkgInfo.dependencyPackages) for inclusion in the addonPackageList.",
+              "type": "Array | Object"
+            },
+            {
+              "name": "excludeFn",
+              "description": "an optional function. If passed in, each child PackageInfo\nwill be tested against the function and only included in the package map if the function\nreturns a truthy value.",
+              "type": "Function"
+            }
+          ],
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 318,
+          "description": "<html><head></head><body><p>Discover the child addons for this packageInfo, which corresponds to an Addon.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "discoverAddonAddons",
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 336,
+          "description": "<html><head></head><body><p>Discover the child addons for this packageInfo, which corresponds to a Project.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "discoverProjectAddons",
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 356,
+          "description": "<html><head></head><body><p>Given a list of PackageInfo objects, generate the 'addonPackages' object (keyed by\nname, value = AddonInfo instance, for all packages marked 'valid'). This is stored in\nboth Addon and Project instances.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "generateAddonPackages",
+          "params": [
+            {
+              "name": "addonPackageList",
+              "description": "the list of child addon PackageInfos to work from",
+              "type": "Array"
+            },
+            {
+              "name": "excludeFn",
+              "description": "an optional function. If passed in, each child PackageInfo\nwill be tested against the function and only included in the package map if the function\nreturns a truthy value.",
+              "type": "Function"
+            }
+          ],
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 419,
+          "description": "<html><head></head><body><p>This is only supposed to be called by the addon instantiation code.\nAlso, the assumption here is that this PackageInfo really is for an\nAddon, so we don't need to check each time.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getAddonConstructor",
+          "return": {
+            "description": "an instance of a constructor function for the Addon class\nwhose package information is stored in this object.",
+            "type": "AddonConstructor"
+          },
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 457,
+          "description": "<html><head></head><body><p>Construct an addon instance.</p>\n<p>NOTE: this does NOT call constructors for the child addons. That is left to\nthe caller to do, so they can insert any other logic they want.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "constructAddonInstance",
+          "params": [
+            {
+              "name": "parent",
+              "description": "the parent that directly contains this addon",
+              "type": "Project|Addon"
+            },
+            {
+              "name": "project",
+              "description": "the project that is/contains this addon",
+              "type": "Project"
+            }
+          ],
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 492,
+          "description": "<html><head></head><body><p>Create an instance of the addon represented by this packageInfo or (if we\nare supporting per-bundle caching and this is an allow-caching-per-bundle addon)\ncheck if we should be creating a proxy instead.</p>\n<p>NOTE: we assume that the value of 'allowCachingPerBundle' does not change between\ncalls to the constructor! A given addon is either allowing or not allowing caching\nfor an entire run.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "getAddonInstance",
+          "params": [
+            {
+              "name": "parent",
+              "description": "the addon/project that is to be the direct parent of the\naddon instance created here"
+            },
+            {
+              "name": "project",
+              "description": "the project that is to contain this addon instance",
+              "type": "*"
+            }
+          ],
+          "return": {
+            "description": "the constructed instance of the addon",
+            "type": "Object"
+          },
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 525,
+          "description": "<html><head></head><body><p>Initialize the child addons array of a newly-created addon instance. Normally when\nan addon derives from Addon, child addons will be created during 'setupRegistry' and\nthis code is essentially unnecessary. But if an addon is created with custom constructors\nthat don't call 'setupRegistry', any child addons may not yet be initialized.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "initChildAddons",
+          "params": [
+            {
+              "name": "addonInstance",
+              "description": "",
+              "type": "Addon"
+            }
+          ],
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/package-info.js",
+          "line": 542,
+          "description": "<html><head></head><body><p>Gets the addon entry point</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "_getAddonEntryPoint",
+          "return": {
+            "description": "The exported addon entry point",
+            "type": "Object|Function"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "PackageInfo",
+          "module": "ember-cli"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-cli-5.3.0-ember-cli",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

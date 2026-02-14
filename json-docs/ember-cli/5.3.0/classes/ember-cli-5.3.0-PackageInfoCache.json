@@ -1,0 +1,302 @@
+{
+  "data": {
+    "id": "ember-cli-5.3.0-PackageInfoCache",
+    "type": "class",
+    "attributes": {
+      "name": "PackageInfoCache",
+      "shortname": "PackageInfoCache",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-cli",
+      "namespace": "",
+      "file": "lib/models/package-info-cache/index.js",
+      "line": 23,
+      "description": "<html><head></head><body><p>Class that stores entries that are either PackageInfo or NodeModulesList objects.\nThe entries are stored in a map keyed by real directory path.</p>\n</body></html>",
+      "access": "public",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "lib/debug/assert.js",
+          "line": 3,
+          "description": "<html><head></head><body><p>Verify that a certain condition is met, or throw an error if otherwise.</p>\n<p>This is useful for communicating expectations in the code to other human\nreaders as well as catching bugs that accidentally violate these expectations.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>const { <span class=\"built_in\">assert</span> } = require(<span class=\"string\">'ember-cli/lib/debug'</span>);\n\n<span class=\"comment\">// Test for truthiness:</span>\n<span class=\"built_in\">assert</span>(<span class=\"string\">'Must pass a string.'</span>, <span class=\"built_in\">typeof</span> <span class=\"built_in\">str</span> === <span class=\"string\">'string'</span>);\n\n<span class=\"comment\">// Fail unconditionally:</span>\n<span class=\"built_in\">assert</span>(<span class=\"string\">'This code path should never run.'</span>);</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "assert",
+          "params": [
+            {
+              "name": "description",
+              "description": "Describes the condition.\nThis will become the message of the error thrown if the assertion fails.",
+              "type": "String"
+            },
+            {
+              "name": "condition",
+              "description": "Must be truthy for the assertion to pass.\nIf falsy, an error will be thrown.",
+              "type": "Any"
+            }
+          ],
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/debug/deprecate.js",
+          "line": 7,
+          "description": "<html><head></head><body><p>Display a deprecation message.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">const</span> { deprecate } = <span class=\"keyword\">require</span>(<span class=\"string\">'ember-cli/lib/debug'</span>);\n\n<span class=\"title function_ invoke__\">deprecate</span>(<span class=\"string\">'The `foo` method is deprecated.'</span>, <span class=\"literal\">false</span>, {\n  <span class=\"attr\">for</span>: <span class=\"string\">'ember-cli'</span>,\n  <span class=\"attr\">id</span>: <span class=\"string\">'ember-cli.foo-method'</span>,\n  <span class=\"attr\">since</span>: {\n    <span class=\"attr\">available</span>: <span class=\"string\">'4.1.0'</span>,\n    <span class=\"attr\">enabled</span>: <span class=\"string\">'4.2.0'</span>,\n  },\n  <span class=\"attr\">until</span>: <span class=\"string\">'5.0.0'</span>,\n  <span class=\"attr\">url</span>: <span class=\"string\">'https://example.com'</span>,\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "deprecate",
+          "params": [
+            {
+              "name": "description",
+              "description": "Describes the deprecation.",
+              "type": "String"
+            },
+            {
+              "name": "condition",
+              "description": "If falsy, the deprecation message will be displayed.",
+              "type": "Any"
+            },
+            {
+              "name": "options",
+              "description": "An object including the deprecation's details:\n- `for` The library that the deprecation is for\n- `id` The deprecation's unique id\n- `since.available` A SemVer version indicating when the deprecation was made available\n- `since.enabled` A SemVer version indicating when the deprecation was enabled\n- `until` A SemVer version indicating until when the deprecation will be active\n- `url` A URL that refers to additional information about the deprecation",
+              "type": "Object"
+            }
+          ],
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 36,
+          "description": "<html><head></head><body><p>Clear the cache information.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_clear",
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 48,
+          "description": "<html><head></head><body><p>Indicates if there is at least one error in any object in the cache.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "hasErrors",
+          "return": {
+            "description": "true if there are any errors in the cache, for any entries, else false."
+          },
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 65,
+          "description": "<html><head></head><body><p>Gather all the errors in the PIC and any cached objects, then dump them\nout to the ui-console.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "showErrors",
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 80,
+          "description": "<html><head></head><body><p>Dump all the errors for a single object in the cache out to the ui-console.</p>\n<p>Special case: because package-info-cache also creates PackageInfo objects for entries\nthat do not actually exist (to allow simplifying the code), if there's a case where\nan object has only the single error ERROR_PACKAGE_DIR_MISSING, do not print\nanything. The package will have been found as a reference from some other\naddon or the root project, and we'll print a reference error there. Having\nboth is just confusing to users.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_showObjErrors",
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 146,
+          "description": "<html><head></head><body><p>Process the root directory of a project, given a\nProject object (we need the object in order to find the internal addons).\n_readPackage takes care of the general processing of the root directory\nand common locations for addons, filling the cache with each. Once it\nreturns, we take care of the locations for addons that are specific to\nprojects, not other packages (e.g. internal addons, cli root).</p>\n<p>Once all the project processing is done, go back through all cache entries\nto create references between the packageInfo objects.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "loadProject",
+          "params": [
+            {
+              "name": "projectInstance",
+              "description": "the instance of the Project object to load package data\nabout into the cache."
+            }
+          ],
+          "return": {
+            "description": "the PackageInfo object for the given Project object.\nNote that if the project path is already in the cache, that will be returned.\nNo copy is made.",
+            "type": "PackageInfo"
+          },
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 203,
+          "description": "<html><head></head><body><p>To support the project.reloadPkg method, we need the ability to flush\nthe cache and reload from the updated package.json.\nThere are some issues with doing this:</p>\n<ul>\n<li>Because of the possible relationship between projects and their addons\ndue to symlinks, it's not trivial to flush only the data related to a\ngiven project.</li>\n<li>If an 'ember-build-cli.js' dynamically adds new projects to the cache,\nwe will not necessarily get called again to redo the loading of those\nprojects.\nThe solution, implemented here:</li>\n<li>Keep track of the Project objects whose packages are loaded into the cache.</li>\n<li>If a project is reloaded, flush the cache, then do loadPackage again\nfor all the known Projects.</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "reloadProjects",
+          "return": {
+            "description": "null"
+          },
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 228,
+          "description": "<html><head></head><body><p>Do the actual processing of the root directory of an addon, when the addon\nobject already exists (i.e. the addon is acting as the root object of a\ntree, like project does). We need the object in order to find the internal addons.\n_readPackage takes care of the general processing of the root directory\nand common locations for addons, filling the cache with each.</p>\n<p>Once all the addon processing is done, go back through all cache entries\nto create references between the packageInfo objects.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "loadAddon",
+          "params": [
+            {
+              "name": "addonInstance",
+              "description": "the instance of the Addon object to load package data\nabout into the cache."
+            }
+          ],
+          "return": {
+            "description": "the PackageInfo object for the given Addon object.\nNote that if the addon path is already in the cache, that will be returned.\nNo copy is made.",
+            "type": "PackageInfo"
+          },
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 262,
+          "description": "<html><head></head><body><p>Resolve the node_module dependencies across all packages after they have\nbeen loaded into the cache, because we don't know when a particular package\nwill enter the cache.</p>\n<p>Since loadProject can be called multiple times for different projects,\nwe don't want to reprocess any packages that happen to be common\nbetween them. We'll handle this by marking any packageInfo once it\nhas been processed here, then ignore it in any later processing.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_resolveDependencies",
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 299,
+          "description": "<html><head></head><body><p>Add an entry to the cache.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_addEntry",
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 309,
+          "description": "<html><head></head><body><p>Retrieve an entry from the cache.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getEntry",
+          "params": [
+            {
+              "name": "path",
+              "description": "the real path whose PackageInfo or NodeModulesList is desired.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "or {NodeModulesList} the desired entry.",
+            "type": "PackageInfo"
+          },
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 321,
+          "description": "<html><head></head><body><p>Indicate if an entry for a given path exists in the cache.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "contains",
+          "params": [
+            {
+              "name": "path",
+              "description": "the real path to check for in the cache.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "true if the entry is present for the given path, false otherwise."
+          },
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 395,
+          "description": "<html><head></head><body><p>Given a directory that supposedly contains a package, create a PackageInfo\nobject and try to fill it out, EVEN IF the package.json is not readable.\nErrors will then be stored in the PackageInfo for anything with the package\nthat might be wrong.\nBecause it's possible that the path given to the packageDir is not actually valid,\nwe'll just use the path.resolve() version of that path to search for the\npath in the cache, before trying to get the 'real' path (which also then\nresolves links). The cache itself is keyed on either the realPath, if the\npackageDir is actually a real valid directory path, or the normalized path (before\npath.resolve()), if it is not.</p>\n<p>NOTE: the cache is also used to store the NULL_PROJECT project object,\nwhich actually has no package.json or other files, but does have an empty\npackage object. Because of that, and to speed up processing, loadProject()\nwill pass in both the package root directory path and the project's package\nobject, if there is one. If the package object is present, we will use that\nin preference to trying to find a package.json file.</p>\n<p>If there is no package object, and there is no package.json or the package.json\nis bad or the package is an addon with\nno main, the only thing we can do is return an ErrorEntry to the caller.\nOnce past all those problems, if any error occurs with any of the contents\nof the package, they'll be cached in the PackageInfo itself.</p>\n<p>In summary, only PackageInfo or ErrorEntry will be returned.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_readPackage",
+          "params": [
+            {
+              "name": "pkgDir",
+              "description": "the path of the directory to read the package.json from and\n process the contents and create a new cache entry or entries.",
+              "type": "String"
+            },
+            {
+              "name": "isRoot,",
+              "description": "for when this is to be considered the root\npackage, whose dependencies we must all consider for discovery.",
+              "type": "Boolean"
+            }
+          ],
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/package-info-cache/index.js",
+          "line": 585,
+          "description": "<html><head></head><body><p>Process a directory of modules in a given package directory.</p>\n<p>We will allow cache entries for node_modules that actually\nhave no contents, just so we don't have to hit the file system more\noften than necessary--it's much quicker to check an in-memory object.\nobject.</p>\n<p>Note: only a NodeModulesList or null is returned.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_readModulesList",
+          "params": [
+            {
+              "name": "nodeModulesDir",
+              "description": "the path of the node_modules directory\n to read the package.json from and process the contents and create a\n new cache entry or entries.",
+              "type": "String"
+            }
+          ],
+          "class": "PackageInfoCache",
+          "module": "ember-cli"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-cli-5.3.0-ember-cli",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

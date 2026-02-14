@@ -18,6 +18,8 @@ function deleteUnusedFilesForRevIndex(file) {
     project = 'ember';
   } else if (json.data.id.match(/^ember-data-\d/)) {
     project = 'ember-data';
+  } else if (json.data.id.match(/^ember-cli-\d/)) {
+    project = 'ember-cli';
   } else {
     console.log('error figuring out project for', file);
     return;
