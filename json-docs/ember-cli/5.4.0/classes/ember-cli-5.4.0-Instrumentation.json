@@ -1,0 +1,156 @@
+{
+  "data": {
+    "id": "ember-cli-5.4.0-Instrumentation",
+    "type": "class",
+    "attributes": {
+      "name": "Instrumentation",
+      "shortname": "Instrumentation",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-cli",
+      "namespace": "",
+      "file": "lib/models/instrumentation.js",
+      "line": 38,
+      "description": "<html><head></head><body><p>An instance of this class is used for invoking the instrumentation\nhooks on addons.</p>\n<p>The instrumentation types currently supported are:</p>\n<ul>\n<li>init</li>\n<li>build</li>\n<li>command</li>\n<li>shutdown</li>\n</ul>\n</body></html>",
+      "access": "private",
+      "tagname": "",
+      "methods": [
+        {
+          "file": "lib/models/host-info-cache.js",
+          "line": 16,
+          "description": "<html><head></head><body><p>Given a path (calculated as part of <code>getHostAddonInfo</code>), return the correct\n\"bundle host\". A bundle host is considered the project or lazy engine.</p>\n<p>For example, given the following package structure:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre> <span class=\"literal\">--</span><span class=\"comment\">Project</span><span class=\"literal\">--</span>\n  <span class=\"comment\">/      \\</span>\n <span class=\"comment\">/        \\</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Lazy Engine A  <br>             Addon A\n               |\n               |\n          Lazy Engine B\n           /          <br>          /            <br>     Lazy Engine A   Lazy Engine C</p>\n<p>The provided paths for lazy engine A would look like:</p>\n<ul>\n<li>[Project]</li>\n<li>[Project, Addon A, Lazy Engine B]</li>\n</ul>\n<p>For this project structure, this function would return [Project, [Project]]</p>\n<p>Similarly, given the following project structure:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n</pre></td>\n              <td class=\"code\"><pre>       --Project--\n        /      <span class=\"string\">\\</span>\n       /        <span class=\"string\">\\</span>\nLazy Engine A    <span class=\"string\">\\</span>\n     /        Lazy Engine B\n    /               |\n   /                |</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p> Lazy Engine C     Lazy Engine C</p>\n<p>The provided paths for lazy engine C would look like:</p>\n<ul>\n<li>[Project, Lazy Engine A]</li>\n<li>[Project, Lazy Engine B]</li>\n</ul>\n<p>In this case, the host is the project and would also return [Project, [Project]]</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "_findNearestBundleHost",
+          "params": [
+            {
+              "name": "paths",
+              "description": "The found paths to a given bundle host",
+              "type": "Array<PackageInfo[]>"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "[PackageInfo, PackageInfo[]]"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Instrumentation",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/host-info-cache.js",
+          "line": 93,
+          "description": "<html><head></head><body><p>Returns a <code>Set</code> of package-info objects that a given bundle host is\n<em>directly</em> responsible for bundling (i.e., it excludes other bundle\nhosts/lazy engines when it encounters these)</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "_getBundledPackageInfos",
+          "params": [
+            {
+              "name": "pkgInfoToStartAt",
+              "description": "",
+              "type": "PackageInfo"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Set<PackageInfo>"
+          },
+          "access": "private",
+          "tagname": "",
+          "class": "Instrumentation",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/host-info-cache.js",
+          "line": 147,
+          "description": "<html><head></head><body><p>This function intends to return a common host for a bundle host (lazy engine). The root\npackage info should be the starting point (i.e., the project's package info). We do this\nby performing a breadth-first traversal until we find the intended lazy engine (represented\nas a package-info &amp; the 1st argument passed to this function). As part of the traversal, we keep\ntrack of all paths to said engine; then, once we find the intended engine we use this to determine\nthe nearest common host amongst all shortest paths.</p>\n<p>Some context:</p>\n<p>For a given engine/bundle host, this finds the lowest common ancestor that is considered a\nhost amongst <em>all</em> engines by the same name in the project.</p>\n<p>For example, given the following package structure:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre> <span class=\"literal\">--</span><span class=\"comment\">Project</span><span class=\"literal\">--</span>\n  <span class=\"comment\">/      \\</span>\n <span class=\"comment\">/        \\</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>Lazy Engine A  <br>             Addon A\n               |\n               |\n          Lazy Engine B\n           /          <br>          /            <br>     Lazy Engine A   Lazy Engine C</p>\n<ul>\n<li>The LCA host for Lazy Engine A is the project</li>\n<li>The LCA host for Lazy Engine B is the project</li>\n<li>The LCA host for Lazy Engine C is Lazy Engine B</li>\n</ul>\n<p>This also returns <code>hostAndAncestorBundledPackageInfos</code>, which are all bundled addons above a given host:</p>\n<ul>\n<li><code>hostAndAncestorBundledPackageInfos</code> for lazy engine A includes all non-lazy dependencies of its LCA host &amp; above (in this case, just the project)</li>\n<li><code>hostAndAncestorBundledPackageInfos</code> for lazy engine B includes all non-lazy dependencies of its LCA host &amp; above (in this case, just the project)</li>\n<li><code>hostAndAncestorBundledPackageInfos</code> for lazy engine C includes non-lazy deps of lazy engine B &amp; non-lazy deps of the project (LCA host &amp; above)</li>\n</ul>\n<p>This is intended to mimic the behavior of <code>ancestorHostAddons</code> in <code>ember-engines</code>:\n<a href=\"https://github.com/ember-engines/ember-engines/blob/master/packages/ember-engines/lib/engine-addon.js#L333\">https://github.com/ember-engines/ember-engines/blob/master/packages/ember-engines/lib/engine-addon.js#L333</a></p>\n<p>Unfortunately, we can't easily repurpose the logic in <code>ember-engines</code> since the algorithm has to be different;\nin <code>ember-engines</code> we need access to the actual addon instance, however, this is intended to be used <em>during</em>\naddon instantiation, so we only have access to package-info objects. In having said this, we <em>can</em> repurpose\nthe <code>hostPackageInfo</code> to determine the LCA host; see below <code>findLCAHost</code>.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "getHostAddonInfo",
+          "params": [
+            {
+              "name": "packageInfoForLazyEngine",
+              "description": "",
+              "type": "PackageInfo"
+            }
+          ],
+          "return": {
+            "description": "}",
+            "type": " hostPackageInfo: PackageInfo, hostAndAncestorBundledPackageInfos: Set<PackageInfo>"
+          },
+          "class": "Instrumentation",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/host-info-cache.js",
+          "line": 270,
+          "description": "<html><head></head><body><p>This returns the LCA host for a given engine; we use the associated package info\nto compute this (see <code>getHostAddonInfo</code> above); this finds the lowest common ancestor\nthat is considered a host amongst <em>all</em> engines by the same name in the project. This\nfunction is intended to replace the original behavior in <code>ember-engines</code>.</p>\n<p>For more info, see the original implementation here:</p>\n<p><a href=\"https://github.com/ember-engines/ember-engines/blob/master/packages/ember-engines/lib/utils/find-lca-host.js\">https://github.com/ember-engines/ember-engines/blob/master/packages/ember-engines/lib/utils/find-lca-host.js</a></p>\n</body></html>",
+          "itemtype": "method",
+          "name": "findLCAHost",
+          "params": [
+            {
+              "name": "engineInstance",
+              "description": "",
+              "type": "EngineAddon"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "EngineAddon|EmberApp"
+          },
+          "class": "Instrumentation",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/instantiate-addons.js",
+          "line": 12,
+          "description": "<html><head></head><body><p>Create instances of a set of \"child\" addons for a parent addon or project.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "instantiateAddons",
+          "params": [
+            {
+              "name": "parent",
+              "description": "an Addon or Project that is the direct containing object of the list\n  of children defined in addonPackages.",
+              "type": "Object"
+            },
+            {
+              "name": "project",
+              "description": "the project that contains the parent (so either the addon's project\n  if parent is an addon, or the project itself if it is a project). It is possible when\n  constructing custom addon instances that the project will actually be undefined--various\n  addon tests do this, for example.",
+              "type": "Project"
+            },
+            {
+              "name": "a",
+              "description": "map of addon name (including scope) to an AddonInfo with the name, path and\n  'pkg' object for that addon's package.json). These are what is turned into addons.",
+              "type": "Object"
+            }
+          ],
+          "class": "Instrumentation",
+          "module": "ember-cli"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-cli-5.4.0-ember-cli",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.4.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

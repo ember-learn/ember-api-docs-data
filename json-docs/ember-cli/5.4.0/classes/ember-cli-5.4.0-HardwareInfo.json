@@ -1,0 +1,182 @@
+{
+  "data": {
+    "id": "ember-cli-5.4.0-HardwareInfo",
+    "type": "class",
+    "attributes": {
+      "name": "HardwareInfo",
+      "shortname": "HardwareInfo",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-cli",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "lib/models/hardware-info.js",
+          "line": 232,
+          "description": "<html><head></head><body><p>Indicates whether the host is running on battery power.  This can cause\nperformance degredation.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "isUsingBattery",
+          "params": [
+            {
+              "name": "platform",
+              "description": "The current hardware platform.\n                                          USED FOR TESTING ONLY.",
+              "type": "String=process.platform"
+            }
+          ],
+          "return": {
+            "description": "`true` iff the host is running on battery power or\n                        `false` if not.  `null` if the battery status\n                        cannot be determined.",
+            "type": "Null|Boolean"
+          },
+          "class": "HardwareInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/hardware-info.js",
+          "line": 266,
+          "description": "<html><head></head><body><p>Determines the amount of swap/virtual memory currently in use.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "memorySwapUsed",
+          "params": [
+            {
+              "name": "platform",
+              "description": "The current hardware platform.\n                                          USED FOR TESTING ONLY.",
+              "type": "String=process.platform"
+            }
+          ],
+          "return": {
+            "description": "The amount of used swap space, in bytes.  `null` if\n                       the used swap space cannot be determined.",
+            "type": "Null|Number"
+          },
+          "class": "HardwareInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/hardware-info.js",
+          "line": 297,
+          "description": "<html><head></head><body><p>Determines the total amount of memory available to the host, as from\n<code>os.totalmem</code>.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "memoryTotal",
+          "return": {
+            "description": "The total memory in bytes.",
+            "type": "Number"
+          },
+          "class": "HardwareInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/hardware-info.js",
+          "line": 309,
+          "description": "<html><head></head><body><p>Determines the amount of memory currently being used by the current Node\nprocess, as from <code>process.memoryUsage</code>.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "memoryUsed",
+          "return": {
+            "description": "The Resident Set Size, as reported by\n                 `process.memoryUsage`.",
+            "type": "Object"
+          },
+          "class": "HardwareInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/hardware-info.js",
+          "line": 322,
+          "description": "<html><head></head><body><p>Determines the number of logical processors available to the host, as from\n<code>os.cpus</code>.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "processorCount",
+          "return": {
+            "description": "The number of logical processors.",
+            "type": "Number"
+          },
+          "class": "HardwareInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/hardware-info.js",
+          "line": 334,
+          "description": "<html><head></head><body><p>Determines the average processor load across the system.  This is\nexpressed as a fractional number between 0 and the number of logical\nprocessors.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "processorLoad",
+          "params": [
+            {
+              "name": "platform",
+              "description": "The current hardware platform.\n                                          USED FOR TESTING ONLY.",
+              "type": "String=process.platform"
+            }
+          ],
+          "return": {
+            "description": "The one-, five-, and fifteen-minute processor load\n                        averages.",
+            "type": "Array<Number>"
+          },
+          "class": "HardwareInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/hardware-info.js",
+          "line": 358,
+          "description": "<html><head></head><body><p>Gets the speed of the host's processors.</p>\n<p>If more than one processor is found, the average of their speeds is taken.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "processorSpeed",
+          "return": {
+            "description": "The average processor speed in MHz.",
+            "type": "Number"
+          },
+          "class": "HardwareInfo",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/hardware-info.js",
+          "line": 373,
+          "description": "<html><head></head><body><p>Determines the time since the host was started, as from <code>os.uptime</code>.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "uptime",
+          "return": {
+            "description": "The number of seconds since the host was started.",
+            "type": "Number"
+          },
+          "class": "HardwareInfo",
+          "module": "ember-cli"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-cli-5.4.0-ember-cli",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.4.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

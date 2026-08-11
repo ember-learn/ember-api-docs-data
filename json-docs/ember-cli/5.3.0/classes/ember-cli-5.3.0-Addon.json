@@ -1,0 +1,1236 @@
+{
+  "data": {
+    "id": "ember-cli-5.3.0-Addon",
+    "type": "class",
+    "attributes": {
+      "name": "Addon",
+      "shortname": "Addon",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-cli",
+      "namespace": "",
+      "file": "lib/models/addon.js",
+      "line": 122,
+      "description": "<html><head></head><body><p>Root class for an Addon. If your addon module exports an Object this\nwill be extended from this base class. If you export a constructor (function),\nit will <strong>not</strong> extend from this class.</p>\n<p>Hooks:</p>\n<ul>\n<li>{{#crossLink \"Addon/config:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/blueprintsPath:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/includedCommands:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/importTransforms:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/serverMiddleware:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/testemMiddleware:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/postBuild:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/preBuild:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/outputReady:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/buildError:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/included:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/shouldIncludeChildAddon:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/setupPreprocessorRegistry:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/preprocessTree:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/postprocessTree:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/lintTree:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/contentFor:method\"}}{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/treeFor:method\"}}{{/crossLink}}</li>\n</ul>\n</body></html>",
+      "extends": "CoreObject",
+      "is_constructor": 1,
+      "params": [
+        {
+          "name": "parent",
+          "description": "The project or addon that directly depends on this addon",
+          "type": "Project|Addon"
+        },
+        {
+          "name": "project",
+          "description": "The current project (deprecated)",
+          "type": "Project"
+        }
+      ],
+      "methods": [
+        {
+          "file": "lib/models/addon.js",
+          "line": 239,
+          "description": "<html><head></head><body><p>Initializes the addon.  If you override this method make sure and call <code>this._super.init &amp;&amp; this._super.init.apply(this, arguments);</code> or your addon will not work.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "init",
+          "params": [
+            {
+              "name": "parent",
+              "description": "The project or addon that directly depends on this addon",
+              "type": "Project|Addon"
+            },
+            {
+              "name": "project",
+              "description": "The current project (deprecated)",
+              "type": "Project"
+            }
+          ],
+          "example": [
+            "\n```js\ninit(parent, project) {\n  this._super.init && this._super.init.apply(this, arguments);\n  this._someCustomSetup();\n}\n```"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 320,
+          "description": "<html><head></head><body><p>Find an addon of the current addon.</p>\n<p>Example: ember-data depends on ember-cli-babel and wishes to have\nadditional control over transpilation this method helps.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// ember-data/index.js</span>\n<span class=\"title function_\">treeForAddon</span>(<span class=\"params\">tree</span>) {\n  <span class=\"keyword\">let</span> babel = <span class=\"variable language_\">this</span>.<span class=\"title function_\">findOwnAddonByName</span>(<span class=\"string\">'ember-cli-babel'</span>);\n\n  <span class=\"keyword\">return</span> babel.<span class=\"title function_\">transpileTree</span>(tree, {\n    <span class=\"comment\">// customize the babel step (see: ember-cli-addons readme for more details);</span>\n  });\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "findOwnAddonByName",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 344,
+          "description": "<html><head></head><body><p>Check if the current addon intends to be hinted. Typically this is for\nhinting/linting libraries such as eslint or jshint</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "hintingEnabled",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 359,
+          "description": "<html><head></head><body><p>Shorthand method for <a href=\"https://github.com/ember-cli/broccoli-concat\">broccoli-concat</a></p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "concatFiles",
+          "params": [
+            {
+              "name": "tree",
+              "description": "Tree of files",
+              "type": "Tree"
+            },
+            {
+              "name": "options",
+              "description": "Options for broccoli-concat",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Modified tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 373,
+          "description": "<html><head></head><body><p>Allows to mark the addon as developing, triggering live-reload in the project the addon is linked to.</p>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>Working on projects with internal addons</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "isDevelopingAddon",
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 409,
+          "description": "<html><head></head><body><p>Discovers all child addons of this addon and an AddonInfo about\neach addon in this.addonPackages (keyed on addon name).</p>\n<p>Child addons include those from 'dependencies' (not devDependencies)\nand in-repo addons</p>\n<p>Any packageInfos that we find that are marked as not valid are excluded.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "discoverAddons",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 459,
+          "description": "<html><head></head><body><p>Invoke the specified method for each enabled addon.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "eachAddonInvoke",
+          "params": [
+            {
+              "name": "methodName",
+              "description": "the method to invoke on each addon",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "the arguments to pass to the invoked method",
+              "type": "Array"
+            }
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 484,
+          "description": "<html><head></head><body><p>Invoke the specified method for each of the project's addons.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_eachProjectAddonInvoke",
+          "params": [
+            {
+              "name": "methodName",
+              "description": "the method to invoke on each addon",
+              "type": "String"
+            },
+            {
+              "name": "args",
+              "description": "the arguments to pass to the invoked method",
+              "type": "Array"
+            }
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 517,
+          "description": "<html><head></head><body><p>Generates a tree for the specified path</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "treeGenerator",
+          "return": {
+            "description": "",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 552,
+          "description": "<html><head></head><body><p>Returns a given type of tree (if present), merged with the\napplication tree. For each of the trees available using this\nmethod, you can also use a direct method called <code>treeFor[Type]</code> (eg. <code>treeForApp</code>).</p>\n<p>Available tree names:</p>\n<ul>\n<li>{{#crossLink \"Addon/treeForApp:method\"}}app{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/treeForStyles:method\"}}styles{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/treeForTemplates:method\"}}templates{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/treeForAddonTemplates:method\"}}addon-templates{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/treeForAddon:method\"}}addon{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/treeForVendor:method\"}}vendor{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/treeForTestSupport:method\"}}test-support{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/treeForAddonTestSupport:method\"}}addon-test-support{{/crossLink}}</li>\n<li>{{#crossLink \"Addon/treeForPublic:method\"}}public{{/crossLink}}</li>\n</ul>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>manipulating trees at build time</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "treeFor",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 618,
+          "access": "private",
+          "tagname": "",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "itemtype": "method",
+          "name": "_treeFor",
+          "return": {
+            "description": "",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 640,
+          "description": "<html><head></head><body><p>Calculates a cacheKey for the given treeType. It is expected to return a\ncache key allowing multiple builds of the same tree to simply return the\noriginal tree (preventing duplicate work). If it returns null / undefined\nthe tree in question will opt out of this caching system.</p>\n<p>This method is invoked prior to calling treeFor with the same tree name.</p>\n<p>You should override this method if you implement custom treeFor or treeFor*\nmethods, which cause addons to opt-out of this caching.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "cacheKeyForTree",
+          "params": [
+            {
+              "name": "treeType",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "cacheKey",
+            "type": "String"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 682,
+          "description": "<html><head></head><body><p>This method climbs up the hierarchy of addons\nup to the host application.</p>\n<p>This prevents previous addons (prior to <code>this.import</code>, ca 2.7.0)\nto break at importing assets when they are used nested in other addons.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_findHost",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 705,
+          "description": "<html><head></head><body><p>This method is called when the addon is included in a build. You\nwould typically use this hook to perform additional imports</p>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>including vendor files</li>\n<li>setting configuration options</li>\n</ul>\n<p><em>Note:</em> Any options set in the consuming application will override the addon.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "included",
+          "params": [
+            {
+              "name": "parent",
+              "description": "The parent object which included this addon",
+              "type": "EmberApp|EmberAddon"
+            }
+          ],
+          "example": [
+            "\n```js\nincluded(parent) {\n  this._super.included.apply(this, arguments);\n  this.import(somePath);\n}\n```"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 738,
+          "description": "<html><head></head><body><p>Imports an asset into this addon.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "import",
+          "params": [
+            {
+              "name": "asset",
+              "description": "Either a path to the asset or an object with environment names and paths as key-value pairs.",
+              "type": "Object|String"
+            },
+            {
+              "name": "options",
+              "description": "Options object",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "type",
+                  "description": "Either 'vendor' or 'test', defaults to 'vendor'",
+                  "type": "String",
+                  "optional": true
+                },
+                {
+                  "name": "prepend",
+                  "description": "Whether or not this asset should be prepended, defaults to false",
+                  "type": "Boolean",
+                  "optional": true
+                },
+                {
+                  "name": "destDir",
+                  "description": "Destination directory, defaults to the name of the directory the asset is in",
+                  "type": "String",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "since": "2.7.0",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 758,
+          "description": "<html><head></head><body><p>Returns the tree for all app files</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "treeForApp",
+          "params": [
+            {
+              "name": "tree",
+              "description": "",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "App file tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 770,
+          "description": "<html><head></head><body><p>Returns the tree for all template files</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "treeForTemplates",
+          "params": [
+            {
+              "name": "tree",
+              "description": "",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Template file tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 782,
+          "description": "<html><head></head><body><p>Returns the tree for this addon's templates</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "treeForAddonTemplates",
+          "params": [
+            {
+              "name": "tree",
+              "description": "",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Addon Template file tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 794,
+          "description": "<html><head></head><body><p>Returns a tree for this addon</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "treeForAddon",
+          "params": [
+            {
+              "name": "tree",
+              "description": "",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Addon file tree",
+            "type": "Tree"
+          },
+          "example": [
+            "\n```js\ntreeForAddon() {\n  let emberVersion = new VersionChecker(this.project).for('ember-source');\n  let shouldUsePolyfill = emberVersion.lt('4.5.0-alpha.4');\n\n  if (shouldUsePolyfill) {\n    return this._super.treeForAddon.apply(this, arguments);\n  }\n}\n```"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 825,
+          "description": "<html><head></head><body><p>Returns the tree for all style files</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "treeForStyles",
+          "params": [
+            {
+              "name": "tree",
+              "description": "The tree to process, usually `app/styles/` in the addon.",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "The return tree has the same contents as the input tree, but is moved so that the `app/styles/` path is preserved.",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 844,
+          "description": "<html><head></head><body><p>Returns the tree for all vendor files</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "treeForVendor",
+          "params": [
+            {
+              "name": "tree",
+              "description": "",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Vendor file tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 856,
+          "description": "<html><head></head><body><p>Returns the tree for all test support files</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "treeForTestSupport",
+          "params": [
+            {
+              "name": "tree",
+              "description": "",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Test Support file tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 868,
+          "description": "<html><head></head><body><p>Returns the tree for all public files</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "treeForPublic",
+          "params": [
+            {
+              "name": "tree",
+              "description": "",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Public file tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 888,
+          "description": "<html><head></head><body><p>Returns the tree for all test files namespaced to a given addon.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "treeForAddonTestSupport",
+          "params": [
+            {
+              "name": "tree",
+              "description": "",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 922,
+          "description": "<html><head></head><body><p>Runs the styles tree through preprocessors.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "compileStyles",
+          "params": [
+            {
+              "name": "addonStylesTree",
+              "description": "Styles file tree",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Compiled styles tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 947,
+          "description": "<html><head></head><body><p>Looks in the addon/ and addon/templates trees to determine if template files\nexist that need to be precompiled.</p>\n<p>This is executed once when building, but not on rebuilds.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "shouldCompileTemplates",
+          "return": {
+            "description": "indicates if templates need to be compiled for this addon",
+            "type": "Boolean"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 961,
+          "description": "<html><head></head><body><p>Looks in the addon/ and addon/templates trees to determine if template files\nexist in the pods format that need to be precompiled.</p>\n<p>This is executed once when building, but not on rebuilds.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_shouldCompilePodTemplates",
+          "return": {
+            "description": "indicates if pod based templates need to be compiled for this addon",
+            "type": "Boolean"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1079,
+          "description": "<html><head></head><body><p>Runs the templates tree through preprocessors.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "compileTemplates",
+          "params": [
+            {
+              "name": "tree",
+              "description": "Templates file tree",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Compiled templates tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1113,
+          "description": "<html><head></head><body><p>Runs the addon tree through preprocessors.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "compileAddon",
+          "params": [
+            {
+              "name": "tree",
+              "description": "Addon file tree",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Compiled addon tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1157,
+          "description": "<html><head></head><body><p>Returns a tree with JSHint output for all addon JS.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "jshintAddonTree",
+          "return": {
+            "description": "Tree with JShint output (tests)",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1223,
+          "description": "<html><head></head><body><p>Preprocesses a javascript tree.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "preprocessJs",
+          "return": {
+            "description": "Preprocessed javascript",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1234,
+          "description": "<html><head></head><body><p>Returns a tree with all javascript for this addon.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "processedAddonJsFiles",
+          "params": [
+            {
+              "name": "the",
+              "description": "tree to preprocess",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Processed javascript file tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1263,
+          "description": "<html><head></head><body><p>Returns the module name for this addon.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "moduleName",
+          "return": {
+            "description": "module name",
+            "type": "String"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1278,
+          "description": "<html><head></head><body><p>Returns the path for addon blueprints.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "blueprintsPath",
+          "return": {
+            "description": "The path for blueprints",
+            "type": "String"
+          },
+          "example": [
+            "\n- [ember-cli-coffeescript](https://github.com/kimroen/ember-cli-coffeescript/blob/v1.13.2/index.js#L26)"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1296,
+          "description": "<html><head></head><body><p>Augments the application's configuration settings.</p>\n<p>Object returned from this hook is merged with the application's configuration object.</p>\n<p>Application's configuration always take precedence.</p>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>Modifying configuration options (see list of defaults <a href=\"https://github.com/ember-cli/ember-cli/blob/v2.4.3/lib/broccoli/ember-app.js#L163\">here</a>)<ul>\n<li>For example<ul>\n<li><code>storeConfigInMeta</code></li>\n<li>et, al</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "config",
+          "params": [
+            {
+              "name": "env",
+              "description": "Name of current environment (ie \"development\")",
+              "type": "String"
+            },
+            {
+              "name": "baseConfig",
+              "description": "Initial application configuration",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Configuration object to be merged with application configuration.",
+            "type": "Object"
+          },
+          "example": [
+            "\n```js\nconfig(environment, appConfig) {\n  return {\n    someAddonDefault: \"foo\"\n  };\n}\n```"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1335,
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "dependencies",
+          "return": {
+            "description": "The addon's dependencies based on the addon's package.json",
+            "type": "Object"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1345,
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "isEnabled",
+          "return": {
+            "description": "Whether or not this addon is enabled",
+            "type": "Boolean"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1354,
+          "description": "<html><head></head><body><p>Can be used to exclude addons from being added as a child addon.</p>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>Abstract away multiple addons while only including one into the built assets</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "shouldIncludeChildAddon",
+          "params": [
+            {
+              "name": "childAddon",
+              "description": "",
+              "type": "Addon"
+            }
+          ],
+          "return": {
+            "description": "Whether or not a child addon is supposed to be included",
+            "type": "Boolean"
+          },
+          "example": [
+            "\n```js\nshouldIncludeChildAddon(childAddon) {\n  if(childAddon.name === 'ember-cli-some-legacy-select-component') {\n    return this.options.legacyMode;\n  } else if(childAddon.name === 'ember-cli-awesome-new-select-component') {\n    return !this.options.legacyMode;\n  } else {\n    return this._super.shouldIncludeChildAddon.apply(this, arguments);\n  }\n}\n```"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1386,
+          "description": "<html><head></head><body><p>Allows the specification of custom addon commands.\nExpects you to return an object whose key is the name of the command and value is the command instance..</p>\n<p>This function is not implemented by default</p>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>Include custom commands into consuming application</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "includedCommands",
+          "return": {
+            "description": "An object with included commands",
+            "type": "Object"
+          },
+          "example": [
+            "\n```js\nincludedCommands() {\n  return {\n    'do-foo': require('./lib/commands/foo')\n  };\n}\n```"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1410,
+          "description": "<html><head></head><body><p>Allows addons to define a custom transform function that other addons and app can use when using <code>app.import</code>.</p>\n<p>This function is not implemented by default</p>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>An app or addons want to transform a dependency that is being imported using <code>app.import</code>.</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "importTransforms",
+          "return": {
+            "description": "An object with custom transforms",
+            "type": "Object"
+          },
+          "example": [
+            "\n```js\nimportTransforms() {\n  return {\n    'my-custom-transform': function(tree, options) {\n      // transform the incoming tree and return the updated tree\n    }\n  };\n}\n```\n\nAlternatively, if you want to process `options` before being passed into the custom transform function, use:",
+            "\n```js\nimportTransforms() {\n  return {\n    'my-custom-transform': {\n      transform: function(tree, options) {\n          // transform the incoming tree and return the updated tree\n      },\n      processOptions: function(assetPath, entry, options) {\n        // process your options\n\n        return options\n      }\n  };\n}\n```"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1454,
+          "description": "<html><head></head><body><p>Pre-process a tree</p>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>removing / adding files from the build.</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "preprocessTree",
+          "params": [
+            {
+              "name": "type",
+              "description": "What kind of tree (eg. 'js', 'css', 'template')",
+              "type": "String"
+            },
+            {
+              "name": "tree",
+              "description": "Tree to process",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Processed tree",
+            "type": "Tree"
+          },
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1468,
+          "description": "<html><head></head><body><p>Post-process a tree</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "postprocessTree",
+          "params": [
+            {
+              "name": "type",
+              "description": "What kind of tree (eg. 'js', 'css', 'template')",
+              "type": "String"
+            },
+            {
+              "name": "tree",
+              "description": "Tree to process",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Processed tree",
+            "type": "Tree"
+          },
+          "example": [
+            "\n- [broccoli-asset-rev](https://github.com/rickharrison/broccoli-asset-rev/blob/c82c3580855554a31f7d6600b866aecf69cdaa6d/index.js#L29)"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1481,
+          "description": "<html><head></head><body><p>This hook allows you to make changes to the express server run by ember-cli.</p>\n<p>It's passed a <code>startOptions</code> object which contains:</p>\n<ul>\n<li><code>app</code> Express server instance</li>\n<li><code>options</code> A hash with:<ul>\n<li><code>project</code> Current {{#crossLink \"Project\"}}project{{/crossLink}}</li>\n<li><code>watcher</code></li>\n<li><code>environment</code></li>\n</ul>\n</li>\n</ul>\n<p>This function is not implemented by default</p>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>Tacking on headers to each request</li>\n<li>Modifying the request object</li>\n</ul>\n<p><em>Note:</em> that this should only be used in development, and if you need the same behavior in production you'll\nneed to configure your server.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "serverMiddleware",
+          "params": [
+            {
+              "name": "startOptions",
+              "description": "Express server start options",
+              "type": "Object"
+            }
+          ],
+          "example": [
+            "\n```js\nserverMiddleware(startOptions) {\n  var app = startOptions.app;\n\n  app.use(function(req, res, next) {\n    // Some middleware\n  });\n}\n```\n\n- [ember-cli-content-security-policy](https://github.com/rwjblue/ember-cli-content-security-policy/blob/v0.5.0/index.js#L84)\n- [history-support-addon](https://github.com/ember-cli/ember-cli/blob/v2.4.3/lib/tasks/server/middleware/history-support/index.js#L25)"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1520,
+          "description": "<html><head></head><body><p>This hook allows you to make changes to the express server run by testem.</p>\n<p>This function is not implemented by default</p>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>Adding custom test-specific endpoints</li>\n<li>Manipulating HTTP requests in tests</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "testemMiddleware",
+          "params": [
+            {
+              "name": "app",
+              "description": "the express app instance",
+              "type": "Object"
+            }
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1535,
+          "description": "<html><head></head><body><p>This hook is called before a build takes place.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "preBuild",
+          "params": [
+            {
+              "name": "result",
+              "description": "Build object",
+              "type": "Object"
+            }
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1543,
+          "description": "<html><head></head><body><p>This hook is called after a build is complete.</p>\n<p>It's passed a <code>result</code> object which contains:</p>\n<ul>\n<li><code>directory</code> Path to build output</li>\n</ul>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>Slow tree listing</li>\n<li>May be used to manipulate your project after build has happened</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "postBuild",
+          "params": [
+            {
+              "name": "result",
+              "description": "Build result object",
+              "type": "Object"
+            }
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1559,
+          "description": "<html><head></head><body><p>This hook is called after the build has been processed and the build files have been copied to the output directory</p>\n<p>It's passed a <code>result</code> object which contains:</p>\n<ul>\n<li><code>directory</code> Path to build output</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "outputReady",
+          "params": [
+            {
+              "name": "result",
+              "description": "Build result object",
+              "type": "Object"
+            }
+          ],
+          "example": [
+            "\n- Opportunity to symlink or copy files elsewhere.\n- [ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon/blob/v0.7.0/index.js#L45)\n  - In this case we are using this in tandem with a rails middleware to remove a lock file.\n    This allows our ruby gem to block incoming requests until after the build happens reliably."
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1576,
+          "description": "<html><head></head><body><p>This hook is called when an error occurs during the preBuild, postBuild or outputReady hooks\nfor addons, or when the build fails</p>\n<h4 id=\"uses\">Uses:</h4>\n<ul>\n<li>Custom error handling during build process</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "buildError",
+          "params": [
+            {
+              "name": "error",
+              "description": "The error that was caught during the processes listed above",
+              "type": "Error"
+            }
+          ],
+          "example": [
+            "\n- [ember-cli-rails-addon](https://github.com/rondale-sc/ember-cli-rails-addon/blob/v0.7.0/index.js#L11)"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1592,
+          "description": "<html><head></head><body><p>Used to add preprocessors to the preprocessor registry. This is often used by addons like <a href=\"https://github.com/ember-cli/ember-cli-htmlbars\">ember-cli-htmlbars</a>\nand <a href=\"https://github.com/kimroen/ember-cli-coffeescript\">ember-cli-coffeescript</a> to add a <code>template</code> or <code>js</code> preprocessor to the registry.</p>\n<p><strong>Uses:</strong></p>\n<ul>\n<li>Adding preprocessors to the registry.</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "setupPreprocessorRegistry",
+          "params": [
+            {
+              "name": "type",
+              "description": "either `\"self\"` or `\"parent\"`",
+              "type": "String"
+            },
+            {
+              "name": "registry",
+              "description": "the registry to be set up"
+            }
+          ],
+          "example": [
+            "\n```js\nsetupPreprocessorRegistry(type, registry) {\n  // ensure that broccoli-ember-hbs-template-compiler is not processing hbs files\n  registry.remove('template', 'broccoli-ember-hbs-template-compiler');\n\n  registry.add('template', {\n    name: 'ember-cli-htmlbars',\n    ext: 'hbs',\n    _addon: this,\n    toTree(tree) {\n      var htmlbarsOptions = this._addon.htmlbarsOptions();\n      return htmlbarsCompile(tree, htmlbarsOptions);\n    },\n\n    precompile(string) {\n      var htmlbarsOptions = this._addon.htmlbarsOptions();\n      var templateCompiler = htmlbarsOptions.templateCompiler;\n      return utils.template(templateCompiler, string);\n    }\n  });\n\n  if (type === 'parent') {\n    this.parentRegistry = registry;\n  }\n}\n```"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1634,
+          "description": "<html><head></head><body><p>Return value is merged into the <strong>tests</strong> tree. This lets you inject\nlinter output as test results.</p>\n<p><strong>Uses:</strong></p>\n<ul>\n<li>JSHint</li>\n<li>any other form of automated test generation that turns code into tests</li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "lintTree",
+          "params": [
+            {
+              "name": "treeType",
+              "description": "`app`, `tests`, `templates`, or `addon`",
+              "type": "String"
+            },
+            {
+              "name": "tree",
+              "description": "tree of files (JavaScript files for `app`, `tests`, and `addon` types)",
+              "type": "Tree"
+            }
+          ],
+          "example": [
+            "\n- [ember-cli-qunit](https://github.com/ember-cli/ember-cli-qunit/blob/v1.4.1/index.js#L206)\n- [ember-cli-mocha](https://github.com/ef4/ember-cli-mocha/blob/66803037fe203b24e96dea83a2bd91de48b842e1/index.js#L101)"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 1653,
+          "description": "<html><head></head><body><p>Allow addons to implement contentFor method to add string output into the associated <code>{{content-for 'foo'}}</code> section in <code>index.html</code></p>\n<p><strong>Uses:</strong></p>\n<ul>\n<li>For instance, to inject analytics code into <code>index.html</code></li>\n</ul>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "contentFor",
+          "params": [
+            {
+              "name": "type",
+              "description": ""
+            },
+            {
+              "name": "config",
+              "description": ""
+            },
+            {
+              "name": "content",
+              "description": ""
+            }
+          ],
+          "example": [
+            "\n- [ember-cli-google-analytics](https://github.com/pgrippi/ember-cli-google-analytics/blob/v1.5.0/index.js#L79)"
+          ],
+          "class": "Addon",
+          "module": "ember-cli"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "lib/models/per-bundle-addon-cache/target-instance.js",
+          "line": 3,
+          "description": "<html><head></head><body><p>A Symbol constant for sharing between index.js and addon-proxy.js rather than\nputting the symbol into the Symbol global cache. The symbol is used in per-bundle\ncache entries to refer to the field that points at the real instance that a Proxy\nrefers to.</p>\n</body></html>",
+          "itemtype": "property",
+          "name": "",
+          "type": "Symbol",
+          "final": 1,
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 155,
+          "description": "<html><head></head><body><p>The name of this addon.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "final": 1,
+          "type": "String",
+          "itemtype": "property",
+          "name": "name",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 164,
+          "description": "<html><head></head><body><p>The absolute path of the root directory where this addon is located.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "final": 1,
+          "type": "String",
+          "itemtype": "property",
+          "name": "root",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 173,
+          "description": "<html><head></head><body><p>The host app instance.</p>\n<p><strong>Note</strong>: this property will only be present on addons that are a direct dependency\nof the application itself, not of other addons. It is also not available in <code>init()</code>,\nbut will be set before <code>setupPreprocessorRegistry()</code> and <code>included()</code> are invoked.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "final": 1,
+          "type": "EmberApp",
+          "itemtype": "property",
+          "name": "app",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 186,
+          "description": "<html><head></head><body><p>The root {{#crossLink \"Project\"}}project{{/crossLink}} to which this addon belongs.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "final": 1,
+          "type": "Project",
+          "itemtype": "property",
+          "name": "project",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 195,
+          "description": "<html><head></head><body><p>This addon's parent.</p>\n<p>If the addon is a direct dependency of an application, then <code>parent</code> will be the\ncorresponding {{#crossLink \"Project\"}}project{{/crossLink}} instance. If it's a\ndependency of another addon, then <code>parent</code> will be a reference to that addon.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "final": 1,
+          "type": "Project|Addon",
+          "itemtype": "property",
+          "name": "parent",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 208,
+          "description": "<html><head></head><body><p>The set of addons that this addon itself depends on.</p>\n<p>This array is populated from the addon's listed <code>dependencies</code> and any items in\n<code>ember-addon.paths</code> in its <code>package.json</code>.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "final": 1,
+          "type": "Addon[]",
+          "itemtype": "property",
+          "name": "addons",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 220,
+          "description": "<html><head></head><body><p>A <a href=\"https://github.com/ember-cli/console-ui\"><code>console-ui</code></a> object that can be used\nto log messages for the user and indicate progress on long-running operations.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "final": 1,
+          "type": "UI",
+          "itemtype": "property",
+          "name": "ui",
+          "class": "Addon",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/addon.js",
+          "line": 230,
+          "description": "<html><head></head><body><p>The contents of the addon's <code>package.json</code>.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "final": 1,
+          "type": "Object",
+          "itemtype": "property",
+          "name": "pkg",
+          "class": "Addon",
+          "module": "ember-cli"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "CoreObject",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-cli-5.3.0-ember-cli",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

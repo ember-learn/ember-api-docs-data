@@ -1,0 +1,275 @@
+{
+  "data": {
+    "id": "ember-cli-5.3.0-ember-cli",
+    "type": "module",
+    "attributes": {
+      "name": "ember-cli",
+      "submodules": {},
+      "elements": {},
+      "fors": {
+        "HardwareInfo": 1
+      },
+      "namespaces": {
+        "Blueprint": 1
+      },
+      "tag": "module",
+      "file": "lib/tasks/npm-task.js",
+      "line": 17,
+      "access": "private",
+      "tagname": "",
+      "is_constructor": 1,
+      "extends": "Task",
+      "parent": null,
+      "publicclasses": [
+        "DefaultPackager",
+        "EmberAddon",
+        "EmberApp",
+        "PackageInfoCache",
+        "NodeModulesList",
+        "PackageInfo",
+        "PerBundleAddonCache {",
+        "Addon",
+        "Blueprint",
+        "Command",
+        "Project",
+        "ServeFilesAddon",
+        "WatcherAddon",
+        "HistorySupportAddon",
+        "TestsServerAddon",
+        "AmdTransformAddon"
+      ],
+      "privateclasses": [
+        "CLI",
+        "Builder",
+        "Instrumentation",
+        "NpmTask"
+      ],
+      "staticfunctions": {
+        "EmberApp": [
+          {
+            "file": "lib/broccoli/ember-app.js",
+            "line": 371,
+            "description": "Returns the environment name",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "env",
+            "return": {
+              "description": "Environment name",
+              "type": "String"
+            },
+            "class": "EmberApp",
+            "module": "ember-cli"
+          }
+        ]
+      },
+      "allstaticfunctions": {
+        "Project": [
+          {
+            "file": "lib/models/project.js",
+            "line": 619,
+            "description": "Returns a new project based on the first `package.json` that is found\nin `pathName`.\n\nIf the above `package.json` specifies `ember-addon.projectRoot`, we load\nthe project based on the relative path between this directory and the\nspecified `projectRoot`.",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "closestSync",
+            "params": [
+              {
+                "name": "pathName",
+                "description": "Path to your project",
+                "type": "String"
+              },
+              {
+                "name": "_ui",
+                "description": "The UI instance to provide to the created Project.",
+                "type": "UI"
+              }
+            ],
+            "return": {
+              "description": "Project instance",
+              "type": "Project"
+            },
+            "class": "Project",
+            "module": "ember-cli"
+          },
+          {
+            "file": "lib/models/project.js",
+            "line": 694,
+            "description": "Returns the project root based on the first package.json that is found",
+            "static": 1,
+            "itemtype": "method",
+            "name": "getProjectRoot",
+            "return": {
+              "description": "The project root directory",
+              "type": "String"
+            },
+            "class": "Project",
+            "module": "ember-cli"
+          },
+          {
+            "file": "lib/models/project.js",
+            "line": 670,
+            "description": "Returns a new project based on the first package.json that is found\nin `pathName`, or the nullProject.\n\nThe nullProject signifies no-project, but abides by the null object pattern",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "projectOrnullProject",
+            "params": [
+              {
+                "name": "_ui",
+                "description": "The UI instance to provide to the created Project.",
+                "type": "UI"
+              }
+            ],
+            "return": {
+              "description": "Project instance",
+              "type": "Project"
+            },
+            "class": "Project",
+            "module": "ember-cli"
+          }
+        ],
+        "EmberApp": [
+          {
+            "file": "lib/broccoli/ember-app.js",
+            "line": 371,
+            "description": "Returns the environment name",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "itemtype": "method",
+            "name": "env",
+            "return": {
+              "description": "Environment name",
+              "type": "String"
+            },
+            "class": "EmberApp",
+            "module": "ember-cli"
+          }
+        ],
+        "Blueprint": [
+          {
+            "file": "lib/models/blueprint.js",
+            "line": 1449,
+            "static": 1,
+            "itemtype": "method",
+            "name": "list",
+            "params": [
+              {
+                "name": "options",
+                "description": "",
+                "type": "Object",
+                "optional": true,
+                "props": [
+                  {
+                    "name": "paths",
+                    "description": "Extra paths to search for blueprints",
+                    "type": "Array",
+                    "optional": true
+                  }
+                ]
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Array"
+            },
+            "class": "Blueprint",
+            "module": "ember-cli",
+            "namespace": "Blueprint"
+          },
+          {
+            "file": "lib/models/blueprint.js",
+            "line": 1421,
+            "description": "Loads a blueprint from given path.",
+            "static": 1,
+            "itemtype": "method",
+            "name": "load",
+            "params": [
+              {
+                "name": "blueprintPath",
+                "description": "",
+                "type": "String"
+              },
+              {
+                "name": "blueprintOptions",
+                "description": "",
+                "type": "Object",
+                "optional": true
+              }
+            ],
+            "return": {
+              "description": "blueprint instance",
+              "type": "Blueprint"
+            },
+            "class": "Blueprint",
+            "module": "ember-cli",
+            "namespace": "Blueprint"
+          },
+          {
+            "file": "lib/models/blueprint.js",
+            "line": 1380,
+            "static": 1,
+            "itemtype": "method",
+            "name": "lookup",
+            "params": [
+              {
+                "name": "name",
+                "description": "",
+                "type": "String"
+              },
+              {
+                "name": "options",
+                "description": "",
+                "type": "Object",
+                "optional": true,
+                "props": [
+                  {
+                    "name": "paths",
+                    "description": "Extra paths to search for blueprints",
+                    "type": "Array",
+                    "optional": true
+                  },
+                  {
+                    "name": "ignoreMissing",
+                    "description": "Throw a `SilentError` if a\n  matching Blueprint could not be found",
+                    "type": "Boolean",
+                    "optional": true
+                  },
+                  {
+                    "name": "blueprintOptions",
+                    "description": "Options object that will be passed\n  along to the Blueprint instance on creation.",
+                    "type": "Object",
+                    "optional": true
+                  }
+                ]
+              }
+            ],
+            "return": {
+              "description": "",
+              "type": "Blueprint"
+            },
+            "class": "Blueprint",
+            "module": "ember-cli",
+            "namespace": "Blueprint"
+          }
+        ]
+      },
+      "version": "5.3.0"
+    },
+    "relationships": {
+      "classes": {
+        "data": []
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

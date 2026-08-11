@@ -1,0 +1,610 @@
+{
+  "data": {
+    "id": "ember-cli-5.4.0-EmberApp",
+    "type": "class",
+    "attributes": {
+      "name": "EmberApp",
+      "shortname": "EmberApp",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-cli",
+      "namespace": "",
+      "file": "lib/broccoli/ember-app.js",
+      "line": 60,
+      "description": "<html><head></head><body><p>EmberApp is the main class Ember CLI uses to manage the Broccoli trees\nfor your application. It is very tightly integrated with Broccoli and has\na <code>toTree()</code> method you can use to get the entire tree for your application.</p>\n<p>Available init options:</p>\n<ul>\n<li>storeConfigInMeta, defaults to <code>true</code></li>\n<li>autoRun, defaults to <code>true</code></li>\n<li>outputPaths, defaults to <code>{}</code></li>\n<li>minifyCSS, defaults to `{enabled: !!isProduction,options: { relativeTo: 'assets' }}</li>\n<li>sourcemaps, defaults to <code>{}</code></li>\n<li>trees, defaults to <code>{}</code></li>\n<li>vendorFiles, defaults to <code>{}</code></li>\n<li>addons, defaults to <code>{ exclude: [], include: [] }</code></li>\n</ul>\n</body></html>",
+      "is_constructor": 1,
+      "params": [
+        {
+          "name": "defaults",
+          "description": "",
+          "type": "Object",
+          "optional": true
+        },
+        {
+          "name": "options",
+          "description": "Configuration options",
+          "type": "Object",
+          "optional": true,
+          "optdefault": "{}"
+        }
+      ],
+      "methods": [
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 180,
+          "description": "<html><head></head><body><p>Initializes the <code>tests</code> and <code>hinting</code> properties.</p>\n<p>Defaults to <code>false</code> unless <code>ember test</code> was used or this is <em>not</em> a production build.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_initTestsAndHinting",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 196,
+          "description": "<html><head></head><body><p>Initializes the <code>project</code> property from <code>options.project</code> or the\nclosest Ember CLI project from the current working directory.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_initProject",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 217,
+          "description": "<html><head></head><body><p>Initializes the <code>options</code> property from the <code>options</code> parameter and\na set of default values from Ember CLI.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_initOptions",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 334,
+          "description": "<html><head></head><body><p>Resolves a path relative to the project's root</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_resolveLocal",
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 344,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_initVendorFiles",
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 371,
+          "description": "<html><head></head><body><p>Returns the environment name</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "itemtype": "method",
+          "name": "env",
+          "return": {
+            "description": "Environment name",
+            "type": "String"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 383,
+          "description": "<html><head></head><body><p>Delegates to <code>broccoli-concat</code> with the <code>sourceMapConfig</code> option set to <code>options.sourcemaps</code>.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_concatFiles",
+          "params": [
+            {
+              "name": "tree",
+              "description": ""
+            },
+            {
+              "name": "options",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": ""
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 398,
+          "description": "<html><head></head><body><p>Checks the result of <code>addon.isEnabled()</code> if it exists, defaults to <code>true</code> otherwise.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_addonEnabled",
+          "params": [
+            {
+              "name": "addon",
+              "description": "",
+              "type": "Addon"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 410,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_addonDisabledByExclude",
+          "params": [
+            {
+              "name": "addon",
+              "description": "",
+              "type": "Addon"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 421,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_addonDisabledByInclude",
+          "params": [
+            {
+              "name": "addon",
+              "description": "",
+              "type": "Addon"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 432,
+          "description": "<html><head></head><body><p>Returns whether an addon should be added to the project</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "shouldIncludeAddon",
+          "params": [
+            {
+              "name": "addon",
+              "description": "",
+              "type": "Addon"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 448,
+          "description": "<html><head></head><body><p>Calls the included hook on addons.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_notifyAddonIncluded",
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 484,
+          "description": "<html><head></head><body><p>Calls the importTransforms hook on addons.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_importAddonTransforms",
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 533,
+          "description": "<html><head></head><body><p>Loads and initializes addons for this project.\nCalls initializeAddons on the Project.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "initializeAddons",
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 560,
+          "description": "<html><head></head><body><p>Returns a list of trees for a given type, returned by all addons.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addonTreesFor",
+          "params": [
+            {
+              "name": "type",
+              "description": "Type of tree",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "List of trees",
+            "type": "Array"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 572,
+          "description": "<html><head></head><body><p>Runs addon post-processing on a given tree and returns the processed tree.</p>\n<p>This enables addons to do process immediately <strong>after</strong> the preprocessor for a\ngiven type is run, but before concatenation occurs. If an addon wishes to\napply a transform before the preprocessors run, they can instead implement the\npreprocessTree hook.</p>\n<p>To utilize this addons implement <code>postprocessTree</code> hook.</p>\n<p>An example, would be to apply some broccoli transform on all JS files, but\nonly after the existing pre-processors have run.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n</pre></td>\n              <td class=\"code\"><pre><span class=\"variable language_\">module</span>.<span class=\"property\">exports</span> = {\n  <span class=\"attr\">name</span>: <span class=\"string\">'my-cool-addon'</span>,\n  <span class=\"title function_\">postprocessTree</span>(<span class=\"params\"><span class=\"keyword\">type</span>, tree</span>) {\n    <span class=\"keyword\">if</span> (<span class=\"keyword\">type</span> === <span class=\"string\">'js'</span>) {\n      <span class=\"keyword\">return</span> <span class=\"title function_\">someBroccoliTransform</span>(tree);\n    }\n\n    <span class=\"keyword\">return</span> tree;\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addonPostprocessTree",
+          "params": [
+            {
+              "name": "type",
+              "description": "Type of tree",
+              "type": "String"
+            },
+            {
+              "name": "tree",
+              "description": "Tree to process",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Processed tree",
+            "type": "Tree"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 609,
+          "description": "<html><head></head><body><p>Runs addon pre-processing on a given tree and returns the processed tree.</p>\n<p>This enables addons to do process immediately <strong>before</strong> the preprocessor for a\ngiven type is run.  If an addon wishes to apply a transform  after the\npreprocessors run, they can instead implement the postprocessTree hook.</p>\n<p>To utilize this addons implement <code>preprocessTree</code> hook.</p>\n<p>An example, would be to remove some set of files before the preprocessors run.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">var</span> stew = <span class=\"built_in\">require</span>(<span class=\"string\">'broccoli-stew'</span>);\n\n<span class=\"variable language_\">module</span>.<span class=\"property\">exports</span> = {\n  <span class=\"attr\">name</span>: <span class=\"string\">'my-cool-addon'</span>,\n  <span class=\"title function_\">preprocessTree</span>(<span class=\"params\"><span class=\"keyword\">type</span>, tree</span>) {\n    <span class=\"keyword\">if</span> (<span class=\"keyword\">type</span> === <span class=\"string\">'js'</span> &amp;&amp; <span class=\"keyword\">type</span> === <span class=\"string\">'template'</span>) {\n      <span class=\"keyword\">return</span> stew.<span class=\"title function_\">rm</span>(tree, someGlobPattern);\n    }\n\n    <span class=\"keyword\">return</span> tree;\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addonPreprocessTree",
+          "params": [
+            {
+              "name": "type",
+              "description": "Type of tree",
+              "type": "String"
+            },
+            {
+              "name": "tree",
+              "description": "Tree to process",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Processed tree",
+            "type": "Tree"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 645,
+          "description": "<html><head></head><body><p>Runs addon lintTree hooks and returns a single tree containing all\ntheir output.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "addonLintTree",
+          "params": [
+            {
+              "name": "type",
+              "description": "Type of tree",
+              "type": "String"
+            },
+            {
+              "name": "tree",
+              "description": "Tree to process",
+              "type": "Tree"
+            }
+          ],
+          "return": {
+            "description": "Processed tree",
+            "type": "Tree"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 664,
+          "description": "<html><head></head><body><p>Imports legacy imports in this.vendorFiles</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "populateLegacyFiles",
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 841,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_podTemplatePatterns",
+          "return": {
+            "description": "An array of regular expressions.",
+            "type": "Array"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 1048,
+          "description": "<html><head></head><body><p>Runs the <code>app</code>, <code>tests</code> and <code>templates</code> trees through the chain of addons that produces lint trees.</p>\n<p>Those lint trees are afterwards funneled into the <code>tests</code> folder, babel-ified and returned as an array.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getLintTests",
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 1088,
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "dependencies",
+          "return": {
+            "description": "Alias to the project's dependencies function",
+            "type": "Object"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 1097,
+          "description": "<html><head></head><body><p>Imports an asset into the application.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "import",
+          "params": [
+            {
+              "name": "asset",
+              "description": "Either a path to the asset or an object with environment names and paths as key-value pairs.",
+              "type": "Object|String"
+            },
+            {
+              "name": "options",
+              "description": "Options object",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "type",
+                  "description": "Either 'vendor' or 'test'",
+                  "type": "String",
+                  "optional": true,
+                  "optdefault": "'vendor'"
+                },
+                {
+                  "name": "prepend",
+                  "description": "Whether or not this asset should be prepended",
+                  "type": "Boolean",
+                  "optional": true,
+                  "optdefault": "false"
+                },
+                {
+                  "name": "destDir",
+                  "description": "Destination directory, defaults to the name of the directory the asset is in",
+                  "type": "String",
+                  "optional": true
+                },
+                {
+                  "name": "outputFile",
+                  "description": "Specifies the output file for given import. Defaults to assets/vendor.{js,css}",
+                  "type": "String",
+                  "optional": true
+                },
+                {
+                  "name": "using",
+                  "description": "Specifies the array of transformations to be done on the asset. Can do an amd shim and/or custom transformation",
+                  "type": "Array",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 1143,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_import",
+          "params": [
+            {
+              "name": "assetPath",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "directory",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "subdirectory",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "extension",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 1228,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_getAssetPath",
+          "params": [
+            {
+              "name": "asset",
+              "description": "",
+              "type": "(Object|String)"
+            }
+          ],
+          "return": {
+            "description": "assetPath",
+            "type": "(String|undefined)"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 1269,
+          "description": "<html><head></head><body><p>Returns an array of trees for this application</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "toArray",
+          "return": {
+            "description": "An array of trees",
+            "type": "Array"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/broccoli/ember-app.js",
+          "line": 1306,
+          "description": "<html><head></head><body><p>Returns the merged tree for this application</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "toTree",
+          "params": [
+            {
+              "name": "additionalTrees",
+              "description": "Array of additional trees to merge",
+              "type": "Array",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "Merged tree for this application",
+            "type": "Tree"
+          },
+          "class": "EmberApp",
+          "module": "ember-cli"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": [
+          {
+            "type": "class",
+            "id": "ember-cli-5.4.0-EmberAddon"
+          }
+        ]
+      },
+      "module": {
+        "data": {
+          "id": "ember-cli-5.4.0-ember-cli",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.4.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1394 @@
+{
+  "data": {
+    "id": "ember-cli-5.3.0-Blueprint",
+    "type": "class",
+    "attributes": {
+      "name": "Blueprint",
+      "shortname": "Blueprint",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-cli",
+      "namespace": "Blueprint",
+      "file": "lib/models/blueprint.js",
+      "line": 29,
+      "description": "<html><head></head><body><p>A blueprint is a bundle of template files with optional install\nlogic.</p>\n<p>Blueprints follow a simple structure. Let's take the built-in\n<code>controller</code> blueprint as an example:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n</pre></td>\n              <td class=\"code\"><pre><span class=\"keyword\">blueprints/controller\n</span>├── files\n│   ├── app\n│   │   └── __path__\n│   │       └── __name__.<span class=\"keyword\">js\n</span>└── index.<span class=\"keyword\">js\n</span>\n<span class=\"keyword\">blueprints/controller-test\n</span>├── files\n│   └── tests\n│       └── unit\n│           └── controllers\n│               └── __test__.<span class=\"keyword\">js\n</span>└── index.<span class=\"keyword\">js</span></pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h2 id=\"files\">Files</h2>\n<p><code>files</code> contains templates for the all the files to be\ninstalled into the target directory.</p>\n<p>The <code>__name__</code> token is subtituted with the dasherized\nentity name at install time. For example, when the user\ninvokes <code>ember generate controller foo</code> then <code>__name__</code> becomes\n<code>foo</code>. When the <code>--pod</code> flag is used, for example <code>ember generate controller foo --pod</code> then <code>__name__</code> becomes\n<code>controller</code>.</p>\n<p>The <code>__path__</code> token is substituted with the blueprint\nname at install time. For example, when the user invokes\n<code>ember generate controller foo</code> then <code>__path__</code> becomes\n<code>controller</code>. When the <code>--pod</code> flag is used, for example\n<code>ember generate controller foo --pod</code> then <code>__path__</code>\nbecomes <code>foo</code> (or <code>&lt;podModulePrefix&gt;/foo</code> if the\npodModulePrefix is defined). This token is primarily for\npod support, and is only necessary if the blueprint can be\nused in pod structure. If the blueprint does not require pod\nsupport, simply use the blueprint name instead of the\n<code>__path__</code> token.</p>\n<p>The <code>__test__</code> token is substituted with the dasherized\nentity name and appended with <code>-test</code> at install time.\nThis token is primarily for pod support and only necessary\nif the blueprint requires support for a pod structure. If\nthe blueprint does not require pod support, simply use the\n<code>__name__</code> token instead.</p>\n<h2 id=\"template-variables-aka-locals\">Template Variables (AKA Locals)</h2>\n<p>Variables can be inserted into templates with\n<code>&lt;%= someVariableName %&gt;</code>.</p>\n<p>For example, the built-in <code>util</code> blueprint\n<code>files/app/utils/__name__.js</code> looks like this:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre>export default <span class=\"keyword\">function</span> <span class=\"title\">&lt;%=</span> camelizedModuleName %&gt;() {\n  <span class=\"keyword\">return</span> <span class=\"type\">true</span>;\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p><code>&lt;%= camelizedModuleName %&gt;</code> is replaced with the real\nvalue at install time.</p>\n<p>The following template variables are provided by default:</p>\n<ul>\n<li><code>dasherizedPackageName</code></li>\n<li><code>classifiedPackageName</code></li>\n<li><code>dasherizedModuleName</code></li>\n<li><code>classifiedModuleName</code></li>\n<li><code>camelizedModuleName</code></li>\n</ul>\n<p><code>packageName</code> is the project name as found in the project's\n<code>package.json</code>.</p>\n<p><code>moduleName</code> is the name of the entity being generated.</p>\n<p>The mechanism for providing custom template variables is\ndescribed below.</p>\n<h2 id=\"indexjs\">Index.js</h2>\n<p>Custom installation and uninstallation behavior can be added\nby overriding the hooks documented below. <code>index.js</code> should\nexport a plain object, which will extend the prototype of the\n<code>Blueprint</code> class. If needed, the original <code>Blueprint</code> prototype\ncan be accessed through the <code>_super</code> property.</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n</pre></td>\n              <td class=\"code\"><pre><span class=\"variable\">module</span>.<span class=\"property\">exports</span> <span class=\"operator\">=</span> {\n  <span class=\"title function_\">locals</span>(<span class=\"params\">options</span>) {\n    <span class=\"comment\">// Return custom template variables here.</span>\n    <span class=\"title function_\">return</span> {};\n  },\n\n  <span class=\"title function_\">normalizeEntityName</span>(<span class=\"params\">entityName</span>) {\n    <span class=\"comment\">// Normalize and validate entity name here.</span>\n    <span class=\"keyword\">return</span> <span class=\"variable\">entityName</span>;\n  },\n\n  <span class=\"title function_\">fileMapTokens</span>(<span class=\"params\">options</span>) {\n    <span class=\"comment\">// Return custom tokens to be replaced in your files</span>\n    <span class=\"title function_\">return</span> {\n      <span class=\"variable\">__token__</span>(<span class=\"variable\">options</span>){\n        <span class=\"comment\">// logic to determine value goes here</span>\n        <span class=\"keyword\">return</span> '<span class=\"variable\">value</span>';\n      }\n    }\n  },\n\n  <span class=\"title function_\">filesPath</span>(<span class=\"params\">options</span>) {\n    <span class=\"keyword\">return</span> <span class=\"variable\">path</span>.<span class=\"property\">join</span>(<span class=\"variable language_\">this</span>.<span class=\"property\">path</span>, '<span class=\"variable\">files</span>');\n  },\n\n  <span class=\"title function_\">beforeInstall</span>(<span class=\"params\">options</span>) {},\n  <span class=\"title function_\">afterInstall</span>(<span class=\"params\">options</span>) {},\n  <span class=\"title function_\">beforeUninstall</span>(<span class=\"params\">options</span>) {},\n  <span class=\"title function_\">afterUninstall</span>(<span class=\"params\">options</span>) {}\n\n};</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<h2 id=\"blueprint-hooks\">Blueprint Hooks</h2>\n<h3 id=\"beforeinstall--beforeuninstall\">beforeInstall &amp; beforeUninstall</h3>\n<p>Called before any of the template files are processed and receives\nthe <code>options</code> and <code>locals</code> hashes as parameters. Typically used for\nvalidating any additional command line options or for any asynchronous\nsetup that is needed.   As an example, the <code>controller</code> blueprint validates\nits <code>--type</code> option in this hook.  If you need to run any asynchronous code,\nwrap it in a promise and return that promise from these hooks.  This will\nensure that your code is executed correctly.</p>\n<h3 id=\"afterinstall--afteruninstall\">afterInstall &amp; afterUninstall</h3>\n<p>The <code>afterInstall</code> and <code>afterUninstall</code> hooks receives the same\narguments as <code>locals</code>. Use it to perform any custom work after the\nfiles are processed. For example, the built-in <code>route</code> blueprint\nuses these hooks to add and remove relevant route declarations in\n<code>app/router.js</code>.</p>\n<h3 id=\"overriding-install\">Overriding Install</h3>\n<p>If you don't want your blueprint to install the contents of\n<code>files</code> you can override the <code>install</code> method. It receives the\nsame <code>options</code> object described above and must return a promise.\nSee the built-in <code>resource</code> blueprint for an example of this.</p>\n</body></html>",
+      "is_constructor": 1,
+      "extends": "CoreObject",
+      "params": [
+        {
+          "name": "blueprintPath",
+          "description": "",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "blueprintOptions",
+          "description": "",
+          "type": "Object",
+          "optional": true
+        }
+      ],
+      "methods": [
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 219,
+          "description": "<html><head></head><body><p>Process the options object coming from either\nthe <code>init</code>, <code>install</code> or <code>uninstall</code> hook.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_processOptions",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 235,
+          "description": "<html><head></head><body><p>Hook to specify the path to the blueprint's files. By default this is\n<code>path.join(this.path, 'files)</code>.</p>\n<p>This can be used to customize which set of files to install based on options\nor environmental variables. It defaults to the <code>files</code> directory within the\nblueprint's folder.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "filesPath",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Path to the blueprints files directory.",
+            "type": "String"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 252,
+          "description": "<html><head></head><body><p>Used to retrieve files for blueprint.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "files",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Contents of the blueprint's files directory",
+            "type": "Array"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 275,
+          "itemtype": "method",
+          "name": "srcPath",
+          "params": [
+            {
+              "name": "file",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "Resolved path to the file",
+            "type": "String"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 284,
+          "description": "<html><head></head><body><p>Hook for normalizing entity name</p>\n<p>Use the <code>normalizeEntityName</code> hook to add custom normalization and\nvalidation of the provided entity name. The default hook does not\nmake any changes to the entity name, but makes sure an entity name\nis present and that it doesn't have a trailing slash.</p>\n<p>This hook receives the entity name as its first argument. The string\nreturned by this hook will be used as the new entity name.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "normalizeEntityName",
+          "params": [
+            {
+              "name": "entityName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Null"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 304,
+          "description": "<html><head></head><body><p>Write a status and message to the UI</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_writeStatusToUI",
+          "params": [
+            {
+              "name": "chalkColor",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "keyword",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "message",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 318,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_writeFile",
+          "params": [
+            {
+              "name": "info",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 368,
+          "description": "<html><head></head><body><p>Calls an action.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_commit",
+          "params": [
+            {
+              "name": "result",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "throws": {
+            "description": "Action doesn't exist.",
+            "type": "Error"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 386,
+          "description": "<html><head></head><body><p>Prints warning for pod unsupported.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_checkForPod",
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 403,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_normalizeEntityName",
+          "params": [
+            {
+              "name": "entity",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 414,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_checkInRepoAddonExists",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 443,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_process",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "beforeHook",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "process",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "afterHook",
+              "description": "",
+              "type": "Function"
+            }
+          ],
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 469,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "shouldConvertToJS",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "fileInfo",
+              "description": "",
+              "type": "FileInfo"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 523,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "convertToJS",
+          "params": [
+            {
+              "name": "fileInfo",
+              "description": "",
+              "type": "FileInfo"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 543,
+          "itemtype": "method",
+          "name": "install",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 570,
+          "itemtype": "method",
+          "name": "uninstall",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 592,
+          "description": "<html><head></head><body><p>Hook for running operations before install.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "beforeInstall",
+          "return": {
+            "description": "",
+            "type": "Promise|null"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 599,
+          "description": "<html><head></head><body><p>Hook for running operations after install.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "afterInstall",
+          "return": {
+            "description": "",
+            "type": "Promise|null"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 606,
+          "description": "<html><head></head><body><p>Hook for running operations before uninstall.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "beforeUninstall",
+          "return": {
+            "description": "",
+            "type": "Promise|null"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 613,
+          "description": "<html><head></head><body><p>Hook for running operations after uninstall.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "afterUninstall",
+          "return": {
+            "description": "",
+            "type": "Promise|null"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 622,
+          "description": "<html><head></head><body><p>Hook for adding custom template variables.</p>\n<p>When the following is called on the command line:</p>\n<div class=\"highlight sh\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n</pre></td>\n              <td class=\"code\"><pre>ember <span class=\"keyword\">generate</span> controller foo --<span class=\"keyword\">type</span>=array --dry-run isAdmin:true</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The object passed to <code>locals</code> looks like this:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n</pre></td>\n              <td class=\"code\"><pre>{\n  <span class=\"attr\">entity:</span> {\n    <span class=\"attr\">name:</span> <span class=\"string\">'foo'</span>,\n    <span class=\"attr\">options:</span> {\n      <span class=\"attr\">isAdmin:</span> <span class=\"literal\">true</span>\n    }\n  },\n  <span class=\"attr\">dryRun:</span> <span class=\"literal\">true</span>\n  <span class=\"attr\">type:</span> <span class=\"string\">\"array\"</span>\n  <span class=\"string\">//</span> <span class=\"string\">more</span> <span class=\"string\">keys</span>\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>This hook must return an object or a Promise which resolves to an object.\nThe resolved object will be merged with the aforementioned default locals.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "locals",
+          "params": [
+            {
+              "name": "options",
+              "description": "General and entity-specific options",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object|Promise|null"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 657,
+          "description": "<html><head></head><body><p>Hook to add additional or override existing fileMap tokens.</p>\n<p>Use <code>fileMapTokens</code> to add custom fileMap tokens for use\nin the <code>mapFile</code> method. The hook must return an object in the\nfollowing pattern:</p>\n<div class=\"highlight javascript\">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>{\n  <span class=\"title function_\">__token__</span>(<span class=\"params\">options</span>){\n    <span class=\"comment\">// logic to determine value goes here</span>\n    <span class=\"keyword\">return</span> <span class=\"string\">'value'</span>;\n  }\n}</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>It will be merged with the default <code>fileMapTokens</code>, and can be used\nto override any of the default tokens.</p>\n<p>Tokens are used in the files folder (see <code>files</code>), and get replaced with\nvalues when the <code>mapFile</code> method is called.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "fileMapTokens",
+          "return": {
+            "description": "",
+            "type": "Object|null"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 685,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_fileMapTokens",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 741,
+          "description": "<html><head></head><body><p>Used to generate fileMap tokens for mapFile.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "generateFileMap",
+          "params": [
+            {
+              "name": "fileMapVariables",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 756,
+          "itemtype": "method",
+          "name": "buildFileInfo",
+          "params": [
+            {
+              "name": "destPath",
+              "description": "",
+              "type": "Function"
+            },
+            {
+              "name": "templateVariables",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "file",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "FileInfo"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 777,
+          "itemtype": "method",
+          "name": "isUpdate",
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 787,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_getFileInfos",
+          "params": [
+            {
+              "name": "files",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "intoDir",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "templateVariables",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "file infos",
+            "type": "Array"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 799,
+          "description": "<html><head></head><body><p>Add update files to ignored files or reset them</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_ignoreUpdateFiles",
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 812,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_getFilesForInstall",
+          "params": [
+            {
+              "name": "targetFiles",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "files",
+            "type": "Array"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 825,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_checkForNoMatch",
+          "params": [
+            {
+              "name": "fileInfos",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "rawArgs",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 839,
+          "itemtype": "method",
+          "name": "processFiles",
+          "params": [
+            {
+              "name": "intoDir",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "templateVariables",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise<FileInfo[]>"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 872,
+          "itemtype": "method",
+          "name": "processFilesForUninstall",
+          "params": [
+            {
+              "name": "intoDir",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "templateVariables",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 923,
+          "itemtype": "method",
+          "name": "mapFile",
+          "params": [
+            {
+              "name": "file",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "locals",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "String"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 940,
+          "description": "<html><head></head><body><p>Looks for a <strong>root</strong> token in the files folder. Must be present for\nthe blueprint to support addon tokens. The <code>server</code>, <code>blueprints</code>, and <code>test</code></p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "supportsAddon",
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 952,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_generateFileMapVariables",
+          "params": [
+            {
+              "name": "moduleName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "locals",
+              "description": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 982,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "_locals",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1015,
+          "description": "<html><head></head><body><p>Used to add a package to the project's <code>package.json</code>.</p>\n<p>Generally, this would be done from the <code>afterInstall</code> hook, to\nensure that a package that is required by a given blueprint is\navailable.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "addPackageToProject",
+          "params": [
+            {
+              "name": "packageName",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "target",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1037,
+          "description": "<html><head></head><body><p>Used to add multiple packages to the project's <code>package.json</code>.</p>\n<p>Generally, this would be done from the <code>afterInstall</code> hook, to\nensure that a package that is required by a given blueprint is\navailable.</p>\n<p>Expects each array item to be an object with a <code>name</code>.  Each object\nmay optionally have a <code>target</code> to specify a specific version.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "addPackagesToProject",
+          "params": [
+            {
+              "name": "packages",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "example": [
+            "\n```js\nthis.addPackagesToProject([\n  { name: 'lodash' },\n  { name: 'moment', target: '^2.17.0' },\n]);\n```"
+          ],
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1086,
+          "description": "<html><head></head><body><p>Used to remove a package from the project's <code>package.json</code>.</p>\n<p>Generally, this would be done from the <code>afterInstall</code> hook, to\nensure that any package conflicts can be resolved before the\naddon is used.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "removePackageFromProject",
+          "params": [
+            {
+              "name": "packageName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1103,
+          "description": "<html><head></head><body><p>Used to remove multiple packages from the project's <code>package.json</code>.</p>\n<p>Generally, this would be done from the <code>afterInstall</code> hook, to\nensure that any package conflicts can be resolved before the\naddon is used.</p>\n<p>Expects each array item to be an object with a <code>name</code> property.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "removePackagesFromProject",
+          "params": [
+            {
+              "name": "packages",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1144,
+          "description": "<html><head></head><body><p>Used to add an addon to the project's <code>package.json</code> and run it's\n<code>defaultBlueprint</code> if it provides one.</p>\n<p>Generally, this would be done from the <code>afterInstall</code> hook, to\nensure that a package that is required by a given blueprint is\navailable.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "addAddonToProject",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1164,
+          "description": "<html><head></head><body><p>Used to add multiple addons to the project's <code>package.json</code> and run their\n<code>defaultBlueprint</code> if they provide one.</p>\n<p>Generally, this would be done from the <code>afterInstall</code> hook, to\nensure that a package that is required by a given blueprint is\navailable.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "addAddonsToProject",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1241,
+          "description": "<html><head></head><body><p>Used to retrieve a task with the given name. Passes the new task\nthe standard information available (like <code>ui</code>, <code>analytics</code>, <code>project</code>, etc).</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "taskFor",
+          "params": [
+            {
+              "name": "dasherizedName",
+              "description": ""
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1259,
+          "description": "<html><head></head><body><p>Inserts the given content into a file. If the <code>contentsToInsert</code> string is already\npresent in the current contents, the file will not be changed unless <code>force</code> option\nis passed.</p>\n<p>If <code>options.before</code> is specified, <code>contentsToInsert</code> will be inserted before\nthe first instance of that string.  If <code>options.after</code> is specified, the\ncontents will be inserted after the first instance of that string.\nIf the string specified by options.before or options.after is not in the file,\nno change will be made.</p>\n<p>If neither <code>options.before</code> nor <code>options.after</code> are present, <code>contentsToInsert</code>\nwill be inserted at the end of the file.</p>\n<p>Example:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// app/router.js</span>\nRouter.<span class=\"built_in\">map</span>(<span class=\"keyword\">function</span> (<span class=\"params\"></span>) {\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n6\n</pre></td>\n              <td class=\"code\"><pre>insertIntoFile('app/router.js', '  this.route(<span class=\"string\">\"admin\"</span>)<span class=\"comment\">;', {</span>\n  after: 'Router.map(<span class=\"name\">function</span> () {' + EOL\n}).then(<span class=\"name\">function</span>() {\n  // file has been inserted into!\n})<span class=\"comment\">;</span>\n</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n</pre></td>\n              <td class=\"code\"><pre><span class=\"comment\">// app/router.js</span>\nRouter.map(<span class=\"keyword\">function</span> <span class=\"params\">()</span> {\n  <span class=\"keyword\">this</span>.route(<span class=\"string\">\"admin\"</span>);\n});</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n</body></html>",
+          "itemtype": "method",
+          "name": "insertIntoFile",
+          "params": [
+            {
+              "name": "pathRelativeToProjectRoot",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "contentsToInsert",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "providedOptions",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1363,
+          "description": "<html><head></head><body><p>Used to retrieve a blueprint with the given name.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "lookupBlueprint",
+          "params": [
+            {
+              "name": "dasherizedName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Blueprint"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1380,
+          "static": 1,
+          "itemtype": "method",
+          "name": "lookup",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "paths",
+                  "description": "Extra paths to search for blueprints",
+                  "type": "Array",
+                  "optional": true
+                },
+                {
+                  "name": "ignoreMissing",
+                  "description": "Throw a `SilentError` if a\n  matching Blueprint could not be found",
+                  "type": "Boolean",
+                  "optional": true
+                },
+                {
+                  "name": "blueprintOptions",
+                  "description": "Options object that will be passed\n  along to the Blueprint instance on creation.",
+                  "type": "Object",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Blueprint"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1421,
+          "description": "<html><head></head><body><p>Loads a blueprint from given path.</p>\n</body></html>",
+          "static": 1,
+          "itemtype": "method",
+          "name": "load",
+          "params": [
+            {
+              "name": "blueprintPath",
+              "description": "",
+              "type": "String"
+            },
+            {
+              "name": "blueprintOptions",
+              "description": "",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "return": {
+            "description": "blueprint instance",
+            "type": "Blueprint"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1449,
+          "static": 1,
+          "itemtype": "method",
+          "name": "list",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object",
+              "optional": true,
+              "props": [
+                {
+                  "name": "paths",
+                  "description": "Extra paths to search for blueprints",
+                  "type": "Array",
+                  "optional": true
+                }
+              ]
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1533,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "prepareConfirm",
+          "params": [
+            {
+              "name": "info",
+              "description": "",
+              "type": "FileInfo"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1546,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "markIdenticalToBeSkipped",
+          "params": [
+            {
+              "name": "info",
+              "description": "",
+              "type": "FileInfo"
+            }
+          ],
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1557,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "markToBeRemoved",
+          "params": [
+            {
+              "name": "info",
+              "description": "",
+              "type": "FileInfo"
+            }
+          ],
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1566,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "gatherConfirmationMessages",
+          "params": [
+            {
+              "name": "collection",
+              "description": "",
+              "type": "Array"
+            },
+            {
+              "name": "info",
+              "description": "",
+              "type": "FileInfo"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1580,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "isIgnored",
+          "params": [
+            {
+              "name": "info",
+              "description": "",
+              "type": "FileInfo"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1592,
+          "description": "<html><head></head><body><p>Combines provided lookup paths with defaults and removes\nduplicates.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "generateLookupPaths",
+          "params": [
+            {
+              "name": "lookupPaths",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Array"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1607,
+          "description": "<html><head></head><body><p>Looks for a <strong>path</strong> token in the files folder. Must be present for\nthe blueprint to support pod tokens.</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "hasPathToken",
+          "params": [
+            {
+              "name": "files",
+              "description": "",
+              "type": "Files"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1646,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "isValidFile",
+          "params": [
+            {
+              "name": "fileInfo",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1660,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "isFilePath",
+          "params": [
+            {
+              "name": "fileInfo",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1670,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "dir",
+          "return": {
+            "description": "list of files in the given directory or and empty array if no directory exists",
+            "type": "Array"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1683,
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "getDetailedHelpPath",
+          "params": [
+            {
+              "name": "thisPath",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "help path",
+            "type": "String"
+          },
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 198,
+          "description": "<html><head></head><body><p>Indicates whether or not a blueprint is a candidate for automatic transpilation from TS to JS.\nThis property could be false in the case that the blueprint is written in JS and is not intended\nto work with TS at all, OR in the case that the blueprint is written in TS and the author does\nnot intend to support transpilation to JS.</p>\n</body></html>",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "shouldTransformTypeScript",
+          "type": "Boolean",
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 330,
+          "description": "<html><head></head><body><p>Actions lookup</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "property",
+          "name": "_actions",
+          "type": "Object",
+          "class": "Blueprint",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1498,
+          "description": "<html><head></head><body><p>Files that are renamed when installed into the target directory.\nThis allows including files in the blueprint that would have an effect\non another process, such as a file named <code>.gitignore</code>.</p>\n<p>The keys are the filenames used in the files folder.\nThe values are the filenames used in the target directory.</p>\n</body></html>",
+          "static": 1,
+          "itemtype": "property",
+          "name": "renamedFiles",
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1513,
+          "static": 1,
+          "itemtype": "property",
+          "name": "ignoredFiles",
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1519,
+          "static": 1,
+          "itemtype": "property",
+          "name": "ignoredUpdateFiles",
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        },
+        {
+          "file": "lib/models/blueprint.js",
+          "line": 1525,
+          "static": 1,
+          "itemtype": "property",
+          "name": "defaultLookupPaths",
+          "class": "Blueprint",
+          "module": "ember-cli",
+          "namespace": "Blueprint"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": {
+          "id": "CoreObject",
+          "type": "missing"
+        }
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-cli-5.3.0-ember-cli",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

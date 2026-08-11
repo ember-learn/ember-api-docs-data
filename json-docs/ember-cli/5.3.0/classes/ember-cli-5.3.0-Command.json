@@ -1,0 +1,466 @@
+{
+  "data": {
+    "id": "ember-cli-5.3.0-Command",
+    "type": "class",
+    "attributes": {
+      "name": "Command",
+      "shortname": "Command",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "ember-cli",
+      "namespace": "",
+      "file": "lib/models/command.js",
+      "line": 42,
+      "methods": [
+        {
+          "file": "lib/models/command.js",
+          "line": 153,
+          "description": "<html><head></head><body><p>Registers options with command. This method provides the ability to extend or override command options.\nExpects an object containing anonymousOptions or availableOptions, which it will then merge with\nexisting availableOptions before building the optionsAliases which are used to define shorthands.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "registerOptions",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 179,
+          "description": "<html><head></head><body><p>Called when command is interrupted from outside, e.g. ctrl+C or process kill\nCan be used to cleanup artifacts produced by command and control process exit code</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "onInterrupt",
+          "return": {
+            "description": "if rejected promise then result of promise will be used as an exit code",
+            "type": "Promise|undefined"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 207,
+          "description": "<html><head></head><body><p>Looks up for the task and runs\nIt also keeps the reference for the current active task\nKeeping reference for the current task allows to cleanup task on interruption</p>\n</body></html>",
+          "access": "private",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "runTask",
+          "throws": {
+            "description": "on attempt to run concurrent task",
+            "type": "Error"
+          },
+          "params": [
+            {
+              "name": "name",
+              "description": "Task name from the tasks registry. Should be capitalized",
+              "type": "String"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Task run",
+            "type": "Promise"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 248,
+          "description": "<html><head></head><body><p>Hook for extending a command before it is run in the cli.run command.\nMost common use case would be to extend availableOptions.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "beforeRun",
+          "return": {
+            "description": "",
+            "type": "Promise|null"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 256,
+          "itemtype": "method",
+          "name": "validateAndRun",
+          "return": {
+            "description": "",
+            "type": "Promise"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 321,
+          "description": "<html><head></head><body><p>Reports if the given command has a command line option by a given name</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "hasOption",
+          "params": [
+            {
+              "name": "name",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 337,
+          "description": "<html><head></head><body><p>Merges any options with duplicate keys in the availableOptions array.\nUsed primarily by registerOptions.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "mergeDuplicateOption",
+          "params": [
+            {
+              "name": "key",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 372,
+          "description": "<html><head></head><body><p>Normalizes option, filling in implicit values</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "normalizeOption",
+          "params": [
+            {
+              "name": "option",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 384,
+          "description": "<html><head></head><body><p>Assigns option</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "assignOption",
+          "params": [
+            {
+              "name": "option",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "parsedOptions",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "commandOptions",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 417,
+          "description": "<html><head></head><body><p>Validates option</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "validateOption",
+          "params": [
+            {
+              "name": "option",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 443,
+          "description": "<html><head></head><body><p>Parses alias for an option and adds it to optionsAliases</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "parseAlias",
+          "params": [
+            {
+              "name": "option",
+              "description": "",
+              "type": "Object"
+            },
+            {
+              "name": "alias",
+              "description": "",
+              "type": "Object|String"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 488,
+          "itemtype": "method",
+          "name": "assignAlias",
+          "params": [
+            {
+              "name": "option",
+              "description": ""
+            },
+            {
+              "name": "alias",
+              "description": ""
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 503,
+          "description": "<html><head></head><body><p>Validates alias value</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "validateAlias",
+          "params": [
+            {
+              "name": "alias",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 535,
+          "description": "<html><head></head><body><p>Parses command arguments and processes</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "parseArgs",
+          "params": [
+            {
+              "name": "commandArgs",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object|null"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 591,
+          "itemtype": "method",
+          "name": "run",
+          "params": [
+            {
+              "name": "commandArgs",
+              "description": ""
+            }
+          ],
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 601,
+          "description": "<html><head></head><body><p>Prints basic help for the command.</p>\n<p>Basic help looks like this:</p>\n<div class=\"highlight \">\n      <div class=\"ribbon\"></div>\n      <div class=\"scroller\">\n        <table class=\"CodeRay\">\n          <tbody>\n            <tr>\n              <td class=\"line-numbers\"><pre>1\n2\n3\n4\n5\n</pre></td>\n              <td class=\"code\"><pre>ember generate &lt;blueprint&gt; &lt;<span class=\"keyword\">options</span>...&gt;\n  Generates <span class=\"keyword\">new</span> code <span class=\"keyword\">from</span> blueprints\n  aliases: g\n  --dry-run (<span class=\"keyword\">Default</span>: <span class=\"keyword\">false</span>)\n  --verbose (<span class=\"keyword\">Default</span>: <span class=\"keyword\">false</span>)</pre></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n    \n<p>The default implementation is designed to cover all bases\nbut may be overridden if necessary.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "printBasicHelp",
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 632,
+          "description": "<html><head></head><body><p>Prints detailed help for the command.</p>\n<p>The default implementation is no-op and should be overridden\nfor each command where further help text is required.</p>\n</body></html>",
+          "itemtype": "method",
+          "name": "printDetailedHelp",
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 642,
+          "itemtype": "method",
+          "name": "getJson",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Object"
+          },
+          "class": "Command",
+          "module": "ember-cli"
+        }
+      ],
+      "events": [],
+      "properties": [
+        {
+          "file": "lib/models/command.js",
+          "line": 51,
+          "description": "<html><head></head><body><p>The description of what this command does.</p>\n</body></html>",
+          "final": 1,
+          "itemtype": "property",
+          "name": "description",
+          "type": "String",
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 60,
+          "description": "<html><head></head><body><p>Does this command work everywhere or just inside or outside of projects.</p>\n<p>Possible values:</p>\n<ul>\n<li><code>insideProject</code></li>\n<li><code>outsideProject</code></li>\n<li><code>everywhere</code></li>\n</ul>\n</body></html>",
+          "final": 1,
+          "itemtype": "property",
+          "name": "works",
+          "type": "String",
+          "default": "`insideProject`",
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 81,
+          "final": 1,
+          "itemtype": "property",
+          "name": "isWithinProject",
+          "type": "Boolean",
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 88,
+          "description": "<html><head></head><body><p>The name of the command.</p>\n</body></html>",
+          "final": 1,
+          "itemtype": "property",
+          "name": "name",
+          "type": "String",
+          "example": [
+            " `new` or `generate`"
+          ],
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 100,
+          "description": "<html><head></head><body><p>An array of aliases for the command</p>\n</body></html>",
+          "final": 1,
+          "itemtype": "property",
+          "name": "aliases",
+          "type": "Array",
+          "example": [
+            " `['g']` for the `generate` command"
+          ],
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 117,
+          "description": "<html><head></head><body><p>An array of available options for the command</p>\n</body></html>",
+          "final": 1,
+          "itemtype": "property",
+          "name": "availableOptions",
+          "type": "Array",
+          "example": [
+            "\n```js\navailableOptions: [\n  { name: 'dry-run',    type: Boolean, default: false, aliases: ['d'] },\n  { name: 'verbose',    type: Boolean, default: false, aliases: ['v'] },\n  { name: 'blueprint',  type: String,  default: 'app', aliases: ['b'] },\n  { name: 'skip-npm',   type: Boolean, default: false, aliases: ['sn'] },\n  { name: 'skip-git',   type: Boolean, default: false, aliases: ['sg'] },\n  { name: 'directory',  type: String ,                 aliases: ['dir'] }\n],\n```"
+          ],
+          "class": "Command",
+          "module": "ember-cli"
+        },
+        {
+          "file": "lib/models/command.js",
+          "line": 137,
+          "description": "<html><head></head><body><p>An array of anonymous options for the command</p>\n</body></html>",
+          "final": 1,
+          "itemtype": "property",
+          "name": "anonymousOptions",
+          "type": "Array",
+          "example": [
+            "\n```js\nanonymousOptions: [\n  '<blueprint>'\n],\n```"
+          ],
+          "class": "Command",
+          "module": "ember-cli"
+        }
+      ]
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-cli-5.3.0-ember-cli",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-cli-5.3.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
