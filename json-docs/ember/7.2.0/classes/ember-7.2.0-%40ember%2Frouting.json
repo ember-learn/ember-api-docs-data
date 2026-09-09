@@ -1,0 +1,53 @@
+{
+  "data": {
+    "id": "ember-7.2.0-@ember/routing",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/routing",
+      "shortname": "@ember/routing",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/routing",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/components/link-to.ts",
+          "line": 52,
+          "description": "The `LinkTo` component renders a link to the supplied `routeName` passing an optionally\nsupplied model to the route as its `model` context of the route. The block for `LinkTo`\nbecomes the contents of the rendered element:\n\n```gjs\nimport { LinkTo } from '@ember/routing';\n  \n<template>\n  <LinkTo @route='photoGallery'>\n    Great Hamster Photos\n  </LinkTo>\n</template>\n```\n\nThis will result in:\n\n```html\n<a href=\"/hamster-photos\">\n  Great Hamster Photos\n</a>\n```\n\n### Disabling the `LinkTo` component\n\nThe `LinkTo` component can be disabled by using the `disabled` argument. A disabled link\ndoesn't result in a transition when activated, and adds the `disabled` class to the `<a>`\nelement.\n\n(The class name to apply to the element can be overridden by using the `disabledClass`\nargument)\n\n```handlebars\n<LinkTo @route='photoGallery' @disabled={{true}}>\n  Great Hamster Photos\n</LinkTo>\n```\n\n### Handling `href`\n\n`<LinkTo>` will use your application's Router to fill the element's `href` property with a URL\nthat matches the path to the supplied `routeName`.\n\n### Handling current route\n\nThe `LinkTo` component will apply a CSS class name of 'active' when the application's current\nroute matches the supplied routeName. For example, if the application's current route is\n'photoGallery.recent', then the following invocation of `LinkTo`:\n\n```handlebars\n<LinkTo @route='photoGallery.recent'>\n  Great Hamster Photos\n</LinkTo>\n```\n\nwill result in\n\n```html\n<a href=\"/hamster-photos/this-week\" class=\"active\">\n  Great Hamster Photos\n</a>\n```\n\nThe CSS class used for active classes can be customized by passing an `activeClass` argument:\n\n```handlebars\n<LinkTo @route='photoGallery.recent' @activeClass=\"current-url\">\n  Great Hamster Photos\n</LinkTo>\n```\n\n```html\n<a href=\"/hamster-photos/this-week\" class=\"current-url\">\n  Great Hamster Photos\n</a>\n```\n\n### Keeping a link active for other routes\n\nIf you need a link to be 'active' even when it doesn't match the current route, you can use the\n`current-when` argument.\n\n```handlebars\n<LinkTo @route='photoGallery' @current-when='photos'>\n  Photo Gallery\n</LinkTo>\n```\n\nThis may be helpful for keeping links active for:\n\n* non-nested routes that are logically related\n* some secondary menu approaches\n* 'top navigation' with 'sub navigation' scenarios\n\nA link will be active if `current-when` is `true` or the current\nroute is the route this link would transition to.\n\nTo match multiple routes 'space-separate' the routes:\n\n```handlebars\n<LinkTo @route='gallery' @current-when='photos drawings paintings'>\n  Art Gallery\n</LinkTo>\n```\n\n### Supplying a model\n\nAn optional `model` argument can be used for routes whose\npaths contain dynamic segments. This argument will become\nthe model context of the linked route:\n\n```javascript\nRouter.map(function() {\n  this.route(\"photoGallery\", {path: \"hamster-photos/:photo_id\"});\n});\n```\n\n```handlebars\n<LinkTo @route='photoGallery' @model={{this.aPhoto}}>\n  {{aPhoto.title}}\n</LinkTo>\n```\n\n```html\n<a href=\"/hamster-photos/42\">\n  Tomster\n</a>\n```\n\n### Supplying multiple models\n\nFor deep-linking to route paths that contain multiple\ndynamic segments, the `models` argument can be used.\n\nAs the router transitions through the route path, each\nsupplied model argument will become the context for the\nroute with the dynamic segments:\n\n```javascript\nRouter.map(function() {\n  this.route(\"photoGallery\", { path: \"hamster-photos/:photo_id\" }, function() {\n    this.route(\"comment\", {path: \"comments/:comment_id\"});\n  });\n});\n```\n\nThis argument will become the model context of the linked route:\n\n```handlebars\n<LinkTo @route='photoGallery.comment' @models={{array this.aPhoto this.comment}}>\n  {{comment.body}}\n</LinkTo>\n```\n\n```html\n<a href=\"/hamster-photos/42/comments/718\">\n  A+++ would snuggle again.\n</a>\n```\n\n### Supplying an explicit dynamic segment value\n\nIf you don't have a model object available to pass to `LinkTo`,\nan optional string or integer argument can be passed for routes whose\npaths contain dynamic segments. This argument will become the value\nof the dynamic segment:\n\n```javascript\nRouter.map(function() {\n  this.route(\"photoGallery\", { path: \"hamster-photos/:photo_id\" });\n});\n```\n\n```handlebars\n<LinkTo @route='photoGallery' @model={{aPhotoId}}>\n  {{this.aPhoto.title}}\n</LinkTo>\n```\n\n```html\n<a href=\"/hamster-photos/42\">\n  Tomster\n</a>\n```\n\nWhen transitioning into the linked route, the `model` hook will\nbe triggered with parameters including this passed identifier.\n\n### Supplying query parameters\n\nIf you need to add optional key-value pairs that appear to the right of the ? in a URL,\nyou can use the `query` argument.\n\n```handlebars\n<LinkTo @route='photoGallery' @query={{hash page=1 per_page=20}}>\n  Great Hamster Photos\n</LinkTo>\n```\n\nThis will result in:\n\n```html\n<a href=\"/hamster-photos?page=1&per_page=20\">\n  Great Hamster Photos\n</a>\n```",
+          "itemtype": "method",
+          "name": "LinkTo",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/routing",
+          "module": "@ember/routing"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-7.2.0-@ember/routing",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-7.2.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
