@@ -1,0 +1,746 @@
+{
+  "data": {
+    "id": "ember-7.2.0-Keywords",
+    "type": "class",
+    "attributes": {
+      "name": "Keywords",
+      "shortname": "Keywords",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/helper",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/each-in.ts",
+          "line": 13,
+          "description": "The `{{#each}}` keyword loops over elements in a collection. It is an extension\nof the base Handlebars `{{#each}}` helper.\n\nThe default behavior of `{{#each}}` is to yield its inner block once for every\nitem in an array passing the item as the first block parameter.\n\n```gjs {data-filename=\"app/components/developer-list.gjs\"}\nimport Component from '@glimmer/component';\n\nexport default class DeveloperList extends Component {\n  developers = [\n    { name: 'Yehuda' },\n    { name: 'Tom' },\n    { name: 'Paul' },\n  ];\n\n  <template>\n    <ul>\n      {{#each this.developers as |person|}}\n        <li>Hello, {{person.name}}!</li>\n      {{/each}}\n    </ul>\n  </template>\n}\n```\n\nThe same rules apply to arrays of primitives:\n\n```app/components/developer-names.gjs\nimport Component from '@glimmer/component';\n\nexport default class DeveloperNames extends Component {\n  developerNames = ['Yehuda', 'Tom', 'Paul'];\n\n  <template>\n    <ul>\n      {{#each this.developerNames as |name|}}\n        <li>Hello, {{name}}!</li>\n      {{/each}}\n    </ul>\n  </template>\n}\n```\n\n`{{#each}}` also supports native JavaScript [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)\nvalues and other iterables:\n\n```gjs {data-filename=\"app/components/developer-set.gjs\"}\nimport Component from '@glimmer/component';\n\nexport default class DeveloperSet extends Component {\n  developers = new Set([\n    { name: 'Yehuda' },\n    { name: 'Tom' },\n    { name: 'Paul' },\n  ]);\n\n  <template>\n    <ul>\n      {{#each this.developers as |person|}}\n        <li>Hello, {{person.name}}!</li>\n      {{/each}}\n    </ul>\n  </template>\n}\n```\n\nDuring iteration, the index of each item in the array is provided as a second\nblock parameter:\n\n```app/components/developer-list-with-index.gjs\nimport Component from '@glimmer/component';\n\nexport default class DeveloperListWithIndex extends Component {\n  developers = [\n    { name: 'Yehuda' },\n    { name: 'Tom' },\n    { name: 'Paul' },\n  ];\n\n  <template>\n    <ul>\n      {{#each this.developers as |person index|}}\n        <li>Hello, {{person.name}}! You're number {{index}} in line</li>\n      {{/each}}\n    </ul>\n  </template>\n}\n```\n\n`#each` is a keyword and does not need to be imported.\n\n### Specifying Keys\n\nIn order to improve rendering speed, Ember will try to reuse the DOM elements\nwhere possible. Specifically, if the same item is present in the array both\nbefore and after the change, its DOM output will be reused.\n\nThe `key` option is used to tell Ember how to determine if the items in the\narray being iterated over with `{{#each}}` has changed between renders. By\ndefault the item's object identity is used.\n\nThis is usually sufficient, so in most cases, the `key` option is simply not\nneeded. However, in some rare cases, the objects' identities may change even\nthough they represent the same underlying data.\n\nFor example, mapping over `people` produces a new array of new objects on each\nrender. Use `key` so Ember can match items across those renders:\n\n```gjs {data-filename=\"app/components/mapped-developers.gjs\"}\nimport Component from '@glimmer/component';\n\nexport default class MappedDevelopers extends Component {\n  people = [\n    { name: 'Yehuda' },\n    { name: 'Tom' },\n    { name: 'Paul' },\n  ];\n\n  get developers() {\n    return this.people.map((person) => {\n      return { ...person, type: 'developer' };\n    });\n  }\n\n  <template>\n    <ul>\n      {{#each this.developers key=\"name\" as |person|}}\n        <li>Hello, {{person.name}}!</li>\n      {{/each}}\n    </ul>\n  </template>\n}\n```\n\nBy doing so, Ember will use the value of the property specified (`person.name`\nin the example) to find a \"match\" from the previous render. That is, if Ember\nhas previously seen an object from the `developers` array with a matching\nname, its DOM elements will be re-used.\n\nThere are two special values for `key`:\n\n  * `@index` - The index of the item in the array.\n  * `@identity` - The item in the array itself.\n\n### {{else}} condition\n\n`{{#each}}` can have a matching `{{else}}`. The contents of this block will render\nif the collection is empty.\n\n```gjs {data-filename=\"app/components/available-developers.gjs\"}\nimport Component from '@glimmer/component';\n\nexport default class AvailableDevelopers extends Component {\n  developers = [];\n\n  <template>\n    <ul>\n      {{#each this.developers as |person|}}\n        <li>{{person.name}} is available!</li>\n      {{else}}\n        <li>Sorry, nobody is available for this task.</li>\n      {{/each}}\n    </ul>\n  </template>\n}\n```",
+          "itemtype": "method",
+          "name": "each",
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/each-in.ts",
+          "line": 189,
+          "description": "The `{{#each-in}}` keyword loops over properties on an object, or entries in a\nnative JavaScript [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map).\n\nFor example, given this component definition:\n\n```gjs {data-filename=\"app/components/developer-details.gjs\"}\nimport Component from '@glimmer/component';\nimport { tracked } from '@glimmer/tracking';\n\nexport default class DeveloperDetails extends Component {\n  @tracked developer = {\n    name: 'Shelly Sails',\n    age: 42,\n  };\n\n  <template>\n    <ul>\n      {{#each-in this.developer as |key value|}}\n        <li>{{key}}: {{value}}</li>\n      {{/each-in}}\n    </ul>\n  </template>\n}\n```\n\nThis template would display all properties on the `developer`\nobject in a list, outputting their name and age:\n\n```html\n<ul>\n  <li>name: Shelly Sails</li>\n  <li>age: 42</li>\n</ul>\n```\n\nThe same pattern works with a `Map`:\n\n```gjs {data-filename=\"app/components/developer-map.gjs\"}\nimport Component from '@glimmer/component';\n\nexport default class DeveloperMap extends Component {\n  map = new Map([\n    ['name', 'Shelly Sails'],\n    ['age', 42],\n  ]);\n\n  <template>\n    <ul>\n      {{#each-in this.map as |key value|}}\n        <li>{{key}}: {{value}}</li>\n      {{/each-in}}\n    </ul>\n  </template>\n}\n```\n\nWhen a `Map` uses object keys, you can pass `key=\"@identity\"` to explicitly\ntrack entries across re-renders using the JavaScript identity of each key:\n\n```gjs {data-filename=\"app/components/object-keyed-map.gjs\"}\nimport Component from '@glimmer/component';\n\nexport default class ObjectKeyedMap extends Component {\n  map = new Map([\n    [{ name: 'one' }, 'foo'],\n    [{ name: 'two' }, 'bar'],\n  ]);\n\n  <template>\n    <ul>\n      {{#each-in this.map key=\"@identity\" as |key value|}}\n        <li>{{key.name}}: {{value}}</li>\n      {{/each-in}}\n    </ul>\n  </template>\n}\n```\n\n`#each-in` is a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "each-in",
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "since": "2.1.0",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/mut.ts",
+          "line": 9,
+          "description": "The `mut` helper is a shortcut for updating for args.\n  \nHowever, defining update functions on your backing class is preferable to using `mut`.\n  \nMore directly: Don't use `mut`. \n\nThe `mut` helper, when used with `fn`, will return a function that\nsets the value passed to `mut` to its first argument. As an example, we can create a\nbutton that increments a value passing the value directly to the `fn`:\n\n```handlebars\n<MyChild @childClickCount={{this.totalClicks}} @clickCountChange={{fn (mut this.totalClicks)}} />\n```\n\nThe child `Component` would invoke the function with the new click count:\n\n```gjs {data-filename=\"app/components/my-child.gjs\"}\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\n  \nexport default class MyChild extends Component {\n  @action\n  update() {\n    this.args.clickCountChange(this.args.childClickCount + 1);\n  }\n  \n  <template>\n    <button {{on \"click\" this.update}}>\n      Click me!\n    </button>\n  </template>\n}\n```\n\nThe `mut` helper changes the `totalClicks` value to what was provided as the `fn` argument.",
+          "itemtype": "method",
+          "name": "mut",
+          "params": [
+            {
+              "name": "attr",
+              "description": "the \"two-way\" attribute that can be modified.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/readonly.ts",
+          "line": 9,
+          "description": "The `readonly` helper let's you specify that a binding is one-way only,\ninstead of two-way.\n\nThis is a vestigial helper from the days of `@ember/component` and does not apply to\ncomponents extending from `@glimmer/component`.\n  \nWhen you pass a `readonly` binding from an outer context (e.g. parent component),\nto to an inner context (e.g. child component), you are saying that changing that\nproperty in the inner context does not change the value in the outer context.\n\nTo specify that a binding is read-only, when invoking the child `Component`:\n\n```js {data-filename=app/components/my-parent.js}\nexport default class MyParent extends Component {\n  totalClicks = 3;\n}\n```\n\nNow, when you update `childClickCount`:\n\n```js {data-filename=app/components/my-child.js}\nexport default class MyChild extends Component {\n  click() {\n    this.incrementProperty('childClickCount');\n  }\n}\n```\n\nThe value updates in the child component, but not the parent component:\n\n```handlebars {data-filename=app/templates/components/my-child.hbs}\n{{log childClickCount}} //-> 4\n```\n\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log totalClicks}} //-> 3\n<MyChild @childClickCount={{readonly totalClicks}} />\n```\nor\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log totalClicks}} //-> 3\n{{my-child childClickCount=(readonly totalClicks)}}\n```\n\n### Objects and Arrays\n\nWhen passing a property that is a complex object (e.g. object, array) instead of a primitive object (e.g. number, string),\nonly the reference to the object is protected using the readonly helper.\nThis means that you can change properties of the object both on the parent component, as well as the child component.\nThe `readonly` binding behaves similar to the `const` keyword in JavaScript.\n\nLet's look at an example:\n\nFirst let's set up the parent component:\n\n```js {data-filename=app/components/my-parent.js}\nimport Component from '@ember/component';\n\nexport default class MyParent extends Component {\n  clicks: null,\n\n  init() {\n    this._super(...arguments);\n    this.set('clicks', { total: 3 });\n  }\n}\n```\n\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log clicks.total}} //-> 3\n<MyChild @childClicks={{readonly clicks}} />\n```\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log clicks.total}} //-> 3\n{{my-child childClicks=(readonly clicks)}}\n```\n\nNow, if you update the `total` property of `childClicks`:\n\n```js {data-filename=app/components/my-child.js}\nimport Component from '@ember/component';\n\nexport default class MyChild extends Component {\n  click() {\n    this.get('clicks').incrementProperty('total');\n  }\n}\n```\n\nYou will see the following happen:\n\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log clicks.total}} //-> 4\n<MyChild @childClicks={{readonly clicks}} />\n```\nor\n```handlebars {data-filename=app/templates/components/my-parent.hbs}\n{{log clicks.total}} //-> 4\n{{my-child childClicks=(readonly clicks)}}\n```\n\n```handlebars {data-filename=app/templates/components/my-child.hbs}\n{{log childClicks.total}} //-> 4\n```",
+          "itemtype": "method",
+          "name": "readonly",
+          "params": [
+            {
+              "name": "attr",
+              "description": "the read-only attribute.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "noimport": "",
+          "static": 1,
+          "access": "private",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/helpers/unbound.ts",
+          "line": 10,
+          "description": "The `{{unbound}}` helper disconnects the one-way binding of a property,\nessentially freezing its value at the moment of rendering. For example,\nin this example the display of the variable `name` will not change even\nif it is set with a new value:\n\n```handlebars\n{{unbound this.name}}\n```\n\nLike any helper, the `unbound` helper can accept a nested helper expression.\nThis allows for custom helpers to be rendered unbound:\n\n```handlebars\n{{unbound (some-custom-helper)}}\n{{unbound (capitalize this.name)}}\n{{! You can use any helper, including unbound, in a nested expression }}\n{{capitalize (unbound this.name)}}\n```\n\nThe `unbound` helper only accepts a single argument, and it return an\nunbound value.\n \n `unbound` is a template keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "unbound",
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/syntax/mount.ts",
+          "line": 17,
+          "description": "The `{{mount}}` helper lets you embed a routeless engine in a template.\nMounting an engine will cause an instance to be booted and its `application`\ntemplate to be rendered.\n\nFor example, the following template mounts the `ember-chat` engine:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\n{{mount \"ember-chat\"}}\n```\n\nAdditionally, you can also pass in a `model` argument that will be\nset as the engines model. This can be an existing object:\n\n```handlebars\n<div>\n  {{mount 'admin' model=userSettings}}\n</div>\n```\n\nOr an inline `hash`, and you can even pass components:\n\n```gjs\nimport SignInButton from '../components/sign-in-button';\n<template>\n  <div>\n    <h1>Application template!</h1>\n    {{mount 'admin' model=(hash\n        title='Secret Admin'\n        signInButton=SignInButton\n    )}}\n  </div>\n</template>\n```\n \n `mount` is built-in and does not need to be imported.",
+          "itemtype": "method",
+          "name": "mount",
+          "params": [
+            {
+              "name": "name",
+              "description": "Name of the engine to mount.",
+              "type": "String"
+            },
+            {
+              "name": "model",
+              "description": "Object that will be set as\n                        the model of the engine.",
+              "type": "Object",
+              "optional": true
+            }
+          ],
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/syntax/outlet.ts",
+          "line": 32,
+          "description": "The `{{outlet}}` helper lets you specify where a child route will render in\nyour template. An important use of the `{{outlet}}` helper is in your\napplication's `application.gjs` file:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport MyHeader from '../components/my-header';\nimport MyFooter from '../components/my-footer';\n  \n<template>\n  <MyHeader />\n\n  <div class=\"my-dynamic-content\">\n    <!-- this content will change based on the current route, which depends on the current URL -->\n    {{outlet}}\n  </div>\n\n  <MyFooter />\n</template>\n```\n\nSee the [routing guide](https://guides.emberjs.com/release/routing/rendering-a-template/) for more\ninformation on how your `route` interacts with the `{{outlet}}` helper.\nNote: Your content __will not render__ if there isn't an `{{outlet}}` for it.\n\n`outlet` is built-in and does not need to be imported.",
+          "itemtype": "method",
+          "name": "outlet",
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 349,
+          "description": "Using the `{{hash}}` helper, you can pass objects directly from the template\nas an argument to your components.\n\n```gjs\n<template>\n  {{#each-in (hash givenName='Jen' familyName='Weber') as |key value|}}\n    <p>{{key}}: {{value}}</p>\n  {{/each-in}}\n</template>\n```\n\n\nNote that the hash is an empty object with no prototype chain, therefore\ncommon methods like `toString` are not available in the resulting hash.\nIf you need to use such a method, you can use the `call` or `apply`\napproach:\n\n```js\nfunction toString(obj) {\n  return Object.prototype.toString.apply(obj);\n}\n```\nThe `hash` helper is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "hash",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "noimport": "",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "Hash",
+            "type": "Object"
+          },
+          "since": "2.3.0",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 386,
+          "description": "Using the `{{array}}` helper, you can pass arrays directly from the template\nas an argument to your components.\n\n```gjs\n<template>\n  <ul>\n  {{#each (array 'Tom Dale' 'Yehuda Katz' @anotherPerson) as |person|}}\n    <li>{{person}}</li>\n  {{/each}}\n  </ul>\n</template>\n```\n\nThe `array` helper is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "array",
+          "access": "public",
+          "tagname": "",
+          "static": 1,
+          "noimport": "",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "return": {
+            "description": "Array",
+            "type": "Array"
+          },
+          "since": "3.8.0",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 493,
+          "description": "`{{fn}}` is a helper that receives a function and some arguments, and returns\na new function that combines. This allows you to pass parameters along to\nfunctions in your templates:\n\n```gjs\nfunction showAlert(message) {\n  alert(`The message is: '${message}'`);\n}\n\n<template>\n  <button type=\"button\" {{on \"click\" (fn showAlert \"Hello!\")}}>\n    Click me!\n  </button>\n</template>\n```\n\nFor example, if you have an `each` helper looping over a number of items, you\nmay need to pass a function that expects to receive the item as an argument\nto a component invoked within the loop. Here's how you could use the `fn`\nhelper to pass both the function and its arguments together:\n\n```gjs {data-filename=\"app/components/items-listing.gjs\"}\n<template>\n  {{#each @items as |item|}}\n    <DisplayItem @item=item @select={{fn this.handleSelected item}} />\n  {{/each}}\n</template>\n```\n\n```gjs {data-filename=\"app/components/items-list.gjs\"}\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\n\nexport default class ItemsList extends Component {\n  @action\n  handleSelected(item) {\n    // ...snip...\n  }\n}\n```\n\nIn this case the `DisplayItem` component will receive a normal function\nthat it can invoke. When it invokes the function, the `handleSelected`\nfunction will receive the `item` and any arguments passed, thanks to the\n`fn` helper.\n\nLet's take a look at what that means in a couple circumstances:\n\n- When invoked as `this.args.select()` the `handleSelected` function will\nreceive the `item` from the loop as its first and only argument.\n- When invoked as `this.args.select('foo')` the `handleSelected` function\nwill receive the `item` from the loop as its first argument and the\nstring `'foo'` as its second argument.\n\nSee also [partial application](https://en.wikipedia.org/wiki/Partial_application).\n\nThe `fn` helper is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "fn",
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "since": "3.11.0",
+          "static": 1,
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 562,
+          "description": "The `{{gt}}` helper returns `true` if the first argument is greater than\nthe second argument.\n\n```gjs\n<template>\n  {{if (gt @score 100) \"High score!\" \"Keep trying\"}}\n</template>\n```\n\nThe `gt` helper is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "gt",
+          "params": [
+            {
+              "name": "left",
+              "description": "",
+              "type": "Number"
+            },
+            {
+              "name": "right",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "noimport": "",
+          "since": "7.1.0",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 587,
+          "description": "The `{{gte}}` helper returns `true` if the first argument is greater than\nor equal to the second argument.\n\n```gjs\n<template>\n  {{if (gte @age 18) \"Adult\" \"Minor\"}}\n</template>\n```\n\nThe `gte` helper is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "gte",
+          "params": [
+            {
+              "name": "left",
+              "description": "",
+              "type": "Number"
+            },
+            {
+              "name": "right",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "noimport": "",
+          "since": "7.1.0",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 612,
+          "description": "The `{{lt}}` helper returns `true` if the first argument is less than\nthe second argument.\n\n```gjs\n<template>\n  {{if (lt @temperature 0) \"Freezing\" \"Above zero\"}}\n</template>\n```\n\nThe `lt` helper is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "lt",
+          "params": [
+            {
+              "name": "left",
+              "description": "",
+              "type": "Number"
+            },
+            {
+              "name": "right",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "noimport": "",
+          "since": "7.1.0",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 637,
+          "description": "The `{{lte}}` helper returns `true` if the first argument is less than\nor equal to the second argument.\n\n```gjs\n<template>\n  {{if (lte @count 0) \"Empty\" \"Has items\"}}\n</template>\n```\n\nThe `lte` helper is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "lte",
+          "params": [
+            {
+              "name": "left",
+              "description": "",
+              "type": "Number"
+            },
+            {
+              "name": "right",
+              "description": "",
+              "type": "Number"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "noimport": "",
+          "since": "7.1.0",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 662,
+          "description": "The `element` helper lets you dynamically set the tag name of an element.\n\n```gjs\n<template>\n  {{#let (element @tagName) as |Tag|}}\n    <Tag class=\"my-element\">Hello</Tag>\n  {{/let}}\n</template>\n```\n\nWhen `@tagName` is `\"h1\"`, this renders `<h1 class=\"my-element\">Hello</h1>`.\nWhen `@tagName` is an empty string, the block content is rendered without a\nwrapping element. When `@tagName` is `null` or `undefined`, nothing is rendered.\n\nThe `element` helper is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "element",
+          "params": [
+            {
+              "name": "tagName",
+              "description": "",
+              "type": "String"
+            }
+          ],
+          "noimport": "",
+          "since": "7.1.0",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 718,
+          "description": "The `{{eq}}` helper returns `true` if its two arguments are strictly equal\n(`===`). Takes exactly two arguments.\n\n```gjs\n<template>\n  {{if (eq @status \"active\") \"Active\" \"Inactive\"}}\n</template>\n```\n\nThe `eq` helper is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "eq",
+          "params": [
+            {
+              "name": "left",
+              "description": "",
+              "type": "Unknown"
+            },
+            {
+              "name": "right",
+              "description": "",
+              "type": "Unknown"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "noimport": "",
+          "static": 1,
+          "since": "7.1.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 743,
+          "description": "The `{{neq}}` helper returns `true` if its two arguments are strictly\nnot equal (`!==`). Takes exactly two arguments.\n\n```gjs\n<template>\n  {{if (neq @status \"active\") \"Not active\" \"Active\"}}\n</template>\n```\n\nThe `neq` helper is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "neq",
+          "params": [
+            {
+              "name": "left",
+              "description": "",
+              "type": "Unknown"
+            },
+            {
+              "name": "right",
+              "description": "",
+              "type": "Unknown"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "noimport": "",
+          "static": 1,
+          "since": "7.1.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 768,
+          "description": "The `{{and}}` helper evaluates arguments left to right, returning the first\nfalsy value (using Handlebars truthiness) or the right-most value if all\nare truthy. Requires at least two arguments.\n\n```gjs\n<template>\n  {{if (and @isAdmin @isLoggedIn) \"Welcome, admin!\" \"Access denied\"}}\n</template>\n```\n\nThe `and` helper is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "and",
+          "params": [
+            {
+              "name": "args",
+              "description": "Two or more values to evaluate",
+              "type": "Unknown"
+            }
+          ],
+          "return": {
+            "description": "The first falsy value or the last value",
+            "type": "Unknown"
+          },
+          "noimport": "",
+          "static": 1,
+          "since": "7.1.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 793,
+          "description": "The `{{or}}` helper evaluates arguments left to right, returning the first\ntruthy value (using Handlebars truthiness) or the right-most value if all\nare falsy. Requires at least two arguments.\n\n```gjs\n<template>\n  {{if (or @hasAccess @isAdmin) \"Welcome!\" \"No access\"}}\n</template>\n```\n\nIn strict-mode (gjs/gts) templates, `or` is available as a keyword and\ndoes not need to be imported.",
+          "itemtype": "method",
+          "name": "or",
+          "params": [
+            {
+              "name": "args",
+              "description": "Two or more values to evaluate",
+              "type": "Unknown"
+            }
+          ],
+          "return": {
+            "description": "The first truthy value or the last value",
+            "type": "Unknown"
+          },
+          "noimport": "",
+          "static": 1,
+          "since": "7.1.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 819,
+          "description": "The `{{not}}` helper returns the logical negation of its argument using\nHandlebars truthiness. Takes exactly one argument.\n\n```gjs\n<template>\n  {{if (not @isDisabled) \"Enabled\" \"Disabled\"}}\n</template>\n```\n\nIn strict-mode (gjs/gts) templates, `not` is available as a keyword and\ndoes not need to be imported.",
+          "itemtype": "method",
+          "name": "not",
+          "params": [
+            {
+              "name": "value",
+              "description": "The value to negate",
+              "type": "Unknown"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "Boolean"
+          },
+          "noimport": "",
+          "static": 1,
+          "since": "7.1.0",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 844,
+          "description": "`{{yield}}` denotes an area of a template that will be rendered inside\nof another template.\n\n### Use with `Component`\n\nWhen designing components, `{{yield}}` is used to denote where, inside the component's\ntemplate, an optional block passed to the component should render:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport LabeledTextField from '../components/labeled-textfield';\n  \n<template>\n  <LabeledTextField @value={{@model.name}}>\n    First name:\n  </LabeledTextField>\n</template>\n```\n\n```gjs {data-filename=\"app/components/labeled-textfield.gjs\"}\nimport { Input } from '@ember/component';\n  \n<template>\n  <label>\n    {{yield}} <Input @value={{@value}} />\n  </label>\n</template>\n```\n\nResult:\n\n```html\n<label>\n  First name: <input type=\"text\" />\n</label>\n```\n\nAdditionally, you can `yield` properties into the context for use by the consumer:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport Component from '@glimmer/component';\nimport LabeledTextField from '../components/labeled-textfield';\n  \nexport default class Application extends Component {\n  firstNameValidator = (value) => {\n    // validates\n  }\n  \n  <template>\n    <LabeledTextField @value={{@model.validation}} @validator={{this.firstNameValidator}} as |validationError|>\n      {{#if validationError}}\n        <p class=\"error\">{{validationError}}</p>\n      {{/if}}\n      First name:\n    </LabeledTextField>\n  </template>\n}\n```\n\n```gjs {data-filename=\"app/components/labeled-textfield.gjs\"}\nimport { Input } from '@ember/component';\n  \n<template>\n  <label>\n    {{yield this.validationError}} <Input @value={{@value}} />\n  </label>\n</template>\n```\n\nResult:\n\n```html\n<label>\n  <p class=\"error\">First Name must be at least 3 characters long.</p>\n  First name: <input type=\"text\" />\n</label>\n```\n\n`yield` can also be used with the `hash` helper:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport DateRanges from '../components/date-ranges';\n  \n<template>\n  <DateRanges @value={{@model.date}} as |range|>\n    Start date: {{range.start}}\n    End date: {{range.end}}\n  </DateRanges>\n</template>\n```\n\n```gjs {data-filename=\"app/components/date-ranges.gjs\"}\n<template>\n  <div>\n    {{yield (hash start=@value.start end=@value.end)}}\n  </div>\n</template>\n```\n\nResult:\n\n```html\n<div>\n  Start date: July 1st\n  End date: July 30th\n</div>\n```\n\nMultiple values can be yielded as block params:\n  \n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport Banner from '../components/banner';\n  \n<template>\n  <Banner @value={{@model}} as |title subtitle body|>\n    <h1>{{title}}</h1>\n    <h2>{{subtitle}}</h2>\n    {{body}}\n  </Banner>\n</template>\n```\n\n```gjs {data-filename=\"app/components/banner.gjs\"}\n<template>\n  <div>\n    {{yield \"Hello title\" \"hello subtitle\" \"body text\"}}\n  </div>\n</template>\n```\n\nResult:\n\n```html\n<div>\n  <h1>Hello title</h1>\n  <h2>hello subtitle</h2>\n  body text\n</div>\n```\n\nHowever, it is preferred to use the hash helper, as this can prevent breaking changes to your component and also simplify the api for the component.\n\nMultiple components can be yielded with the `hash` and `component` helper:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport Banner from '../components/banner';\n\n<template>\n  <Banner @value={{@model}} as |banner|>\n    <banner.Title>Banner title</banner.Title>\n    <banner.Subtitle>Banner subtitle</banner.Subtitle>\n    <banner.Body>A load of body text</banner.Body>\n  </Banner>\n</template>\n```\n\n```gjs {data-filename=\"app/components/banner.gjs\"}\nimport Title from './banner/title';\nimport Subtitle from './banner/subtitle';\nimport Body from './banner/body';\n\nexport default class Banner extends Component {\n  Title = Title;\n  Subtitle = Subtitle;\n  Body = Body;\n  \n  <template>\n    <div>\n      {{yield (hash\n        Title=this.Title\n        Subtitle=this.Subtitle\n        Body=(component this.Body defaultArg=\"some value\")\n      )}}\n    </div>\n  </template>\n}\n```\n\nResult:\n\n```html\n<div>\n  <h1>Banner title</h1>\n  <h2>Banner subtitle</h2>\n  A load of body text\n</div>\n```\n\nA benefit of using this pattern is that the user of the component can change the order the components are displayed.\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport Banner from '../components/banner';\n\n<template>\n  <Banner @value={{@model}} as |banner|>\n    <banner.Subtitle>Banner subtitle</banner.Subtitle>\n    <banner.Title>Banner title</banner.Title>\n    <banner.Body>A load of body text</banner.Body>\n  </Banner>\n</template>\n```\n\nResult:\n\n```html\n<div>\n  <h2>Banner subtitle</h2>\n  <h1>Banner title</h1>\n  A load of body text\n</div>\n```\n\nAnother benefit to using `yield` with the `hash` and `component` helper\nis you can pass attributes and arguments to these components:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport Banner from '../components/banner';\n\n<template>\n  <Banner @value={{@model}} as |banner|>\n    <banner.Subtitle class=\"mb-1\">Banner subtitle</banner.Subtitle>\n    <banner.Title @variant=\"loud\">Banner title</banner.Title>\n    <banner.Body>A load of body text</banner.Body>\n  </Banner>\n</template>\n```\n\n```gjs {data-filename=\"app/components/banner/subtitle.gjs\"}\n{{!-- note the use of ..attributes --}}\n<h2 ...attributes>\n  {{yield}}\n</h2>\n```\n\n```gjs {data-filename=\"app/components/banner/title.gjs\"}\n<template>\n  {{#if (eq @variant \"loud\")}}\n    <h1 class=\"loud\">{{yield}}</h1>\n  {{else}}\n    <h1 class=\"quiet\">{{yield}}</h1>\n  {{/if}}\n</template>\n```\n\nResult:\n\n```html\n<div>\n  <h2 class=\"mb-1\">Banner subtitle</h2>\n  <h1 class=\"loud\">Banner title</h1>\n  A load of body text\n</div>\n```\n\n`yield` is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "yield",
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Hash"
+            }
+          ],
+          "return": {
+            "description": "HTML string",
+            "type": "String"
+          },
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 1109,
+          "description": "`{{(has-block)}}` indicates if the component was invoked with a block.\n\nThis component is invoked with a block:\n\n```handlebars\n<MyComponent>\n  Hi Jen!\n</MyComponent>\n```\n\nThis component is invoked without a block:\n\n```handlebars\n<MyComponent />\n```\n\nThis is useful when you want to create a component that can optionally take a block\nand then render a default template when it is not invoked with a block.\n\n```gjs {data-filename=\"app/components/my-component.gjs\"}\n<template>\n  {{#if (has-block)}}\n    Welcome {{yield}}, we are happy you're here!\n  {{else}}\n    Hey you! You're great!\n  {{/if}}\n</template>\n```\n\n`has-block` is available as a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "has-block",
+          "params": [
+            {
+              "name": "blockName",
+              "description": "the name of the block. The name is either \"main\" or \"inverse\" (though only curly components support inverse) or the name given to a named block.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "`true` if the component was invoked with a block",
+            "type": "Boolean"
+          },
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 1150,
+          "description": "`{{(has-block-params)}}` indicates if the component was invoked with block params.\n\nThis component is invoked with block params:\n  \n```handlebars\n<MyComponent as |favoriteFlavor|>\n  Hi Jen!\n</MyComponent>\n```\n\nAnd without block params:\n\n```handlebars\n<MyComponent>\n  Hi Jen!\n</MyComponent>\n```\n\nThis is useful when you want to create a component that can render itself\ndifferently when it is not invoked with block params.\n\n```gjs {data-filename=\"app/components/my-component.gjs\"}\n<template>\n  {{#if (has-block-params)}}\n    Welcome {{yield this.favoriteFlavor}}, we're happy you're here and hope you\n    enjoy your favorite ice cream flavor.\n  {{else}}\n    Welcome {{yield}}, we're happy you're here, but we're unsure what\n    flavor ice cream you would enjoy.\n  {{/if}}\n</template>\n```",
+          "itemtype": "method",
+          "name": "has-block-params",
+          "static": 1,
+          "noimport": "",
+          "params": [
+            {
+              "name": "blockName",
+              "description": "the name of the block. The name is either \"main\" or \"inverse\" (though only curly components support inverse) or the name given to a named block.",
+              "type": "String"
+            }
+          ],
+          "return": {
+            "description": "`true` if the component was invoked with block params",
+            "type": "Boolean"
+          },
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 1193,
+          "description": "Execute the `debugger` statement in the current template's context.\n\n```handlebars\n{{debugger}}\n```\n\nWhen using the debugger helper you will have access to a `get` function. This\nfunction retrieves values available in the context of the template.\nFor example, if you're wondering why a value `{{foo}}` isn't rendering as\nexpected within a template, you could place a `{{debugger}}` statement and,\nwhen the `debugger;` breakpoint is hit, you can attempt to retrieve this value:\n\n```\n> get('foo')\n```\n\n`get` is also aware of keywords. So in this situation\n\n```handlebars\n{{#each this.items as |item|}}\n  {{debugger}}\n{{/each}}\n```\n\nYou'll be able to get values from the current item:\n\n```\n> get('item.name')\n```\n\nYou can also access the context of the view to make sure it is the object that\nyou expect:\n\n```\n> context\n```",
+          "itemtype": "method",
+          "name": "debugger",
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 1238,
+          "description": "The `component` helper is used to package a Component with initial arguments.\nThe included arguments can then be merged during the final invocation.\n\nSee [Component](/ember/release/modules/@glimmer%2Fcomponent/) for\nadditional information on how a `Component` functions.\n\nThis is similar to the concept of Partial Application.\n  \nFor example, given a `FullName` component:\n\n```gjs {data-filename=\"app/components/full-name.gjs\"}\nimport MyInputComponent from './my-input-component';\n\n<template>\n  {{yield (component MyInputComponent value=@model.name placeholder=\"Username\")}}\n</template>\n```\n\nThe yielded component can be invoked by the calling component.\nSee the following snippet:\n\n```gjs {data-filename=\"app/components/person-form.gjs\"}\nimport FullName from './full-name';\n  \n<template>\n  <FullName @model={{@model}} as |Field|>\n    <Field />\n  </FullName>\n</template>\n```\n\nWhich will output an input whose value is already bound to `@model.name` and `placeholder`\nis \"Username\".\n  \nAny arguments passed at the invocation site of the component will override those applied via\nthe `component` helper. For example, if the invocation site of the component is:\n\n```gjs {data-filename=\"app/components/person-form.gjs\"}\nimport FullName from './full-name';\n\n<template>\n  <FullName @model={{@model}} as |Field|>\n    <Field @placeholder=\"Your name\" />\n  </FullName>\n</template>\n```\n\nThe output will be an input whose value is bound to `@model.name` and `placeholder`\nis \"Your name\".\n  \nThe `component` helper is built-in and does not need to be imported. \n  \nPrior to Strict Mode aka \"Template Tag\" or gjs, the component helper was also used to invoke\ncomponents dynamically. This is no longer necessary, and they can be directly invoked, as above.\n\n### Dynamic Component Invocation\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport Component from '@glimmer/component';\nimport { tracked } from '@glimmer/tracking';\nimport { component } from '@ember/helper';\nimport LiveUpdatingChart from '../components/live-updating-chart';\nimport MarketCloseSummary from '../components/market-close-summary';\n\nexport default class Application extends Component {\n  @tracked isMarketOpen = false;\n\n  get infographicComponent() {\n    return this.isMarketOpen ? LiveUpdatingChart : MarketCloseSummary;\n  }\n\n  <template>\n    {{!-- The component can be invoked directly --}}\n    <this.infographicComponent />\n  \n    {{!-- The component helper here is no longer necessary --}}\n    {{component this.infographicComponentName}}\n  </template>\n}\n```",
+          "itemtype": "method",
+          "name": "component",
+          "since": "1.11.0",
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 1328,
+          "description": "Use the `{{helper}}` helper to create contextual helper so\nthat it can be passed around as first-class values in templates.\n\n```handlebars\n{{#let (helper \"join-words\" \"foo\" \"bar\" separator=\" \") as |foo-bar|}}\n\n  {{!-- this is equivalent to invoking `{{join-words \"foo\" \"bar\" separator=\" \"}}` --}}\n  {{foo-bar}}\n\n  {{!-- this will pass the helper itself into the component, instead of invoking it now --}}\n  <MyComponent @helper={{helper foo-bar \"baz\"}} />\n\n  {{!-- this will yield the helper itself (\"contextual helper\"), instead of invoking it now --}}\n  {{yield foo-bar}}\n{{/let}}\n```\n\n### Arguments\n\nThe `{{helper}}` helper works similarly to the [`{{component}}`](./component?anchor=component) and\n[`{{modifier}}`](./modifier?anchor=modifier) helper:\n\n* When passed a string (e.g. `(helper \"foo\")`) as the first argument,\n  it will produce an opaque, internal \"helper definition\" object\n  that can be passed around and invoked elsewhere.\n\n* Any additional positional and/or named arguments (a.k.a. params and hash)\n  will be stored (\"curried\") inside the definition object, such that, when invoked,\n  these arguments will be passed along to the referenced helper.",
+          "itemtype": "method",
+          "name": "helper",
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "since": "3.27.0",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 1368,
+          "description": "The `if` helper allows you to conditionally render one of two branches,\ndepending on the \"truthiness\" of a property.\nFor example the following values are all falsey: `false`, `undefined`, `null`, `\"\"`, `0`, `NaN` or an empty array.\n\nThis helper has two forms, block and inline.\n\n## Block form\n\nYou can use the block form of `if` to conditionally render a section of the template.\n\nTo use it, pass the conditional value to the `if` helper,\nusing the block form to wrap the section of template you want to conditionally render.\nLike so:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport Weather from '../components/weather';\n  \n<template>\n  <Weather />\n</template>\n```\n\n```gjs {data-filename=\"app/components/weather.gjs\"}\n<template>\n  {{! will not render because greeting is undefined}}\n  {{#if @isRaining}}\n    Yes, grab an umbrella!\n  {{/if}}\n</template>\n```\n\nYou can also define what to show if the property is falsey by using\nthe `else` helper.\n\n```gjs {data-filename=\"app/components/weather.gjs\"}\n<template>\n  {{#if @isRaining}}\n    Yes, grab an umbrella!\n  {{else}}\n    No, it's lovely outside!\n  {{/if}}\n</template>\n```\n\nYou are also able to combine `else` and `if` helpers to create more complex\nconditional logic.\n\nFor the following template:\n\n ```gjs {data-filename=\"app/components/weather.gjs\"}\n<template>\n  {{#if @isRaining}}\n    Yes, grab an umbrella!\n  {{else if @isCold}}\n    Grab a coat, it's chilly!\n  {{else}}\n    No, it's lovely outside!\n  {{/if}}\n</template>  \n```\n\nIf you call it by saying `isCold` is true:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport Weather from '../components/weather';\n  \n<template>\n  <Weather @isCold={{true}} />\n</template>\n```\n\nThen `Grab a coat, it's chilly!` will be rendered.\n\n## Inline form\n\nThe inline `if` helper conditionally renders a single property or string.\n\nIn this form, the `if` helper receives three arguments, the conditional value,\nthe value to render when truthy, and the value to render when falsey.\n\nFor example, if `useLongGreeting` is truthy, the following:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport Greeting from '../components/greeting';\n\n<template>\n  <Greeting @useLongGreeting={{true}} />\n<template>\n```\n\n```gjs {data-filename=\"app/components/greeting.gjs\"}\n<template>\n  {{if @useLongGreeting \"Hello\" \"Hi\"}} Alex\n<template>\n```\n\nWill render:\n\n```html\nHello Alex\n```\n\nOne detail to keep in mind is that both branches of the `if` helper will be evaluated,\nso if you have `{{if condition \"foo\" (expensive-operation \"bar\")`,\n`expensive-operation` will always calculate.\n \n`if` is built-in and does not need to be imported.",
+          "itemtype": "method",
+          "name": "if",
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 1484,
+          "description": "The `unless` helper is the inverse of the `if` helper. It displays if a value\nis falsey (\"not true\" or \"is false\"). Example values that will display with\n`unless`: `false`, `undefined`, `null`, `\"\"`, `0`, `NaN` or an empty array.\n\n## Inline form\n\nThe inline `unless` helper conditionally renders a single property or string.\nThis helper acts like a ternary operator. If the first property is falsy,\nthe second argument will be displayed, otherwise, the third argument will be\ndisplayed\n\nFor example, if you pass a falsey `useLongGreeting` to the `Greeting` component:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport Greeting from '../components/greeting';\n  \n<template>\n  <Greeting @useLongGreeting={{false}} />\n</template>\n```\n\n```gjs {data-filename=\"app/components/greeting.gjs\"}\n<template>\n  {{unless @useLongGreeting \"Hi\" \"Hello\"}} Ben\n</template>\n```\n\nThen it will display:\n\n```html\nHi Ben\n```\n\n## Block form\n\nLike the `if` helper, the `unless` helper also has a block form.\n\nThe following will not render anything:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport Greeting from '../components/greeting';\n  \n<template>\n  <Greeting />\n</template>\n```\n\n```gjs {data-filename=\"app/components/greeting.gjs\"}\n<template>\n  {{#unless @greeting}}\n    No greeting was found. Why not set one?\n  {{/unless}}\n</template>\n```\n\nYou can also use an `else` helper with the `unless` block. The\n`else` will display if the value is truthy.\n\nIf you have the following component:\n\n```gjs {data-filename=\"app/components/logged-in.gjs\"}\n<template>\n  {{#unless @userData}}\n    Please login.\n  {{else}}\n    Welcome back!\n  {{/unless}}\n</template>\n```\n\nCalling it with a truthy `userData`:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport LoggedIn from '../components/logged-in';\n  \n<template>\n  <LoggedIn @userData={{hash username=\"Zoey\"}} />\n</template>\n```\n\nWill render:\n\n```html\nWelcome back!\n```\n\nand calling it with a falsey `userData`:\n\n```gjs {data-filename=\"app/templates/application.gjs\"}\nimport LoggedIn from '../components/logged-in';\n\n<template>\n  <LoggedIn @userData={{false}} />\n</template>\n```\n\nWill render:\n\n```html\nPlease login.\n```\n \n`unless` is built-in and does not need to be imported.",
+          "itemtype": "method",
+          "name": "unless",
+          "noimport": "",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 1596,
+          "description": "`log` allows you to output the value of variables in the current rendering\ncontext. `log` also accepts primitive types such as strings or numbers.\n\n```handlebars\n{{log \"myVariable:\" myVariable }}\n```\n \n`log` is built-in as a template keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "log",
+          "noimport": "",
+          "static": 1,
+          "params": [
+            {
+              "name": "params",
+              "description": "",
+              "type": "Array"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 1614,
+          "description": "Use the `{{modifier}}` helper to create contextual modifier so\nthat it can be passed around as first-class values in templates.\n\n```handlebars\n{{#let (modifier \"click-outside\" click=this.submit) as |on-click-outside|}}\n\n  {{!-- this is equivalent to `<MyComponent {{click-outside click=this.submit}} />` --}}\n  <MyComponent {{on-click-outside}} />\n\n  {{!-- this will pass the modifier itself into the component, instead of invoking it now --}}\n  <MyComponent @modifier={{modifier on-click-outside \"extra\" \"args\"}} />\n\n  {{!-- this will yield the modifier itself (\"contextual modifier\"), instead of invoking it now --}}\n  {{yield on-click-outside}}\n{{/let}}\n```\n\n### Arguments\n\nThe `{{modifier}}` helper works similarly to the [`{{component}}`](./component?anchor=component) and\n[`{{helper}}`](./helper?anchor=helper) helper:\n\n* When passed a string (e.g. `(modifier \"foo\")`) as the first argument,\n  it will produce an opaque, internal \"modifier definition\" object\n  that can be passed around and invoked elsewhere.\n\n* Any additional positional and/or named arguments (a.k.a. params and hash)\n  will be stored (\"curried\") inside the definition object, such that, when invoked,\n  these arguments will be passed along to the referenced modifier.\n\n`modifier` is built-in as a template keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "modifier",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "since": "3.27.0",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 1674,
+          "description": "The `let` helper receives one or more positional arguments and yields\nthem out as block params.\n\nThis allows the developer to introduce shorter names for certain computations\nin the template.\n\nThis is especially useful if you are passing properties to a component\nthat receives a lot of options and you want to clean up the invocation.\n\nFor the following example, the template receives a `post` object with\n`content` and `title` properties.\n\nWe are going to call the `my-post` component, passing a title which is\nthe title of the post suffixed with the name of the blog, the content\nof the post, and a series of options defined in-place.\n\n```handlebars\n{{#let\n    (concat post.title ' | The Ember.js Blog')\n    post.content\n    (hash\n      theme=\"high-contrast\"\n      enableComments=true\n    )\n    as |title content options|\n}}\n  <MyPost @title={{title}} @content={{content}} @options={{options}} />\n{{/let}}\n  ```\n\n `let` is built-in and does not need to be imported.",
+          "itemtype": "method",
+          "name": "let",
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@ember/helper/index.ts",
+          "line": 1714,
+          "description": "The `in-element` helper renders its block content outside of the regular flow,\ninto a DOM element given by its `destinationElement` positional argument.\n\nCommon use cases - often referred to as \"portals\" or \"wormholes\" - are rendering\ndropdowns, modals or tooltips close to the root of the page to bypass CSS overflow\nrules, or to render content to parts of the page that are outside of the control\nof the Ember app itself (e.g. embedded into a static or server rendered HTML page).\n\n```handlebars\n{{#in-element this.destinationElement}}\n  <div>Some content</div>\n{{/in-element}}\n```\n\n### Arguments\n\n`{{in-element}}` requires a single positional argument:\n\n- `destinationElement` -- the DOM element to render into. It must exist at the time\nof rendering.\n\nIt also supports an optional named argument:\n\n- `insertBefore` -- by default the DOM element's content is replaced when used as\n`destinationElement`. Passing `null` to `insertBefore` changes the behaviour to\nappend the block content to the end of any existing content. Any other value than\n`null` is currently not supported.\n\n    For example:\n\n    ```handlebars\n    {{#in-element this.destinationElement insertBefore=null}}\n      <div>Some content</div>\n    {{/in-element}}\n    ```\n\n`in-element` is built-in and does not need to be imported.",
+          "itemtype": "method",
+          "name": "in-element",
+          "params": [
+            {
+              "name": "destinationElement",
+              "description": "the DOM element to render into. It must exist at the time\n of rendering.",
+              "type": "Element"
+            },
+            {
+              "name": "insertBefore",
+              "description": "named argument, by default the DOM element's content is replaced when used as\n `destinationElement`. Passing `null` to `insertBefore` changes the behaviour to\n append the block content to the end of any existing content. Any other value than\n `null` is currently not supported.",
+              "type": "Boolean"
+            }
+          ],
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        },
+        {
+          "file": "packages/@glimmer/runtime/lib/component/template-only.ts",
+          "line": 59,
+          "description": "This utility function is used to declare a given component has no backing class. When the rendering engine detects this it\nis able to perform a number of optimizations. Templates that are associated with `templateOnly()` will be rendered _as is_\nwithout adding a wrapping `<div>` (or any of the other element customization behaviors of [@ember/component](/ember/release/classes/Component)).\nSpecifically, this means that the template will be rendered as \"outer HTML\".\n\nIn general, this method will be used by build time tooling and would not be directly written in an application. However,\nat times it may be useful to use directly to leverage the \"outer HTML\" semantics mentioned above. For example, if an addon would like\nto use these semantics for its templates but cannot be certain it will only be consumed by applications that have enabled the\n`template-only-glimmer-components` optional feature.\n\n```js\nimport { templateOnlyComponent } from '@glimmer/runtime';\n\nexport default templateOnlyComponent();\n```",
+          "access": "public",
+          "tagname": "",
+          "itemtype": "method",
+          "name": "templateOnly",
+          "params": [
+            {
+              "name": "moduleName",
+              "description": "the module name that the template only component represents, this will be used for debugging purposes",
+              "type": "String"
+            }
+          ],
+          "category": [
+            "EMBER_GLIMMER_SET_COMPONENT_TEMPLATE"
+          ],
+          "class": "Keywords",
+          "module": "@glimmer/component"
+        },
+        {
+          "file": "packages/@glimmer/runtime/lib/modifiers/on.ts",
+          "line": 253,
+          "description": "The `{{on}}` modifier lets you easily add event listeners (it uses\n[EventTarget.addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)\ninternally).\n\nFor example, if you'd like to run a function on your component when a `<button>`\nin the components template is clicked you might do something like:\n\n```gjs {data-filename=\"app/components/like-post.gjs\"}\nimport Component from '@glimmer/component';\nimport { action } from '@ember/object';\n\nexport default class LikePost extends Component {\n  @action\n  saveLike() {\n    // someone likes your post!\n    // better send a request off to your server...\n  }\n  \n  <template>\n    <button {{on 'click' this.saveLike}}>Like this post!</button>\n  </template>\n}\n```\n\n### Arguments\n\n`{{on}}` accepts two positional arguments, and a few named arguments.\n\nThe positional arguments are:\n\n- `event` -- the name to use when calling `addEventListener`\n- `callback` -- the function to be passed to `addEventListener`\n\nThe named arguments are:\n\n- capture -- a `true` value indicates that events of this type will be dispatched\n  to the registered listener before being dispatched to any EventTarget beneath it\n  in the DOM tree.\n- once -- indicates that the listener should be invoked at most once after being\n  added. If true, the listener would be automatically removed when invoked.\n- passive -- if `true`, indicates that the function specified by listener will never\n  call preventDefault(). If a passive listener does call preventDefault(), the user\n  agent will do nothing other than generate a console warning. See\n  [Improving scrolling performance with passive listeners](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Improving_scrolling_performance_with_passive_listeners)\n  to learn more.\n\nThe callback function passed to `{{on}}` will receive any arguments that are passed\nto the event handler. Most commonly this would be the `event` itself.\n\nIf you would like to pass additional arguments to the function you should use\nthe `{{fn}}` helper.\n\nFor example, in our example case above if you'd like to pass in the post that\nwas being liked when the button is clicked you could do something like:\n\n```handlebars\n<button {{on 'click' (fn this.saveLike @post)}}>Like this post!</button>\n```\n\nIn this case, the `saveLike` function will receive two arguments: the click event\nand the value of `@post`.\n\n### Function Context\n\nIn the example above, we used `@action` to ensure that `likePost` is\nproperly bound to the `LikePost` Component, but let's explore what happens if we\nleft out `@action`:\n\n```gjs {data-filename=\"app/components/like-post.gjs\"}\nimport Component from '@glimmer/component';\n\nexport default class LikePost extends Component {\n  saveLike() {\n    // ...snip...\n  }\n}\n```\n\nIn this example, when the button is clicked `saveLike` will be invoked,\nit will **not** have access to the component instance. In other\nwords, it will have no `this` context, so please make sure your functions\nare bound (via `@action` or other means) before passing into `on`!\n\nThe `on` modifier is a keyword and does not need to be imported.",
+          "itemtype": "method",
+          "name": "on",
+          "static": 1,
+          "noimport": "",
+          "access": "public",
+          "tagname": "",
+          "since": "3.11.0",
+          "class": "Keywords",
+          "module": "@ember/helper"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-7.2.0-@ember/helper",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-7.2.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}

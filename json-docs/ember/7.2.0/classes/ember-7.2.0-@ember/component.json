@@ -1,0 +1,167 @@
+{
+  "data": {
+    "id": "ember-7.2.0-@ember/component",
+    "type": "class",
+    "attributes": {
+      "name": "@ember/component",
+      "shortname": "@ember/component",
+      "classitems": [],
+      "plugins": [],
+      "extensions": [],
+      "plugin_for": [],
+      "extension_for": [],
+      "module": "@ember/component",
+      "namespace": "",
+      "methods": [
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/components/input.ts",
+          "line": 46,
+          "description": "The `Input` component lets you create an HTML `<input>` element.\n\n```gjs\nimport { Input } from '@ember/component';\n  \n<template>\n  <Input @value=\"987\" />\n</template>\n```\n\ncreates an `<input>` element with `type=\"text\"` and value set to 987.\n\n### Text field\n\nIf no `type` argument is specified, a default of type 'text' is used.\n\n```handlebars\nSearch:\n<Input @value={{this.searchWord}} />\n```\n\nIn this example, the initial value in the `<input>` will be set to the value of\n`this.searchWord`. If the user changes the text, the value of `this.searchWord` will also be\nupdated.\n\n### Actions\n\nThe `Input` component takes a number of arguments with callbacks that are invoked in response to\nuser events.\n\n* `enter`\n* `insert-newline`\n* `escape-press`\n* `focus-in`\n* `focus-out`\n* `key-down`\n* `key-press`\n* `key-up`\n\nThese callbacks are passed to `Input` like this:\n\n```handlebars\n<Input @value={{this.searchWord}} @enter={{this.query}} />\n```\n\nStarting with Ember Octane, we recommend using the `{{on}}` modifier to call actions\non specific events, such as the input event.\n\n```handlebars\n<label for=\"input-name\">Name:</label>\n<Input\n  @id=\"input-name\"\n  @value={{this.name}}\n  {{on \"input\" this.validateName}}\n/>\n```\n\nThe event name (e.g. `focusout`, `input`, `keydown`) always follows the casing\nthat the HTML standard uses.\n\n### `<input>` HTML Attributes to Avoid\n\nIn most cases, if you want to pass an attribute to the underlying HTML `<input>` element, you\ncan pass the attribute directly, just like any other Ember component.\n\n```handlebars\n<Input @type=\"text\" size=\"10\" />\n```\n\nIn this example, the `size` attribute will be applied to the underlying `<input>` element in the\noutputted HTML.\n\nHowever, there are a few attributes where you **must** use the `@` version.\n\n* `@type`: This argument is used to control which Ember component is used under the hood\n* `@value`: The `@value` argument installs a two-way binding onto the element. If you wanted a\n  one-way binding, use `<input>` with the `value` property and the `input` event instead.\n* `@checked` (for checkboxes): like `@value`, the `@checked` argument installs a two-way binding\n  onto the element. If you wanted a one-way binding, use `<input type=\"checkbox\">` with\n  `checked` and the `input` event instead.\n\n### Checkbox\n\nTo create an `<input type=\"checkbox\">`:\n\n```handlebars\nEmberize Everything:\n<Input @type=\"checkbox\" @checked={{this.isEmberized}} name=\"isEmberized\" />\n```\n\nThis will bind the checked state of this checkbox to the value of `isEmberized` -- if either one\nchanges, it will be reflected in the other.",
+          "itemtype": "method",
+          "name": "Input",
+          "static": 1,
+          "params": [
+            {
+              "name": "options",
+              "description": "",
+              "type": "Hash"
+            }
+          ],
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/-internals/glimmer/lib/components/textarea.ts",
+          "line": 10,
+          "description": "The `Textarea` component inserts a new instance of `<textarea>` tag into the template.\n\nThe `@value` argument provides the content of the `<textarea>`.\n\nThis template:\n\n```handlebars\nimport { Textarea } from '@ember/component';\n\n<template>\n  <Textarea @value=\"A bunch of text\" />\n</template>\n```\n\nWould result in the following HTML:\n\n```html\n<textarea class=\"ember-text-area\">\n  A bunch of text\n</textarea>\n```\n\nThe `@value` argument is two-way bound. If the user types text into the textarea, the `@value`\nargument is updated. If the `@value` argument is updated, the text in the textarea is updated.\n\nIn the following example, the `writtenWords` property on the component will be updated as the user\ntypes 'Lots of text' into the text area of their browser's window.\n\n```gjs {data-filename=\"app/components/word-editor.gjs\"}\nimport Component from '@glimmer/component';\nimport { tracked } from '@glimmer/tracking';\n\nexport default class WordEditorComponent extends Component {\n  @tracked writtenWords = \"Lots of text that IS bound\";\n  \n  <template>\n    <Textarea @value={{writtenWords}} />\n  </template>\n}\n```\n\nWould result in the following HTML:\n\n```html\n<textarea class=\"ember-text-area\">\n  Lots of text that IS bound\n</textarea>\n```\n\nIf you wanted a one way binding, you could use the `<textarea>` element directly, and use the\n`value` DOM property and the `input` event.\n\n### Actions\n\nThe `Textarea` component takes a number of arguments with callbacks that are invoked in\nresponse to user events.\n\n* `enter`\n* `insert-newline`\n* `escape-press`\n* `focus-in`\n* `focus-out`\n* `key-press`\n\nThese callbacks are passed to `Textarea` like this:\n\n```handlebars\n<Textarea @value={{this.searchWord}} @enter={{this.query}} />\n```\n\n## Classic Invocation Syntax\n\nThe `Textarea` component can also be invoked using curly braces, just like any other Ember\ncomponent.\n\nFor example, this is an invocation using angle-bracket notation:\n\n```handlebars\n<Textarea @value={{this.searchWord}} @enter={{this.query}} />\n```\n\nYou could accomplish the same thing using classic invocation:\n\n```handlebars\n{{textarea value=this.searchWord enter=this.query}}\n```\n\nThe main difference is that angle-bracket invocation supports any HTML attribute using HTML\nattribute syntax, because attributes and arguments have different syntax when using angle-bracket\ninvocation. Curly brace invocation, on the other hand, only has a single syntax for arguments,\nand components must manually map attributes onto component arguments.\n\nWhen using classic invocation with `{{textarea}}`, only the following attributes are mapped onto\narguments:\n\n* rows\n* cols\n* name\n* selectionEnd\n* selectionStart\n* autocomplete\n* wrap\n* lang\n* dir\n* value\n\n## Classic `layout` and `layoutName` properties\n\nBecause HTML `textarea` elements do not contain inner HTML the `layout` and\n`layoutName` properties will not be applied.",
+          "itemtype": "method",
+          "name": "Textarea",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "class": "@ember/component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/component/index.ts",
+          "line": 14,
+          "description": "Assigns a TemplateFactory to a component class.",
+          "itemtype": "method",
+          "name": "setComponentTemplate",
+          "static": 1,
+          "access": "public",
+          "tagname": "```js\nimport Component from '---AT-PLACEHOLDER---glimmer/component';\nimport { hbs } from 'ember-cli-htmlbars';\nimport { setComponentTemplate } from '---AT-PLACEHOLDER---ember/component';\n\nexport default class Demo extends Component {\n  // ...\n}\n\nsetComponentTemplate(hbs`\n <div>my template</div>\n`, Demo);\n```",
+          "params": [
+            {
+              "name": "templateFactory",
+              "description": "",
+              "type": "TemplateFactory"
+            },
+            {
+              "name": "componentDefinition",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "class": "@ember/component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/component/index.ts",
+          "line": 40,
+          "description": "Returns the TemplateFactory associated with a component",
+          "itemtype": "method",
+          "name": "getComponentTemplate",
+          "static": 1,
+          "access": "public",
+          "tagname": "```js\nimport Component from '---AT-PLACEHOLDER---glimmer/component';\nimport { hbs } from 'ember-cli-htmlbars';\nimport { getComponentTemplate } from '---AT-PLACEHOLDER---ember/component';\n\nexport default class Demo extends Component {\n  // ...\n}\n\nlet theTemplateFactory = getTemplateFactory(Demo)\n```",
+          "params": [
+            {
+              "name": "componentDefinition",
+              "description": "",
+              "type": "Object"
+            }
+          ],
+          "return": {
+            "description": "",
+            "type": "TemplateFactory"
+          },
+          "class": "@ember/component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/component/index.ts",
+          "line": 64,
+          "description": "Tell the VM how manage a type of object / class when encountered\nvia component-invocation.\n\nA Component Manager, must implement this interface:\n- static create()\n- createComponent()\n- updateComponent()\n- destroyComponent()\n- getContext()",
+          "itemtype": "method",
+          "name": "setComponentManager",
+          "static": 1,
+          "access": "public",
+          "tagname": "After a component manager is registered via `setComponentManager`,\n\n```js\nimport { StateNode } from 'xstate';\nimport ComponentManager from './-private/statechart-manager';\n\nsetComponentManager((owner) => ComponentManager.create(owner), StateNode.prototype);\n```\n\nInstances of the class can be used as component.\nNo need to extend from `@glimmer/component`.\n\n```js\n// app/components/my-component.js\nimport { createMachine } from 'xstate';\n\nexport default createMachine({ ... });\n```\n```hbs\n{{!-- app/templates/application.hbs}}\n<MyComponent />\n```",
+          "params": [
+            {
+              "name": "managerFactory",
+              "description": "",
+              "type": "(owner: Owner) => import('@glimmer/interfaces').ComponentManager"
+            },
+            {
+              "name": "object",
+              "description": "that will be managed by the return value of `managerFactory`",
+              "type": "Object"
+            }
+          ],
+          "class": "@ember/component",
+          "module": "@ember/component"
+        },
+        {
+          "file": "packages/@ember/component/index.ts",
+          "line": 109,
+          "description": "Tells Glimmer what capabilities a Component Manager will have\n\n```js\nimport { capabilities } from '@ember/component';\n\nexport class MyComponentManager {\n  capabilities = capabilities('3.13', {\n    // capabilities listed here\n  })\n}\n```\n\n\nFor a full list of capabilities, their defaults, and how they are used, see [@glimmer/manager](https://github.com/glimmerjs/glimmer-vm/blob/4f1bef0d9a8a3c3ebd934c5b6e09de4c5f6e4468/packages/%40glimmer/manager/lib/public/component.ts#L26)",
+          "itemtype": "method",
+          "name": "capabilities",
+          "static": 1,
+          "access": "public",
+          "tagname": "",
+          "params": [
+            {
+              "name": "managerApiVersion",
+              "description": "",
+              "type": "'3.13'"
+            },
+            {
+              "name": "options",
+              "description": "",
+              "type": "Parameters<import('@ember/-internals/glimmer').componentCapabilities>[1]"
+            }
+          ],
+          "class": "@ember/component",
+          "module": "@ember/component"
+        }
+      ],
+      "events": [],
+      "properties": []
+    },
+    "relationships": {
+      "parent-class": {
+        "data": null
+      },
+      "descendants": {
+        "data": []
+      },
+      "module": {
+        "data": {
+          "id": "ember-7.2.0-@ember/component",
+          "type": "module"
+        }
+      },
+      "project-version": {
+        "data": {
+          "id": "ember-7.2.0",
+          "type": "project-version"
+        }
+      }
+    }
+  }
+}
